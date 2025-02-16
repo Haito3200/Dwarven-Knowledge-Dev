@@ -1,0 +1,34 @@
+
+namespace = DA_Kobold_event
+
+############### MISSION TREE kobolds ####################
+
+
+country_event = {
+	id = DA_Kobold_event.1
+	title = DA_Kobold_event.1.t
+	desc = DA_Kobold_event.1.d
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Kobold_event.1.a
+		trigger = {
+			has_country_flag = removing_monstrous
+			NOT = { has_country_flag = no_longer_monstrous }
+		}
+		add_prestige = 5
+		decrease_monstrous_5 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Kobold_event.1.b
+		trigger = {
+			has_country_flag = no_longer_monstrous
+		}
+		add_prestige = 5
+		change_innovativeness = 2
+		ai_chance = { factor = 1 }
+	}
+}

@@ -1,0 +1,2343 @@
+
+namespace = DA_Tech_Tree_event
+
+
+################# IA Events ##################
+
+country_event = {
+	id = DA_Tech_Tree_event.10 		# arcane arts lvl up event fpr IA
+	title = "DA_Tech_Tree_event.100.t"
+	desc = "DA_Tech_Tree_event.100.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		ai = yes
+		OR = {
+			AND = {
+				NOT = { DA_completed.Magic_Theory_1 = yes }
+				check_variable = {
+					which = DA_acane_arts_exp
+					value = 1000
+				}
+			}
+			AND = {
+				DA_completed.Magic_Theory_1 = yes
+				NOT = { DA_completed.Magic_Theory_2 = yes }
+				check_variable = {
+					which = DA_acane_arts_exp
+					value = 2500
+				}
+			}
+			AND = {
+				DA_completed.Magic_Theory_2 = yes
+				NOT = { DA_completed.Magic_Theory_3 = yes }
+				check_variable = {
+					which = DA_acane_arts_exp
+					value = 5000
+				}
+			}
+			AND = {
+				DA_completed.Magic_Theory_3 = yes
+				NOT = { DA_completed.Magic_Theory_4 = yes }
+				check_variable = {
+					which = DA_acane_arts_exp
+					value = 10000
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				NOT = { DA_completed.Magic_Theory_1 = yes }
+				check_variable = {
+					which = DA_acane_arts_exp
+					value = 1000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_acane_arts_exp
+			value = 1000
+		}
+		set_country_flag = DA_Project.completed.Magic_Theory_1
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Magic_Theory_1 = yes
+				NOT = { DA_completed.Magic_Theory_2 = yes }
+				check_variable = {
+					which = DA_acane_arts_exp
+					value = 2500
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_acane_arts_exp
+			value = 2500
+		}
+		set_country_flag = DA_Project.completed.Magic_Theory_2
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Magic_Theory_2 = yes
+				NOT = { DA_completed.Magic_Theory_3 = yes }
+				check_variable = {
+					which = DA_acane_arts_exp
+					value = 5000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_acane_arts_exp
+			value = 5000
+		}
+		set_country_flag = DA_Project.completed.Magic_Theory_3
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Magic_Theory_3 = yes
+				NOT = { DA_completed.Magic_Theory_4 = yes }
+				check_variable = {
+					which = DA_acane_arts_exp
+					value = 10000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_acane_arts_exp
+			value = 10000
+		}
+		set_country_flag = DA_Project.completed.Magic_Theory_4
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.11 		# metallurgy lvl up event fpr IA
+	title = "DA_Tech_Tree_event.100.t"
+	desc = "DA_Tech_Tree_event.100.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		ai = yes
+		OR = {
+			AND = {
+				NOT = { DA_completed.Metallurgy_1 = yes }
+				check_variable = {
+					which = DA_metallurgy_exp
+					value = 1000
+				}
+			}
+			AND = {
+				DA_completed.Metallurgy_1 = yes
+				NOT = { DA_completed.Metallurgy_2 = yes }
+				check_variable = {
+					which = DA_metallurgy_exp
+					value = 2500
+				}
+			}
+			AND = {
+				DA_completed.Metallurgy_2 = yes
+				NOT = { DA_completed.Metallurgy_3 = yes }
+				check_variable = {
+					which = DA_metallurgy_exp
+					value = 5000
+				}
+			}
+			AND = {
+				DA_completed.Metallurgy_3 = yes
+				NOT = { DA_completed.Metallurgy_4 = yes }
+				check_variable = {
+					which = DA_metallurgy_exp
+					value = 10000
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				NOT = { DA_completed.Metallurgy_1 = yes }
+				check_variable = {
+					which = DA_metallurgy_exp
+					value = 1000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_metallurgy_exp
+			value = 1000
+		}
+		set_country_flag = DA_Project.completed.Metallurgy_1
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Metallurgy_1 = yes
+				NOT = { DA_completed.Metallurgy_2 = yes }
+				check_variable = {
+					which = DA_metallurgy_exp
+					value = 2500
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_metallurgy_exp
+			value = 2500
+		}
+		set_country_flag = DA_Project.completed.Metallurgy_2
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Metallurgy_2 = yes
+				NOT = { DA_completed.Metallurgy_3 = yes }
+				check_variable = {
+					which = DA_metallurgy_exp
+					value = 5000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_metallurgy_exp
+			value = 5000
+		}
+		set_country_flag = DA_Project.completed.Metallurgy_3
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Metallurgy_3 = yes
+				NOT = { DA_completed.Metallurgy_4 = yes }
+				check_variable = {
+					which = DA_metallurgy_exp
+					value = 10000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_metallurgy_exp
+			value = 10000
+		}
+		set_country_flag = DA_Project.completed.Metallurgy_4
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.12 		# Mechanics lvl up event fpr IA
+	title = "DA_Tech_Tree_event.100.t"
+	desc = "DA_Tech_Tree_event.100.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		ai = yes
+		OR = {
+			AND = {
+				NOT = { DA_completed.Mechanics_1 = yes }
+				check_variable = {
+					which = DA_mechanics_exp
+					value = 1000
+				}
+			}
+			AND = {
+				DA_completed.Mechanics_1 = yes
+				NOT = { DA_completed.Mechanics_2 = yes }
+				check_variable = {
+					which = DA_mechanics_exp
+					value = 2500
+				}
+			}
+			AND = {
+				DA_completed.Mechanics_2 = yes
+				NOT = { DA_completed.Mechanics_3 = yes }
+				check_variable = {
+					which = DA_mechanics_exp
+					value = 5000
+				}
+			}
+			AND = {
+				DA_completed.Mechanics_3 = yes
+				NOT = { DA_completed.Mechanics_4 = yes }
+				check_variable = {
+					which = DA_mechanics_exp
+					value = 10000
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				NOT = { DA_completed.Mechanics_1 = yes }
+				check_variable = {
+					which = DA_mechanics_exp
+					value = 1000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_mechanics_exp
+			value = 1000
+		}
+		set_country_flag = DA_Project.completed.Mechanics_1
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Mechanics_1 = yes
+				NOT = { DA_completed.Mechanics_2 = yes }
+				check_variable = {
+					which = DA_mechanics_exp
+					value = 2500
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_mechanics_exp
+			value = 2500
+		}
+		set_country_flag = DA_Project.completed.Mechanics_2
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Mechanics_2 = yes
+				NOT = { DA_completed.Mechanics_3 = yes }
+				check_variable = {
+					which = DA_mechanics_exp
+					value = 5000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_mechanics_exp
+			value = 5000
+		}
+		set_country_flag = DA_Project.completed.Mechanics_3
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Mechanics_3 = yes
+				NOT = { DA_completed.Mechanics_4 = yes }
+				check_variable = {
+					which = DA_mechanics_exp
+					value = 10000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_mechanics_exp
+			value = 10000
+		}
+		set_country_flag = DA_Project.completed.Mechanics_4
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.13 		# Alchemy lvl up event fpr IA
+	title = "DA_Tech_Tree_event.100.t"
+	desc = "DA_Tech_Tree_event.100.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		ai = yes
+		OR = {
+			AND = {
+				NOT = { DA_completed.Alchemy_1 = yes }
+				check_variable = {
+					which = DA_alchemy_exp
+					value = 1000
+				}
+			}
+			AND = {
+				DA_completed.Alchemy_1 = yes
+				NOT = { DA_completed.Alchemy_2 = yes }
+				check_variable = {
+					which = DA_alchemy_exp
+					value = 2500
+				}
+			}
+			AND = {
+				DA_completed.Alchemy_2 = yes
+				NOT = { DA_completed.Alchemy_3 = yes }
+				check_variable = {
+					which = DA_alchemy_exp
+					value = 5000
+				}
+			}
+			AND = {
+				DA_completed.Alchemy_3 = yes
+				NOT = { DA_completed.Alchemy_4 = yes }
+				check_variable = {
+					which = DA_alchemy_exp
+					value = 10000
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				NOT = { DA_completed.Alchemy_1 = yes }
+				check_variable = {
+					which = DA_alchemy_exp
+					value = 1000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_alchemy_exp
+			value = 1000
+		}
+		set_country_flag = DA_Project.completed.Alchemy_1
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Alchemy_1 = yes
+				NOT = { DA_completed.Alchemy_2 = yes }
+				check_variable = {
+					which = DA_alchemy_exp
+					value = 2500
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_alchemy_exp
+			value = 2500
+		}
+		set_country_flag = DA_Project.completed.Alchemy_2
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Alchemy_2 = yes
+				NOT = { DA_completed.Alchemy_3 = yes }
+				check_variable = {
+					which = DA_alchemy_exp
+					value = 5000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_alchemy_exp
+			value = 5000
+		}
+		set_country_flag = DA_Project.completed.Alchemy_3
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Alchemy_3 = yes
+				NOT = { DA_completed.Alchemy_4 = yes }
+				check_variable = {
+					which = DA_alchemy_exp
+					value = 10000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_alchemy_exp
+			value = 10000
+		}
+		set_country_flag = DA_Project.completed.Alchemy_4
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.14 		# Medicine lvl up event fpr IA
+	title = "DA_Tech_Tree_event.100.t"
+	desc = "DA_Tech_Tree_event.100.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		ai = yes
+		OR = {
+			AND = {
+				NOT = { DA_completed.Medicine_1 = yes }
+				check_variable = {
+					which = DA_medicine_exp
+					value = 1000
+				}
+			}
+			AND = {
+				DA_completed.Medicine_1 = yes
+				NOT = { DA_completed.Medicine_2 = yes }
+				check_variable = {
+					which = DA_medicine_exp
+					value = 2500
+				}
+			}
+			AND = {
+				DA_completed.Medicine_2 = yes
+				NOT = { DA_completed.Medicine_3 = yes }
+				check_variable = {
+					which = DA_medicine_exp
+					value = 5000
+				}
+			}
+			AND = {
+				DA_completed.Medicine_3 = yes
+				NOT = { DA_completed.Medicine_4 = yes }
+				check_variable = {
+					which = DA_medicine_exp
+					value = 10000
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				NOT = { DA_completed.Medicine_1 = yes }
+				check_variable = {
+					which = DA_medicine_exp
+					value = 1000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_medicine_exp
+			value = 1000
+		}
+		set_country_flag = DA_Project.completed.Medicine_1
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Medicine_1 = yes
+				NOT = { DA_completed.Medicine_2 = yes }
+				check_variable = {
+					which = DA_medicine_exp
+					value = 2500
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_medicine_exp
+			value = 2500
+		}
+		set_country_flag = DA_Project.completed.Medicine_2
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Medicine_2 = yes
+				NOT = { DA_completed.Medicine_3 = yes }
+				check_variable = {
+					which = DA_medicine_exp
+					value = 5000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_medicine_exp
+			value = 5000
+		}
+		set_country_flag = DA_Project.completed.Medicine_3
+	}
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		trigger = {
+			AND = {
+				DA_completed.Medicine_3 = yes
+				NOT = { DA_completed.Medicine_4 = yes }
+				check_variable = {
+					which = DA_medicine_exp
+					value = 10000
+				}
+			}
+		}
+		subtract_variable = {
+			which = DA_medicine_exp
+			value = 10000
+		}
+		set_country_flag = DA_Project.completed.Medicine_4
+	}
+}
+
+
+################# Buildings exp Events ##################
+
+
+province_event = {
+	id = DA_Tech_Tree_event.20 		# alchemy exp event
+	title = "DA_Tech_Tree_event.20.t"
+	desc = "DA_Tech_Tree_event.20.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Alchemy_workshop_0
+		owner = {
+			NOT = { DA_completed.Alchemy_1 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.20.a"
+		DA_Tech_prov.Alchemy = {
+			amount = 200
+		}
+		if = {
+			limit = {
+				owner = {
+                    NOT = { DA_completed.Alchemy_1 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 1000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+province_event = {
+	id = DA_Tech_Tree_event.21 		# 
+	title = "DA_Tech_Tree_event.20.t"
+	desc = "DA_Tech_Tree_event.20.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Alchemy_workshop_1
+		owner = {
+			DA_completed.Alchemy_1 = yes
+			NOT = { DA_completed.Alchemy_2 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.20.a"
+		DA_Tech_prov.Alchemy = {
+			amount = 300
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Alchemy_1 = yes
+                    NOT = { DA_completed.Alchemy_2 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 2500
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.22 		# 
+	title = "DA_Tech_Tree_event.20.t"
+	desc = "DA_Tech_Tree_event.20.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Alchemy_workshop_2
+		owner = {
+			DA_completed.Alchemy_2 = yes
+			NOT = { DA_completed.Alchemy_3 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.20.a"
+		DA_Tech_prov.Alchemy = {
+			amount = 400
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Alchemy_2 = yes
+                    NOT = { DA_completed.Alchemy_3 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 5000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.23 		# 
+	title = "DA_Tech_Tree_event.20.t"
+	desc = "DA_Tech_Tree_event.20.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Alchemy_workshop_3
+		owner = {
+			DA_completed.Alchemy_3 = yes
+			NOT = { DA_completed.Alchemy_4 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.20.a"
+		DA_Tech_prov.Alchemy = {
+			amount = 500
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Alchemy_3 = yes
+                    NOT = { DA_completed.Alchemy_4 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 10000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.24 		# Arcane_arts exp event
+	title = "DA_Tech_Tree_event.24.t"
+	desc = "DA_Tech_Tree_event.24.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Runesmiths_branch_0
+		owner = {
+			NOT = { DA_completed.Magic_Theory_1 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.24.a"
+		DA_Tech_prov.Magic_Theory = {
+			amount = 200
+		}
+		if = {
+			limit = {
+				owner = {
+					NOT = { DA_completed.Magic_Theory_1 = yes }
+					check_variable = {
+						which = DA_acane_arts_exp
+						value = 1000
+					}
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+province_event = {
+	id = DA_Tech_Tree_event.25 		# 
+	title = "DA_Tech_Tree_event.24.t"
+	desc = "DA_Tech_Tree_event.24.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Runesmiths_branch_1
+		owner = {
+			DA_completed.Magic_Theory_1 = yes
+			NOT = { DA_completed.Magic_Theory_2 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.24.a"
+		DA_Tech_prov.Magic_Theory = {
+			amount = 300
+		}
+		if = {
+			limit = {
+				owner = {
+					DA_completed.Magic_Theory_1 = yes
+					NOT = { DA_completed.Magic_Theory_2 = yes }
+					check_variable = {
+						which = DA_acane_arts_exp
+						value = 2500
+					}
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.26 		# 
+	title = "DA_Tech_Tree_event.24.t"
+	desc = "DA_Tech_Tree_event.24.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Runesmiths_branch_2
+		owner = {
+			DA_completed.Magic_Theory_2 = yes
+			NOT = { DA_completed.Magic_Theory_3 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.24.a"
+		DA_Tech_prov.Magic_Theory = {
+			amount = 400
+		}
+		if = {
+			limit = {
+				owner = {
+					DA_completed.Magic_Theory_2 = yes
+					DA_completed.Elemental_Magic_Air = yes
+					DA_completed.Elemental_Magic_Fire = yes
+					DA_completed.Elemental_Magic_Water = yes
+					DA_completed.Elemental_Magic_Earth = yes
+					NOT = { DA_completed.Magic_Theory_3 = yes }
+					check_variable = {
+						which = DA_acane_arts_exp
+						value = 5000
+					}
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.27 		# 
+	title = "DA_Tech_Tree_event.24.t"
+	desc = "DA_Tech_Tree_event.24.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Runesmiths_branch_3
+		owner = {
+			DA_completed.Magic_Theory_3 = yes
+			NOT = { DA_completed.Magic_Theory_4 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.24.a"
+		DA_Tech_prov.Magic_Theory = {
+			amount = 500
+		}
+		if = {
+			limit = {
+				owner = {
+					DA_completed.Magic_Theory_3 = yes
+					NOT = { DA_completed.Magic_Theory_4 = yes }
+					check_variable = {
+						which = DA_acane_arts_exp
+						value = 10000
+					}
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.28 		# Metallurgy exp event
+	title = "DA_Tech_Tree_event.28.t"
+	desc = "DA_Tech_Tree_event.28.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Smelting_Furnace_0
+		owner = {
+			NOT = { DA_completed.Metallurgy_1 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.28.a"
+		DA_Tech_prov.Metallurgy = {
+			amount = 200
+		}
+		if = {
+			limit = {
+				owner = {
+					NOT = { DA_completed.Metallurgy_1 = yes }
+					check_variable = {
+						which = DA_metallurgy_exp
+						value = 1000
+					}
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+province_event = {
+	id = DA_Tech_Tree_event.29 		# 
+	title = "DA_Tech_Tree_event.28.t"
+	desc = "DA_Tech_Tree_event.28.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Smelting_Furnace_1
+		owner = {
+			DA_completed.Metallurgy_1 = yes
+			NOT = { DA_completed.Metallurgy_2 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.28.a"
+		DA_Tech_prov.Metallurgy = {
+			amount = 300
+		}
+		if = {
+			limit = {
+				owner = {
+					DA_completed.Metallurgy_1 = yes
+					NOT = { DA_completed.Metallurgy_2 = yes }
+					check_variable = {
+						which = DA_metallurgy_exp
+						value = 2500
+					}
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.30 		# 
+	title = "DA_Tech_Tree_event.28.t"
+	desc = "DA_Tech_Tree_event.28.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Smelting_Furnace_2
+		owner = {
+			DA_completed.Metallurgy_2 = yes
+			NOT = { DA_completed.Metallurgy_3 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.28.a"
+		DA_Tech_prov.Metallurgy = {
+			amount = 400
+		}
+		if = {
+			limit = {
+				owner = {
+					DA_completed.Metallurgy_2 = yes
+					NOT = { DA_completed.Metallurgy_3 = yes }
+					check_variable = {
+						which = DA_metallurgy_exp
+						value = 5000
+					}
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.31 		# 
+	title = "DA_Tech_Tree_event.28.t"
+	desc = "DA_Tech_Tree_event.28.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Smelting_Furnace_3
+		owner = {
+			DA_completed.Metallurgy_3 = yes
+			NOT = { DA_completed.Metallurgy_4 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.28.a"
+		DA_Tech_prov.Metallurgy = {
+			amount = 500
+		}
+		if = {
+			limit = {
+				owner = {
+					DA_completed.Metallurgy_3 = yes
+					NOT = { DA_completed.Metallurgy_4 = yes }
+					check_variable = {
+						which = DA_metallurgy_exp
+						value = 10000
+					}
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.32 		# Mechanics exp event
+	title = "DA_Tech_Tree_event.32.t"
+	desc = "DA_Tech_Tree_event.32.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Factory_0
+		owner = {
+			NOT = { DA_completed.Mechanics_1 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.32.a"
+		DA_Tech_prov.Mechanics = {
+			amount = 200
+		}
+		if = {
+			limit = {
+				owner = {
+                    NOT = { DA_completed.Mechanics_1 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 1000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+province_event = {
+	id = DA_Tech_Tree_event.33 		# 
+	title = "DA_Tech_Tree_event.32.t"
+	desc = "DA_Tech_Tree_event.32.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Factory_1
+		owner = {
+			DA_completed.Mechanics_1 = yes
+			NOT = { DA_completed.Mechanics_2 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.32.a"
+		DA_Tech_prov.Mechanics = {
+			amount = 300
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Mechanics_1 = yes
+                    NOT = { DA_completed.Mechanics_2 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 2500
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.34 		#
+	title = "DA_Tech_Tree_event.32.t"
+	desc = "DA_Tech_Tree_event.32.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Factory_2
+		owner = {
+			DA_completed.Mechanics_2 = yes
+			NOT = { DA_completed.Mechanics_3 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.32.a"
+		DA_Tech_prov.Mechanics = {
+			amount = 400
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Mechanics_2 = yes
+                    NOT = { DA_completed.Mechanics_3 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 5000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.35 		# 
+	title = "DA_Tech_Tree_event.32.t"
+	desc = "DA_Tech_Tree_event.32.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Factory_3
+		owner = {
+			DA_completed.Mechanics_3 = yes
+			NOT = { DA_completed.Mechanics_4 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.32.a"
+		DA_Tech_prov.Mechanics = {
+			amount = 500
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Mechanics_3 = yes
+                    NOT = { DA_completed.Mechanics_4 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 10000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.36 		# Medicine exp event
+	title = "DA_Tech_Tree_event.36.t"
+	desc = "DA_Tech_Tree_event.36.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Hospital_0
+		owner = {
+			NOT = { DA_completed.Medicine_1 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.36.a"
+		DA_Tech_prov.Medicine = {
+			amount = 200
+		}
+		if = {
+			limit = {
+				owner = {
+                    NOT = { DA_completed.Medicine_1 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 1000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+province_event = {
+	id = DA_Tech_Tree_event.37 		# 
+	title = "DA_Tech_Tree_event.36.t"
+	desc = "DA_Tech_Tree_event.36.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Hospital_1
+		owner = {
+			DA_completed.Medicine_1 = yes
+			NOT = { DA_completed.Medicine_2 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.36.a"
+		DA_Tech_prov.Medicine = {
+			amount = 300
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Medicine_1 = yes
+                    NOT = { DA_completed.Medicine_2 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 2500
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.38 		# 
+	title = "DA_Tech_Tree_event.36.t"
+	desc = "DA_Tech_Tree_event.36.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Hospital_2
+		owner = {
+			DA_completed.Medicine_2 = yes
+			NOT = { DA_completed.Medicine_3 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.36.a"
+		DA_Tech_prov.Medicine = {
+			amount = 400
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Medicine_2 = yes
+                    NOT = { DA_completed.Medicine_3 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 5000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Tree_event.39 		# 
+	title = "DA_Tech_Tree_event.36.t"
+	desc = "DA_Tech_Tree_event.36.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_building = DA_Hospital_3
+		owner = {
+			DA_completed.Medicine_3 = yes
+			NOT = { DA_completed.Medicine_4 = yes }
+		}
+	}
+
+	option = {
+		name = "DA_Tech_Tree_event.36.a"
+		DA_Tech_prov.Medicine = {
+			amount = 500
+		}
+		if = {
+			limit = {
+				owner = {
+                    DA_completed.Medicine_3 = yes
+                    NOT = { DA_completed.Medicine_4 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 10000
+                    }
+				}
+			}
+			custom_tooltip = DA_Tech_lvl_up_available_tt
+		}
+	}
+}
+
+
+################# Medicine Events ##################
+
+country_event = {
+	id = DA_Tech_Tree_event.100 		# Medicine 1 finish
+	title = "DA_Tech_Tree_event.100.t"
+	desc = "DA_Tech_Tree_event.100.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.100.a"
+		custom_tooltip = DA_completed_Medicine_1_tt
+		set_country_flag = DA_Project.completed.Medicine_1
+		remove_country_modifier = DA_Tech_Researching_Medicine
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.101 		# Studying corpses
+	title = "DA_Tech_Tree_event.101.t"
+	desc = "DA_Tech_Tree_event.101.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.101.a"
+		country_event = {
+			id = DA_Tech_Tree_event.102
+			days = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.101.b"
+		#infamy+
+		reduce_legitimacy_medium_effect = yes
+		country_event = {
+			id = DA_Tech_Tree_event.102
+			days = 120
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.102 		# Medicine 2 finish
+	title = "DA_Tech_Tree_event.102.t"
+	desc = "DA_Tech_Tree_event.102.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.102.a"
+		custom_tooltip = DA_completed_Medicine_2_tt
+		set_country_flag = DA_Project.completed.Medicine_2
+		remove_country_modifier = DA_Tech_Researching_Medicine
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.103 		# Cellular Biology, just little things doing our work
+	title = "DA_Tech_Tree_event.103.t"
+	desc = "DA_Tech_Tree_event.103.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.103.a"
+		country_event = {
+			id = DA_Tech_Tree_event.104
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.104 		# use unethical magic and stimulants in research? add infamy
+	title = "DA_Tech_Tree_event.104.t"
+	desc = "DA_Tech_Tree_event.104.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.104.a"
+		country_event = {
+			id = DA_Tech_Tree_event.105
+			days = 365
+			random = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.104.b"
+		trigger = {
+			treasury = 1000
+		}
+		#infamy+
+		add_treasury = -1000
+		country_event = {
+			id = DA_Tech_Tree_event.105
+			days = 120
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.105 		# Medicine 3 finish
+	title = "DA_Tech_Tree_event.105.t"
+	desc = "DA_Tech_Tree_event.105.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.105.a"
+		custom_tooltip = DA_completed_Medicine_3_tt
+		set_country_flag = DA_Project.completed.Medicine_3
+		remove_country_modifier = DA_Tech_Researching_Medicine
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.106 		# why does the cell work? need test subjects -1 manpower in random prov or use what you have
+	title = "DA_Tech_Tree_event.106.t"
+	desc = "DA_Tech_Tree_event.106.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.106.a"
+		country_event = {
+			id = DA_Tech_Tree_event.107
+			days = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.106.b"
+		random_core_province = {
+			limit = {
+				base_manpower = 2
+			}
+			add_devastation = 5
+			add_base_manpower = -1
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.107
+			days = 120
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.107 		# we are close to understanding
+	title = "DA_Tech_Tree_event.107.t"
+	desc = "DA_Tech_Tree_event.107.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.107.a"
+		country_event = {
+			id = DA_Tech_Tree_event.108
+			days = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.107.b"
+		highlight = yes
+		trigger = {
+			innovativeness = 80
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.108
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.108 		# explain Genes 
+	title = "DA_Tech_Tree_event.108.t"
+	desc = "DA_Tech_Tree_event.108.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.108.a"
+		country_event = {
+			id = DA_Tech_Tree_event.109
+			days = 365
+			random = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.108.b"
+		highlight = yes
+		trigger = {
+			any_core_province = {
+				has_great_project = {
+					type = The_Dwarven_Laboratory
+				}
+			}
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.109
+			days = 120
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.109 		#  can we mess with them?
+	title = "DA_Tech_Tree_event.109.t"
+	desc = "DA_Tech_Tree_event.109.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.109.a"
+		country_event = {
+			id = DA_Tech_Tree_event.110
+			days = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.109.b"
+		highlight = yes
+		trigger = {
+			DA_completed.Bio_Construct = yes
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.110
+			days = 120
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.110 		# yes we can ...
+	title = "DA_Tech_Tree_event.110.t"
+	desc = "DA_Tech_Tree_event.110.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.110.a"
+		capital_scope = {
+			province_event = {
+				id = DA_Blueprint_event.255
+				days = 60
+			}
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.111
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.111 		# Medicine 4 finish
+	title = "DA_Tech_Tree_event.111.t"
+	desc = "DA_Tech_Tree_event.111.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.111.a"
+		custom_tooltip = DA_completed_Medicine_4_tt
+		set_country_flag = DA_Project.completed.Medicine_4
+		remove_country_modifier = DA_Tech_Researching_Medicine
+	}
+}
+
+
+################# Alchemy Events ##################
+
+country_event = {
+	id = DA_Tech_Tree_event.200 		# Alchemy 1 finish
+	title = "DA_Tech_Tree_event.200.t"
+	desc = "DA_Tech_Tree_event.200.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.200.a"
+		custom_tooltip = DA_completed_Alchemy_1_tt
+		set_country_flag = DA_Project.completed.Alchemy_1
+		remove_country_modifier = DA_Tech_Researching_Alchemy
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.201 		# the essence of alchemy, chemistry precise balances
+	title = "DA_Tech_Tree_event.201.t"
+	desc = "DA_Tech_Tree_event.201.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.201.a"
+		country_event = {
+			id = DA_Tech_Tree_event.202
+			days = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.201.b"
+		highlight = yes
+		trigger = {
+			innovativeness = 35
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.202
+			days = 120
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.202 		# Alchemy 2 finish
+	title = "DA_Tech_Tree_event.202.t"
+	desc = "DA_Tech_Tree_event.202.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.202.a"
+		custom_tooltip = DA_completed_Alchemy_2_tt
+		set_country_flag = DA_Project.completed.Alchemy_2
+		remove_country_modifier = DA_Tech_Researching_Alchemy
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.203 		# chemistry + arcane arts?
+	title = "DA_Tech_Tree_event.203.t"
+	desc = "DA_Tech_Tree_event.203.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.203.a"
+		country_event = {
+			id = DA_Tech_Tree_event.204
+			days = 365
+			random = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.203.b"
+		highlight = yes
+		trigger = {
+			OR = {
+				court_mage = 2
+				Hold_restorer = 2
+				DA_runesmith = 2
+			}
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.204
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.204 		# yes it works
+	title = "DA_Tech_Tree_event.204.t"
+	desc = "DA_Tech_Tree_event.204.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.204.a"
+		country_event = {
+			id = DA_Tech_Tree_event.205
+			days = 60
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.205 		# Alchemy 3 finish
+	title = "DA_Tech_Tree_event.205.t"
+	desc = "DA_Tech_Tree_event.205.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.205.a"
+		custom_tooltip = DA_completed_Alchemy_3_tt
+		set_country_flag = DA_Project.completed.Alchemy_3
+		remove_country_modifier = DA_Tech_Researching_Alchemy
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.206 		# we must grasp the essence
+	title = "DA_Tech_Tree_event.206.t"
+	desc = "DA_Tech_Tree_event.206.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.206.a"
+		country_event = {
+			id = DA_Tech_Tree_event.207
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.207 		# we are close to understanding
+	title = "DA_Tech_Tree_event.207.t"
+	desc = "DA_Tech_Tree_event.207.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.207.a"
+		country_event = {
+			id = DA_Tech_Tree_event.208
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.208 		# law of equivalent exchange in alchemy
+	title = "DA_Tech_Tree_event.208.t"
+	desc = "DA_Tech_Tree_event.208.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.208.a"
+		country_event = {
+			id = DA_Tech_Tree_event.209
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.209 		#  Alchemy 4 finish
+	title = "DA_Tech_Tree_event.209.t"
+	desc = "DA_Tech_Tree_event.209.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.209.a"
+		custom_tooltip = DA_completed_Alchemy_4_tt
+		set_country_flag = DA_Project.completed.Alchemy_4
+		remove_country_modifier = DA_Tech_Researching_Alchemy
+	}
+}
+
+################# Magic_Theory Events ##################
+
+country_event = {
+	id = DA_Tech_Tree_event.300 		# Magic_Theory 1 finish
+	title = "DA_Tech_Tree_event.300.t"
+	desc = "DA_Tech_Tree_event.300.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.300.a"
+		custom_tooltip = DA_completed_Magic_Theory_1_tt
+		set_country_flag = DA_Project.completed.Magic_Theory_1
+		remove_country_modifier = DA_Tech_Researching_Arcane_Arts
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.301 		# mana is all around but how can we manipulate it?
+	title = "DA_Tech_Tree_event.301.t"
+	desc = "DA_Tech_Tree_event.301.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.301.a"
+		country_event = {
+			id = DA_Tech_Tree_event.302
+			days = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.301.b"
+		highlight = yes
+		trigger = {
+			OR = {
+				court_mage = 1
+				Hold_restorer = 1
+			}
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.302
+			days = 130
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.302 		# Magic_Theory 2 finish
+	title = "DA_Tech_Tree_event.302.t"
+	desc = "DA_Tech_Tree_event.302.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.302.a"
+		custom_tooltip = DA_completed_Magic_Theory_2_tt
+		set_country_flag = DA_Project.completed.Magic_Theory_2
+		remove_country_modifier = DA_Tech_Researching_Arcane_Arts
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.303 		# maybe the mind?
+	title = "DA_Tech_Tree_event.303.t"
+	desc = "DA_Tech_Tree_event.303.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.303.a"
+		country_event = {
+			id = DA_Tech_Tree_event.304
+			days = 365
+			random = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.303.b"
+		highlight = yes
+		trigger = {
+			innovativeness = 50
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.304
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.304 		# no, it is the soul
+	title = "DA_Tech_Tree_event.304.t"
+	desc = "DA_Tech_Tree_event.304.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.304.a"
+		country_event = {
+			id = DA_Tech_Tree_event.305
+			days = 60
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.305 		# Magic_Theory 3 finish
+	title = "DA_Tech_Tree_event.305.t"
+	desc = "DA_Tech_Tree_event.305.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.305.a"
+		custom_tooltip = DA_completed_Magic_Theory_3_tt
+		set_country_flag = DA_Project.completed.Magic_Theory_3
+		remove_country_modifier = DA_Tech_Researching_Arcane_Arts
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.306 		# every soul can weild magic?
+	title = "DA_Tech_Tree_event.306.t"
+	desc = "DA_Tech_Tree_event.306.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.306.a"
+		country_event = {
+			id = DA_Tech_Tree_event.307
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.307 		# yes but not well
+	title = "DA_Tech_Tree_event.307.t"
+	desc = "DA_Tech_Tree_event.307.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.307.a"
+		country_event = {
+			id = DA_Tech_Tree_event.308
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.308 		# the quality of the soul determines its ability to manipulate and use mana
+	title = "DA_Tech_Tree_event.308.t"
+	desc = "DA_Tech_Tree_event.308.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.308.a"
+		country_event = {
+			id = DA_Tech_Tree_event.309
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.309 		#  Magic_Theory 4 finish
+	title = "DA_Tech_Tree_event.309.t"
+	desc = "DA_Tech_Tree_event.309.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.309.a"
+		custom_tooltip = DA_completed_Magic_Theory_4_tt
+		set_country_flag = DA_Project.completed.Magic_Theory_4
+		remove_country_modifier = DA_Tech_Researching_Arcane_Arts
+	}
+}
+
+
+################# Mechanics Events ##################
+
+country_event = {
+	id = DA_Tech_Tree_event.400 		# Mechanics 1 finish
+	title = "DA_Tech_Tree_event.400.t"
+	desc = "DA_Tech_Tree_event.400.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.400.a"
+		custom_tooltip = DA_completed_Mechanics_1_tt
+		set_country_flag = DA_Project.completed.Mechanics_1
+		remove_country_modifier = DA_Tech_Researching_Mechanics
+		add_country_modifier = {
+			name = DA_Mechanics_1_modifier
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.401 		# need higher Accuracy
+	title = "DA_Tech_Tree_event.401.t"
+	desc = "DA_Tech_Tree_event.401.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.401.a"
+		country_event = {
+			id = DA_Tech_Tree_event.402
+			days = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.401.b"
+		highlight = yes
+		trigger = {
+			DA_completed.ClockWork = yes
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.402
+			days = 1
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.402 		# Mechanics 2 finish
+	title = "DA_Tech_Tree_event.402.t"
+	desc = "DA_Tech_Tree_event.402.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.402.a"
+		custom_tooltip = DA_completed_Mechanics_2_tt
+		set_country_flag = DA_Project.completed.Mechanics_2
+		remove_country_modifier = DA_Tech_Researching_Mechanics
+		remove_country_modifier = DA_Mechanics_1_modifier
+		add_country_modifier = {
+			name = DA_Mechanics_2_modifier
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.403 		# tollerance margins must  be better if we want more efficiency
+	title = "DA_Tech_Tree_event.403.t"
+	desc = "DA_Tech_Tree_event.403.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.403.a"
+		country_event = {
+			id = DA_Tech_Tree_event.404
+			days = 365
+			random = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.403.b"
+		highlight = yes
+		trigger = {
+			OR = {
+				natural_scientist = 2
+				DA_runesmith = 2
+			}
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.404
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.404 		# new machinery
+	title = "DA_Tech_Tree_event.404.t"
+	desc = "DA_Tech_Tree_event.404.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.404.a"
+		country_event = {
+			id = DA_Tech_Tree_event.405
+			days = 60
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.405 		# Mechanics 3 finish
+	title = "DA_Tech_Tree_event.405.t"
+	desc = "DA_Tech_Tree_event.405.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.405.a"
+		custom_tooltip = DA_completed_Mechanics_3_tt
+		set_country_flag = DA_Project.completed.Mechanics_3
+		remove_country_modifier = DA_Tech_Researching_Mechanics
+		remove_country_modifier = DA_Mechanics_2_modifier
+		add_country_modifier = {
+			name = DA_Mechanics_3_modifier
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.406 		# arcane machinery?
+	title = "DA_Tech_Tree_event.406.t"
+	desc = "DA_Tech_Tree_event.406.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.406.a"
+		country_event = {
+			id = DA_Tech_Tree_event.407
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.407 		# yes so good, but damestear enough?
+	title = "DA_Tech_Tree_event.407.t"
+	desc = "DA_Tech_Tree_event.407.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.407.a"
+		add_years_of_income = -1
+		country_event = {
+			id = DA_Tech_Tree_event.408
+			days = 365
+			random = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.407.b"
+		highlight = yes
+		trigger = {
+			development_in_provinces = {
+				value = 30
+				trade_goods = damestear
+			}
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.408
+			days = 120
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.408 		# nice machinery
+	title = "DA_Tech_Tree_event.408.t"
+	desc = "DA_Tech_Tree_event.408.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.408.a"
+		add_country_modifier = {
+			name = DA_Arcane_Machinery_modifier
+			duration = -1
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.409
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.409 		#  Mechanics 4 finish
+	title = "DA_Tech_Tree_event.409.t"
+	desc = "DA_Tech_Tree_event.409.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.409.a"
+		custom_tooltip = DA_completed_Mechanics_4_tt
+		set_country_flag = DA_Project.completed.Mechanics_4
+		remove_country_modifier = DA_Tech_Researching_Mechanics
+		remove_country_modifier = DA_Mechanics_3_modifier
+		add_country_modifier = {
+			name = DA_Mechanics_4_modifier
+			duration = -1
+		}
+	}
+}
+
+################# Metallurgy Events ##################
+
+country_event = {
+	id = DA_Tech_Tree_event.500 		# Metallurgy 1 finish
+	title = "DA_Tech_Tree_event.500.t"
+	desc = "DA_Tech_Tree_event.500.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.500.a"
+		custom_tooltip = DA_completed_Metallurgy_1_tt
+		set_country_flag = DA_Project.completed.Metallurgy_1
+		remove_country_modifier = DA_Tech_Researching_Metallurgy
+		add_country_modifier = {
+			name = DA_Metallurgy_1_modifier
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.501 		# multi-metal-alloys
+	title = "DA_Tech_Tree_event.501.t"
+	desc = "DA_Tech_Tree_event.501.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.501.a"
+		country_event = {
+			id = DA_Tech_Tree_event.502
+			days = 365
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.502 		# Metallurgy 2 finish
+	title = "DA_Tech_Tree_event.502.t"
+	desc = "DA_Tech_Tree_event.502.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.502.a"
+		custom_tooltip = DA_completed_Metallurgy_2_tt
+		set_country_flag = DA_Project.completed.Metallurgy_2
+		remove_country_modifier = DA_Tech_Researching_Metallurgy
+		remove_country_modifier = DA_Metallurgy_1_modifier
+		add_country_modifier = {
+			name = DA_Metallurgy_2_modifier
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.503 		# Legendary metal smelting, how? need at least 1 legendary
+	title = "DA_Tech_Tree_event.503.t"
+	desc = "DA_Tech_Tree_event.503.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.503.a"
+		country_event = {
+			id = DA_Tech_Tree_event.504
+			days = 365
+			random = 365
+		}
+	}
+	option = {
+		name = "DA_Tech_Tree_event.503.b"
+		highlight = yes
+		trigger = {
+			OR = {
+				court_mage = 3
+				Hold_restorer = 3
+				DA_runesmith = 3
+			}
+		}
+		country_event = {
+			id = DA_Tech_Tree_event.504
+			days = 180
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.504 		# Arcane Forges
+	title = "DA_Tech_Tree_event.504.t"
+	desc = "DA_Tech_Tree_event.504.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.504.a"
+		country_event = {
+			id = DA_Tech_Tree_event.505
+			days = 60
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.505 		# Metallurgy 3 finish
+	title = "DA_Tech_Tree_event.505.t"
+	desc = "DA_Tech_Tree_event.505.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.505.a"
+		custom_tooltip = DA_completed_Metallurgy_3_tt
+		set_country_flag = DA_Project.completed.Metallurgy_3
+		remove_country_modifier = DA_Tech_Researching_Metallurgy
+		remove_country_modifier = DA_Metallurgy_2_modifier
+		add_country_modifier = {
+			name = DA_Metallurgy_3_modifier
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.506 		# legendaries cant form alloys, why?
+	title = "DA_Tech_Tree_event.506.t"
+	desc = "DA_Tech_Tree_event.506.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.506.a"
+		country_event = {
+			id = DA_Tech_Tree_event.507
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.507 		# The type of mana is conflicting with one another, let's try using neutral mana to allow mixing them
+	title = "DA_Tech_Tree_event.507.t"
+	desc = "DA_Tech_Tree_event.507.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.507.a"
+		country_event = {
+			id = DA_Tech_Tree_event.508
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.508 		# Harmony reached
+	title = "DA_Tech_Tree_event.508.t"
+	desc = "DA_Tech_Tree_event.508.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.508.a"
+		country_event = {
+			id = DA_Tech_Tree_event.509
+			days = 30
+		}
+	}
+}
+country_event = {
+	id = DA_Tech_Tree_event.509 		#  Metallurgy 4 finish
+	title = "DA_Tech_Tree_event.509.t"
+	desc = "DA_Tech_Tree_event.509.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.509.a"
+		custom_tooltip = DA_completed_Metallurgy_4_tt
+		set_country_flag = DA_Project.completed.Metallurgy_4
+		remove_country_modifier = DA_Tech_Researching_Metallurgy
+		remove_country_modifier = DA_Metallurgy_3_modifier
+		add_country_modifier = {
+			name = DA_Metallurgy_4_modifier
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = DA_Tech_Tree_event.510 		#  dimensional engineering discovery
+	title = "DA_Tech_Tree_event.510.t"
+	desc = "DA_Tech_Tree_event.510.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Tech_Tree_event.510.a"
+		custom_tooltip = DA_Following_project_completed
+		DA_Allow_Tech.Dimensional_eng = yes
+		hidden_effect = {
+			swap_non_generic_missions = yes
+		}
+	}
+}

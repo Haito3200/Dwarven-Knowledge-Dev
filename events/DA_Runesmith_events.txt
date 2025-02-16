@@ -1,0 +1,780 @@
+
+namespace = DA_Runesmiths_events
+
+country_event = {
+	id = DA_Runesmiths_events.1
+	title = DA_Runesmiths_events.1.t
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_RS_inventions_unlocked } }
+		desc = DA_Runesmiths_events.1.d1
+	}
+	desc = {
+		trigger = { has_country_flag = DA_RS_inventions_unlocked }
+		desc = DA_Runesmiths_events.1.d2
+	}
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmiths_events.1.a
+		trigger = {
+			has_country_flag = DA_RS_inventions_unlocked
+		}
+		DA_start_research_t1 = yes
+
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = DA_Runesmiths_events.1.b
+		highlight = yes
+		trigger = {
+			hidden_trigger = {
+				has_country_flag = DA_RS_inventions_unlocked
+			}
+			DA_has_Rune_power_or_higher = yes
+			DA_completed.Medicine_1 = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+			DA_completed.Metallurgy_1 = yes
+		}
+		DA_start_research_t2 = yes
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = DA_Runesmiths_events.1.c
+		highlight = yes
+		trigger = {
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Medicine_2 = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+			DA_completed.Metallurgy_2 = yes
+		}
+		DA_start_research_t3 = yes
+		ai_chance = { factor = 10 }
+	}
+
+	option = {
+		name = DA_Runesmiths_events.1.e
+		highlight = yes
+		trigger = {
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Medicine_3 = yes
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+			DA_completed.Metallurgy_3 = yes
+		}
+		DA_start_research_t4 = yes
+		ai_chance = { factor = 20 }
+	}
+	option = {
+		name = DA_Runesmiths_events.1.runes
+		trigger = {
+			NOT = {
+				DA_has_researched_all_initial_runes = yes
+			}
+		}
+		DA_start_rune_research = yes
+		ai_chance = { factor = 10 }
+	}
+	option = {
+		name = DA_Runesmiths_events.1.z #escape
+		highlight = yes
+		ai_chance = { factor = 0.1 }
+		
+		add_adm_power = 10
+		add_dip_power = 10
+		add_mil_power = 10
+		if = {
+			limit = { ai = no }
+			remove_estate_privilege = DA_Runesmith_research_privilege
+		} 
+		else = {
+			set_country_flag = DA_remove_RS_research
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.2
+	title = DA_Runesmiths_events.2.t
+	desc = DA_Runesmiths_events.2.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		OR = {
+			has_country_flag = DA_RS_research_rune
+			has_country_flag = DA_RS_research_t1
+			has_country_flag = DA_RS_research_t2
+			has_country_flag = DA_RS_research_t3
+			has_country_flag = DA_RS_research_t4
+		}
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.2.a
+		change_variable = {
+			which = DA_research_progress
+			value = 1
+		}
+		if = {
+			limit = { check_variable = {
+				which = DA_research_progress
+				which = DA_research_progress_MAX
+			} }
+			country_event = {
+				id = DA_Runesmiths_events.21
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.21
+	title = DA_Runesmiths_events.2.t
+	desc = DA_Runesmiths_events.2.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		OR = {
+			has_country_flag = DA_RS_research_rune
+			has_country_flag = DA_RS_research_t1
+			has_country_flag = DA_RS_research_t2
+			has_country_flag = DA_RS_research_t3
+			has_country_flag = DA_RS_research_t4
+		}
+		check_variable = {
+			which = DA_research_progress
+			which = DA_research_progress_MAX
+		}
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.2.a
+		remove_estate_privilege = DA_Runesmith_research_privilege
+		if = {
+			limit = { has_country_flag = DA_RS_research_rune }
+			clr_country_flag = DA_RS_research_rune
+			country_event = {
+				id = DA_Runesmiths_events.4
+			}
+		}
+		if = {
+			limit = { has_country_flag = DA_RS_research_t1 }
+			clr_country_flag = DA_RS_research_t1
+			country_event = {
+				id = DA_Runesmiths_events.20
+			}
+		}
+		if = {
+			limit = { has_country_flag = DA_RS_research_t2 }
+			clr_country_flag = DA_RS_research_t2
+			country_event = {
+				id = DA_Runesmiths_events.22
+			}
+		}
+		if = {
+			limit = { has_country_flag = DA_RS_research_t3 }
+			clr_country_flag = DA_RS_research_t3
+			country_event = {
+				id = DA_Runesmiths_events.23
+			}
+		}
+		if = {
+			limit = { has_country_flag = DA_RS_research_t4 }
+			clr_country_flag = DA_RS_research_t4
+			country_event = {
+				id = DA_Runesmiths_events.24
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.20
+	title = DA_Runesmiths_events.20.t
+	desc = DA_Runesmiths_events.20.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.2.a
+		if = {
+			limit = { ai = no }
+			remove_estate_privilege = DA_Runesmith_research_privilege
+		} 
+		else = {
+			set_country_flag = DA_remove_RS_research
+		}
+		DA_Research_Reward_t1 = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.22
+	title = DA_Runesmiths_events.22.t
+	desc = DA_Runesmiths_events.22.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.2.a
+		if = {
+			limit = { ai = no }
+			remove_estate_privilege = DA_Runesmith_research_privilege
+		} 
+		else = {
+			set_country_flag = DA_remove_RS_research
+		}
+		DA_Research_Reward_t2 = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.23
+	title = DA_Runesmiths_events.23.t
+	desc = DA_Runesmiths_events.23.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.2.a
+		if = {
+			limit = { ai = no }
+			remove_estate_privilege = DA_Runesmith_research_privilege
+		} 
+		else = {
+			set_country_flag = DA_remove_RS_research
+		}
+		DA_Research_Reward_t3 = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.24
+	title = DA_Runesmiths_events.24.t
+	desc = DA_Runesmiths_events.24.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.2.a
+		if = {
+			limit = { ai = no }
+			remove_estate_privilege = DA_Runesmith_research_privilege
+		} 
+		else = {
+			set_country_flag = DA_remove_RS_research
+		}
+		DA_Research_Reward_t4 = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.3
+	title = DA_Runesmiths_events.3.t
+	desc = DA_Runesmiths_events.3.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.3.a
+		custom_tooltip = DA_Unlocked_2_runes
+		set_country_flag = DA_unlocked_production_System
+		hidden_effect = {
+			country_event = {
+				id = DA_adk.150
+			}
+			set_variable = {
+				which = DA_num_runes_unlocked
+				value = 0
+			}
+			set_variable = {
+				which = DA_Complexity
+				value = 0
+			}
+		}
+		DA_Give_random_rune = yes
+		DA_Give_random_rune = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.4
+	title = DA_Runesmiths_events.4.t
+	desc = DA_Runesmiths_events.4.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.4.a
+		custom_tooltip = DA_give_random_rune_tt
+		hidden_effect = {
+			remove_estate_privilege = DA_Runesmith_research_privilege
+		}
+		DA_Give_random_rune = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+######## rune unlocked events
+
+country_event = {
+	id = DA_Runesmiths_events.40
+	title = DA_Runesmiths_events.40.t
+	desc = DA_Runesmiths_events.40.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.40.a
+		custom_tooltip = DA_Runesmiths_events.40.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.41
+	title = DA_Runesmiths_events.41.t
+	desc = DA_Runesmiths_events.41.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.41.a
+		custom_tooltip = DA_Runesmiths_events.41.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.42
+	title = DA_Runesmiths_events.42.t
+	desc = DA_Runesmiths_events.42.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.42.a
+		custom_tooltip = DA_Runesmiths_events.42.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.43
+	title = DA_Runesmiths_events.43.t
+	desc = DA_Runesmiths_events.43.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.43.a
+		custom_tooltip = DA_Runesmiths_events.43.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.44
+	title = DA_Runesmiths_events.44.t
+	desc = DA_Runesmiths_events.44.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.44.a
+		custom_tooltip = DA_Runesmiths_events.44.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.45
+	title = DA_Runesmiths_events.45.t
+	desc = DA_Runesmiths_events.45.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.45.a
+		custom_tooltip = DA_Runesmiths_events.45.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.46
+	title = DA_Runesmiths_events.46.t
+	desc = DA_Runesmiths_events.46.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.46.a
+		custom_tooltip = DA_Runesmiths_events.46.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.47
+	title = DA_Runesmiths_events.47.t
+	desc = DA_Runesmiths_events.47.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.47.a
+		custom_tooltip = DA_Runesmiths_events.47.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.48
+	title = DA_Runesmiths_events.48.t
+	desc = DA_Runesmiths_events.48.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.48.a
+		custom_tooltip = DA_Runesmiths_events.48.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_Runesmiths_events.49
+	title = DA_Runesmiths_events.49.t
+	desc = DA_Runesmiths_events.49.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.49.a
+		custom_tooltip = DA_Runesmiths_events.49.tt
+		ai_chance = { factor = 1 }
+	}
+}
+
+
+country_event = {
+	id = DA_Runesmiths_events.100
+	title = DA_Runesmiths_events.100.t
+	desc = DA_Runesmiths_events.100.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.49.a
+		DA_Mission_Reward_Production_points_3 = yes
+		remove_estate_privilege = DA_Runesmith_Production_expansion
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmiths_events.49.b
+		DA_Mission_Reward_Production_points_3 = yes
+		country_event = {
+			id = DA_Runesmiths_events.100
+			days = 1825
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+
+country_event = {
+	id = DA_Runesmiths_events.101
+	title = DA_Runesmiths_events.101.t
+	desc = DA_Runesmiths_events.101.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.101.a
+		random_list = {
+			3 = {
+				capital_scope = {
+					DA_Find_runic_blueprint = yes
+				}
+			}
+			2 = {
+				capital_scope = {
+					DA_Find_steam_blueprint = yes
+				}
+			}
+			1 = {
+				capital_scope = {
+					DA_Find_Runic_circuit_blueprint = yes
+				}
+			}
+			2 = {
+				capital_scope = {
+					DA_Find_Advanced_rune = yes
+				}
+			}
+			1 = {
+				capital_scope = {
+					DA_Find_runic_circuit = yes
+				}
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+
+country_event = {
+	id = DA_Runesmiths_events.102
+	title = DA_Runesmiths_events.102.t
+	desc = DA_Runesmiths_events.102.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_Runesmiths_events.102.a
+		custom_tooltip = DA_Restricted_mage_creation_tt
+		add_country_modifier = {
+			name = DA_Restricted_mage_creation
+			duration = -1
+		}
+		add_country_modifier = {
+			name = DA_mage_creation_boom
+			duration = 3650
+		}
+		hidden_effect = {
+			set_variable = {
+				which = DA_disaster_nobles_status_target
+				value = 0
+			}
+			set_variable = {
+				which = DA_disaster_nobles_status
+				value = 10
+			}
+		}
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmiths_events.102.b
+		custom_tooltip = DA_Unrestricted_mage_creation_tt
+		add_country_modifier = {
+			name = DA_Unrestricted_mage_creation
+			duration = -1
+		}
+		add_country_modifier = {
+			name = DA_mage_creation_boom_big
+			duration = 3650
+		}
+		hidden_effect = {
+			set_variable = {
+				which = DA_disaster_nobles_status_target
+				value = 6
+			}
+			set_variable = {
+				which = DA_disaster_nobles_status
+				value = 12
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+}

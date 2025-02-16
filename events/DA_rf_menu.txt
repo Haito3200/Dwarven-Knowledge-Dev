@@ -1,0 +1,469 @@
+namespace = DA_Research_facility_menu
+
+
+country_event = {
+	id = DA_Research_facility_menu.1 #research facility
+	title = "DA_Research_facility_menu.1.t"
+	desc = "DA_Research_facility_menu.1.d2"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+	
+	immediate = {
+		set_country_flag = DA_rf_menu_in_use
+	}
+	
+	option = {
+		name = "DA_Research_facility_menu.1.patronage" #patornage enabled or disabled
+		trigger = {
+			DA_has_RF_3_or_higher = yes
+		}
+		if = {
+			limit = {
+				has_country_modifier = DA_Runesmith_patronage
+			}
+			custom_tooltip = DA_runesmiths_patronage_on_15_tt
+			hidden_effect = {
+				remove_country_modifier = DA_Runesmith_patronage
+				country_event = {
+					id = DA_Research_facility_menu.1
+					days = 1
+				}
+			}
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Runesmith_patronage
+					duration = -1
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = { has_country_modifier = DA_Runesmith_patronage }
+			}
+			custom_tooltip = DA_runesmiths_patronage_off_15_tt
+			hidden_effect = {
+				add_country_modifier = {
+					name = DA_Runesmith_patronage
+					duration = -1
+				}
+				country_event = {
+					id = DA_Research_facility_menu.1
+					days = 1
+				}
+			}
+		}
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_country_modifier = DA_Runesmith_patronage
+				years_of_income = 1
+			}
+		}
+	}
+	
+	option = {
+		name = "DA_Research_facility_menu.1.research_invention" # research invention or runes
+		trigger = {
+			ai = yes
+			NOT = { has_estate_privilege = DA_Runesmith_research_privilege }
+			DA_has_RF_3_or_higher = yes
+			has_country_flag = DA_unlocked_production_System
+		}
+		add_adm_power = -10
+		add_dip_power = -10
+		add_mil_power = -10
+		country_event = {
+			id = DA_Runesmiths_events.1
+		}
+		hidden_effect = {
+			set_estate_privilege = DA_Runesmith_research_privilege
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+	
+	option = {
+		name = "DA_Research_facility_menu.1.b" #Create Great mage ruler
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_make_mage
+			NOT = {	ruler_has_mage_personality = yes }
+			treasury = 1000
+			check_variable = { ancientDwarvenKnowledge = 10 }
+		}
+		custom_tooltip = DA_Research_facility_menu.1.b.tooltip
+		country_event = {
+			id = DA_adk.6
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+	
+	option = {
+		name = "DA_Research_facility_menu.1.b.fake" #Create Great mage ruler fake
+		trigger = {
+			NOT = {
+				AND = {
+					has_country_flag = DA_can_make_mage
+					NOT = {	ruler_has_mage_personality = yes }
+					treasury = 1000
+					check_variable = { ancientDwarvenKnowledge = 10 }
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_country_flag = DA_can_make_mage } }
+			custom_tooltip = DA_Lack_Artificial_mage_creation_tech
+		}
+		if = {
+			limit = { ruler_has_mage_personality = yes }
+			custom_tooltip = DA_Lack_not_being_a_mage_already
+		}
+		if = {
+			limit = { NOT = { treasury = 1000 } }
+			custom_tooltip = DA_Lack_1000_G
+		}
+		if = {
+			limit = { NOT = { check_variable = { ancientDwarvenKnowledge = 10 } } }
+			custom_tooltip = DA_Lack_10_ADK
+		}
+		
+		custom_tooltip = DA_Research_facility_menu.1.b.tooltip
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	
+	option = {
+		name = "DA_Research_facility_menu.1.c" #graft New Runes
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_graft_new_runes
+			ruler_studying_magic = yes
+			ruler_has_mage_personality = yes
+			treasury = 100
+			NOT = {	has_country_modifier = DA_Graft_runes_cooldown }
+			check_variable = { ancientDwarvenKnowledge = 5 }
+		}
+		custom_tooltip = DA_Research_facility_menu.1.c.tooltip
+		country_event = {
+			id = DA_adk.8
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	option = {
+		name = "DA_Research_facility_menu.1.c.fake" #graft New Runes
+		trigger = {
+			NOT = {
+				AND = {
+					has_country_flag = DA_can_graft_new_runes
+					ruler_studying_magic = yes
+					ruler_has_mage_personality = yes
+					treasury = 100
+					NOT = {	has_country_modifier = DA_Graft_runes_cooldown }
+					check_variable = { ancientDwarvenKnowledge = 5 }
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_country_flag = DA_can_graft_new_runes } }
+			custom_tooltip = DA_Lack_Runes_grafting_tech
+		}
+		if = {
+			limit = { has_country_modifier = DA_Graft_runes_cooldown }
+			custom_tooltip = DA_Lack_cooldown_waiting
+		}
+		if = {
+			limit = { NOT = { ruler_studying_magic = yes } }
+			custom_tooltip = DA_Lack_studying_magic
+		}
+		if = {
+			limit = { NOT = { ruler_has_mage_personality = yes } }
+			custom_tooltip = DA_Lack_mage_ruler
+		}
+		if = {
+			limit = { NOT = { treasury = 100 } }
+			custom_tooltip = DA_Lack_100_G
+		}
+		if = {
+			limit = { NOT = { check_variable = { ancientDwarvenKnowledge = 5 } } }
+			custom_tooltip = DA_Lack_5_ADK
+		}
+
+		custom_tooltip = DA_Research_facility_menu.1.c.tooltip
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	
+	option = {
+		name = "DA_Research_facility_menu.1.d" #create general or admiral
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_Can_create_leaders
+			treasury = 250
+			mil_power = 50
+			NOT = {	has_country_modifier = DA_Create_leader_cooldown }
+			check_variable = { ancientDwarvenKnowledge = 5 }
+		}
+		custom_tooltip = DA_Research_facility_menu.1.d.tooltip
+		country_event = {
+			id = DA_adk.10
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 10
+				is_at_war = yes
+			}
+		}
+	}
+	option = {
+		name = "DA_Research_facility_menu.1.d.fake" #create general or admiral
+		trigger = {
+			NOT = {
+				AND = {
+					has_country_flag = DA_Can_create_leaders
+					treasury = 250
+					mil_power = 50
+					NOT = {	has_country_modifier = DA_Create_leader_cooldown }
+					check_variable = { ancientDwarvenKnowledge = 5 }
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_country_flag = DA_Can_create_leaders } }
+			custom_tooltip = DA_Lack_Rune_mage_generals_tech
+		}
+		if = {
+			limit = { has_country_modifier = DA_Create_leader_cooldown }
+			custom_tooltip = DA_Lack_cooldown_waiting
+		}
+		if = {
+			limit = { NOT = { mil_power = 50 } }
+			custom_tooltip = DA_Lack_Mil_50
+		}
+		if = {
+			limit = { NOT = { treasury = 250 } }
+			custom_tooltip = DA_Lack_250_G
+		}
+		if = {
+			limit = { NOT = { check_variable = { ancientDwarvenKnowledge = 5 } } }
+			custom_tooltip = DA_Lack_5_ADK
+		}
+
+		custom_tooltip = DA_Research_facility_menu.1.d.tooltip
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+
+	option = {
+		name = "DA_Research_facility_menu.1.DV_m1" # attract meteorite
+		trigger = {
+			has_country_flag = DA_can_meteorites_attract
+			treasury = 4000
+			adm_power = 75
+			NOT = {	has_country_modifier = DA_meteorite_CD }
+			check_variable = { ancientDwarvenKnowledge = 5 }
+		}
+		custom_tooltip = DA_Research_facility_menu.1.DV_m1.tooltip
+		country_event = {
+			id = DA_Dur_Vazhatun_event.5
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+
+	option = {
+		name = "DA_Research_facility_menu.1.e1" #create Gate for tp
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_Can_create_Gates
+			treasury = 3000
+			check_variable = { ancientDwarvenKnowledge = 5 }
+			any_core_province = {
+				owned_by = root
+				DA_has_dig_level_4_or_higher = yes
+				NOT = { has_province_flag = DA_building_gate_in_prov }
+				NOT = { has_province_modifier = DA_dwarven_TP_Gate }
+			}
+		}
+		custom_tooltip = DA_Research_facility_menu.1.e1.tooltip
+		country_event = {
+			id = DA_adk.17
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+
+	option = {
+		name = "DA_Research_facility_menu.1.e2" # use gates for teleport
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_Can_create_Gates
+			calc_true_if = {
+				all_core_province = {
+					owned_by = root
+					has_siege = no
+					has_province_modifier = DA_dwarven_TP_Gate
+				}
+				amount = 2
+			}
+		}
+		custom_tooltip = DA_Research_facility_menu.1.e2.tooltip
+		country_event = {
+			id = DA_adk.19
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+
+	option = {
+		name = "DA_Research_facility_menu.1.N1" # unlock flagship modification
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_Can_create_leaders
+			NOT = {	has_country_flag = DA_Flagship_mod1 }
+			treasury = 1000
+			any_core_province = {
+				owned_by = root
+				has_province_modifier = DA_Aul_dwarov_shipyard
+			}
+			check_variable = { ancientDwarvenKnowledge = 10 }
+		}
+		add_treasury = -1000
+		custom_tooltip = DA_Research_facility_menu.1.N1.tooltip
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 10 }
+			set_country_flag = DA_Flagship_mod1
+			clr_country_flag = DA_rf_menu_in_use
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				is_at_war = yes
+			}
+			modifier = {
+				factor = 10
+				treasury = 5000
+			}
+		}
+	}
+
+	option = {
+		name = "DA_Research_facility_menu.1.HJ" # Ducalien's lab
+		trigger = {
+			culture_group = dwarven
+			any_core_province = {
+				owned_by = root
+				has_great_project = {
+					type = The_Dwarven_Laboratory
+					tier = 2
+				}
+			}
+		}
+		country_event = {
+			id = DA_Hul_Jorkad_event.10
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+
+
+	option = {
+		name = "DA_Research_facility_menu.1.m1" #Mithril boost economy
+		trigger = {
+			culture_group = dwarven
+			any_core_province = {
+				province_id = 4236
+				has_province_flag = DA_Mithril_workshop_found
+				has_great_project = {
+					type = The_Dwarven_Workshop
+					tier = 1
+				}
+			}
+			any_core_province = {
+				trade_goods = mithril
+				NOT = { has_province_modifier = DA_mithril_production_boost }
+			}
+			check_variable = { ancientDwarvenKnowledge = 5 }
+		}
+		custom_tooltip = DA_Research_facility_menu.1.m1.tooltip
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 5 }
+			every_core_province = {
+				limit = {
+					NOT = { has_province_modifier = DA_mithril_production_boost }
+					trade_goods = mithril
+				}
+				add_province_triggered_modifier = DA_mithril_production_boost
+			}
+			clr_country_flag = DA_rf_menu_in_use
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+
+	option = {
+		name = "DA_Research_facility_menu.1.rail_menu" # rail upgrade menu
+		trigger = {
+			has_country_flag = DA_can_upgrade_rails
+		}
+		country_event = {
+			id = DA_railway_event.1
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+
+	option = {
+		name = "DA_Research_facility_menu.1.z" #Open Runic Gate
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_open_Runic_gate
+			treasury = 20000
+			check_variable = { ancientDwarvenKnowledge = 30 }
+		}
+		custom_tooltip = DA_Research_facility_menu.1.z.tooltip
+		country_event = {
+			id = DA_adk.104
+			days = 30
+		}
+		ai_chance = {
+			factor = 1000
+		}
+	}
+
+	option = {
+		name = "DA_Research_facility_menu.1.Go_back"
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+	}
+}

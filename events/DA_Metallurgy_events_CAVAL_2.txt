@@ -1,0 +1,2248 @@
+namespace = DA_Metallurgy_events
+
+country_event = {
+	id = DA_Metallurgy_events.61 # CAVALtry metal/alloy
+	title = "DA_Metallurgy_events.61.t"
+	desc = "DA_Metallurgy_events.61.d"
+	picture = {
+		trigger = {
+			NOT = {
+				AND = {
+				#	culture_group = dwarven
+				#	culture_group = harimari
+				#	culture_group = centaur
+				#	culture_group = ogre
+				#	culture_group = gnollish
+				#	culture_group = orcish
+					culture_group = goblin
+				#	culture_group = harpy
+				#	culture_group = halfling
+				#	culture_group = gnomish
+				#	culture_group = kobold
+				#	culture_group = elven
+				#	culture_group = lizardfolk
+				}
+			}
+		}
+		picture = DA_forge_eventPicture
+	}
+	picture = {
+		trigger = { culture_group = goblin }
+		picture = DA_forge_goblin_eventPicture
+	}
+
+	trigger = {
+		always = yes
+	}
+	is_triggered_only = yes
+	#commons
+	
+	option = {
+		name = "DA_Metallurgy_events.51.Steel" # iron, no malus under 30, but upgraded 45+
+		if = {
+			limit = { 
+				NOT = { DA_own_iron_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 0
+				DA_Strength = 2
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_iron_provinces = { amount = 45 }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 0
+				DA_Strength = 3
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Copper"
+		highlight = yes
+		trigger = {
+			DA_own_copper_provinces = {
+				amount = 15
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_copper_provinces = { amount = 15 }
+				NOT = { DA_own_copper_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 0
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_copper_provinces = { amount = 30 }
+				NOT = { DA_own_copper_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 0
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_copper_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 1
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Gold"
+		highlight = yes
+		trigger = {
+			DA_own_Gold_provinces = {
+				amount = 15
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Gold_provinces = { amount = 15 }
+				NOT = { DA_own_Gold_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 0
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Gold_provinces = { amount = 30 }
+				NOT = { DA_own_Gold_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 0
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Gold_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 0
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	
+	option = {
+		name = "DA_Metallurgy_events.51.Silver"
+		highlight = yes
+		trigger = {
+			DA_own_Silver_provinces = {
+				amount = 15
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Silver_provinces = { amount = 15 }
+				NOT = { DA_own_Silver_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Silver_provinces = { amount = 30 }
+				NOT = { DA_own_Silver_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Silver_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 3
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Tin"
+		highlight = yes
+		trigger = {
+			DA_own_tin_provinces = {
+				amount = 15
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_tin_provinces = { amount = 15 }
+				NOT = { DA_own_tin_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 1
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_tin_provinces = { amount = 30 }
+				NOT = { DA_own_tin_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 1
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_tin_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 2
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Aluminium"
+		highlight = yes
+		trigger = {
+			DA_completed.Metallurgy_1 = yes
+			DA_own_Aluminium_provinces = {
+				amount = 15
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Aluminium_provinces = { amount = 15 }
+				NOT = { DA_own_Aluminium_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Aluminium_provinces = { amount = 30 }
+				NOT = { DA_own_Aluminium_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Aluminium_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 2
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Titanium"
+		highlight = yes
+		trigger = {
+			DA_own_Titanium_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_1 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Titanium_provinces = { amount = 15 }
+				NOT = { DA_own_Titanium_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Titanium_provinces = { amount = 30 }
+				NOT = { DA_own_Titanium_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 2
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Titanium_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 3
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Chromium"
+		highlight = yes
+		trigger = {
+			DA_own_Chromium_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Chromium_provinces = { amount = 15 }
+				NOT = { DA_own_Chromium_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 2
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Chromium_provinces = { amount = 30 }
+				NOT = { DA_own_Chromium_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 3
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Chromium_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 3
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Castellium"
+		highlight = yes
+		trigger = {
+			DA_own_Castellium_provinces = {
+				amount = 15
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Castellium_provinces = { amount = 15 }
+				NOT = { DA_own_Castellium_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 0
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Castellium_provinces = { amount = 30 }
+				NOT = { DA_own_Castellium_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 0
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Castellium_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 1
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Zinc"
+		highlight = yes
+		trigger = {
+			DA_own_Zinc_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Zinc_provinces = { amount = 15 }
+				NOT = { DA_own_Zinc_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Zinc_provinces = { amount = 30 }
+				NOT = { DA_own_Zinc_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Zinc_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Lead"
+		highlight = yes
+		trigger = {
+			DA_own_Lead_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_1 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Lead_provinces = { amount = 15 }
+				NOT = { DA_own_Lead_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Lead_provinces = { amount = 30 }
+				NOT = { DA_own_Lead_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Lead_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 2
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	
+	# rares
+	
+	option = {
+		name = "DA_Metallurgy_events.51.Quicksilver"
+		highlight = yes
+		trigger = {
+			DA_completed.Metallurgy_1 = yes
+			DA_completed.Alchemy_1 = yes
+			DA_own_Quicksilver_provinces = {
+				amount = 15
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Quicksilver_provinces = { amount = 15 }
+				NOT = { DA_own_Quicksilver_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Quicksilver_provinces = { amount = 30 }
+				NOT = { DA_own_Quicksilver_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Quicksilver_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 3
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Palladium"
+		highlight = yes
+		trigger = {
+			DA_own_Palladium_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_1 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Palladium_provinces = { amount = 15 }
+				NOT = { DA_own_Palladium_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 1
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Palladium_provinces = { amount = 30 }
+				NOT = { DA_own_Palladium_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 1
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Palladium_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 2
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Platinum"
+		highlight = yes
+		trigger = {
+			DA_own_Platinum_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_1 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Platinum_provinces = { amount = 15 }
+				NOT = { DA_own_Platinum_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Platinum_provinces = { amount = 30 }
+				NOT = { DA_own_Platinum_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Platinum_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Tantalum"
+		highlight = yes
+		trigger = {
+			DA_own_Tantalum_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Tantalum_provinces = { amount = 15 }
+				NOT = { DA_own_Tantalum_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 3
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Tantalum_provinces = { amount = 30 }
+				NOT = { DA_own_Tantalum_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 4
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Tantalum_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 4
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Meteoric_Silver"
+		highlight = yes
+		trigger = {
+			DA_own_Meteoric_Silver_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Meteoric_Silver_provinces = { amount = 15 }
+				NOT = { DA_own_Meteoric_Silver_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 2
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Meteoric_Silver_provinces = { amount = 30 }
+				NOT = { DA_own_Meteoric_Silver_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 2
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Meteoric_Silver_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 2
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Cobalt"
+		highlight = yes
+		trigger = {
+			DA_own_Cobalt_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Cobalt_provinces = { amount = 15 }
+				NOT = { DA_own_Cobalt_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 2
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Cobalt_provinces = { amount = 30 }
+				NOT = { DA_own_Cobalt_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 2
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Cobalt_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 2
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Tungsten"
+		highlight = yes
+		trigger = {
+			DA_own_Tungsten_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Tungsten_provinces = { amount = 15 }
+				NOT = { DA_own_Tungsten_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Tungsten_provinces = { amount = 30 }
+				NOT = { DA_own_Tungsten_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 4
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Meteoric_Silver_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 4
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Dagrite"
+		highlight = yes
+		trigger = {
+			DA_own_Dagrite_provinces = {
+				amount = 15
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Dagrite_provinces = { amount = 15 }
+				NOT = { DA_own_Dagrite_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 1
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Dagrite_provinces = { amount = 30 }
+				NOT = { DA_own_Dagrite_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 1
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 3
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Dagrite_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 2
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 4
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Rosemetal"
+		highlight = yes
+		trigger = {
+			DA_own_Rosemetal_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_1 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Rosemetal_provinces = { amount = 15 }
+				NOT = { DA_own_Rosemetal_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Rosemetal_provinces = { amount = 30 }
+				NOT = { DA_own_Rosemetal_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 2
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Rosemetal_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Cold_Iron"
+		highlight = yes
+		trigger = {
+			DA_own_Cold_iron_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Cold_iron_provinces = { amount = 15 }
+				NOT = { DA_own_Cold_iron_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 0
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Cold_iron_provinces = { amount = 30 }
+				NOT = { DA_own_Cold_iron_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Cold_iron_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 2
+				DA_Strength = 1
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Mithril"
+		highlight = yes
+		trigger = {
+			DA_own_mithril_provinces = {
+				amount = 15
+			}
+			OR = {
+				DA_completed.Metallurgy_2 = yes
+				culture_group = dwarven
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_mithril_provinces = { amount = 15 }
+				NOT = { DA_own_mithril_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_mithril_provinces = { amount = 30 }
+				NOT = { DA_own_mithril_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 4
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_mithril_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 4
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Ebonsteel" # 
+		highlight = yes
+		trigger = {
+			OR = {
+				DA_completed.Metallurgy_2 = yes
+				has_country_modifier = ebonforging_rediscovered 
+			}
+			DA_own_Ebonsteel_provinces = {
+				amount = 15
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Ebonsteel_provinces = { amount = 15 }
+				NOT = { DA_own_Ebonsteel_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 4
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Ebonsteel_provinces = { amount = 30 }
+				NOT = { DA_own_Ebonsteel_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 4
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Ebonsteel_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 4
+				DA_Magic_Conductivity = 1
+				DA_Electrical_Conductivity = 2
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.IronWood" # 
+		highlight = yes
+		trigger = {
+			DA_own_IronWood_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_IronWood_provinces = { amount = 15 }
+				NOT = { DA_own_IronWood_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 1
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_IronWood_provinces = { amount = 30 }
+				NOT = { DA_own_IronWood_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 1
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_IronWood_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 3
+				DA_Strength = 2
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Orichalcum" # 
+		highlight = yes
+		trigger = {
+			DA_own_Orichalcum_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Orichalcum_provinces = { amount = 15 }
+				NOT = { DA_own_Orichalcum_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Orichalcum_provinces = { amount = 30 }
+				NOT = { DA_own_Orichalcum_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Orichalcum_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 1
+			#	DA_Unique = none
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Octiron" # 
+		highlight = yes
+		trigger = {
+			DA_own_Octiron_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Metallurgy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Octiron_provinces = { amount = 15 }
+				NOT = { DA_own_Octiron_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 0
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Octiron_provinces = { amount = 30 }
+				NOT = { DA_own_Octiron_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 0
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Octiron_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 1
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 0
+			#	DA_Unique = none
+			}
+		}
+	}
+	
+	# legendaries
+	
+	option = {
+		name = "DA_Metallurgy_events.51.Cindersteel"
+		highlight = yes
+		trigger = {
+			DA_own_Cindersteel_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_completed.Elemental_Magic_Fire = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Cindersteel_provinces = { amount = 15 }
+				NOT = { DA_own_Cindersteel_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 0
+				DA_Unique = Cindersteel
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Cindersteel_provinces = { amount = 30 }
+				NOT = { DA_own_Cindersteel_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 1
+				DA_Unique = Cindersteel
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Cindersteel_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 1
+				DA_Unique = Cindersteel
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Magnetite"
+		highlight = yes
+		trigger = {
+			DA_own_Magnetite_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_completed.Elemental_Magic_Earth = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Magnetite_provinces = { amount = 15 }
+				NOT = { DA_own_Magnetite_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 3
+				DA_Unique = Magnetite
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Magnetite_provinces = { amount = 30 }
+				NOT = { DA_own_Magnetite_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 3
+				DA_Unique = Magnetite
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Magnetite_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 4
+				DA_Unique = Magnetite
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Mistium"
+		highlight = yes
+		trigger = {
+			DA_own_Mistium_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_completed.Elemental_Magic_Water = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Mistium_provinces = { amount = 15 }
+				NOT = { DA_own_Mistium_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 1
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 0
+				DA_Unique = Mistium
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Mistium_provinces = { amount = 30 }
+				NOT = { DA_own_Mistium_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 1
+				DA_Unique = Mistium
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Mistium_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 5
+				DA_Electrical_Conductivity = 1
+				DA_Unique = Mistium
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Skyshard"
+		highlight = yes
+		trigger = {
+			DA_own_Skyshard_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_completed.Elemental_Magic_Air = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Skyshard_provinces = { amount = 15 }
+				NOT = { DA_own_Skyshard_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 1
+				DA_Unique = Skyshard
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Skyshard_provinces = { amount = 30 }
+				NOT = { DA_own_Skyshard_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 2
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 2
+				DA_Unique = Skyshard
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Skyshard_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 4
+				DA_Strength = 3
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 2
+				DA_Unique = Skyshard
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Adamantium"
+		highlight = yes
+		trigger = {
+			DA_own_Adamantium_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Metallurgy_3 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Adamantium_provinces = { amount = 15 }
+				NOT = { DA_own_Adamantium_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 5
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+				DA_Unique = Adamantium
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Adamantium_provinces = { amount = 30 }
+				NOT = { DA_own_Adamantium_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 6
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+				DA_Unique = Adamantium
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Adamantium_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 7
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 0
+				DA_Unique = Adamantium
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Forgotten_Steel"
+		highlight = yes
+		trigger = {
+			DA_own_Forgotten_steel_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Metallurgy_3 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Forgotten_steel_provinces = { amount = 15 }
+				NOT = { DA_own_Forgotten_steel_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 4
+				DA_Magic_Conductivity = 2
+				DA_Electrical_Conductivity = 2
+				DA_Unique = Unastu_Argazen
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Forgotten_steel_provinces = { amount = 30 }
+				NOT = { DA_own_Forgotten_steel_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 5
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 2
+				DA_Unique = Unastu_Argazen
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Forgotten_steel_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 5
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 3
+				DA_Unique = Unastu_Argazen
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Hearth_Blood"
+		highlight = yes
+		trigger = {
+			DA_own_Hearth_blood_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Hearth_blood_provinces = { amount = 15 }
+				NOT = { DA_own_Hearth_blood_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 2
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 3
+				DA_Unique = Bloth_Dolur
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Hearth_blood_provinces = { amount = 30 }
+				NOT = { DA_own_Hearth_blood_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 2
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 4
+				DA_Unique = Bloth_Dolur
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Hearth_blood_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 2
+				DA_Magic_Conductivity = 5
+				DA_Electrical_Conductivity = 4
+				DA_Unique = Bloth_Dolur
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Sylvanite"
+		highlight = yes
+		trigger = {
+			DA_own_Sylvanite_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_completed.Universal_Law_Life = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Sylvanite_provinces = { amount = 15 }
+				NOT = { DA_own_Sylvanite_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 3
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 0
+				DA_Unique = Sylvanite
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Sylvanite_provinces = { amount = 30 }
+				NOT = { DA_own_Sylvanite_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 4
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 0
+				DA_Unique = Sylvanite
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Sylvanite_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 4
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 0
+				DA_Unique = Sylvanite
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.VoidSteel"
+		highlight = yes
+		trigger = {
+			DA_own_VoidSteel_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_completed.Universal_Law_Death = yes
+		}
+		if = {
+			limit = { 
+				DA_own_VoidSteel_provinces = { amount = 15 }
+				NOT = { DA_own_VoidSteel_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 3
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 0
+				DA_Unique = VoidSteel
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_VoidSteel_provinces = { amount = 30 }
+				NOT = { DA_own_VoidSteel_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 4
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 0
+				DA_Unique = VoidSteel
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_VoidSteel_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 5
+				DA_Strength = 4
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 0
+				DA_Unique = VoidSteel
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Unobtainium"
+		highlight = yes
+		trigger = {
+			DA_own_Unobtainium_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_3 = yes
+			DA_has_Energy_power_or_higher = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Unobtainium_provinces = { amount = 15 }
+				NOT = { DA_own_Unobtainium_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 6
+				DA_Strength = 2
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 5
+				DA_Unique = Unobtainium
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Unobtainium_provinces = { amount = 30 }
+				NOT = { DA_own_Unobtainium_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 6
+				DA_Strength = 2
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 6
+				DA_Unique = Unobtainium
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Unobtainium_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 6
+				DA_Strength = 3
+				DA_Magic_Conductivity = 0
+				DA_Electrical_Conductivity = 6
+				DA_Unique = Unobtainium
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Hihiirokane"
+		highlight = yes
+		trigger = {
+			DA_own_Hihiirokane_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_3 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Alchemy_2 = yes
+		}
+		if = {
+			limit = { 
+				DA_own_Hihiirokane_provinces = { amount = 15 }
+				NOT = { DA_own_Hihiirokane_provinces = { amount = 30 } }
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 6
+				DA_Strength = 2
+				DA_Magic_Conductivity = 5
+				DA_Electrical_Conductivity = 1
+				DA_Unique = Hihiirokane
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Hihiirokane_provinces = { amount = 30 }
+				NOT = { DA_own_Hihiirokane_provinces = { amount = 45 } }
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 6
+				DA_Strength = 2
+				DA_Magic_Conductivity = 6
+				DA_Electrical_Conductivity = 1
+				DA_Unique = Hihiirokane
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_Hihiirokane_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 6
+				DA_Strength = 3
+				DA_Magic_Conductivity = 6
+				DA_Electrical_Conductivity = 1
+				DA_Unique = Hihiirokane
+			}
+		}
+	}
+
+	# some common or unlockable alloys
+
+	option = {
+		name = "DA_Metallurgy_events.51.Arcane_Copper"
+		highlight = yes
+		trigger = {
+			DA_own_copper_provinces = {
+				amount = 15
+			}
+			DA_own_damestear_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Metallurgy_2 = yes
+			DA_has_Energy_power_or_higher = yes
+		}
+		if = {
+			limit = { 
+				DA_own_copper_provinces = { amount = 15 }
+				DA_own_damestear_provinces = { amount = 15 }
+				OR = {
+					NOT = { DA_own_copper_provinces = { amount = 30 } }
+					NOT = { DA_own_damestear_provinces = { amount = 30 } }
+				}
+			}
+			custom_tooltip = DA_own_15_malus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 1
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 3
+				#DA_Unique = Cindersteel
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_copper_provinces = { amount = 30 }
+				DA_own_damestear_provinces = { amount = 30 }
+				OR = {
+					NOT = { DA_own_copper_provinces = { amount = 45 } }
+					NOT = { DA_own_damestear_provinces = { amount = 45 } }
+				}
+			}
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 1
+				DA_Magic_Conductivity = 3
+				DA_Electrical_Conductivity = 4
+				#DA_Unique = Cindersteel
+			}
+		}
+		if = {
+			limit = { 
+				DA_own_copper_provinces = { amount = 45 }
+				DA_own_damestear_provinces = { amount = 45 }
+			}
+			custom_tooltip = DA_own_45_bonus_tt
+			DA_apply_InfCav_Metal = {
+				DA_unit = CAVAL
+				DA_Cost = 1
+				DA_Strength = 2
+				DA_Magic_Conductivity = 4
+				DA_Electrical_Conductivity = 4
+				#DA_Unique = Cindersteel
+			}
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.C1"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.C1
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = C1
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.C2"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.C2
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = C2
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.C3"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.C3
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = C3
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.C4"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.C4
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = C4
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.C5"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.C5
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = C5
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.C6"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.C6
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = C6
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.R1"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.R1
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = R1
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.R2"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.R2
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = R2
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.R3"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.R3
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = R3
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.R4"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.R4
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = R4
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.L1"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.L1
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = L1
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.L2"
+		highlight = yes
+		trigger = {
+			has_country_flag = DA_Alloy_Enabled.L2
+		}
+		DA_apply_InfCav_alloy = {
+			DA_unit = CAVAL
+			DA_alloy_slot = L2
+		}
+	}
+	after = {
+		if = {
+			limit = {
+				AND = {
+					check_variable = {
+						which = DA_Runes_Slots_STAT_MAX_CAVAL
+						value = 1
+					}
+					check_variable = {
+						which = DA_Metal_Magic_Conductivity_STAT_CAVAL
+						value = 1
+					}
+				}
+				has_country_flag = DA_can_apply_runes_to_metallurgy
+			}
+			country_event = {
+				id = DA_Metallurgy_events.62
+				days = 5
+			}
+		}
+		else = {
+			country_event = {
+				id = DA_Metallurgy_events.63
+				days = 365
+			}
+		}
+	}
+}
