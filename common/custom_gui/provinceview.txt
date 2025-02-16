@@ -1,0 +1,816 @@
+custom_button = {
+    name = dig_deeper_capital
+    potential = {
+		OR = {
+			has_terrain = dwarven_hold
+			has_terrain = dwarven_hold_surface
+		}
+		#Owner needs to be you, and also not be native/horde since raze/settle buttons get in the way.
+		owner = {
+			tag = FROM
+			NOT = {
+				government = native
+				is_nomad = yes
+			}
+		}
+		#Blorcs can't repair non-capital holds
+		OR = {
+			is_capital = yes
+			NOT = { owner = { dwarovar_orc_culture_primary = yes } }
+		}
+	}
+	trigger = {
+		#Can use button to repair non-capital holds, but not dig non-capital holds without centralizing hold operations
+		if = {
+			limit = {
+				NOT = {
+					is_capital = yes
+					has_province_modifier = ruined_hold
+					has_province_modifier = partially_ruined_hold
+					has_province_modifier = damaged_hold
+					has_province_modifier = infested_hold
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_centralized_hold_operations_tt
+				owner = { has_country_flag = hold_operation }
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_province_flag = diggy_diggy_estimate_flag } }
+				#Open digging menu
+				set_province_flag = diggy_diggy_estimate_flag
+				#Set up the digging preview cost and time.
+				if = {
+					limit = {
+						OR = {
+							has_province_modifier = ruined_hold
+							has_province_modifier = partially_ruined_hold
+							has_province_modifier = damaged_hold
+						}
+					}
+					owner = {
+						PREV = {
+							setup_restoration_speed = yes
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = { is_capital = yes }
+						owner = {
+							PREV = {
+								setup_digging_deeper_capital = yes
+							}
+						}
+					}
+					else = {
+						owner = {
+							PREV = {
+								setup_digging_deeper_non_capital = yes
+							}
+						}
+					}
+				}
+			}
+		
+			else = {
+				clr_province_flag = diggy_diggy_estimate_flag
+			}
+		}
+
+	}
+	tooltip = dig_hold_button_tt
+}
+
+custom_icon = {
+    name = diggy_diggy_estimate
+    potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		owner = {
+			tag = FROM
+		}
+	}
+}
+
+custom_button = {
+	name = diggy_diggy_go
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		NOT = {
+			has_province_modifier = ruined_hold
+			has_province_modifier = partially_ruined_hold
+			has_province_modifier = damaged_hold
+			owner = { dwarovar_orc_culture_primary = yes } 
+		}
+		owner = {
+			tag = FROM
+		}
+	}
+	trigger = {
+		has_subterranean_race = yes
+		if = {
+			limit = {
+				NOT = {
+					is_capital = yes
+					has_province_modifier = ruined_hold
+					has_province_modifier = partially_ruined_hold
+					has_province_modifier = damaged_hold
+					has_province_modifier = infested_hold
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = has_centralized_hold_operations_tt
+				owner = { has_country_flag = hold_operation }
+			}
+		}
+		owner = {
+			if = {
+				limit = { NOT = { has_country_modifier = dwarven_administration } }
+				if = {
+					limit = {
+						OR = {
+							dwarovar_goblin_culture_primary = yes
+							primary_culture = darkscale_kobold
+						}
+					}
+					adm_tech = 5
+				}
+				else = {
+					adm_tech = 7
+				}
+			}
+			if = {
+				limit = { has_disaster = remnant_stagnation_disaster }
+				NOT = { has_disaster = remnant_stagnation_disaster }
+			}
+		}
+		is_state_core = FROM
+		controlled_by = FROM
+		custom_trigger_tooltip = {
+			tooltip = diggy_no_building #This includes armies and such
+			NOT = { has_construction = any }
+		}
+		NOT = { has_construction = army } #For clarity
+		NOT = { has_construction = navy } #For clarity
+		if = {
+			limit = { is_capital = yes }
+			custom_trigger_tooltip = {
+				tooltip = building_diggy_tooltip
+				NOT = {
+					owner = {
+						has_country_flag = building_diggy
+					}
+				}
+			}
+		}
+		if = {
+			limit = { has_province_modifier = incomplete_hold }
+			NOT = { has_province_modifier = incomplete_hold }
+		}
+		if = { limit = { has_province_modifier = F23_flooded_depths }
+			custom_trigger_tooltip = {
+				tooltip = F23_cannot_dig_why
+				always = no
+			}
+		}
+		hidden_trigger = { NOT = { has_province_modifier = incomplete_hold_0 } }
+		custom_trigger_tooltip = {
+			tooltip = diggy_max_deepness_tooltip
+			if = {
+				limit = { OR = { province_id = 4119 province_id = 4311 AND = { province_id = 2931 OWNER = { has_country_flag = I98_may_come_down_flag } } AND = { province_id = 4093 owner = { has_country_flag = H76_reached_the_bottom } } } } #Big and Second capital
+				NOT = { has_province_modifier = dig_11 }
+			}
+			else = {
+				NOT = { has_province_modifier = dig_10 }
+			}
+		}
+		if = { 
+			limit = { hold_condition = { Damaged = yes } } 
+			hold_condition = { Repaired = yes }
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_1 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_2
+				has_province_flag = DA_looked_dig_adk_2
+			}
+			development = 40
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_2 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_3
+				has_province_flag = DA_looked_dig_adk_3
+			}
+			development = 50
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_3 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_4
+				has_province_flag = DA_looked_dig_adk_4
+			}
+			development = 60
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_4 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_5
+				has_province_flag = DA_looked_dig_adk_5
+			}
+			development = 70
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_5 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_6
+				has_province_flag = DA_looked_dig_adk_6
+			}
+			development = 80
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_6 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_7
+				has_province_flag = DA_looked_dig_adk_7
+			}
+			development = 90
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_7 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_8
+				has_province_flag = DA_looked_dig_adk_8
+			}
+			development = 100
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_8 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_9
+				has_province_flag = DA_looked_dig_adk_9
+			}
+			development = 110
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_9 }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_10
+				has_province_flag = DA_looked_dig_adk_10
+			}
+			development = 120
+		}
+		else_if = {
+			limit = { has_province_modifier = dig_10 OR = { province_id = 4119 province_id = 4311 } }
+			custom_trigger_tooltip = {
+				tooltip = DA_local_explored_dig_11
+				has_province_flag = DA_looked_dig_adk_11
+			}
+			development = 130
+		}
+		if = {
+			limit = { owner = { has_country_flag = I98_can_befuddle_flag } }
+			custom_trigger_tooltip = {
+				tooltip = I98_not_befuddling_tt
+				NOT = { has_province_flag = I98_befuddling_hold_flag }
+			}
+		}
+	}
+	effect = {
+		owner = {
+			PREV = {
+				if = {
+					limit = { is_capital = yes }
+					setup_digging_deeper_capital = yes
+					start_digging_deeper = yes
+				}
+				else = {
+					setup_digging_deeper_non_capital = yes
+					start_digging_deeper_non_capital = yes
+				}
+			}
+			set_country_flag = is_digging
+			play_sound = diggy_diggy_pickaxe_sfx
+		}
+	}
+	tooltip = dig_hold_go_button_tt
+}
+
+custom_button = {
+	name = DA_province_explore_button
+	tooltip = DA_province_explore_button_tt
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		NOT = {
+			has_province_modifier = ruined_hold
+			has_province_modifier = partially_ruined_hold
+			has_province_modifier = damaged_hold
+			owner = { dwarovar_orc_culture_primary = yes } 
+		}
+		owner = {
+			tag = FROM
+		}
+	}
+	trigger = {
+		has_subterranean_race = yes
+		is_state_core = FROM
+		controlled_by = FROM
+		if = {
+			limit = { has_province_modifier = incomplete_hold }
+			NOT = { has_province_modifier = incomplete_hold }
+		}
+		if = { limit = { has_province_modifier = F23_flooded_depths }
+			custom_trigger_tooltip = {
+				tooltip = F23_cannot_dig_why
+				always = no
+			}
+		}
+		hidden_trigger = { NOT = { has_province_modifier = incomplete_hold_0 } }
+		custom_trigger_tooltip = {
+			tooltip = diggy_max_deepness_tooltip
+			if = {
+				limit = { OR = { province_id = 4119 province_id = 4311 AND = { province_id = 2931 OWNER = { has_country_flag = I98_may_come_down_flag } } AND = { province_id = 4093 owner = { has_country_flag = H76_reached_the_bottom } } } } #Big and Second capital
+				NOT = { has_province_modifier = dig_11 }
+			}
+			else = {
+				NOT = { has_province_modifier = dig_10 }
+			}
+		}
+        custom_trigger_tooltip = {
+            tooltip = DA_ADK_menu_CD_tt
+			owner = {
+				NOT = { has_country_flag = DA_ADK_menu_in_use }
+				NOT = { has_country_modifier = DA_ADK_menu_cooldown }
+			}
+        }
+		NOT = { has_province_flag = DA_expedition_in_progress }
+		if = { 
+			limit = { hold_condition = { Damaged = yes } } 
+			hold_condition = { Repaired = yes }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_2 } }
+			DA_has_dig_level_1_or_higher = yes
+			owner = {
+				treasury = 25
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_3 } }
+			DA_has_dig_level_2_or_higher = yes
+			owner = {
+				treasury = 50
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_4 } }
+			DA_has_dig_level_3_or_higher = yes
+			owner = {
+				treasury = 100
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_5 } }
+			DA_has_dig_level_4_or_higher = yes
+			owner = {
+				treasury = 200
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_6 } }
+			DA_has_dig_level_5_or_higher = yes
+			owner = {
+				treasury = 300
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_7 } }
+			DA_has_dig_level_6_or_higher = yes
+			owner = {
+				treasury = 500
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_8 } }
+			DA_has_dig_level_7_or_higher = yes
+			owner = {
+				treasury = 800
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_9 } }
+			DA_has_dig_level_8_or_higher = yes
+			owner = {
+				treasury = 1200
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_10 } }
+			DA_has_dig_level_9_or_higher = yes
+			owner = {
+				treasury = 2500
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_11 } }
+			OR = { province_id = 4119 province_id = 4311 }
+			DA_has_dig_level_10_or_higher = yes
+			owner = {
+				treasury = 7000
+			}
+		}
+	}
+	effect = {
+		play_sound = diggy_diggy_pickaxe_sfx
+		if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_2 } }
+			owner = {
+				add_treasury = -25
+			}
+			custom_tooltip = DA_explore_dig_2_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_3 } }
+			owner = {
+				add_treasury = -50
+			}
+			custom_tooltip = DA_explore_dig_3_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_4 } }
+			owner = {
+				add_treasury = -100
+			}
+			custom_tooltip = DA_explore_dig_4_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_5 } }
+			owner = {
+				add_treasury = -200
+			}
+			custom_tooltip = DA_explore_dig_5_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_6 } }
+			owner = {
+				add_treasury = -300
+			}
+			custom_tooltip = DA_explore_dig_6_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_7 } }
+			owner = {
+				add_treasury = -500
+			}
+			custom_tooltip = DA_explore_dig_7_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_8 } }
+			owner = {
+				add_treasury = -800
+			}
+			custom_tooltip = DA_explore_dig_8_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_9 } }
+			owner = {
+				add_treasury = -1200
+			}
+			custom_tooltip = DA_explore_dig_9_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_10 } }
+			owner = {
+				add_treasury = -2500
+			}
+			custom_tooltip = DA_explore_dig_10_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+		else_if = {
+			limit = { NOT = { has_province_flag = DA_looked_dig_adk_11 } }
+			owner = {
+				add_treasury = -5000
+			}
+			custom_tooltip = DA_explore_dig_11_tooltip
+			custom_tooltip = DA_Hold_exploration_completion_tt
+			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		}
+	}
+}
+
+custom_button = {
+	name = diggy_diggy_repair
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		OR = {
+			has_province_modifier = ruined_hold
+			has_province_modifier = partially_ruined_hold
+			has_province_modifier = damaged_hold
+		}
+		owner = {
+			tag = FROM
+		}
+	}
+	trigger = {
+		NOT = { has_construction = any }
+		is_core = FROM
+		if = {
+			limit = { has_province_flag = cannot_repair_hold }
+			custom_trigger_tooltip = {
+				tooltip = diggy_cannot_repair_hold_tt
+				NOT = { has_province_flag = cannot_repair_hold }
+			}
+		}
+		owner = {
+			NOT = { num_of_rebel_armies = 1 }
+			is_at_war = no
+			if = {
+				limit = { ai = no }
+				mil_power = 50
+				adm_power = 50
+				dip_power = 50
+				treasury = 100
+			}
+		}
+	}
+	effect = {
+		owner = {
+			PREV = {
+				hidden_effect = { setup_restoration_speed = yes }
+				repair_hold = yes
+			}
+		}
+	}
+	tooltip = dig_hold_repair_button_tt
+}
+
+custom_text_box = {
+	name = diggy_cost_text
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		owner = {
+			tag = FROM
+		}
+	}
+}
+
+custom_text_box = {
+	name = diggy_cost_text_label
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		owner = {
+			tag = FROM
+		}
+	}
+}
+
+custom_text_box = {
+	name = diggy_time_text
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		owner = {
+			tag = FROM
+		}
+	}
+}
+
+custom_text_box = {
+	name = diggy_time_text_label
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		owner = {
+			tag = FROM
+		}
+	}
+}
+
+custom_icon = {
+	name = diggy_diggy_bar_fill_1
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		OR = {
+			has_construction = digging_deeper
+			has_construction = restoring_hold
+		}
+		owner = {
+			tag = FROM
+		}
+		if = {
+			limit = { is_capital = yes has_construction = digging_deeper }
+			variable_arithmetic_trigger = {
+				export_to_variable = {
+					which = cProgress
+					value = trigger_value:construction_progress
+				}
+				change_variable = {
+					which = cProgress
+					which = cons_prog
+				}
+				subtract_variable = {
+					cProgress = 0.5
+				}
+				multiply_variable = {
+					cProgress = 2
+				}
+				check_variable = {
+					cProgress = 0.2
+				}
+			}
+		}
+		else = {
+			construction_progress = 0.2
+		}
+	}
+}
+
+custom_icon = {
+	name = diggy_diggy_bar_fill_2
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		OR = {
+			has_construction = digging_deeper
+			has_construction = restoring_hold
+		}
+		owner = {
+			tag = FROM
+		}
+		if = {
+			limit = { is_capital = yes has_construction = digging_deeper }
+			variable_arithmetic_trigger = {
+				export_to_variable = {
+					which = cProgress
+					value = trigger_value:construction_progress
+				}
+				change_variable = {
+					which = cProgress
+					which = cons_prog
+				}
+				subtract_variable = {
+					cProgress = 0.5
+				}
+				multiply_variable = {
+					cProgress = 2
+				}
+				check_variable = {
+					cProgress = 0.4
+				}
+			}
+		}
+		else = {
+			construction_progress = 0.4
+		}
+	}
+}
+
+custom_icon = {
+	name = diggy_diggy_bar_fill_3
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		OR = {
+			has_construction = digging_deeper
+			has_construction = restoring_hold
+		}
+		owner = {
+			tag = FROM
+		}
+		if = {
+			limit = { is_capital = yes has_construction = digging_deeper }
+			variable_arithmetic_trigger = {
+				export_to_variable = {
+					which = cProgress
+					value = trigger_value:construction_progress
+				}
+				change_variable = {
+					which = cProgress
+					which = cons_prog
+				}
+				subtract_variable = {
+					cProgress = 0.5
+				}
+				multiply_variable = {
+					cProgress = 2
+				}
+				check_variable = {
+					cProgress = 0.6
+				}
+			}
+		}
+		else = {
+			construction_progress = 0.6
+		}
+	}
+}
+
+custom_icon = {
+	name = diggy_diggy_bar_fill_4
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		OR = {
+			has_construction = digging_deeper
+			has_construction = restoring_hold
+		}
+		owner = {
+			tag = FROM
+		}
+		if = {
+			limit = { is_capital = yes has_construction = digging_deeper }
+			variable_arithmetic_trigger = {
+				export_to_variable = {
+					which = cProgress
+					value = trigger_value:construction_progress
+				}
+				change_variable = {
+					which = cProgress
+					which = cons_prog
+				}
+				subtract_variable = {
+					cProgress = 0.5
+				}
+				multiply_variable = {
+					cProgress = 2
+				}
+				check_variable = {
+					cProgress = 0.8
+				}
+			}
+		}
+		else = {
+			construction_progress = 0.8
+		}
+	}
+}
+
+custom_icon = {
+	name = diggy_diggy_bar_fill_5
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		OR = {
+			has_construction = digging_deeper
+			has_construction = restoring_hold
+		}
+		owner = {
+			tag = FROM
+		}
+		if = {
+			limit = { is_capital = yes has_construction = digging_deeper }
+			variable_arithmetic_trigger = {
+				export_to_variable = {
+					which = cProgress
+					value = trigger_value:construction_progress
+				}
+				change_variable = {
+					which = cProgress
+					which = cons_prog
+				}
+				subtract_variable = {
+					cProgress = 0.5
+				}
+				multiply_variable = {
+					cProgress = 2
+				}
+				check_variable = {
+					cProgress = 0.99
+				}
+			}
+		}
+		else = {
+			construction_progress = 0.99
+		}
+	}
+}
+
+custom_icon = {
+	name = diggy_diggy_bar_label
+	potential = {
+		has_province_flag = diggy_diggy_estimate_flag
+		owner = {
+			tag = FROM
+		}
+		OR = {
+			has_construction = digging_deeper
+			has_construction = restoring_hold
+		}
+	}
+	tooltip = diggy_hole_progress_tt
+}

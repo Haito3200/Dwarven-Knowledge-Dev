@@ -1,0 +1,180 @@
+estate_DA_Runesmiths = {
+	icon = 15
+
+	# If true, country will get estate
+	trigger = {
+		has_country_flag = DA_supporting_Runesmiths
+	}
+
+	# These scale with loyalty & power
+	country_modifier_happy = {
+		technology_cost = -0.05
+		development_cost = -0.10
+		build_time = -0.10
+	}
+	country_modifier_neutral = {
+		technology_cost = -0.025
+		development_cost = -0.05
+	}	
+	country_modifier_angry = {
+		technology_cost = 0.05
+		development_cost = 0.10
+	}
+	land_ownership_modifier = {
+		DA_Runesmiths_loyalty_modifier = 0.20
+	}
+	
+	province_independence_weight = {
+		factor = 1
+		modifier = {
+			factor = 0.5
+			NOT = { development = 10 }
+		}
+		modifier = {
+			factor = 1.2
+			development = 10
+		}
+		modifier = {
+			factor = 1.5
+			development = 20
+		}
+		modifier = {
+			factor = 2
+			has_building = university
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				trade_goods = damestear
+				trade_goods = precursor_relics
+			}
+		}
+	}
+
+	
+	
+	# Influence modifiers
+	base_influence = 10
+	
+	loyalty_modifier = {
+		desc = EST_VAL_UNIVERSITY
+		loyalty = 5
+		trigger = {
+			any_owned_province = {
+				has_building = university
+			}
+		}
+	}
+	influence_modifier = {
+		desc = EST_VAL_Hold_restorer_ADVISOR
+		trigger = {
+			advisor = Hold_restorer
+		}
+		influence = 5
+	}
+	
+	influence_modifier = {
+		desc = EST_VAL_OTHER_ESTATE_IN_POWER
+		trigger = {
+			OR = {
+				has_disaster = estate_nobility_disaster
+				has_disaster = estate_church_disaster
+				has_disaster = estate_burghers_disaster
+				has_disaster = estate_artificers_disaster
+				has_disaster = estate_adventurers_disaster
+				#has_disaster = estate_brahmins_disaster
+				#has_disaster = estate_jains_disaster
+			}
+		}	
+		influence = -40
+	}
+	
+	#Loyalty
+	
+	loyalty_modifier = {
+		desc = EST_VAL_OTHER_ESTATE_IN_POWER_LOY
+		trigger = {
+			OR = {
+				has_disaster = estate_nobility_disaster
+				has_disaster = estate_church_disaster
+				has_disaster = estate_burghers_disaster
+				has_disaster = estate_artificers_disaster
+				has_disaster = estate_adventurers_disaster
+				#has_disaster = estate_brahmins_disaster
+				#has_disaster = estate_jains_disaster
+			}
+		}
+		loyalty = -20
+	}	
+
+
+	color = { 153 217 234 }
+
+	privileges = {
+		# research facility levels
+		estate_DA_Runesmiths_RF_2
+		estate_DA_Runesmiths_RF_3
+		estate_DA_Runesmiths_RF_4
+		estate_DA_Runesmiths_RF_5
+		estate_DA_Runesmiths_RF_6
+		estate_DA_Runesmiths_RF_7
+		estate_DA_Runesmiths_RF_8
+		estate_DA_Runesmiths_RF_9
+		estate_DA_Runesmiths_RF_10
+		estate_DA_Runesmiths_RF_11
+		# researches
+		DA_Runesmith_research_privilege
+		DA_Runesmith_Production_expansion
+		DA_Metallurgy_project
+
+		# Initial runes, 2 are given by MT, others must be researched
+		DA_Runesmith_weightlessness_Rune
+		DA_Runesmith_Strength_Rune
+		DA_Runesmith_Endurance_Rune
+		DA_Runesmith_Haste_Rune
+		DA_Runesmith_Focus_Rune
+		DA_Runesmith_Impact_Rune
+		DA_Runesmith_Healing_Rune
+		DA_Runesmith_Heating_Rune
+		DA_Runesmith_Freezing_Rune
+		DA_Runesmith_Shocking_Rune
+
+		DA_PCRM_INVENTION
+		DA_PMRM_INVENTION
+		# inventions
+
+		# INDUSTRY
+		DA_RS_IND_PROD_Runes_Manufacturing
+		DA_RS_IND_PROD_Runic_augmented_uniforms
+		DA_RS_IND_PROD_Stonecutting_Goggles
+		DA_RS_IND_PROD_Magitech_Drill
+		DA_RS_IND_DEV_Runic_construction_tools
+		DA_RS_IND_DEV_Runic_Settlements
+		DA_RS_IND_DEV_Subterrean_agriculture_rig
+		DA_RS_IND_DEV_Automatic_settler
+		DA_RS_IND_INFRA_Runic_Buildings
+		# SOCIETY
+		DA_RS_SOC_LUX_Enchanted_jewelry
+		DA_RS_SOC_LUX_Charming_Runes
+		DA_RS_SOC_COURT_Runic_Message_Sender
+		DA_RS_SOC_COURT_Runic_Runic_Recorders
+		DA_RS_SOC_SECURITY_Runic_Traps
+		DA_RS_SOC_SECURITY_Runic_Police
+
+		# Projects
+
+		DA_RS_project_Platinum_exoskeletons
+		DA_RS_project_Dark_Rams_Taming
+		DA_RS_project_Ice_Steel_techniques1
+		DA_RS_project_Ice_Steel_techniques2
+		DA_PCRM_Project
+		DA_PMRM_Project
+		DA_STEAM_POWER_Project
+		DA_ENERGY_POWER_Project
+		DA_Hul_Jorkad_genetic_engineering_project
+	}
+
+	agendas = {
+	}
+	influence_from_dev_modifier = 0.5
+}

@@ -1,0 +1,753 @@
+# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
+
+
+
+# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
+#custom_button = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the button is visible
+#    trigger = { } #Determines when the button is clickable
+#    effect = { } #Effect
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_text_box = {
+#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
+#    potential = { } #Determines when the text is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    #To localize it, use the name of the button as a key, can also use customizable localisation
+#}
+
+#custom_icon = {
+#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
+#    potential = { } #Determines when the icon is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_shield = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the shield is visible
+#    trigger = { } #Determines when the shield is clickable
+#    effect = { } #Effect for clicking
+#    tooltip = localisation_key #Can use customizable localisation
+#    global_event_target = <string> # Global event target name
+#    open_country = <bool> #If clicking opens the country view
+#}
+
+##############################  Supported files with scopes ##############################
+#   The Gui objects must be directly inside the specified window Gui element!
+#   FROM is always the country that clicks
+#   provinceview.gui:
+#       province_window         (ROOT: Clicked province)
+#       buildings_window        (ROOT: Clicked province)
+#       state_window            (ROOT: Clicked province)
+#   countrycourtview.gui:
+#       countrycourtview        (ROOT = FROM)
+#   countrygovernmentview.gui:
+#       countrygovernmentview   (ROOT = FROM)
+#   countrydiplomacyview.gui:
+#       countrydiplimacyview    (ROOT: Selected country)
+#   countryeconomyview.gui:
+#       countryeconomyview      (ROOT = FROM)
+#   countrytradeview.gui:
+#       countrytradeview        (ROOT = FROM)
+#   countrytechnologyview.gui:
+#       countrytechnologyview   (ROOT = FROM)
+#   countryideasview.gui:
+#       countryideasview        (ROOT = FROM)
+#   countrymissionsview.gui:
+#       countrymissionsview     (ROOT: Selected country)
+#   countrydecisionview.gui:
+#       countrydecisionsview    (ROOT = FROM)
+#   countrystabilityview.gui:
+#       countrystabilityview    (ROOT = FROM)
+#   countryreligionview.gui:
+#       countryreligionview     (ROOT = FROM)
+#   countrymilitaryview.gui:
+#       countrymilitaryview     (ROOT = FROM)
+#   countrysubjectsview.gui:
+#       countrysubjectview      (ROOT = FROM)
+#   countryestatesview.gui:
+#       countryestatesview      (ROOT = FROM)
+#   ages_view.gui:
+#       ages_view               (ROOT = FROM)
+#   tradeinterface.gui:
+#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
+#   hre.gui:
+#       hre_window              (ROOT = FROM)
+#   papacy.gui:
+#       papacy_window           (ROOT = FROM)
+#   faction.gui:
+#       All faction windows     (ROOT = FROM)
+#   celestialempireview.gui:
+#       celestial_window        (ROOT = FROM)
+#   countrynativesview.gui:
+#       natives_window          (ROOT = FROM)
+#   religiousreforms.gui:
+#       reforms_window          (ROOT = FROM)
+#   parliament.gui:
+#       parliament_window       (ROOT = FROM)
+
+
+
+
+
+
+
+# magma forge
+
+
+custom_window = {
+    name = DA_Magma_Forge_Window
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_wonders
+        has_country_flag = DA_show_wonder_magma_forge
+    }
+}
+
+custom_button = {
+	name = DA_close_button_Magma_Forge
+	tooltip = DA_close_button_Magma_Forge_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_wonder_magma_forge
+	}
+}
+
+custom_icon = {
+    name = DA_Magma_forge_Wonder_image
+    potential = {
+		always = yes
+    }
+}
+
+custom_text_box = {
+    name = DA_Magma_forge_name_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Magma_forge_name_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Magma_forge_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Magma_forge_dwarven_name_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = DA_Magma_forge_upgrade_button
+	tooltip = DA_Magma_forge_upgrade_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
+		}
+		4039 = {
+			owned_by = prev
+			custom_trigger_tooltip = {
+				tooltip = DA_restored_MF_tt
+				has_province_flag = DA_restored_MF
+			}
+			has_great_project = {
+				type = DA_Magma_Forge
+				tier = 0
+			}
+		}
+		if = {
+			limit = {
+				4039 = {
+					AND = {
+						has_great_project = {
+							type = DA_Magma_Forge
+							tier = 0
+						}
+						NOT = { has_great_project = { type = DA_Magma_Forge tier = 1 } }
+					}
+				}
+			}
+			4039 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_4_or_higher
+					DA_has_dig_level_4_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = {
+				amount = 5
+			}
+			DA_enchanted_building_material_total_required = {
+				amount = 5
+			}
+			DA_arcane_metal_total_required = {
+				amount = 5
+			}
+			treasury = 1600
+		}
+		if = {
+			limit = {
+				4039 = {
+					AND = {
+						has_great_project = {
+							type = DA_Magma_Forge
+							tier = 1
+						}
+						NOT = { has_great_project = { type = DA_Magma_Forge tier = 2 } }
+					}
+				}
+			}
+			4039 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_6_or_higher
+					DA_has_dig_level_6_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = {
+				amount = 20
+			}
+			DA_enchanted_building_material_total_required = {
+				amount = 20
+			}
+			DA_arcane_metal_total_required = {
+				amount = 20
+			}
+			treasury = 3750
+		}
+		if = {
+			limit = {
+				4039 = {
+					AND = {
+						has_great_project = {
+							type = DA_Magma_Forge
+							tier = 2
+						}
+						NOT = { has_great_project = { type = DA_Magma_Forge tier = 3 } }
+					}
+				}
+			}
+			4039 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_8_or_higher
+					DA_has_dig_level_8_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = {
+				amount = 40
+			}
+			DA_enchanted_building_material_total_required = {
+				amount = 40
+			}
+			DA_arcane_metal_total_required = {
+				amount = 40
+			}
+			treasury = 7500
+		}
+		if = {
+			limit = {
+				4039 = {
+					has_great_project = {
+						type = DA_Magma_Forge
+						tier = 3
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Maxed_wonder_tt
+				always = no
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				4039 = {
+					AND = {
+						has_great_project = {
+							type = DA_Magma_Forge
+							tier = 0
+						}
+						NOT = { has_great_project = { type = DA_Magma_Forge tier = 1 } }
+					}
+				}
+			}
+			DA_alchemy_reagents_spend = {
+				amount = 5
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 5
+			}
+			DA_arcane_metal_spend = {
+				amount = 5
+			}
+			add_treasury = -1600
+			4039 = {
+				add_great_project_tier = {
+					type = DA_Magma_Forge
+					tier = 1
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_Magma_forge_event.11
+					days = 365
+				}
+				country_event = {
+					id = DA_Magma_forge_event.12
+					days = 1095
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				4039 = {
+					AND = {
+						has_great_project = {
+							type = DA_Magma_Forge
+							tier = 1
+						}
+						NOT = { has_great_project = { type = DA_Magma_Forge tier = 2 } }
+					}
+				}
+			}
+			DA_alchemy_reagents_spend = {
+				amount = 20
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 20
+			}
+			DA_arcane_metal_spend = {
+				amount = 20
+			}
+			add_treasury = -3750
+			4039 = {
+				add_great_project_tier = {
+					type = DA_Magma_Forge
+					tier = 1
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				4039 = {
+					AND = {
+						has_great_project = {
+							type = DA_Magma_Forge
+							tier = 2
+						}
+						NOT = { has_great_project = { type = DA_Magma_Forge tier = 3 } }
+					}
+				}
+			}
+			DA_alchemy_reagents_spend = {
+				amount = 40
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 40
+			}
+			DA_arcane_metal_spend = {
+				amount = 40
+			}
+			add_treasury = -7500
+			4039 = {
+				add_great_project_tier = {
+					type = DA_Magma_Forge
+					tier = 1
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_Magma_forge_event.14
+					days = 3650
+				}
+			}
+		}
+	}
+}
+
+custom_text_box = {
+    name = DA_Magma_forge_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Magma_forge_Wonder_level_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Magma_forge_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Magma_forge_Wonder_location_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_icon = {
+    name = DA_Magma_forge_Wonder_magma_level_panel
+    potential = {
+		always = yes
+    }
+}
+
+custom_text_box = {
+    name = DA_Magma_forge_Wonder_magma_level_panel_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Magma_forge_Wonder_magma_level_panel_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = DA_Magma_forge_Wonder_repair_button
+	tooltip = DA_Magma_forge_Wonder_repair_button_tt
+	potential = {
+		4039 = {
+			NOT = {
+				has_province_flag = DA_restored_MF
+			}
+			has_province_flag = DA_Magma_forge_found
+			NOT = {
+				has_great_project = {
+					type = DA_Magma_Forge
+					tier = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Magma_forge_restorable_tt
+			4039 = {
+				has_province_flag = DA_restorable_MF
+			}
+		}
+		treasury = 2000
+		custom_trigger_tooltip = {
+			tooltip = DA_has_12_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 12
+			}
+		}
+	}
+	effect = {
+		add_treasury = -2000
+		custom_tooltip = DA_cost_12_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 12 } }
+		hidden_effect = { 4039 = { set_province_flag = DA_restored_MF } }
+		country_event = {
+			id = DA_Magma_forge_event.2
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Magma_Forge_button_6
+	tooltip = DA_Magma_Forge_button_6_tt
+	potential = {
+		4039 = {
+			has_province_flag = DA_restored_MF
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
+		}
+		DA_Magma_Level_required = {
+			amount = 100
+		}
+		DA_alchemy_reagents_total_required = {
+			amount = 5
+		}
+		DA_enchanted_building_material_total_required = {
+			amount = 5
+		}
+		DA_arcane_metal_total_required = {
+			amount = 5
+		}
+		treasury = 500
+	}
+	effect = {
+		custom_tooltip = DA_Magma_level_MAX_increase_tt
+		hidden_effect = {
+			4039 = {
+				change_variable = {
+					which = DA_Magma_level_MAX
+					value = 40
+				}
+				if = {
+					limit = {
+						has_great_project = {
+							type = DA_Magma_Forge
+							tier = 2
+						}
+					}
+					change_variable = {
+						which = DA_Magma_level_Increaser
+						value = 1
+					}
+				}
+			}
+		}
+		DA_Magma_Level_spend = {
+			amount = 100
+		}
+		DA_alchemy_reagents_spend = {
+			amount = 5
+		}
+		DA_enchanted_building_material_spend = {
+			amount = 5
+		}
+		DA_arcane_metal_spend = {
+			amount = 5
+		}
+		add_treasury = -500
+	}
+}
+
+custom_button = {
+	name = DA_Magma_Forge_button_1
+	tooltip = DA_Magma_Forge_button_1_tt
+	potential = {
+		4039 = {
+			has_province_flag = DA_restored_MF
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
+		}
+		4039 = {
+			has_great_project = {
+				type = DA_Magma_Forge
+				tier = 1
+			}
+		}
+		DA_Magma_Level_required = {
+			amount = 60
+		}
+		DA_enchanted_building_material_total_required = {
+			amount = 5
+		}
+		treasury = 350
+		custom_trigger_tooltip = {
+			tooltip = DA_Unlocking_needs_time_tt
+			has_country_flag = DA_MF_can_create_regulated_veins
+		}
+	}
+	effect = {
+		DA_Magma_Level_spend = {
+			amount = 60
+		}
+		DA_enchanted_building_material_spend = {
+			amount = 5
+		}
+		add_treasury = -350
+		country_event = {
+			id = DA_Magma_forge_event.13
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Magma_Forge_button_2
+	tooltip = DA_Magma_Forge_button_2_tt
+	potential = {
+		4039 = {
+			has_province_flag = DA_restored_MF
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
+		}
+		4039 = {
+			has_great_project = {
+				type = DA_Magma_Forge
+				tier = 1
+			}
+		}
+		DA_Magma_Level_required = {
+			amount = 100
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_Unlocking_needs_time_tt
+			has_country_flag = DA_MF_can_create_regulated_veins
+		}
+		all_owned_province = {
+			NOT = {
+				has_province_modifier = DA_regulated_magma_vein_overloaded
+			}
+		}
+	}
+	effect = {
+		DA_Magma_Level_spend = {
+			amount = 100
+		}
+		custom_tooltip = DA_all_magma_vein_provinces_get_tt
+		tooltip = {
+			random_owned_province = {
+				limit = {
+					has_province_modifier = DA_regulated_magma_vein
+				}
+				add_province_modifier = {
+					name = DA_regulated_magma_vein_overloaded
+					duration = 3650
+				}
+			}
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = DA_regulated_magma_vein
+				}
+				add_province_modifier = {
+					name = DA_regulated_magma_vein_overloaded
+					duration = 3650
+				}
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Magma_Forge_button_3
+	tooltip = DA_Magma_Forge_button_3_tt
+	potential = {
+		4039 = {
+			has_province_flag = DA_restored_MF
+		}
+		any_owned_province = {
+			has_province_modifier = DA_unregulated_magma_vein
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
+		}
+		4039 = {
+			has_great_project = {
+				type = DA_Magma_Forge
+				tier = 1
+			}
+		}
+		DA_Magma_Level_required = {
+			amount = 80
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_Unlocking_needs_time_tt
+			has_country_flag = DA_MF_regulate_veins
+		}
+		treasury = 750
+	}
+	effect = {
+		DA_Magma_Level_spend = {
+			amount = 80
+		}
+		add_treasury = -750
+		every_owned_province = {
+			limit = {
+				has_province_modifier = DA_unregulated_magma_vein
+			}
+			remove_province_modifier = DA_unregulated_magma_vein
+			add_permanent_province_modifier = {
+				name = DA_regulated_magma_vein
+				duration = -1
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Magma_Forge_button_4
+	tooltip = DA_Magma_Forge_button_4_tt
+	potential = {
+		4039 = {
+			has_province_flag = DA_restored_MF
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
+		}
+		4039 = {
+			has_great_project = {
+				type = DA_Magma_Forge
+				tier = 3
+			}
+		}
+	}
+	effect = {
+		country_event = {
+			id = DA_Magma_forge_event.10
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Magma_Forge_button_5
+	tooltip = DA_Magma_Forge_button_5_tt
+	potential = {
+		4039 = {
+			has_province_flag = DA_restored_MF
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_Unlocking_needs_time_tt
+			has_country_flag = DA_MF_can_create_Basalt_Wall
+		}
+		NOT = { has_country_flag = DA_MF_can_create_Basalt_Wall_2 }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
+		}
+		4039 = {
+			has_great_project = {
+				type = DA_Magma_Forge
+				tier = 3
+			}
+		}
+		DA_Magma_Level_required = {
+			amount = 200
+		}
+		treasury = 1000
+		custom_trigger_tooltip = {
+			tooltip = DA_Unlocking_needs_time_tt
+			has_country_flag = DA_MF_can_create_Basalt_Wall
+		}
+		672 = {
+			owned_by = prev
+			has_missionary = no
+			has_colonist = no
+			NOT = { has_construction = any }
+		}
+	}
+	effect = {
+		DA_Magma_Level_spend = {
+			amount = 200
+		}
+		add_treasury = -1000
+		country_event = {
+			id = DA_Magma_forge_event.15
+		}
+		hidden_effect = {
+			set_country_flag = DA_MF_can_create_Basalt_Wall_2
+		}
+	}
+}

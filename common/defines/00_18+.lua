@@ -1,0 +1,2 @@
+
+NDefines.NEconomy.MAX_BUILDING_SLOTS = 24

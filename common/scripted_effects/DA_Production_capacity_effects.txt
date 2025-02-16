@@ -1,0 +1,1547 @@
+
+DA_Update_production_points = {
+	if = {
+		limit = {
+			has_estate = estate_DA_Runesmiths
+		}
+		hidden_effect = {
+			set_variable = {
+				which = DA_MAX_Production_Points
+				value = 0
+			}
+			set_variable = {
+				which = DA_MAX_RS_Invention_slots
+				value = 4
+			}
+			change_variable = {
+				which = DA_MAX_RS_Invention_slots
+				which = DA_MAX_RS_Invention_slots_adder
+			}
+			# If you're adding a modifier here make sure to also add it to the artifice localization (in artifice_l_english and anb_custom_artifice_localization) otherwise it will not show up in game
+
+			#artificer admin/mil/religion
+			if = {
+				limit = {
+					has_country_modifier = dwarven_administration
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 5
+				}
+			}
+
+			#institutions
+			if = {
+				limit = {
+					has_institution = manufactories
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 5
+				}
+			}
+			else = {
+				subtract_variable = {
+					which = DA_MAX_Production_Points
+					value = 5
+				}
+			}
+			if = {
+				limit = {
+					has_institution = industrialization
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 5
+				}
+			}
+
+			#buildings
+
+			#a gnome/goblin/kobold technocracy with industrialization embraced that follows the thought would have 16 points before anything else. Enough for a full set of basic inventions
+
+			#estates
+			if = {
+				limit = {
+					estate_influence = {
+						estate = estate_DA_Runesmiths
+						influence = 60
+					}
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 12
+				}
+			}
+			else_if = {
+				limit = {
+					estate_influence = {
+						estate = estate_DA_Runesmiths
+						influence = 40
+					}
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 8
+				}
+			}
+			else_if = {
+				limit = {
+					estate_influence = {
+						estate = estate_DA_Runesmiths
+						influence = 20
+					}
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 4
+				}
+			}
+			else_if = {
+				limit = {
+					has_estate = estate_DA_Runesmiths
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 2
+				}
+			}
+
+			#innovativeness
+			if = {
+				limit = {
+					innovativeness = 100
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 5
+				}
+			}
+			else_if = {
+				limit = {
+					innovativeness = 80
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 4
+				}
+			}
+			else_if = {
+				limit = {
+					innovativeness = 60
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 3
+				}
+			}
+			else_if = {
+				limit = {
+					innovativeness = 40
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 2
+				}
+			}
+			else_if = {
+				limit = {
+					innovativeness = 20
+				}
+				change_variable = {
+					which = DA_MAX_Production_Points
+					value = 1
+				}
+			}
+
+			# metals
+			set_variable = {
+				which = DA_Iron_productions_points
+				value = 0
+			}
+			set_variable = {
+				which = DA_Copper_productions_points
+				value = 0
+			}
+			set_variable = {
+				which = DA_glass_productions_points
+				value = 0
+			}
+			set_variable = {
+				which = DA_gems_productions_points
+				value = 0
+			}
+			set_variable = {
+				which = DA_gold_productions_points
+				value = 0
+			}
+			set_variable = {
+				which = DA_Mithril_productions_points
+				value = 0
+			}
+			set_variable = {
+				which = DA_Coal_productions_points
+				value = 0
+			}
+			set_variable = {
+				which = DA_Damestear_productions_points
+				value = 0
+			}
+			if = {
+				limit = {
+					iron = 1
+					NOT = {
+						is_colonial_nation = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						trade_goods = iron
+					}
+					if = {
+						limit = {
+							base_production = 14
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1.5
+							}
+							change_variable = {
+								which = DA_Iron_productions_points
+								value = 1.5
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							base_production = 7
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1
+							}
+							change_variable = {
+								which = DA_Iron_productions_points
+								value = 1
+							}
+						}
+					}
+					else = {
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 0.5
+							}
+							change_variable = {
+								which = DA_Iron_productions_points
+								value = 0.5
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_subject_country = {
+						iron = 1
+					}
+				}
+				every_subject_country = {
+					limit = {
+						is_colonial_nation = yes
+					}
+					every_owned_province = {
+						limit = {
+							trade_goods = iron
+						}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1.5
+								}
+								change_variable = {
+									which = DA_Iron_productions_points
+									value = 1.5
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1
+								}
+								change_variable = {
+									which = DA_Iron_productions_points
+									value = 1
+								}
+							}
+						}
+						else = {
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 0.5
+								}
+								change_variable = {
+									which = DA_Iron_productions_points
+									value = 0.5
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					copper = 1
+					NOT = {
+						is_colonial_nation = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						trade_goods = copper
+					}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							owner = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1.5
+								}
+								change_variable = {
+									which = DA_Copper_productions_points
+									value = 1.5
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							owner = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1
+								}
+								change_variable = {
+									which = DA_Copper_productions_points
+									value = 1
+								}
+							}
+						}
+						else = {
+							owner = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 0.5
+								}
+								change_variable = {
+									which = DA_Copper_productions_points
+									value = 0.5
+								}
+							}
+						}
+				}
+			}
+			if = {
+				limit = {
+					any_subject_country = {
+						copper = 1
+					}
+				}
+				every_subject_country = {
+					limit = {
+						is_colonial_nation = yes
+					}
+					every_owned_province = {
+						limit = {
+							trade_goods = copper
+						}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1.5
+								}
+								change_variable = {
+									which = DA_Copper_productions_points
+									value = 1.5
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1
+								}
+								change_variable = {
+									which = DA_Copper_productions_points
+									value = 1
+								}
+							}
+						}
+						else = {
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 0.5
+								}
+								change_variable = {
+									which = DA_Copper_productions_points
+									value = 0.5
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					glass = 1
+					NOT = {
+						is_colonial_nation = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						trade_goods = glass
+					}
+					if = {
+						limit = {
+							base_production = 14
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1.5
+							}
+							change_variable = {
+								which = DA_glass_productions_points
+								value = 1.5
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							base_production = 7
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1
+							}
+							change_variable = {
+								which = DA_glass_productions_points
+								value = 1
+							}
+						}
+					}
+					else = {
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 0.5
+							}
+							change_variable = {
+								which = DA_glass_productions_points
+								value = 0.5
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_subject_country = {
+						glass = 1
+					}
+				}
+				every_subject_country = {
+					limit = {
+						is_colonial_nation = yes
+					}
+					every_owned_province = {
+						limit = {
+							trade_goods = glass
+						}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1.5
+								}
+								change_variable = {
+									which = DA_glass_productions_points
+									value = 1.5
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1
+								}
+								change_variable = {
+									which = DA_glass_productions_points
+									value = 1
+								}
+							}
+						}
+						else = {
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 0.5
+								}
+								change_variable = {
+									which = DA_glass_productions_points
+									value = 0.5
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					gems = 1
+					NOT = {
+						is_colonial_nation = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						trade_goods = gems
+					}
+					if = {
+						limit = {
+							base_production = 14
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1.5
+							}
+							change_variable = {
+								which = DA_gems_productions_points
+								value = 1.5
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							base_production = 7
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1
+							}
+							change_variable = {
+								which = DA_gems_productions_points
+								value = 1
+							}
+						}
+					}
+					else = {
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 0.5
+							}
+							change_variable = {
+								which = DA_gems_productions_points
+								value = 0.5
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_subject_country = {
+						gems = 1
+					}
+				}
+				every_subject_country = {
+					limit = {
+						is_colonial_nation = yes
+					}
+					every_owned_province = {
+						limit = {
+							trade_goods = gems
+						}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1.5
+								}
+								change_variable = {
+									which = DA_gems_productions_points
+									value = 1.5
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1
+								}
+								change_variable = {
+									which = DA_gems_productions_points
+									value = 1
+								}
+							}
+						}
+						else = {
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 0.5
+								}
+								change_variable = {
+									which = DA_gems_productions_points
+									value = 0.5
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					gold = 1
+					NOT = {
+						is_colonial_nation = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						trade_goods = gold
+					}
+					if = {
+						limit = {
+							base_production = 14
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1.5
+							}
+							change_variable = {
+								which = DA_gold_productions_points
+								value = 1.5
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							base_production = 7
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1
+							}
+							change_variable = {
+								which = DA_gold_productions_points
+								value = 1
+							}
+						}
+					}
+					else = {
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 0.5
+							}
+							change_variable = {
+								which = DA_gold_productions_points
+								value = 0.5
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_subject_country = {
+						gold = 1
+					}
+				}
+				every_subject_country = {
+					limit = {
+						is_colonial_nation = yes
+					}
+					every_owned_province = {
+						limit = {
+							trade_goods = gold
+						}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1.5
+								}
+								change_variable = {
+									which = DA_gold_productions_points
+									value = 1.5
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1
+								}
+								change_variable = {
+									which = DA_gold_productions_points
+									value = 1
+								}
+							}
+						}
+						else = {
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 0.5
+								}
+								change_variable = {
+									which = DA_gold_productions_points
+									value = 0.5
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					coal = 1
+					NOT = {
+						is_colonial_nation = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						trade_goods = coal
+					}
+					if = {
+						limit = {
+							base_production = 14
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 3
+							}
+							change_variable = {
+								which = DA_Coal_productions_points
+								value = 3
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							base_production = 7
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 2
+							}
+							change_variable = {
+								which = DA_Coal_productions_points
+								value = 2
+							}
+						}
+					}
+					else = {
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 1
+							}
+							change_variable = {
+								which = DA_Coal_productions_points
+								value = 1
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_subject_country = {
+						coal = 1
+					}
+				}
+				every_subject_country = {
+					limit = {
+						is_colonial_nation = yes
+					}
+					every_owned_province = {
+						limit = {
+							trade_goods = coal
+						}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 3
+								}
+								change_variable = {
+									which = DA_Coal_productions_points
+									value = 3
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 2
+								}
+								change_variable = {
+									which = DA_Coal_productions_points
+									value = 2
+								}
+							}
+						}
+						else = {
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 1
+								}
+								change_variable = {
+									which = DA_Coal_productions_points
+									value = 1
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					mithril = 1
+					NOT = {
+						is_colonial_nation = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						trade_goods = mithril
+					}
+					if = {
+						limit = {
+							base_production = 14
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 6
+							}
+							change_variable = {
+								which = DA_Mithril_productions_points
+								value = 6
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							base_production = 7
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 4
+							}
+							change_variable = {
+								which = DA_Mithril_productions_points
+								value = 4
+							}
+						}
+					}
+					else = {
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 2
+							}
+							change_variable = {
+								which = DA_Mithril_productions_points
+								value = 2
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_subject_country = {
+						mithril = 1
+					}
+				}
+				every_subject_country = {
+					limit = {
+						is_colonial_nation = yes
+					}
+					every_owned_province = {
+						limit = {
+							trade_goods = mithril
+						}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 6
+								}
+								change_variable = {
+									which = DA_Mithril_productions_points
+									value = 6
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 4
+								}
+								change_variable = {
+									which = DA_Mithril_productions_points
+									value = 4
+								}
+							}
+						}
+						else = {
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 2
+								}
+								change_variable = {
+									which = DA_Mithril_productions_points
+									value = 2
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					damestear = 1
+					NOT = {
+						is_colonial_nation = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						trade_goods = damestear
+					}
+					if = {
+						limit = {
+							base_production = 14
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 6
+							}
+							change_variable = {
+								which = DA_Damestear_productions_points
+								value = 6
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							base_production = 7
+						}
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 4
+							}
+							change_variable = {
+								which = DA_Damestear_productions_points
+								value = 4
+							}
+						}
+					}
+					else = {
+						owner = {
+							change_variable = {
+								which = DA_MAX_Production_Points
+								value = 2
+							}
+							change_variable = {
+								which = DA_Damestear_productions_points
+								value = 2
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_subject_country = {
+						damestear = 1
+					}
+				}
+				every_subject_country = {
+					limit = {
+						is_colonial_nation = yes
+					}
+					every_owned_province = {
+						limit = {
+							trade_goods = damestear
+						}
+						if = {
+							limit = {
+								base_production = 14
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 6
+								}
+								change_variable = {
+									which = DA_Damestear_productions_points
+									value = 6
+								}
+							}
+						}
+						else_if = {
+							limit = {
+								base_production = 7
+							}
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 4
+								}
+								change_variable = {
+									which = DA_Damestear_productions_points
+									value = 4
+								}
+							}
+						}
+						else = {
+							root = {
+								change_variable = {
+									which = DA_MAX_Production_Points
+									value = 2
+								}
+								change_variable = {
+									which = DA_Damestear_productions_points
+									value = 2
+								}
+							}
+						}
+					}
+				}
+			}
+
+			#static sources from things like missions and upkeep
+			change_variable = {
+				which = DA_MAX_Production_Points
+				which = DA_STATIC_Production_Points
+			}
+
+			# Points Multiplier
+			set_variable = {
+				which = DA_Production_Points_Multiplier
+				value = 1
+			}
+
+			#IF YOU WANT TO ADD MORE MULTIPLIERS MAKE SURE TO add to DA_get_production_multipliers in anb_custom_artifice_localization or the multipliers may not show up correctly
+
+			#Multipliers from government
+			if = {
+				limit = {
+					has_country_flag = DA_Enhanced_production_x1.25
+				}
+				change_variable = {
+					which = DA_Production_Points_Multiplier
+					value = 0.25
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = DA_Enhanced_production_x1.5
+				}
+				subtract_variable = {
+					which = DA_Production_Points_Multiplier
+					value = 0.5
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = DA_Enhanced_production_x2
+				}
+				change_variable = {
+					which = DA_Production_Points_Multiplier
+					value = 1
+				}
+			}
+			
+			# Floor at 0
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = DA_Production_Points_Multiplier
+							value = 0
+						}
+					}
+				}
+				set_variable = {
+					which = DA_Production_Points_Multiplier
+					value = 0
+				}
+			}
+			else = {
+				multiply_variable = {
+					which = DA_MAX_Production_Points
+					which = DA_Production_Points_Multiplier
+				}
+			}
+
+			# Floor at 0
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = DA_MAX_Production_Points
+							value = 0
+						}
+					}
+				}
+				set_variable = {
+					which = DA_MAX_Production_Points
+					value = 0
+				}
+			}
+
+			set_variable = {
+				which = DA_REMAINING_Production_Points
+				value = 0
+			}
+
+			change_variable = {
+				which = DA_REMAINING_Production_Points
+				which = DA_MAX_Production_Points
+			}
+
+			subtract_variable = {
+				which = DA_REMAINING_Production_Points
+				which = DA_Production_Points_Upkeep
+			}
+
+			# If over capacity
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = DA_REMAINING_Production_Points
+							value = 0
+						}
+					}
+				}
+				add_country_modifier = { name =  DA_over_production_cap duration = -1 }
+			}
+			else = {
+				remove_country_modifier = DA_over_production_cap
+			}
+		}
+	}
+}
+
+DA_setup_Production_points_system = {
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = DA_production_points_setup
+			}
+		}
+		set_variable = {
+			which = DA_MAX_Production_Points
+			value = 0
+		}
+		set_variable = {
+			which = DA_STATIC_Production_Points
+			value = 0
+		}
+		set_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 0
+		}
+		set_variable = {
+			which = DA_MAX_RS_Invention_slots_adder
+			value = 0
+		}
+		set_country_flag = DA_production_points_setup
+	}
+}
+
+DA_grants_production_basic = {
+	custom_tooltip = DA_increases_Production_upkeep_by_10
+	custom_tooltip = DA_Production_points_upkeep_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			ai = no
+		}
+		add_treasury = -50
+		add_adm_power = -5
+		add_dip_power = -5
+		add_mil_power = -5
+	}
+	DA_Update_production_points = yes
+}
+
+DA_remove_production_basic = {
+	custom_tooltip = DA_decreases_Production_upkeep_by_10
+	custom_tooltip = DA_Production_points_upkeep_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 10
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_grants_production_expert = {
+	custom_tooltip = DA_increases_Production_upkeep_by_20
+	custom_tooltip = DA_Production_points_upkeep_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 20
+		}
+	}
+	if = {
+		limit = {
+			ai = no
+		}
+		add_treasury = -100
+		add_adm_power = -10
+		add_dip_power = -10
+		add_mil_power = -10
+	}
+	DA_Update_production_points = yes
+}
+
+DA_remove_production_expert = {
+	custom_tooltip = DA_decreases_Production_upkeep_by_20
+	custom_tooltip = DA_Production_points_upkeep_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 20
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_grants_production_advanced = {
+	custom_tooltip = DA_increases_Production_upkeep_by_30
+	custom_tooltip = DA_Production_points_upkeep_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 30
+		}
+	}
+	if = {
+		limit = {
+			ai = no
+		}
+		add_treasury = -200
+		add_adm_power = -20
+		add_dip_power = -20
+		add_mil_power = -20
+	}
+	DA_Update_production_points = yes
+}
+
+DA_remove_production_advanced = {
+	custom_tooltip = DA_decreases_Production_upkeep_by_30
+	custom_tooltip = DA_Production_points_upkeep_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 30
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+
+DA_grants_production_masterwork = {
+	custom_tooltip = DA_increases_Production_upkeep_by_40
+	custom_tooltip = DA_Production_points_upkeep_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 40
+		}
+	}
+	if = {
+		limit = {
+			ai = no
+		}
+		add_treasury = -300
+		add_adm_power = -30
+		add_dip_power = -30
+		add_mil_power = -30
+	}
+	DA_Update_production_points = yes
+}
+
+DA_remove_production_masterwork = {
+	custom_tooltip = DA_decreases_Production_upkeep_by_40
+	custom_tooltip = DA_Production_points_upkeep_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_Production_Points_Upkeep
+			value = 40
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_Mission_Reward_Production_points_1 = {
+	custom_tooltip = DA_permanently_increases_Production_points_by_1_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_STATIC_Production_Points
+			value = 1
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_Mission_Reward_Production_points_2 = {
+	custom_tooltip = DA_permanently_increases_Production_points_by_2_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_STATIC_Production_Points
+			value = 2
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_Mission_Reward_Production_points_3 = {
+	custom_tooltip = DA_permanently_increases_Production_points_by_3_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_STATIC_Production_Points
+			value = 3
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_Mission_Reward_Production_points_4 = {
+	custom_tooltip = DA_permanently_increases_Production_points_by_4_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_STATIC_Production_Points
+			value = 4
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_Mission_Reward_Production_points_5 = {
+	custom_tooltip = DA_permanently_increases_Production_points_by_5_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_STATIC_Production_Points
+			value = 5
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_debuff_Production_points_5 = {
+	custom_tooltip = DA_permanently_decreases_Production_points_by_5_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_STATIC_Production_Points
+			value = -5
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_debuff_Production_points_10 = {
+	custom_tooltip = DA_permanently_decreases_Production_points_by_10_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_STATIC_Production_Points
+			value = -10
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+
+DA_MAX_RS_Invention_slots_increase_1 = {
+	custom_tooltip = DA_permanently_Invention_slots_by_1_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_MAX_RS_Invention_slots_adder
+			value = 1
+		}
+	}
+	DA_Update_production_points = yes
+}
+
+DA_grants_prod_points_relative_to_energy_10 = {
+	if = {
+		limit = {
+			DA_has_Rune_power = yes
+		}
+		DA_grants_production_basic = yes
+	}
+	else_if = {
+		limit = {
+			DA_has_Steam_power = yes
+		}
+		DA_grants_production_expert = yes
+	}
+	else_if = {
+		limit = {
+			DA_has_Energy_power = yes
+		}
+		DA_grants_production_advanced = yes
+	}
+}
+DA_grants_prod_points_relative_to_energy_20 = {
+	if = {
+		limit = {
+			DA_has_Rune_power = yes
+		}
+		DA_grants_production_expert = yes
+	}
+	else_if = {
+		limit = {
+			DA_has_Steam_power = yes
+		}
+		DA_grants_production_advanced = yes
+	}
+	else_if = {
+		limit = {
+			DA_has_Energy_power = yes
+		}
+		DA_grants_production_masterwork = yes
+	}
+}
+
+DA_remove_prod_points_relative_to_energy_10 = {
+	if = {
+		limit = {
+			DA_has_Rune_power = yes
+		}
+		DA_remove_production_basic = yes
+	}
+	else_if = {
+		limit = {
+			DA_has_Steam_power = yes
+		}
+		DA_remove_production_expert = yes
+	}
+	else_if = {
+		limit = {
+			DA_has_Energy_power = yes
+		}
+		DA_remove_production_advanced = yes
+	}
+}
+DA_remove_prod_points_relative_to_energy_20 = {
+	if = {
+		limit = {
+			DA_has_Rune_power = yes
+		}
+		DA_remove_production_expert = yes
+	}
+	else_if = {
+		limit = {
+			DA_has_Steam_power = yes
+		}
+		DA_remove_production_advanced = yes
+	}
+	else_if = {
+		limit = {
+			DA_has_Energy_power = yes
+		}
+		DA_remove_production_masterwork = yes
+	}
+}

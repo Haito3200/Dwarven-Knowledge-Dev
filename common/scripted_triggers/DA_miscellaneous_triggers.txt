@@ -1,0 +1,144 @@
+
+DA_upgradable_railway_province = {
+	
+	has_terrain = dwarven_road
+	NOT = { has_province_modifier = dwarovar_rail }
+	OR = {
+		AND = {
+			owner = {
+				has_country_flag = DA_rail_faster1_c
+				NOT = { has_country_flag = DA_rail_faster2_c }
+			}
+			NOT = { has_province_modifier = DA_rail_faster_mod_1 }
+		}
+		AND = {
+			owner = {
+				has_country_flag = DA_rail_trade1_c
+				NOT = { has_country_flag = DA_rail_trade2_c }
+			}
+			NOT = { has_province_modifier = DA_rail_trade_mod_1 }
+		}
+		AND = {
+			owner = {
+				has_country_flag = DA_rail_traps1_c
+				NOT = { has_country_flag = DA_rail_traps2_c }
+			}
+			NOT = { has_province_modifier = DA_rail_traps_mod_1 }
+		}
+		AND = {
+			owner = {
+				has_country_flag = DA_rail_supply1_c
+				NOT = { has_country_flag = DA_rail_supply2_c }
+			}
+			NOT = { has_province_modifier = DA_rail_supply_mod_1 }
+		}
+		AND = {
+			owner = {
+				has_country_flag = DA_rail_faster2_c
+			}
+			NOT = { has_province_modifier = DA_rail_faster_mod_2 }
+		}
+		AND = {
+			owner = {
+				has_country_flag = DA_rail_trade2_c
+			}
+			NOT = { has_province_modifier = DA_rail_trade_mod_2 }
+		}
+		AND = {
+			owner = {
+				has_country_flag = DA_rail_traps2_c
+			}
+			NOT = { has_province_modifier = DA_rail_traps_mod_2 }
+		}
+		AND = {
+			owner = {
+				has_country_flag = DA_rail_supply2_c
+			}
+			NOT = { has_province_modifier = DA_rail_supply_mod_2 }
+		}
+	}
+}
+DA_has_science_hold = {
+	any_owned_province = {
+		OR = {
+			province_id = 4020
+			province_id = 4078
+			province_id = 4238
+			province_id = 4323
+		}
+	}
+}
+DA_has_NO_Project_active = {
+	custom_trigger_tooltip = {
+		tooltip = DA_has_NO_project_active_tt
+		NOT = {
+			OR = {
+				has_estate_privilege = DA_PCRM_Project
+				has_estate_privilege = DA_PMRM_Project
+				has_estate_privilege = DA_STEAM_POWER_Project
+				has_estate_privilege = DA_ENERGY_POWER_Project
+				has_estate_privilege = DA_RS_project_Dark_Rams_Taming
+				has_estate_privilege = DA_RS_project_Ice_Steel_techniques1
+				has_estate_privilege = DA_RS_project_Ice_Steel_techniques2
+				has_estate_privilege = DA_Hul_Jorkad_genetic_engineering_project
+				
+				has_country_modifier = DA_Tech_Researching_Clockwork
+				has_country_modifier = DA_Tech_Researching_Explosives
+				has_country_modifier = DA_Tech_Researching_Golem
+				has_country_modifier = DA_Tech_Researching_motorization
+				has_country_modifier = DA_Tech_Researching_Enhancement
+				has_country_modifier = DA_Tech_Researching_Bio_Construct
+				has_country_modifier = DA_Tech_Researching_Resonance
+				has_country_modifier = DA_Tech_Researching_Tesla
+				has_country_modifier = DA_Tech_Researching_Dimensional_Engineering
+				has_country_modifier = DA_Tech_Researching_elemental_magic
+				has_country_modifier = DA_Tech_Researching_conceptual_magic
+				has_country_modifier = DA_Tech_Researching_steam_power
+				has_country_modifier = DA_Tech_Researching_electric_power
+
+			
+				has_country_modifier = DA_Tech_Researching_Arcane_Blueprints
+				has_country_modifier = DA_Tech_Researching_Enchantments_Manufacturing
+				has_country_modifier = DA_Tech_Researching_Steam_Blueprints
+				has_country_modifier = DA_Tech_Researching_Electric_Blueprints
+				has_country_modifier = DA_Tech_Researching_Mana_Circuits
+				
+				has_country_modifier = DA_Tech_Researching_Mechanization
+				has_country_modifier = DA_Tech_Researching_Plasma
+				has_country_modifier = DA_Tech_Researching_Curse_Magic
+				has_country_modifier = DA_Tech_Researching_Planar_Energy
+				has_country_modifier = DA_Tech_Researching_Holy_Magic
+				has_country_modifier = DA_Tech_Researching_Spirits
+				has_country_modifier = DA_Tech_Researching_Airships
+
+				has_country_modifier = DA_Tech_Researching_Medicine
+				has_country_modifier = DA_Tech_Researching_Alchemy
+				has_country_modifier = DA_Tech_Researching_Arcane_Arts
+				has_country_modifier = DA_Tech_Researching_Mechanics
+				has_country_modifier = DA_Tech_Researching_Metallurgy
+			}
+		}
+	}
+}
+DA_making_rare_plus_alloy = {
+	custom_trigger_tooltip = {
+		tooltip = DA_making_rare_plus_alloy_tt
+		OR = {
+			has_country_flag = DA_R1_showed
+			has_country_flag = DA_R2_showed
+			has_country_flag = DA_R3_showed
+			has_country_flag = DA_R4_showed
+			has_country_flag = DA_L1_showed
+			has_country_flag = DA_L2_showed
+		}
+	}
+}
+DA_making_legendary_alloy = {
+	custom_trigger_tooltip = {
+		tooltip = DA_making_legendary_alloy_tt
+		OR = {
+			has_country_flag = DA_L1_showed
+			has_country_flag = DA_L2_showed
+		}
+	}
+}

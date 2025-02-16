@@ -1,0 +1,863 @@
+
+# God, may you have mercy on my brain for thinking this absurd alloy system 
+# and make it so the system works as intended on the first try
+
+DA_initialize_alloy_variables = {
+	hidden_effect = {
+		clr_country_flag = DA_C1_showed
+		clr_country_flag = DA_C2_showed
+		clr_country_flag = DA_C3_showed
+		clr_country_flag = DA_C4_showed
+		clr_country_flag = DA_C5_showed
+		clr_country_flag = DA_C6_showed
+		clr_country_flag = DA_R1_showed
+		clr_country_flag = DA_R2_showed
+		clr_country_flag = DA_R3_showed
+		clr_country_flag = DA_R4_showed
+		clr_country_flag = DA_L1_showed
+		clr_country_flag = DA_L2_showed
+
+
+		if = {
+			limit = {
+				has_country_flag = DA_$DA_alloy_slot$_initialized
+			}
+			set_country_flag = DA_$DA_alloy_slot$_showed
+			custom_tooltip = DA_$DA_alloy_slot$_values_tt
+		}
+		else = {
+			set_country_flag = DA_$DA_alloy_slot$_showed
+			set_country_flag = DA_$DA_alloy_slot$_initialized
+			set_variable = {
+				which = DA_Cost_$DA_alloy_slot$
+				value = 0
+			}
+			set_variable = {
+				which = DA_Alloy_Magic_Conductivity_$DA_alloy_slot$
+				value = 0
+			}
+			set_variable = {
+				which = DA_Alloy_strength_$DA_alloy_slot$
+				value = 0
+			}
+			set_variable = {
+				which = DA_Alloy_electrical_Conductivity_$DA_alloy_slot$
+				value = 0
+			}
+			set_variable = {
+				which = DA_Alloy_forging_technique_$DA_alloy_slot$
+				value = 0
+			}
+
+			#clear all the unique mods' country flags here, once you make them
+
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.empty
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.empty
+
+			
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Adamantium
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Forgotten_Steel
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Hearth_Blood
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Sylvanite
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.VoidSteel
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Unobtainium
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Hihiirokane
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Cindersteel
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Magnetite
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Mistium
+			clr_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Skyshard
+
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Adamantium
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Forgotten_Steel
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Hearth_Blood
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Sylvanite
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.VoidSteel
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Unobtainium
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Hihiirokane
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Cindersteel
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Magnetite
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Mistium
+			clr_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.Skyshard
+			#######
+
+			set_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.empty
+			set_country_flag = DA_Alloy_unique_mod_2_$DA_alloy_slot$.empty
+
+			set_variable = {
+				which = DA_Alloy_primary_metal_$DA_alloy_slot$
+				value = 0
+			}
+			set_variable = {
+				which = DA_Alloy_secondary_metal_1_$DA_alloy_slot$
+				value = 0
+			}
+			set_variable = {
+				which = DA_Alloy_secondary_metal_2_$DA_alloy_slot$
+				value = 0
+			}
+		}
+	}
+}
+
+DA_metal_alloy_Selection = {
+	custom_tooltip = DA_Metal_alloy_values_tt
+	custom_tooltip = DA_Cost.tt.$DA_Cost$
+	custom_tooltip = DA_Metal_strength_stat.$DA_MS_Stat$
+	custom_tooltip = DA_Metal_MC_stat.$DA_MC_Stat$
+	custom_tooltip = DA_Metal_EC_stat.$DA_EC_Stat$
+	hidden_effect = {
+		trigger_switch = {
+			on_trigger = has_country_flag
+			DA_C1_showed = {
+				change_variable = {
+					which = DA_Cost_C1
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_C1
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_C1
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_C1
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_C1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_C1
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_C1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_C1
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_C1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_C1
+				}
+			}
+			DA_C2_showed = {
+				change_variable = {
+					which = DA_Cost_C2
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_C2
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_C2
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_C2
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_C2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_C2
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_C2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_C2
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_C2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_C2
+				}
+			}
+			DA_C3_showed = {
+				change_variable = {
+					which = DA_Cost_C3
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_C3
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_C3
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_C3
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_C3
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_C3
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_C3
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_C3
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_C3
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_C3
+				}
+			}
+			DA_C4_showed = {
+				change_variable = {
+					which = DA_Cost_C4
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_C4
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_C4
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_C4
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_C4
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_C4
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_C4
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_C4
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_C4
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_C4
+				}
+			}
+			DA_C5_showed = {
+				change_variable = {
+					which = DA_Cost_C5
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_C5
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_C5
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_C5
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_C5
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_C5
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_C5
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_C5
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_C5
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_C5
+				}
+			}
+			DA_C6_showed = {
+				change_variable = {
+					which = DA_Cost_C6
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_C6
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_C6
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_C6
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_C6
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_C6
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_C6
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_C6
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_C6
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_C6
+				}
+			}
+			DA_R1_showed = {
+				change_variable = {
+					which = DA_Cost_R1
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_R1
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_R1
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_R1
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_R1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_R1
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_R1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_R1
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_R1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_R1
+				}
+			}
+			DA_R2_showed = {
+				change_variable = {
+					which = DA_Cost_R2
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_R2
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_R2
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_R2
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_R2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_R2
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_R2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_R2
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_R2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_R2
+				}
+			}
+			DA_R3_showed = {
+				change_variable = {
+					which = DA_Cost_R3
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_R3
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_R3
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_R3
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_R3
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_R3
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_R3
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_R3
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_R3
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_R3
+				}
+			}
+			DA_R4_showed = {
+				change_variable = {
+					which = DA_Cost_R4
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_R4
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_R4
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_R4
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_R4
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_R4
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_R4
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_R4
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_R4
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_R4
+				}
+			}
+			DA_L1_showed = {
+				change_variable = {
+					which = DA_Cost_L1
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_L1
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_L1
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_L1
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_L1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_L1
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_L1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_L1
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_L1
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_L1
+				}
+			}
+			DA_L2_showed = {
+				change_variable = {
+					which = DA_Cost_L2
+					value = $DA_Cost$
+				}
+				change_variable = {
+					which = DA_Alloy_strength_L2
+					value = $DA_MS_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_Magic_Conductivity_L2
+					value = $DA_MC_Stat$
+				}
+				change_variable = {
+					which = DA_Alloy_electrical_Conductivity_L2
+					value = $DA_EC_Stat$
+				}
+				if = {
+					limit = {
+						has_country_flag = DA_selecting_primary_metal
+					}
+					set_variable = {
+						which = DA_Alloy_primary_metal_L2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_primary_metal_L2
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_1
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_1_L2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_1_L2
+				}
+				else_if = {
+					limit = {
+						has_country_flag = DA_selecting_secondary_metal_2
+					}
+					set_variable = {
+						which = DA_Alloy_secondary_metal_2_L2
+						value = $DA_Metal$
+					}
+					set_country_flag = DA_selected_secondary_metal_2_L2
+				}
+			}
+		}
+	}
+}
+DA_alloy_select_unique_modifier = { #ONLY FOR SLOT 1
+	tooltip = {
+		add_country_modifier = {
+			name = DA_Unique_mod.METAL.INFAN.$DA_Unique$
+			duration = -1
+		}
+		add_country_modifier = {
+			name = DA_Unique_mod.METAL.CAVAL.$DA_Unique$
+			duration = -1
+		}
+		add_country_modifier = {
+			name = DA_Unique_mod.METAL.ARTIL.$DA_Unique$
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C1_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_C1.empty
+		set_country_flag = DA_Alloy_unique_mod_1_C1.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C2_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_C2.empty
+		set_country_flag = DA_Alloy_unique_mod_1_C2.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C3_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_C3.empty
+		set_country_flag = DA_Alloy_unique_mod_1_C3.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C4_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_C4.empty
+		set_country_flag = DA_Alloy_unique_mod_1_C4.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C5_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_C5.empty
+		set_country_flag = DA_Alloy_unique_mod_1_C5.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C6_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_C6.empty
+		set_country_flag = DA_Alloy_unique_mod_1_C6.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_R1_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_R1.empty
+		set_country_flag = DA_Alloy_unique_mod_1_R1.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_R2_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_R2.empty
+		set_country_flag = DA_Alloy_unique_mod_1_R2.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_R3_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_R3.empty
+		set_country_flag = DA_Alloy_unique_mod_1_R3.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_R4_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_R4.empty
+		set_country_flag = DA_Alloy_unique_mod_1_R4.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_L1_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_L1.empty
+		set_country_flag = DA_Alloy_unique_mod_1_L1.$DA_Unique$
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_L2_showed
+		}
+		clr_country_flag = DA_Alloy_unique_mod_1_L2.empty
+		set_country_flag = DA_Alloy_unique_mod_1_L2.$DA_Unique$
+	}
+}
+DA_alloy_enable = { #ONLY FOR SLOT 1
+	if = {
+		limit = {
+			has_country_flag = DA_C1_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.C1
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C2_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.C2
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C3_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.C3
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C4_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.C4
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C5_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.C5
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_C6_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.C6
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_R1_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.R1
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_R2_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.R2
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_R3_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.R3
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_R4_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.R4
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_L1_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.L1
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_L2_showed
+		}
+		set_country_flag = DA_Alloy_Enabled.L2
+	}
+}

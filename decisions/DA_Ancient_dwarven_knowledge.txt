@@ -1,0 +1,438 @@
+country_decisions = {
+	
+	DA_open_metallurgy_interface_decision = {				# set up expedition camp
+		major = yes
+		potential = {
+			ai = no
+			NOT = {
+				has_country_flag = DA_Metallurgy_interface_on
+			}
+		}
+		
+		provinces_to_highlight = {
+		}
+		
+		allow = {
+			always = yes
+		}
+		
+		effect = {
+			set_country_flag = DA_Metallurgy_interface_on
+			set_country_flag = DA_Metallurgy_interface_on_main
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	DA_Dig_adk_1 = {			# research facility menu. AI
+		major = yes
+		potential = {
+			ai = yes
+			culture_group = dwarven
+			capital_scope = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+		}
+		
+		allow = {
+			NOT = { has_country_flag = DA_rf_menu_in_use }
+			NOT = { has_country_modifier = DA_rf_menu_cooldown }
+			DA_has_RF_2_or_higher = yes
+		}
+		
+		effect = {
+			country_event = {
+				id = DA_Research_facility_menu.1
+			}
+			hidden_effect = {
+				if = {
+					limit = { ai = yes}
+					add_country_modifier = {
+						name = DA_rf_menu_cooldown
+						duration = 250
+						hidden = yes
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	DA_Metallurgy_menu_decision_ai = {			# metallurgy menu. AI
+		major = yes
+		potential = {
+			ai = yes
+			OR = {
+				has_country_flag = DA_enable_metallurgy_System
+				has_country_flag = DA_enable_metallurgy_System_artificer
+			}
+		}
+		
+		provinces_to_highlight = {
+		}
+		
+		allow = {
+			OR = {
+				has_country_flag = DA_enable_metallurgy_System
+				has_country_flag = DA_enable_metallurgy_System_artificer
+			}
+			NOT = { has_country_modifier = DA_Metallurgy_menu_CD }
+		}
+		
+		effect = {
+			country_event = {
+				id = DA_Metallurgy_events.5
+			}
+			hidden_effect = {
+				if = {
+					limit = { ai = yes}
+					add_country_modifier = {
+						name = DA_Metallurgy_menu_CD
+						duration = 2555
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	DA_Dig_adk_Hold_exploration = {				# hold exploration menu, AI
+		major = yes
+		potential = {
+			culture_group = dwarven
+			ai = yes
+			NOT = { has_country_flag = DA_ADK_menu_in_use }
+			NOT = { has_country_modifier = DA_ADK_menu_cooldown }
+			NOT = {
+				any_owned_province = {
+					has_province_flag = DA_expedition_in_progress
+				}
+			}
+			any_owned_province = {
+				DA_has_dig_level_2_or_higher = yes
+				has_province_modifier = DA_Hold_exploration_workaround
+			}
+		}
+		
+		provinces_to_highlight = {
+		}
+		
+		allow = {
+			NOT = {	num_of_rebel_armies = 1 }
+			custom_trigger_tooltip = {
+				tooltip = DA_Has_unexplored_dig_level_tooltip
+				OR = {
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_1_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_2 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 25
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_2_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_3 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 50
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_3_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_4 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 100
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_4_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_5 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 200
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_5_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_6 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 300
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_6_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_7 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 500
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_7_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_8 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 800
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_8_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_9 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 1200
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_9_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_10 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 2500
+						}
+					}
+					any_core_province = {
+						owned_by = root
+						DA_has_dig_level_10_or_higher = yes
+						NOT = { has_province_flag = DA_looked_dig_adk_11 }
+						NOT = { has_province_flag = DA_expedition_in_progress }
+						owner = {
+							treasury = 5000
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			country_event = { 
+				id = DA_adk_hold_exploration_menu.1
+				tooltip = DA_Exploration_menu_tooltip
+			}
+			hidden_effect = {
+				if = {
+					limit = { ai = yes }
+					add_country_modifier = {
+						name = DA_ADK_menu_cooldown
+						duration = 180
+						hidden = yes
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+	
+	DA_explore_hold_ruins = {					# explore ruins, which have first been discovered during exploration, to be deleted
+		potential = {
+			any_owned_province = {
+				has_province_modifier = DA_Ancient_hold_ruins
+				NOT = { has_province_modifier = DA_Ancient_hold_explored }
+			}
+		}
+		
+		provinces_to_highlight = {
+			has_province_modifier = DA_Ancient_hold_ruins
+		}
+		
+		allow = {
+			treasury = 500
+		}
+		
+		effect = {
+			add_treasury = -500
+			every_owned_province = {
+				limit = {
+					has_province_modifier = DA_Ancient_hold_ruins
+				}
+				remove_province_modifier = DA_Ancient_hold_ruins
+				add_permanent_province_modifier = {
+					name = DA_Ancient_hold_explored
+					duration = -1
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	DA_Find_translator = {					# archeologist for Hul-Jorkad event chain
+		potential = {
+			NOT = { has_country_flag = DA_translator_found }
+			any_owned_province = {
+				has_province_flag = DA_Ducaniel_lab_found
+			}
+		}
+		
+		provinces_to_highlight = {
+			has_province_modifier = DA_Ancient_hold_ruins
+		}
+		
+		allow = {
+			treasury = 500
+		}
+		
+		effect = {
+			add_treasury = -500
+			hidden_effect = {
+				set_country_flag = DA_translator_found
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						province_id = 2963
+					}
+					province_event = {
+						id = DA_Hul_Jorkad_event.666
+					}
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	DA_build_ramsteel_forges_decision = {					# ramsteel
+		major =yes
+		potential = {
+			NOT = { has_country_flag = DA_deciding_things }
+			has_country_flag = DA_can_build_ramsteel_forges
+			any_owned_province = {
+				OR = {
+					province_id = 4148
+					province_id = 4130
+					province_id = 4118
+				}
+				NOT = {
+					has_province_modifier = DA_Ramsteel_forge
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4148
+				province_id = 4130
+				province_id = 4118
+			}
+		}
+		
+		allow = {
+			treasury = 500
+			owns = 4148
+			owns = 4130
+			owns = 4118
+		}
+		
+		effect = {
+			country_event = {
+				id = DA_Orlazam_az_dihr_event.2
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	DA_fight_Lich = {					# attack the immortal lich
+		major =yes
+		potential = {
+			NOT = { has_ruler_flag = npc_lich }
+			NOT = { has_ruler_modifier = bd_wounded_ruler }
+			
+			has_country_flag = DA_can_duel_lich
+			any_owned_province = {
+				has_province_flag = DA_Verkal_koz_warning3
+				has_province_modifier = DA_continous_Undeads
+			}
+		}
+		
+		provinces_to_highlight = {
+			has_province_flag = DA_Verkal_koz_warning3
+		}
+		
+		allow = {
+			ruler_has_personality = mage_personality
+			any_owned_province = {
+				province_id = 4056
+			}
+		}
+		
+		effect = {
+			custom_tooltip = DA_start_duel_lich
+			hidden_effect = {
+				set_ruler_flag = npc_lich
+				country_event = {
+					id = DA_magic_duel.100
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	DA_fight_Dragon_Khugdihr = {					# attack the immortal lich
+		major =yes
+		potential = {
+			NOT = { has_ruler_flag = npc_Dragon_Khugdihr }
+			
+			has_country_flag = DA_can_duel_Dragon
+			any_owned_province = {
+				has_province_modifier = DA_Dragon_raids
+			}
+		}
+		
+		provinces_to_highlight = {
+			has_province_modifier = DA_Dragon_raids
+		}
+		
+		allow = {
+			ruler_has_personality = mage_personality
+			any_owned_province = {
+				province_id = 2863
+			}
+			NOT = { has_ruler_modifier = bd_wounded_ruler }
+		}
+		
+		effect = {
+			custom_tooltip = DA_start_duel_Dragon_Khugdihr
+			hidden_effect = {
+				set_ruler_flag = npc_Dragon_Khugdihr
+				country_event = {
+					id = DA_magic_duel.100
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

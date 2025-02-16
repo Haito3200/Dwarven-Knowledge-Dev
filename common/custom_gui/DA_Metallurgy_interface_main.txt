@@ -1,0 +1,1531 @@
+# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
+
+
+
+# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
+#custom_button = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the button is visible
+#    trigger = { } #Determines when the button is clickable
+#    effect = { } #Effect
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_text_box = {
+#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
+#    potential = { } #Determines when the text is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    #To localize it, use the name of the button as a key, can also use customizable localisation
+#}
+
+#custom_icon = {
+#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
+#    potential = { } #Determines when the icon is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_shield = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the shield is visible
+#    trigger = { } #Determines when the shield is clickable
+#    effect = { } #Effect for clicking
+#    tooltip = localisation_key #Can use customizable localisation
+#    global_event_target = <string> # Global event target name
+#    open_country = <bool> #If clicking opens the country view
+#}
+
+##############################  Supported files with scopes ##############################
+#   The Gui objects must be directly inside the specified window Gui element!
+#   FROM is always the country that clicks
+#   provinceview.gui:
+#       province_window         (ROOT: Clicked province)
+#       buildings_window        (ROOT: Clicked province)
+#       state_window            (ROOT: Clicked province)
+#   countrycourtview.gui:
+#       countrycourtview        (ROOT = FROM)
+#   countrygovernmentview.gui:
+#       countrygovernmentview   (ROOT = FROM)
+#   countrydiplomacyview.gui:
+#       countrydiplimacyview    (ROOT: Selected country)
+#   countryeconomyview.gui:
+#       countryeconomyview      (ROOT = FROM)
+#   countrytradeview.gui:
+#       countrytradeview        (ROOT = FROM)
+#   countrytechnologyview.gui:
+#       countrytechnologyview   (ROOT = FROM)
+#   countryideasview.gui:
+#       countryideasview        (ROOT = FROM)
+#   countrymissionsview.gui:
+#       countrymissionsview     (ROOT: Selected country)
+#   countrydecisionview.gui:
+#       countrydecisionsview    (ROOT = FROM)
+#   countrystabilityview.gui:
+#       countrystabilityview    (ROOT = FROM)
+#   countryreligionview.gui:
+#       countryreligionview     (ROOT = FROM)
+#   countrymilitaryview.gui:
+#       countrymilitaryview     (ROOT = FROM)
+#   countrysubjectsview.gui:
+#       countrysubjectview      (ROOT = FROM)
+#   countryestatesview.gui:
+#       countryestatesview      (ROOT = FROM)
+#   ages_view.gui:
+#       ages_view               (ROOT = FROM)
+#   tradeinterface.gui:
+#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
+#   hre.gui:
+#       hre_window              (ROOT = FROM)
+#   papacy.gui:
+#       papacy_window           (ROOT = FROM)
+#   faction.gui:
+#       All faction windows     (ROOT = FROM)
+#   celestialempireview.gui:
+#       celestial_window        (ROOT = FROM)
+#   countrynativesview.gui:
+#       natives_window          (ROOT = FROM)
+#   religiousreforms.gui:
+#       reforms_window          (ROOT = FROM)
+#   parliament.gui:
+#       parliament_window       (ROOT = FROM)
+
+
+
+custom_icon = {
+    name = DA_topbar_addons_background
+    potential = {
+        always = yes
+    }
+}
+custom_button = {
+	name = DA_access_metallurgy_menu_button
+	tooltip = DA_open_metallurgy_interface_decision_title
+	potential = {
+		always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_metallurgy_interface_NOT_IN_USE
+            NOt = { has_country_flag = DA_Metallurgy_interface_on }
+        }
+	}
+	effect = {
+        set_country_flag = DA_Metallurgy_interface_on
+        set_country_flag = DA_Metallurgy_interface_on_main
+	}
+}
+custom_button = {
+	name = DA_access_Black_Market_button
+	tooltip = DA_access_Black_Market_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_metallurgy_interface_NOT_IN_USE
+            NOt = { has_country_flag = DA_Metallurgy_interface_on }
+        }
+	}
+	effect = {
+        set_country_flag = DA_Metallurgy_interface_on
+        set_country_flag = DA_Metallurgy_interface_on_black_market
+	}
+}
+custom_button = {
+	name = DA_access_Dwarovar_Wonders_button
+	tooltip = DA_access_Dwarovar_Wonders_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_metallurgy_interface_NOT_IN_USE
+            NOt = { has_country_flag = DA_Metallurgy_interface_on }
+        }
+	}
+	effect = {
+        set_country_flag = DA_Metallurgy_interface_on
+        set_country_flag = DA_Metallurgy_interface_on_wonders
+	}
+}
+custom_window = {
+    name = DA_Metallurgy_interface
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on
+    }
+}
+custom_icon = {
+    name = DA_Metallurgy_interface_main
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_main
+    }
+       # frame = {  #Can define multiple frame clauses
+           # number = 1 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+            #trigger = {
+               # has_country_flag = DA_Metallurgy_interface_on_main
+            #} #First matched frame clause will be used.
+      #  }
+}
+custom_button = {
+	name = DA_close_button_main
+	tooltip = "Close"
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+        clr_country_flag = DA_Metallurgy_interface_on
+        clr_country_flag = DA_Metallurgy_interface_on_main
+        clr_country_flag = DA_Metallurgy_interface_on_alloy
+        clr_country_flag = DA_Metallurgy_interface_on_wonders
+	}
+}
+custom_button = {
+	name = DA_switch_button_main
+	tooltip = DA_switch_to_metallurgy_interface_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+        clr_country_flag = DA_Metallurgy_interface_on_alloy
+        clr_country_flag = DA_Metallurgy_interface_on_wonders
+        clr_country_flag = DA_Metallurgy_interface_on_inventions
+        
+        set_country_flag = DA_Metallurgy_interface_on_main
+	}
+}
+custom_button = {
+	name = DA_switch_button_alloy
+	tooltip = DA_switch_to_alloy_interface_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+        clr_country_flag = DA_Metallurgy_interface_on_main
+        clr_country_flag = DA_Metallurgy_interface_on_wonders
+        clr_country_flag = DA_Metallurgy_interface_on_inventions
+
+        set_country_flag = DA_Metallurgy_interface_on_alloy
+        hidden_effect = {
+            export_to_variable = {
+                value = modifier:DA_fake_alloy_common_slot_adder
+                variable_name = DA_alloy_common_slots
+            }
+            export_to_variable = {
+                value = modifier:DA_fake_alloy_rare_slot_adder
+                variable_name = DA_alloy_rare_slots
+            }
+            export_to_variable = {
+                value = modifier:DA_fake_alloy_legendary_slot_adder
+                variable_name = DA_alloy_legendary_slots
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_switch_button_wonders
+	tooltip = DA_switch_to_wonders_interface_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		culture_group = dwarven
+	}
+	effect = {
+        clr_country_flag = DA_Metallurgy_interface_on_main
+        clr_country_flag = DA_Metallurgy_interface_on_alloy
+        clr_country_flag = DA_Metallurgy_interface_on_inventions
+        
+        set_country_flag = DA_Metallurgy_interface_on_wonders
+	}
+}
+custom_button = {
+	name = DA_switch_button_inventions
+	tooltip = DA_switch_button_inventions_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		culture_group = dwarven
+	}
+	effect = {
+        clr_country_flag = DA_Metallurgy_interface_on_main
+        clr_country_flag = DA_Metallurgy_interface_on_alloy
+        clr_country_flag = DA_Metallurgy_interface_on_wonders
+        
+        set_country_flag = DA_Metallurgy_interface_on_inventions
+	}
+}
+custom_button = {
+	name = DA_Fake_Info_button
+	tooltip = DA_Fake_Info_button_tt
+	potential = {
+        has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		custom_tooltip = DA_click_to_update_metals
+		hidden_effect = {
+			DA_calculate_metal_provinces = yes
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Fake_Capacity_button
+	tooltip = DA_Fake_Capacity_button_tt
+	potential = {
+        has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+        hidden_effect = {
+            country_event = {
+                id = DA_adk.150
+            }
+        }
+	}
+}
+
+custom_text_box = {
+    name = DA_Prod_Capacity_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Prod_Capacity_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = DA_Fake_Research_progress_button
+	tooltip = DA_Fake_Research_progress_button_tt
+	potential = {
+        has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+	}
+}
+
+custom_text_box = {
+    name = DA_Research_progress_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Prod_Capacity_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = DA_Runesmith_Menu_Button
+	tooltip = DA_Runesmith_Menu_Button_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        culture_group = dwarven
+        DA_has_RF_2_or_higher = yes
+        NOT = { has_country_flag = DA_rf_menu_in_use }
+	}
+	effect = {
+        hidden_effect = {
+            country_event = {
+                id = DA_Research_facility_menu.1
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_Research_Button
+	tooltip = DA_Runesmith_Research_Button_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+    trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_NO_Research_in_progress_tt
+            NOT = { has_estate_privilege = DA_Runesmith_research_privilege }
+            NOT = { has_country_modifier = DA_General_research_Mod }
+        }
+        if = {
+            limit = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+            }
+            DA_has_RF_3_or_higher = yes
+            custom_trigger_tooltip = {
+                tooltip = DA_unlocked_production_System_tt
+                has_country_flag = DA_unlocked_production_System
+            }
+        }
+        else = {
+            custom_trigger_tooltip = {
+                tooltip = DA_Unlocked_Research_tt
+                has_country_flag = DA_General_MT_part_2_enabled
+            }
+        }
+    }
+	effect = {
+		add_adm_power = -10
+		add_dip_power = -10
+		add_mil_power = -10
+        if = {
+            limit = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+            }
+            country_event = {
+                id = DA_Runesmiths_events.1
+            }
+            set_estate_privilege = DA_Runesmith_research_privilege
+        }
+        else = {
+            country_event = {
+                id = DA_General_Research_events.1
+            }
+            add_country_modifier = {
+                name = DA_General_research_Mod
+                duration = -1
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Building_Menu_Button
+	tooltip = DA_Building_Menu_Button_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        always = no
+        culture_group = dwarven
+        OR = {
+            custom_trigger_tooltip = {
+                tooltip = DA_unlocked_runeforged_forts_tt
+                has_country_flag = DA_can_build_runeforged_fort
+            }
+            DA_completed.Magic_Theory_2 = yes
+            DA_completed.Metallurgy_2 = yes
+            DA_completed.Alchemy_2 = yes
+            DA_completed.Mechanics_2 = yes
+            DA_completed.Medicine_2 = yes
+        }
+	}
+	effect = {
+        hidden_effect = {
+            country_event = {
+                id = DA_Buildings_menu.1
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Metallurgy_Menu_Button
+	tooltip = DA_Metallurgy_Menu_Button_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_not_doing_metallurgy_tt
+            NOT = { has_country_flag = DA_redesigning_ARTIFICERtry }
+            NOT = { has_country_flag = DA_redesigning_Infantry }
+            NOT = { has_country_flag = DA_redesigning_Cavalry }
+            NOT = { has_country_flag = DA_redesigning_Artillery }
+            NOT = { has_estate_privilege = DA_Metallurgy_project }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_enabled_metallurgy_menu_tt
+			OR = {
+				has_country_flag = DA_enable_metallurgy_System
+				has_country_flag = DA_enable_metallurgy_System_artificer
+			}
+        }
+
+	}
+	effect = {
+		add_adm_power = -10
+		add_dip_power = -10
+		add_mil_power = -10
+		set_estate_privilege = DA_Metallurgy_project
+        hidden_effect = {
+            country_event = {
+                id = DA_Metallurgy_events.5
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Exploration_Button
+	tooltip = DA_Exploration_Button_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        OR = {
+            culture_group = dwarven
+            culture_group = goblin
+            culture_group = kobold
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_Has_unexplored_dig_level_tooltip
+            NOT = { has_country_flag = DA_ADK_menu_in_use }
+            OR = {
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_1_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_2 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 25
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_2_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_3 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 50
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_3_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_4 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 100
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_4_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_5 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 200
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_5_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_6 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 300
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_6_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_7 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 500
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_7_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_8 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 800
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_8_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_9 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 1200
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_9_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_10 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 2500
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_10_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_11 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 5000
+                    }
+                }
+            }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_ADK_menu_CD_tt
+            NOT = { has_country_flag = DA_ADK_menu_in_use }
+            NOT = { has_country_modifier = DA_ADK_menu_cooldown }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_ADK_menu_Exp_in_progress_tt
+            NOT = {
+                any_owned_province = {
+                    has_province_flag = DA_expedition_in_progress
+                }
+            }
+        }
+	}
+	effect = {
+        hidden_effect = {
+            country_event = {
+                id = DA_adk_hold_exploration_menu.1 
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_ADK_Disable_Button
+	tooltip = DA_ADK_Disable_Button_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        hidden_effect = {
+            if = {
+                limit = {
+                    has_country_flag = DA_Disabled_ADK_on_Click
+                }
+                clr_country_flag = DA_Disabled_ADK_on_Click
+            }
+            else = {
+                set_country_flag = DA_Disabled_ADK_on_Click
+            }
+        }
+	}
+}
+
+
+custom_button = {
+	name = DA_Increase_magic_theory
+	tooltip = DA_Increase_magic_theory_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_magic_theory_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Magic_Theory_1 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_1 = yes
+                    NOT = { DA_completed.Magic_Theory_2 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_2 = yes
+                    DA_completed.Elemental_Magic_Air = yes
+                    DA_completed.Elemental_Magic_Fire = yes
+                    DA_completed.Elemental_Magic_Water = yes
+                    DA_completed.Elemental_Magic_Earth = yes
+                    NOT = { DA_completed.Magic_Theory_3 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_3 = yes
+                    NOT = { DA_completed.Magic_Theory_4 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Arcane_Arts
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Magic_Theory_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_acane_arts_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.300
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_1 = yes
+                    NOT = { DA_completed.Magic_Theory_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_acane_arts_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.301
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_2 = yes
+                    NOT = { DA_completed.Magic_Theory_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_acane_arts_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.303
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_3 = yes
+                    NOT = { DA_completed.Magic_Theory_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_acane_arts_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.306
+                    days = 240
+                }
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Increase_metallurgy
+	tooltip = DA_Increase_metallurgy_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_metallurgy_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Metallurgy_1 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_1 = yes
+                    NOT = { DA_completed.Metallurgy_2 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_2 = yes
+                    NOT = { DA_completed.Metallurgy_3 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_3 = yes
+                    NOT = { DA_completed.Metallurgy_4 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Metallurgy
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Metallurgy_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_metallurgy_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.500
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_1 = yes
+                    NOT = { DA_completed.Metallurgy_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_metallurgy_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.501
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_2 = yes
+                    NOT = { DA_completed.Metallurgy_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_metallurgy_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.503
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_3 = yes
+                    NOT = { DA_completed.Metallurgy_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_metallurgy_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.506
+                    days = 240
+                }
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Increase_mechanics
+	tooltip = DA_Increase_mechanics_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_mechanics_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Mechanics_1 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Mechanics_1 = yes
+                    NOT = { DA_completed.Mechanics_2 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Mechanics_2 = yes
+                    NOT = { DA_completed.Mechanics_3 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Mechanics_3 = yes
+                    NOT = { DA_completed.Mechanics_4 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Mechanics
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Mechanics_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_mechanics_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.400
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Mechanics_1 = yes
+                    NOT = { DA_completed.Mechanics_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_mechanics_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.401
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Mechanics_2 = yes
+                    NOT = { DA_completed.Mechanics_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_mechanics_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.403
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Mechanics_3 = yes
+                    NOT = { DA_completed.Mechanics_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_mechanics_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.406
+                    days = 240
+                }
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Increase_alchemy
+	tooltip = DA_Increase_alchemy_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_alchemy_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Alchemy_1 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Alchemy_1 = yes
+                    NOT = { DA_completed.Alchemy_2 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Alchemy_2 = yes
+                    NOT = { DA_completed.Alchemy_3 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Alchemy_3 = yes
+                    NOT = { DA_completed.Alchemy_4 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Alchemy
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Alchemy_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_alchemy_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.200
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Alchemy_1 = yes
+                    NOT = { DA_completed.Alchemy_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_alchemy_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.201
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Alchemy_2 = yes
+                    NOT = { DA_completed.Alchemy_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_alchemy_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.203
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Alchemy_3 = yes
+                    NOT = { DA_completed.Alchemy_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_alchemy_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.206
+                    days = 240
+                }
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Increase_medicine
+	tooltip = DA_Increase_medicine_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_medicine_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Medicine_1 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Medicine_1 = yes
+                    NOT = { DA_completed.Medicine_2 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Medicine_2 = yes
+                    NOT = { DA_completed.Medicine_3 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Medicine_3 = yes
+                    NOT = { DA_completed.Medicine_4 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Medicine
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Medicine_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_medicine_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.100
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Medicine_1 = yes
+                    NOT = { DA_completed.Medicine_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_medicine_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.101
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Medicine_2 = yes
+                    NOT = { DA_completed.Medicine_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_medicine_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.103
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Medicine_3 = yes
+                    NOT = { DA_completed.Medicine_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_medicine_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.106
+                    days = 240
+                }
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Met_COST_fake_button
+	tooltip = DA_Met_COST_fake_button_tt
+	potential = {
+		has_country_flag = DA_Metallurgy_interface_on_main
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+	}
+}
+
+custom_text_box = {
+    name = DA_Met_COST_Shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Met_COST_Shower.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_ADK_Shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_ADK_Shower.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Tech_Shower.Magic_Theory #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Tech_Shower.Magic_Theory.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Tech_Shower.Metallurgy #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Tech_Shower.Metallurgy.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Tech_Shower.Mechanics #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Tech_Shower.Mechanics.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Tech_Shower.Alchemy #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Tech_Shower.Alchemy.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Tech_Shower.Medicine #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Tech_Shower.Medicine.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+# All metal values here
+
+# commons
+
+custom_text_box = {
+    name = DA_Metal_Shower.Iron #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Iron.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Copper #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Copper.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Gold #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Gold.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Silver #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Silver.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Tin #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Tin.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Aluminium #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Aluminium.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Titanium #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Titanium.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Chromium #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Chromium.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Castellium #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Castellium.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Zinc #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Zinc.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Lead #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Lead.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+# rares 1
+
+custom_text_box = {
+    name = DA_Metal_Shower.Quicksilver #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Quicksilver.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Palladium #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Palladium.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Platinum #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Platinum.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Tantalum #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Tantalum.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Metal_Shower.Damestear #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Damestear.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Meteoric_Silver #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Meteoric_Silver.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Cobalt #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Cobalt.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Tungsten #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Tungsten.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+
+# rares 2
+
+custom_text_box = {
+    name = DA_Metal_Shower.Dagrite #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Dagrite.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.RoseMetal #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.RoseMetal.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Cold_iron #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Cold_iron.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Mithril #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Mithril.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.EbonSteel #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.EbonSteel.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.IronWood #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.IronWood.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Orichalcum #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Orichalcum.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Octiron #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Octiron.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+# legendaries
+
+custom_text_box = {
+    name = DA_Metal_Shower.CinderSteel #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.CinderSteel.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Magnetite #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Magnetite.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Mistium #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Mistium.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Skyshard #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Skyshard.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Adamantium #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Adamantium.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Unastu_Argazen #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Unastu_Argazen.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Bloth_Dolur #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Bloth_Dolur.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Sylvanite #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Sylvanite.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.VoidSteel #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.VoidSteel.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Unobtainium #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Unobtainium.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Metal_Shower.Hihiirokane #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metal_Shower.Hihiirokane.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+
+
+
+custom_text_box = {
+    name = DA_material_Shower.alchemy_reagents #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_material_Shower.alchemy_reagents.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_material_Shower.arcane_metal #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_material_Shower.arcane_metal.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_material_Shower.enchanted_building_material #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_material_Shower.enchanted_building_material.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}

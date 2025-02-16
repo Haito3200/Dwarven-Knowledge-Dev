@@ -1,0 +1,666 @@
+
+########################################################
+############# special units ####################
+
+DA_enable_Metal_Infan = {
+	set_country_flag = DA_enable_metallurgy_System
+	add_country_modifier = {
+		name = DA_metal_infantry_country_enabler
+		duration = -1
+		hidden = yes
+	}
+}
+
+DA_enable_Metal_Caval = {
+
+	set_country_flag = DA_enable_metallurgy_System_cav
+	add_country_modifier = {
+		name = DA_metal_cavalry_country_enabler
+		duration = -1
+		hidden = yes
+	}
+}
+
+DA_initialize_metallurgy_variables_InfCav = {
+	hidden_effect = {
+		set_variable = {
+			which = DA_Unit_type
+			value = $DA_unit$
+		}
+		set_variable = {
+			which = DA_Cost_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Runes_Slots_STAT_MAX_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Runes_Slots_occupied_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Metal_strength_STAT.$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_power_Metal_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_fire_Metal_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_shock_Metal_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Fire_rec_Metal_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Shock_rec_Metal_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_power_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_fire_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_shock_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Fire_rec_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Shock_rec_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_power_TOTAL_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_fire_TOTAL_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_shock_TOTAL_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Fire_rec_TOTAL_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Shock_rec_TOTAL_$DA_unit$
+			value = 0
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_metal_strength_adder
+			variable_name = DA_fake_metal_strength_adder_var
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_magic_conductivity_adder
+			variable_name = DA_fake_magic_conductivity_adder_var
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_electrical_conductivity_adder
+			variable_name = DA_fake_electrical_conductivity_adder_var
+		}
+		change_variable = {
+			which = DA_Metal_strength_STAT.$DA_unit$
+			which = DA_fake_metal_strength_adder_var
+		}
+		change_variable = {
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			which = DA_fake_magic_conductivity_adder_var
+		}
+		change_variable = {
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+			which = DA_fake_electrical_conductivity_adder_var
+		}
+	}
+}
+DA_apply_InfCav_Blueprint = {										 # new effect
+	custom_tooltip = DA_Blueprint_preview_tooltip
+	custom_tooltip = DA_Cost.tt.$DA_Cost$
+	custom_tooltip = DA_RuneSlots.tt.$DA_RUNE_SLOTS$
+	custom_tooltip = DA_power.tt.$DA_power$
+	custom_tooltip = DA_Fire.tt.$DA_fire$
+	custom_tooltip = DA_shock.tt.$DA_shock$
+	custom_tooltip = DA_Fire_rec.tt.$DA_Fire_rec$
+	custom_tooltip = DA_Shock_rec.tt.$DA_Shock_rec$
+	custom_tooltip = DA_Blueprint_preview_tooltip_after
+	hidden_effect = {
+		change_variable = {
+			which = DA_Cost_$DA_unit$
+			value = $DA_Cost$
+		}
+		change_variable = {
+			which = DA_Runes_Slots_STAT_MAX_$DA_unit$
+			value = $DA_RUNE_SLOTS$
+		}
+		change_variable = {
+			which = DA_power_Metal_$DA_unit$
+			value = $DA_power$
+		}
+		change_variable = {
+			which = DA_fire_Metal_$DA_unit$
+			value = $DA_fire$
+		}
+		change_variable = {
+			which = DA_shock_Metal_$DA_unit$
+			value = $DA_shock$
+		}
+		change_variable = {
+			which = DA_Fire_rec_Metal_$DA_unit$
+			value = $DA_Fire_rec$
+		}
+		change_variable = {
+			which = DA_Shock_rec_Metal_$DA_unit$
+			value = $DA_Shock_rec$
+		}
+	}
+	[[DA_Unique]
+	# this flag is needed to apply unique modifiers at the end with relative tooltip
+		set_country_flag = DA_Unique_mod.BLUEPRINT.Flag.$DA_unit$.$DA_Unique$
+		custom_tooltip = DA_Unique_blueprint_TT
+		tooltip = {
+			add_country_modifier = {
+				name = DA_Unique_mod.BLUEPRINT.$DA_unit$.$DA_Unique$
+				duration = -1
+			}
+		}
+	]
+	[[DA_Electrical]
+	# this flag is needed to apply electrical modifiers at the end with relative tooltip
+		set_country_flag = DA_Electrical_mod.BLUEPRINT.Flag.$DA_unit$.$DA_Electrical$
+		custom_tooltip = DA_Electrical_blueprint_TT
+		tooltip = {
+			add_country_modifier = {
+				name = DA_Electrical_mod.BLUEPRINT.$DA_unit$.$DA_Electrical$
+				duration = -1
+			}
+		}
+	]
+}
+
+DA_apply_InfCav_Metal = {
+	custom_tooltip = DA_Metal_stat_explanation_short_strength_tt
+	custom_tooltip = DA_Metal_stat_explanation_short_MC_tt
+	custom_tooltip = DA_Metal_stat_explanation_short_EC_tt
+	custom_tooltip = DA_Cost.tt.$DA_Cost$
+	custom_tooltip = DA_Metal_strength_stat.$DA_Strength$
+	custom_tooltip = DA_Metal_MC_stat.$DA_Magic_Conductivity$
+	custom_tooltip = DA_Metal_EC_stat.$DA_Electrical_Conductivity$
+	[[DA_Unique]
+	# this flag is needed to apply unique modifiers at the end with relative tooltip
+		set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.$DA_Unique$
+		custom_tooltip = DA_Unique_METAL_TT
+		tooltip = {
+			add_country_modifier = {
+				name = DA_Unique_mod.METAL.$DA_unit$.$DA_Unique$
+				duration = -1
+			}
+		}
+	]
+	hidden_effect = {
+
+		change_variable = {
+			which = DA_Cost_$DA_unit$
+			value = $DA_Cost$
+		}
+		# the 3 metal stats are initialized
+		change_variable = {
+			which = DA_Metal_strength_STAT.$DA_unit$
+			value = $DA_Strength$
+		}
+		change_variable = {
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			value = $DA_Magic_Conductivity$
+		}
+		change_variable = {
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+			value = $DA_Electrical_Conductivity$
+		}
+
+		# the metal strength stat multiply each not-electric not-unique blueprint modifier
+		
+		multiply_variable = {
+			which = DA_power_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_fire_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_shock_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Fire_rec_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Shock_rec_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		
+		# multiplied blueprint modifiers are added to the total
+		
+		change_variable = {
+			which = DA_power_TOTAL_$DA_unit$
+			which = DA_power_Metal_$DA_unit$
+		}
+		change_variable = {
+			which = DA_fire_TOTAL_$DA_unit$
+			which = DA_fire_Metal_$DA_unit$
+		}
+		change_variable = {
+			which = DA_shock_TOTAL_$DA_unit$
+			which = DA_shock_Metal_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Fire_rec_TOTAL_$DA_unit$
+			which = DA_Fire_rec_Metal_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Shock_rec_TOTAL_$DA_unit$
+			which = DA_Shock_rec_Metal_$DA_unit$
+		}
+	}
+}
+DA_apply_InfCav_alloy = {
+	# DA_alloy_slot
+	custom_tooltip = DA_$DA_alloy_slot$_Cost.tt
+	custom_tooltip = DA_$DA_alloy_slot$_Metal_strength_stat.tt
+	custom_tooltip = DA_$DA_alloy_slot$_Metal_MC_stat.tt
+	custom_tooltip = DA_$DA_alloy_slot$_Metal_EC_stat.tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.empty
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Adamantium
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Adamantium
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Adamantium
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Unastu_Argazen
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Unastu_Argazen
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Unastu_Argazen
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Bloth_Dolur
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Bloth_Dolur
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Bloth_Dolur
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Unobtainium
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Unobtainium
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Unobtainium
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Hihiirokane
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Hihiirokane
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Hihiirokane
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Sylvanite
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Sylvanite
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Sylvanite
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.VoidSteel
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.VoidSteel
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.VoidSteel
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Magnetite
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Magnetite
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Magnetite
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Mistium
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Mistium
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Mistium
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Skyshard
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Skyshard
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Skyshard
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_Alloy_unique_mod_1_$DA_alloy_slot$.Cindersteel
+			}
+			set_country_flag = DA_Unique_mod.METAL.Flag.$DA_unit$.Cindersteel
+			custom_tooltip = DA_Unique_METAL_TT
+			tooltip = {
+				add_country_modifier = {
+					name = DA_Unique_mod.METAL.$DA_unit$.Cindersteel
+					duration = -1
+				}
+			}
+		}
+	}
+	hidden_effect = {
+
+		change_variable = {
+			which = DA_Cost_$DA_unit$
+			which = DA_Cost_$DA_alloy_slot$
+		}
+		# the 3 metal stats are initialized
+		change_variable = {
+			which = DA_Metal_strength_STAT.$DA_unit$
+			which = DA_Alloy_strength_$DA_alloy_slot$
+		}
+		change_variable = {
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			which = DA_Alloy_Magic_Conductivity_$DA_alloy_slot$
+		}
+		change_variable = {
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+			which = DA_Alloy_electrical_Conductivity_$DA_alloy_slot$
+		}
+
+		# the metal strength stat multiply each not-electric not-unique blueprint modifier
+		
+		multiply_variable = {
+			which = DA_power_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_fire_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_shock_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Fire_rec_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Shock_rec_Metal_$DA_unit$
+			which = DA_Metal_strength_STAT.$DA_unit$
+		}
+		
+		# multiplied blueprint modifiers are added to the total
+		
+		change_variable = {
+			which = DA_power_TOTAL_$DA_unit$
+			which = DA_power_Metal_$DA_unit$
+		}
+		change_variable = {
+			which = DA_fire_TOTAL_$DA_unit$
+			which = DA_fire_Metal_$DA_unit$
+		}
+		change_variable = {
+			which = DA_shock_TOTAL_$DA_unit$
+			which = DA_shock_Metal_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Fire_rec_TOTAL_$DA_unit$
+			which = DA_Fire_rec_Metal_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Shock_rec_TOTAL_$DA_unit$
+			which = DA_Shock_rec_Metal_$DA_unit$
+		}
+	}
+}
+DA_apply_InfCav_Runes = {			# make it so you avoid coming here if you end up with 0 MC
+	
+	# you need to redo how you call this function, most variables names are redone
+	custom_tooltip = DA_Rune_preview_tooltip
+	custom_tooltip = DA_Cost.tt.$DA_Cost$
+	custom_tooltip = DA_power.tt.$DA_power$
+	custom_tooltip = DA_Fire.tt.$DA_fire$
+	custom_tooltip = DA_shock.tt.$DA_shock$
+	custom_tooltip = DA_Fire_rec.tt.$DA_Fire_rec$
+	custom_tooltip = DA_Shock_rec.tt.$DA_Shock_rec$
+	custom_tooltip = DA_Rune_preview_tooltip_after
+	[[DA_Unique]
+	# this flag is needed to apply unique modifiers at the end with relative tooltip
+		set_country_flag = DA_Unique_mod.RUNE.Flag.$DA_unit$.$DA_Unique$
+		custom_tooltip = DA_Unique_RUNE_TT
+		tooltip = {
+			add_country_modifier = {
+				name = DA_Unique_mod.RUNE.$DA_unit$.$DA_Unique$
+				duration = -1
+			}
+		}
+	]
+	hidden_effect = {
+		# temporary rune variables
+		change_variable = {
+			which = DA_Cost_$DA_unit$
+			value = $DA_Cost$
+		}
+		change_variable = {
+			which = DA_power_Rune_$DA_unit$
+			value = $DA_power$
+		}
+		change_variable = {
+			which = DA_fire_Rune_$DA_unit$
+			value = $DA_fire$
+		}
+		change_variable = {
+			which = DA_shock_Rune_$DA_unit$
+			value = $DA_shock$
+		}
+		change_variable = {
+			which = DA_Fire_rec_Rune_$DA_unit$
+			value = $DA_Fire_rec$
+		}
+		change_variable = {
+			which = DA_Shock_rec_Rune_$DA_unit$
+			value = $DA_Shock_rec$
+		}
+		change_variable = {
+			which = DA_Runes_Slots_occupied_$DA_unit$
+			value = 1
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = DA_Runes_Slots_occupied_$DA_unit$
+					which = DA_Runes_Slots_STAT_MAX_$DA_unit$
+				}
+			}
+			# Multiply total rune x MC
+			multiply_variable = {
+				which = DA_power_Rune_$DA_unit$
+				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			}
+			multiply_variable = {
+				which = DA_fire_Rune_$DA_unit$
+				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			}
+			multiply_variable = {
+				which = DA_shock_Rune_$DA_unit$
+				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			}
+			multiply_variable = {
+				which = DA_Fire_rec_Rune_$DA_unit$
+				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			}
+			multiply_variable = {
+				which = DA_Shock_rec_Rune_$DA_unit$
+				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+			}
+			clr_country_flag = DA_redo.$DA_unit$
+	
+			# calculate total rune modifiers multiplied, metal multiplier was calculated earlier
+	
+			change_variable = {
+				which = DA_fire_TOTAL_$DA_unit$
+				which = DA_fire_Rune_$DA_unit$
+			}
+			change_variable = {
+				which = DA_shock_TOTAL_$DA_unit$
+				which = DA_shock_Rune_$DA_unit$
+			}
+			change_variable = {
+				which = DA_power_TOTAL_$DA_unit$
+				which = DA_power_Rune_$DA_unit$
+			}
+			change_variable = {
+				which = DA_Fire_rec_TOTAL_$DA_unit$
+				which = DA_Fire_rec_Rune_$DA_unit$
+			}
+			change_variable = {
+				which = DA_Shock_rec_TOTAL_$DA_unit$
+				which = DA_Shock_rec_Rune_$DA_unit$
+			}
+		}
+		else = {
+			set_country_flag = DA_redo.$DA_unit$
+			#calcolo dei totali
+		}
+	}
+}
+
+DA_pre_apply_InfCav_metallurgy_modifiers = {
+	set_variable = {
+		which = DA_power_TOTAL_$DA_unit$_shower
+		which = DA_power_TOTAL_$DA_unit$
+	}
+	multiply_variable = {
+		which = DA_power_TOTAL_$DA_unit$_shower
+		value = 100
+	}
+	set_variable = {
+		which = DA_fire_TOTAL_$DA_unit$_shower
+		which = DA_fire_TOTAL_$DA_unit$
+	}
+	multiply_variable = {
+		which = DA_fire_TOTAL_$DA_unit$_shower
+		value = 100
+	}
+	set_variable = {
+		which = DA_shock_TOTAL_$DA_unit$_shower
+		which = DA_shock_TOTAL_$DA_unit$
+	}
+	multiply_variable = {
+		which = DA_shock_TOTAL_$DA_unit$_shower
+		value = 100
+	}
+	set_variable = {
+		which = DA_Fire_rec_TOTAL_$DA_unit$_shower
+		which = DA_Fire_rec_TOTAL_$DA_unit$
+	}
+	multiply_variable = {
+		which = DA_Fire_rec_TOTAL_$DA_unit$_shower
+		value = 100
+	}
+	set_variable = {
+		which = DA_Shock_rec_TOTAL_$DA_unit$_shower
+		which = DA_Shock_rec_TOTAL_$DA_unit$
+	}
+	multiply_variable = {
+		which = DA_Shock_rec_TOTAL_$DA_unit$_shower
+		value = 100
+	}
+}

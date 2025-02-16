@@ -1,0 +1,132 @@
+country_decisions = {
+	DA_disaster_nobles = {
+		major = yes
+		color = { 161 43 32 }
+		potential = {
+			ai = no
+			has_disaster = DA_Runemaster_disaster
+			NOT = {
+				OR = {
+					has_country_modifier = DA_negotiated_Old_Nobles
+					has_country_modifier = DA_defeated_Old_Nobles
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+		}
+		
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = DA_fight_nobles_more_tt
+				has_country_flag = DA_disaster_nobles_negotiations_allowed
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Negotiations_1_year_CD
+				NOT = {
+					has_country_modifier = DA_disaster_nobles_menu_CD
+				}
+			}
+		}
+		
+		effect = {
+			hidden_effect = {
+				add_country_modifier = {
+					name = DA_disaster_nobles_menu_CD
+					duration = 365
+				}
+			}
+			custom_tooltip = DA_Negotiations_1_year_CD
+			country_event = {
+				id = DA_disaster_event.13
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	DA_disaster_runemasters = {
+		major = yes
+		color = { 161 43 32 }
+		potential = {
+			ai = no
+			has_disaster = DA_Runemaster_disaster
+			NOT = {
+				has_country_modifier = DA_returned_runemasters
+			}
+		}
+		
+		provinces_to_highlight = {
+		}
+		
+		allow = {
+			NOT = {
+				has_country_modifier = DA_returned_runemasters
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Negotiations_1_year_CD
+				NOT = {
+					has_country_modifier = DA_disaster_runemasters_menu_CD
+				}
+			}
+		}
+		
+		effect = {
+			hidden_effect = {
+				add_country_modifier = {
+					name = DA_disaster_runemasters_menu_CD
+					duration = 365
+				}
+			}
+			custom_tooltip = DA_Negotiations_1_year_CD
+			country_event = {
+				id = DA_disaster_event.35
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	DA_disaster_merchants = {
+		major = yes
+		color = { 161 43 32 }
+		potential = {
+			ai = no
+			has_disaster = DA_Runemaster_disaster
+			NOT = {
+				has_country_modifier = DA_rescued_Rune_merchants
+			}
+		}
+		
+		provinces_to_highlight = {
+		}
+		
+		allow = {
+			NOT = {
+				has_country_modifier = DA_rescued_Rune_merchants
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Negotiations_1_year_CD
+				NOT = {
+					has_country_modifier = DA_disaster_merchants_menu_CD
+				}
+			}
+		}
+		
+		effect = {
+			hidden_effect = {
+				add_country_modifier = {
+					name = DA_disaster_merchants_menu_CD
+					duration = 365
+				}
+			}
+			custom_tooltip = DA_Negotiations_1_year_CD
+			country_event = {
+				id = DA_disaster_event.30
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

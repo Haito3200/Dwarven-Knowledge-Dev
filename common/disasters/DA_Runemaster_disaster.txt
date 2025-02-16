@@ -1,0 +1,93 @@
+
+DA_Runemaster_disaster = {
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		NOT = { has_country_flag = DA_Runesmiths_disaster_ended }
+		has_country_flag = DA_Runesmiths_disaster_start
+	}
+
+	
+	
+	can_start = {
+		always = yes
+	}
+	
+	
+	can_stop = {
+		always = no
+	}
+		
+	
+	
+	progress = {
+		modifier = {
+			factor = 10
+			always = yes
+		}
+	}
+	
+	
+	
+	can_end = {
+		custom_trigger_tooltip = {
+			tooltip = DA_returned_runemasters_tt
+			has_country_modifier = DA_returned_runemasters
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_dealt_with_Old_Nobles_tt
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+		
+		custom_trigger_tooltip = {
+			tooltip = DA_rescued_Rune_merchants_tt
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+	}
+	
+
+	modifier = {
+		global_unrest = 5
+		manpower_recovery_speed = -0.15
+		stability_cost_modifier = 0.5
+		global_tax_modifier = -0.3
+		trade_efficiency = -0.4
+		production_efficiency = -0.4
+		interest = 3
+		all_estate_loyalty_equilibrium = -0.25
+		legitimacy = -1.5
+		devotion = -1.5
+		republican_tradition = -0.5
+	}
+	
+	
+	on_start = DA_disaster_event.1
+	on_end = DA_disaster_event.40
+	
+	on_monthly = {
+		events = {
+			DA_disaster_event.5
+			DA_disaster_event.7
+			DA_disaster_event.12
+			DA_disaster_event.15
+		}
+		random_events = {
+			1800 = 0
+			400 = DA_disaster_event.4
+			150 = DA_disaster_event.9
+			200 = DA_disaster_event.10
+			80 = DA_disaster_event.20
+			80 = DA_disaster_event.21
+			80 = DA_disaster_event.22
+			80 = DA_disaster_event.23
+			150 = DA_disaster_event.24
+			120 = DA_disaster_event.26
+			120 = DA_disaster_event.27
+			120 = DA_disaster_event.28
+			120 = DA_disaster_event.29
+		}
+	}
+}
+

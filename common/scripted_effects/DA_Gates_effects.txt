@@ -1,0 +1,150 @@
+DA_set_up_gate = {
+	hidden_effect = {
+		set_variable = {
+			which = DA_infantry
+			value = 0
+		}
+		set_variable = {
+			which = DA_cavalry
+			value = 0
+		}
+		set_variable = {
+			which = DA_artillery
+			value = 0
+		}
+	}
+}
+
+DA_save_army_composition = {		# this one will be long, or not?
+	hidden_effect = {
+		while = {
+			limit = {
+				event_target:DA_teleported_from = {
+					infantry_in_province = 1
+				}
+			}
+			event_target:DA_teleported_from = {
+				kill_units = {
+					who = controller
+					type = infantry
+					amount = 1
+				}
+			}
+			change_variable = {
+				which = DA_infantry
+				value = 1
+			}
+		}
+		while = {
+			limit = {
+				event_target:DA_teleported_from = {
+					cavalry_in_province = 1
+				}
+			}
+			event_target:DA_teleported_from = {
+				kill_units = {
+					who = controller
+					type = cavalry
+					amount = 1
+				}
+			}
+			change_variable = {
+				which = DA_cavalry
+				value = 1
+			}
+		}
+		while = {
+			limit = {
+				event_target:DA_teleported_from = {
+					artillery_in_province = 1
+				}
+			}
+			event_target:DA_teleported_from = {
+				kill_units = {
+					who = controller
+					type = artillery
+					amount = 1
+				}
+			}
+			change_variable = {
+				which = DA_artillery
+				value = 1
+			}
+		}
+	}
+}
+
+DA_spawn_saved_army_composition = {		#this one will be long, or not?
+	hidden_effect = {
+		while = {
+			limit = {
+				check_variable = {
+					which = DA_infantry
+					value = 1
+				}
+			}
+			event_target:DA_teleport_target = {
+				infantry = from
+			}
+			change_variable = {
+				which = DA_infantry
+				value = -1
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = DA_cavalry
+					value = 1
+				}
+			}
+			event_target:DA_teleport_target = {
+				cavalry = from
+			}
+			change_variable = {
+				which = DA_cavalry
+				value = -1
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = DA_artillery
+					value = 1
+				}
+			}
+			event_target:DA_teleport_target = {
+				artillery = from
+			}
+			change_variable = {
+				which = DA_artillery
+				value = -1
+			}
+		}
+		clear_global_event_target = DA_teleported_from
+	}
+}
+
+# triggers
+
+# num_of_infantry = 17
+# infantry_in_province = 17
+# 
+# num_of_cavalry = 23
+# cavalry_in_province = 10
+# 
+# num_of_artillery = 12
+# artillery_in_province = 5
+# 
+# unit_has_leader = yes
+# unit_in_battle = no
+# units_in_province = 1
+# 
+# 
+# 
+# effects
+# 
+# capital_scope = {
+#     artillery = FRA
+# }
+#

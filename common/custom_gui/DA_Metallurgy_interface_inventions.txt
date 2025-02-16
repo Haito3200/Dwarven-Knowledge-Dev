@@ -1,0 +1,1382 @@
+# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
+
+
+
+# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
+#custom_button = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the button is visible
+#    trigger = { } #Determines when the button is clickable
+#    effect = { } #Effect
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_text_box = {
+#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
+#    potential = { } #Determines when the text is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    #To localize it, use the name of the button as a key, can also use customizable localisation
+#}
+
+#custom_icon = {
+#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
+#    potential = { } #Determines when the icon is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_shield = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the shield is visible
+#    trigger = { } #Determines when the shield is clickable
+#    effect = { } #Effect for clicking
+#    tooltip = localisation_key #Can use customizable localisation
+#    global_event_target = <string> # Global event target name
+#    open_country = <bool> #If clicking opens the country view
+#}
+
+##############################  Supported files with scopes ##############################
+#   The Gui objects must be directly inside the specified window Gui element!
+#   FROM is always the country that clicks
+#   provinceview.gui:
+#       province_window         (ROOT: Clicked province)
+#       buildings_window        (ROOT: Clicked province)
+#       state_window            (ROOT: Clicked province)
+#   countrycourtview.gui:
+#       countrycourtview        (ROOT = FROM)
+#   countrygovernmentview.gui:
+#       countrygovernmentview   (ROOT = FROM)
+#   countrydiplomacyview.gui:
+#       countrydiplimacyview    (ROOT: Selected country)
+#   countryeconomyview.gui:
+#       countryeconomyview      (ROOT = FROM)
+#   countrytradeview.gui:
+#       countrytradeview        (ROOT = FROM)
+#   countrytechnologyview.gui:
+#       countrytechnologyview   (ROOT = FROM)
+#   countryideasview.gui:
+#       countryideasview        (ROOT = FROM)
+#   countrymissionsview.gui:
+#       countrymissionsview     (ROOT: Selected country)
+#   countrydecisionview.gui:
+#       countrydecisionsview    (ROOT = FROM)
+#   countrystabilityview.gui:
+#       countrystabilityview    (ROOT = FROM)
+#   countryreligionview.gui:
+#       countryreligionview     (ROOT = FROM)
+#   countrymilitaryview.gui:
+#       countrymilitaryview     (ROOT = FROM)
+#   countrysubjectsview.gui:
+#       countrysubjectview      (ROOT = FROM)
+#   countryestatesview.gui:
+#       countryestatesview      (ROOT = FROM)
+#   ages_view.gui:
+#       ages_view               (ROOT = FROM)
+#   tradeinterface.gui:
+#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
+#   hre.gui:
+#       hre_window              (ROOT = FROM)
+#   papacy.gui:
+#       papacy_window           (ROOT = FROM)
+#   faction.gui:
+#       All faction windows     (ROOT = FROM)
+#   celestialempireview.gui:
+#       celestial_window        (ROOT = FROM)
+#   countrynativesview.gui:
+#       natives_window          (ROOT = FROM)
+#   religiousreforms.gui:
+#       reforms_window          (ROOT = FROM)
+#   parliament.gui:
+#       parliament_window       (ROOT = FROM)
+custom_window = {
+    name = DA_Metallurgy_interface_Inventions
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_inventions
+    }
+}
+custom_icon = {
+    name = DA_Inventions_Interface_background
+    potential = {
+        always = yes
+    }
+}
+
+custom_button = {
+	name = DA_Tech_tier_emblems_strip
+	tooltip = DA_Tech_tier_emblems_strip_tt
+	frame = {
+		number = 1
+		trigger = {
+			NOT = { has_country_flag = DA_RS_Steam_power_enabled }
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			has_country_flag = DA_RS_Steam_power_enabled
+			NOT = { has_country_flag = DA_RS_Electric_power_enabled }
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_country_flag = DA_RS_Electric_power_enabled
+		}
+	}
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+	}
+}
+
+custom_button = {
+	name = DA_Fake_Capacity_button_2
+	tooltip = DA_Fake_Capacity_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+	}
+}
+
+custom_text_box = {
+    name = DA_Prod_Capacity_shower_2 #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Prod_Capacity_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_button = {
+	name = DA_Fake_Research_progress_button_2
+	tooltip = DA_Fake_Research_progress_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_Research_Button_2
+	tooltip = DA_Runesmith_Research_Button_tt
+	potential = {
+		always = yes
+	}
+    trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_NO_Research_in_progress_tt
+            NOT = { has_estate_privilege = DA_Runesmith_research_privilege }
+            NOT = { has_country_modifier = DA_General_research_Mod }
+        }
+        if = {
+            limit = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+            }
+			DA_has_RF_3_or_higher = yes
+            custom_trigger_tooltip = {
+                tooltip = DA_unlocked_production_System_tt
+                has_country_flag = DA_unlocked_production_System
+            }
+        }
+        else = {
+            custom_trigger_tooltip = {
+                tooltip = DA_Unlocked_Research_tt
+                has_country_flag = DA_General_MT_part_2_enabled
+            }
+        }
+    }
+	effect = {
+		add_adm_power = -10
+		add_dip_power = -10
+		add_mil_power = -10
+        if = {
+            limit = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+            }
+            country_event = {
+                id = DA_Runesmiths_events.1
+            }
+            set_estate_privilege = DA_Runesmith_research_privilege
+        }
+        else = {
+            country_event = {
+                id = DA_General_Research_events.1
+            }
+            add_country_modifier = {
+                name = DA_General_research_Mod
+                duration = -1
+            }
+        }
+	}
+}
+
+custom_text_box = {
+    name = DA_Research_progress_shower_2 #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Research_progress_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+######################
+
+
+custom_button = {
+	name = DA_Inventions_button_simple_runes
+	tooltip = DA_Inventions_button_simple_runes_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_inventions_Unique
+		clr_country_flag = DA_show_inventions_Projects
+		clr_country_flag = DA_show_inventions_Arcane
+		clr_country_flag = DA_show_inventions_Steam
+		clr_country_flag = DA_show_inventions_Electrical
+
+		set_country_flag = DA_show_inventions_simple_runes
+	}
+}
+custom_button = {
+	name = DA_Inventions_button_Unique
+	tooltip = DA_Inventions_button_Unique_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_inventions_simple_runes
+		clr_country_flag = DA_show_inventions_Projects
+		clr_country_flag = DA_show_inventions_Arcane
+		clr_country_flag = DA_show_inventions_Steam
+		clr_country_flag = DA_show_inventions_Electrical
+
+		set_country_flag = DA_show_inventions_Unique
+	}
+}
+custom_button = {
+	name = DA_Inventions_button_Projects
+	tooltip = DA_Inventions_button_Projects_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_inventions_Unique
+		clr_country_flag = DA_show_inventions_simple_runes
+		clr_country_flag = DA_show_inventions_Arcane
+		clr_country_flag = DA_show_inventions_Steam
+		clr_country_flag = DA_show_inventions_Electrical
+
+		set_country_flag = DA_show_inventions_Projects
+	}
+}
+##########################
+custom_button = {
+	name = DA_Inventions_button_Arcane
+	tooltip = DA_Inventions_button_Arcane_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_inventions_Unique
+		clr_country_flag = DA_show_inventions_Projects
+		clr_country_flag = DA_show_inventions_simple_runes
+		clr_country_flag = DA_show_inventions_Steam
+		clr_country_flag = DA_show_inventions_Electrical
+
+		set_country_flag = DA_show_inventions_Arcane
+	}
+}
+custom_button = {
+	name = DA_Inventions_button_Steam
+	tooltip = DA_Inventions_button_Steam_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_inventions_Unique
+		clr_country_flag = DA_show_inventions_Projects
+		clr_country_flag = DA_show_inventions_Arcane
+		clr_country_flag = DA_show_inventions_simple_runes
+		clr_country_flag = DA_show_inventions_Electrical
+
+		set_country_flag = DA_show_inventions_Steam
+	}
+}
+custom_button = {
+	name = DA_Inventions_button_Electrical
+	tooltip = DA_Inventions_button_Electrical_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_inventions_Unique
+		clr_country_flag = DA_show_inventions_Projects
+		clr_country_flag = DA_show_inventions_Arcane
+		clr_country_flag = DA_show_inventions_Steam
+		clr_country_flag = DA_show_inventions_simple_runes
+
+		set_country_flag = DA_show_inventions_Electrical
+	}
+}
+#######################
+# inventions tab runes
+#######################
+
+
+custom_icon = {
+    name = DA_inventions_panel_2_row_simple_runes
+    potential = {
+		has_country_flag = DA_show_inventions_simple_runes
+    }
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_1
+	tooltip = DA_Runesmith_weightlessness_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_weightlessness_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_weightlessness_Rune
+			}
+			has_country_flag = DA_unlocked_weightlessness_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_weightlessness_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_weightlessness_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_weightlessness_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_weightlessness_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_weightlessness_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_weightlessness_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_weightlessness_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_weightlessness_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_2
+	tooltip = DA_Runesmith_Strength_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Strength_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Strength_Rune
+			}
+			has_country_flag = DA_unlocked_Strength_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Strength_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Strength_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Strength_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Strength_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Strength_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Strength_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Strength_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Strength_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_3
+	tooltip = DA_Runesmith_Endurance_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Endurance_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Endurance_Rune
+			}
+			has_country_flag = DA_unlocked_Endurance_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Endurance_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Endurance_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Endurance_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Endurance_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Endurance_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Endurance_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Endurance_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Endurance_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_4
+	tooltip = DA_Runesmith_Haste_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Haste_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Haste_Rune
+			}
+			has_country_flag = DA_unlocked_Haste_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Haste_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Haste_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Haste_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Haste_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Haste_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Haste_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Haste_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Haste_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_5
+	tooltip = DA_Runesmith_Focus_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Focus_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Focus_Rune
+			}
+			has_country_flag = DA_unlocked_Focus_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Focus_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Focus_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_expert = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Focus_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Focus_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_expert = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Focus_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Focus_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Focus_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Focus_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_6
+	tooltip = DA_Runesmith_Impact_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Impact_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Impact_Rune
+			}
+			has_country_flag = DA_unlocked_Impact_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Impact_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Impact_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_expert = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Impact_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Impact_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_expert = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Impact_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Impact_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Impact_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Impact_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_7
+	tooltip = DA_Runesmith_Healing_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Healing_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Healing_Rune
+			}
+			has_country_flag = DA_unlocked_Healing_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Healing_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Healing_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Healing_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Healing_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Healing_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Healing_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Healing_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Healing_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_8
+	tooltip = DA_Runesmith_Heating_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Heating_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Heating_Rune
+			}
+			has_country_flag = DA_unlocked_Heating_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Heating_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Heating_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Heating_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Heating_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Heating_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Heating_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Heating_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Heating_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_9
+	tooltip = DA_Runesmith_Freezing_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Freezing_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Freezing_Rune
+			}
+			has_country_flag = DA_unlocked_Freezing_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Freezing_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Freezing_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Freezing_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Freezing_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Freezing_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Freezing_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Freezing_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Freezing_Rune
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_rune_1_10
+	tooltip = DA_Runesmith_Shocking_Rune
+	potential = { 
+		has_country_flag = DA_show_inventions_simple_runes
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_unlocked_Shocking_Rune
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_Runesmith_Shocking_Rune
+			}
+			has_country_flag = DA_unlocked_Shocking_Rune
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_Runesmith_Shocking_Rune
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_unlocked_Shocking_Rune
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Shocking_Rune
+				}
+			}
+			set_estate_privilege = DA_Runesmith_Shocking_Rune
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_Runesmith_Shocking_Rune
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_Runesmith_Shocking_Rune
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_Runesmith_Shocking_Rune
+			}
+			remove_estate_privilege = DA_Runesmith_Shocking_Rune
+		}
+	}
+}
+
+#######################
+# inventions tab arcane (t1)
+#######################
+
+custom_icon = {
+    name = DA_inventions_panel_1_row_economy_t1
+    potential = {
+		has_country_flag = DA_show_inventions_Arcane
+    }
+}
+custom_icon = {
+    name = DA_inventions_panel_1_row_society_t1
+    potential = {
+		has_country_flag = DA_show_inventions_Arcane
+    }
+}
+custom_icon = {
+    name = DA_inventions_panel_1_row_military_t1
+    potential = {
+		has_country_flag = DA_show_inventions_Arcane
+    }
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_economy_t1_1
+	tooltip = DA_RS_IND_PROD_Runes_Manufacturing
+	potential = { 
+		has_country_flag = DA_show_inventions_Arcane
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
+			}
+			has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
+				}
+			}
+			set_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
+			}
+			remove_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_economy_t1_1_upgrades
+	tooltip = DA_RS_IND_PROD_Runes_Manufacturing
+	potential = { 
+		has_country_flag = DA_show_inventions_Arcane
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled
+		}
+	}
+	effect = { 
+		country_event = {
+			id = DA_Runesmith_invention.1001
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_economy_t1_2
+	tooltip = DA_RS_IND_PROD_Stonecutting_Goggles
+	potential = { 
+		has_country_flag = DA_show_inventions_Arcane
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
+			}
+			has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
+				}
+			}
+			set_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
+			}
+			remove_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_economy_t1_2_upgrades
+	tooltip = DA_RS_IND_PROD_Stonecutting_Goggles
+	potential = { 
+		has_country_flag = DA_show_inventions_Arcane
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled
+		}
+	}
+	effect = { 
+		country_event = {
+			id = DA_Runesmith_invention.1021
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_economy_t1_3
+	tooltip = DA_RS_IND_DEV_Runic_construction_tools
+	potential = { 
+		has_country_flag = DA_show_inventions_Arcane
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
+			}
+			has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
+				}
+			}
+			set_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
+			}
+			remove_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_economy_t1_3_upgrades
+	tooltip = DA_RS_IND_DEV_Runic_construction_tools
+	potential = { 
+		has_country_flag = DA_show_inventions_Arcane
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled
+		}
+	}
+	effect = { 
+		country_event = {
+			id = DA_Runesmith_invention.2001
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_economy_t1_4
+	tooltip = DA_RS_IND_DEV_Automatic_settler
+	potential = { 
+		has_country_flag = DA_show_inventions_Arcane
+	}
+	frame = {
+		number = 1
+		trigger = {
+			NOT = {
+				has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_RS_IND_DEV_Automatic_settler
+			}
+			has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_RS_IND_DEV_Automatic_settler
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_basic = yes
+				NOT = {
+					has_estate_privilege = DA_RS_IND_DEV_Automatic_settler
+				}
+			}
+			set_estate_privilege = DA_RS_IND_DEV_Automatic_settler
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_basic = no
+				NOT = {
+					has_estate_privilege = DA_RS_IND_DEV_Automatic_settler
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_RS_IND_DEV_Automatic_settler
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_RS_IND_DEV_Automatic_settler
+			}
+			remove_estate_privilege = DA_RS_IND_DEV_Automatic_settler
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_economy_t1_4_upgrades
+	tooltip = DA_RS_IND_DEV_Automatic_settler
+	potential = { 
+		has_country_flag = DA_show_inventions_Arcane
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled
+		}
+	}
+	effect = { 
+		country_event = {
+			id = DA_Runesmith_invention.2031
+		}
+	}
+}

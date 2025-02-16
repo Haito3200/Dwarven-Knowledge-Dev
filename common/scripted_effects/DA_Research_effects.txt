@@ -1,0 +1,59 @@
+
+
+# effects used in periodical research events adding/substracting progress
+
+DA_Research_add = {
+	custom_tooltip = DA_Research_add.$amount$
+	hidden_effect = {
+		change_variable = {
+			which = DA_research_progress
+			value = $amount$
+		}
+	}
+}
+DA_Research_lose = {
+	custom_tooltip = DA_Research_lose.$amount$
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_research_progress
+			value = $amount$
+		}
+	}
+}
+DA_Research_terminate = {
+	custom_tooltip = DA_Research_terminate_tt
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			value = 0
+		}
+		set_variable = {
+			which = DA_research_progress_MAX
+			value = 0
+		}
+		clr_country_flag = DA_RS_research_rune
+		clr_country_flag = DA_RS_research_t1
+		clr_country_flag = DA_RS_research_t2
+		clr_country_flag = DA_RS_research_t3
+		clr_country_flag = DA_RS_research_t4
+		remove_estate_privilege = DA_Runesmith_research_privilege
+	}
+}
+DA_Research_reset = {
+	custom_tooltip = DA_Research_reset_tt
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			value = 0
+		}
+	}
+}
+DA_Research_complete = {
+	custom_tooltip = DA_Research_complete_tt
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			which = DA_research_progress_MAX
+		}
+	}
+}

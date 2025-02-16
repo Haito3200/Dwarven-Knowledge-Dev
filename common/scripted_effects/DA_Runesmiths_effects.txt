@@ -1,0 +1,1566 @@
+DA_increase_complexity_1 = {
+	custom_tooltip = DA_increase_complexity_1_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_Complexity
+			value = 1
+		}
+	}
+}
+DA_increase_complexity_2 = {
+	custom_tooltip = DA_increase_complexity_2_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_Complexity
+			value = 2
+		}
+	}
+}
+
+DA_reset_after_Project = {
+	hidden_effect = {
+		set_variable = {
+			which = DA_Complexity
+			value = 0
+		}
+	}
+}
+DA_Give_random_rune = {
+	hidden_effect = {
+		change_variable = {
+			which = DA_num_runes_unlocked
+			value = 1
+		}
+		clr_country_flag = DA_RS_research_rune
+		random_list = {
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_weightlessness_Rune }
+				}
+				set_country_flag = DA_unlocked_weightlessness_Rune
+				country_event = {
+					id = DA_Runesmiths_events.40
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Strength_Rune }
+				}
+				set_country_flag = DA_unlocked_Strength_Rune
+				country_event = {
+					id = DA_Runesmiths_events.41
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Endurance_Rune }
+				}
+				set_country_flag = DA_unlocked_Endurance_Rune
+				country_event = {
+					id = DA_Runesmiths_events.42
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Haste_Rune }
+				}
+				set_country_flag = DA_unlocked_Haste_Rune
+				country_event = {
+					id = DA_Runesmiths_events.43
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Focus_Rune }
+				}
+				set_country_flag = DA_unlocked_Focus_Rune
+				country_event = {
+					id = DA_Runesmiths_events.44
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Impact_Rune }
+				}
+				set_country_flag = DA_unlocked_Impact_Rune
+				country_event = {
+					id = DA_Runesmiths_events.45
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Healing_Rune }
+				}
+				set_country_flag = DA_unlocked_Healing_Rune
+				country_event = {
+					id = DA_Runesmiths_events.46
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Heating_Rune }
+				}
+				set_country_flag = DA_unlocked_Heating_Rune
+				country_event = {
+					id = DA_Runesmiths_events.47
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Freezing_Rune }
+				}
+				set_country_flag = DA_unlocked_Freezing_Rune
+				country_event = {
+					id = DA_Runesmiths_events.48
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = DA_unlocked_Shocking_Rune }
+				}
+				set_country_flag = DA_unlocked_Shocking_Rune
+				country_event = {
+					id = DA_Runesmiths_events.49
+				}
+			}
+		}
+	}
+}
+DA_start_rune_research = {
+	custom_tooltip = DA_RS_Rune_adaptation_tt
+	set_country_flag = DA_RS_research_rune
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			value = 0
+		}
+		set_variable = {
+			which = DA_research_progress_MAX
+			value = 36
+		}
+	}
+}
+DA_start_research_t1 = {
+	custom_tooltip = DA_start_research_t1_tt
+	set_country_flag = DA_RS_research_t1
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			value = 0
+		}
+		set_variable = {
+			which = DA_research_progress_MAX
+			value = 48
+		}
+	}
+}
+DA_start_research_t2 = {
+	custom_tooltip = DA_start_research_t2_tt
+	set_country_flag = DA_RS_research_t2
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			value = 0
+		}
+		set_variable = {
+			which = DA_research_progress_MAX
+			value = 72
+		}
+	}
+}
+DA_start_research_t3 = {
+	custom_tooltip = DA_start_research_t3_tt
+	set_country_flag = DA_RS_research_t3
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			value = 0
+		}
+		set_variable = {
+			which = DA_research_progress_MAX
+			value = 96
+		}
+	}
+}
+DA_start_research_t4 = {
+	custom_tooltip = DA_start_research_t4_tt
+	set_country_flag = DA_RS_research_t4
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			value = 0
+		}
+		set_variable = {
+			which = DA_research_progress_MAX
+			value = 120
+		}
+	}
+}
+DA_Research_Reward_t1 = {
+	random_list = {
+		#techs
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Alchemy_1 = yes }
+				NOT = { adm_tech = 9
+			 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.10 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Medicine_1 = yes }
+				NOT = { adm_tech = 9 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.11 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Magic_Theory_1 = yes }
+				NOT = { adm_tech = 9 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.12 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Mechanics_1 = yes }
+				NOT = { adm_tech = 9 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.13 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Metallurgy_1 = yes }
+				NOT = { adm_tech = 9 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.14 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Air = yes }
+				NOT = { DA_completed.Elemental_Magic_Air = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.15 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Earth = yes }
+				NOT = { DA_completed.Elemental_Magic_Earth = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.16 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Water = yes }
+				NOT = { DA_completed.Elemental_Magic_Water = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.17 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Fire = yes }
+				NOT = { DA_completed.Elemental_Magic_Fire = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.18 } }
+		}
+
+
+		# INDUSTRY - PRODUCTION
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.100 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.101 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.102 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.103 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.ClockWork = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1031 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled }
+					has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled.Optimized_Clockwork_mechanics
+				}
+			}
+		}
+		
+		# INDUSTRY - DEVELOPMENT
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.200 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Earth = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled.Earth_runes_application
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.201 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Water = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2011 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled.Water_runes_application
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.202 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Water = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2021 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled }
+					has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled.Water_runes_application
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.203 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Water = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2031 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled }
+					has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled.Water_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.ClockWork = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2032 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled }
+					has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled.Clockwork_tools
+				}
+			}
+		}
+
+		# INDUSTRY - INFRASTRUCTURE
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.300 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Earth = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.3001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled }
+					has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled.earth_runes_sturdiness
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Explosive = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.3002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled }
+					has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled.Explosives_mines
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Golem = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.3003 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled }
+					has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled.Golems_in_construction
+				}
+			}
+		}
+
+		# SOCIETY - LUXURY
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.400 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.ClockWork = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.4001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled }
+					has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled.Steampunk_jewelry
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.401 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Air = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.4011 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled }
+					has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled.air_runes_application
+				}
+			}
+		}
+
+		# SOCIETY - COURT
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.500 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Mechanics_2 = yes
+				DA_has_Energy_power_or_higher = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.5001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled }
+					has_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled.energy_application
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.501 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_COURT_Runic_Recorders_enabled
+			}
+		}
+		
+		# SOCIETY - SECURITY
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.600 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Explosive = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.6001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled }
+					has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled.explosives_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Magic_Theory_3 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.6002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled }
+					has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled.better_mana_handling
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Golem = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.601 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_SECURITY_Runic_Police_enabled
+			}
+		}
+		# to be distributed in research tiers
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10000 } }
+		}
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10010 } }
+		}
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10020 } }
+		}
+	}
+	#cleanup
+	clr_country_flag = DA_RS_research_rune
+	clr_country_flag = DA_RS_research_t1
+	clr_country_flag = DA_RS_research_t2
+	clr_country_flag = DA_RS_research_t3
+	clr_country_flag = DA_RS_research_t4
+}
+DA_Research_Reward_t2 = {
+	random_list = {
+		#techs
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Alchemy_2 = yes }
+				NOT = { adm_tech = 16 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.20 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Medicine_2 = yes }
+				NOT = { adm_tech = 16 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.21 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Magic_Theory_2 = yes }
+				NOT = { adm_tech = 16 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.22 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Mechanics_2 = yes }
+				NOT = { adm_tech = 16 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.23 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_completed.Metallurgy_2 = yes }
+				NOT = { adm_tech = 16 }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.24 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Air = yes }
+				NOT = { DA_completed.Elemental_Magic_Air = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.15 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Earth = yes }
+				NOT = { DA_completed.Elemental_Magic_Earth = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.16 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Water = yes }
+				NOT = { DA_completed.Elemental_Magic_Water = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.17 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Fire = yes }
+				NOT = { DA_completed.Elemental_Magic_Fire = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.18 } }
+		}
+
+		# inventions and upgrades
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.100 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Mechanics_2 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled }
+					has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled.efficient_organization
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.101 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Metallurgy_2 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1011 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled }
+					has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled.increased_sturdiness
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.1012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled }
+					has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled.self_defense_capabilities
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Golem = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1013 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled }
+					has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled.golem_core_energy
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.102 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.103 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.ClockWork = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1031 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled }
+					has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled.Optimized_Clockwork_mechanics
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.200 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Earth = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled.Earth_runes_application
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.201 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Water = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2011 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled.Water_runes_application
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.202 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Enhancement = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2022 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled }
+					has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled.enhancement_application
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.203 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Water = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2031 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled }
+					has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled.Water_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.ClockWork = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2032 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled }
+					has_country_flag = DA_RS_IND_DEV_Automatic_settler_enabled.Clockwork_tools
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.300 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Earth = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.3001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled }
+					has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled.earth_runes_sturdiness
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Explosive = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.3002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled }
+					has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled.Explosives_mines
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Golem = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.3003 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled }
+					has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled.Golems_in_construction
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.400 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.ClockWork = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.4001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled }
+					has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled.Steampunk_jewelry
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Enhancement = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.4002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled }
+					has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled.enhancement_jewelry
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.401 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Elemental_Magic_Air = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.4011 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled }
+					has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled.air_runes_application
+				}
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.500 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.501 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_COURT_Runic_Recorders_enabled
+			}
+		}
+		10 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.600 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Explosive = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.6001 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled }
+					has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled.explosives_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Golem = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.601 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_RS_SOC_SECURITY_Runic_Police_enabled
+			}
+		}
+		2 = {
+			DA_Research_Reward_t1 = yes
+		}
+		# bonuses if everything else does not work
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10030 } }
+		}
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10040 } }
+		}
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10050 } }
+		}
+	}
+	clr_country_flag = DA_RS_research_rune
+	clr_country_flag = DA_RS_research_t1
+	clr_country_flag = DA_RS_research_t2
+	clr_country_flag = DA_RS_research_t3
+	clr_country_flag = DA_RS_research_t4
+}
+DA_Research_Reward_t3 = {
+	random_list = {
+		#techs
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Alchemy_3 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.30 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Medicine_3 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.31 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Magic_Theory_3 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.32 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Mechanics_3 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.33 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Metallurgy_3 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.34 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Air = yes }
+				NOT = { DA_completed.Elemental_Magic_Air = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.15 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Earth = yes }
+				NOT = { DA_completed.Elemental_Magic_Earth = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.16 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Water = yes }
+				NOT = { DA_completed.Elemental_Magic_Water = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.17 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Fire = yes }
+				NOT = { DA_completed.Elemental_Magic_Fire = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.18 } }
+		}
+		# inventions and upgrades
+		10 = {
+			trigger = {
+				DA_completed.Magic_Theory_3 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled }
+					has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled.rune_patterns_standardization
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Mechanics_3 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1003 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled }
+					has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled.enhanced_standardization
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Enhancement = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1021 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled }
+					has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled.Enhancing_goggles
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Resonance = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1032 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled }
+					has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled.Resonance_drill
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_has_Energy_power_or_higher = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled.energy_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Universal_Law_Life = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2013 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled.Life_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Enhancement = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2022 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled }
+					has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled.enhancement_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Universal_Law_Life = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2023 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled }
+					has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled.Life_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Enhancement = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.4002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled }
+					has_country_flag = DA_RS_SOC_LUX_Enchanted_jewelry_enabled.enhancement_jewelry
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Universal_Law_Life = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.4012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled }
+					has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled.life_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Universal_Law_Space = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.5002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled }
+					has_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled.space_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Magic_Theory_3 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.5012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_COURT_Runic_Recorders_enabled }
+					has_country_flag = DA_RS_SOC_COURT_Runic_Recorders_enabled.better_mana_handling
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Magic_Theory_3 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.6002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled }
+					has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled.better_mana_handling
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_has_Energy_power_or_higher = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.6012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_SECURITY_Runic_Police_enabled }
+					has_country_flag = DA_RS_SOC_SECURITY_Runic_Police_enabled.energy_application
+				}
+			}
+		}
+		2 = {
+			DA_Research_Reward_t2 = yes
+		}
+		# bonuses if everything else does not work
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10060 } }
+		}
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10070 } }
+		}
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10080 } }
+		}
+	}
+	clr_country_flag = DA_RS_research_rune
+	clr_country_flag = DA_RS_research_t1
+	clr_country_flag = DA_RS_research_t2
+	clr_country_flag = DA_RS_research_t3
+	clr_country_flag = DA_RS_research_t4
+}
+DA_Research_Reward_t4 = {
+	random_list = {
+		#techs
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Alchemy_4 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.40 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Medicine_4 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.41 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Magic_Theory_4 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.42 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Mechanics_4 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.43 } }
+		}
+		5 = {
+			trigger = {
+				NOT = { DA_completed.Metallurgy_4 = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.44 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Air = yes }
+				NOT = { DA_completed.Elemental_Magic_Air = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.15 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Earth = yes }
+				NOT = { DA_completed.Elemental_Magic_Earth = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.16 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Water = yes }
+				NOT = { DA_completed.Elemental_Magic_Water = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.17 } }
+		}
+		10 = {
+			trigger = {
+				NOT = { DA_Allowed.Elemental_Magic_Fire = yes }
+				NOT = { DA_completed.Elemental_Magic_Fire = yes }
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.18 } }
+		}
+		
+		# inventions and upgrades
+		10 = {
+			trigger = {
+				DA_has_Energy_power_or_higher = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1004 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled }
+					has_country_flag = DA_RS_IND_PROD_Runes_Manufacturing_enabled.automation
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Dimensional_eng = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1014 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled }
+					has_country_flag = DA_RS_IND_PROD_Runic_augmented_uniforms_enabled.Dimensional_pockets
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Tesla = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1022 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled }
+					has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled.Current_vision
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Resonance = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.1032 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled }
+					has_country_flag = DA_RS_IND_PROD_Magitech_Drill_enabled.Resonance_drill
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Gravity_Manipulation = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_construction_tools_enabled.Gravity_tools
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_has_Energy_power_or_higher = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled.energy_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Universal_Law_Life = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2013 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled }
+					has_country_flag = DA_RS_IND_DEV_Runic_Settlements_enabled.Life_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Universal_Law_Life = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.2023 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled }
+					has_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled.Life_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Dimensional_eng = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.3004 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled }
+					has_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled.Bigger_on_the_inside
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Universal_Law_Life = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.4012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled }
+					has_country_flag = DA_RS_SOC_LUX_Charming_Runes_enabled.life_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Universal_Law_Space = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.5002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled }
+					has_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled.space_runes_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_has_Energy_power_or_higher = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.5011 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_COURT_Runic_Recorders_enabled }
+					has_country_flag = DA_RS_SOC_COURT_Runic_Recorders_enabled.energy_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Magic_Theory_3 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.5012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_COURT_Runic_Recorders_enabled }
+					has_country_flag = DA_RS_SOC_COURT_Runic_Recorders_enabled.better_mana_handling
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Magic_Theory_3 = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.6002 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled }
+					has_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled.better_mana_handling
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_has_Energy_power_or_higher = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.6012 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_SECURITY_Runic_Police_enabled }
+					has_country_flag = DA_RS_SOC_SECURITY_Runic_Police_enabled.energy_application
+				}
+			}
+		}
+		10 = {
+			trigger = {
+				DA_completed.Gravity_Manipulation = yes
+			}
+			ROOT = { country_event = { id = DA_Runesmith_invention.6011 } }
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { has_country_flag = DA_RS_SOC_SECURITY_Runic_Police_enabled }
+					has_country_flag = DA_RS_SOC_SECURITY_Runic_Police_enabled.gravity_application
+				}
+			}
+		}
+		10 = {
+			trigger = { 
+				NOT = { DA_completed.Dimensional_eng = yes }
+			}
+			ROOT = { country_event = { id = DA_Tech_Tree_event.510 } }
+			modifier = {
+				factor = 0
+				has_country_flag = DA_Project.completed.Dimensional_eng
+			}
+		}
+		2 = {
+			DA_Research_Reward_t3 = yes
+		}
+		# bonuses if everything else does not work
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10090 } }
+		}
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10100 } }
+		}
+		1 = {
+			ROOT = { country_event = { id = DA_Runesmith_invention.10110 } }
+		}
+	}
+	clr_country_flag = DA_RS_research_rune
+	clr_country_flag = DA_RS_research_t1
+	clr_country_flag = DA_RS_research_t2
+	clr_country_flag = DA_RS_research_t3
+	clr_country_flag = DA_RS_research_t4
+}

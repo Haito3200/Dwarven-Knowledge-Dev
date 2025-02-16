@@ -1,0 +1,94 @@
+
+DA_Spawn_noble_rebels = { # province scope
+	custom_tooltip = DA_Spawn_old_noble_rebels_tt
+	hidden_effect = {
+		if = {
+			limit = {
+				owner = {
+					has_country_modifier = DA_Unrestricted_mage_creation
+				}
+			}
+			spawn_rebels = {
+				type = DA_Old_nobles_army_with_general
+				size = $amount$
+			}
+		}
+		else = {
+			spawn_rebels = {
+				type = DA_Old_nobles_army
+				size = $amount$
+			}
+		}
+	}
+}
+
+DA_increase_old_noble_status = { # country scope
+	custom_tooltip = DA_increase_old_noble_status_$amount$_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_disaster_nobles_status
+			value = $amount$
+		}
+	}
+}
+DA_decrease_old_noble_status = { # country scope
+	custom_tooltip = DA_decrease_old_noble_status_$amount$_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_disaster_nobles_status
+			value = $amount$
+		}
+	}
+
+}
+
+DA_increase_rune_merchants_treasury = { # country scope
+	custom_tooltip = DA_increase_rune_merchants_treasury_$amount$_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_disaster_merchant_treasury
+			value = $amount$
+		}
+	}
+}
+DA_decrease_rune_merchants_treasury = { # country scope
+	custom_tooltip = DA_decrease_rune_merchants_treasury_$amount$_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_disaster_merchant_treasury
+			value = $amount$
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = DA_disaster_merchant_treasury
+						value = 1
+					}
+				}
+			}
+			country_event = {
+				id = DA_disaster_event.25
+			}
+		}
+	}
+}
+
+DA_increase_runesmiths_isolation = { # country scope
+	custom_tooltip = DA_increase_runesmiths_isolation_$amount$_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_disaster_isolationism
+			value = $amount$
+		}
+	}
+}
+DA_decrease_runesmiths_isolation = { # country scope
+	custom_tooltip = DA_decrease_runesmiths_isolation_$amount$_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_disaster_isolationism
+			value = $amount$
+		}
+	}
+}

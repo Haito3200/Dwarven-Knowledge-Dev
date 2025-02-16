@@ -1,0 +1,301 @@
+
+DA_mithril_production_boost = {
+	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	potential = {
+		trade_goods = mithril
+	}
+	# Whether the triggered modifier is active
+	trigger = {
+		trade_goods = mithril
+		culture_group = dwarven
+	}
+    
+	# The modifier to apply when the triggered modifier is active
+	local_state_maintenance_modifier = 0.05
+	trade_goods_size_modifier = 0.15
+	# Province scope
+	on_activation = {
+	}
+	
+	on_deactivation = {
+	} 
+}
+
+DA_Hold_exploration_workaround = {
+	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	potential = {
+		always = yes
+	}
+	# Whether the triggered modifier is active
+	trigger = {
+		has_province_flag = DA_expedition_in_progress
+	}
+    
+	# The modifier to apply when the triggered modifier is active
+	local_unrest = 3
+	# Province scope
+	on_activation = {
+		if = {
+			limit = {
+				DA_has_dig_level_1_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_2 }
+			}
+			hidden_effect = { Da_explore_dig_2_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_2_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_3 }
+			}
+			hidden_effect = { Da_explore_dig_3_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_3_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_4 }
+			}
+			hidden_effect = { Da_explore_dig_4_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_4_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_5 }
+			}
+			hidden_effect = { Da_explore_dig_5_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_5_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_6 }
+			}
+			hidden_effect = { Da_explore_dig_6_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_6_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_7 }
+			}
+			hidden_effect = { Da_explore_dig_7_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_7_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_8 }
+			}
+			hidden_effect = { Da_explore_dig_8_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_8_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_9 }
+			}
+			hidden_effect = { Da_explore_dig_9_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_9_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_10 }
+			}
+			hidden_effect = { Da_explore_dig_10_effect = yes }
+		}
+		else_if = {
+			limit = {
+				DA_has_dig_level_10_or_higher = yes
+				NOT = { has_province_flag = DA_looked_dig_adk_11 }
+			}
+			hidden_effect = { Da_explore_dig_11_effect = yes }
+		}
+		else = {
+			clr_province_flag = DA_expedition_in_progress
+		}
+	}
+	
+	on_deactivation = {
+	} 
+}
+
+DA_Titanium_Vault_exploration_workaround = {
+	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	potential = {
+		always = yes
+	}
+	# Whether the triggered modifier is active
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_expedition_in_progress
+			OR = {
+				has_province_flag = DA_Wonder_Titanium_expedition_in_progress_1
+				has_province_flag = DA_Wonder_Titanium_expedition_in_progress_2
+				has_province_flag = DA_Wonder_Titanium_expedition_in_progress_3
+			}
+			NOT = { has_province_modifier = DA_Titanium_Vault_CD }
+		}
+	}
+    
+	# The modifier to apply when the triggered modifier is active
+	local_unrest = 3
+	# Province scope
+	on_activation = {
+		if = {
+			limit = {
+				has_province_flag = DA_Wonder_Titanium_expedition_in_progress_1
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_1
+						}
+					}
+					random_list = {
+						30 = {
+							Da_explore_Titanium_expedition_failure_effect = yes
+						}
+						70 = {
+							Da_explore_Titanium_expedition_1_effect = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_2
+						}
+					}
+					random_list = {
+						10 = {
+							Da_explore_Titanium_expedition_failure_effect = yes
+						}
+						90 = {
+							Da_explore_Titanium_expedition_1_effect = yes
+						}
+					}
+				}
+				else = {
+					Da_explore_Titanium_expedition_1_effect = yes
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = DA_Wonder_Titanium_expedition_in_progress_2
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_1
+						}
+					}
+					random_list = {
+						80 = {
+							Da_explore_Titanium_expedition_failure_effect = yes
+						}
+						20 = {
+							Da_explore_Titanium_expedition_2_effect = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_2
+						}
+					}
+					random_list = {
+						50 = {
+							Da_explore_Titanium_expedition_failure_effect = yes
+						}
+						50 = {
+							Da_explore_Titanium_expedition_2_effect = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_3
+						}
+					}
+					random_list = {
+						10 = {
+							Da_explore_Titanium_expedition_failure_effect = yes
+						}
+						90 = {
+							Da_explore_Titanium_expedition_2_effect = yes
+						}
+					}
+				}
+				else = {
+					Da_explore_Titanium_expedition_2_effect = yes
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = DA_Wonder_Titanium_expedition_in_progress_3
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_1
+						}
+					}
+					Da_explore_Titanium_expedition_failure_effect = yes
+				}
+				else_if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_2
+						}
+					}
+					random_list = {
+						85 = {
+							Da_explore_Titanium_expedition_failure_effect = yes
+						}
+						15 = {
+							Da_explore_Titanium_expedition_3_effect = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_3
+						}
+					}
+					random_list = {
+						60 = {
+							Da_explore_Titanium_expedition_failure_effect = yes
+						}
+						40 = {
+							Da_explore_Titanium_expedition_3_effect = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						owner = {
+							has_country_flag = DA_Wonder_Titanium_prepared_expedition_4
+						}
+					}
+					random_list = {
+						30 = {
+							Da_explore_Titanium_expedition_failure_effect = yes
+						}
+						70 = {
+							Da_explore_Titanium_expedition_3_effect = yes
+						}
+					}
+				}
+				else = {
+					Da_explore_Titanium_expedition_3_effect = yes
+				}
+			}
+		}
+	}
+	
+	on_deactivation = {
+	} 
+}

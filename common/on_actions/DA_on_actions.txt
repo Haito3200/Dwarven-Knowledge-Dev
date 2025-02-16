@@ -1,0 +1,388 @@
+#When adding effects directly in on_actions always consider if it would be best to do so through a scripted effect. on_actions with a lot of script in them are harder to get an overview of.
+#meaningless comment
+# Now that on_actions are additive, they save performance a bit
+
+# country
+on_trade_good_changed = {
+	if = {
+		limit = {
+			trade_goods = damestear
+		}
+		add_permanent_province_modifier = {
+			name = DA_Meteoric_Silver_deposit
+			duration = 18250
+		}
+	}
+}
+on_adm_development = {
+	if = {
+		limit = {
+			OR = {
+				has_terrain = dwarven_hold
+				has_terrain = dwarven_hold_surface
+			}
+			owner = {
+				has_country_flag = DA_Disabled_ADK_on_Click
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 1
+				}
+			}
+		}
+		add_base_tax = -1
+		owner = {
+			change_variable = {
+				which = ancientDwarvenKnowledge
+				value = 1
+			}
+		}
+		add_next_institution_embracement_scaled = -5
+	}
+}
+on_dip_development = {
+	if = {
+		limit = {
+			OR = {
+				has_terrain = dwarven_hold
+				has_terrain = dwarven_hold_surface
+			}
+			owner = {
+				has_country_flag = DA_Disabled_ADK_on_Click
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 1
+				}
+			}
+		}
+		add_base_production = -1
+		owner = {
+			change_variable = {
+				which = ancientDwarvenKnowledge
+				value = 1
+			}
+		}
+		add_next_institution_embracement_scaled = -5
+	}
+	events = {
+		DA_Metallurgy_events.1
+		DA_Metallurgy_events.2
+		DA_Metallurgy_events.3
+		DA_Metallurgy_events.4
+	}
+	
+}
+on_mil_development = {
+	if = {
+		limit = {
+			OR = {
+				has_terrain = dwarven_hold
+				has_terrain = dwarven_hold_surface
+			}
+			owner = {
+				has_country_flag = DA_Disabled_ADK_on_Click
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 1
+				}
+			}
+		}
+		add_base_manpower = -1
+		owner = {
+			change_variable = {
+				which = ancientDwarvenKnowledge
+				value = 1
+			}
+		}
+		add_next_institution_embracement_scaled = -5
+	}
+	
+}
+on_monthly_pulse = {
+	events = {
+		DA_Runesmiths_events.2
+		DA_General_Research_events.2
+	}
+}
+on_conquest = { # reset exploration level on conquest, unique events can't happen 2 times anyway
+	if = {
+		limit = {
+			OR = {
+				has_terrain = dwarven_hold
+				has_terrain = dwarven_hold_surface
+			}
+		}
+		clr_province_flag = DA_expedition_in_progress
+		clr_province_flag = DA_looked_dig_adk_2
+		clr_province_flag = DA_looked_dig_adk_3
+		clr_province_flag = DA_looked_dig_adk_4
+		clr_province_flag = DA_looked_dig_adk_5
+		clr_province_flag = DA_looked_dig_adk_6
+		clr_province_flag = DA_looked_dig_adk_7
+		clr_province_flag = DA_looked_dig_adk_8
+		clr_province_flag = DA_looked_dig_adk_9
+		clr_province_flag = DA_looked_dig_adk_10
+		clr_province_flag = DA_looked_dig_adk_11
+		remove_province_modifier = DA_local_explored_dig_2
+		remove_province_modifier = DA_local_explored_dig_3
+		remove_province_modifier = DA_local_explored_dig_4
+		remove_province_modifier = DA_local_explored_dig_5
+		remove_province_modifier = DA_local_explored_dig_6
+		remove_province_modifier = DA_local_explored_dig_7
+		remove_province_modifier = DA_local_explored_dig_8
+		remove_province_modifier = DA_local_explored_dig_9
+		remove_province_modifier = DA_local_explored_dig_10
+		remove_province_modifier = DA_local_explored_dig_11
+		set_variable = {
+			which = DA_exp_completion_rate
+			value = 0
+		}
+		set_variable = {
+			which = DA_exp_completion_rate_max
+			value = 1
+		}
+	}
+}
+on_yearly_pulse_2 = {
+	events = {
+		DA_Magma_forge_event.4
+	}
+}
+on_yearly_pulse_4 = {
+	every_owned_province = {
+		province_event = {
+			id = DA_Metallurgy_events.1
+		}
+		province_event = {
+			id = DA_Metallurgy_events.2
+		}
+		province_event = {
+			id = DA_Metallurgy_events.3
+		}
+		province_event = {
+			id = DA_Metallurgy_events.4
+		}
+	}
+	events = {
+		DA_adk.1001
+		DA_adk.150
+		DA_adk.81
+		DA_adk.82
+		DA_Metallurgy_events.0
+		DA_building_event.2
+		DA_building_event.3
+		DA_building_event.4
+		DA_Magma_forge_event.4
+	}
+	random_events  = {
+		100 = DA_Research_events.1
+		100 = DA_Research_events.2
+		90 = DA_Research_events.3
+		100 = DA_Research_events.4
+		90 = DA_Research_events.5
+		90 = DA_Research_events.6
+		100 = DA_Research_events.7
+		100 = DA_Research_events.8
+		80 = DA_Research_events.9
+		100 = DA_Research_events.10
+		100 = DA_Research_events.11
+		1400 = 0
+	}
+	random_core_province = {
+		limit = {
+			has_province_flag = sent_expedition_@owner
+			has_province_flag = expedition_in_progress 
+			owner = {
+				has_country_flag = expedition_happening
+			}
+		}
+		random = {
+			chance = 85
+			province_event = {
+				id = DA_Expedition_camp_event.3
+			}
+		}
+	}
+}
+on_five_year_pulse = {
+	events = {
+		DA_Tech_Tree_event.10
+		DA_Tech_Tree_event.11
+		DA_Tech_Tree_event.12
+		DA_Tech_Tree_event.13
+		DA_Tech_Tree_event.14
+	}
+	every_core_province = {
+		province_event = {
+			id = DA_Tech_Tree_event.20
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.21
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.22
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.23
+		}
+	}
+}
+on_five_year_pulse_2 = {
+	every_core_province = {
+		province_event = {
+			id = DA_Tech_Tree_event.24
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.25
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.26
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.27
+		}
+	}
+}
+on_five_year_pulse_3 = {
+	every_core_province = {
+		province_event = {
+			id = DA_Tech_Tree_event.28
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.29
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.30
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.31
+		}
+	}
+	
+}
+on_five_year_pulse_4 = {
+	every_core_province = {
+		province_event = {
+			id = DA_Tech_Tree_event.32
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.33
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.34
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.35
+		}
+
+		province_event = {
+			id = DA_Tech_Tree_event.36
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.37
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.38
+		}
+		province_event = {
+			id = DA_Tech_Tree_event.39
+		}
+	}
+}
+on_four_year_pulse = {
+	random_events  = { #negative buildings events
+		100 = DA_building_event.20 
+		100 = DA_building_event.21
+		100 = DA_building_event.25
+		100 = DA_building_event.27
+		100 = DA_building_event.29
+		100 = DA_building_event.30
+		100 = DA_building_event.31
+		100 = DA_building_event.32
+		100 = DA_building_event.33
+		100 = DA_building_event.34
+		200 = 0
+	}
+	events = {
+		DA_Metallurgy_events.10
+	}
+}
+on_four_year_pulse_2 = {
+	events = {
+		DA_disaster_event.32
+		DA_Magma_forge_event.1
+	}
+}
+on_four_year_pulse_3 = {
+	random_events  = { #positive buildings events
+		100 = DA_building_event.22
+		100 = DA_building_event.23
+		100 = DA_building_event.24
+		100 = DA_building_event.26
+		100 = DA_building_event.28
+		200 = 0
+	}
+}
+on_four_year_pulse_4 = {
+	random_events = {
+		100 = 0
+		100 = DA_Hold_Gor_Vazumbrog.320
+		100 = DA_Hold_Gor_Vazumbrog.321
+	}
+	random_events = {
+		100 = 0
+		100 = DA_Hold_Gor_Vazumbrog.330
+		400 = DA_Hold_Gor_Vazumbrog.331
+	}
+}
+on_bi_yearly_pulse_4 = {
+}
+on_thri_yearly_pulse = {
+	random_events  = { #Runesmiths unlocks / perdiodical events 
+		50 = DA_adk.4
+		50 = DA_adk.40
+		200 = DA_adk.5
+		200 = DA_adk.51
+		200 = DA_adk.7
+		200 = DA_adk.9
+		200 = DA_adk.13
+		200 = DA_adk.131
+		200 = DA_adk.11
+		200 = DA_adk.12
+		200 = DA_adk.16
+		200 = DA_Dur_Vazhatun_event.30
+		200 = DA_Haraz_Orldhum_event.1 
+		200 = DA_Haraz_Orldhum_event.2
+		200 = DA_Khugdihr_event.1
+		200 = DA_Krakdhumvror_event.1
+		200 = DA_Orlazam_az_dihr_event.1
+		10 = 0
+	}
+	country_event = { #runic gate event, to be reworked
+		id = DA_adk.103
+	}
+}
+on_thri_yearly_pulse_2 = {
+	every_owned_province = {
+		province_event = {
+			id = DA_adk.18
+		}
+		province_event = {
+			id = DA_adk.105
+		}
+		province_event = {
+			id = DA_adk.109
+		}
+		province_event = {
+			id = DA_adk.1000
+		}
+	}
+}
+on_thri_yearly_pulse_3 = {
+}
+on_thri_yearly_pulse_4 = {
+}
+on_startup = {
+	events = {
+		DA_Buildings_menu.2
+	}
+}
