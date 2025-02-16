@@ -1,0 +1,267 @@
+
+namespace = DA_General_Research_events
+
+country_event = {
+	id = DA_General_Research_events.1
+	title = DA_General_Research_events.1.t
+	desc = DA_General_Research_events.1.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_General_Research_events.1.a
+		trigger = {
+			has_country_flag = DA_General_MT_part_2_enabled
+		}
+		DA_start_general_research_t1 = yes
+
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = DA_General_Research_events.1.b
+		highlight = yes
+		trigger = {
+			hidden_trigger = {
+				has_country_flag = DA_General_MT_part_2_enabled
+			}
+			DA_has_Steam_power_or_higher = yes
+		}
+		DA_start_general_research_t2 = yes
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = DA_General_Research_events.1.c
+		highlight = yes
+		trigger = {
+			hidden_trigger = {
+				has_country_flag = DA_General_MT_part_2_enabled
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		DA_start_general_research_t3 = yes
+		ai_chance = { factor = 10 }
+	}
+
+	option = {
+		name = DA_General_Research_events.1.z #escape
+		highlight = yes
+		ai_chance = { factor = 0.1 }
+		
+		add_adm_power = 10
+		add_dip_power = 10
+		add_mil_power = 10
+		remove_country_modifier = DA_General_research_Mod
+	}
+	after = {
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.2
+	title = DA_General_Research_events.2.t
+	desc = DA_General_Research_events.2.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		OR = {
+			has_country_flag = DA_general_research_t1
+			has_country_flag = DA_general_research_t2
+			has_country_flag = DA_general_research_t3
+			has_country_flag = DA_general_research_t4
+		}
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.2.a
+		change_variable = {
+			which = DA_research_progress
+			value = 1
+		}
+		if = {
+			limit = { check_variable = {
+				which = DA_research_progress
+				which = DA_research_progress_MAX
+			} }
+			country_event = {
+				id = DA_General_Research_events.3
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.3
+	title = DA_General_Research_events.2.t
+	desc = DA_General_Research_events.2.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		OR = {
+			has_country_flag = DA_general_research_t1
+			has_country_flag = DA_general_research_t2
+			has_country_flag = DA_general_research_t3
+			has_country_flag = DA_general_research_t4
+		}
+		check_variable = {
+			which = DA_research_progress
+			which = DA_research_progress_MAX
+		}
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.2.a
+		remove_estate_privilege = DA_Runesmith_research_privilege
+		if = {
+			limit = { has_country_flag = DA_general_research_t1 }
+			clr_country_flag = DA_general_research_t1
+			country_event = {
+				id = DA_General_Research_events.20
+			}
+		}
+		if = {
+			limit = { has_country_flag = DA_general_research_t2 }
+			clr_country_flag = DA_general_research_t2
+			country_event = {
+				id = DA_General_Research_events.21
+			}
+		}
+		if = {
+			limit = { has_country_flag = DA_general_research_t3 }
+			clr_country_flag = DA_general_research_t3
+			country_event = {
+				id = DA_General_Research_events.22
+			}
+		}
+		if = {
+			limit = { has_country_flag = DA_general_research_t4 }
+			clr_country_flag = DA_general_research_t4
+			country_event = {
+				id = DA_General_Research_events.23
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.20
+	title = DA_General_Research_events.20.t
+	desc = DA_General_Research_events.20.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.2.a
+		remove_country_modifier = DA_General_research_Mod
+		DA_General_Research_Reward_t1 = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.21
+	title = DA_General_Research_events.21.t
+	desc = DA_General_Research_events.21.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.2.a
+		remove_country_modifier = DA_General_research_Mod
+		DA_General_Research_Reward_t2 = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.22
+	title = DA_General_Research_events.22.t
+	desc = DA_General_Research_events.22.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.2.a
+		remove_country_modifier = DA_General_research_Mod
+		DA_General_Research_Reward_t3 = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.23
+	title = DA_General_Research_events.23.t
+	desc = DA_General_Research_events.23.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.2.a
+		remove_country_modifier = DA_General_research_Mod
+		DA_General_Research_Reward_t4 = yes
+		ai_chance = { factor = 1 }
+	}
+}
+

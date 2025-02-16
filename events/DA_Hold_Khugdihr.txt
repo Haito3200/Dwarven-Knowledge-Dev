@@ -1,0 +1,424 @@
+namespace = DA_Khugdihr_event
+
+country_event = {
+	id = DA_Khugdihr_event.1 				# can build Balgar's unbuilt projects
+	title = "DA_Khugdihr_event.1.t"
+	desc = "DA_Khugdihr_event.1.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		DA_has_RF_3_or_higher = yes
+		any_core_province = {
+			has_province_flag = DA_Khugdihr_exp1
+		}
+		NOT = { has_country_flag = DA_can_build_Balgar_wonders }
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.1.a"
+		custom_tooltip = DA_can_build_Balgar_wonders_tt
+		hidden_effect = {
+			set_country_flag = DA_can_build_Balgar_wonders
+		}
+	}
+}
+
+country_event = {
+	id = DA_Khugdihr_event.2 			# Victory against Nimrith's Child
+	title = "DA_Khugdihr_event.2.t"
+	desc = "DA_Khugdihr_event.2.d"
+	picture = BATTLE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Khugdihr_event.2.a"
+		custom_tooltip = DA_Khugdihr_event.2.a.tt
+		every_owned_province = {
+			limit = {
+				province_id = 2863
+			}
+			remove_province_modifier = DA_Dragon_raids
+			add_devastation = 15
+			add_permanent_province_modifier = {
+				name = DA_Dragon_remains
+				duration = -1
+			}
+		}
+	}
+	
+}
+
+
+country_event = {
+	id = DA_Khugdihr_event.3 				# defeat against Nimrith's Child
+	title = "DA_Khugdihr_event.3.t"
+	desc = "DA_Khugdihr_event.3.d"
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Khugdihr_event.3.a"
+		every_owned_province = {
+			limit = {
+				province_id = 2863
+			}
+			add_devastation = 25
+			add_base_manpower = -1
+		}
+		add_stability = -1
+		random = {
+			chance = 50
+			change_mil = -1
+			random = { chance = 25 change_mil = -1 }
+		}
+		random = {
+			chance = 50
+			change_dip = -1
+			random = { chance = 25 change_dip = -1 }
+		}
+		random = {
+			chance = 50
+			change_adm = -1
+			random = { chance = 25 change_adm = -1 }
+		}
+		add_ruler_modifier = {
+			name = bd_wounded_ruler
+			duration = 365
+		}
+	}
+}
+
+province_event = {
+	id = DA_Khugdihr_event.4 				#  periodical dragon raid
+	title = "DA_Khugdihr_event.4.t"
+	desc = "DA_Khugdihr_event.4.d"
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	trigger = {
+		has_province_modifier = DA_Dragon_raids
+		province_id = 2863
+	}
+	mean_time_to_happen = {
+		months = 36
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.4.a"
+		add_devastation = 20
+		hidden_effect = {
+			owner = {
+				set_country_flag = DA_can_duel_Dragon
+			}
+		}
+	}
+}
+
+#  events which unlock Balgar's unbuilt projects
+
+province_event = {
+	id = DA_Khugdihr_event.11 				#  unlocked Khugdihr's last line of defense
+	title = "DA_Khugdihr_event.11.t"
+	desc = "DA_Khugdihr_event.11.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	trigger = {
+		owner = {
+			has_country_flag = DA_can_build_Balgar_wonders
+			NOT = { has_country_flag = DA_can_reinforce_khugdihr }
+		}
+		province_id = 2863
+	}
+	mean_time_to_happen = {
+		months = 140
+		modifier = {
+			factor = 2
+			owner = {
+				NOT = { innovativeness = 10 }
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 40
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 60
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 80
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				stability = 3
+			}
+		}
+		modifier = {
+			factor = 0.85
+			owner = {
+				has_country_modifier = DA_Runesmith_patronage
+			}
+		}
+		modifier = {
+			factor = 0.90
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_4
+					has_estate_privilege = estate_DA_Runesmiths_RF_5
+				}
+			}
+		}
+		modifier = {
+			factor = 0.85
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_6
+					has_estate_privilege = estate_DA_Runesmiths_RF_7
+				}
+			}
+		}
+		modifier = {
+			factor = 0.80
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_8
+					has_estate_privilege = estate_DA_Runesmiths_RF_9
+					has_estate_privilege = estate_DA_Runesmiths_RF_10
+					has_estate_privilege = estate_DA_Runesmiths_RF_11
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.11.a"
+		custom_tooltip = DA_Balgar_project.tt
+		hidden_effect = {
+			owner = {
+				set_country_flag = DA_can_reinforce_khugdihr
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_Khugdihr_event.12 				#  unlocked Castonath
+	title = "DA_Khugdihr_event.12.t"
+	desc = "DA_Khugdihr_event.12.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	trigger = {
+		owner = {
+			has_country_flag = DA_can_build_Balgar_wonders
+			NOT = { has_country_flag = DA_can_upgrade_Castonath }
+		}
+		province_id = 833 					# 833 = north castonath, 831 = south Castonath, 832 = Lower Castonath
+		owner = {
+			owns = 833
+			owns = 832
+			owns = 831
+		}
+	}
+	mean_time_to_happen = {
+		months = 140
+		modifier = {
+			factor = 2
+			owner = {
+				NOT = { innovativeness = 10 }
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 40
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 60
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 80
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				stability = 3
+			}
+		}
+		modifier = {
+			factor = 0.85
+			owner = {
+				has_country_modifier = DA_Runesmith_patronage
+			}
+		}
+		modifier = {
+			factor = 0.90
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_4
+					has_estate_privilege = estate_DA_Runesmiths_RF_5
+				}
+			}
+		}
+		modifier = {
+			factor = 0.85
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_6
+					has_estate_privilege = estate_DA_Runesmiths_RF_7
+				}
+			}
+		}
+		modifier = {
+			factor = 0.80
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_8
+					has_estate_privilege = estate_DA_Runesmiths_RF_9
+					has_estate_privilege = estate_DA_Runesmiths_RF_10
+					has_estate_privilege = estate_DA_Runesmiths_RF_11
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.12.a"
+		custom_tooltip = DA_Balgar_project.tt
+		hidden_effect = {
+			owner = {
+				set_country_flag = DA_can_upgrade_Castonath
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_Khugdihr_event.13 				#  unlocked 2 Vale's Great walls
+	title = "DA_Khugdihr_event.13.t"
+	desc = "DA_Khugdihr_event.13.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	trigger = {
+		owner = {
+			has_country_flag = DA_can_build_Balgar_wonders
+			NOT = { has_country_flag = DA_can_build_vale_walls }
+			owns = 4152
+			owns = 4151
+			owns = 4158
+			owns = 4123
+			owns = 4125
+			owns = 4142
+			owns = 4131
+			owns = 4143
+			owns = 4145
+			owns = 4164
+			owns = 4166
+		}
+		province_id = 4145
+		4152 = { NOT = { has_province_modifier = flooded_province } }
+		4151 = { NOT = { has_province_modifier = flooded_province } }
+		4158 = { NOT = { has_province_modifier = flooded_province } }
+		4123 = { NOT = { has_province_modifier = flooded_province } }
+		4125 = { NOT = { has_province_modifier = flooded_province } }
+		4142 = { NOT = { has_province_modifier = flooded_province } }
+		4131 = { NOT = { has_province_modifier = flooded_province } }
+		4143 = { NOT = { has_province_modifier = flooded_province } }
+		4145 = { NOT = { has_province_modifier = flooded_province } }
+		4164 = { NOT = { has_province_modifier = flooded_province } }
+		4166 = { NOT = { has_province_modifier = flooded_province } }
+	}
+	mean_time_to_happen = {
+		months = 140
+		modifier = {
+			factor = 2
+			owner = {
+				NOT = { innovativeness = 10 }
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 40
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 60
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				innovativeness = 80
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				stability = 3
+			}
+		}
+		modifier = {
+			factor = 0.85
+			owner = {
+				has_country_modifier = DA_Runesmith_patronage
+			}
+		}
+		modifier = {
+			factor = 0.90
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_4
+					has_estate_privilege = estate_DA_Runesmiths_RF_5
+				}
+			}
+		}
+		modifier = {
+			factor = 0.85
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_6
+					has_estate_privilege = estate_DA_Runesmiths_RF_7
+				}
+			}
+		}
+		modifier = {
+			factor = 0.80
+			owner = {
+				OR = {
+					has_estate_privilege = estate_DA_Runesmiths_RF_8
+					has_estate_privilege = estate_DA_Runesmiths_RF_9
+					has_estate_privilege = estate_DA_Runesmiths_RF_10
+					has_estate_privilege = estate_DA_Runesmiths_RF_11
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.13.a"
+		custom_tooltip = DA_Balgar_project.tt
+		hidden_effect = {
+			owner = {
+				set_country_flag = DA_can_build_vale_walls
+			}
+		}
+	}
+}

@@ -1,0 +1,398 @@
+namespace = DA_Dur_Vazhatun_event
+
+province_event = {
+	id = DA_Dur_Vazhatun_event.1 # tier 0, just a bit of flavor, watch the stars once again
+	title = "DA_Dur_Vazhatun_event.1.t"
+	desc = "DA_Dur_Vazhatun_event.1.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		owner = {
+			NOT = { has_country_flag = vazhatun_astronomy_unlocked }
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.1.a"
+	}	
+}
+
+province_event = {
+	id = DA_Dur_Vazhatun_event.2 # tier 1, damestear meteorites on the moon's surface, flavor
+	title = "DA_Dur_Vazhatun_event.2.t"
+	desc = "DA_Dur_Vazhatun_event.2.d"
+	picture = muslimgfx_GREAT_BUILDING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "DA_Dur_Vazhatun_event.2.a"
+		owner = {
+			change_innovativeness = 1
+		}
+	}	
+}
+
+province_event = {
+	id = DA_Dur_Vazhatun_event.3 # tier 2, unlockable meteorites, theory of damestear attraction
+	title = "DA_Dur_Vazhatun_event.3.t"
+	desc = "DA_Dur_Vazhatun_event.3.d"
+	picture = PRAYING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "DA_Dur_Vazhatun_event.3.a"
+		hidden_effect = {
+			set_province_flag = DA_unlockable_meteorites
+		}
+	}	
+	option = {
+		name = "DA_Dur_Vazhatun_event.3.b"
+		custom_tooltip = DA_no_meteorites_tt
+	}	
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.30 # tier 2, unlocked meteorites
+	title = "DA_Dur_Vazhatun_event.30.t"
+	desc = "DA_Dur_Vazhatun_event.30.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		DA_has_RF_4_or_higher = yes
+		any_core_province = {
+			owned_by = root
+			has_province_flag = DA_unlockable_meteorites
+		}
+		NOT = {
+			has_country_flag = DA_can_meteorites_attract
+		}
+	}
+	immediate = {
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+				}
+				owned_by = root
+			}
+			save_event_target_as = DA_buildable_province1
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.30.a"
+		goto = DA_buildable_province1
+		custom_tooltip = DA_meteorites_tt
+		event_target:DA_buildable_province1 = {
+			add_devastation = 75
+			hidden_effect = {
+				save_trade_goods = yes
+			}
+			change_trade_goods = damestear
+			add_permanent_province_modifier = {
+				name = damestear_rich_deposit
+				duration = 7300
+			}
+		}
+		hidden_effect = {
+			set_country_flag = DA_can_meteorites_attract
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.30.b"
+		goto = DA_buildable_province1
+		add_country_modifier = {
+			name = DA_Madman_Chief_researcher
+			duration = 36500
+		}
+		custom_tooltip = DA_meteorites_tt
+		event_target:DA_buildable_province1 = {
+			add_devastation = 75
+			hidden_effect = {
+				save_trade_goods = yes
+			}
+			change_trade_goods = damestear
+			add_permanent_province_modifier = {
+				name = damestear_rich_deposit
+				duration = 7300
+			}
+		}
+		hidden_effect = {
+			set_country_flag = DA_can_meteorites_attract
+		}
+	}
+}
+
+province_event = {
+	id = DA_Dur_Vazhatun_event.4 # tier 3, completely restored Setzunkhupa
+	title = "DA_Dur_Vazhatun_event.4.t"
+	desc = "DA_Dur_Vazhatun_event.4.d"
+	picture = GREAT_BUILDING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		owner = {
+			NOT = { has_country_flag = vazhatun_astronomy_unlocked }
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.4.a"
+		custom_tooltip = DA_Dur_Vazhatun_start_observation
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.4.b"
+		custom_tooltip = DA_Dur_Vazhatun_no_observation
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.5 # select target for meteorite
+	title = "DA_Dur_Vazhatun_event.5.t"
+	desc = "DA_Dur_Vazhatun_event.5.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+				}
+				owned_by = root
+				development = 15
+				NOT = { has_province_flag = DA_approaching_meteorite }
+				NOT = { trade_goods = damestear }
+			}
+			save_event_target_as = DA_buildable_province1
+		}
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+				}
+				owned_by = root
+				development = 15
+				NOT = { has_province_flag = DA_approaching_meteorite }
+				NOT = { trade_goods = damestear }
+				NOT = { province_id = event_target:DA_buildable_province1 }
+			}
+			save_event_target_as = DA_buildable_province2
+		}
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+				}
+				owned_by = root
+				development = 15
+				NOT = { has_province_flag = DA_approaching_meteorite }
+				NOT = { trade_goods = damestear }
+				NOT = { province_id = event_target:DA_buildable_province1 }
+				NOT = { province_id = event_target:DA_buildable_province2 }
+			}
+			save_event_target_as = DA_buildable_province3
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.5.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+				}
+				owned_by = root
+				development = 15
+				NOT = { has_province_flag = DA_approaching_meteorite }
+				NOT = { trade_goods = damestear }
+			}
+		}
+		add_treasury = -4000
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		hidden_effect = {
+			add_country_modifier = {
+				name = DA_meteorite_CD
+				duration = 1825
+				hidden = yes
+			}
+		}
+		event_target:DA_buildable_province1 = {
+			custom_tooltip = DA_approaching_meteorite_tt
+			hidden_effect = {
+				set_province_flag = DA_approaching_meteorite
+			}
+		}
+		custom_tooltip = DA_CD_5_tt
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.5.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+				}
+				owned_by = root
+				development = 15
+				NOT = { has_province_flag = DA_approaching_meteorite }
+				NOT = { trade_goods = damestear }
+			}
+		}
+		add_treasury = -4000
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		hidden_effect = {
+			add_country_modifier = {
+				name = DA_meteorite_CD
+				duration = 1825
+				hidden = yes
+			}
+		}
+		event_target:DA_buildable_province2 = {
+			custom_tooltip = DA_approaching_meteorite_tt
+			hidden_effect = {
+				set_province_flag = DA_approaching_meteorite
+			}
+		}
+		custom_tooltip = DA_CD_5_tt
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.5.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+				}
+				owned_by = root
+				development = 15
+				NOT = { has_province_flag = DA_approaching_meteorite }
+				NOT = { trade_goods = damestear }
+			}
+		}
+		add_treasury = -4000
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		hidden_effect = {
+			add_country_modifier = {
+				name = DA_meteorite_CD
+				duration = 1825
+				hidden = yes
+			}
+		}
+		event_target:DA_buildable_province3 = {
+			custom_tooltip = DA_approaching_meteorite_tt
+			hidden_effect = {
+				set_province_flag = DA_approaching_meteorite
+			}
+		}
+		custom_tooltip = DA_CD_5_tt
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.5.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+	}
+}
+
+province_event = {
+	id = DA_Dur_Vazhatun_event.6 # 
+	title = "DA_Dur_Vazhatun_event.6.t"
+	desc = "DA_Dur_Vazhatun_event.6.d"
+	picture = COMET_SIGHTED_eventPicture
+	trigger = {
+		owner = {
+			NOT = {
+				has_country_flag = DA_meteorite_event_ongoing
+			}
+		}
+		had_province_flag = {
+			flag = DA_approaching_meteorite
+			days = 730
+		}
+	}
+	mean_time_to_happen = {
+		days = 10
+	}
+	immediate = {
+		hidden_effect = {
+			owner = {
+				set_country_flag = DA_meteorite_event_ongoing
+			}
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.6.a"
+		hidden_effect = {
+			save_trade_goods = yes
+		}
+		change_trade_goods = damestear
+		add_devastation = 15
+		add_permanent_province_modifier = {
+			name = damestear_rich_deposit
+			duration = 7300
+		}
+	}
+	after = {
+		hidden_effect = {
+			owner = {
+				clr_country_flag = DA_meteorite_event_ongoing
+			}
+			clr_province_flag = DA_approaching_meteorite
+		}
+	}
+}

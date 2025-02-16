@@ -1,0 +1,1798 @@
+namespace = DA_disaster_event
+
+country_event = {
+	id = DA_disaster_event.1 #on last master runesmiths disaster start
+	title = "DA_disaster_event.1.t"
+	desc = "DA_disaster_event.1.d"
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_variable = {
+				which = DA_defeated_old_nobles_agents
+				value = 0
+			}
+			set_variable = {
+				which = DA_defeated_old_nobles_armies
+				value = 0
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.1.a"
+		add_stability = -2
+		if = {
+			limit = {
+				any_core_province = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+					is_capital = no
+					owned_by = root
+					has_province_modifier = DA_runemasters_accademy
+				}
+			}
+			custom_tooltip = DA_disaster_runemasters_better_tt
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+					is_capital = no
+					owned_by = root
+					has_province_modifier = DA_runemasters_accademy
+				}
+				add_permanent_province_modifier = {
+					name = DA_disaster_runemasters_base
+					duration = -1
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_disaster_runemasters_tt
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+					is_capital = no
+					owned_by = root
+				}
+				add_permanent_province_modifier = {
+					name = DA_disaster_runemasters_base
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_modifier = DA_saved_merchants
+			}
+			custom_tooltip = DA_disaster_merchants_better_tt
+		}
+		else = {
+			custom_tooltip = DA_disaster_merchants_tt
+		}
+		random_core_province = {
+			limit = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+				is_capital = no
+				owned_by = root
+				NOT = {
+					has_province_modifier = DA_disaster_runemasters_base
+				}
+			}
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_base
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				has_country_modifier = DA_Unrestricted_mage_creation
+			}
+			custom_tooltip = DA_disaster_nobles_better_tt
+		}
+		else = {
+			custom_tooltip = DA_disaster_nobles_tt
+		}
+		random_core_province = {
+			limit = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+				is_capital = no
+				owned_by = root
+				NOT = {
+					has_province_modifier = DA_runemasters_accademy
+				}
+				NOT = {
+					has_province_modifier = DA_disaster_merchants_base
+				}
+			}
+			add_permanent_province_modifier = {
+				name = DA_disaster_nobles_base
+				duration = -1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_disaster_event.2 #before disaster, merchant
+	title = "DA_disaster_event.2.t"
+	desc = "DA_disaster_event.2.d"
+	picture = OVEREXTENSION_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = "DA_disaster_event.2.a"
+		add_years_of_income = -0.75
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = DA_saved_merchants
+			duration = -1
+		}
+		custom_tooltip = DA_saved_merchants_tt
+		hidden_effect = {
+			set_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 25
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.2.b"
+		add_prestige = -10
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = -10
+		}
+		add_country_modifier = {
+			name = DA_not_saved_merchants
+			duration = -1
+		}
+		custom_tooltip = DA_not_saved_merchants_tt
+		hidden_effect = {
+			set_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 10
+			}
+		}
+	}	
+}
+
+country_event = {
+	id = DA_disaster_event.3 #before disaster, runesmiths
+	title = "DA_disaster_event.3.t"
+	desc = "DA_disaster_event.3.d"
+	picture = BUDDHISM_MONASTERY_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = "DA_disaster_event.3.a"
+		add_years_of_income = -0.85
+		add_estate_loyalty = {
+			estate = estate_DA_Runesmiths
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = DA_saved_runemasters
+			duration = -1
+		}
+		random_core_province = {
+			limit = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+				is_capital = no
+				owned_by = root
+			}
+			add_permanent_province_modifier = {
+				name = DA_runemasters_accademy
+				duration = -1
+			}
+		}
+		custom_tooltip = DA_saved_merchants_tt
+		hidden_effect = {
+			set_variable = {
+				which = DA_disaster_isolationism
+				value = 5
+			}
+		}
+	}	
+	option = {
+		name = "DA_disaster_event.3.b"
+		add_estate_loyalty = {
+			estate = estate_DA_Runesmiths
+			loyalty = -10
+		}
+		add_country_modifier = {
+			name = DA_not_saved_runemasters
+			duration = -1
+		}
+		custom_tooltip = DA_saved_merchants_tt
+		hidden_effect = {
+			set_variable = {
+				which = DA_disaster_isolationism
+				value = 6
+			}
+		}
+	}	
+}
+
+# old nobles events
+
+country_event = {
+	id = DA_disaster_event.4 
+	title = "DA_disaster_event.4.t"
+	desc = "DA_disaster_event.4.d"
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+		NOT = { has_country_flag = DA_old_noble_army_spawned }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_old_noble_army_spawned
+			random_core_province = {
+				limit = {
+					NOT = {
+						infantry_in_province = 1
+					}
+					owned_by = root
+					is_capital = no
+					NOT = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+						}
+					}
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.4.a"
+		goto = DA_target_province
+		custom_tooltip = DA_Old_nobles_beaten_reduce_status_tt
+		event_target:DA_target_province = {
+			DA_Spawn_noble_rebels = {
+				amount = 5
+			}
+		}
+	}	
+}
+country_event = {
+	id = DA_disaster_event.5 
+	title = "DA_disaster_event.5.t"
+	desc = "DA_disaster_event.5.d"
+	picture = RIOTING_workers_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+		NOT = { num_of_rebel_armies = 1 }
+		NOT = { num_of_rebel_controlled_provinces = 1 }
+		has_country_flag = DA_old_noble_army_spawned
+	}
+	hidden = yes
+	immediate = {
+		hidden_effect = {
+			change_variable = {
+				which = DA_defeated_old_nobles_armies
+				value = 1
+			}
+			clr_country_flag = DA_old_noble_army_spawned
+		}
+	}
+	option = {
+		name = "DA_disaster_event.5.a"
+		if = {
+			limit = {
+				check_variable = {
+					which = DA_defeated_old_nobles_armies
+					value = 3
+				}
+			}
+			subtract_variable = {
+				which = DA_defeated_old_nobles_armies
+				value = 3
+			}
+			country_event = {
+				id = DA_disaster_event.6
+			}
+		}
+	}	
+}
+country_event = {
+	id = DA_disaster_event.6 
+	title = "DA_disaster_event.6.t"
+	desc = "DA_disaster_event.6.d"
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+	}
+	immediate = {
+	}
+	option = {
+		name = "DA_disaster_event.6.a"
+		increase_legitimacy_small_effect = yes
+		DA_decrease_old_noble_status = {
+			amount = 1
+		}
+	}	
+}
+
+country_event = {
+	id = DA_disaster_event.7  # check nobles own too much land
+	title = "DA_disaster_event.7.t"
+	desc = "DA_disaster_event.7.d"
+	picture = RIOTING_workers_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+		OR = {
+			NOT = { has_country_flag = DA_check_old_nobles_rebel_land }
+			had_country_flag = {
+				flag = DA_check_old_nobles_rebel_land
+				days = 650
+			}
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = DA_check_old_nobles_rebel_land }
+			}
+			set_country_flag = DA_check_old_nobles_rebel_land
+		}
+	}
+	hidden = yes
+	option = {
+		name = "DA_disaster_event.7.a"
+		if = {
+			limit = {
+				calc_true_if = {
+					amount = 5
+					all_owned_province = {
+						owned_by = DA_old_nobles
+					}
+				}
+				num_of_rebel_controlled_provinces = 5
+			}
+			clr_country_flag = DA_check_old_nobles_rebel_land
+			country_event = {
+				id = DA_disaster_event.8
+			}
+		}
+	}	
+}
+country_event = {
+	id = DA_disaster_event.8  # gives nobles status for land
+	title = "DA_disaster_event.8.t"
+	desc = "DA_disaster_event.8.d"
+	picture = SIEGE_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+	}
+	immediate = {
+	}
+	option = {
+		name = "DA_disaster_event.8.a"
+		reduce_legitimacy_small_effect = yes
+		DA_increase_old_noble_status = {
+			amount = 1
+		}
+		custom_tooltip = DA_Old_nobles_must_be_driven_out_tt
+	}	
+}
+country_event = {
+	id = DA_disaster_event.9  # nobles bribe advisor
+	title = "DA_disaster_event.9.t"
+	desc = "DA_disaster_event.9.d"
+	picture = DEBATE_REPUBLICAN_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+		OR = {
+			has_advisor_of_type_and_level = {
+				type = ADM
+			}
+			has_advisor_of_type_and_level = {
+				type = DIP
+			}
+			has_advisor_of_type_and_level = {
+				type = MIL
+			}
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				1 = {
+					trigger = {
+						has_advisor_of_type_and_level = {
+							type = ADM
+						}
+					}
+					set_country_flag = DA_taking_ADM_advisor
+				}
+				1 = {
+					trigger = {
+						has_advisor_of_type_and_level = {
+							type = DIP
+						}
+					}
+					set_country_flag = DA_taking_DIP_advisor
+				}
+				1 = {
+					trigger = {
+						has_advisor_of_type_and_level = {
+							type = MIL
+						}
+					}
+					set_country_flag = DA_taking_MIL_advisor
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.9.a"
+		add_corruption = 0.5
+		DA_increase_old_noble_status = {
+			amount = 1
+		}
+		if = {
+			limit = {
+				has_country_flag = DA_taking_ADM_advisor
+			}
+			remove_advisor_by_category = ADM
+		}
+		else_if = {
+			limit = {
+				has_country_flag = DA_taking_DIP_advisor
+			}
+			remove_advisor_by_category = DIP
+		}
+		else_if = {
+			limit = {
+				has_country_flag = DA_taking_MIL_advisor
+			}
+			remove_advisor_by_category = MIL
+		}
+	}	
+	option = {
+		name = "DA_disaster_event.9.b"
+		add_inflation = 2
+		add_years_of_income = -0.30
+		DA_decrease_old_noble_status = {
+			amount = 1
+		}
+	}	
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_taking_ADM_advisor
+			clr_country_flag = DA_taking_DIP_advisor
+			clr_country_flag = DA_taking_MIL_advisor
+		}
+	}
+}
+
+country_event = {
+	id = DA_disaster_event.10  # random restriction, evitable
+	title = "DA_disaster_event.10.t"
+	desc = "DA_disaster_event.10.d"
+	picture = RIOTING_workers_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					NOT = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+						}
+					}
+					NOT = { has_province_modifier = DA_Rune_restriction_province }
+					is_capital = no
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+		any_core_province = {
+			owned_by = root
+			NOT = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+			}
+			NOT = { has_province_modifier = DA_Rune_restriction_province }
+			is_capital = no
+		}
+	}
+	option = {
+		name = "DA_disaster_event.10.a"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			add_devastation = 10
+			add_permanent_province_modifier = {
+				name = DA_Rune_restriction_province
+				duration = 730
+			}
+		}
+	}	
+	option = {
+		name = "DA_disaster_event.10.b"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			add_devastation = 15
+		}
+		add_manpower = -3
+		hidden_effect = {
+			change_variable = {
+				which = DA_defeated_old_nobles_agents
+				value = 1
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						which = DA_defeated_old_nobles_agents
+						value = 3
+					}
+				}
+				country_event = {
+					id = DA_disaster_event.11
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.11  # defeated enough random restrictions, reward 
+	title = "DA_disaster_event.11.t"
+	desc = "DA_disaster_event.11.d"
+	picture = DIET_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_variable = {
+				which = DA_defeated_old_nobles_agents
+				value = 0
+			}
+		}
+	}
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.11.a"
+		DA_decrease_old_noble_status = {
+			amount = 1
+		}
+	}	
+}
+country_event = {
+	id = DA_disaster_event.12  # unlock negotiations
+	title = "DA_disaster_event.12.t"
+	desc = "DA_disaster_event.12.d"
+	picture = DIET_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+		NOT = {
+			has_country_flag = DA_disaster_nobles_negotiations_allowed
+		}
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+		if = {
+			limit = {
+				has_country_modifier = DA_Restricted_mage_creation
+			}
+			NOT = {
+				check_variable = {
+					which = DA_disaster_nobles_status
+					value = 4
+				}
+			}
+		}
+		else = {
+			NOT = {
+				check_variable = {
+					which = DA_disaster_nobles_status
+					value = 7
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.12.a"
+		set_country_flag = DA_disaster_nobles_negotiations_allowed
+		custom_tooltip = DA_disaster_nobles_negotiations_allowed_tt
+	}	
+}
+country_event = {
+	id = DA_disaster_event.13  # negotiation menu
+	title = "DA_disaster_event.13.t"
+	desc = "DA_disaster_event.13.d"
+	picture = DIET_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+	}
+	option = {
+		name = "DA_disaster_event.13.battle_it_out"
+		trigger = {
+			NOT = {
+				check_variable = {
+					which = DA_disaster_nobles_status
+					value = 4
+				}
+			}
+			hidden_trigger = {
+				NOT = { has_country_flag = DA_disaster_nobles_battled_it_out }
+			}
+
+		}
+		set_country_flag = DA_disaster_nobles_battled_it_out
+		custom_tooltip = DA_disaster_nobles_battle_it_out_tt
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_disaster_nobles_base
+				}
+				DA_Spawn_noble_rebels = {
+					amount = 6
+				}
+				DA_Spawn_noble_rebels = {
+					amount = 6
+				}
+				DA_Spawn_noble_rebels = {
+					amount = 6
+				}
+			}
+			every_core_province = {
+				
+			}
+			every_core_province = {
+				limit = {
+					is_wasteland = no
+					OR = {
+						has_province_modifier = DA_Rune_restriction_province
+						any_neighbor_province = {
+							has_province_modifier = DA_disaster_nobles_base
+						}
+					}
+				}
+				DA_Spawn_noble_rebels = {
+					amount = 4
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.13.battle_it_out.fake"
+		trigger = {
+			hidden_trigger = {
+				NOT = { has_country_flag = DA_disaster_nobles_battled_it_out }
+			}
+			NOT = {
+				AND = {
+					has_country_flag = DA_disaster_nobles_negotiations_allowed
+					NOT = {
+						check_variable = {
+							which = DA_disaster_nobles_status
+							value = 4
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { check_variable = { DA_disaster_nobles_status = 4 } } }
+			custom_tooltip = "Old Nobles are still too strong"
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_disaster_event.13.meeting"
+		trigger = {
+			check_variable = {
+				which = DA_disaster_nobles_status
+				value = 1
+			}
+			NOT = { has_country_flag = DA_disaster_nobles_negotiations_allowed }
+			NOT = { has_country_modifier = DA_old_nobles_meeting_CD }
+			NOT = { has_country_modifier = DA_Restricted_mage_creation }
+		}
+		custom_tooltip = DA_disaster_repeatable_interaction
+		reduce_legitimacy_small_effect = yes
+		DA_decrease_old_noble_status = {
+			amount = 1
+		}
+	}
+	option = {
+		name = "DA_disaster_event.13.Pacifist_ending"
+		trigger = {
+			has_country_flag = DA_disaster_nobles_negotiations_allowed
+			NOT = { has_country_modifier = DA_Restricted_mage_creation }
+		}
+		country_event = {
+			id = DA_disaster_event.14
+			days = 60
+		}
+	}
+	option = {
+		name = "DA_disaster_event.13.go_back"
+		custom_tooltip = DA_Negotiations_remove_1_year_CD
+		hidden_effect = {
+			remove_country_modifier = DA_disaster_nobles_menu_CD
+		}
+	}
+}
+
+country_event = {
+	id = DA_disaster_event.14  # pacifist victory
+	title = "DA_disaster_event.14.t"
+	desc = "DA_disaster_event.14.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+	}
+	option = {
+		name = "DA_disaster_event.14.a"
+		add_country_modifier = {
+			name = DA_negotiated_Old_Nobles
+			duration = -1
+		}
+		add_country_modifier = {
+			name = DA_negotiated_Old_Nobles_permanent
+			duration = -1
+		}
+		custom_tooltip = "Old Nobles'Hold and all other relative province modifers are removed"
+		hidden_effect = {
+			every_core_province = {
+				remove_province_modifier = DA_Rune_restriction_province
+				remove_province_modifier = DA_disaster_nobles_base
+			}
+		}
+	}	
+}
+country_event = {
+	id = DA_disaster_event.15  # war victory
+	title = "DA_disaster_event.15.t"
+	desc = "DA_disaster_event.15.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = DA_defeated_Old_Nobles
+				has_country_modifier = DA_negotiated_Old_Nobles
+			}
+		}
+		NOT = { num_of_rebel_armies = 1 }
+		NOT = { num_of_rebel_controlled_provinces = 1 }
+		has_country_flag = DA_disaster_nobles_battled_it_out
+	}
+	option = {
+		name = "DA_disaster_event.15.a"
+		add_country_modifier = {
+			name = DA_defeated_Old_Nobles
+			duration = -1
+		}
+		add_country_modifier = {
+			name = DA_defeated_Old_Nobles_permanent
+			duration = -1
+		}
+		custom_tooltip = "Old Nobles'Hold and all other relative province modifers are removed"
+		hidden_effect = {
+			every_core_province = {
+				remove_province_modifier = DA_Rune_restriction_province
+				remove_province_modifier = DA_disaster_nobles_base
+			}
+		}
+	}	
+}
+
+# merchant events
+
+country_event = {
+	id = DA_disaster_event.20  # brothels
+	title = "DA_disaster_event.20.t"
+	desc = "DA_disaster_event.20.d"
+	picture = CORRUPTION_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+				is_capital = no
+				owned_by = root
+				NOT = { has_province_modifier = DA_disaster_merchants_brothels }
+			}
+			save_event_target_as = DA_merchant_target
+		}
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+		any_core_province = {
+			NOT = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+			}
+			is_capital = no
+			owned_by = root
+			NOT = { has_province_modifier = DA_disaster_merchants_brothels }
+		}
+	}
+	option = {
+		name = "DA_disaster_event.20.a"
+		goto = DA_merchant_target
+		add_corruption = 1
+		DA_increase_rune_merchants_treasury = {
+			amount = 5
+		}
+		event_target:DA_merchant_target = {
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_brothels
+				duration = 3650
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.20.b"
+		goto = DA_merchant_target
+		add_corruption = -0.5
+		DA_decrease_rune_merchants_treasury = {
+			amount = 5
+		}
+		event_target:DA_merchant_target = {
+			add_unrest = 5
+		}
+	}
+}
+
+country_event = {
+	id = DA_disaster_event.21  # smugglers
+	title = "DA_disaster_event.21.t"
+	desc = "DA_disaster_event.21.d"
+	picture = ARTWORK_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+				is_capital = no
+				owned_by = root
+				NOT = { has_province_modifier = DA_disaster_merchants_smuggler }
+			}
+			save_event_target_as = DA_merchant_target
+		}
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+		any_core_province = {
+			NOT = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+			}
+			is_capital = no
+			owned_by = root
+			NOT = { has_province_modifier = DA_disaster_merchants_smuggler }
+		}
+	}
+	option = {
+		name = "DA_disaster_event.21.a"
+		goto = DA_merchant_target
+		add_corruption = 1
+		DA_increase_rune_merchants_treasury = {
+			amount = 5
+		}
+		event_target:DA_merchant_target = {
+			add_unrest = 5
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_smuggler
+				duration = 3650
+			}
+			if = {
+				limit = {
+					base_production = 3
+				}
+				add_base_production = -2
+				random_country = {
+					limit = {
+						OR = {
+							is_rival = prev
+							is_neighbor_of = prev
+						}
+					}
+					custom_tooltip = DA_show_country
+					capital_scope = {
+						add_base_production = 2
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					base_production = 2
+				}
+				add_base_production = -1
+				random_country = {
+					limit = {
+						OR = {
+							is_rival = prev
+							is_neighbor_of = prev
+						}
+					}
+					custom_tooltip = DA_show_country
+					capital_scope = {
+						add_base_production = 1
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.21.b"
+		goto = DA_merchant_target
+		add_corruption = -0.5
+		DA_decrease_rune_merchants_treasury = {
+			amount = 5
+		}
+		event_target:DA_merchant_target = {
+			add_unrest = -5
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.22  # riots
+	title = "DA_disaster_event.22.t"
+	desc = "DA_disaster_event.22.d"
+	picture = ANGRY_MOB_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+				is_capital = no
+				owned_by = root
+				NOT = { has_province_modifier = DA_disaster_merchants_riot }
+			}
+			save_event_target_as = DA_merchant_target
+		}
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+		any_core_province = {
+			NOT = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+			}
+			is_capital = no
+			owned_by = root
+			NOT = { has_province_modifier = DA_disaster_merchants_riot }
+		}
+	}
+	option = {
+		name = "DA_disaster_event.22.a"
+		goto = DA_merchant_target
+		add_corruption = 1
+		reduce_legitimacy_small_effect = yes
+		DA_increase_rune_merchants_treasury = {
+			amount = 5
+		}
+		event_target:DA_merchant_target = {
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_riot
+				duration = 3650
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.22.b"
+		goto = DA_merchant_target
+		add_corruption = -0.5
+		increase_legitimacy_small_effect = yes
+		DA_decrease_rune_merchants_treasury = {
+			amount = 5
+		}
+		event_target:DA_merchant_target = {
+			add_unrest = -5
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.23  # drugs
+	title = "DA_disaster_event.23.t"
+	desc = "DA_disaster_event.23.d"
+	picture = TRADE_GOODS_METALS_AND_MINING_EQUIPENT_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+				is_capital = no
+				owned_by = root
+				NOT = { has_province_modifier = DA_disaster_merchants_drugs }
+			}
+			save_event_target_as = DA_merchant_target
+		}
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+		any_core_province = {
+			NOT = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+			}
+			is_capital = no
+			owned_by = root
+			NOT = { has_province_modifier = DA_disaster_merchants_drugs }
+		}
+	}
+	option = {
+		name = "DA_disaster_event.23.a"
+		goto = DA_merchant_target
+		add_corruption = 2
+		DA_increase_rune_merchants_treasury = {
+			amount = 10
+		}
+		event_target:DA_merchant_target = {
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_drugs
+				duration = 3650
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.23.b"
+		goto = DA_merchant_target
+		add_corruption = -1
+		DA_decrease_rune_merchants_treasury = {
+			amount = 5
+		}
+		event_target:DA_merchant_target = {
+			add_unrest = -5
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.24  # minor illegal activities
+	title = "DA_disaster_event.24.t"
+	desc = "DA_disaster_event.24.d"
+	picture = CORRUPTION_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		random_core_province = {
+			limit = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+				is_capital = no
+				owned_by = root
+				NOT = { has_province_modifier = DA_disaster_merchants_minor_illegal }
+			}
+			save_event_target_as = DA_merchant_target
+		}
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+		any_core_province = {
+			NOT = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+			}
+			is_capital = no
+			owned_by = root
+			NOT = { has_province_modifier = DA_disaster_merchants_minor_illegal }
+		}
+	}
+	option = {
+		name = "DA_disaster_event.24.a"
+		goto = DA_merchant_target
+		add_corruption = 0.5
+		DA_increase_rune_merchants_treasury = {
+			amount = 5
+		}
+		event_target:DA_merchant_target = {
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_minor_illegal
+				duration = 3650
+			}
+		}
+	}
+	option = {
+		name = "DA_disaster_event.24.b"
+		goto = DA_merchant_target
+		event_target:DA_merchant_target = {
+			add_unrest = -3
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.25  # reached 0
+	title = "DA_disaster_event.25.t"
+	desc = "DA_disaster_event.25.d"
+	picture = REVOLUTION_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+	}
+	option = {
+		name = "DA_disaster_event.25.a"
+		goto = DA_merchant_target
+		add_corruption = 5
+		DA_increase_rune_merchants_treasury = {
+			amount = 20
+		}
+		random_core_province = {
+			limit = {
+				has_province_modifier = DA_disaster_merchants_base
+			}
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_minor_illegal
+				duration = 3650
+			}
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_riot
+				duration = 3650
+			}
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_smuggler
+				duration = 3650
+			}
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_brothels
+				duration = 3650
+			}
+			add_permanent_province_modifier = {
+				name = DA_disaster_merchants_drugs
+				duration = 3650
+			}
+		}
+		add_country_modifier = {
+			name = DA_disaster_merchants_reached_0
+			duration = 730
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.26  # economic collapse
+	title = "DA_disaster_event.26.t"
+	desc = "DA_disaster_event.26.d"
+	picture = BANKRUPTCY_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+	}
+	option = {
+		name = "DA_disaster_event.26.a"
+		DA_decrease_rune_merchants_treasury = {
+			amount = 10
+		}
+	}
+	option = {
+		name = "DA_disaster_event.26.b"
+		add_years_of_income = -0.75
+		DA_increase_rune_merchants_treasury = {
+			amount = 5
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.27  # little economic collapse
+	title = "DA_disaster_event.27.t"
+	desc = "DA_disaster_event.27.d"
+	picture = indiangfx_CORRUPTION_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+	}
+	option = {
+		name = "DA_disaster_event.27.a"
+		DA_decrease_rune_merchants_treasury = {
+			amount = 5
+		}
+	}
+	option = {
+		name = "DA_disaster_event.27.b"
+		add_years_of_income = -0.50
+		DA_increase_rune_merchants_treasury = {
+			amount = 5
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.28  # little economic recovery
+	title = "DA_disaster_event.28.t"
+	desc = "DA_disaster_event.28.d"
+	picture = indiangfx_ECONOMY_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+	}
+	option = {
+		name = "DA_disaster_event.28.a"
+		add_corruption = -0.5
+		DA_increase_rune_merchants_treasury = {
+			amount = 5
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.29  # economic recovery
+	title = "DA_disaster_event.29.t"
+	desc = "DA_disaster_event.29.d"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+		NOT = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		NOT = {
+			has_country_modifier = DA_rescued_Rune_merchants
+		}
+	}
+	option = {
+		name = "DA_disaster_event.29.a"
+		add_corruption = -1
+		add_inflation = -0.5
+		DA_increase_rune_merchants_treasury = {
+			amount = 10
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.30  # menu
+	title = "DA_disaster_event.30.t"
+	desc = "DA_disaster_event.30.d"
+	picture = BANKRUPTCY_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+	}
+	option = {
+		name = "DA_disaster_event.30.a"
+		trigger = {
+			NOT = {
+				check_variable = {
+					which = DA_disaster_merchant_treasury
+					value = 100
+				}
+			}
+		}
+		custom_tooltip = DA_disaster_repeatable_interaction
+		add_years_of_income = -2
+		DA_increase_rune_merchants_treasury = {
+			amount = 10
+		}
+	}
+	option = {
+		name = "DA_disaster_event.30.b"
+		trigger = {
+			NOT = {
+				check_variable = {
+					which = DA_disaster_merchant_treasury
+					value = 100
+				}
+			}
+			NOT = { has_country_modifier = DA_Allow_irregular_trade }
+		}
+		custom_tooltip = DA_disaster_permanent_modifier
+		add_country_modifier = {
+			name = DA_Allow_irregular_trade
+			duration = -1
+		}
+		DA_increase_rune_merchants_treasury = {
+			amount = 10
+		}
+	}
+	option = {
+		name = "DA_disaster_event.30.c"
+		trigger = {
+			NOT = {
+				check_variable = {
+					which = DA_disaster_merchant_treasury
+					value = 100
+				}
+			}
+			NOT = { has_country_modifier = DA_Allow_irregular_interest }
+		}
+		custom_tooltip = DA_disaster_permanent_modifier
+		add_country_modifier = {
+			name = DA_Allow_irregular_interest
+			duration = -1
+		}
+		DA_increase_rune_merchants_treasury = {
+			amount = 5
+		}
+	}
+	option = {
+		name = "DA_disaster_event.30.e"
+		trigger = {
+			check_variable = {
+				which = DA_disaster_merchant_treasury
+				value = 100
+			}
+		}
+		add_years_of_income = -1.5
+		country_event = {
+			id = DA_disaster_event.31
+			days = 60
+		}
+		custom_tooltip = DA_save_rune_merchnats_disaster_tt
+	}
+	option = {
+		name = "DA_disaster_event.13.go_back"
+		custom_tooltip = DA_Negotiations_remove_1_year_CD
+		hidden_effect = {
+			remove_country_modifier = DA_disaster_merchants_menu_CD
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.31  # rescued merchants
+	title = "DA_disaster_event.31.t"
+	desc = "DA_disaster_event.31.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+	}
+	option = {
+		name = "DA_disaster_event.31.a"
+		add_country_modifier = {
+			name = DA_rescued_Rune_merchants
+			duration = -1
+		}
+		custom_tooltip = DA_burghers_will_help_in_time_of_need
+		add_country_modifier = {
+			name = DA_rescued_Rune_merchants_permanent
+			duration = -1
+		}
+		every_core_province = {
+			remove_province_modifier = DA_disaster_merchants_base
+		}
+	}	
+}
+
+country_event = {
+	id = DA_disaster_event.32  # rescued merchants help in time of need
+	title = "DA_disaster_event.32.t"
+	desc = "DA_disaster_event.32.d"
+	picture = BURGHER_ESTATE_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+		has_country_modifier = DA_rescued_Rune_merchants_permanent
+		OR = {
+			has_disaster = hoardcurse
+			num_of_loans = 10
+		}
+	}
+	option = {
+		name = "DA_disaster_event.32.a"
+		add_years_of_income = 3.0
+		remove_country_modifier = DA_rescued_Rune_merchants_permanent
+	}	
+}
+
+# Runesmiths events
+
+country_event = {
+	id = DA_disaster_event.35  # menu
+	title = "DA_disaster_event.35.t"
+	desc = "DA_disaster_event.35.d"
+	picture = BUDDHISM_MONASTERY_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	trigger = {
+	}
+	option = {
+		name = "DA_disaster_event.35.a"
+		trigger = {
+			check_variable = {
+				which = DA_disaster_isolationism
+				value = 1
+			}
+			NOT = { has_country_modifier = DA_Runemasters_access_to_secret_archives }
+		}
+		custom_tooltip = DA_disaster_permanent_modifier
+		add_country_modifier = {
+			name = DA_Runemasters_access_to_secret_archives
+			duration = -1
+		}
+		DA_decrease_runesmiths_isolation = {
+			amount = 1
+		}
+	}
+	option = {
+		name = "DA_disaster_event.35.b"
+		trigger = {
+			check_variable = {
+				which = DA_disaster_isolationism
+				value = 1
+			}
+			NOT = { has_country_modifier = DA_Runemasters_employ_statal_runesmiths }
+		}
+		custom_tooltip = DA_disaster_permanent_modifier
+		add_country_modifier = {
+			name = DA_Runemasters_employ_statal_runesmiths
+			duration = -1
+		}
+		custom_tooltip = DA_can_recruit_runesmiths
+		DA_decrease_runesmiths_isolation = {
+			amount = 1
+		}
+	}
+	option = {
+		name = "DA_disaster_event.35.c"
+		trigger = {
+			check_variable = {
+				which = DA_disaster_isolationism
+				value = 1
+			}
+			NOT = { has_country_modifier = DA_Runemasters_superiority }
+		}
+		custom_tooltip = DA_disaster_permanent_modifier
+		add_country_modifier = {
+			name = DA_Runemasters_superiority
+			duration = -1
+		}
+		DA_decrease_runesmiths_isolation = {
+			amount = 1
+		}
+	}
+	option = {
+		name = "DA_disaster_event.35.e"
+		trigger = {
+			check_variable = {
+				which = DA_disaster_isolationism
+				value = 1
+			}
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 8
+			}
+		}
+		custom_tooltip = DA_disaster_repeatable_interaction
+		custom_tooltip = DA_cost_8_ADK
+		hidden_effect = {
+			subtract_variable = {
+				which = ancientDwarvenKnowledge
+				value = 8
+			}
+		}
+		DA_decrease_runesmiths_isolation = {
+			amount = 1
+		}
+	}
+	option = {
+		name = "DA_disaster_event.35.f"
+		trigger = {
+			check_variable = {
+				which = DA_disaster_isolationism
+				value = 1
+			}
+			stability = 1
+		}
+		custom_tooltip = DA_disaster_repeatable_interaction
+		add_stability = -1
+		DA_decrease_runesmiths_isolation = {
+			amount = 1
+		}
+	}
+	option = {
+		name = "DA_disaster_event.35.h"
+		trigger = {
+			NOT = {
+				check_variable = {
+					which = DA_disaster_isolationism
+					value = 1
+				}
+			}
+		}
+		country_event = {
+			id = DA_disaster_event.36
+		}
+	}
+	option = {
+		name = "DA_disaster_event.13.go_back"
+		custom_tooltip = DA_Negotiations_remove_1_year_CD
+		hidden_effect = {
+			remove_country_modifier = DA_disaster_runemasters_menu_CD
+		}
+	}
+}
+country_event = {
+	id = DA_disaster_event.36 # finish runesmiths
+	title = "DA_disaster_event.36.t"
+	desc = "DA_disaster_event.36.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = "DA_disaster_event.36.a"
+		add_country_modifier = {
+			name = DA_returned_runemasters
+			duration = -1
+		}
+		capital_scope = {
+			DA_Find_runic_blueprint = yes
+			DA_Find_Advanced_rune = yes
+			random = {
+				chance = 50
+				DA_Find_steam_blueprint = yes
+			}
+			random = {
+				chance = 20
+				DA_Find_Runic_circuit_blueprint = yes
+			}
+			random = {
+				chance = 20
+				DA_Find_runic_circuit = yes 
+			}
+		}
+		every_core_province = {
+			remove_province_modifier = DA_disaster_runemasters_base
+		}
+	}	
+}
+############################################################
+
+country_event = {
+	id = DA_disaster_event.40 #after disaster, finished
+	title = "DA_disaster_event.40.t"
+	desc = "DA_disaster_event.40.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = "DA_disaster_event.40.a"
+		add_estate_loyalty = {
+			estate = all
+			loyalty = 10
+		}
+		custom_tooltip = DA_ended_runesmith_disaster_tt
+		hidden_effect = {
+			set_country_flag = DA_Runesmiths_disaster_ended
+			remove_country_modifier = DA_returned_runemasters
+			remove_country_modifier = DA_defeated_Old_Nobles
+			remove_country_modifier = DA_negotiated_Old_Nobles
+			remove_country_modifier = DA_rescued_Rune_merchants
+			add_country_modifier = {
+				name = DA_fix_rebels_modifiers
+				duration = 90
+				hidden = yes
+			}
+		}
+	}	
+}

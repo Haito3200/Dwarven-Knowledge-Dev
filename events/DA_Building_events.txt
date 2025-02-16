@@ -1,0 +1,857 @@
+namespace = DA_building_event
+
+################# special resources Events ##################
+country_event = {
+	id = DA_building_event.1 		# check
+	title = "DA_building_event.1.t"
+	desc = "DA_building_event.1.d"
+	picture = INVENTION_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_building_event.1.a"
+		export_to_variable = {
+			value = modifier:DA_fake_arcane_metal_adder
+			which = DA_arcane_metal_adder
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_alchemy_reagents_adder
+			which = DA_alchemy_reagents_adder
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_enchanted_building_material_adder
+			which = DA_enchanted_building_material_adder
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.2 		# 
+	title = "DA_building_event.1.t"
+	desc = "DA_building_event.1.d"
+	picture = INVENTION_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_building_event.1.a"
+		export_to_variable = {
+			value = modifier:DA_fake_arcane_metal_adder
+			which = DA_arcane_metal_adder
+		}
+		change_variable = {
+			which = DA_arcane_metal_total
+			which = DA_arcane_metal_adder
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.3 		# 
+	title = "DA_building_event.1.t"
+	desc = "DA_building_event.1.d"
+	picture = INVENTION_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_building_event.1.a"
+		export_to_variable = {
+			value = modifier:DA_fake_alchemy_reagents_adder
+			which = DA_alchemy_reagents_adder
+		}
+		change_variable = {
+			which = DA_alchemy_reagents_total
+			which = DA_alchemy_reagents_adder
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.4 		# 
+	title = "DA_building_event.1.t"
+	desc = "DA_building_event.1.d"
+	picture = INVENTION_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_building_event.1.a"
+		export_to_variable = {
+			value = modifier:DA_fake_enchanted_building_material_adder
+			which = DA_enchanted_building_material_adder
+		}
+		change_variable = {
+			which = DA_enchanted_building_material_total
+			which = DA_enchanted_building_material_adder
+		}
+	}
+}
+
+
+
+################# special buildings Events ##################
+
+country_event = {
+	id = DA_building_event.20 		# 
+	title = "DA_building_event.20.t"
+	desc = "DA_building_event.20.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			owned_by = root
+			has_building = DA_PS_1
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					has_building = DA_PS_1
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.20.a"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			remove_building = DA_PS_1
+		}
+	}
+	option = {
+		name = "DA_building_event.20.b"
+		goto = DA_target_province
+		add_treasury = -50
+	}
+}
+country_event = {
+	id = DA_building_event.21 		# 
+	title = "DA_building_event.21.t"
+	desc = "DA_building_event.21.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			owned_by = root
+			has_building = DA_PS_2
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					has_building = DA_PS_2
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.21.a"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			add_devastation = 25
+			remove_building = DA_PS_2
+			remove_building = DA_Hospital_0
+			remove_building = DA_Hospital_1
+			remove_building = DA_Hospital_2
+			remove_building = DA_Hospital_3
+			remove_building = DA_Factory_0
+			remove_building = DA_Factory_1
+			remove_building = DA_Factory_2
+			remove_building = DA_Factory_3
+			remove_building = DA_Runesmiths_branch_0
+			remove_building = DA_Runesmiths_branch_1
+			remove_building = DA_Runesmiths_branch_2
+			remove_building = DA_Runesmiths_branch_3
+			remove_building = DA_Smelting_Furnace_0
+			remove_building = DA_Smelting_Furnace_1
+			remove_building = DA_Smelting_Furnace_2
+			remove_building = DA_Smelting_Furnace_3
+			remove_building = DA_Alchemy_workshop_0
+			remove_building = DA_Alchemy_workshop_1
+			remove_building = DA_Alchemy_workshop_2
+			remove_building = DA_Alchemy_workshop_3
+			every_neighbor_province = {
+				limit = {
+					NOT = {
+						OR = {
+							has_building = DA_PS_1
+							has_building = DA_PS_2
+							has_building = DA_PS_3
+							has_building = DA_PS_4
+						}
+					}
+					OR = {
+						has_building = DA_electricity_cables
+						has_building = DA_steam_pipes
+					}
+				}
+				add_devastation = 10
+				remove_building = DA_electricity_cables
+				remove_building = DA_steam_pipes
+				remove_building = DA_Hospital_0
+				remove_building = DA_Hospital_1
+				remove_building = DA_Hospital_2
+				remove_building = DA_Hospital_3
+				remove_building = DA_Factory_0
+				remove_building = DA_Factory_1
+				remove_building = DA_Factory_2
+				remove_building = DA_Factory_3
+				remove_building = DA_Runesmiths_branch_0
+				remove_building = DA_Runesmiths_branch_1
+				remove_building = DA_Runesmiths_branch_2
+				remove_building = DA_Runesmiths_branch_3
+				remove_building = DA_Smelting_Furnace_0
+				remove_building = DA_Smelting_Furnace_1
+				remove_building = DA_Smelting_Furnace_2
+				remove_building = DA_Smelting_Furnace_3
+				remove_building = DA_Alchemy_workshop_0
+				remove_building = DA_Alchemy_workshop_1
+				remove_building = DA_Alchemy_workshop_2
+				remove_building = DA_Alchemy_workshop_3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_building_event.22 		# 
+	title = "DA_building_event.22.t"
+	desc = "DA_building_event.22.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			owned_by = root
+			has_building = DA_Elemental_building_1
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					has_building = DA_Elemental_building_1
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.22.a"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			random_list = {
+				1 = {
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				2 = {
+					add_base_production = 1
+				}
+				2 = {
+					add_base_manpower = 1
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							prosperity = 80
+						}
+					}
+					add_prosperity = 25
+				}
+				1 = {
+					trigger = {
+						devastation = 15
+					}
+					add_devastation = -25
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.23 		# 
+	title = "DA_building_event.23.t"
+	desc = "DA_building_event.23.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			owned_by = root
+			has_building = DA_Elemental_building_2
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					has_building = DA_Elemental_building_2
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.23.a"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			add_prosperity = 10
+			add_base_manpower = 1
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.24 		# 
+	title = "DA_building_event.24.t"
+	desc = "DA_building_event.24.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			owned_by = root
+			has_building = DA_Elemental_building_3
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					has_building = DA_Elemental_building_3
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.24.a"
+		goto = DA_target_province
+		add_treasury = -150
+		add_manpower = -1
+		event_target:DA_target_province = {
+			add_base_production = 2
+			add_base_manpower = 1
+		}
+	}
+	option = {
+		name = "DA_building_event.24.b"
+		goto = DA_target_province
+		add_treasury = -50
+		event_target:DA_target_province = {
+			add_base_production = 1
+		}
+	}
+	option = {
+		name = "DA_building_event.24.c"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			add_unrest = 2
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.25 		# 
+	title = "DA_building_event.25.t"
+	desc = "DA_building_event.25.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			owned_by = root
+			has_building = DA_Elemental_building_4
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					has_building = DA_Elemental_building_4
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.25.a"
+		goto = DA_target_province
+		reduce_legitimacy_small_effect = yes
+		event_target:DA_target_province = {
+			add_base_manpower = -1
+		}
+	}
+	option = {
+		name = "DA_building_event.25.b"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			add_base_manpower = -1
+			remove_building = DA_Elemental_building_4
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.26 		# 
+	title = "DA_building_event.26.t"
+	desc = "DA_building_event.26.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			owned_by = root
+			has_building = DA_conceptual_building_1
+			NOT = { has_building = DA_conceptual_building_2 }
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					has_building = DA_conceptual_building_1
+					NOT = { has_building = DA_conceptual_building_2 }
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.26.a"
+		goto = DA_target_province
+		increase_legitimacy_small_effect = yes
+		event_target:DA_target_province = {
+			add_unrest = -10
+			add_base_manpower = 1
+			random_list = {
+				1 = {
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				2 = {
+					add_base_manpower = 1
+				}
+				1 = {
+					add_permanent_province_modifier = {
+						name = DA_Life_magic_prov_mod
+						duration = 7300
+					}
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							prosperity = 80
+						}
+					}
+					add_prosperity = 100
+				}
+				1 = {
+					trigger = {
+						devastation = 15
+					}
+					add_devastation = -50
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.27 		# 
+	title = "DA_building_event.27.t"
+	desc = "DA_building_event.27.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			owned_by = root
+			has_building = DA_conceptual_building_2
+			NOT = { has_building = DA_conceptual_building_1 }
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					has_building = DA_conceptual_building_2
+					NOT = { has_building = DA_conceptual_building_1 }
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.27.a"
+		goto = DA_target_province
+		reduce_legitimacy_small_effect = yes
+		event_target:DA_target_province = {
+			random_list = {
+				1 = {
+					add_base_production = -2
+				}
+				1 = {
+					add_base_manpower = -2
+				}
+				1 = {
+					add_permanent_province_modifier = {
+						name = DA_Death_magic_prov_mod
+						duration = 7300
+					}
+				}
+				1 = {
+					trigger = {
+						prosperity = 25
+					}
+					add_prosperity = -25
+				}
+				1 = {
+					add_devastation = 25
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.28 		# 
+	title = "DA_building_event.28.t"
+	desc = "DA_building_event.28.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			NOT = { has_province_modifier = DA_Time_building_mod_1 }
+			NOT = { has_province_modifier = DA_Time_building_mod_2 }
+			NOT = { has_province_modifier = DA_Time_building_mod_3 }
+			NOT = { has_province_modifier = DA_Time_building_mod_4 }
+			owned_by = root
+			has_building = DA_conceptual_building_3
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					NOT = { has_province_modifier = DA_Time_building_mod_1 }
+					NOT = { has_province_modifier = DA_Time_building_mod_2 }
+					NOT = { has_province_modifier = DA_Time_building_mod_3 }
+					NOT = { has_province_modifier = DA_Time_building_mod_4 }
+					owned_by = root
+					has_building = DA_conceptual_building_3
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.28.a"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			add_permanent_province_modifier = {
+				name = DA_Time_building_mod_1
+				duration = -1
+			}
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.29 		# 
+	title = "DA_building_event.29.t"
+	desc = "DA_building_event.29.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			has_province_modifier = DA_Time_building_mod_1
+			owned_by = root
+			has_building = DA_conceptual_building_3
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Time_building_mod_1
+					owned_by = root
+					has_building = DA_conceptual_building_3
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.29.a"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			remove_province_modifier = DA_Time_building_mod_1
+			add_permanent_province_modifier = {
+				name = DA_Time_building_mod_2
+				duration = -1
+			}
+			add_devastation = 5
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.30 		# 
+	title = "DA_building_event.30.t"
+	desc = "DA_building_event.30.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			has_province_modifier = DA_Time_building_mod_2
+			owned_by = root
+			has_building = DA_conceptual_building_3
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Time_building_mod_2
+					owned_by = root
+					has_building = DA_conceptual_building_3
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.30.a"
+		goto = DA_target_province
+		reduce_legitimacy_small_effect = yes
+		event_target:DA_target_province = {
+			remove_province_modifier = DA_Time_building_mod_2
+			add_permanent_province_modifier = {
+				name = DA_Time_building_mod_3
+				duration = -1
+			}
+			add_devastation = 25
+		}
+	}
+	option = {
+		name = "DA_building_event.30.b"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			remove_province_modifier = DA_Time_building_mod_2
+			remove_building = DA_conceptual_building_3
+			add_devastation = 10
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.31 		# 
+	title = "DA_building_event.31.t"
+	desc = "DA_building_event.31.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			has_province_modifier = DA_Time_building_mod_3
+			owned_by = root
+			has_building = DA_conceptual_building_3
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Time_building_mod_3
+					owned_by = root
+					has_building = DA_conceptual_building_3
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.31.a"
+		goto = DA_target_province
+		reduce_legitimacy_medium_effect = yes
+		event_target:DA_target_province = {
+			remove_province_modifier = DA_Time_building_mod_3
+			add_permanent_province_modifier = {
+				name = DA_Time_building_mod_4
+				duration = -1
+			}
+			remove_building = DA_conceptual_building_3
+			add_devastation = 100
+			add_prosperity = -100
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.32 		# 
+	title = "DA_building_event.32.t"
+	desc = "DA_building_event.32.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			NOT = { has_province_modifier = DA_Space_building_mod_1 }
+			NOT = { has_province_modifier = DA_Space_building_mod_2 }
+			NOT = { has_province_modifier = DA_Space_building_mod_3 }
+			NOT = { has_province_modifier = DA_Space_building_mod_4 }
+			owned_by = root
+			has_building = DA_conceptual_building_4
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					NOT = { has_province_modifier = DA_Space_building_mod_1 }
+					NOT = { has_province_modifier = DA_Space_building_mod_2 }
+					NOT = { has_province_modifier = DA_Space_building_mod_3 }
+					NOT = { has_province_modifier = DA_Space_building_mod_4 }
+					owned_by = root
+					has_building = DA_conceptual_building_4
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.32.a"
+		goto = DA_target_province
+		reduce_legitimacy_small_effect = yes
+		event_target:DA_target_province = {
+			add_permanent_province_modifier = {
+				name = DA_Space_building_mod_2
+				duration = -1
+			}
+			add_devastation = 5
+			add_base_manpower = -1
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.33 		# 
+	title = "DA_building_event.33.t"
+	desc = "DA_building_event.33.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			has_province_modifier = DA_Space_building_mod_2
+			owned_by = root
+			has_building = DA_conceptual_building_4
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Space_building_mod_2
+					owned_by = root
+					has_building = DA_conceptual_building_4
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.33.a"
+		goto = DA_target_province
+		reduce_legitimacy_small_effect = yes
+		event_target:DA_target_province = {
+			remove_province_modifier = DA_Space_building_mod_2
+			add_permanent_province_modifier = {
+				name = DA_Space_building_mod_3
+				duration = -1
+			}
+			add_devastation = 25
+			add_base_manpower = -2
+		}
+	}
+	option = {
+		name = "DA_building_event.33.b"
+		goto = DA_target_province
+		event_target:DA_target_province = {
+			remove_province_modifier = DA_Space_building_mod_2
+			remove_building = DA_conceptual_building_4
+			add_devastation = 25
+			add_base_manpower = -2
+		}
+	}
+}
+country_event = {
+	id = DA_building_event.34 		# 
+	title = "DA_building_event.34.t"
+	desc = "DA_building_event.34.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_core_province = {
+			has_province_modifier = DA_Space_building_mod_3
+			owned_by = root
+			has_building = DA_conceptual_building_4
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Space_building_mod_3
+					owned_by = root
+					has_building = DA_conceptual_building_4
+				}
+				save_event_target_as = DA_target_province
+			}
+		}
+	}
+
+	option = {
+		name = "DA_building_event.34.a"
+		goto = DA_target_province
+		reduce_legitimacy_medium_effect = yes
+		event_target:DA_target_province = {
+			remove_province_modifier = DA_Space_building_mod_3
+			add_permanent_province_modifier = {
+				name = DA_Space_building_mod_4
+				duration = -1
+			}
+			remove_building = DA_conceptual_building_4
+			add_base_tax = -3
+			add_base_production = -3
+			add_base_manpower = -2
+		}
+	}
+}

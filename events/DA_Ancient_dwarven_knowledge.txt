@@ -1,0 +1,1743 @@
+
+namespace = DA_adk
+
+
+country_event = {
+	id = DA_adk.4 #research facility periodical adk
+	title = "DA_adk.4.t"
+	desc = "DA_adk.4.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		#NOT = { has_country_modifier = DA_periodical_nat_ADK_CD }
+		DA_has_RF_2_or_higher = yes
+	}	
+	immediate = {
+		#hidden_effect = {
+			#add_country_modifier = {
+				#name = DA_periodical_nat_ADK_CD
+				#duration = 995
+				#hidden = yes
+			#}
+		#}
+	}
+	
+	option = {
+		name = "DA_adk.4.a"
+		if = {
+			limit = {
+				DA_has_RF_11_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 11 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 11 } }
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_10_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 10 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_9_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 9 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 9 } }
+
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_8_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 8 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 8 } }
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_7_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 7 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 7 } }
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_6_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 6 } } #rifare localizzazion da qua
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_5_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 5 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 5 } }
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_4_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 4 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_3_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 3 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 3 } }
+		}
+		else_if = {
+			limit = {
+				DA_has_RF_2_or_higher = yes
+			}
+			tooltip = { add_adk_effect = { add = 2 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 2 } }
+		}
+		else = {
+			add_prestige = 10
+		}
+	}	
+}
+
+country_event = {
+	id = DA_adk.40 #research facility periodical investment option for adk
+	title = "DA_adk.40.t"
+	desc = "DA_adk.40.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_modifier = DA_periodical_buy_ADK_CD }
+		culture_group = dwarven
+		DA_has_RF_4_or_higher = yes
+	}	
+	immediate = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = DA_periodical_buy_ADK_CD
+				duration = 3650
+				hidden = yes
+			}
+		}
+	}
+	
+	option = {
+		name = "DA_adk.40.a"
+		add_years_of_income = -0.1
+		random_list = {
+			33 = {
+				modifier = {
+					factor = 1.2
+					innovativeness = 30
+				}
+				modifier = {
+					factor = 1.2
+					innovativeness = 50
+				}
+				modifier = {
+					factor = 1.2
+					innovativeness = 70
+				}
+				modifier = {
+					factor = 1.25
+					innovativeness = 90
+				}
+				modifier = {
+					factor = 1.2
+					stability = 3
+				}
+				modifier = {
+					factor = 1.25
+					has_country_modifier = DA_Runesmith_patronage
+				}
+				country_event = {
+					id = DA_adk.41
+					days = 730
+				}
+			}
+			67 = {
+
+			}
+		}
+	}	
+	option = {
+		name = "DA_adk.40.b"
+	}	
+}
+
+country_event = {
+	id = DA_adk.41 #research facility investment returned
+	title = "DA_adk.41.t"
+	desc = "DA_adk.41.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = "DA_adk.41.a"
+		tooltip = { add_adk_effect = { add = 10 } }
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
+	}
+}
+
+country_event = {
+	id = DA_adk.5 #unlocks great mage transformation, tier 0
+	title = "DA_adk.5.t"
+	desc = "DA_adk.5.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		NOT = {	has_country_flag = DA_can_make_mage }
+		DA_has_RF_3_or_higher = yes
+	}	
+	
+	option = {
+		name = "DA_adk.5.a"
+		custom_tooltip = DA_adk.5.tooltip
+		hidden_effect = { set_country_flag = DA_can_make_mage }
+	}	
+}
+
+country_event = {
+	id = DA_adk.51 #unlocks enhanced great mage transformation, tier 1,2,3
+	title = "DA_adk.51.t"
+	desc = "DA_adk.51.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		OR = {
+			AND = {
+				has_country_flag = DA_can_make_mage
+				NOT = {	has_country_flag = DA_can_make_mage_t1 }
+				DA_has_RF_4_or_higher = yes
+			}
+			AND = {
+				has_country_flag = DA_can_make_mage_t1
+				NOT = {	has_country_flag = DA_can_make_mage_t2 }
+				DA_has_RF_6_or_higher = yes
+			}
+			AND = {
+				has_country_flag = DA_can_make_mage_t2
+				NOT = {	has_country_flag = DA_can_make_mage_t3 }
+				DA_has_RF_8_or_higher = yes
+			}
+		}
+	}	
+	
+	option = {
+		name = "DA_adk.51.a"
+		custom_tooltip = DA_adk.51.a.tt
+		trigger = {
+			has_country_flag = DA_can_make_mage
+			NOT = {	has_country_flag = DA_can_make_mage_t1 }
+		}
+		hidden_effect = { set_country_flag = DA_can_make_mage_t1 }
+	}	
+	option = {
+		name = "DA_adk.51.b"
+		custom_tooltip = DA_adk.51.b.tt
+		trigger = {
+			has_country_flag = DA_can_make_mage_t1
+			NOT = {	has_country_flag = DA_can_make_mage_t2 }
+		}
+		hidden_effect = { set_country_flag = DA_can_make_mage_t2 }
+	}	
+	option = {
+		name = "DA_adk.51.c"
+		custom_tooltip = DA_adk.51.c.tt
+		trigger = {
+			has_country_flag = DA_can_make_mage_t2
+			NOT = {	has_country_flag = DA_can_make_mage_t3 }
+		}
+		hidden_effect = { set_country_flag = DA_can_make_mage_t3 }
+	}	
+}
+
+
+country_event = {
+	id = DA_adk.6 #ruler Becomes great mage
+	title = "DA_adk.6.t"
+	desc = "DA_adk.6.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.6.a"
+		add_treasury = -1000
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 10 } }
+		custom_tooltip = DA_adk.6.tooltip
+		DA_great_mage_creation_process = yes
+	}
+	option = {
+		name = "DA_adk.6.b"
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+	}
+}
+
+
+country_event = {
+	id = DA_adk.7 #unlocks Grafting new runes
+	title = "DA_adk.7.t"
+	desc = "DA_adk.7.d"
+	picture = MAGIC_STUDY_AND_RELAX_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		has_country_flag = DA_can_make_mage
+		NOT = { has_country_flag = DA_can_graft_new_runes }
+		DA_has_RF_4_or_higher = yes
+	}	
+	
+	option = {
+		name = "DA_adk.7.a"
+		custom_tooltip = DA_adk.7.tooltip
+		hidden_effect = { set_country_flag = DA_can_graft_new_runes }
+	}	
+}
+
+country_event = {
+	id = DA_adk.8 #Graft New Runes on ruler
+	title = "DA_adk.8.t"
+	desc = "DA_adk.8.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.8.a"
+		add_treasury = -100
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_adk.8.tooltip
+		increase_study_experience = {
+			experience = 200
+		}
+		hidden_effect = {
+			add_country_modifier = {
+				name = DA_Graft_runes_cooldown
+				duration = 360
+				hidden = yes
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+	}	
+}
+
+country_event = {
+	id = DA_adk.80 # enable Hereditary Runes
+	title = "DA_adk.80.t"
+	desc = "DA_adk.80.d"
+	picture = EP_POLYNESIAN_TATTOO_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.80.a"
+		custom_tooltip = DA_enable_hereditary_runes
+		hidden_effect = {
+			set_country_flag = DA_hereditary_runes_enabled
+		}
+	}
+}
+
+country_event = {
+	id = DA_adk.81 # save magic schools periodical
+	title = "DA_adk.81.t"
+	desc = "DA_adk.81.d"
+	picture = EP_POLYNESIAN_TATTOO_eventPicture
+
+	trigger = {
+		has_ruler_flag = DA_artificial_mage
+		has_country_flag = DA_hereditary_runes_enabled
+	}
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = "DA_adk.81.a"
+		DA_save_current_ruler_magic_schools = yes
+	}
+}
+
+country_event = {
+	id = DA_adk.82 # apply magic schools after death
+	title = "DA_adk.82.t"
+	desc = "DA_adk.82.d"
+	picture = EP_POLYNESIAN_TATTOO_eventPicture
+
+	trigger = {
+		NOT = { has_ruler_flag = DA_artificial_mage }
+		NOT = { has_ruler_flag = is_lich }
+		has_country_flag = DA_hereditary_runes_enabled
+		has_country_flag = DA_saved_some_runes
+	}
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.82.a"
+		hidden_effect = {
+			DA_clear_ruler_personalities = yes
+		}
+		add_ruler_personality = mage_personality
+		set_ruler_flag = initialized_magic_flags
+		DA_apply_old_ruler_magic_schools = yes
+	}
+	option = {
+		name = "DA_adk.82.b"
+		clr_country_flag = DA_saved_some_runes
+	}
+}
+
+country_event = {
+	id = DA_adk.9 #unlocks Creating Low-Class Rune Mages
+	title = "DA_adk.9.t"
+	desc = "DA_adk.9.d"
+	picture = MAGIC_STUDY_AND_RELAX_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		NOT = { has_country_flag = DA_Can_create_leaders }
+		DA_has_RF_4_or_higher = yes
+	}	
+	
+	option = {
+		name = "DA_adk.9.a"
+		custom_tooltip = DA_adk.9.tooltip
+		hidden_effect = { set_country_flag = DA_Can_create_leaders }
+	}	
+}
+
+country_event = {
+	id = DA_adk.91 #unlocks Creating Middle-Class Rune Mages
+	title = "DA_adk.91.t"
+	desc = "DA_adk.91.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_adk.91.a"
+		custom_tooltip = DA_adk.91.tooltip
+		hidden_effect = { set_country_flag = DA_Can_create_leaders_Middle }
+	}	
+}
+
+country_event = {
+	id = DA_adk.92 #unlocks Creating High-Class Rune Mages
+	title = "DA_adk.92.t"
+	desc = "DA_adk.92.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_adk.92.a"
+		custom_tooltip = DA_adk.92.tooltip
+		hidden_effect = { set_country_flag = DA_Can_create_leaders_High }
+	}	
+}
+
+country_event = {
+	id = DA_adk.93 #unlocks Creating Halanna Chosen Rune Mages
+	title = "DA_adk.93.t"
+	desc = "DA_adk.93.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_adk.93.a"
+		custom_tooltip = DA_adk.93.tooltip
+		hidden_effect = { set_country_flag = DA_Can_create_Halanna_Chosens }
+	}	
+}
+
+country_event = {
+	id = DA_adk.10 #Create Rune Mage
+	title = "DA_adk.10.t"
+	desc = "DA_adk.10.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.10.Low_G"
+		trigger = {
+			treasury = 50
+			mil_power = 50
+			custom_trigger_tooltip = {
+				tooltip = DA_has_2_ADK
+				check_variable = {
+					ancientDwarvenKnowledge = 2
+				}
+			}
+		}
+		add_treasury = -50
+		add_mil_power = -50
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		custom_tooltip = DA_cost_2_ADK
+		DA_create_Low_class_Rune_Mage_general = yes
+		if = {
+			limit = { 
+				has_country_flag = DA_Faster_rune_mages_generals
+			}
+			custom_tooltip = DA_CD_4_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 1450
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = DA_CD_5_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 1825
+				hidden = yes
+			}
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "DA_adk.10.Mid_G"
+		trigger = {
+			treasury = 125
+			mil_power = 60
+			custom_trigger_tooltip = {
+				tooltip = DA_has_4_ADK
+				check_variable = {
+					ancientDwarvenKnowledge = 4
+				}
+			}
+			has_country_flag = DA_Can_create_leaders_Middle
+		}
+		add_treasury = -125
+		add_mil_power = -60
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 4 } }
+		custom_tooltip = DA_cost_4_ADK
+		DA_create_Middle_class_Rune_Mage_general = yes
+		if = {
+			limit = { 
+				has_country_flag = DA_Faster_rune_mages_generals
+			}
+			custom_tooltip = DA_CD_5_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 1825
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = DA_CD_6_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 2190
+				hidden = yes
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+	
+	option = {
+		name = "DA_adk.10.High_G"
+		trigger = {
+			treasury = 250
+			mil_power = 75
+			custom_trigger_tooltip = {
+				tooltip = DA_has_6_ADK
+				check_variable = {
+					ancientDwarvenKnowledge = 6
+				}
+			}
+			has_country_flag = DA_Can_create_leaders_High
+		}
+		add_treasury = -250
+		add_mil_power = -75
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 6 } }
+		custom_tooltip = DA_cost_6_ADK
+		DA_create_High_class_Rune_Mage_general = yes
+		if = {
+			limit = { 
+				has_country_flag = DA_Faster_rune_mages_generals
+			}
+			custom_tooltip = DA_CD_6_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 2190
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = DA_CD_8_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 2920
+				hidden = yes
+			}
+		}
+		ai_chance = {
+			factor = 50
+		}
+	}
+	
+	option = {
+		name = "DA_adk.10.Chosen_G"
+		highlight = yes
+		trigger = {
+			treasury = 750
+			mil_power = 150
+			custom_trigger_tooltip = {
+				tooltip = DA_has_15_ADK
+				check_variable = {
+					ancientDwarvenKnowledge = 15
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Can_create_Halanna_Chosens_tt
+				has_country_flag = DA_Can_create_Halanna_Chosens
+			}
+		}
+		add_treasury = -750
+		add_mil_power = -150
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 15 } }
+		custom_tooltip = DA_cost_15_ADK
+		DA_create_Halanna_Chosen_Rune_Mage_general_effect = yes
+		if = {
+			limit = { 
+				has_country_flag = DA_Faster_rune_mages_generals
+			}
+			custom_tooltip = DA_CD_20_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 7300
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = DA_CD_25_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 9125
+				hidden = yes
+			}
+		}
+		ai_chance = {
+			factor = 1000
+		}
+	}
+	
+	option = {
+		name = "DA_adk.10.Mithril_G"
+		highlight = yes
+		trigger = {
+			any_core_province = {
+				province_id = 4236
+				owned_by = root
+				controlled_by = root
+				has_great_project = {
+					type = The_Dwarven_Workshop
+					tier = 3
+				}
+			}
+			hidden_trigger = {
+				treasury = 350
+				mil_power = 75
+				check_variable = {
+					ancientDwarvenKnowledge = 7
+				}
+			}
+		}
+		add_treasury = -350
+		add_mil_power = -60
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 7 } }
+		custom_tooltip = DA_cost_7_ADK
+		DA_create_Mithril_Class_Rune_Mage_general_effect = yes
+		if = {
+			limit = { 
+				has_country_flag = DA_Faster_rune_mages_generals
+			}
+			custom_tooltip = DA_CD_8_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 2920
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = DA_CD_10_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 3650
+				hidden = yes
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = {
+		name = "DA_adk.10.Low_A"
+		trigger = {
+			treasury = 50
+			dip_power = 50
+			custom_trigger_tooltip = {
+				tooltip = DA_has_2_ADK
+				check_variable = {
+					ancientDwarvenKnowledge = 2
+				}
+			}
+		}
+		add_treasury = -50
+		add_dip_power = -50
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		custom_tooltip = DA_cost_2_ADK
+		DA_create_Low_Class_Rune_Mage_admiral_effect = yes
+		if = {
+			limit = { 
+				has_country_flag = DA_Faster_rune_mages_generals
+			}
+			custom_tooltip = DA_CD_4_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 1450
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = DA_CD_5_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 1825
+				hidden = yes
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				num_of_total_ports = 12
+			}
+		}
+	}
+	option = {
+		name = "DA_adk.10.Mid_A"
+		trigger = {
+			treasury = 125
+			dip_power = 60
+			custom_trigger_tooltip = {
+				tooltip = DA_has_4_ADK
+				check_variable = {
+					ancientDwarvenKnowledge = 4
+				}
+			}
+			has_country_flag = DA_Can_create_leaders_Middle
+		}
+		add_treasury = -125
+		add_dip_power = -60
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 4 } }
+		custom_tooltip = DA_cost_4_ADK
+		DA_create_Middle_Class_Rune_Mage_admiral_effect = yes
+		if = {
+			limit = { 
+				has_country_flag = DA_Faster_rune_mages_generals
+			}
+			custom_tooltip = DA_CD_5_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 1825
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = DA_CD_6_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 2190
+				hidden = yes
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				num_of_total_ports = 12
+			}
+		}
+	}
+	option = {
+		name = "DA_adk.10.High_A"
+		trigger = {
+			treasury = 250
+			dip_power = 75
+			custom_trigger_tooltip = {
+				tooltip = DA_has_6_ADK
+				check_variable = {
+					ancientDwarvenKnowledge = 6
+				}
+			}
+			has_country_flag = DA_Can_create_leaders_High
+		}
+		add_treasury = -250
+		add_dip_power = -75
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 6 } }
+		custom_tooltip = DA_cost_6_ADK
+		DA_create_High_Class_Rune_Mage_admiral_effect = yes
+		if = {
+			limit = { 
+				has_country_flag = DA_Faster_rune_mages_generals
+			}
+			custom_tooltip = DA_CD_6_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 2190
+				hidden = yes
+			}
+		}
+		else = {
+			custom_tooltip = DA_CD_8_tt
+			add_country_modifier = {
+				name = DA_Create_leader_cooldown
+				duration = 2920
+				hidden = yes
+			}
+			set_country_flag = DA_Faster_rune_mages_generals
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				num_of_total_ports = 12
+			}
+		}
+	}
+	option = {
+		name = "DA_adk.10.Go_back"
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+	}	
+}
+
+country_event = {
+	id = DA_adk.13 #unlocks dwarven runic barrier, tier 1
+	title = "DA_adk.13.t"
+	desc = "DA_adk.13.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		NOT = { has_country_flag = DA_can_build_Runic_barrier }
+		DA_has_RF_2_or_higher = yes	
+	}
+	
+	option = {
+		name = "DA_adk.13.a"
+		custom_tooltip = DA_adk.13.tooltip
+		hidden_effect = { set_country_flag = DA_can_build_Runic_barrier }
+	}	
+}
+
+country_event = {
+	id = DA_adk.131 #unlocks dwarven runic barrier, tier 2, 3
+	title = "DA_adk.131.t"
+	desc = {
+		trigger = {
+			NOT = { has_country_flag = DA_can_build_Runic_barrier_t2 }
+		}
+		desc = "DA_adk.131.d2"
+	}
+	desc = {
+		trigger = {
+			has_country_flag = DA_can_build_Runic_barrier_t2
+			NOT = { has_country_flag = DA_can_build_Runic_barrier_t3 }
+		}
+		desc = "DA_adk.131.d3"
+	}
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		OR = {
+			AND = {
+				has_country_flag = DA_can_build_Runic_barrier
+				NOT = { has_country_flag = DA_can_build_Runic_barrier_t2 }
+				DA_has_RF_4_or_higher = yes	
+			}	
+			AND = {
+				has_country_flag = DA_can_build_Runic_barrier_t2
+				NOT = { has_country_flag = DA_can_build_Runic_barrier_t3 }
+				DA_has_RF_6_or_higher = yes	
+			}	
+		}
+	}	
+	
+	option = {
+		name = "DA_adk.131.a"
+		trigger = {
+			NOT = { has_country_flag = DA_can_build_Runic_barrier_t2 }
+		}
+		custom_tooltip = DA_adk.131.a.tooltip
+		hidden_effect = { set_country_flag = DA_can_build_Runic_barrier_t2 }
+	}	
+	option = {
+		name = "DA_adk.131.b"
+		trigger = {
+			has_country_flag = DA_can_build_Runic_barrier_t2
+			NOT = { has_country_flag = DA_can_build_Runic_barrier_t3 }
+		}
+		custom_tooltip = DA_adk.131.b.tooltip
+		hidden_effect = { set_country_flag = DA_can_build_Runic_barrier_t3 }
+	}	
+}
+
+country_event = {
+	id = DA_adk.11 #unlocks runeforged fort
+	title = "DA_adk.11.t"
+	desc = "DA_adk.11.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		has_country_flag = DA_can_build_Runic_barrier
+		NOT = { has_country_flag = DA_can_build_runeforged_fort }
+		DA_has_RF_3_or_higher = yes	
+	}	
+	
+	option = {
+		name = "DA_adk.11.a"
+		custom_tooltip = DA_adk.11.tooltip
+		hidden_effect = { set_country_flag = DA_can_build_runeforged_fort }
+	}	
+}
+
+country_event = {
+	id = DA_adk.110 #unlocks runeforged fort t2, mission tree
+	title = "DA_adk.110.t"
+	desc = "DA_adk.110.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.110.a"
+		custom_tooltip = DA_adk.110.tooltip
+		hidden_effect = { set_country_flag = DA_can_build_runeforged_fort_t2 }
+	}	
+}
+
+country_event = {
+	id = DA_adk.111 #unlocks runeforged fort t3, mission tree
+	title = "DA_adk.111.t"
+	desc = "DA_adk.111.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.111.a"
+		custom_tooltip = DA_adk.111.tooltip
+		hidden_effect = { set_country_flag = DA_can_build_runeforged_fort_t3 }
+	}	
+}
+
+country_event = {
+	id = DA_adk.112 #unlocks runeforged fort t4, mission tree
+	title = "DA_adk.112.t"
+	desc = "DA_adk.112.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.112.a"
+		custom_tooltip = DA_adk.112.tooltip
+		hidden_effect = { set_country_flag = DA_can_build_Hehogrim_Runeforged_fort }
+	}	
+}
+
+country_event = {
+	id = DA_adk.12 #unlocks runeforged amldihr citadel, to be reenabled with building menu
+	title = "DA_adk.12.t"
+	desc = "DA_adk.12.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		always = no
+		culture_group = dwarven
+		has_country_flag = DA_can_build_runeforged_fort_t3
+		NOT = { has_country_flag = DA_can_build_Runeforged_Amldihr_fort }
+		capital_scope = {
+			province_id = 4119
+		}	
+		DA_has_RF_8_or_higher = yes	
+	}	
+	
+	option = {
+		name = "DA_adk.12.a"
+		custom_tooltip = DA_adk.12.tooltip
+		hidden_effect = { set_country_flag = DA_can_build_Runeforged_Amldihr_fort }
+	}	
+}
+
+country_event = {
+	id = DA_adk.16 #unlocks Creating Gates for tp
+	title = "DA_adk.16.t"
+	desc = "DA_adk.16.d"
+	picture = MAGIC_STUDY_AND_RELAX_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		has_country_flag = DA_can_build_Runic_barrier_t3
+		NOT = { has_country_flag = DA_Can_create_Gates }
+		DA_has_RF_8_or_higher = yes	
+	}	
+	
+	option = {
+		name = "DA_adk.16.a"
+		custom_tooltip = DA_adk.16.tooltip
+		hidden_effect = {
+			set_country_flag = DA_Can_create_Gates
+			DA_set_up_gate = yes
+		}
+	}	
+}
+
+country_event = {
+	id = DA_adk.17 # Create Gate for tp
+	title = "DA_adk.17.t"
+	desc = "DA_adk.17.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					DA_has_dig_level_4_or_higher = yes
+					NOT = { has_province_flag = DA_building_gate_in_prov }
+					NOT = { has_province_modifier = DA_dwarven_TP_Gate }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					owned_by = root
+					DA_has_dig_level_4_or_higher = yes
+					NOT = { has_province_flag = DA_building_gate_in_prov }
+					NOT = { has_province_modifier = DA_dwarven_TP_Gate }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					owned_by = root
+					DA_has_dig_level_4_or_higher = yes
+					NOT = { has_province_flag = DA_building_gate_in_prov }
+					NOT = { has_province_modifier = DA_dwarven_TP_Gate }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_adk.17.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				owned_by = root
+				DA_has_dig_level_4_or_higher = yes
+				NOT = { has_province_flag = DA_building_gate_in_prov }
+				NOT = { has_province_modifier = DA_dwarven_TP_Gate }
+			}
+		}
+		add_treasury = -3000
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_adk.17.tooltip
+		hidden_effect = {
+			event_target:DA_buildable_province1 = {
+				set_province_flag = DA_building_gate_in_prov
+			}
+		}
+	}
+	option = {
+		name = "DA_adk.17.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				owned_by = root
+				DA_has_dig_level_4_or_higher = yes
+				NOT = { has_province_flag = DA_building_gate_in_prov }
+				NOT = { has_province_modifier = DA_dwarven_TP_Gate }
+			}
+		}
+		add_treasury = -3000
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_adk.17.tooltip
+		hidden_effect = {
+			event_target:DA_buildable_province2 = {
+				set_province_flag = DA_building_gate_in_prov
+			}
+		}
+	}
+	option = {
+		name = "DA_adk.17.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				owned_by = root
+				DA_has_dig_level_4_or_higher = yes
+				NOT = { has_province_flag = DA_building_gate_in_prov }
+				NOT = { has_province_modifier = DA_dwarven_TP_Gate }
+			}
+		}
+		add_treasury = -3000
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_adk.17.tooltip
+		hidden_effect = {
+			event_target:DA_buildable_province3 = {
+				set_province_flag = DA_building_gate_in_prov
+			}
+		}
+	}
+	option = {
+		name = "DA_adk.17.e"
+	}
+	after = {
+		clr_country_flag = DA_rf_menu_in_use
+	}
+}
+province_event = {
+	id = DA_adk.18 # Gate built
+	title = "DA_adk.18.t"
+	desc = "DA_adk.18.d"
+	picture = DA_research_facility_eventPicture
+	trigger = {
+		had_province_flag = {
+			flag = DA_building_gate_in_prov
+			days = 700
+		}
+	}
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_province_flag = DA_building_gate_in_prov
+		}
+	}
+	option = {
+		name = "DA_adk.18.a"
+		add_permanent_province_modifier = {
+			name = DA_dwarven_TP_Gate
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = DA_adk.19 # use Gates for tp, choose from
+	title = "DA_adk.19.t"
+	desc = "DA_adk.19.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		random_core_province = {
+			limit = {
+				owned_by = root
+				units_in_province = 1
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+			}
+			save_event_target_as = DA_possible_tp1
+		}
+		random_core_province = {
+			limit = {
+				owned_by = root
+				units_in_province = 1
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_possible_tp1 }
+			}
+			save_event_target_as = DA_possible_tp2
+		}
+		random_core_province = {
+			limit = {
+				owned_by = root
+				units_in_province = 1
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_possible_tp1 }
+				NOT = { province_id = event_target:DA_possible_tp2 }
+			}
+			save_event_target_as = DA_possible_tp3
+		}
+	}
+	option = {
+		name = "DA_adk.19.a"
+		goto = DA_possible_tp1
+		trigger = {
+			event_target:DA_possible_tp1 = {
+				owned_by = root
+				units_in_province = 1
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+			}
+		}
+		custom_tooltip = DA_adk.19.tooltip
+		hidden_effect = {
+			event_target:DA_possible_tp1 = {
+				save_global_event_target_as = DA_teleported_from
+			}
+		}
+		country_event = {
+			id = DA_adk.20
+		}
+	}
+	option = {
+		name = "DA_adk.19.b"
+		goto = DA_possible_tp2
+		trigger = {
+			event_target:DA_possible_tp2 = {
+				owned_by = root
+				units_in_province = 1
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+			}
+		}
+		custom_tooltip = DA_adk.19.tooltip
+		hidden_effect = {
+			event_target:DA_possible_tp1 = {
+				save_global_event_target_as = DA_teleported_from
+			}
+		}
+		country_event = {
+			id = DA_adk.20
+		}
+	}
+	option = {
+		name = "DA_adk.19.c"
+		goto = DA_possible_tp3
+		trigger = {
+			event_target:DA_possible_tp3 = {
+				owned_by = root
+				units_in_province = 1
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+			}
+		}
+		custom_tooltip = DA_adk.19.tooltip
+		hidden_effect = {
+			event_target:DA_possible_tp3 = {
+				save_global_event_target_as = DA_teleported_from
+			}
+		}
+		country_event = {
+			id = DA_adk.20
+		}
+	}
+	option = {
+		name = "DA_adk.19.e"
+		clr_country_flag = DA_rf_menu_in_use
+	}
+}
+
+country_event = {
+	id = DA_adk.20 # use Gates for tp, choose where to
+	title = "DA_adk.20.t"
+	desc = "DA_adk.20.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		random_core_province = {
+			limit = {
+				owned_by = root
+				units_in_province = 1
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+			}
+			save_event_target_as = DA_possible_tp_dest1
+		}
+		random_core_province = {
+			limit = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+				NOT = { province_id = event_target:DA_possible_tp_dest1 }
+			}
+			save_event_target_as = DA_possible_tp_dest2
+		}
+		random_core_province = {
+			limit = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+				NOT = { province_id = event_target:DA_possible_tp_dest1 }
+				NOT = { province_id = event_target:DA_possible_tp_dest2 }
+			}
+			save_event_target_as = DA_possible_tp_dest3
+		}
+		random_core_province = {
+			limit = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+				NOT = { province_id = event_target:DA_possible_tp_dest1 }
+				NOT = { province_id = event_target:DA_possible_tp_dest2 }
+				NOT = { province_id = event_target:DA_possible_tp_dest3 }
+			}
+			save_event_target_as = DA_possible_tp_dest4
+		}
+		random_core_province = {
+			limit = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+				NOT = { province_id = event_target:DA_possible_tp_dest1 }
+				NOT = { province_id = event_target:DA_possible_tp_dest2 }
+				NOT = { province_id = event_target:DA_possible_tp_dest3 }
+				NOT = { province_id = event_target:DA_possible_tp_dest4 }
+			}
+			save_event_target_as = DA_possible_tp_dest5
+		}
+	}
+	option = {
+		name = "DA_adk.20.a"
+		goto = DA_possible_tp_dest1
+		trigger = {
+			event_target:DA_possible_tp_dest1 = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+			}
+		}
+		custom_tooltip = DA_adk.20.tooltip
+		hidden_effect = {
+			event_target:DA_possible_tp_dest1 = {
+				save_event_target_as = DA_teleport_target
+			}
+			DA_save_army_composition = yes
+		}
+	}
+	option = {
+		name = "DA_adk.20.b"
+		goto = DA_possible_tp_dest2
+		trigger = {
+			event_target:DA_possible_tp_dest2 = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+			}
+		}
+		custom_tooltip = DA_adk.20.tooltip
+		hidden_effect = {
+			event_target:DA_possible_tp_dest2 = {
+				save_event_target_as = DA_teleport_target
+			}
+			DA_save_army_composition = yes
+		}
+	}
+	option = {
+		name = "DA_adk.20.c"
+		goto = DA_possible_tp_dest3
+		trigger = {
+			event_target:DA_possible_tp_dest3 = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+			}
+		}
+		custom_tooltip = DA_adk.20.tooltip
+		hidden_effect = {
+			event_target:DA_possible_tp_dest3 = {
+				save_event_target_as = DA_teleport_target
+			}
+			DA_save_army_composition = yes
+		}
+	}
+	option = {
+		name = "DA_adk.20.e"
+		goto = DA_possible_tp_dest4
+		trigger = {
+			event_target:DA_possible_tp_dest4 = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+			}
+		}
+		custom_tooltip = DA_adk.20.tooltip
+		hidden_effect = {
+			event_target:DA_possible_tp_dest4 = {
+				save_event_target_as = DA_teleport_target
+			}
+			DA_save_army_composition = yes
+		}
+	}
+	option = {
+		name = "DA_adk.20.f"
+		goto = DA_possible_tp_dest5
+		trigger = {
+			event_target:DA_possible_tp_dest5 = {
+				owned_by = root
+				unit_in_battle = no
+				has_siege = no
+				has_province_modifier = DA_dwarven_TP_Gate
+				NOT = { province_id = event_target:DA_teleported_from }
+			}
+		}
+		custom_tooltip = DA_adk.20.tooltip
+		hidden_effect = {
+			event_target:DA_possible_tp_dest5 = {
+				save_event_target_as = DA_teleport_target
+			}
+			DA_save_army_composition = yes
+		}
+	}
+	option = {
+		name = "DA_adk.20.go_back"
+	}
+	after = {
+		DA_spawn_saved_army_composition = yes
+		clr_country_flag = DA_rf_menu_in_use
+	}
+}
+
+country_event = {
+	id = DA_adk.103 #unlocks Opening runic gate
+	title = "DA_adk.103.t"
+	desc = "DA_adk.103.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		NOT = {	has_country_flag = DA_can_open_Runic_gate }
+		DA_has_RF_8_or_higher = yes
+		4119 = {
+			has_province_flag = DA_Runic_gate_closed_p
+			owned_by = root
+		}
+	}
+	
+	option = {
+		name = "DA_adk.103.a"
+		custom_tooltip = DA_adk.103.tooltip
+		hidden_effect = { set_country_flag = DA_can_open_Runic_gate }
+	}	
+}
+
+country_event = {
+	id = DA_adk.104 #Open Runic Gate
+	title = "DA_adk.104.t"
+	desc = "DA_adk.104.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.104.a"
+		add_treasury = -20000
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 30 } }
+		custom_tooltip = DA_adk.104.tooltip
+		add_country_modifier = {
+			name = DA_Halanna_heart
+			duration = -1
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+			clr_country_flag = DA_can_open_Runic_gate
+			4119 = {
+				clr_province_flag = DA_Runic_gate_closed_p
+				add_great_project = {
+					type = DA_Ancient_Research_facility1
+					instant = no
+				}
+			}
+		}
+	}	
+}
+
+
+province_event = {		#er-natvir unlocks tier 2 upgrades
+	id = DA_adk.105
+	title = DA_adk.105.t
+	desc = DA_adk.105.d
+	picture = DA_research_facility_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		culture_group = dwarven
+		has_province_flag = DA_er_natvir_CR_found
+		
+		owner = {
+			culture_group = dwarven
+			NOT = { has_country_flag = DA_can_upgrade_rails_2 }
+			DA_has_RF_4_or_higher = yes
+		}
+	}
+	
+	option = {
+		name = DA_adk.105.a
+		custom_tooltip = DA_adk.105.tooltip
+		hidden_effect = {
+			owner = {
+				set_country_flag = DA_can_upgrade_rails_2
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = DA_adk.107 # unlock fake mithril
+	title = "DA_adk.107.t"
+	desc = "DA_adk.107.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_adk.107.a"
+		custom_tooltip = DA_adk.107.tooltip
+	}
+}
+
+province_event = {
+	id = DA_adk.108 # unlock mithril guard
+	title = "DA_adk.108.t"
+	desc = "DA_adk.108.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_dlc = Domination
+	}
+
+	option = {
+		name = "DA_adk.108.a"
+		owner = {
+			add_country_modifier = {
+				name = DA_Mithradums_warforgeds
+				duration = -1
+			}
+			add_country_modifier = {
+				name = DA_Mithradums_warforged_Juggernauts
+				duration = -1
+			}
+		}
+		add_permanent_province_modifier = {
+			name = DA_Mithradums_Workshop
+			duration = -1
+		}
+	}	
+}
+
+province_event = {
+	id = DA_adk.109 # Hehogrim Home restored
+	title = "DA_adk.109.t"
+	desc = "DA_adk.109.d"
+	picture = DA_research_facility_eventPicture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_province_flag = DA_Hehogrim_home_found
+		NOT = { has_province_modifier = DA_Hehogrim_workshop }
+		province_id = 4078
+		owner = {
+			DA_has_RF_4_or_higher = yes
+		}
+	}
+
+
+	option = {
+		name = "DA_adk.109.a"
+		custom_tooltip = DA_adk.109.tooltip
+		add_permanent_province_modifier = {
+			name = DA_Hehogrim_workshop
+			duration = -1
+		}
+	}
+}
+
+# miscellaneous events
+
+province_event = {
+	id = DA_adk.1000 				# dwarfs migrate to help build runic barriers/runeforged fortifications
+	title = "DA_adk.1000.t"
+	desc = "DA_adk.1000.d"
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	trigger = {
+		NOT = { has_integrated_dwarven_pop_trigger = yes }
+		has_dwarven_minority_trigger = no
+		DA_is_Runic_barrier_province = yes
+		is_colony = no
+		owner = {
+			culture_group = dwarven
+			has_country_flag = DA_can_build_Runic_barrier
+			NOT = { has_country_modifier = DA_recent_dwarven_migration_CD }
+		}
+	}
+
+	is_triggered_only = yes
+
+
+	option = {
+		name = "DA_adk.1000.a"
+		custom_tooltip = DA_adk.1000.tooltip
+		owner = {
+			small_increase_of_dwarven_tolerance_effect = yes
+			add_treasury = -25
+		}
+		if = {
+			limit = {
+				has_dwarven_majority_trigger = no
+				has_large_dwarven_minority_trigger = no
+			}
+			add_dwarven_minority_size_effect = yes
+		}
+	}
+	option = {
+		name = "DA_adk.1000.b"
+	}
+	after = {
+		hidden_effect = {
+			owner = {
+				add_country_modifier = {
+					name = DA_recent_dwarven_migration_CD
+					duration = 1825
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_adk.1001 # give/remove supremacy over the crown modifier
+	title = "DA_adk.1001.t"
+	desc = "DA_adk.1001.d"
+	picture = INVENTION_eventPicture
+
+	hidden = yes
+
+	trigger = {
+		has_estate = estate_DA_Runesmiths
+		OR = {
+			AND = {
+				OR = {
+					has_estate_privilege = estate_nobles_supremacy_over_crown
+					has_estate_privilege = estate_eunuchs_supremacy_over_crown_privilege
+					has_estate_privilege = estate_brahmins_supremacy_over_crown
+				}
+				NOT = { has_country_modifier = DA_supremacy_over_the_crown_Runesmiths }
+			}
+			AND = {
+				NOT = {
+					OR = {
+						has_estate_privilege = estate_nobles_supremacy_over_crown
+						has_estate_privilege = estate_eunuchs_supremacy_over_crown_privilege
+						has_estate_privilege = estate_brahmins_supremacy_over_crown
+					}
+				}
+				has_country_modifier = DA_supremacy_over_the_crown_Runesmiths
+			}
+		}
+	}
+	is_triggered_only = yes
+	option = {
+		name = "DA_adk.1001.a"
+		trigger = {
+			NOT = { has_country_modifier = DA_supremacy_over_the_crown_Runesmiths }
+		}
+		add_country_modifier = {
+			name = DA_supremacy_over_the_crown_Runesmiths
+			duration = -1
+		}
+	}
+	option = {
+		name = "DA_adk.1001.b"
+		trigger = {
+			has_country_modifier = DA_supremacy_over_the_crown_Runesmiths
+		}
+		remove_country_modifier = DA_supremacy_over_the_crown_Runesmiths
+	}
+}
+country_event = {
+	id = DA_adk.150
+	title = "DA_adk.150.t"
+	desc = "DA_adk.150.d"
+	picture = HUIZTILOPOCHTLI_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		hidden_effect = {
+			DA_setup_Production_points_system = yes
+			DA_Update_production_points = yes
+		}
+	}
+	
+	option = {
+		name = "DA_adk.150.a"
+	}
+}

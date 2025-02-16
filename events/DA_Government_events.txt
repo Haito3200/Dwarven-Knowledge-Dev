@@ -1,0 +1,69 @@
+namespace = DA_Government_event
+
+country_event = {
+	id = DA_Government_event.1 #unlocks Runesmith estate
+	title = "DA_Government_event.1.t"
+	desc = "DA_Government_event.1.d"
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+	}
+	option = {
+		name = "DA_Government_event.1.a"
+		custom_tooltip = DA_supporting_Runesmiths_tt
+		set_estate_privilege = estate_DA_Runesmiths_RF_2
+	}	
+}
+
+country_event = {
+	id = DA_Government_event.2 # change gov type, user request, delete afterwards
+	title = "DA_Government_event.2.t"
+	desc = "DA_Government_event.2.d"
+	picture = INVENTION_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "DA_Government_event.2.a"
+		change_government_to_monarchy = yes
+	}	
+	option = {
+		name = "DA_Government_event.2.b"
+		change_government_to_republic = yes
+		ai_chance = {
+			factor = 100
+		}
+	}	
+	option = {
+		name = "DA_Government_event.2.c"
+		change_government_to_theocracy = yes
+	}	
+	option = {
+		name = "DA_Government_event.2.Go_Back"
+	}	
+	after = {
+		set_country_flag = DA_already_fixed_gov
+	}
+}
+
+country_event = {
+	id = DA_Government_event.3 # increase skill level of ruler, not used right now
+	title = "DA_Government_event.3.t"
+	desc = "DA_Government_event.3.d"
+	picture = INVENTION_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "DA_Government_event.3.a"
+		change_adm = 1
+	}	
+	option = {
+		name = "DA_Government_event.3.b"
+		change_dip = 1
+	}	
+	option = {
+		name = "DA_Government_event.3.c"
+		change_mil = 1
+	}	
+	option = {
+		name = "DA_Government_event.3.Go_Back"
+	}
+}

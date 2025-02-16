@@ -1,0 +1,2412 @@
+namespace = DA_Buildings_menu
+
+country_event = {	# il menu
+	id = DA_Buildings_menu.1
+	title = "DA_Buildings_menu.1.t"
+	desc = "DA_Buildings_menu.1.d"
+	picture = DA_buildings_menu_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = DA_Buildings_menu_in_use
+	}
+	option = {
+		name = "DA_Buildings_menu.1.a"
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_build_runeforged_fort
+			treasury = 250
+			check_variable = { ancientDwarvenKnowledge = 1 }
+			any_core_province = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort }
+				NOT = { has_building = DA_Runeforged_fort_t2 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.1		#runeforged castle t1
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.a.fake"
+		trigger = {
+			culture_group = dwarven
+			NOT = {
+				AND = {
+					has_country_flag = DA_can_build_runeforged_fort
+					treasury = 250
+					check_variable = { ancientDwarvenKnowledge = 1 }
+					any_core_province = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+							has_Dwarven_magic_Barrier = yes
+						}
+						has_integrated_dwarven_pop_trigger = yes
+						NOT = { province_id = 4119 }
+						NOT = { has_building = DA_Runeforged_fort }
+						NOT = { has_building = DA_Runeforged_fort_t2 }
+						NOT = { has_building = DA_Runeforged_fort_t3 }
+						NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_country_flag = DA_can_build_runeforged_fort } }
+			custom_tooltip = DA_Lack_Runeforged_fort_tech
+		}
+		if = {
+			limit = { NOT = { treasury = 250 } }
+			custom_tooltip = DA_Lack_250_G
+		}
+		if = {
+			limit = { NOT = { check_variable = { ancientDwarvenKnowledge = 1 } } }
+			custom_tooltip = DA_Lack_1_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_T1_fort
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.at2"
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_build_runeforged_fort_t2
+			treasury = 750
+			check_variable = { ancientDwarvenKnowledge = 2 }
+			any_core_province = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort_t2 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.10		#runeforged bastion t2
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.at2.fake"
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_build_runeforged_fort
+			NOT = {
+				AND = {
+					has_country_flag = DA_can_build_runeforged_fort_t2
+					treasury = 750
+					check_variable = { ancientDwarvenKnowledge = 2 }
+					any_core_province = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+							has_Dwarven_magic_Barrier = yes
+						}
+						has_integrated_dwarven_pop_trigger = yes
+						NOT = { province_id = 4119 }
+						NOT = { has_building = DA_Runeforged_fort }
+						NOT = { has_building = DA_Runeforged_fort_t2 }
+						NOT = { has_building = DA_Runeforged_fort_t3 }
+						NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_country_flag = DA_can_build_runeforged_fort_t2 } }
+			custom_tooltip = DA_Lack_Runeforged_fort_t2_tech
+		}
+		if = {
+			limit = { NOT = { treasury = 750 } }
+			custom_tooltip = DA_Lack_750_G
+		}
+		if = {
+			limit = { NOT = { check_variable = { ancientDwarvenKnowledge = 2 } } }
+			custom_tooltip = DA_Lack_2_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_T1_fort
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.at3"
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_build_runeforged_fort_t3
+			treasury = 1600
+			check_variable = { ancientDwarvenKnowledge = 3 }
+			any_core_province = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.11		#runeforged fortress t3
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.at3.fake"
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_build_runeforged_fort_t2
+			NOT = {
+				AND = {
+					has_country_flag = DA_can_build_runeforged_fort_t3
+					treasury = 1600
+					check_variable = { ancientDwarvenKnowledge = 3 }
+					any_core_province = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+							has_Dwarven_magic_Barrier = yes
+						}
+						has_integrated_dwarven_pop_trigger = yes
+						NOT = { province_id = 4119 }
+						NOT = { has_building = DA_Runeforged_fort }
+						NOT = { has_building = DA_Runeforged_fort_t2 }
+						NOT = { has_building = DA_Runeforged_fort_t3 }
+						NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_country_flag = DA_can_build_runeforged_fort_t3 } }
+			custom_tooltip = DA_Lack_Runeforged_fort_t3_tech
+		}
+		if = {
+			limit = { NOT = { treasury = 1600 } }
+			custom_tooltip = DA_Lack_1600_G
+		}
+		if = {
+			limit = { NOT = { check_variable = { ancientDwarvenKnowledge = 3 } } }
+			custom_tooltip = DA_Lack_3_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_T3_fort
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.aH"
+		highlight = yes
+		trigger = {
+			culture_group = dwarven
+			custom_trigger_tooltip = {
+				tooltip = DA_can_build_Hehogrim_Runeforged_fort_tt
+				has_country_flag = DA_can_build_Hehogrim_Runeforged_fort
+				treasury = 3000
+				any_core_province = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.2		# Hehogrim's design t4
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.aH.fake"
+		trigger = {
+			culture_group = dwarven
+			has_country_flag = DA_can_build_runeforged_fort_t3
+			NOT = {
+				AND = {
+					has_country_flag = DA_can_build_Hehogrim_Runeforged_fort
+					treasury = 3000
+					check_variable = { ancientDwarvenKnowledge = 4 }
+					any_core_province = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+							has_Dwarven_magic_Barrier = yes
+						}
+						has_integrated_dwarven_pop_trigger = yes
+						NOT = { province_id = 4119 }
+						NOT = { has_building = DA_Runeforged_fort }
+						NOT = { has_building = DA_Runeforged_fort_t2 }
+						NOT = { has_building = DA_Runeforged_fort_t3 }
+						NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_country_flag = DA_can_build_Hehogrim_Runeforged_fort } }
+			custom_tooltip = DA_Lack_Runeforged_fort_t4_tech
+		}
+		if = {
+			limit = { NOT = { treasury = 3000 } }
+			custom_tooltip = DA_Lack_3000_G
+		}
+		if = {
+			limit = { NOT = { check_variable = { ancientDwarvenKnowledge = 4 } } }
+			custom_tooltip = DA_Lack_4_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_T4_fort
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.b"		#runeforged amldihr
+		trigger = {
+			has_country_flag = DA_can_build_Runeforged_Amldihr_fort
+			adm_tech = 16
+			treasury = 15000
+			capital = 4119
+			capital_scope = {
+				NOT = { has_building = DA_Runeforged_Amldihr_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		capital_scope = {
+			custom_tooltip = DA_Runeforged_Amldihr_fort_construction_tooltip
+			add_building_construction = {
+				building = DA_Runeforged_Amldihr_fort
+				speed = 1
+				cost = 1
+			}
+		}
+		clr_country_flag = DA_Buildings_menu_in_use
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.HO"				# turrets of Orldhum
+		trigger = {
+			has_country_flag = DA_can_build_HO_turrets
+			treasury = 200
+			any_core_province = {
+				owned_by = root
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+				}
+				OR = {
+					has_terrain = cavern
+					has_terrain = dwarven_road
+				}
+				NOT = { has_province_modifier = DA_HO_Turrets }
+				NOT = { has_province_flag = DA_HO_turrets_construction }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.3		# turrets of Orldhum construction
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	############################### Tech Buildings ###############################
+	 
+	option = {
+		name = "DA_Buildings_menu.1.Alchemy_1"				# alchemy
+		trigger = {
+			DA_completed.Alchemy_2 = yes
+			treasury = 500
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 1 }
+			}
+			any_core_province = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_1 }
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.20		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Alchemy_1.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Alchemy_2 = yes
+					treasury = 500
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 1 }
+					}
+					any_core_province = {
+						development = 20
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Alchemy_workshop_1 }
+						NOT = { has_building = DA_Alchemy_workshop_2 }
+						NOT = { has_building = DA_Alchemy_workshop_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Alchemy_2 = yes } }
+			custom_tooltip = DA_Lack_Alchemy_2
+		}
+		if = {
+			limit = { NOT = { treasury = 500 } }
+			custom_tooltip = DA_Lack_500_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 1 } } }
+			custom_tooltip = DA_Lack_1_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_1 }
+					NOT = { has_building = DA_Alchemy_workshop_2 }
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Alchemy_workshop
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Alchemy_2"				# alchemy
+		trigger = {
+			DA_completed.Alchemy_3 = yes
+			treasury = 1000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 2 }
+			}
+			any_core_province = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.21		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Alchemy_2.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Alchemy_3 = yes
+					treasury = 1000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 2 }
+					}
+					any_core_province = {
+						development = 20
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Alchemy_workshop_2 }
+						NOT = { has_building = DA_Alchemy_workshop_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Alchemy_3 = yes } }
+			custom_tooltip = DA_Lack_Alchemy_3
+		}
+		if = {
+			limit = { NOT = { treasury = 1000 } }
+			custom_tooltip = DA_Lack_1000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 2 } } }
+			custom_tooltip = DA_Lack_2_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_2 }
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Alchemy_workshop
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Alchemy_3"				# alchemy
+		trigger = {
+			DA_completed.Alchemy_4 = yes
+			treasury = 2000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 3 }
+			}
+			any_core_province = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.22		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Alchemy_3.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Alchemy_4 = yes
+					treasury = 2000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 3 }
+					}
+					any_core_province = {
+						development = 20
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Alchemy_workshop_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Alchemy_4 = yes } }
+			custom_tooltip = DA_Lack_Alchemy_4
+		}
+		if = {
+			limit = { NOT = { treasury = 2000 } }
+			custom_tooltip = DA_Lack_2000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 3 } } }
+			custom_tooltip = DA_Lack_3_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Alchemy_workshop
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Mechanics_1"				# 
+		trigger = {
+			DA_completed.Mechanics_2 = yes
+			treasury = 500
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 1 }
+			}
+			any_core_province = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_1 }
+				NOT = { has_building = DA_Factory_2 }
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.30		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Mechanics_1.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Mechanics_2 = yes
+					treasury = 500
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 1 }
+					}
+					any_core_province = {
+						development = 20
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Factory_1 }
+						NOT = { has_building = DA_Factory_2 }
+						NOT = { has_building = DA_Factory_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Mechanics_2 = yes } }
+			custom_tooltip = DA_Lack_Mechanics_2
+		}
+		if = {
+			limit = { NOT = { treasury = 500 } }
+			custom_tooltip = DA_Lack_500_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 1 } } }
+			custom_tooltip = DA_Lack_1_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_1 }
+					NOT = { has_building = DA_Factory_2 }
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Mechanincs_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Mechanics_2"				# 
+		trigger = {
+			DA_completed.Mechanics_3 = yes
+			treasury = 1000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 2 }
+			}
+			any_core_province = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_2 }
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.31		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Mechanics_2.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Mechanics_3 = yes
+					treasury = 1000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 2 }
+					}
+					any_core_province = {
+						development = 20
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Factory_2 }
+						NOT = { has_building = DA_Factory_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Mechanics_3 = yes } }
+			custom_tooltip = DA_Lack_Mechanics_3
+		}
+		if = {
+			limit = { NOT = { treasury = 1000 } }
+			custom_tooltip = DA_Lack_1000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 2 } } }
+			custom_tooltip = DA_Lack_2_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_2 }
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Mechanincs_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Mechanics_3"				# 
+		trigger = {
+			DA_completed.Mechanics_4 = yes
+			treasury = 2000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 3 }
+			}
+			any_core_province = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.32		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Mechanics_3.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Mechanics_4 = yes
+					treasury = 2000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 3 }
+					}
+					any_core_province = {
+						development = 20
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Factory_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Mechanics_4 = yes } }
+			custom_tooltip = DA_Lack_Mechanics_4
+		}
+		if = {
+			limit = { NOT = { treasury = 2000 } }
+			custom_tooltip = DA_Lack_2000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 3 } } }
+			custom_tooltip = DA_Lack_3_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Mechanincs_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Metallurgy_1"				# 
+		trigger = {
+			DA_completed.Metallurgy_2 = yes
+			treasury = 500
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 1 }
+			}
+			any_core_province = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_1 }
+				NOT = { has_building = DA_Smelting_Furnace_2 }
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.50		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Metallurgy_1.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Metallurgy_2 = yes
+					treasury = 500
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 1 }
+					}
+					any_core_province = {
+						OR = {
+							has_province_modifier = DA_Mine_2
+							has_province_modifier = DA_Mine_3
+							has_province_modifier = DA_Mine_4
+							has_province_modifier = DA_Mine_5
+						}
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Smelting_Furnace_1 }
+						NOT = { has_building = DA_Smelting_Furnace_2 }
+						NOT = { has_building = DA_Smelting_Furnace_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Metallurgy_2 = yes } }
+			custom_tooltip = DA_Lack_Metallurgy_2
+		}
+		if = {
+			limit = { NOT = { treasury = 500 } }
+			custom_tooltip = DA_Lack_500_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 1 } } }
+			custom_tooltip = DA_Lack_1_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_1 }
+					NOT = { has_building = DA_Smelting_Furnace_2 }
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Metallurgy_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Metallurgy_2"				# alchemy
+		trigger = {
+			DA_completed.Metallurgy_3 = yes
+			treasury = 1000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 2 }
+			}
+			any_core_province = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_2 }
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.51		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Metallurgy_2.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Metallurgy_3 = yes
+					treasury = 1000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 2 }
+					}
+					any_core_province = {
+						OR = {
+							has_province_modifier = DA_Mine_2
+							has_province_modifier = DA_Mine_3
+							has_province_modifier = DA_Mine_4
+							has_province_modifier = DA_Mine_5
+						}
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Smelting_Furnace_2 }
+						NOT = { has_building = DA_Smelting_Furnace_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Metallurgy_3 = yes } }
+			custom_tooltip = DA_Lack_Metallurgy_3
+		}
+		if = {
+			limit = { NOT = { treasury = 1000 } }
+			custom_tooltip = DA_Lack_1000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 2 } } }
+			custom_tooltip = DA_Lack_2_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_2 }
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Metallurgy_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Metallurgy_3"				# 
+		trigger = {
+			DA_completed.Metallurgy_4 = yes
+			treasury = 2000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 3 }
+			}
+			any_core_province = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.52		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Metallurgy_3.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Metallurgy_4 = yes
+					treasury = 2000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 3 }
+					}
+					any_core_province = {
+						OR = {
+							has_province_modifier = DA_Mine_2
+							has_province_modifier = DA_Mine_3
+							has_province_modifier = DA_Mine_4
+							has_province_modifier = DA_Mine_5
+						}
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Smelting_Furnace_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Metallurgy_4 = yes } }
+			custom_tooltip = DA_Lack_Metallurgy_4
+		}
+		if = {
+			limit = { NOT = { treasury = 2000 } }
+			custom_tooltip = DA_Lack_2000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 3 } } }
+			custom_tooltip = DA_Lack_3_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Metallurgy_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Medicine_1"				# alchemy
+		trigger = {
+			DA_completed.Medicine_2 = yes
+			treasury = 500
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 1 }
+			}
+			any_core_province = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_1 }
+				NOT = { has_building = DA_Hospital_2 }
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.40		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Medicine_1.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Medicine_2 = yes
+					treasury = 500
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 1 }
+					}
+					any_core_province = {
+						base_manpower = 10
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Hospital_1 }
+						NOT = { has_building = DA_Hospital_2 }
+						NOT = { has_building = DA_Hospital_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Medicine_2 = yes } }
+			custom_tooltip = DA_Lack_Medicine_2
+		}
+		if = {
+			limit = { NOT = { treasury = 500 } }
+			custom_tooltip = DA_Lack_500_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 1 } } }
+			custom_tooltip = DA_Lack_1_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_1 }
+					NOT = { has_building = DA_Hospital_2 }
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Medicine_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Medicine_2"				# 
+		trigger = {
+			DA_completed.Medicine_3 = yes
+			treasury = 1000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 2 }
+			}
+			any_core_province = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_2 }
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.41		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Medicine_2.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Medicine_3 = yes
+					treasury = 1000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 2 }
+					}
+					any_core_province = {
+						base_manpower = 10
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Hospital_2 }
+						NOT = { has_building = DA_Hospital_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Medicine_3 = yes } }
+			custom_tooltip = DA_Lack_Medicine_3
+		}
+		if = {
+			limit = { NOT = { treasury = 1000 } }
+			custom_tooltip = DA_Lack_1000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 2 } } }
+			custom_tooltip = DA_Lack_2_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_2 }
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Medicine_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Medicine_3"				# alchemy
+		trigger = {
+			DA_completed.Medicine_4 = yes
+			treasury = 2000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 3 }
+			}
+			any_core_province = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.42		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Medicine_3.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Medicine_4 = yes
+					treasury = 2000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 3 }
+					}
+					any_core_province = {
+						base_manpower = 10
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Hospital_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Medicine_4 = yes } }
+			custom_tooltip = DA_Lack_Medicine_4
+		}
+		if = {
+			limit = { NOT = { treasury = 2000 } }
+			custom_tooltip = DA_Lack_2000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 3 } } }
+			custom_tooltip = DA_Lack_3_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Medicine_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Magic_Theory_1"				# alchemy
+		trigger = {
+			DA_completed.Magic_Theory_2 = yes
+			treasury = 1000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 2 }
+			}
+			any_core_province = {
+				development = 40
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_1 }
+				NOT = { has_building = DA_Runesmiths_branch_2 }
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.60		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Magic_Theory_1.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Magic_Theory_2 = yes
+					treasury = 1000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 2 }
+					}
+					any_core_province = {
+						development = 40
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Runesmiths_branch_1 }
+						NOT = { has_building = DA_Runesmiths_branch_2 }
+						NOT = { has_building = DA_Runesmiths_branch_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Magic_Theory_2 = yes } }
+			custom_tooltip = DA_Lack_Magic_Theory_2
+		}
+		if = {
+			limit = { NOT = { treasury = 1000 } }
+			custom_tooltip = DA_Lack_1000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 2 } } }
+			custom_tooltip = DA_Lack_2_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					development = 40
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_1 }
+					NOT = { has_building = DA_Runesmiths_branch_2 }
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Magic_Theory_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Magic_Theory_2"				# alchemy
+		trigger = {
+			DA_completed.Magic_Theory_3 = yes
+			treasury = 2000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 3 }
+			}
+			any_core_province = {
+				development = 40
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_2 }
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.61		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Magic_Theory_2.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Magic_Theory_3 = yes
+					treasury = 2000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 3 }
+					}
+					any_core_province = {
+						development = 40
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Runesmiths_branch_2 }
+						NOT = { has_building = DA_Runesmiths_branch_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Magic_Theory_3 = yes } }
+			custom_tooltip = DA_Lack_Magic_Theory_3
+		}
+		if = {
+			limit = { NOT = { treasury = 2000 } }
+			custom_tooltip = DA_Lack_2000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 3 } } }
+			custom_tooltip = DA_Lack_3_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					development = 40
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_2 }
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Magic_Theory_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Magic_Theory_3"				# alchemy
+		trigger = {
+			DA_completed.Magic_Theory_4 = yes
+			treasury = 3000
+			if = {
+				limit = { 
+					culture_group = dwarven
+				}
+				check_variable = { ancientDwarvenKnowledge = 4 }
+			}
+			any_core_province = {
+				development = 40
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		country_event = {
+			id = DA_building_outcome.62		#to be done
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Magic_Theory_3.fake"
+		trigger = {
+			NOT = {
+				AND = {
+					DA_completed.Magic_Theory_4 = yes
+					treasury = 3000
+					if = {
+						limit = { 
+							culture_group = dwarven
+						}
+						check_variable = { ancientDwarvenKnowledge = 4 }
+					}
+					any_core_province = {
+						development = 40
+						num_free_building_slots = 1
+						NOT = { has_building = DA_Runesmiths_branch_3 }
+						NOT = { has_construction = any }
+						NOT = { has_colonist = yes }
+						NOT = { has_missionary = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { DA_completed.Magic_Theory_4 = yes } }
+			custom_tooltip = DA_Lack_Magic_Theory_4
+		}
+		if = {
+			limit = { NOT = { treasury = 3000 } }
+			custom_tooltip = DA_Lack_3000_G
+		}
+		if = {
+			limit = { culture_group = dwarven NOT = { check_variable = { ancientDwarvenKnowledge = 4 } } }
+			custom_tooltip = DA_Lack_4_ADK
+		}
+		if = {
+			limit = { NOT = { 
+				any_core_province = {
+					development = 40
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				} } }
+			custom_tooltip = DA_lack_province_for_Magic_Theory_Build
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Buildings_menu.1
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "DA_Buildings_menu.1.Go_back"
+		ai_chance = {
+			factor = 0.1
+		}
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}
+
+
+country_event = {	# The mod set up event, NOTHING WILL WORK WITHOUT THIS, DO NOT TOUCH IT
+	id = DA_Buildings_menu.2
+	title = "DA_Buildings_menu.2.t"
+	desc = "DA_Buildings_menu.2.d"
+	picture = CITY_VIEW_eventPicture
+
+	fire_only_once = yes
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_global_flag = Dwarven_knowledge_active }
+	}
+	immediate = {
+		set_global_flag = Dwarven_knowledge_active
+	}
+	option = {
+		name = "DA_Buildings_menu.2.a"
+
+		every_country = {
+			set_variable = {
+				which = DA_alchemy_exp
+				value = 0
+			}
+			set_variable = {
+				which = DA_mechanics_exp
+				value = 0
+			}
+			set_variable = {
+				which = DA_acane_arts_exp
+				value = 0
+			}
+			set_variable = {
+				which = DA_medicine_exp
+				value = 0
+			}
+			set_variable = {
+				which = DA_metallurgy_exp
+				value = 0
+			}
+		}
+		every_province = {
+			limit = {
+				is_wasteland = no
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+				}
+				NOT = { has_province_modifier = DA_Hold_exploration_workaround }
+			}
+			add_province_triggered_modifier = DA_Hold_exploration_workaround
+			add_permanent_province_modifier = {
+				name = DA_Hold_Mine
+				duration = -1
+			}
+			set_variable = {
+				which = DA_exp_completion_rate
+				value = 0
+			}
+			set_variable = {
+				which = DA_exp_completion_rate_max
+				value = 1
+			}
+		}
+		every_province = {
+			limit = {
+				is_wasteland = no
+				OR = {
+					has_terrain = mountain
+					has_terrain = highlands
+					has_terrain = cavern
+				}
+			}
+			add_permanent_province_modifier = {
+				name = DA_Mine_1
+				duration = -1
+			}
+			DA_give_normal_starting_metals = yes
+			if = {
+				limit = {
+					OR = {
+						province_id = 62
+						province_id = 64
+						province_id = 65
+						province_id = 4232
+						province_id = 4241
+						province_id = 4343
+					}
+				}
+				set_province_flag = DA_Mine_Rosemetal
+			}
+			if = {
+				limit = {
+					continent = serpentspine
+				}
+				DA_give_Serpentspine_starting_metals = yes
+			}
+		}
+		every_province = {
+			limit = {
+				is_wasteland = no
+			}
+			if = {
+				limit = {
+					OR = {
+						province_id = 146
+						province_id = 5483
+						province_id = 6118
+
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_Meteoric_Silver_deposit
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					trade_goods = damestear
+				}
+				random = {
+					chance = 50
+					add_permanent_province_modifier = {
+						name = DA_Meteoric_Silver_deposit
+						duration = 18250
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						province_id = 6685
+						province_id = 6688
+						province_id = 6718
+						province_id = 6742
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_VoidSteel_deposit
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						province_id = 3007
+						province_id = 3020
+						province_id = 3043
+						province_id = 3053
+						province_id = 6241
+						province_id = 6554
+						province_id = 6555
+						province_id = 6556
+						province_id = 6557
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_Sylvanite_deposit
+					duration = -1
+				}
+			}
+		}
+
+		#INITIALIZE ALL METALLURGY VARIABLES TO AVOID ai RANDOM CRASHES
+		every_country = {
+			set_variable = {
+				which = DA_fire_TOTAL_INFAN
+				value = 0
+			}
+			set_variable = {
+				which = DA_fire_TOTAL_INFAN_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_shock_TOTAL_INFAN
+				value = 0
+			}
+			set_variable = {
+				which = DA_shock_TOTAL_INFAN_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_power_TOTAL_INFAN
+				value = 0
+			}
+			set_variable = {
+				which = DA_power_TOTAL_INFAN_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_Fire_rec_TOTAL_INFAN
+				value = 0
+			}
+			set_variable = {
+				which = DA_Fire_rec_TOTAL_INFAN_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_Shock_rec_TOTAL_INFAN
+				value = 0
+			}
+			set_variable = {
+				which = DA_Shock_rec_TOTAL_INFAN_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_fire_TOTAL_CAVAL
+				value = 0
+			}
+			set_variable = {
+				which = DA_fire_TOTAL_CAVAL_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_shock_TOTAL_CAVAL
+				value = 0
+			}
+			set_variable = {
+				which = DA_shock_TOTAL_CAVAL_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_power_TOTAL_CAVAL
+				value = 0
+			}
+			set_variable = {
+				which = DA_power_TOTAL_CAVAL_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_Fire_rec_TOTAL_CAVAL
+				value = 0
+			}
+			set_variable = {
+				which = DA_Fire_rec_TOTAL_CAVAL_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_Shock_rec_TOTAL_CAVAL
+				value = 0
+			}
+			set_variable = {
+				which = DA_Shock_rec_TOTAL_CAVAL_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_fire_TOTAL_ARTIFICER
+				value = 0
+			}
+			set_variable = {
+				which = DA_fire_TOTAL_ARTIFICER_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_shock_TOTAL_ARTIFICER
+				value = 0
+			}
+			set_variable = {
+				which = DA_shock_TOTAL_ARTIFICER_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_power_TOTAL_ARTIFICER
+				value = 0
+			}
+			set_variable = {
+				which = DA_power_TOTAL_ARTIFICER_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_Fire_rec_TOTAL_ARTIFICER
+				value = 0
+			}
+			set_variable = {
+				which = DA_Fire_rec_TOTAL_ARTIFICER_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_Shock_rec_TOTAL_ARTIFICER
+				value = 0
+			}
+			set_variable = {
+				which = DA_Shock_rec_TOTAL_ARTIFICER_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_fire_TOTAL_ARTIL
+				value = 0
+			}
+			set_variable = {
+				which = DA_fire_TOTAL_ARTIL_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_shock_TOTAL_ARTIL
+				value = 0
+			}
+			set_variable = {
+				which = DA_shock_TOTAL_ARTIL_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_power_TOTAL_ARTIL
+				value = 0
+			}
+			set_variable = {
+				which = DA_power_TOTAL_ARTIL_shower
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Copper
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Gold
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Silver
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Tin
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Aluminium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Titanium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Chromium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Quicksilver
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Palladium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Platinum
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Tantalum
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Damestear
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Meteoric_Silver
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Dagrite
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_RoseMetal
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Cold_iron
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Mithril
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_EbonSteel
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_CinderSteel
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Magnetite
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Mistium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Skyshard
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Adamantium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Unastu_Argazen
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Bloth_Dolur
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Sylvanite
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_VoidSteel
+				value = 0
+			}
+		}
+		every_province = {
+			set_variable = {
+				which = DA_Metal_owned_Copper
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Gold
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Silver
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Tin
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Aluminium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Titanium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Chromium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Quicksilver
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Palladium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Platinum
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Tantalum
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Damestear
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Meteoric_Silver
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Dagrite
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_RoseMetal
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Cold_iron
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Mithril
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_EbonSteel
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_CinderSteel
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Magnetite
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Mistium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Skyshard
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Adamantium
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Unastu_Argazen
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Bloth_Dolur
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_Sylvanite
+				value = 0
+			}
+			set_variable = {
+				which = DA_Metal_owned_VoidSteel
+				value = 0
+			}
+		}
+
+		ai_chance = {
+			factor = 1
+		}
+	}
+}	
+country_event = { # this is just here for compatibility with all dwarven mission trees combined
+	id = DA_Buildings_menu.3
+	title = "DA_Buildings_menu.3.t"
+	desc = "DA_Buildings_menu.3.d"
+	picture = CITY_VIEW_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		set_global_flag = unify_serpentspine_ambition
+	}
+	option = {
+		name = "DA_Buildings_menu.3.t"
+	}
+}

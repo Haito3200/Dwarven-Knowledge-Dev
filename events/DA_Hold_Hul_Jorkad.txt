@@ -1,0 +1,1019 @@
+namespace = DA_Hul_Jorkad_event
+
+province_event = {
+	id = DA_Hul_Jorkad_event.1 # upon initial restoration of the laboratory
+	title = "DA_Hul_Jorkad_event.1.t"
+	desc = "DA_Hul_Jorkad_event.1.d"
+	picture = DA_research_facility_eventPicture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hul_Jorkad_event.1.a"
+	}	
+}
+
+province_event = {
+	id = DA_Hul_Jorkad_event.666 # upon archeologist hiring
+	title = "DA_Hul_Jorkad_event.666.t"
+	desc = "DA_Hul_Jorkad_event.666.d"
+	picture = DA_research_facility_eventPicture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hul_Jorkad_event.666.a"
+		custom_tooltip = DA_Hul_Jorkad_event.666.tt
+	}	
+}
+
+
+country_event = {
+	id = DA_Hul_Jorkad_event.2 # tier 1 restoration
+	title = "DA_Hul_Jorkad_event.2.t"
+	desc = "DA_Hul_Jorkad_event.2.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Hul_Jorkad_event.2.a"
+	}
+}
+
+province_event = {
+	id = DA_Hul_Jorkad_event.3 # tier 2
+	title = "DA_Hul_Jorkad_event.3.t"
+	desc = "DA_Hul_Jorkad_event.3.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hul_Jorkad_event.3.a"
+		custom_tooltip = DA_Hul_Jorkad_event.3.tooltip
+	}	
+}
+
+
+province_event = {
+	id = DA_Hul_Jorkad_event.4 # tier 3
+	title = "DA_Hul_Jorkad_event.4.t"
+	desc = "DA_Hul_Jorkad_event.4.d"
+	picture = DA_research_facility_eventPicture
+
+	trigger = {
+		owner = {
+			NOT = { has_country_flag = DA_HJ_already_made_a_choice }
+		}
+	}
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hul_Jorkad_event.4.a"
+		custom_tooltip = DA_Hul_Jorkad_event.4.a.tooltip
+		hidden_effect = {
+			owner = {
+				set_country_flag = DA_HJ_enable_genetic_project
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			owner = {
+				set_country_flag = DA_HJ_already_made_a_choice
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_Hul_Jorkad_event.9 # Unlocks 1 advanced trait
+	title = "DA_Hul_Jorkad_event.9.t"
+	desc = "DA_Hul_Jorkad_event.9.d"
+	picture = DA_research_facility_eventPicture
+
+	trigger = {
+		culture_group = dwarven
+		any_core_province = {
+			owned_by = root
+			has_great_project = {
+				type = The_Dwarven_Laboratory
+				tier = 3
+			}
+		}
+		NOT = {
+			AND = {
+				has_country_flag = DA_can_add_DA_Enhanced_brain_personality
+				has_country_flag = DA_can_add_DA_Warrior_mentality_personality
+				has_country_flag = DA_can_add_DA_Pheromones_personality
+				has_country_flag = DA_can_add_DA_Living_calculator_personality
+				has_country_flag = DA_can_add_DA_Perceptive_personality
+				has_country_flag = DA_can_add_DA_Damestear_dwarf_personality
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 180
+		modifier = {
+			factor = 0.9
+			innovativeness = 50
+		}
+		modifier = {
+			factor = 0.9
+			innovativeness = 70
+		}
+		modifier = {
+			factor = 0.9
+			innovativeness = 90
+		}
+		modifier = {
+			factor = 0.9
+			stability = 3
+		}
+		modifier = {
+			factor = 0.85
+			has_country_modifier = DA_Runesmith_patronage
+		}
+		modifier = {
+			factor = 0.90
+			OR = {
+				has_estate_privilege = estate_DA_Runesmiths_RF_4
+				has_estate_privilege = estate_DA_Runesmiths_RF_5
+			}
+		}
+		modifier = {
+			factor = 0.85
+			OR = {
+				has_estate_privilege = estate_DA_Runesmiths_RF_6
+				has_estate_privilege = estate_DA_Runesmiths_RF_7
+			}
+		}
+		modifier = {
+			factor = 0.80
+			OR = {
+				has_estate_privilege = estate_DA_Runesmiths_RF_8
+				has_estate_privilege = estate_DA_Runesmiths_RF_9
+				has_estate_privilege = estate_DA_Runesmiths_RF_10
+				has_estate_privilege = estate_DA_Runesmiths_RF_11
+			}
+		}
+	}
+	option = {
+		name = "DA_Hul_Jorkad_event.9.a"
+		custom_tooltip = DA_Hul_Jorkad_event.9.tt
+		hidden_effect = {
+			random_list = {
+				10 = {
+					trigger = {
+						NOT = { has_country_flag = DA_can_add_DA_Enhanced_brain_personality }
+					}
+					set_country_flag = DA_can_add_DA_Enhanced_brain_personality
+				}
+				10 = {
+					trigger = {
+						NOT = { has_country_flag = DA_can_add_DA_Warrior_mentality_personality }
+					}
+					set_country_flag = DA_can_add_DA_Warrior_mentality_personality
+				}
+				10 = {
+					trigger = {
+						NOT = { has_country_flag = DA_can_add_DA_Pheromones_personality }
+					}
+					set_country_flag = DA_can_add_DA_Pheromones_personality
+				}
+				10 = {
+					trigger = {
+						NOT = { has_country_flag = DA_can_add_DA_Living_calculator_personality }
+					}
+					set_country_flag = DA_can_add_DA_Living_calculator_personality
+				}
+				10 = {
+					trigger = {
+						NOT = { has_country_flag = DA_can_add_DA_Perceptive_personality }
+					}
+					set_country_flag = DA_can_add_DA_Perceptive_personality
+				}
+				1 = {
+					trigger = {
+						NOT = { has_country_flag = DA_can_add_DA_Damestear_dwarf_personality }
+					}
+					set_country_flag = DA_can_add_DA_Damestear_dwarf_personality
+				}
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = DA_Hul_Jorkad_event.10 # magical Genetic engineering menu
+	title = "DA_Hul_Jorkad_event.10.t"
+	desc = "DA_Hul_Jorkad_event.10.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Hul_Jorkad_event.10.a"	# genetic engineer on ruler
+		trigger = {
+			any_core_province = {
+				owned_by = root
+				has_great_project = {
+					type = The_Dwarven_Laboratory
+					tier = 2
+				}
+			}
+		}
+		country_event = {
+			id = DA_Hul_Jorkad_event.11
+		}
+		custom_tooltip = DA_Hul_Jorkad_event.10.a.tooltip
+		hidden_effect = {
+			DA_save_current_personalties = yes
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+	
+	option = {
+		name = "DA_Hul_Jorkad_event.10.Go_Back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_rf_menu_in_use
+		}
+	}	
+}
+
+
+country_event = {
+	id = DA_Hul_Jorkad_event.11 # genetic engineering on ruler
+	title = "DA_Hul_Jorkad_event.11.t"
+	desc = "DA_Hul_Jorkad_event.11.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		trigger = {
+			NOT = {
+				check_variable = {
+					which = DA_num_of_personalities
+					value = 4
+				}
+			}
+		}
+		name = "DA_Hul_Jorkad_event.11.a"
+		country_event = {
+			id = DA_Hul_Jorkad_event.12
+		}
+		hidden_effect = {
+			change_variable = {
+				which = DA_num_of_personalities
+				value = 1
+			}
+		}
+	}
+	option = {
+		trigger = {
+			check_variable = {
+				which = DA_num_of_personalities
+				value = 4
+			}
+		}
+		name = "DA_Hul_Jorkad_event.11.finish"
+		country_event = {
+			id = DA_Hul_Jorkad_event.100
+		}
+	}
+}
+
+country_event = {
+	id = DA_Hul_Jorkad_event.100 # Do it or not
+	title = "DA_Hul_Jorkad_event.100.t"
+	desc = "DA_Hul_Jorkad_event.100.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Hul_Jorkad_event.100.a"
+		add_treasury = -1500
+		custom_tooltip = DA_Hul_Jorkad_event.100.total_cost
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 12 } }
+		hidden_effect = {
+			DA_clear_ruler_personalities = yes
+			if = {
+				limit = { ai = yes }
+				add_ruler_modifier = {
+					name = DA_engineered_ai
+					hidden = yes
+				}
+			}
+		}
+		DA_apply_new_personalities = yes
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				has_ruler_modifier = DA_engineered_ai
+			}
+		}
+	}
+	option = {
+		name = "DA_Hul_Jorkad_event.100.b"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		DA_clr_genetic_engineering_flags = yes
+	}
+}
+
+country_event = {
+	id = DA_Hul_Jorkad_event.12 					# choose one trait. god have mercy on this code and make it work during the first try
+	title = "DA_Hul_Jorkad_event.12.t"				# IT DID WORK ON THE FIRST TRY!!
+	desc = "DA_Hul_Jorkad_event.12.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_mage_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.mage_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = mage_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_mage_personality
+		}
+		ai_chance = {
+			factor = 1000
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_just_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.just_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = just_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_just_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_righteous_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.righteous_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = righteous_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_righteous_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_tolerant_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.tolerant_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = tolerant_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_tolerant_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_kind_hearted_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.kind_hearted_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = kind_hearted_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_kind_hearted_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_free_thinker_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.free_thinker_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = free_thinker_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_free_thinker_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_well_connected_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.well_connected_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = well_connected_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_well_connected_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_just_calm_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.calm_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = calm_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_calm_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_careful_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.careful_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = careful_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_careful_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_secretive_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.secretive_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = secretive_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_secretive_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_intricate_web_weaver_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.intricate_web_weaver_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = intricate_web_weaver_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_intricate_web_weaver_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_fertile_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.fertile_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = fertile_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_fertile_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_well_advised_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.well_advised_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = well_advised_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_well_advised_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_benevolent_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.benevolent_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = benevolent_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_benevolent_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_zealot_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.zealot_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = zealot_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_zealot_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_pious_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.pious_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = pious_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_pious_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_lawgiver_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.lawgiver_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = lawgiver_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_lawgiver_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_midas_touched_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.midas_touched_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = midas_touched_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_midas_touched_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_incorruptible_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.incorruptible_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = incorruptible_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_incorruptible_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_architectural_visionary_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.architectural_visionary_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = architectural_visionary_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_architectural_visionary_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_scholar_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.scholar_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = scholar_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_scholar_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_entrepreneur_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.entrepreneur_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = entrepreneur_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_entrepreneur_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_industrious_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.industrious_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = industrious_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_industrious_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_expansionist_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.expansionist_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = expansionist_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_expansionist_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_charismatic_negotiator_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.charismatic_negotiator_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = charismatic_negotiator_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_charismatic_negotiator_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_silver_tongue_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.silver_tongue_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = silver_tongue_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_silver_tongue_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_conqueror_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.conqueror_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = conqueror_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_conqueror_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_tactical_genius_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.tactical_genius_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = tactical_genius_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_tactical_genius_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_bold_fighter_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.bold_fighter_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = bold_fighter_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_bold_fighter_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_strict_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.strict_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = strict_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_strict_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_inspiring_leader_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.inspiring_leader_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = inspiring_leader_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_inspiring_leader_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_martial_educator_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.martial_educator_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = martial_educator_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_martial_educator_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_navigator_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.navigator_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = navigator_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_navigator_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_fierce_negotiator_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.fierce_negotiator_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = fierce_negotiator_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_fierce_negotiator_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_humane_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.humane_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = humane_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_humane_personality
+		}
+	}
+	option = {
+		trigger = {
+			NOT = { has_country_flag = DA_ruler_wants_petty_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.petty_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = petty_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_petty_personality
+		}
+	}
+	option = {
+		trigger = {
+			any_core_province = {
+				owned_by = root
+				has_great_project = {
+					type = The_Dwarven_Laboratory
+					tier = 3
+				}
+			}
+			NOT = { has_country_flag = DA_ruler_wants_DA_Minor_Enhanced_brain_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Minor_Enhanced_brain_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Minor_Enhanced_brain_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Minor_Enhanced_brain_personality
+		}
+	}
+	option = {
+		trigger = {
+			any_core_province = {
+				owned_by = root
+				has_great_project = {
+					type = The_Dwarven_Laboratory
+					tier = 3
+				}
+			}
+			NOT = { has_country_flag = DA_ruler_wants_DA_Minor_Warrior_mentality_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Minor_Warrior_mentality_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Minor_Warrior_mentality_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Minor_Warrior_mentality_personality
+		}
+	}
+	option = {
+		trigger = {
+			any_core_province = {
+				owned_by = root
+				has_great_project = {
+					type = The_Dwarven_Laboratory
+					tier = 3
+				}
+			}
+			NOT = { has_country_flag = DA_ruler_wants_DA_Minor_Pheromones_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Minor_Pheromones_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Minor_Pheromones_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Minor_Pheromones_personality
+		}
+	}
+	option = {
+		trigger = {
+			any_core_province = {
+				owned_by = root
+				has_great_project = {
+					type = The_Dwarven_Laboratory
+					tier = 3
+				}
+			}
+			NOT = { has_country_flag = DA_ruler_wants_DA_Minor_Living_calculator_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Minor_Living_calculator_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Minor_Living_calculator_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Minor_Living_calculator_personality
+		}
+	}
+	option = {
+		trigger = {
+			any_core_province = {
+				owned_by = root
+				has_great_project = {
+					type = The_Dwarven_Laboratory
+					tier = 3
+				}
+			}
+			NOT = { has_country_flag = DA_ruler_wants_DA_Minor_Perceptive_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Minor_Perceptive_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Minor_Perceptive_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Minor_Perceptive_personality
+		}
+	}
+	option = {
+		trigger = {
+			has_country_flag = DA_can_add_DA_Enhanced_brain_personality
+			NOT = { has_country_flag = DA_ruler_wants_DA_Enhanced_brain_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Enhanced_brain_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Enhanced_brain_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Enhanced_brain_personality
+		}
+	}
+	option = {
+		trigger = {
+			has_country_flag = DA_can_add_DA_Warrior_mentality_personality
+			NOT = { has_country_flag = DA_ruler_wants_DA_Warrior_mentality_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Warrior_mentality_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Warrior_mentality_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Warrior_mentality_personality
+		}
+	}
+	option = {
+		trigger = {
+			has_country_flag = DA_can_add_DA_Pheromones_personality
+			NOT = { has_country_flag = DA_ruler_wants_DA_Pheromones_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Pheromones_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Pheromones_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Pheromones_personality
+		}
+	}
+	option = {
+		trigger = {
+			has_country_flag = DA_can_add_DA_Living_calculator_personality
+			NOT = { has_country_flag = DA_ruler_wants_DA_Living_calculator_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Living_calculator_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Living_calculator_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Living_calculator_personality
+		}
+	}
+	option = {
+		trigger = {
+			has_country_flag = DA_can_add_DA_Perceptive_personality
+			NOT = { has_country_flag = DA_ruler_wants_DA_Perceptive_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Perceptive_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Perceptive_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Perceptive_personality
+		}
+	}
+	option = {
+		trigger = {
+			has_country_flag = DA_can_add_DA_Damestear_dwarf_personality
+			NOT = { has_country_flag = DA_ruler_wants_DA_Damestear_dwarf_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Damestear_dwarf_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Damestear_dwarf_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Damestear_dwarf_personality
+		}
+	}
+	option = {
+		trigger = {
+			has_country_flag = DA_can_add_DA_Dwarven_Divinity_personality
+			NOT = { has_country_flag = DA_ruler_wants_DA_Dwarven_Divinity_personality }
+		}
+		name = "DA_Hul_Jorkad_event.12.DA_Dwarven_Divinity_personality"
+		custom_tooltip = DA_warn_fake_effect
+		tooltip = {
+			add_ruler_personality = DA_Dwarven_Divinity_personality
+		}
+		hidden_effect = {
+			set_country_flag = DA_ruler_wants_DA_Dwarven_Divinity_personality
+		}
+	}
+	after = {
+		country_event = {
+			id = DA_Hul_Jorkad_event.11
+		}
+	}
+}

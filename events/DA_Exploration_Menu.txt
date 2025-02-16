@@ -1,0 +1,728 @@
+namespace = DA_adk_hold_exploration_menu
+
+
+
+country_event = {    # hold exploration menu
+	id = DA_adk_hold_exploration_menu.1 
+	title = "DA_adk_hold_exploration_menu.1.title"
+	desc = "DA_adk_hold_exploration_menu.1.desc"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_ADK_menu_in_use
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Hold_exploration_workaround
+					DA_has_explorable_dig_level = yes
+				}
+				save_event_target_as = DA_explorable_province1
+			}
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Hold_exploration_workaround
+					DA_has_explorable_dig_level = yes
+					NOT = { province_id = event_target:DA_explorable_province1 }
+				}
+				save_event_target_as = DA_explorable_province2
+			}
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Hold_exploration_workaround
+					DA_has_explorable_dig_level = yes
+					NOT = { province_id = event_target:DA_explorable_province1 }
+					NOT = { province_id = event_target:DA_explorable_province2 }
+				}
+				save_event_target_as = DA_explorable_province3
+			}
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Hold_exploration_workaround
+					DA_has_explorable_dig_level = yes
+					NOT = { province_id = event_target:DA_explorable_province1 }
+					NOT = { province_id = event_target:DA_explorable_province2 }
+					NOT = { province_id = event_target:DA_explorable_province3 }
+				}
+				save_event_target_as = DA_explorable_province4
+			}
+			random_core_province = {
+				limit = {
+					has_province_modifier = DA_Hold_exploration_workaround
+					DA_has_explorable_dig_level = yes
+					NOT = { province_id = event_target:DA_explorable_province1 }
+					NOT = { province_id = event_target:DA_explorable_province2 }
+					NOT = { province_id = event_target:DA_explorable_province3 }
+					NOT = { province_id = event_target:DA_explorable_province4 }
+				}
+				save_event_target_as = DA_explorable_province5
+			}
+		}
+	}
+	option = {
+		name = "DA_adk_hold_exploration_menu.1.a"
+		goto = DA_explorable_province1
+		trigger = {
+			event_target:DA_explorable_province1 = {
+				has_province_modifier = DA_Hold_exploration_workaround
+				DA_has_explorable_dig_level = yes
+			}
+		}
+		if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_2 = yes
+				}
+			}
+			add_treasury = -25
+			custom_tooltip = DA_explore_dig_2_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_3 = yes
+				}
+			}
+			add_treasury = -50
+			custom_tooltip = DA_explore_dig_3_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_4 = yes
+				}
+			}
+			add_treasury = -100
+			custom_tooltip = DA_explore_dig_4_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_5 = yes
+				}
+			}
+			add_treasury = -200
+			custom_tooltip = DA_explore_dig_5_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_6 = yes
+				}
+			}
+			add_treasury = -300
+			custom_tooltip = DA_explore_dig_6_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_7 = yes
+				}
+			}
+			add_treasury = -500
+			custom_tooltip = DA_explore_dig_7_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_8 = yes
+				}
+			}
+			add_treasury = -800
+			custom_tooltip = DA_explore_dig_8_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_9 = yes
+				}
+			}
+			add_treasury = -1200
+			custom_tooltip = DA_explore_dig_9_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_10 = yes
+				}
+			}
+			add_treasury = -2500
+			custom_tooltip = DA_explore_dig_10_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province1 = {
+					DA_Explorable_dig_11 = yes
+				}
+			}
+			add_treasury = -5000
+			custom_tooltip = DA_explore_dig_11_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province1 }
+			hidden_effect = { event_target:DA_explorable_province1 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { treasury = 200 }
+			}
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_adk_hold_exploration_menu.1.b"
+		goto = DA_explorable_province2
+		trigger = {
+			event_target:DA_explorable_province2 = {
+				has_province_modifier = DA_Hold_exploration_workaround
+				DA_has_explorable_dig_level = yes
+			}
+		}
+		if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_2 = yes
+				}
+			}
+			add_treasury = -25
+			custom_tooltip = DA_explore_dig_2_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_3 = yes
+				}
+			}
+			add_treasury = -50
+			custom_tooltip = DA_explore_dig_3_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_4 = yes
+				}
+			}
+			add_treasury = -100
+			custom_tooltip = DA_explore_dig_4_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_5 = yes
+				}
+			}
+			add_treasury = -200
+			custom_tooltip = DA_explore_dig_5_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_6 = yes
+				}
+			}
+			add_treasury = -300
+			custom_tooltip = DA_explore_dig_6_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_7 = yes
+				}
+			}
+			add_treasury = -500
+			custom_tooltip = DA_explore_dig_7_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_8 = yes
+				}
+			}
+			add_treasury = -800
+			custom_tooltip = DA_explore_dig_8_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_9 = yes
+				}
+			}
+			add_treasury = -1200
+			custom_tooltip = DA_explore_dig_9_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_10 = yes
+				}
+			}
+			add_treasury = -2500
+			custom_tooltip = DA_explore_dig_10_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province2 = {
+					DA_Explorable_dig_11 = yes
+				}
+			}
+			add_treasury = -5000
+			custom_tooltip = DA_explore_dig_11_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province2 }
+			hidden_effect = { event_target:DA_explorable_province2 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { treasury = 200 }
+			}
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+
+	option = {
+		name = "DA_adk_hold_exploration_menu.1.c"
+		goto = DA_explorable_province3
+		trigger = {
+			event_target:DA_explorable_province3 = {
+				has_province_modifier = DA_Hold_exploration_workaround
+				DA_has_explorable_dig_level = yes
+			}
+		}
+		if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_2 = yes
+				}
+			}
+			add_treasury = -25
+			custom_tooltip = DA_explore_dig_2_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_3 = yes
+				}
+			}
+			add_treasury = -50
+			custom_tooltip = DA_explore_dig_3_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_4 = yes
+				}
+			}
+			add_treasury = -100
+			custom_tooltip = DA_explore_dig_4_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_5 = yes
+				}
+			}
+			add_treasury = -200
+			custom_tooltip = DA_explore_dig_5_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_6 = yes
+				}
+			}
+			add_treasury = -300
+			custom_tooltip = DA_explore_dig_6_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_7 = yes
+				}
+			}
+			add_treasury = -500
+			custom_tooltip = DA_explore_dig_7_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_8 = yes
+				}
+			}
+			add_treasury = -800
+			custom_tooltip = DA_explore_dig_8_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_9 = yes
+				}
+			}
+			add_treasury = -1200
+			custom_tooltip = DA_explore_dig_9_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_10 = yes
+				}
+			}
+			add_treasury = -2500
+			custom_tooltip = DA_explore_dig_10_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province3 = {
+					DA_Explorable_dig_11 = yes
+				}
+			}
+			add_treasury = -5000
+			custom_tooltip = DA_explore_dig_11_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province3 }
+			hidden_effect = { event_target:DA_explorable_province3 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { treasury = 200 }
+			}
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_adk_hold_exploration_menu.1.d"
+		goto = DA_explorable_province4
+		trigger = {
+			event_target:DA_explorable_province4 = {
+				has_province_modifier = DA_Hold_exploration_workaround
+				DA_has_explorable_dig_level = yes
+			}
+		}
+		if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_2 = yes
+				}
+			}
+			add_treasury = -25
+			custom_tooltip = DA_explore_dig_2_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_3 = yes
+				}
+			}
+			add_treasury = -50
+			custom_tooltip = DA_explore_dig_3_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_4 = yes
+				}
+			}
+			add_treasury = -100
+			custom_tooltip = DA_explore_dig_4_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_5 = yes
+				}
+			}
+			add_treasury = -200
+			custom_tooltip = DA_explore_dig_5_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_6 = yes
+				}
+			}
+			add_treasury = -300
+			custom_tooltip = DA_explore_dig_6_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_7 = yes
+				}
+			}
+			add_treasury = -500
+			custom_tooltip = DA_explore_dig_7_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_8 = yes
+				}
+			}
+			add_treasury = -800
+			custom_tooltip = DA_explore_dig_8_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_9 = yes
+				}
+			}
+			add_treasury = -1200
+			custom_tooltip = DA_explore_dig_9_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_10 = yes
+				}
+			}
+			add_treasury = -2500
+			custom_tooltip = DA_explore_dig_10_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province4 = {
+					DA_Explorable_dig_11 = yes
+				}
+			}
+			add_treasury = -5000
+			custom_tooltip = DA_explore_dig_11_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province4 }
+			hidden_effect = { event_target:DA_explorable_province4 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { treasury = 200 }
+			}
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+
+	option = {
+		name = "DA_adk_hold_exploration_menu.1.e"
+		goto = DA_explorable_province5
+		trigger = {
+			event_target:DA_explorable_province5 = {
+				has_province_modifier = DA_Hold_exploration_workaround
+				DA_has_explorable_dig_level = yes
+			}
+		}
+		if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_2 = yes
+				}
+			}
+			add_treasury = -25
+			custom_tooltip = DA_explore_dig_2_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_3 = yes
+				}
+			}
+			add_treasury = -50
+			custom_tooltip = DA_explore_dig_3_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_4 = yes
+				}
+			}
+			add_treasury = -100
+			custom_tooltip = DA_explore_dig_4_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_5 = yes
+				}
+			}
+			add_treasury = -200
+			custom_tooltip = DA_explore_dig_5_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_6 = yes
+				}
+			}
+			add_treasury = -300
+			custom_tooltip = DA_explore_dig_6_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_7 = yes
+				}
+			}
+			add_treasury = -500
+			custom_tooltip = DA_explore_dig_7_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_8 = yes
+				}
+			}
+			add_treasury = -800
+			custom_tooltip = DA_explore_dig_8_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_9 = yes
+				}
+			}
+			add_treasury = -1200
+			custom_tooltip = DA_explore_dig_9_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_10 = yes
+				}
+			}
+			add_treasury = -2500
+			custom_tooltip = DA_explore_dig_10_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		else_if = {
+			limit = {
+				event_target:DA_explorable_province5 = {
+					DA_Explorable_dig_11 = yes
+				}
+			}
+			add_treasury = -5000
+			custom_tooltip = DA_explore_dig_11_tooltip
+			DA_Show_Exploration_completion_Rate = { target = event_target:DA_explorable_province5 }
+			hidden_effect = { event_target:DA_explorable_province5 = { set_province_flag = DA_expedition_in_progress } }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { treasury = 200 }
+			}
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_adk_hold_exploration_menu.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_ADK_menu_in_use
+	}
+}	

@@ -1,0 +1,480 @@
+namespace = DA_Expedition_camp_event
+
+province_event = {
+	id = DA_Expedition_camp_event.3			# secret passage initial choice
+	title = DA_Expedition_camp_event.3.t
+	desc = DA_Expedition_camp_event.3.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.3.a
+		custom_tooltip = DA_Expedition_camp_event.3.tooltip
+		hidden_effect = {
+			random_list = {
+				33 = {
+					province_event = {
+						id = DA_Expedition_camp_event.10
+					}
+				}
+				33 = {
+					province_event = {
+						id = DA_Expedition_camp_event.11
+					}
+				}
+				34 = {
+					province_event = {
+						id = DA_Expedition_camp_event.2
+					}
+				}
+				10 = {
+					trigger = {
+						NOT = {
+							has_province_modifier = DA_exp_mod_clockwork_workshop
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.22
+					}
+				}
+				10 = {
+					trigger = {
+						NOT = {
+							has_province_modifier = DA_exp_mod_golem_workshop
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.23
+					}
+				}
+				10 = {
+					trigger = {
+						NOT = {
+							has_province_modifier = DA_exp_mod_mage_lair
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.24
+					}
+				}
+				10 = {
+					trigger = {
+						NOT = {
+							has_province_modifier = DA_exp_mod_Training_Grounds
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.25
+					}
+				}
+				
+				10 = {
+					trigger = {
+						NOT = {
+							OR = {
+								has_province_modifier = DA_Abandoned_settlement
+								has_terrain = dwarven_hold
+								has_terrain = dwarven_hold_surface
+							}
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.12
+					}
+				}
+				2 = {
+					trigger = {
+						NOT = {
+							trade_goods = mithril
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.13
+					}
+				}
+				2 = {
+					trigger = {
+						NOT = {
+							trade_goods = damestear
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.14
+					}
+				}
+				10 = {
+					trigger = {
+						NOT = { has_province_modifier = DA_expandable_hold_infrastructure }
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.20
+					}
+				}
+				10 = {
+					trigger = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+						}
+						owner = {
+							culture_group = dwarven
+						}
+					}
+					province_event = {
+						id = DA_Expedition_camp_event.21
+					}
+				}
+			}
+		}
+
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Expedition_camp_event.3.coward
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.10				# secret passage, bugbears den
+	title = DA_Expedition_camp_event.10.t
+	desc = DA_Expedition_camp_event.10.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.10.a			# take meat
+		
+		change_party_manpower = { remove_tooltip = yes loss = 200}
+		change_party_morale = { remove_tooltip = yes loss = 0.5}
+		change_party_supplies = { add_tooltip = yes add = 4 }
+		change_party_loot = { add_tooltip = yes add = 75}
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Expedition_camp_event.10.b			# tend to the injured
+		
+		change_party_manpower = { remove_tooltip = yes loss = 200}
+		change_party_loot = { add_tooltip = yes add = 75}
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.11				# secret passage, old deposit 
+	title = DA_Expedition_camp_event.11.t
+	desc = DA_Expedition_camp_event.11.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.11.a			# take equipment
+		
+		change_party_morale = { add_tooltip = yes add = 0.5}
+		change_party_supplies = { add_tooltip = yes add = 4 }
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.12				# secret passage, abandoned settlement 
+	title = DA_Expedition_camp_event.12.t
+	desc = DA_Expedition_camp_event.12.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.12.a			# refill supplies
+
+		add_permanent_province_modifier = {
+			name = DA_Abandoned_settlement
+			duration = -1
+		}
+		
+		change_party_supplies = { add_tooltip = yes add = 10 }
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.13				# secret passage, Mithril vein
+	title = DA_Expedition_camp_event.13.t
+	desc = DA_Expedition_camp_event.13.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.13.a			# exploit the vein
+
+		hidden_effect = {
+			save_trade_goods = yes
+		}
+		change_trade_goods = mithril
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Expedition_camp_event.13.b			# take some and go on
+		
+		change_party_loot = { add_tooltip = yes add = 150 }
+		change_party_supplies = { remove_tooltip = yes loss = 4 }
+
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.14				# secret passage, damestear deposit 
+	title = DA_Expedition_camp_event.14.t
+	desc = DA_Expedition_camp_event.14.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.14.a			# exploit deposit
+		
+		hidden_effect = {
+			save_trade_goods = yes
+		}
+		change_trade_goods = damestear
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Expedition_camp_event.14.b			# take some and go on
+		
+		change_party_loot = { add_tooltip = yes add = 250 }
+		change_party_supplies = { remove_tooltip = yes loss = 4 }
+
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.2				# secret passage, We Found An ancestor's Lab
+	title = DA_Expedition_camp_event.2.t
+	desc = DA_Expedition_camp_event.2.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.2.a
+		add_adk_effect = { add = 3 }
+		change_party_supplies = { remove_tooltip = yes loss = 4 }
+
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.20				# secret passage, Hold infrastructure
+	title = DA_Expedition_camp_event.20.t
+	desc = DA_Expedition_camp_event.20.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.20.a			# take note of it
+		
+		change_party_morale = { add_tooltip = yes add = 0.5}
+
+		add_permanent_province_modifier = {
+			name = DA_expandable_hold_infrastructure
+			duration = -1
+		}
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.21				# secret passage, Hold graveyard
+	title = DA_Expedition_camp_event.21.t
+	desc = DA_Expedition_camp_event.21.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.21.a			# take their things
+		
+		change_party_morale = { remove_tooltip = yes loss = 0.5}
+		change_party_loot = { add_tooltip = yes add = 150}
+
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Expedition_camp_event.21.b			# honor the dead
+		
+		change_party_morale = { add_tooltip = yes add = 0.5}
+
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.22				# secret passage, clockwork
+	title = DA_Expedition_camp_event.22.t
+	desc = DA_Expedition_camp_event.22.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.22.a			# take what you can
+
+		change_party_morale = { add_tooltip = yes add = 0.5}
+		change_party_loot = { add_tooltip = yes add = 100}
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Expedition_camp_event.22.b			# restore it
+
+		add_permanent_province_modifier = {
+			name = DA_exp_mod_clockwork_workshop
+			duration = -1
+		}
+		DA_give_clockwork_blueprint = yes
+
+		change_party_loot = { remove_tooltip = yes loss = 100}
+		change_party_morale = { remove_tooltip = yes loss = 0.5}
+		change_party_supplies = { remove_tooltip = yes loss = 4 }
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.23				# secret passage, mage lair
+	title = DA_Expedition_camp_event.23.t
+	desc = DA_Expedition_camp_event.23.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.23.a			# take what you can
+
+		change_party_morale = { add_tooltip = yes add = 0.5}
+		change_party_loot = { add_tooltip = yes add = 100}
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Expedition_camp_event.23.b			# restore it
+
+		add_permanent_province_modifier = {
+			name = DA_exp_mod_golem_workshop
+			duration = -1
+		}
+		DA_give_golem_blueprint = yes
+
+		change_party_loot = { remove_tooltip = yes loss = 100}
+		change_party_morale = { remove_tooltip = yes loss = 0.5}
+		change_party_supplies = { remove_tooltip = yes loss = 4 }
+
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.24				# secret passage, mage lair
+	title = DA_Expedition_camp_event.24.t
+	desc = DA_Expedition_camp_event.24.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		highlight = yes
+		trigger = {
+			owner = {
+				culture_group = dwarven
+			}
+		}
+		name = DA_Expedition_camp_event.24.a			# take what you can
+
+		add_permanent_province_modifier = {
+			name = DA_exp_mod_mage_lair
+			duration = -1
+		}
+		DA_Find_Advanced_rune = yes
+
+		change_party_morale = { add_tooltip = yes add = 0.5}
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		highlight = yes
+		trigger = {
+			owner = {
+				NOT = { culture_group = dwarven }
+			}
+		}
+		name = DA_Expedition_camp_event.24.b			# take what you can
+
+		add_permanent_province_modifier = {
+			name = DA_exp_mod_mage_lair
+			duration = -1
+		}
+		add_adk_effect = { add = 3 }
+		ai_chance = { factor = 1 }
+	}
+}
+
+province_event = {
+	id = DA_Expedition_camp_event.25				# secret passage, gunpowder storage
+	title = DA_Expedition_camp_event.25.t
+	desc = DA_Expedition_camp_event.25.d
+	picture = CAVE_eventPicture
+	immediate = {
+	}
+	is_triggered_only = yes
+	option = {
+		name = DA_Expedition_camp_event.25.a			# take what you can
+
+		change_party_loot = { add_tooltip = yes add = 100}
+		change_party_supplies = { add_tooltip = yes add = 10 }
+		add_army_professionalism = 0.02
+
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Expedition_camp_event.25.b			# restore it
+
+		change_party_supplies = { remove_tooltip = yes loss = 4 }
+
+		random = {
+			chance = 50
+			add_permanent_province_modifier = {
+				name = DA_exp_mod_Training_Grounds
+				duration = -1
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+}

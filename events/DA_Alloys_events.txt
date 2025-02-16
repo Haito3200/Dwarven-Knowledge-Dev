@@ -1,0 +1,1273 @@
+namespace = DA_alloys_events
+
+################# alloy forge Events ##################
+country_event = {
+	id = DA_alloys_events.1 		# select slot
+	title = "DA_alloys_events.1.t"
+	desc = "DA_alloys_events.1.d"
+	picture = DA_forge_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_alloys_events.1.C1"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_common_slot_adder
+				value = 1
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = C1
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.C2"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_common_slot_adder
+				value = 2
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = C2
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.C3"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_common_slot_adder
+				value = 3
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = C3
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.C4"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_common_slot_adder
+				value = 4
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = C4
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.C5"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_common_slot_adder
+				value = 5
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = C5
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.C6"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_common_slot_adder
+				value = 6
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = C6
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.R1"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_rare_slot_adder
+				value = 1
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = R1
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.R2"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_rare_slot_adder
+				value = 2
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = R2
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.R3"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_rare_slot_adder
+				value = 3
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = R3
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.R4"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_rare_slot_adder
+				value = 4
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = R4
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.L1"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_legendary_slot_adder
+				value = 1
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = L1
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.L2"
+		trigger = {
+			has_global_modifier_value = {
+				which = DA_fake_alloy_legendary_slot_adder
+				value = 2
+			}
+		}
+		DA_initialize_alloy_variables = {
+			DA_alloy_slot = L2
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.Go_back"
+	}
+	after = {
+		clr_country_flag = DA_alloy_unfinished
+	}
+}
+
+country_event = {
+	id = DA_alloys_events.2 		# select metal for alloy
+	title = "DA_alloys_events.2.t"
+	desc = "DA_alloys_events.2.d"
+	picture = DA_forge_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Steel" # 
+		trigger = {
+			DA_own_iron_provinces = { amount = 15 }
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 1
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 0
+			DA_MS_Stat = 1
+			DA_MC_Stat = 0
+			DA_EC_Stat = 0
+			DA_Metal = 1
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Copper"
+		highlight = yes
+		trigger = {
+			DA_own_copper_provinces = {
+				amount = 15
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 2
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 0
+			DA_MC_Stat = 0
+			DA_EC_Stat = 1
+			DA_Metal = 2
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Gold"
+		highlight = yes
+		trigger = {
+			DA_own_Gold_provinces = {
+				amount = 15
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 3
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 0
+			DA_MC_Stat = 1
+			DA_EC_Stat = 0
+			DA_Metal = 3
+		}
+	}
+	
+	option = {
+		name = "DA_Metallurgy_events.51.Silver"
+		highlight = yes
+		trigger = {
+			DA_own_Silver_provinces = {
+				amount = 15
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 4
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 0
+			DA_MC_Stat = 1
+			DA_EC_Stat = 1
+			DA_Metal = 4
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Tin"
+		highlight = yes
+		trigger = {
+			DA_own_tin_provinces = {
+				amount = 15
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 5
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 1
+			DA_MC_Stat = 0
+			DA_EC_Stat = 0
+			DA_Metal = 5
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Aluminium"
+		highlight = yes
+		trigger = {
+			DA_own_Aluminium_provinces = {
+				amount = 15
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 6
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 0
+			DA_MC_Stat = 1
+			DA_EC_Stat = 0
+			DA_Metal = 6
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Titanium"
+		highlight = yes
+		trigger = {
+			DA_own_Titanium_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_2 = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 7
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 1
+			DA_MC_Stat = 1
+			DA_EC_Stat = 0
+			DA_Metal = 7
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Chromium"
+		highlight = yes
+		trigger = {
+			DA_own_Chromium_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_2 = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 8
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 1
+			DA_MC_Stat = 0
+			DA_EC_Stat = 1
+			DA_Metal = 8
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Castellium"
+		highlight = yes
+		trigger = {
+			DA_own_Castellium_provinces = {
+				amount = 15
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 9
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 0
+			DA_MC_Stat = 0
+			DA_EC_Stat = 1
+			DA_Metal = 9
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Zinc"
+		highlight = yes
+		trigger = {
+			DA_own_Zinc_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_2 = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 10
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 1
+			DA_MC_Stat = 1
+			DA_EC_Stat = 0
+			DA_Metal = 10
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Lead"
+		highlight = yes
+		trigger = {
+			DA_own_Lead_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_1 = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 11
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 0
+			DA_MC_Stat = 1
+			DA_EC_Stat = 0
+			DA_Metal = 11
+		}
+	}
+	
+	# rares
+	
+	option = {
+		name = "DA_Metallurgy_events.51.Palladium"
+		highlight = yes
+		trigger = {
+			DA_own_Palladium_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_1 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 12
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 1
+			DA_MC_Stat = 0
+			DA_EC_Stat = 1
+			DA_Metal = 12
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Platinum"
+		highlight = yes
+		trigger = {
+			DA_own_Platinum_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_1 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 13
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 2
+			DA_MC_Stat = 0
+			DA_EC_Stat = 1
+			DA_Metal = 13
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Tantalum"
+		highlight = yes
+		trigger = {
+			DA_own_Tantalum_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 14
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 3
+			DA_MC_Stat = 0
+			DA_EC_Stat = 0
+			DA_Metal = 14
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Meteoric_Silver"
+		highlight = yes
+		trigger = {
+			DA_own_Meteoric_Silver_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 15
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 3
+			DA_MS_Stat = 1
+			DA_MC_Stat = 2
+			DA_EC_Stat = 1
+			DA_Metal = 15
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Cobalt"
+		highlight = yes
+		trigger = {
+			DA_own_Cobalt_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 16
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 2
+			DA_MC_Stat = 0
+			DA_EC_Stat = 1
+			DA_Metal = 16
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Tungsten"
+		highlight = yes
+		trigger = {
+			DA_own_Tungsten_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 17
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 3
+			DA_MC_Stat = 0
+			DA_EC_Stat = 0
+			DA_Metal = 17
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Mithril"
+		highlight = yes
+		trigger = {
+			DA_own_mithril_provinces = {
+				amount = 15
+			}
+			OR = {
+				DA_completed.Metallurgy_2 = yes
+				culture_group = dwarven
+			}
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 18
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 2
+			DA_MC_Stat = 2
+			DA_EC_Stat = 0
+			DA_Metal = 18
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Ebonsteel" # 
+		highlight = yes
+		trigger = {
+			DA_own_Ebonsteel_provinces = {
+				amount = 15
+			} 
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 19
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 1
+			DA_MC_Stat = 1
+			DA_EC_Stat = 0
+			DA_Metal = 19
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Dagrite"
+		highlight = yes
+		trigger = {
+			DA_own_Dagrite_provinces = {
+				amount = 15
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 20
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 0
+			DA_MC_Stat = 1
+			DA_EC_Stat = 2
+			DA_Metal = 20
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Rosemetal"
+		highlight = yes
+		trigger = {
+			DA_own_Rosemetal_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 21
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 1
+			DA_MC_Stat = 1
+			DA_EC_Stat = 1
+			DA_Metal = 21
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Cold_Iron"
+		highlight = yes
+		trigger = {
+			DA_own_Cold_iron_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 22
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 2
+			DA_MC_Stat = 0
+			DA_EC_Stat = 2
+			DA_Metal = 22
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Quicksilver"
+		highlight = yes
+		trigger = {
+			DA_own_Quicksilver_provinces = {
+				amount = 15
+			}
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 23
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 0
+			DA_MC_Stat = 1
+			DA_EC_Stat = 1
+			DA_Metal = 23
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Damestear"
+		highlight = yes
+		trigger = {
+			DA_own_damestear_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 24
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 3
+			DA_MS_Stat = 0
+			DA_MC_Stat = 2
+			DA_EC_Stat = 1
+			DA_Metal = 24
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.IronWood"
+		highlight = yes
+		trigger = {
+			DA_own_IronWood_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 25
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 1
+			DA_MS_Stat = 1
+			DA_MC_Stat = 2
+			DA_EC_Stat = 0
+			DA_Metal = 25
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Orichalcum"
+		highlight = yes
+		trigger = {
+			DA_own_Orichalcum_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 26
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 2
+			DA_MC_Stat = 1
+			DA_EC_Stat = 0
+			DA_Metal = 26
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Octiron"
+		highlight = yes
+		trigger = {
+			DA_own_Octiron_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Metallurgy_2 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 27
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 0
+			DA_MC_Stat = 2
+			DA_EC_Stat = 0
+			DA_Metal = 27
+		}
+	}
+	
+	# legendaries
+	
+	option = {
+		name = "DA_Metallurgy_events.51.Adamantium"
+		highlight = yes
+		trigger = {
+			DA_own_Adamantium_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 28
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 3
+			DA_MS_Stat = 4
+			DA_MC_Stat = 0
+			DA_EC_Stat = 0
+			DA_Metal = 28
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Forgotten_Steel"
+		highlight = yes
+		trigger = {
+			DA_own_Forgotten_steel_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 29
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 3
+			DA_MS_Stat = 3
+			DA_MC_Stat = 1
+			DA_EC_Stat = 1
+			DA_Metal = 29
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Hearth_Blood"
+		highlight = yes
+		trigger = {
+			DA_own_Hearth_blood_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 30
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 3
+			DA_MS_Stat = 1
+			DA_MC_Stat = 3
+			DA_EC_Stat = 1
+			DA_Metal = 30
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Unobtainium"
+		highlight = yes
+		trigger = {
+			DA_own_Unobtainium_provinces = {
+				amount = 15
+			}
+			DA_completed.Metallurgy_3 = yes
+			DA_has_Energy_power_or_higher = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 31
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 4
+			DA_MS_Stat = 1
+			DA_MC_Stat = 0
+			DA_EC_Stat = 4
+			DA_Metal = 31
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Hihiirokane"
+		highlight = yes
+		trigger = {
+			DA_own_Hihiirokane_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 32
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 4
+			DA_MS_Stat = 1
+			DA_MC_Stat = 4
+			DA_EC_Stat = 0
+			DA_Metal = 32
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Sylvanite"
+		highlight = yes
+		trigger = {
+			DA_own_Sylvanite_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 33
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 3
+			DA_MS_Stat = 1
+			DA_MC_Stat = 2
+			DA_EC_Stat = 0
+			DA_Metal = 33
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.VoidSteel"
+		highlight = yes
+		trigger = {
+			DA_own_VoidSteel_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 34
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 3
+			DA_MS_Stat = 2
+			DA_MC_Stat = 1
+			DA_EC_Stat = 0
+			DA_Metal = 34
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Magnetite"
+		highlight = yes
+		trigger = {
+			DA_own_Magnetite_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 35
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 1
+			DA_MC_Stat = 1
+			DA_EC_Stat = 3
+			DA_Metal = 35
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Mistium"
+		highlight = yes
+		trigger = {
+			DA_own_Mistium_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 36
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 1
+			DA_MC_Stat = 2
+			DA_EC_Stat = 0
+			DA_Metal = 36
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Skyshard"
+		highlight = yes
+		trigger = {
+			DA_own_Skyshard_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 37
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 1
+			DA_MC_Stat = 2
+			DA_EC_Stat = 0
+			DA_Metal = 37
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Cindersteel"
+		highlight = yes
+		trigger = {
+			DA_own_Cindersteel_provinces = {
+				amount = 15
+			}
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_legendary_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 38
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 1
+			DA_MC_Stat = 2
+			DA_EC_Stat = 0
+			DA_Metal = 38
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.Go_back"
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_alloy_unfinished
+			clr_country_flag = DA_selecting_primary_metal
+			clr_country_flag = DA_selecting_secondary_metal_1
+			clr_country_flag = DA_selecting_secondary_metal_2
+		}
+	}
+}
+
+country_event = {
+	id = DA_alloys_events.3 		# select unique modifier 1
+	title = "DA_alloys_events.3.t"
+	desc = "DA_alloys_events.3.d"
+	picture = DA_forge_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Metallurgy_events.51.Adamantium"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 28
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Adamantium
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Forgotten_Steel"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 29
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Unastu_Argazen
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Hearth_Blood"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 30
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Bloth_Dolur
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Unobtainium"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 31
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Unobtainium
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Hihiirokane"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 32
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Hihiirokane
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Sylvanite"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 33
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Sylvanite
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.VoidSteel"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 34
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = VoidSteel
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Magnetite"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 35
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Magnetite
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Mistium"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 36
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Mistium
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Skyshard"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 37
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Skyshard
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.51.Cindersteel"
+		trigger = {
+			DA_alloy_selectable_unique_modifier = {
+				DA_Metal = 38
+			}
+		}
+		DA_alloy_select_unique_modifier = {
+			DA_Unique = Cindersteel
+		}
+	}
+	option = {
+		name = "DA_alloys_events.1.Go_back"
+	}
+	after = {
+		clr_country_flag = DA_alloy_unfinished
+	}
+}
+country_event = {
+	id = DA_alloys_events.10 		# finished alloy
+	title = "DA_alloys_events.10.t"
+	desc = "DA_alloys_events.10.d"
+	picture = DA_forge_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_alloys_events.10.a"
+		remove_country_modifier = DA_Alloy_in_production_mod
+		custom_tooltip = DA_alloy_fifnished_tt
+		DA_alloy_enable = yes
+	}
+	after = {
+		clr_country_flag = DA_alloy_unfinished
+	}
+}

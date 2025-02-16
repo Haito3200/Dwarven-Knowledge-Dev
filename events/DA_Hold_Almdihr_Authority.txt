@@ -1,0 +1,157 @@
+namespace = DA_Amldihr_Authority_event
+
+province_event = {
+	id = DA_Amldihr_Authority_event.1 # just a bit of broken flavor
+	title = "DA_Amldihr_Authority_event.1.t"
+	desc = "DA_Amldihr_Authority_event.1.d"
+	picture = FEAST_eventPicture
+	
+	trigger = {
+		culture_group = dwarven
+		province_id = 4119
+		OR = {
+			is_year = 1550
+			owner = {
+				innovativeness = 90
+			}
+		}
+		is_capital = yes
+		DA_has_dig_level_5_or_higher = yes
+		NOT = {	has_province_modifier = DA_Throne_High_king }
+		owner = {
+			culture_group = dwarven
+			prestige = 60
+		}
+	}	
+	mean_time_to_happen = {
+		months = 400
+		modifier = {
+			factor = 0.7
+			is_year = 1600
+		}
+		modifier = {
+			factor = 0.5
+			is_year = 1650
+		}
+		modifier = {
+			factor = 0.2
+			owner = {
+				innovativeness = 80
+			}
+		}
+		modifier = {
+			factor = 0.9
+			owner = {
+				stability = 3
+			}
+		}
+	}
+	option = {
+		name = "DA_Amldihr_Authority_event.1.a"
+		add_permanent_province_modifier = {
+			name = DA_Throne_High_king
+			duration = -1
+		}
+	}	
+}
+
+province_event = {
+	id = DA_Amldihr_Authority_event.2 # after trade goods change to damestear, you lose advanced infrastructure, this restores it
+	title = "DA_Amldihr_Authority_event.2.t"
+	desc = "DA_Amldihr_Authority_event.2.d"
+	picture = GREAT_BUILDING_eventPicture
+	
+	is_triggered_only = yes
+	option = {
+		name = "DA_Amldihr_Authority_event.2.a"
+		remove_province_modifier = hold_city
+		remove_province_modifier = hold_foundry
+		remove_province_modifier = hold_artisan
+		remove_province_modifier = hold_farm
+		remove_province_modifier = hold_military
+
+		add_permanent_province_modifier = {
+			name = hold_city_2
+			duration = -1
+		}
+		add_permanent_province_modifier = {
+			name = artificier_hall
+			duration = -1
+		}
+	}	
+}
+
+province_event = {
+	id = DA_Amldihr_Authority_event.3 # tier 1, Verkal Vazkron tunnels
+	title = "DA_Amldihr_Authority_event.3.t"
+	desc = "DA_Amldihr_Authority_event.3.d"
+	picture = GREAT_BUILDING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "DA_Amldihr_Authority_event.3.a"
+		area = {
+			add_base_manpower = 1
+		}
+	}	
+}
+
+province_event = {
+	id = DA_Amldihr_Authority_event.4 # tier 2, Amlharaz secret council
+	title = "DA_Amldihr_Authority_event.4.t"
+	desc = "DA_Amldihr_Authority_event.4.d"
+	picture = GREAT_BUILDING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "DA_Amldihr_Authority_event.4.a"
+		4149 = {
+			add_permanent_province_modifier = {
+				name = DA_secret_war_council_Amlharaz
+				duration = -1
+			}
+		}
+	}	
+}
+
+province_event = {
+	id = DA_Amldihr_Authority_event.5 # tier 3, Hall of the Ancestors, Mith of creation
+	title = "DA_Amldihr_Authority_event.5.t"
+	desc = "DA_Amldihr_Authority_event.5.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "DA_Amldihr_Authority_event.5.a"
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = DA_Amldihr_Authority_event.6
+				}
+			}
+		}
+	}	
+	option = {
+		name = "DA_Amldihr_Authority_event.5.b"
+		owner = {
+			tooltip = { add_adk_effect = { add = 5 } }
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 5 } }
+		}
+	}	
+}
+
+country_event = {
+	id = DA_Amldihr_Authority_event.6 # tier 3, Hall of the Ancestors, Rune ghost ancestor
+	title = "DA_Amldihr_Authority_event.6.t"
+	desc = "DA_Amldihr_Authority_event.6.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "DA_Amldihr_Authority_event.6.a"
+		4128 = {
+			add_permanent_province_modifier = {
+				name = DA_Rune_Ancestors_ghosts
+				duration = -1
+			}
+		}
+		tooltip = { add_adk_effect = { add = 10 } }
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
+	}
+}

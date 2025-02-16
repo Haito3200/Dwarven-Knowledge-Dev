@@ -1,0 +1,3632 @@
+namespace = DA_building_outcome
+
+country_event = {    # runeforged fort 1
+	id = DA_building_outcome.1 
+	title = "DA_building_outcome.1.t"
+	desc = "DA_building_outcome.1.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort }
+				NOT = { has_building = DA_Runeforged_fort_t2 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Runeforged_fort
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort }
+				NOT = { has_building = DA_Runeforged_fort_t2 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Runeforged_fort
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort }
+				NOT = { has_building = DA_Runeforged_fort_t2 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Runeforged_fort
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # runeforged bastion t2
+	id = DA_building_outcome.10 
+	title = "DA_building_outcome.10.t"
+	desc = "DA_building_outcome.10.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort_t2 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.10.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort_t2 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province1 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t2
+					speed = 1
+					cost = 0.65
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t2
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 5
+				treasury = 1000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.10.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort_t2 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province2 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t2
+					speed = 1
+					cost = 0.65
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t2
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 5
+				treasury = 1000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.10.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort_t2 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province3 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t2
+					speed = 1
+					cost = 0.65
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t2
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 5
+				treasury = 1000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.10.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # runeforged fortress t3
+	id = DA_building_outcome.11 
+	title = "DA_building_outcome.11.t"
+	desc = "DA_building_outcome.11.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Runeforged_fort_t3 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.11.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province1 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 0.85
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province1 = {
+					has_building = DA_Runeforged_fort_t2
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 0.55
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_3_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 6000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.11.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province2 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 0.85
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province2 = {
+					has_building = DA_Runeforged_fort_t2
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 0.55
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_3_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 6000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.11.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Runeforged_fort_t3 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province3 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 0.85
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province3 = {
+					has_building = DA_Runeforged_fort_t2
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 0.55
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_3_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Runeforged_fort_t3
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 6000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.11.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # Hehogrim's design t4
+	id = DA_building_outcome.2
+	title = "DA_building_outcome.2.t"
+	desc = "DA_building_outcome.2.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+					has_integrated_dwarven_pop_trigger = yes
+					NOT = { province_id = 4119 }
+					NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.2.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province1 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_3_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.95
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province1 = {
+					has_building = DA_Runeforged_fort_t2
+				}
+			}
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.75
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province1 = {
+					has_building = DA_Runeforged_fort_t3
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.55
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_4_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 4 } }
+			event_target:DA_buildable_province1 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 50
+				treasury = 8000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.2.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province2 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_3_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.95
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province2 = {
+					has_building = DA_Runeforged_fort_t2
+				}
+			}
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.75
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province2 = {
+					has_building = DA_Runeforged_fort_t3
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.55
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_4_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 4 } }
+			event_target:DA_buildable_province2 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 50
+				treasury = 8000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.2.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_Dwarven_magic_Barrier = yes
+				}
+				has_integrated_dwarven_pop_trigger = yes
+				NOT = { province_id = 4119 }
+				NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+			}
+		}
+		if = {
+			limit = { 
+				event_target:DA_buildable_province3 = {
+					has_building = DA_Runeforged_fort
+				}
+			}
+			custom_tooltip = DA_cost_3_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.95
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province3 = {
+					has_building = DA_Runeforged_fort_t2
+				}
+			}
+			custom_tooltip = DA_cost_2_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.75
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				event_target:DA_buildable_province3 = {
+					has_building = DA_Runeforged_fort_t3
+				}
+			}
+			custom_tooltip = DA_cost_1_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 0.55
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_cost_4_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 4 } }
+			event_target:DA_buildable_province3 = {
+				add_building_construction = {
+					building = DA_Hehogrim_Runeforged_fort
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 50
+				treasury = 8000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.2.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # Haraz Orldhum Turrets
+	id = DA_building_outcome.3 
+	title = "DA_building_outcome.3.t"
+	desc = "DA_building_outcome.3.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					owned_by = root
+					NOT = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+							has_Dwarven_magic_Barrier = yes
+						}
+					}
+					OR = {
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+					NOT = { has_province_modifier = DA_HO_Turrets }
+					NOT = { has_province_flag = DA_HO_turrets_construction }
+					fort_level = 2
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					owned_by = root
+					NOT = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+							has_Dwarven_magic_Barrier = yes
+						}
+					}
+					OR = {
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+					NOT = { has_province_modifier = DA_HO_Turrets }
+					NOT = { has_province_flag = DA_HO_turrets_construction }
+					fort_level = 2
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					owned_by = root
+					NOT = {
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_hold_surface
+							has_Dwarven_magic_Barrier = yes
+						}
+					}
+					OR = {
+						has_terrain = cavern
+						has_terrain = dwarven_road
+					}
+					NOT = { has_province_modifier = DA_HO_Turrets }
+					NOT = { has_province_flag = DA_HO_turrets_construction }
+					fort_level = 2
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.3.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+				}
+				OR = {
+					has_terrain = cavern
+					has_terrain = dwarven_road
+				}
+				NOT = { has_province_modifier = DA_HO_Turrets }
+				NOT = { has_province_flag = DA_HO_turrets_construction }
+				fort_level = 2
+			}
+		}
+		add_treasury = -200
+		custom_tooltip = DA_HO_will_be_built_in_2_years
+		event_target:DA_buildable_province1 = {
+			set_province_flag = DA_HO_turrets_construction
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.3.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+				}
+				OR = {
+					has_terrain = cavern
+					has_terrain = dwarven_road
+				}
+				NOT = { has_province_modifier = DA_HO_Turrets }
+				NOT = { has_province_flag = DA_HO_turrets_construction }
+				fort_level = 2
+			}
+		}
+		add_treasury = -200
+		custom_tooltip = DA_HO_will_be_built_in_2_years
+		event_target:DA_buildable_province2 = {
+			set_province_flag = DA_HO_turrets_construction
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.3.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				NOT = {
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+						has_Dwarven_magic_Barrier = yes
+					}
+				}
+				OR = {
+					has_terrain = cavern
+					has_terrain = dwarven_road
+				}
+				NOT = { has_province_modifier = DA_HO_Turrets }
+				NOT = { has_province_flag = DA_HO_turrets_construction }
+				fort_level = 2
+			}
+		}
+		add_treasury = -200
+		custom_tooltip = DA_HO_will_be_built_in_2_years
+		event_target:DA_buildable_province3 = {
+			set_province_flag = DA_HO_turrets_construction
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.3.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+################################################ tech buildings #####################################################
+
+
+country_event = {    # alchemy I
+	id = DA_building_outcome.20 
+	title = "DA_building_outcome.20.t"
+	desc = "DA_building_outcome.20.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_1 }
+					NOT = { has_building = DA_Alchemy_workshop_2 }
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_1 }
+					NOT = { has_building = DA_Alchemy_workshop_2 }
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_1 }
+					NOT = { has_building = DA_Alchemy_workshop_2 }
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.20.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_1 }
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.20.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_1 }
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.20.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_1 }
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # alchemy II
+	id = DA_building_outcome.21 
+	title = "DA_building_outcome.21.t"
+	desc = "DA_building_outcome.21.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_2 }
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_2 }
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_2 }
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.21.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.21.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.21.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # alchemy III
+	id = DA_building_outcome.22 
+	title = "DA_building_outcome.22.t"
+	desc = "DA_building_outcome.22.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Alchemy_workshop_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.22.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_1 }
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.22.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_1 }
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.22.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Alchemy_workshop_1 }
+				NOT = { has_building = DA_Alchemy_workshop_2 }
+				NOT = { has_building = DA_Alchemy_workshop_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Alchemy_workshop_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # mechanics I
+	id = DA_building_outcome.30 
+	title = "DA_building_outcome.30.t"
+	desc = "DA_building_outcome.30.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_1 }
+					NOT = { has_building = DA_Factory_2 }
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_1 }
+					NOT = { has_building = DA_Factory_2 }
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_1 }
+					NOT = { has_building = DA_Factory_2 }
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.30.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_1 }
+				NOT = { has_building = DA_Factory_2 }
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Factory_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.30.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_1 }
+				NOT = { has_building = DA_Factory_2 }
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Factory_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.30.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_1 }
+				NOT = { has_building = DA_Factory_2 }
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Factory_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # alchemy II
+	id = DA_building_outcome.31 
+	title = "DA_building_outcome.31.t"
+	desc = "DA_building_outcome.31.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_2 }
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_2 }
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_2 }
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.31.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_2 }
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Factory_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.31.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_2 }
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Factory_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.31.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_2 }
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Factory_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # alchemy III
+	id = DA_building_outcome.32 
+	title = "DA_building_outcome.32.t"
+	desc = "DA_building_outcome.32.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Factory_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.32.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Factory_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.32.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Factory_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.32.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Factory_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Factory_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # medicine I
+	id = DA_building_outcome.40 
+	title = "DA_building_outcome.40.t"
+	desc = "DA_building_outcome.40.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_1 }
+					NOT = { has_building = DA_Hospital_2 }
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_1 }
+					NOT = { has_building = DA_Hospital_2 }
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_1 }
+					NOT = { has_building = DA_Hospital_2 }
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.40.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_1 }
+				NOT = { has_building = DA_Hospital_2 }
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Hospital_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.40.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_1 }
+				NOT = { has_building = DA_Hospital_2 }
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Hospital_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.40.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_1 }
+				NOT = { has_building = DA_Hospital_2 }
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Hospital_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # medicine II
+	id = DA_building_outcome.41 
+	title = "DA_building_outcome.41.t"
+	desc = "DA_building_outcome.41.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_2 }
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_2 }
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_2 }
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.41.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_2 }
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Hospital_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.41.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_2 }
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Hospital_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.41.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_2 }
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Hospital_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # medicine III
+	id = DA_building_outcome.42 
+	title = "DA_building_outcome.42.t"
+	desc = "DA_building_outcome.42.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					base_manpower = 10
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Hospital_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.42.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Hospital_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.42.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Hospital_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.42.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				base_manpower = 10
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Hospital_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Hospital_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # metallurgy I
+	id = DA_building_outcome.50 
+	title = "DA_building_outcome.50.t"
+	desc = "DA_building_outcome.50.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_1 }
+					NOT = { has_building = DA_Smelting_Furnace_2 }
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_1 }
+					NOT = { has_building = DA_Smelting_Furnace_2 }
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_1 }
+					NOT = { has_building = DA_Smelting_Furnace_2 }
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.50.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_1 }
+				NOT = { has_building = DA_Smelting_Furnace_2 }
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.50.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_1 }
+				NOT = { has_building = DA_Smelting_Furnace_2 }
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.50.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_1 }
+				NOT = { has_building = DA_Smelting_Furnace_2 }
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_1_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 1 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # alchemy II
+	id = DA_building_outcome.51 
+	title = "DA_building_outcome.51.t"
+	desc = "DA_building_outcome.51.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_2 }
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_2 }
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_2 }
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.51.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_2 }
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.51.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_2 }
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.51.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_2 }
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # alchemy III
+	id = DA_building_outcome.52 
+	title = "DA_building_outcome.52.t"
+	desc = "DA_building_outcome.52.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					OR = {
+						has_province_modifier = DA_Mine_2
+						has_province_modifier = DA_Mine_3
+						has_province_modifier = DA_Mine_4
+						has_province_modifier = DA_Mine_5
+					}
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Smelting_Furnace_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.52.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.52.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.52.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Smelting_Furnace_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Smelting_Furnace_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # arcane arts I
+	id = DA_building_outcome.60 
+	title = "DA_building_outcome.60.t"
+	desc = "DA_building_outcome.60.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_1 }
+					NOT = { has_building = DA_Runesmiths_branch_2 }
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_1 }
+					NOT = { has_building = DA_Runesmiths_branch_2 }
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_1 }
+					NOT = { has_building = DA_Runesmiths_branch_2 }
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.60.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_1 }
+				NOT = { has_building = DA_Runesmiths_branch_2 }
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.60.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_1 }
+				NOT = { has_building = DA_Runesmiths_branch_2 }
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.60.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_1 }
+				NOT = { has_building = DA_Runesmiths_branch_2 }
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_2_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 2 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_1
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # alchemy II
+	id = DA_building_outcome.61 
+	title = "DA_building_outcome.61.t"
+	desc = "DA_building_outcome.61.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_1 }
+					NOT = { has_building = DA_Runesmiths_branch_2 }
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_1 }
+					NOT = { has_building = DA_Runesmiths_branch_2 }
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_1 }
+					NOT = { has_building = DA_Runesmiths_branch_2 }
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.61.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_2 }
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.61.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_2 }
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.61.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_2 }
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_2
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
+
+country_event = {    # alchemy III
+	id = DA_building_outcome.62 
+	title = "DA_building_outcome.62.t"
+	desc = "DA_building_outcome.62.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+				}
+				save_event_target_as = DA_buildable_province2
+			}
+			random_core_province = {
+				limit = {
+					development = 20
+					num_free_building_slots = 1
+					NOT = { has_building = DA_Runesmiths_branch_3 }
+					NOT = { has_construction = any }
+					NOT = { has_colonist = yes }
+					NOT = { has_missionary = yes }
+					NOT = { province_id = event_target:DA_buildable_province1 }
+					NOT = { province_id = event_target:DA_buildable_province2 }
+				}
+				save_event_target_as = DA_buildable_province3
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.62.a"
+		goto = DA_buildable_province1
+		trigger = {
+			event_target:DA_buildable_province1 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_4_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 4 } }
+		event_target:DA_buildable_province1 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.62.b"
+		goto = DA_buildable_province2
+		trigger = {
+			event_target:DA_buildable_province2 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_4_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 4 } }
+		event_target:DA_buildable_province2 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.62.c"
+		goto = DA_buildable_province3
+		trigger = {
+			event_target:DA_buildable_province3 = {
+				development = 20
+				num_free_building_slots = 1
+				NOT = { has_building = DA_Runesmiths_branch_3 }
+				NOT = { has_construction = any }
+				NOT = { has_colonist = yes }
+				NOT = { has_missionary = yes }
+			}
+		}
+		custom_tooltip = DA_cost_4_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 4 } }
+		event_target:DA_buildable_province3 = {
+			add_building_construction = {
+				building = DA_Runesmiths_branch_3
+				speed = 1
+				cost = 1
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				treasury = 7000
+			}
+		}
+	}
+	option = {
+		name = "DA_building_outcome.1.Go_back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+	after = {
+		clr_country_flag = DA_Buildings_menu_in_use
+	}
+}	
