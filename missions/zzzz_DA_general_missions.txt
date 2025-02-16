@@ -1,0 +1,1118 @@
+DA_general_1_column = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_1_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 82
+		required_missions = { DA_general_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 100
+			any_core_province = {
+				OR = {
+					has_building = DA_Hospital_0
+					has_building = DA_Hospital_1
+					has_building = DA_Hospital_2
+					has_building = DA_Hospital_3
+				}
+			}
+		}
+
+		effect = {
+			add_treasury = -100
+			change_innovativeness = 2
+			capital_scope = { DA_Tech_prov.Medicine = { amount = 200 }  } 
+		}
+	}
+
+	DA_general_1_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_general_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 1
+			any_core_province = {
+				OR = {
+					has_building = DA_Hospital_1
+					has_building = DA_Hospital_2
+					has_building = DA_Hospital_3
+				}
+			}
+		}
+
+		effect = { country_event = { id = DA_General_MT_event.3 }  } 
+	}
+}
+DA_general_2_column = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 81
+		required_missions = { DA_general_3_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 50
+			manpower = 2
+			any_core_province = {
+				OR = {
+					has_building = DA_Smelting_Furnace_0
+					has_building = DA_Smelting_Furnace_1
+					has_building = DA_Smelting_Furnace_2
+					has_building = DA_Smelting_Furnace_3
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					capital_scope = {
+						OR = {
+							has_building = DA_Smelting_Furnace_0
+							has_building = DA_Smelting_Furnace_1
+							has_building = DA_Smelting_Furnace_2
+							has_building = DA_Smelting_Furnace_3
+						}
+					}
+				}
+				add_treasury = -50
+				add_manpower = -2
+				capital_scope = {
+					add_permanent_province_modifier = {
+						name = "DA_central_mine"
+						duration = -1
+					}
+					random_list = {
+						1 = { DA_Mine_upgrade_alternative_events = yes } 
+						3 = { DA_add_Metal_Common = yes } 
+						1 = { DA_add_Metal_Rare = yes } 
+					}
+				}
+			}
+			else = {
+				add_treasury = -50
+				add_manpower = -2
+				random_core_province = {
+					limit = {
+						OR = {
+							has_building = DA_Smelting_Furnace_0
+							has_building = DA_Smelting_Furnace_1
+							has_building = DA_Smelting_Furnace_2
+							has_building = DA_Smelting_Furnace_3
+						}
+					}
+					add_permanent_province_modifier = {
+						name = "DA_central_mine"
+						duration = -1
+					}
+					random_list = {
+						1 = { DA_Mine_upgrade_alternative_events = yes } 
+						3 = { DA_add_Metal_Common = yes } 
+						1 = { DA_add_Metal_Rare = yes } 
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 83
+		required_missions = { DA_general_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 100
+			mil_power = 50
+		}
+
+		effect = {
+			add_treasury = -100
+			add_mil_power = -50
+			custom_tooltip = DA_enable_Warforged_juggernauts_tt
+			hidden_effect = { DA_enable_Metal_Caval = yes } 
+		}
+	}
+
+	DA_general_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_general_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 500
+			manpower = 10
+			any_core_province = {
+				OR = {
+					has_building = DA_Smelting_Furnace_1
+					has_building = DA_Smelting_Furnace_2
+					has_building = DA_Smelting_Furnace_3
+				}
+			}
+		}
+
+		effect = { country_event = { id = DA_General_MT_event.4 }  } 
+	}
+}
+DA_general_3_column = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_3_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 80
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			any_core_province = {
+				OR = {
+					has_building = DA_Runesmiths_branch_0
+					has_building = DA_Runesmiths_branch_1
+					has_building = DA_Runesmiths_branch_2
+					has_building = DA_Runesmiths_branch_3
+				}
+			}
+		}
+
+		effect = { country_event = { id = DA_General_MT_event.1 }  } 
+	}
+
+	DA_general_3_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 82
+		required_missions = {
+			DA_general_2_1
+			DA_general_4_1
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_completed.Metallurgy_1 = yes
+			treasury = 100
+			mil_power = 50
+		}
+
+		effect = {
+			add_treasury = -100
+			add_mil_power = -50
+			custom_tooltip = DA_enable_metallurgy_System_tt
+			set_country_flag = DA_enable_metallurgy_System
+			DA_enable_Metal_Infan = yes
+		}
+	}
+
+	DA_general_3_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 83
+		required_missions = {
+			DA_general_3_2
+			DA_general_5_1
+			DA_general_1_1
+		}
+		provinces_to_highlight = {
+			is_capital = yes
+			owned_by = root
+		}
+
+		trigger = {
+			DA_completed.Metallurgy_1 = yes
+			DA_completed.Medicine_1 = yes
+			capital_scope = {
+				OR = {
+					has_building = DA_PS_1
+					has_building = DA_PS_2
+					has_building = DA_PS_3
+				}
+				OR = {
+					has_building = DA_Hospital_1
+					has_building = DA_Hospital_2
+					has_building = DA_Hospital_3
+				}
+				OR = {
+					has_building = DA_Runesmiths_branch_1
+					has_building = DA_Runesmiths_branch_2
+					has_building = DA_Runesmiths_branch_3
+				}
+			}
+		}
+
+		effect = {
+			set_country_flag = DA_General_MT_part_2_enabled
+			country_event = { id = DA_General_MT_event.2 } 
+		}
+	}
+
+	DA_general_3_31 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_general_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 1000
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Enchantments_Manufacturing"
+				duration = 1825
+			}
+			country_event = {
+				id = DA_General_MT_event.5
+				days = 1825
+			}
+		}
+	}
+
+	DA_general_3_4 = {
+		icon = mission_build_up_to_force_limit
+		position = 85
+		required_missions = { DA_general_3_31 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 1000
+			adm_power = 100
+			mil_power = 50
+			DA_completed.Metallurgy_2 = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+
+		effect = {
+			add_treasury = -1000
+			add_adm_power = -100
+			add_mil_power = -50
+			add_country_modifier = {
+				name = "DA_Tech_Researching_steam_power"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.300
+			}
+		}
+	}
+
+	DA_general_3_5 = {
+		icon = mission_build_up_to_force_limit
+		position = 87
+		required_missions = { DA_general_3_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 2500
+			adm_power = 200
+			mil_power = 100
+			DA_completed.Metallurgy_3 = yes
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+
+		effect = {
+			add_treasury = -2500
+			add_adm_power = -200
+			add_mil_power = -100
+			add_country_modifier = {
+				name = "DA_Tech_Researching_electric_power"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.310
+			}
+		}
+	}
+
+	DA_general_3_51 = {
+		icon = mission_build_up_to_force_limit
+		position = 88
+		required_missions = { DA_general_3_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 4000
+			adm_power = 200
+			mil_power = 100
+		} 
+
+		effect = {
+			add_treasury = -4000
+			add_adm_power = -200
+			add_mil_power = -100
+			custom_tooltip = DA_can_use_Mana_circuits_tt
+			set_country_flag = DA_can_use_Militarized_Runic_circuits
+		} 
+	}
+}
+DA_general_4_column = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_4_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 81
+		required_missions = { DA_general_3_1 } 
+		provinces_to_highlight = {
+			is_capital = yes
+			owned_by = root
+		}
+
+		trigger = {
+			treasury = 150
+			capital_scope = { development = 20 } 
+		}
+
+		effect = {
+			add_treasury = -150
+			capital_scope = {
+				add_permanent_province_modifier = {
+					name = "DA_Arcane_accademy"
+					duration = -1
+				}
+			}
+		}
+	}
+
+	DA_general_4_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 83
+		required_missions = { DA_general_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_completed.Metallurgy_2 = yes
+			treasury = 200
+			mil_power = 75
+		}
+
+		effect = {
+			add_treasury = -200
+			add_mil_power = -75
+			custom_tooltip = DA_enable_dwarven_artillery_tt
+			set_country_flag = DA_enable_metallurgy_System_art
+		}
+	}
+
+	DA_general_4_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_general_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			always = no
+		} 
+
+		effect = {  } 
+	}
+}
+DA_general_5_column = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_5_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 82
+		required_missions = { DA_general_4_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			any_core_province = {
+				OR = {
+					has_building = DA_Alchemy_workshop_0
+					has_building = DA_Alchemy_workshop_1
+					has_building = DA_Alchemy_workshop_2
+					has_building = DA_Alchemy_workshop_3
+				}
+			}
+		}
+
+		effect = { capital_scope = { DA_Tech_prov.Alchemy = { amount = 200 }  }  } 
+	}
+
+	DA_general_5_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_general_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			always = no
+		} 
+
+		effect = {  } 
+	}
+}
+DA_general_1_2_column = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		has_country_flag = DA_General_MT_part_2_enabled
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_1_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 94
+		required_missions = { DA_general_3_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { always = no } 
+
+		effect = {  } 
+	}
+
+	DA_general_B13_1 = {
+		icon = mission_sw_against_the_desert
+		position = 96
+		required_missions = { DA_general_3_2_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_elemental_magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.214
+				days = 365
+			}
+		}
+	}
+
+	DA_general_1_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 98
+		required_missions = { DA_general_3_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { DA_has_NO_Project_active = yes } 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Mechanization"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.320
+			}
+		}
+	}
+
+	DA_general_1_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 100
+		required_missions = { DA_general_3_2_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			always = no
+			DA_has_NO_Project_active = yes
+		 } 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Plasma"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.325
+				days = 1825
+			}
+		}
+	}
+
+	DA_general_B18_1 = {
+		icon = mission_se_along_the_river
+		position = 102
+		required_missions = { DA_general_3_2_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_conceptual_magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.218
+				days = 730
+			}
+		}
+	}
+}
+DA_general_2_2_column = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		has_country_flag = DA_General_MT_part_2_enabled
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_2_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 94
+		required_missions = { DA_general_3_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { DA_has_NO_Project_active = yes } 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Curse_Magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.330
+			}
+		}
+	}
+
+	DA_general_B23_1 = {
+		icon = mission_look_west
+		position = 96
+		required_missions = { DA_general_3_2_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_elemental_magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.215
+				days = 365
+			}
+		}
+	}
+
+	DA_general_2_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 98
+		required_missions = { DA_general_3_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			always = no
+			DA_has_NO_Project_active = yes 
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Planar_Energy"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.330
+				days = 1825
+			}
+		}
+	}
+
+	DA_general_2_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 100
+		required_missions = { DA_general_3_2_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { always = no } 
+
+		effect = {  } 
+	}
+
+	DA_general_B28_1 = {
+		icon = mission_pue_chaco_roads
+		position = 102
+		required_missions = { DA_general_3_2_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_conceptual_magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.221
+				days = 730
+			}
+		}
+	}
+}
+DA_general_3_2_column = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		has_country_flag = DA_General_MT_part_2_enabled
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_3_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 93
+		provinces_to_highlight = {  } 
+
+		trigger = { DA_has_NO_Project_active = yes } 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Arcane_Blueprints"
+				duration = 730
+			}
+		}
+	}
+
+	DA_general_3_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 95
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_completed.Magic_Theory_2 = yes
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_elemental_magic"
+				duration = 730
+			}
+		}
+	}
+
+	DA_general_3_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 97
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_Steam_power_or_higher = yes
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Steam_Blueprints"
+				duration = 730
+			}
+		}
+	}
+
+	DA_general_3_2_4 = {
+		icon = mission_build_up_to_force_limit
+		position = 99
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_Energy_power_or_higher = yes
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Electric_Blueprints"
+				duration = 730
+			}
+		}
+	}
+
+	DA_general_3_2_5 = {
+		icon = mission_build_up_to_force_limit
+		position = 101
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_Energy_power_or_higher = yes
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_conceptual_magic"
+				duration = 730
+			}
+		}
+	}
+}
+DA_general_4_2_column = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		has_country_flag = DA_General_MT_part_2_enabled
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_4_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 94
+		required_missions = { DA_general_3_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+			religious_unity = 1
+			OR = {
+				NOT = { has_country_flag = DA_Project.completed.Curse_Magic } 
+				DA_completed.Magic_Theory_4 = yes
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Holy_Magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.340
+			}
+		}
+	}
+
+	DA_general_B43_1 = {
+		icon = mission_devastate_christianity
+		position = 96
+		required_missions = { DA_general_3_2_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_elemental_magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.216
+				days = 365
+			}
+		}
+	}
+
+	DA_general_4_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 98
+		required_missions = { DA_general_3_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { always = no } 
+
+		effect = {  } 
+	}
+
+	DA_general_4_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 100
+		required_missions = { DA_general_3_2_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { DA_has_NO_Project_active = yes } 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Dimensional_Engineering"
+				duration = -1
+			}
+			country_event = { id = DA_project_event.244 } 
+		}
+	}
+
+	DA_general_B48_1 = {
+		icon = mission_norse_faith
+		position = 102
+		required_missions = { DA_general_3_2_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_conceptual_magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.220
+				days = 730
+			}
+		}
+	}
+}
+DA_general_5_2_column = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		has_country_flag = DA_General_MT_part_2_enabled
+		NOT = {
+			AND = {
+				culture_group = dwarven
+				capital_scope = {
+					OR = {
+						continent = serpentspine
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+			}
+		}
+	}
+
+	DA_general_5_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 94
+		required_missions = { DA_general_3_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { DA_has_NO_Project_active = yes } 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Spirits"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.345
+			}
+		}
+	}
+
+	DA_general_B53_1 = {
+		icon = mission_zambezi_gold
+		position = 96
+		required_missions = { DA_general_3_2_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_elemental_magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.217
+				days = 365
+			}
+		}
+	}
+
+	DA_general_5_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 98
+		required_missions = { DA_general_3_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { DA_has_NO_Project_active = yes } 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_motorization"
+				duration = -1
+			}
+			country_event = { id = DA_project_event.222 } 
+		}
+	}
+
+	DA_general_5_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 100
+		required_missions = { DA_general_3_2_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { DA_has_NO_Project_active = yes } 
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_Airships"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.350
+			}
+		}
+	}
+
+	DA_general_B58_1 = {
+		icon = mission_impaled_soldies
+		position = 102
+		required_missions = { DA_general_3_2_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_has_NO_Project_active = yes
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "DA_Tech_Researching_conceptual_magic"
+				duration = -1
+			}
+			country_event = {
+				id = DA_project_event.219
+				days = 730
+			}
+		}
+	}
+}

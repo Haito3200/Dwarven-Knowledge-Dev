@@ -1,0 +1,617 @@
+DA_MT_Kobold_1_column = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_1_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 82
+		required_missions = { DA_MT_Kobold_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 100
+			any_core_province = {
+				OR = {
+					has_building = DA_Hospital_0
+					has_building = DA_Hospital_1
+					has_building = DA_Hospital_2
+					has_building = DA_Hospital_3
+				}
+			}
+		}
+
+		effect = {
+			add_treasury = -100
+			change_innovativeness = 2
+			DA_Tech_prov.Medicine = { amount = 200 } 
+			DA_Tech_prov.Metallurgy = { amount = 200 } 
+		}
+	}
+}
+DA_MT_Kobold_2_column = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 81
+		required_missions = { DA_MT_Kobold_3_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 50
+			manpower = 2
+			any_core_province = {
+				OR = {
+					has_building = DA_Smelting_Furnace_0
+					has_building = DA_Smelting_Furnace_1
+					has_building = DA_Smelting_Furnace_2
+					has_building = DA_Smelting_Furnace_3
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					capital_scope = {
+						OR = {
+							has_building = DA_Smelting_Furnace_0
+							has_building = DA_Smelting_Furnace_1
+							has_building = DA_Smelting_Furnace_2
+							has_building = DA_Smelting_Furnace_3
+						}
+					}
+				}
+				add_treasury = -50
+				add_manpower = -2
+				capital_scope = {
+					add_permanent_province_modifier = {
+						name = "DA_central_mine"
+						duration = -1
+					}
+					random_list = {
+						1 = { DA_Mine_upgrade_alternative_events = yes } 
+						3 = { DA_add_Metal_Common = yes } 
+						1 = { DA_add_Metal_Rare = yes } 
+					}
+				}
+			}
+			else = {
+				add_treasury = -50
+				add_manpower = -2
+				random_core_province = {
+					limit = {
+						OR = {
+							has_building = DA_Smelting_Furnace_0
+							has_building = DA_Smelting_Furnace_1
+							has_building = DA_Smelting_Furnace_2
+							has_building = DA_Smelting_Furnace_3
+						}
+					}
+					add_permanent_province_modifier = {
+						name = "DA_central_mine"
+						duration = -1
+					}
+					random_list = {
+						1 = { DA_Mine_upgrade_alternative_events = yes } 
+						3 = { DA_add_Metal_Common = yes } 
+						1 = { DA_add_Metal_Rare = yes } 
+					}
+				}
+			}
+		}
+	}
+
+	DA_MT_Kobold_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 83
+		required_missions = { DA_MT_Kobold_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 100
+			mil_power = 50
+		}
+
+		effect = {
+			add_treasury = -100
+			add_mil_power = -50
+			custom_tooltip = DA_enable_Warforged_juggernauts_tt
+			hidden_effect = { DA_enable_Metal_Caval = yes } 
+		}
+	}
+}
+DA_MT_Kobold_3_column = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_3_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 80
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Demonterizing_or_demonsterized_tt
+				OR = {
+					has_country_flag = removing_monstrous
+					has_country_flag = no_longer_monstrous
+				}
+			}
+		}
+
+		effect = { country_event = { id = DA_Kobold_event.1 }  } 
+	}
+
+	DA_MT_Kobold_3_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 82
+		required_missions = {
+			DA_MT_Kobold_2_1
+			DA_MT_Kobold_4_1
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_completed.Metallurgy_1 = yes
+			has_estate = estate_artificers
+			custom_trigger_tooltip = {
+				tooltip = DA_Max_artifice_capacity_is_20_plus_tt
+				check_variable = {
+					which = MaxArtificePoints
+					value = 20
+				}
+			}
+		}
+
+		effect = {
+			debuff_artifice_points_5 = yes
+			custom_tooltip = DA_enable_metallurgy_System_artificer_tt
+			set_country_flag = DA_enable_metallurgy_System_artificer
+		}
+	}
+
+	DA_MT_Kobold_3_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 83
+		required_missions = {
+			DA_MT_Kobold_3_2
+			DA_MT_Kobold_5_1
+			DA_MT_Kobold_1_1
+		}
+		provinces_to_highlight = {
+			is_capital = yes
+			owned_by = root
+		}
+
+		trigger = {
+			DA_completed.Metallurgy_1 = yes
+			DA_completed.Medicine_1 = yes
+			capital_scope = {
+				OR = {
+					has_building = DA_PS_1
+					has_building = DA_PS_2
+					has_building = DA_PS_3
+				}
+				OR = {
+					has_building = DA_Hospital_1
+					has_building = DA_Hospital_2
+					has_building = DA_Hospital_3
+				}
+				OR = {
+					has_building = DA_Runesmiths_branch_1
+					has_building = DA_Runesmiths_branch_2
+					has_building = DA_Runesmiths_branch_3
+				}
+			}
+		}
+
+		effect = {  } 
+	}
+}
+DA_MT_Kobold_4_column = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_4_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 81
+		required_missions = { DA_MT_Kobold_3_1 } 
+		provinces_to_highlight = {
+			is_capital = yes
+			owned_by = root
+		}
+
+		trigger = {
+			has_estate = estate_artificers
+			custom_trigger_tooltip = {
+				tooltip = DA_Max_artifice_capacity_is_15_plus_tt
+				check_variable = {
+					which = MaxArtificePoints
+					value = 15
+				}
+			}
+			treasury = 150
+			capital_scope = { development = 20 } 
+		}
+
+		effect = {
+			add_treasury = -150
+			mission_reward_artifice_points_3 = yes
+			capital_scope = {
+				add_permanent_province_modifier = {
+					name = "DA_Artificer_accademy"
+					duration = -1
+				}
+			}
+		}
+	}
+
+	DA_MT_Kobold_4_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 83
+		required_missions = { DA_MT_Kobold_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			DA_completed.Metallurgy_2 = yes
+			treasury = 200
+			mil_power = 75
+		}
+
+		effect = {
+			add_treasury = -200
+			add_mil_power = -75
+			custom_tooltip = DA_enable_dwarven_artillery_tt
+			set_country_flag = DA_enable_metallurgy_System_art
+		}
+	}
+}
+DA_MT_Kobold_5_column = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_5_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 82
+		required_missions = { DA_MT_Kobold_4_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+DA_MT_Kobold_1_2_column = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_1_2_4 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_MT_Kobold_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_1_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 94
+		required_missions = { DA_MT_Kobold_3_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_1_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 97
+		required_missions = { DA_MT_Kobold_3_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_1_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 99
+		required_missions = { DA_MT_Kobold_3_2_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+DA_MT_Kobold_2_2_column = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_2_2_4 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_MT_Kobold_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_2_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 94
+		required_missions = { DA_MT_Kobold_3_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_2_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 97
+		required_missions = { DA_MT_Kobold_3_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_2_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 99
+		required_missions = { DA_MT_Kobold_3_2_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+DA_MT_Kobold_3_2_column = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_3_2_6 = {
+		icon = mission_build_up_to_force_limit
+		position = 85
+		required_missions = {
+			DA_MT_Kobold_3_3
+			DA_MT_Kobold_4_2_4
+			DA_MT_Kobold_5_2_4
+			DA_MT_Kobold_2_2_4
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_3_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 93
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_3_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 95
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_3_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 96
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_3_2_4 = {
+		icon = mission_build_up_to_force_limit
+		position = 98
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_3_2_5 = {
+		icon = mission_build_up_to_force_limit
+		position = 100
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+DA_MT_Kobold_4_2_column = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_4_2_4 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_MT_Kobold_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_4_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 94
+		required_missions = { DA_MT_Kobold_3_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_4_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 97
+		required_missions = { DA_MT_Kobold_3_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_4_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 99
+		required_missions = { DA_MT_Kobold_3_2_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+DA_MT_Kobold_5_2_column = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_5_2_4 = {
+		icon = mission_build_up_to_force_limit
+		position = 84
+		required_missions = { DA_MT_Kobold_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_5_2_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 94
+		required_missions = { DA_MT_Kobold_3_2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_5_2_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 97
+		required_missions = { DA_MT_Kobold_3_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_5_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 99
+		required_missions = { DA_MT_Kobold_3_2_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+DA_MT_Kobold_3_3_column = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { culture_group = kobold always = no } 
+
+	DA_MT_Kobold_3_3_1 = {
+		icon = mission_build_up_to_force_limit
+		position = 101
+		required_missions = { DA_MT_Kobold_3_2_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_3_3_2 = {
+		icon = mission_build_up_to_force_limit
+		position = 102
+		required_missions = { DA_MT_Kobold_3_3_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	DA_MT_Kobold_3_3_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 103
+		required_missions = { DA_MT_Kobold_3_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
