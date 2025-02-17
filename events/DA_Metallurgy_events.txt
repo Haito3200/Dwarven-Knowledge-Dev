@@ -359,6 +359,117 @@ country_event = {
 		}
 	}
 }
+country_event = {
+	id = DA_Metallurgy_events.11 # AI buffs ( they don't get unit design anymore )
+	title = "DA_Metallurgy_events.10.t"
+	desc = "DA_Metallurgy_events.10.d"
+	picture = DWARVEN_RAIL_eventPicture
+
+	trigger = {
+		ai = yes
+		OR = {
+			AND = {
+				is_year = 1500
+				NOT = { is_year = 1550 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1500_1550 }
+			}
+			AND = {
+				is_year = 1550
+				NOT = { is_year = 1600 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1550_1600 }
+			}
+			AND = {
+				is_year = 1600
+				NOT = { is_year = 1650 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1600_1650 }
+			}
+			AND = {
+				is_year = 1650
+				NOT = { is_year = 1700 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1650_1700 }
+			}
+			AND = {
+				is_year = 1700
+				NOT = { is_year = 1750 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1700_1750 }
+			}
+			AND = {
+				is_year = 1750
+				NOT = { has_country_modifier = DA_AI_Buffs_1750_plus }
+			}
+		}
+	}
+	hidden = yes
+	is_triggered_only = yes
+	option = {
+		name = "DA_Metallurgy_events.1.a"
+		if = {
+			limit = { 
+				is_year = 1500
+				NOT = { is_year = 1550 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1500_1550 }
+			}
+			add_country_modifier = {
+				name = DA_AI_Buffs_1500_1550
+				duration = -1
+			}
+		}
+		if = {
+			limit = { 
+				is_year = 1550
+				NOT = { is_year = 1600 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1550_1600 }
+			}
+			add_country_modifier = {
+				name = DA_AI_Buffs_1500_1550
+				duration = -1
+			}
+		}
+		if = {
+			limit = { 
+				is_year = 1600
+				NOT = { is_year = 1650 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1600_1650 }
+			}
+			add_country_modifier = {
+				name = DA_AI_Buffs_1500_1550
+				duration = -1
+			}
+		}
+		if = {
+			limit = { 
+				is_year = 1650
+				NOT = { is_year = 1700 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1650_1700 }
+			}
+			add_country_modifier = {
+				name = DA_AI_Buffs_1500_1550
+				duration = -1
+			}
+		}
+		if = {
+			limit = { 
+				is_year = 1700
+				NOT = { is_year = 1750 }
+				NOT = { has_country_modifier = DA_AI_Buffs_1700_1750 }
+			}
+			add_country_modifier = {
+				name = DA_AI_Buffs_1500_1550
+				duration = -1
+			}
+		}
+		if = {
+			limit = { 
+				is_year = 1750
+				NOT = { has_country_modifier = DA_AI_Buffs_1750_plus }
+			}
+			add_country_modifier = {
+				name = DA_AI_Buffs_1500_1550
+				duration = -1
+			}
+		}
+	}
+}
 ################# upgrade results ##################
 
 province_event = {
