@@ -117,8 +117,16 @@ custom_button = {
         }
 	}
 	effect = {
-        set_country_flag = DA_Metallurgy_interface_on
-        set_country_flag = DA_Metallurgy_interface_on_main
+        if = {
+            limit = {
+                has_country_flag = DA_Metallurgy_interface_on
+            }
+            clr_country_flag = DA_Metallurgy_interface_on
+        }
+        else = {
+            set_country_flag = DA_Metallurgy_interface_on
+            set_country_flag = DA_Metallurgy_interface_on_main
+        }
 	}
 }
 custom_button = {
@@ -128,14 +136,18 @@ custom_button = {
 		always = yes
 	}
 	trigger = {
-        custom_trigger_tooltip = {
-            tooltip = DA_metallurgy_interface_NOT_IN_USE
-            NOt = { has_country_flag = DA_Metallurgy_interface_on }
-        }
+        always = yes
 	}
-	effect = {
-        set_country_flag = DA_Metallurgy_interface_on
-        set_country_flag = DA_Metallurgy_interface_on_black_market
+	effect = {      # this is just to prevent people opening an half-done thing
+    #    if = {
+    #        limit = {
+    #            has_country_flag = DA_Black_Market_Interface_on
+    #        }
+    #        clr_country_flag = DA_Black_Market_Interface_on
+    #    }
+    #    else = {
+    #        set_country_flag = DA_Black_Market_Interface_on
+    #    }
 	}
 }
 custom_button = {
@@ -151,6 +163,10 @@ custom_button = {
         }
 	}
 	effect = {
+        clr_country_flag = DA_Metallurgy_interface_on_main
+        clr_country_flag = DA_Metallurgy_interface_on_alloy
+        clr_country_flag = DA_Metallurgy_interface_on_inventions
+
         set_country_flag = DA_Metallurgy_interface_on
         set_country_flag = DA_Metallurgy_interface_on_wonders
 	}
