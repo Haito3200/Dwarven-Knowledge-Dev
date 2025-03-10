@@ -22,5 +22,10 @@ NDefines.NMilitary.CAWA_STARTING_MORALE = 0.1
 NDefines.NMilitary.CREATE_CAWA_MIL_COST = 0
 NDefines.NMilitary.CAWA_USES_CONSTRUCTION = 1
 
+NDefines.NMilitary.LOOTED_MAX = 20
+
 NDefines.NCountry.STATE_MAINTENANCE_DEV_FACTOR = 0.014  -- +100%
 NDefines.NEconomy.EDICTS_COST_INCREASE = 1.0 -- -50% to account for the base increase
+
+NDefines.NAI.DEVELOPMENT_CAP_BASE = 20,	-- AI will not develop provinces that have more development than this or DEVELOPMENT_CAP_MULT*original development (whichever is bigger)
+NDefines.NAI.DEVELOPMENT_CAP_MULT = 3,	-- CAP_BASE 10 -> 20,CAP_MULT 2 -> 3
