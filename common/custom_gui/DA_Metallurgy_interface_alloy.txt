@@ -291,6 +291,7 @@ custom_button = {
 	}
 	effect = {
 		set_country_flag = DA_alloy_unfinished
+		set_country_flag = DA_alloy_selecting_mod_1
 		country_event = {
 			id = DA_alloys_events.3
 		}
@@ -304,14 +305,83 @@ custom_button = {
 		always = yes
 	}
 	trigger = {
-		always = no
 		DA_completed.Metallurgy_4 = yes
 		custom_trigger_tooltip = {
 			tooltip = DA_alloy_unfinished_tt
 			NOT = { has_country_flag = DA_alloy_unfinished }
 		}
+		custom_trigger_tooltip = {
+			tooltip = DA_Alloy_unique_mod_already_selected_tt
+			OR = {
+				AND = {
+					has_country_flag = DA_C1_showed
+					has_country_flag = DA_Alloy_unique_mod_2_C1.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.C1 }
+				}
+				AND = {
+					has_country_flag = DA_C2_showed
+					has_country_flag = DA_Alloy_unique_mod_2_C2.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.C2 }
+				}
+				AND = {
+					has_country_flag = DA_C3_showed
+					has_country_flag = DA_Alloy_unique_mod_2_C3.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.C3 }
+				}
+				AND = {
+					has_country_flag = DA_C4_showed
+					has_country_flag = DA_Alloy_unique_mod_2_C4.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.C4 }
+				}
+				AND = {
+					has_country_flag = DA_C5_showed
+					has_country_flag = DA_Alloy_unique_mod_2_C5.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.C5 }
+				}
+				AND = {
+					has_country_flag = DA_C6_showed
+					has_country_flag = DA_Alloy_unique_mod_2_C6.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.C6 }
+				}
+				AND = {
+					has_country_flag = DA_R1_showed
+					has_country_flag = DA_Alloy_unique_mod_2_R1.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.R1 }
+				}
+				AND = {
+					has_country_flag = DA_R2_showed
+					has_country_flag = DA_Alloy_unique_mod_2_R2.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.R2 }
+				}
+				AND = {
+					has_country_flag = DA_R3_showed
+					has_country_flag = DA_Alloy_unique_mod_2_R3.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.R3 }
+				}
+				AND = {
+					has_country_flag = DA_R4_showed
+					has_country_flag = DA_Alloy_unique_mod_2_R4.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.R4 }
+				}
+				AND = {
+					has_country_flag = DA_L1_showed
+					has_country_flag = DA_Alloy_unique_mod_2_L1.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.L1 }
+				}
+				AND = {
+					has_country_flag = DA_L2_showed
+					has_country_flag = DA_Alloy_unique_mod_2_L2.empty
+					NOT = { has_country_flag = DA_Alloy_Enabled.L2 }
+				}
+			}
+		}
 	}
 	effect = {
+		set_country_flag = DA_alloy_unfinished
+		set_country_flag = DA_alloy_selecting_mod_2
+		country_event = {
+			id = DA_alloys_events.3
+		}
 	}
 }
 custom_button = {

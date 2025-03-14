@@ -120,18 +120,20 @@ DA_Unique_mod.BLUEPRINT.CAVAL.ClockWork.Dragon = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.BLUEPRINT.ARTIL.ClockWork.1 = {
-	artillery_power = 0.02
-	artillery_level_modifier = 0.05
+	discipline = 0.025
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.BLUEPRINT.ARTIL.ClockWork.2 = {
-	artillery_power = 0.03
-	artillery_level_modifier = 0.10
+	artillery_power = 0.02
+	discipline = 0.05
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.BLUEPRINT.ARTIL.ClockWork.3 = {
 	artillery_power = 0.04
-	artillery_level_modifier = 0.15
+	discipline = 0.075
+	is_cawa_modifier = yes
 }
 
 ####### tesla
@@ -150,7 +152,10 @@ DA_Unique_mod.BLUEPRINT.CAVAL.TESLA.3 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.BLUEPRINT.ARTIL.TESLA.3 = {
-	artillery_level_modifier = 0.20
+	morale_damage = 0.05
+	shock_damage_received = -0.03
+	fire_damage_received = -0.03
+	is_cawa_modifier = yes
 }
 
 ####### RESONANCE
@@ -167,8 +172,9 @@ DA_Unique_mod.BLUEPRINT.CAVAL.RESONANCE.3 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.BLUEPRINT.ARTIL.RESONANCE.3 = {
-	artillery_levels_available_vs_fort = 1
-	artillery_level_modifier = 0.15
+	artillery_power = 0.06
+	morale_damage = 0.10
+	is_cawa_modifier = yes
 }
 
 ####### EXPLOSIVE_MELEE
@@ -186,7 +192,10 @@ DA_Unique_mod.BLUEPRINT.CAVAL.EXPLOSIVE_MELEE.1 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.BLUEPRINT.ARTIL.EXPLOSIVE_MELEE.1 = {
-	artillery_barrage_cost = -0.25
+	regiment_manpower_usage = 0.10
+	shock_damage = 0.10
+	morale_damage = 0.05
+	is_cawa_modifier = yes
 }
 
 ####### EXPLOSIVE_RANGED
@@ -204,7 +213,10 @@ DA_Unique_mod.BLUEPRINT.CAVAL.EXPLOSIVE_RANGED.1 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.BLUEPRINT.ARTIL.EXPLOSIVE_RANGED.1 = {
-	artillery_barrage_cost = -0.25
+	regiment_manpower_usage = 0.10
+	fire_damage = 0.05
+	morale_damage = 0.05
+	is_cawa_modifier = yes
 }
 
 
@@ -293,8 +305,18 @@ DA_Unique_mod.BLUEPRINT.CAVAL.MOTORIZATION.3.ArcanoMech_Annihilator = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.BLUEPRINT.ARTIL.MOTORIZATION.2 = {
-	artillery_levels_available_vs_fort = 1
-	artillery_level_modifier = 0.20
+	regiment_manpower_usage = -0.20
+	morale_damage = 0.10
+	morale_damage_received = -0.05
+	backrow_artillery_damage = 0.10
+	artillery_power = 0.10
+
+
+	land_maintenance_modifier = 1.00
+	reinforce_cost_modifier = 0.50
+	reinforce_speed = -0.15
+
+	is_cawa_modifier = yes
 }
 
 
@@ -484,7 +506,8 @@ DA_Unique_mod.RUNE.CAVAL.RESOLVE = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.RESOLVE = {
-	artillery_shock = 0.05
+	morale_damage_received = -0.05
+	is_cawa_modifier = yes
 }
 
 ####### Enhancement
@@ -510,12 +533,13 @@ DA_Unique_mod.RUNE.CAVAL.Enhancement.2 = {
 }
 
 DA_Unique_mod.RUNE.ARTIL.Enhancement.1 = {
-	backrow_artillery_damage = 0.03
+	discipline = 0.03
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.RUNE.ARTIL.Enhancement.2 = {
-	artillery_level_modifier = 0.10
-	backrow_artillery_damage = 0.06
+	discipline = 0.06
+	is_cawa_modifier = yes
 }
 
 ####### elemental: fire
@@ -530,6 +554,7 @@ DA_Unique_mod.RUNE.CAVAL.fire.1 = {
 }
 DA_Unique_mod.RUNE.ARTIL.fire.1 = {
 	artillery_power = 0.03
+	is_cawa_modifier = yes
 }
 
 ####### elemental: water
@@ -545,7 +570,9 @@ DA_Unique_mod.RUNE.CAVAL.water.1 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.water.1 = {
-	artillery_shock = 0.03
+	shock_damage_received = -0.02
+	regiment_manpower_usage = -0.05
+	is_cawa_modifier = yes
 }
 
 ####### elemental: earth
@@ -561,7 +588,9 @@ DA_Unique_mod.RUNE.CAVAL.earth.1 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.earth.1 = {
-	artillery_shock = 0.03
+	shock_damage_received = -0.02
+	fire_damage_received = -0.02
+	is_cawa_modifier = yes
 }
 
 ####### elemental: air
@@ -575,7 +604,8 @@ DA_Unique_mod.RUNE.CAVAL.air.1 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.air.1 = {
-	artillery_shock = 0.03
+	shock_damage = 0.05
+	is_cawa_modifier = yes
 }
 
 ####### conceptual: life
@@ -591,8 +621,9 @@ DA_Unique_mod.RUNE.CAVAL.life.1 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.life.1 = {
-	artillery_shock = 0.05
-	artillery_cost = 0.10
+	regiment_manpower_usage = -0.15
+	land_maintenance_modifier = 0.10
+	is_cawa_modifier = yes
 }
 ####### conceptual: death
 
@@ -609,8 +640,10 @@ DA_Unique_mod.RUNE.CAVAL.death.1 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.death.1 = {
-	artillery_shock = 0.05
-	artillery_cost = 0.10
+	regiment_manpower_usage = 0.10
+	land_maintenance_modifier = 0.10
+	backrow_artillery_damage = 0.10
+	is_cawa_modifier = yes
 }
 ####### conceptual: time
 
@@ -626,7 +659,8 @@ DA_Unique_mod.RUNE.CAVAL.time.1 = {
 }
 DA_Unique_mod.RUNE.ARTIL.time.1 = {
 	artillery_power = 0.05
-	artillery_cost = 0.10
+	land_maintenance_modifier = 0.10
+	is_cawa_modifier = yes
 }
 ####### conceptual: space
 
@@ -647,9 +681,12 @@ DA_Unique_mod.RUNE.CAVAL.space.1 = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.space.1 = {
-	artillery_shock = 0.02
-	artillery_fire = 0.02
-	artillery_cost = 0.10
+	shock_damage = 0.02
+	fire_damage = 0.02
+	shock_damage_received = -0.02
+	fire_damage_received = -0.02
+	land_maintenance_modifier = 0.10
+	is_cawa_modifier = yes
 }
 
 ######################################################
@@ -674,7 +711,9 @@ DA_Unique_mod.METAL.CAVAL.Adamantium = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Adamantium = {
-	artillery_shock = 0.05
+	shock_damage_received = -0.025
+	fire_damage_received = -0.025
+	is_cawa_modifier = yes
 }
 
 # Unastu_Argazen
@@ -698,8 +737,10 @@ DA_Unique_mod.METAL.CAVAL.Unastu_Argazen = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Unastu_Argazen = {
-	artillery_shock = 0.02
-	artillery_fire = 0.02
+	artillery_power = 0.02
+	shock_damage_received = -0.02
+	fire_damage_received = -0.02
+	is_cawa_modifier = yes
 }
 
 # Bloth_Dolur
@@ -718,6 +759,7 @@ DA_Unique_mod.METAL.CAVAL.Bloth_Dolur = {
 }
 DA_Unique_mod.METAL.ARTIL.Bloth_Dolur = {
 	artillery_power = 0.05
+	is_cawa_modifier = yes
 }
 
 # Sylvanite
@@ -738,7 +780,9 @@ DA_Unique_mod.METAL.CAVAL.Sylvanite = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Sylvanite = {
-	artillery_shock = 0.05
+	regiment_manpower_usage = -0.05
+	reinforce_speed = 0.05
+	is_cawa_modifier = yes
 }
 
 # VoidSteel
@@ -759,7 +803,9 @@ DA_Unique_mod.METAL.CAVAL.VoidSteel = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.VoidSteel = {
-	artillery_shock = 0.05
+	regiment_manpower_usage = 0.05
+	shock_damage = 0.10
+	is_cawa_modifier = yes
 }
 
 # Magnetite
@@ -777,7 +823,8 @@ DA_Unique_mod.METAL.CAVAL.Magnetite = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Magnetite = {
-	artillery_shock = 0.04
+	shock_damage_received = -0.03
+	is_cawa_modifier = yes
 }
 
 # Mistium
@@ -798,7 +845,9 @@ DA_Unique_mod.METAL.CAVAL.Mistium = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Mistium = {
-	artillery_shock = 0.04
+	regiment_manpower_usage = -0.025
+	land_attrition = -0.05
+	is_cawa_modifier = yes
 }
 
 # Skyshard
@@ -816,7 +865,8 @@ DA_Unique_mod.METAL.CAVAL.Skyshard = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Skyshard = {
-	artillery_shock = 0.04
+	shock_damage = 0.05
+	is_cawa_modifier = yes
 }
 
 # Cindersteel
@@ -834,7 +884,8 @@ DA_Unique_mod.METAL.CAVAL.Cindersteel = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Cindersteel = {
-	artillery_fire = 0.03
+	fire_damage = 0.03
+	is_cawa_modifier = yes
 }
 
 # Unobtainium
@@ -855,8 +906,9 @@ DA_Unique_mod.METAL.CAVAL.Unobtainium = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Unobtainium = {
-	artillery_fire = 0.02
-	artillery_shock = 0.02
+	shock_damage = 0.02
+	fire_damage = 0.02
+	is_cawa_modifier = yes
 }
 
 # Hihiirokane
@@ -874,8 +926,8 @@ DA_Unique_mod.METAL.CAVAL.Hihiirokane = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.METAL.ARTIL.Hihiirokane = {
-	artillery_fire = 0.02
-	artillery_shock = 0.02
+	morale_damage = 0.05
+	is_cawa_modifier = yes
 }
 
 
@@ -1232,6 +1284,7 @@ DA_Unique_mod.BLUEPRINT.CAVAL.Mechanization_Knight = {
 ####### Motorized
 
 DA_Unique_mod.BLUEPRINT.CAVAL.Motorized_Pyrestorm_Cyclone_Tank = {
+	land_maintenance_modifier = 0.5
 	reinforce_cost_modifier = 0.40
 	reinforce_speed = -0.40
 	shock_damage_received = -0.10
@@ -1241,6 +1294,7 @@ DA_Unique_mod.BLUEPRINT.CAVAL.Motorized_Pyrestorm_Cyclone_Tank = {
 }
 
 DA_Unique_mod.BLUEPRINT.CAVAL.Motorized_Leviathan_Class_Crawler = {
+	land_maintenance_modifier = 0.5
 	reinforce_cost_modifier = 0.45
 	reinforce_speed = -0.45
 	shock_damage_received = -0.12
@@ -1250,13 +1304,20 @@ DA_Unique_mod.BLUEPRINT.CAVAL.Motorized_Leviathan_Class_Crawler = {
 }
 
 DA_Unique_mod.BLUEPRINT.ARTIL.Motorized_Aetherstorm_Caster_Chariot = {
-	artillery_cost = 0.40
-	artillery_levels_available_vs_fort = 1
-	artillery_power = 0.05
-	artillery_barrage_cost = -0.10
+	land_maintenance_modifier = 0.5
+	reinforce_cost_modifier = 0.45
+	reinforce_speed = -0.45
+	shock_damage_received = -0.08
+	fire_damage_received = -0.08
+	morale_damage = 0.10
+	artillery_level_modifier = 0.25
+	backrow_artillery_damage = 0.10
+	artillery_power = 0.08
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.BLUEPRINT.CAVAL.Motorized_Battle_Spider = {
+	land_maintenance_modifier = 0.5
 	reinforce_cost_modifier = 0.35
 	reinforce_speed = -0.35
 	shock_damage_received = -0.05
@@ -1268,10 +1329,14 @@ DA_Unique_mod.BLUEPRINT.CAVAL.Motorized_Battle_Spider = {
 }
 
 DA_Unique_mod.BLUEPRINT.ARTIL.Motorized_Starflare_Rocket_Carrier = {
-	artillery_cost = 0.50
-	artillery_levels_available_vs_fort = 2
-	artillery_power = 0.08
-	artillery_barrage_cost = -0.15
+	land_maintenance_modifier = 0.5
+	reinforce_cost_modifier = 0.45
+	reinforce_speed = -0.45
+	shock_damage_received = -0.05
+	fire_damage_received = -0.05
+	artillery_level_modifier = 0.30
+	backrow_artillery_damage = 0.20
+	is_cawa_modifier = yes
 }
 
 ####### Motorized electric
@@ -1287,10 +1352,14 @@ DA_Unique_mod.BLUEPRINT.CAVAL.Motorized_Thunderbolt_Assault_Strider = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.BLUEPRINT.ARTIL.Motorized_Arcstorm_Railgun_Tank = {
-	artillery_cost = 0.75
-	artillery_levels_available_vs_fort = 4
+	land_maintenance_modifier = 1
+	reinforce_cost_modifier = 0.50
+	reinforce_speed = -0.50
+	shock_damage_received = -0.10
+	fire_damage_received = -0.10
+	artillery_level_modifier = 0.35
 	backrow_artillery_damage = 0.15
-	artillery_barrage_cost = -0.20
+	is_cawa_modifier = yes
 }
 DA_Unique_mod.BLUEPRINT.INFAN.Motorized_Voltscythe_Combat_Mech = {
 	land_maintenance_modifier = 1
@@ -1352,8 +1421,10 @@ DA_Unique_mod.BLUEPRINT.CAVAL.Dimensional_Eng = {
 }
 
 DA_Unique_mod.BLUEPRINT.ARTIL.Dimensional_Eng = {
-	artillery_barrage_cost = -0.10
-	artillery_levels_available_vs_fort = 2
+	morale_damage = 0.05
+	shock_damage = 0.05
+	fire_damage = 0.05
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.BLUEPRINT.INFAN.Dimensional_Eng_Dimensional_Walkers = {
@@ -1417,12 +1488,14 @@ DA_Unique_mod.BLUEPRINT.CAVAL.Airship_Thunderwing_Raider = {
 
 
 DA_Unique_mod.BLUEPRINT.ARTIL.Airship_Skyforge_Siegecraft = {
-	artillery_cost = 2
+	land_maintenance_modifier = 2
+	reinforce_cost_modifier = 0.60
+	reinforce_speed = -0.60
+	shock_damage_received = -0.8
 	artillery_level_modifier = 0.5
-	artillery_power = 0.05
-	artillery_levels_available_vs_fort = 3
-	backrow_artillery_damage = 0.20
-	artillery_barrage_cost = -0.25
+	backrow_artillery_damage = 0.25
+
+	is_cawa_modifier = yes
 }
 
 
@@ -1431,12 +1504,15 @@ DA_Unique_mod.BLUEPRINT.ARTIL.Airship_Skyforge_Siegecraft = {
 
 
 DA_Unique_mod.BLUEPRINT.ARTIL.Compound_Voidspire_Artillery_Ship = {
-	artillery_cost = 3
+	land_maintenance_modifier = 3
+	reinforce_cost_modifier = 0.60
+	reinforce_speed = -0.60
+	shock_damage_received = -0.8
 	artillery_level_modifier = 1
-	artillery_power = 0.10
-	artillery_levels_available_vs_fort = 5
 	backrow_artillery_damage = 0.25
-	artillery_barrage_cost = -0.35
+	artillery_power = 0.10
+
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.BLUEPRINT.INFAN.Compound_Arcanomech = {
@@ -1566,7 +1642,10 @@ DA_Unique_mod.RUNE.CAVAL.Vault_Endless_Defiance = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.Vault_Endless_Defiance = {
-	artillery_shock = 0.10
+	shock_damage_received = -0.05
+	fire_damage_received = -0.05
+	regiment_manpower_usage = 0.10
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.RUNE.INFAN.Vault_Unmaking = {
@@ -1582,8 +1661,10 @@ DA_Unique_mod.RUNE.CAVAL.Vault_Unmaking = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.Vault_Unmaking = {
-	artillery_shock = 0.05
-	artillery_fire = 0.05
+	shock_damage = 0.10
+	fire_damage = 0.10
+	land_morale = -0.025
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.RUNE.INFAN.Vault_Endless_Hunger = {
@@ -1597,8 +1678,9 @@ DA_Unique_mod.RUNE.CAVAL.Vault_Endless_Hunger = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.Vault_Endless_Hunger = {
-	artillery_cost = 0.05
 	artillery_power = 0.075
+	regiment_manpower_usage = 0.10
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.RUNE.INFAN.Vault_Dread = {
@@ -1612,8 +1694,9 @@ DA_Unique_mod.RUNE.CAVAL.Vault_Dread = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.Vault_Dread = {
-	artillery_cost = 0.025
-	artillery_shock = 0.05
+	morale_damage = 0.15
+	land_morale = -0.05
+	is_cawa_modifier = yes
 }
 
 DA_Unique_mod.RUNE.INFAN.Vault_Forced_Loyalty = {
@@ -1627,5 +1710,7 @@ DA_Unique_mod.RUNE.CAVAL.Vault_Forced_Loyalty = {
 	is_hussars_modifier = yes
 }
 DA_Unique_mod.RUNE.ARTIL.Vault_Forced_Loyalty = {
-	artillery_shock = 0.10
+	morale_damage_received = -0.15
+	regiment_manpower_usage = 0.05
+	is_cawa_modifier = yes
 }
