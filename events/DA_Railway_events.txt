@@ -1,478 +1,5 @@
 namespace = DA_railway_event
 
-country_event = {
-	id = DA_railway_event.1 # railway menu
-	title = "DA_railway_event.1.t"
-	desc = "DA_railway_event.1.d"
-	picture = DA_train_image_eventPicture
-	
-	is_triggered_only = yes
-
-	option = {
-		name = "DA_railway_event.1.faster1"
-		trigger = { NOT = { has_country_flag = DA_rail_faster1_c } 	has_country_flag = DA_rail_faster1  }
-		
-		custom_tooltip = DA_Railway_upgrades_tt
-		set_country_flag = DA_rail_faster1_c
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_faster_mod_1
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.1.trade1"
-		trigger = { NOT = { has_country_flag = DA_rail_trade1_c } 	has_country_flag = DA_rail_trade1  }
-		
-		custom_tooltip = DA_Railway_upgrades_tt
-		set_country_flag = DA_rail_trade1_c
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_trade_mod_1
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.1.traps1"
-		trigger = { NOT = { has_country_flag = DA_rail_traps1_c } 	has_country_flag = DA_rail_traps1  }
-		
-		custom_tooltip = DA_Railway_upgrades_tt
-		set_country_flag = DA_rail_traps1_c
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_traps_mod_1
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.1.supply1"
-		trigger = { NOT = { has_country_flag = DA_rail_supply1_c } 	has_country_flag = DA_rail_supply1  }
-		
-		custom_tooltip = DA_Railway_upgrades_tt
-		set_country_flag = DA_rail_supply1_c
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_supply_mod_1
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.1.faster2"
-		trigger = { NOT = { has_country_flag = DA_rail_faster2_c } 	has_country_flag = DA_rail_faster1.t2 }
-		add_treasury = -1000
-		custom_tooltip = DA_Railway_upgrades_tt
-		set_country_flag = DA_rail_faster2_c
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_faster_mod_2
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.1.trade2"
-		trigger = { NOT = { has_country_flag = DA_rail_trade2_c } 	has_country_flag = DA_rail_trade1.t2 }
-		add_treasury = -1000
-		custom_tooltip = DA_Railway_upgrades_tt
-		set_country_flag = DA_rail_trade2_c
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_trade_mod_2
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.1.traps2"
-		trigger = { NOT = { has_country_flag = DA_rail_traps2_c } 	has_country_flag = DA_rail_traps1.t2 }
-		add_treasury = -1000
-		custom_tooltip = DA_Railway_upgrades_tt
-		set_country_flag = DA_rail_traps2_c
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_traps_mod_2
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.1.supply2"
-		trigger = { NOT = { has_country_flag = DA_rail_supply2_c } 	has_country_flag = DA_rail_supply1.t2 }
-		add_treasury = -1000
-		custom_tooltip = DA_Railway_upgrades_tt
-		set_country_flag = DA_rail_supply2_c
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_supply_mod_2
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.1.Go_Back"
-	}	
-	after = {
-		clr_country_flag = DA_rf_menu_in_use
-	}
-}
-
-country_event = {
-	id = DA_railway_event.2 # unlock one tier 1 upgrade
-	title = "DA_railway_event.2.t"
-	desc = "DA_railway_event.2.d"
-	picture = DA_train_image_eventPicture
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		OR = {
-			NOT = { has_country_flag = DA_rail_faster1 }
-			NOT = { has_country_flag = DA_rail_trade1 }
-			NOT = { has_country_flag = DA_rail_traps1 }
-			NOT = { has_country_flag = DA_rail_supply1 }
-		}
-	}
-	immediate = {
-		hidden_effect = {
-			random_list = {
-				1 = {
-					trigger = {
-						NOT = { has_country_flag = DA_rail_faster1 }
-					}
-					set_country_flag = DA_rail_faster1
-				}
-				1 = {
-					trigger = {
-						NOT = { has_country_flag = DA_rail_trade1 }
-					}
-					set_country_flag = DA_rail_trade1
-				}
-				1 = {
-					trigger = {
-						NOT = { has_country_flag = DA_rail_traps1 }
-					}
-					set_country_flag = DA_rail_traps1
-				}
-				1 = {
-					trigger = {
-						NOT = { has_country_flag = DA_rail_supply1 }
-					}
-					set_country_flag = DA_rail_supply1
-				}
-			}
-		}
-	}
-	mean_time_to_happen = {
-		months = 130
-		modifier = {
-			factor = 2
-			NOT = { innovativeness = 10 }
-		}
-		modifier = {
-			factor = 0.9
-			innovativeness = 40
-		}
-		modifier = {
-			factor = 0.9
-			innovativeness = 60
-		}
-		modifier = {
-			factor = 0.9
-			stability = 3
-		}
-		modifier = {
-			factor = 0.85
-			has_country_modifier = DA_Runesmith_patronage
-		}
-		modifier = {
-			factor = 0.90
-			OR = {
-				has_estate_privilege = estate_DA_Runesmiths_RF_4
-				has_estate_privilege = estate_DA_Runesmiths_RF_5
-			}
-		}
-		modifier = {
-			factor = 0.85
-			OR = {
-				has_estate_privilege = estate_DA_Runesmiths_RF_6
-				has_estate_privilege = estate_DA_Runesmiths_RF_7
-			}
-		}
-		modifier = {
-			factor = 0.80
-			OR = {
-				has_estate_privilege = estate_DA_Runesmiths_RF_8
-				has_estate_privilege = estate_DA_Runesmiths_RF_9
-				has_estate_privilege = estate_DA_Runesmiths_RF_10
-				has_estate_privilege = estate_DA_Runesmiths_RF_11
-			}
-		}
-	}
-
-	option = {
-		name = "DA_railway_event.2.a"
-		trigger = {
-			NOT = { has_country_flag = DA_rail_faster2 }
-			has_country_flag = DA_rail_faster1
-		}
-		hidden_effect = {
-			set_country_flag = DA_rail_faster2
-		}
-		custom_tooltip = DA_unlocked_rail_upgrade.tt
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_faster_mod_1
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.2.b"
-		trigger = {
-			NOT = { has_country_flag = DA_rail_trade2 }
-			has_country_flag = DA_rail_trade1
-		}
-		hidden_effect = {
-			set_country_flag = DA_rail_trade2
-		}
-		custom_tooltip = DA_unlocked_rail_upgrade.tt
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_trade_mod_1
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.2.c"
-		trigger = {
-			NOT = { has_country_flag = DA_rail_traps2 }
-			has_country_flag = DA_rail_traps1
-		}
-		hidden_effect = {
-			set_country_flag = DA_rail_traps2
-		}
-		custom_tooltip = DA_unlocked_rail_upgrade.tt
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_traps_mod_1
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.2.e"
-		trigger = {
-			NOT = { has_country_flag = DA_rail_supply2 }
-			has_country_flag = DA_rail_supply1
-		}
-		hidden_effect = {
-			set_country_flag = DA_rail_supply2
-		}
-		custom_tooltip = DA_unlocked_rail_upgrade.tt
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_supply_mod_1
-					duration = -1
-				}
-			}
-		}
-	}
-}
-
-country_event = {
-	id = DA_railway_event.21 # unlock one tier 2 upgrade
-	title = "DA_railway_event.21.t"
-	desc = "DA_railway_event.21.d"
-	picture = DA_train_image_eventPicture
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails_2
-		OR = {
-			NOT = { has_country_flag = DA_rail_faster1.t2 }
-			NOT = { has_country_flag = DA_rail_trade1.t2 }
-			NOT = { has_country_flag = DA_rail_traps1.t2 }
-			NOT = { has_country_flag = DA_rail_supply1.t2 }
-		}
-	}
-	immediate = {
-		hidden_effect = {
-			random_list = {
-				1 = {
-					trigger = {
-						NOT = { has_country_flag = DA_rail_faster1.t2 }
-					}
-					set_country_flag = DA_rail_faster1.t2
-				}
-				1 = {
-					trigger = {
-						NOT = { has_country_flag = DA_rail_trade1.t2 }
-					}
-					set_country_flag = DA_rail_trade1.t2
-				}
-				1 = {
-					trigger = {
-						NOT = { has_country_flag = DA_rail_traps1.t2 }
-					}
-					set_country_flag = DA_rail_traps1.t2
-				}
-				1 = {
-					trigger = {
-						NOT = { has_country_flag = DA_rail_supply1.t2 }
-					}
-					set_country_flag = DA_rail_supply1.t2
-				}
-			}
-		}
-	}
-	mean_time_to_happen = {
-		months = 140
-		modifier = {
-			factor = 2
-			NOT = { innovativeness = 10 }
-		}
-		modifier = {
-			factor = 0.9
-			innovativeness = 40
-		}
-		modifier = {
-			factor = 0.9
-			innovativeness = 60
-		}
-		modifier = {
-			factor = 0.9
-			stability = 3
-		}
-		modifier = {
-			factor = 0.85
-			has_country_modifier = DA_Runesmith_patronage
-		}
-		modifier = {
-			factor = 0.90
-			OR = {
-				has_estate_privilege = estate_DA_Runesmiths_RF_4
-				has_estate_privilege = estate_DA_Runesmiths_RF_5
-			}
-		}
-		modifier = {
-			factor = 0.85
-			OR = {
-				has_estate_privilege = estate_DA_Runesmiths_RF_6
-				has_estate_privilege = estate_DA_Runesmiths_RF_7
-			}
-		}
-		modifier = {
-			factor = 0.80
-			OR = {
-				has_estate_privilege = estate_DA_Runesmiths_RF_8
-				has_estate_privilege = estate_DA_Runesmiths_RF_9
-				has_estate_privilege = estate_DA_Runesmiths_RF_10
-				has_estate_privilege = estate_DA_Runesmiths_RF_11
-			}
-		}
-	}
-
-	option = {
-		name = "DA_railway_event.21.a"
-		trigger = {
-			NOT = { has_country_flag = DA_rail_faster2.t2 }
-			has_country_flag = DA_rail_faster1.t2
-		}
-		hidden_effect = {
-			set_country_flag = DA_rail_faster2.t2
-		}
-		custom_tooltip = DA_unlocked_rail_upgrade.tt
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_faster_mod_2
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.21.b"
-		trigger = {
-			NOT = { has_country_flag = DA_rail_trade2.t2 }
-			has_country_flag = DA_rail_trade1.t2
-		}
-		hidden_effect = {
-			set_country_flag = DA_rail_trade2.t2
-		}
-		custom_tooltip = DA_unlocked_rail_upgrade.tt
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_trade_mod_2
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.21.c"
-		trigger = {
-			NOT = { has_country_flag = DA_rail_traps2.t2 }
-			has_country_flag = DA_rail_traps1.t2
-		}
-		hidden_effect = {
-			set_country_flag = DA_rail_traps2.t2
-		}
-		custom_tooltip = DA_unlocked_rail_upgrade.tt
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_traps_mod_2
-					duration = -1
-				}
-			}
-		}
-	}	
-	option = {
-		name = "DA_railway_event.21.e"
-		trigger = {
-			NOT = { has_country_flag = DA_rail_supply2.t2 }
-			has_country_flag = DA_rail_supply1.t2
-		}
-		hidden_effect = {
-			set_country_flag = DA_rail_supply2.t2
-		}
-		custom_tooltip = DA_unlocked_rail_upgrade.tt
-		tooltip = {
-			random_core_province = {
-				add_permanent_province_modifier = {
-					name = DA_rail_supply_mod_2
-					duration = -1
-				}
-			}
-		}
-	}
-}
 
 country_event = {
 	id = DA_railway_event.3 # unlock Railway upgrades, mission tree
@@ -488,3 +15,233 @@ country_event = {
 		}
 	}
 }
+country_event = {
+	id = DA_railway_event.5 # unlock Railway upgrade, DA_rail_faster1_c
+	title = "DA_railway_event.2.a"
+	desc = "DA_railway_event.3.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_can_upgrade_rails
+		NOT = { has_country_flag = DA_rail_faster1_c }
+	}
+	option = {
+		name = "DA_railway_event.2.a"
+		hidden_effect = {
+			set_country_flag = DA_rail_faster1_c
+		}
+		custom_tooltip = DA_unlocked_rail_upgrade.tt
+		tooltip = {
+			random_core_province = {
+				add_permanent_province_modifier = {
+					name = DA_rail_faster_mod_1
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_railway_event.6 # unlock Railway upgrade, DA_rail_trade1_c
+	title = "DA_railway_event.2.b"
+	desc = "DA_railway_event.3.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_can_upgrade_rails
+		NOT = { has_country_flag = DA_rail_trade1_c }
+	}
+	option = {
+		name = "DA_railway_event.2.b"
+		hidden_effect = {
+			set_country_flag = DA_rail_trade1_c
+		}
+		custom_tooltip = DA_unlocked_rail_upgrade.tt
+		tooltip = {
+			random_core_province = {
+				add_permanent_province_modifier = {
+					name = DA_rail_trade_mod_1
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_railway_event.7 # unlock Railway upgrade, DA_rail_traps1_c
+	title = "DA_railway_event.2.c"
+	desc = "DA_railway_event.3.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_can_upgrade_rails
+		NOT = { has_country_flag = DA_rail_traps1_c }
+	}
+	option = {
+		name = "DA_railway_event.2.c"
+		hidden_effect = {
+			set_country_flag = DA_rail_traps1_c
+		}
+		custom_tooltip = DA_unlocked_rail_upgrade.tt
+		tooltip = {
+			random_core_province = {
+				add_permanent_province_modifier = {
+					name = DA_rail_traps_mod_1
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_railway_event.8 # unlock Railway upgrade, DA_rail_supply1_c
+	title = "DA_railway_event.2.e"
+	desc = "DA_railway_event.3.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_can_upgrade_rails
+		NOT = { has_country_flag = DA_rail_supply1_c }
+	}
+	option = {
+		name = "DA_railway_event.2.e"
+		hidden_effect = {
+			set_country_flag = DA_rail_supply1_c
+		}
+		custom_tooltip = DA_unlocked_rail_upgrade.tt
+		tooltip = {
+			random_core_province = {
+				add_permanent_province_modifier = {
+					name = DA_rail_supply_mod_1
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_railway_event.9 # unlock Railway upgrade, DA_rail_faster2_c
+	title = "DA_railway_event.21.a"
+	desc = "DA_railway_event.3.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_can_upgrade_rails
+		has_country_flag = DA_can_upgrade_rails_2
+		NOT = { has_country_flag = DA_rail_faster2_c }
+		
+	}
+	option = {
+		name = "DA_railway_event.21.a"
+		hidden_effect = {
+			set_country_flag = DA_rail_faster2_c
+		}
+		custom_tooltip = DA_unlocked_rail_upgrade.tt
+		tooltip = {
+			random_core_province = {
+				add_permanent_province_modifier = {
+					name = DA_rail_faster_mod_2
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_railway_event.10 # unlock Railway upgrade, DA_rail_trade2_c
+	title = "DA_railway_event.21.b"
+	desc = "DA_railway_event.3.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_can_upgrade_rails
+		has_country_flag = DA_can_upgrade_rails_2
+		NOT = { has_country_flag = DA_rail_trade2_c }
+	}
+	option = {
+		name = "DA_railway_event.21.b"
+		hidden_effect = {
+			set_country_flag = DA_rail_trade2_c
+		}
+		custom_tooltip = DA_unlocked_rail_upgrade.tt
+		tooltip = {
+			random_core_province = {
+				add_permanent_province_modifier = {
+					name = DA_rail_trade_mod_2
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_railway_event.11 # unlock Railway upgrade, DA_rail_traps2_c
+	title = "DA_railway_event.21.c"
+	desc = "DA_railway_event.3.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_can_upgrade_rails
+		has_country_flag = DA_can_upgrade_rails_2
+		NOT = { has_country_flag = DA_rail_traps2_c }
+	}
+	option = {
+		name = "DA_railway_event.21.c"
+		hidden_effect = {
+			set_country_flag = DA_rail_traps2_c
+		}
+		custom_tooltip = DA_unlocked_rail_upgrade.tt
+		tooltip = {
+			random_core_province = {
+				add_permanent_province_modifier = {
+					name = DA_rail_traps_mod_2
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_railway_event.12 # unlock Railway upgrade, DA_rail_supply2_c
+	title = "DA_railway_event.21.e"
+	desc = "DA_railway_event.3.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_can_upgrade_rails
+		has_country_flag = DA_can_upgrade_rails_2
+		NOT = { has_country_flag = DA_rail_supply2_c }
+	}
+	option = {
+		name = "DA_railway_event.21.e"
+		hidden_effect = {
+			set_country_flag = DA_rail_supply2_c
+		}
+		custom_tooltip = DA_unlocked_rail_upgrade.tt
+		tooltip = {
+			random_core_province = {
+				add_permanent_province_modifier = {
+					name = DA_rail_supply_mod_2
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+

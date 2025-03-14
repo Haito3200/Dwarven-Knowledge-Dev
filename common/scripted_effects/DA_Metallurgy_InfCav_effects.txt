@@ -1,4 +1,7 @@
 
+# God, may you have mercy on my brain for thinking this absurd system 
+# and make it so the system works as intended on the first try ( it did :) )
+
 ########################################################
 ############# special units ####################
 
@@ -21,12 +24,8 @@ DA_enable_Metal_Caval = {
 	}
 }
 
-DA_initialize_metallurgy_variables_InfCav = {
+DA_initialize_metallurgy_variables = {
 	hidden_effect = {
-		set_variable = {
-			which = DA_Unit_type
-			value = $DA_unit$
-		}
 		set_variable = {
 			which = DA_Cost_$DA_unit$
 			value = 0
@@ -123,6 +122,18 @@ DA_initialize_metallurgy_variables_InfCav = {
 			value = modifier:DA_fake_electrical_conductivity_adder
 			variable_name = DA_fake_electrical_conductivity_adder_var
 		}
+		export_to_variable = {
+			value = modifier:DA_fake_blueprints_combat_ability_modifier
+			variable_name = DA_fake_blueprints_combat_ability_modifier_var
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_rune_combat_ability_modifier
+			variable_name = DA_fake_rune_combat_ability_modifier_var
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_cost_adder
+			variable_name = DA_fake_cost_adder_var
+		}
 		change_variable = {
 			which = DA_Metal_strength_STAT.$DA_unit$
 			which = DA_fake_metal_strength_adder_var
@@ -137,7 +148,7 @@ DA_initialize_metallurgy_variables_InfCav = {
 		}
 	}
 }
-DA_apply_InfCav_Blueprint = {										 # new effect
+DA_apply_Blueprint = {										 # new effect
 	custom_tooltip = DA_Blueprint_preview_tooltip
 	custom_tooltip = DA_Cost.tt.$DA_Cost$
 	custom_tooltip = DA_RuneSlots.tt.$DA_RUNE_SLOTS$
@@ -188,6 +199,16 @@ DA_apply_InfCav_Blueprint = {										 # new effect
 			}
 		}
 	]
+	[[DA_Unique_2]
+	# this flag is needed to apply unique modifiers at the end with relative tooltip
+		set_country_flag = DA_Unique_mod.BLUEPRINT.Flag.$DA_unit$.$DA_Unique_2$
+		tooltip = {
+			add_country_modifier = {
+				name = DA_Unique_mod.BLUEPRINT.$DA_unit$.$DA_Unique_2$
+				duration = -1
+			}
+		}
+	]
 	[[DA_Electrical]
 	# this flag is needed to apply electrical modifiers at the end with relative tooltip
 		set_country_flag = DA_Electrical_mod.BLUEPRINT.Flag.$DA_unit$.$DA_Electrical$
@@ -201,7 +222,7 @@ DA_apply_InfCav_Blueprint = {										 # new effect
 	]
 }
 
-DA_apply_InfCav_Metal = {
+DA_apply_Metal = {
 	custom_tooltip = DA_Metal_stat_explanation_short_strength_tt
 	custom_tooltip = DA_Metal_stat_explanation_short_MC_tt
 	custom_tooltip = DA_Metal_stat_explanation_short_EC_tt
@@ -287,7 +308,7 @@ DA_apply_InfCav_Metal = {
 		}
 	}
 }
-DA_apply_InfCav_alloy = {
+DA_apply_alloy = {
 	# DA_alloy_slot
 	custom_tooltip = DA_$DA_alloy_slot$_Cost.tt
 	custom_tooltip = DA_$DA_alloy_slot$_Metal_strength_stat.tt
@@ -510,7 +531,7 @@ DA_apply_InfCav_alloy = {
 		}
 	}
 }
-DA_apply_InfCav_Runes = {			# make it so you avoid coming here if you end up with 0 MC
+DA_apply_Runes = {			# make it so you avoid coming here if you end up with 0 MC
 	
 	# you need to redo how you call this function, most variables names are redone
 	custom_tooltip = DA_Rune_preview_tooltip
@@ -622,7 +643,7 @@ DA_apply_InfCav_Runes = {			# make it so you avoid coming here if you end up wit
 	}
 }
 
-DA_pre_apply_InfCav_metallurgy_modifiers = {
+DA_pre_apply_metallurgy_modifiers = {
 	set_variable = {
 		which = DA_power_TOTAL_$DA_unit$_shower
 		which = DA_power_TOTAL_$DA_unit$
