@@ -28,35 +28,32 @@ DA_create_Rune_Mage_general = {
 			value = $DA_siege$
 		}
 		###
-		set_saved_name = {
-			key = root_name_male
-			type = advisor
-			scope = ROOT
-		}
-		set_saved_name = {
-			key = root_name_female
-			type = advisor
-			female = yes
-			scope = ROOT
-		}
+
 		random_list = {
-			50 = {
-				set_variable = {
-					which = gender
-					value = 0
+			50 = { #Male
+				set_saved_name = {
+					key = root_name_DAgeneral
+					type = advisor
+					scope = ROOT
+				}
+				DA_generate_general = {
+					DA_trait = $DA_trait$
 				}
 			}
-			50 = {
-				set_variable = {
-					which = gender
-					value = 1
+			50 = { #Female
+				set_saved_name = {
+					key = root_name_DAgeneral
+					type = advisor
+					female = yes
+					scope = ROOT
+				}
+				DA_generate_general = {
+					DA_trait = $DA_trait$
+					female = yes
 				}
 			}
 		}
 		###
-		DA_generate_general = {
-  			DA_trait = $DA_trait$
-		}
 	}
 }
 
