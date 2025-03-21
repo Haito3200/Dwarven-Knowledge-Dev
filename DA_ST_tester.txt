@@ -55,7 +55,8 @@ set_country_flag = DA_Unlocked.Vehicle_Steam_Arcanomech_Vanguard
 set_country_flag = DA_Unlocked.Vehicle_Steam_Arcanomech_Holder
 set_country_flag = DA_Unlocked.Bio_cons_Purple_Worm
 set_country_flag = DA_Unlocked.ClockWork_Dragon
-
+set_country_flag = DA_Unlocked.Compound_Voidspire_Artillery_Ship
+set_country_flag = DA_Unlocked.Electric_Armor
 
 set_country_flag = DA_enable_metallurgy_System
 set_country_flag = DA_enable_metallurgy_System_artificer
@@ -72,7 +73,23 @@ set_country_flag = DA_RS_Steam_power_enabled
 set_country_flag = DA_RS_Electric_power_enabled
 set_country_flag = DA_completed_Electric_Power_Project
 set_country_flag = DA_completed_Steam_power_project
+set_country_flag = DA_Can_create_leaders
 
+
+capital_scope = {
+	set_province_flag = DA_Mine_Adamantium
+	set_province_flag = DA_Mine_Hearth_blood
+	set_province_flag = DA_Mine_Unobtainium
+	set_province_flag = DA_Mine_Quicksilver
+	set_province_flag = DA_Mine_Mithril
+	set_province_flag = DA_Mine_Skyshard
+}
+
+create_unit_forcelimit_percentage = {
+	type = artillery
+	special_unit_category = cawa
+	force_limit_percentage = 0.1
+}
 change_variable = {
 	which = ancientDwarvenKnowledge
 	value = 20
@@ -94,21 +111,16 @@ set_variable = {
 	which = DA_arcane_metal_total
 	value = 100
 }
+
 set_variable = {
-	which = DA_MAX_RS_Invention_slots
-	value = 4
+	which = DA_Arcane_Arts_mana
+	value = 200
 }
 set_variable = {
-	which = DA_MAX_RS_Invention_slots_adder
-	value = 0
+	which = DA_Arcane_Arts_mana_cap
+	value = 500
 }
-set_variable = {
-	which = DA_Runesmith_inventions_currently_used
-	value = 0
-}
-4039 = {
-	change_variable = {
-		which = DA_Magma_level
-		value = 200
-	}
+export_to_variable = {
+	value = modifier:DA_fake_yearly_mana_generation
+	variable_name = DA_yearly_mana_generation
 }
