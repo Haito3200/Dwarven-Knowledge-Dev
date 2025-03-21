@@ -113,6 +113,122 @@ custom_icon = {
             #} #First matched frame clause will be used.
       #  }
 }
+custom_button = {
+	name = DA_Increase_metallurgy_2
+	tooltip = DA_Increase_metallurgy_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_metallurgy_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Metallurgy_1 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_1 = yes
+                    NOT = { DA_completed.Metallurgy_2 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_2 = yes
+                    NOT = { DA_completed.Metallurgy_3 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_3 = yes
+                    NOT = { DA_completed.Metallurgy_4 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Metallurgy
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Metallurgy_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_metallurgy_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.500
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_1 = yes
+                    NOT = { DA_completed.Metallurgy_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_metallurgy_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.501
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_2 = yes
+                    NOT = { DA_completed.Metallurgy_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_metallurgy_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.503
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_3 = yes
+                    NOT = { DA_completed.Metallurgy_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_metallurgy_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.506
+                    days = 240
+                }
+            }
+        }
+	}
+}
+
+custom_text_box = {
+    name = DA_Tech_Shower.Metallurgy_2 #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Tech_Shower.Metallurgy.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
 custom_text_box = {
     name = DA_alloy_slot_shower_common #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible

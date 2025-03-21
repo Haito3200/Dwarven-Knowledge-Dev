@@ -2219,30 +2219,9 @@ country_event = {
 		}
 	}
 	after = {
-		if = {
-			limit = {
-				AND = {
-					check_variable = {
-						which = DA_Runes_Slots_STAT_MAX_CAVAL
-						value = 1
-					}
-					check_variable = {
-						which = DA_Metal_Magic_Conductivity_STAT_CAVAL
-						value = 1
-					}
-				}
-				has_country_flag = DA_can_apply_runes_to_metallurgy
-			}
-			country_event = {
-				id = DA_Metallurgy_events.62
-				days = 5
-			}
-		}
-		else = {
-			country_event = {
-				id = DA_Metallurgy_events.63
-				days = 365
-			}
+		hidden_effect = {
+			set_country_flag = DA_selected_metal_CAVAL
+			clr_country_flag = DA_UNIT_DESIGN_IN_USE
 		}
 	}
 }

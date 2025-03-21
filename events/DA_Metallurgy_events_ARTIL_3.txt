@@ -1791,19 +1791,20 @@ country_event = {
 	after = {
 		if = {
 			limit = {
-				has_country_flag = DA_redo.ARTIL
+				has_country_flag = DA_selected_ARTIL_rune_2
 			}
-			country_event = {
-				id = DA_Metallurgy_events.72
-				days = 1
+			set_country_flag = DA_selected_ARTIL_rune_3
+		}
+		else_if = {
+			limit = {
+				has_country_flag = DA_selected_ARTIL_rune_1
 			}
+			set_country_flag = DA_selected_ARTIL_rune_2
 		}
 		else = {
-			country_event = {
-				id = DA_Metallurgy_events.73
-				days = 365
-			}
+			set_country_flag = DA_selected_ARTIL_rune_1
 		}
+		clr_country_flag = DA_UNIT_DESIGN_IN_USE
 	}
 }
 country_event = {
@@ -1957,7 +1958,7 @@ country_event = {
 			custom_tooltip = DA_TOTAL_PREVIEW.DA_Shock_rec.ARTIL.tt-
 		}
 		custom_tooltip = DA_Affect_only_warforged_artillery_tt
-		DA_apply_metallurgy_units_modifiers_effect = {
+		DA_apply_metallurgy_infcav_modifiers_effect = {
 			DA_unit = ARTIL
 		}
 		DA_give_Unique_Metallurgy_modifiers = {
@@ -1971,11 +1972,11 @@ country_event = {
 		}
 
 		hidden_effect = {
-			remove_estate_privilege = DA_Metallurgy_project
 			clr_country_flag = DA_redesigning_Infantry
 			clr_country_flag = DA_redesigning_ARTIFICERtry
 			clr_country_flag = DA_redesigning_Cavalry
 			clr_country_flag = DA_redesigning_Artillery
+			clr_country_flag = DA_UNIT_DESIGN_IN_USE
 		}
 	}
 	after = {

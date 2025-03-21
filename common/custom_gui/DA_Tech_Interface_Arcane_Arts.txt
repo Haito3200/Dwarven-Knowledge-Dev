@@ -1,0 +1,369 @@
+# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
+
+
+
+# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
+#custom_button = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the button is visible
+#    trigger = { } #Determines when the button is clickable
+#    effect = { } #Effect
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_text_box = {
+#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
+#    potential = { } #Determines when the text is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    #To localize it, use the name of the button as a key, can also use customizable localisation
+#}
+
+#custom_icon = {
+#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
+#    potential = { } #Determines when the icon is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_shield = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the shield is visible
+#    trigger = { } #Determines when the shield is clickable
+#    effect = { } #Effect for clicking
+#    tooltip = localisation_key #Can use customizable localisation
+#    global_event_target = <string> # Global event target name
+#    open_country = <bool> #If clicking opens the country view
+#}
+
+##############################  Supported files with scopes ##############################
+#   The Gui objects must be directly inside the specified window Gui element!
+#   FROM is always the country that clicks
+#   provinceview.gui:
+#       province_window         (ROOT: Clicked province)
+#       buildings_window        (ROOT: Clicked province)
+#       state_window            (ROOT: Clicked province)
+#   countrycourtview.gui:
+#       countrycourtview        (ROOT = FROM)
+#   countrygovernmentview.gui:
+#       countrygovernmentview   (ROOT = FROM)
+#   countrydiplomacyview.gui:
+#       countrydiplimacyview    (ROOT: Selected country)
+#   countryeconomyview.gui:
+#       countryeconomyview      (ROOT = FROM)
+#   countrytradeview.gui:
+#       countrytradeview        (ROOT = FROM)
+#   countrytechnologyview.gui:
+#       countrytechnologyview   (ROOT = FROM)
+#   countryideasview.gui:
+#       countryideasview        (ROOT = FROM)
+#   countrymissionsview.gui:
+#       countrymissionsview     (ROOT: Selected country)
+#   countrydecisionview.gui:
+#       countrydecisionsview    (ROOT = FROM)
+#   countrystabilityview.gui:
+#       countrystabilityview    (ROOT = FROM)
+#   countryreligionview.gui:
+#       countryreligionview     (ROOT = FROM)
+#   countrymilitaryview.gui:
+#       countrymilitaryview     (ROOT = FROM)
+#   countrysubjectsview.gui:
+#       countrysubjectview      (ROOT = FROM)
+#   countryestatesview.gui:
+#       countryestatesview      (ROOT = FROM)
+#   ages_view.gui:
+#       ages_view               (ROOT = FROM)
+#   tradeinterface.gui:
+#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
+#   hre.gui:
+#       hre_window              (ROOT = FROM)
+#   papacy.gui:
+#       papacy_window           (ROOT = FROM)
+#   faction.gui:
+#       All faction windows     (ROOT = FROM)
+#   celestialempireview.gui:
+#       celestial_window        (ROOT = FROM)
+#   countrynativesview.gui:
+#       natives_window          (ROOT = FROM)
+#   religiousreforms.gui:
+#       reforms_window          (ROOT = FROM)
+#   parliament.gui:
+#       parliament_window       (ROOT = FROM)
+
+
+
+custom_window = {
+    name = DA_Arcane_Arts_Interface
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
+    }
+}
+custom_icon = {
+    name = DA_Arcane_Arts_Interface_icon
+    potential = {
+        always = yes
+    }
+}
+custom_button = {
+	name = DA_Increase_magic_theory
+	tooltip = DA_Increase_magic_theory_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_magic_theory_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Magic_Theory_1 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_1 = yes
+                    NOT = { DA_completed.Magic_Theory_2 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_2 = yes
+                    DA_completed.Elemental_Magic_Air = yes
+                    DA_completed.Elemental_Magic_Fire = yes
+                    DA_completed.Elemental_Magic_Water = yes
+                    DA_completed.Elemental_Magic_Earth = yes
+                    NOT = { DA_completed.Magic_Theory_3 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_3 = yes
+                    NOT = { DA_completed.Magic_Theory_4 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Arcane_Arts
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Magic_Theory_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_acane_arts_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.300
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_1 = yes
+                    NOT = { DA_completed.Magic_Theory_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_acane_arts_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.301
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_2 = yes
+                    NOT = { DA_completed.Magic_Theory_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_acane_arts_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.303
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_3 = yes
+                    NOT = { DA_completed.Magic_Theory_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_acane_arts_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.306
+                    days = 240
+                }
+            }
+        }
+	}
+}
+
+custom_text_box = {
+    name = DA_Tech_Shower.Magic_Theory #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Tech_Shower.Magic_Theory.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Arcane_Arts_mana_regen_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Arcane_Arts_mana_regen_shower.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Arcane_Arts_mana_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Arcane_Arts_mana_shower.tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_button = {
+	name = DA_Arcane_Arts_Magic_Study_button
+	tooltip = DA_Arcane_Arts_Magic_Study_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        ruler_studying_magic = yes
+        ruler_has_mage_personality = yes
+		DA_mana_required = {
+            amount = 25
+        }
+	}
+	effect = {
+        DA_mana_spend = {
+            amount = 25
+        }
+		increase_study_experience = {
+			experience = 200
+		}
+	}
+}
+custom_button = {
+	name = DA_Arcane_Arts_recruit_Elementalist_button
+	tooltip = DA_Arcane_Arts_recruit_Elementalist_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Magic_Theory_2 = yes
+        OR = {
+            DA_completed.Elemental_Magic_Air = yes
+            DA_completed.Elemental_Magic_Fire = yes
+            DA_completed.Elemental_Magic_Water = yes
+            DA_completed.Elemental_Magic_Earth = yes
+        }
+        any_owned_province = {
+            has_building = mage_tower
+            custom_trigger_tooltip = {
+                tooltip = DA_Mage_Tower_Specialization_in_Elemental_tt
+                OR = {
+                    has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Air
+                    has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Fire
+                    has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Water
+                    has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Earth
+                }
+            }
+        }
+		DA_mana_required = {
+            amount = 40
+        }
+        mil_power = 60
+	}
+	effect = {
+        DA_mana_spend = {
+            amount = 40
+        }
+        add_mil_power = -60
+        country_event = {
+            id = DA_Tech_Arcane_Arts_event.2
+        }
+	}
+}
+custom_button = {
+	name = DA_Arcane_Arts_recruit_Arcanist_button
+	tooltip = DA_Arcane_Arts_recruit_Arcanist_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Magic_Theory_1 = yes
+        any_owned_province = {
+            has_building = mage_tower
+            custom_trigger_tooltip = {
+                tooltip = DA_Mage_Tower_Specialization_in_arcane_tt
+                OR = {
+                    has_province_modifier = DA_Mage_Tower_Specialization.Abjuration
+                    has_province_modifier = DA_Mage_Tower_Specialization.Divination
+                    has_province_modifier = DA_Mage_Tower_Specialization.Illusion
+                    has_province_modifier = DA_Mage_Tower_Specialization.Conjuration
+                    has_province_modifier = DA_Mage_Tower_Specialization.Enchantment
+                    has_province_modifier = DA_Mage_Tower_Specialization.Evocation
+                    has_province_modifier = DA_Mage_Tower_Specialization.Transmutation
+                    has_province_modifier = DA_Mage_Tower_Specialization.Necromancy
+                }
+            }
+        }
+		DA_mana_required = {
+            amount = 25
+        }
+        mil_power = 50
+	}
+	effect = {
+        DA_mana_spend = {
+            amount = 25
+        }
+        add_mil_power = -50
+        country_event = {
+            id = DA_Tech_Arcane_Arts_event.1
+        }
+	}
+}
+custom_button = {
+	name = DA_Arcane_Arts_recruit_ArchMage_button
+	tooltip = DA_Arcane_Arts_recruit_ArchMage_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Magic_Theory_4 = yes
+		DA_mana_required = {
+            amount = 125
+        }
+        mil_power = 100
+	}
+	effect = {
+        DA_mana_spend = {
+            amount = 125
+        }
+        add_mil_power = -100
+        country_event = {
+            id = DA_Tech_Arcane_Arts_event.3
+        }
+	}
+}

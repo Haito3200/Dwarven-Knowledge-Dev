@@ -2435,4 +2435,59 @@ DA_on_yearly_pulse_2_effect = {
 		remove_country_modifier = DA_AI_Buffs_7_medium
 		remove_country_modifier = DA_AI_Buffs_7_easy
 	}
+	
+	export_to_variable = {
+		value = modifier:amount_of_musketeers
+		variable_name = DA_Max_amount_of_warforged_infantry
+	}
+	export_to_variable = {
+		value = trigger_value:num_of_musketeers
+		variable_name = DA_current_amount_of_warforged_infantry
+	}
+	export_to_variable = {
+		value = modifier:local_amount_of_hussars
+		variable_name = DA_Max_amount_of_warforged_cavalry
+	}
+	export_to_variable = {
+		value = trigger_value:num_of_hussars
+		variable_name = DA_current_amount_of_warforged_cavalry
+	}
+	export_to_variable = {
+		value = modifier:local_amount_of_cawa
+		variable_name = DA_Max_amount_of_warforged_artillery
+	}
+	export_to_variable = {
+		value = trigger_value:num_of_cawa
+		variable_name = DA_current_amount_of_warforged_artillery
+	}
+
+
+	
+	export_to_variable = {
+		value = modifier:DA_fake_yearly_illness_spawn_chance
+		variable_name = DA_yearly_illness_spawn_chance
+	}
+
+
+	
+	export_to_variable = {
+		value = modifier:DA_fake_yearly_mana_generation
+		variable_name = DA_yearly_mana_generation
+	}
+	change_variable = {
+		which = DA_Arcane_Arts_mana
+		which = DA_yearly_mana_generation
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = DA_Arcane_Arts_mana
+				which = DA_Arcane_Arts_mana_cap
+			}
+		}
+		set_variable = {
+			which = DA_Arcane_Arts_mana
+			which = DA_Arcane_Arts_mana_cap
+		}
+	}
 }
