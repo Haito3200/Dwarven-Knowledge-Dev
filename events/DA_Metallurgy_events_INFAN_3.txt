@@ -1802,19 +1802,20 @@ country_event = {
 	after = {
 		if = {
 			limit = {
-				has_country_flag = DA_redo.INFAN
+				has_country_flag = DA_selected_INFAN_rune_2
 			}
-			country_event = {
-				id = DA_Metallurgy_events.52
-				days = 1
+			set_country_flag = DA_selected_INFAN_rune_3
+		}
+		else_if = {
+			limit = {
+				has_country_flag = DA_selected_INFAN_rune_1
 			}
+			set_country_flag = DA_selected_INFAN_rune_2
 		}
 		else = {
-			country_event = {
-				id = DA_Metallurgy_events.53
-				days = 365
-			}
+			set_country_flag = DA_selected_INFAN_rune_1
 		}
+		clr_country_flag = DA_UNIT_DESIGN_IN_USE
 	}
 }
 country_event = {
@@ -1982,10 +1983,11 @@ country_event = {
 		}
 
 		hidden_effect = {
-			remove_estate_privilege = DA_Metallurgy_project
 			clr_country_flag = DA_redesigning_Infantry
+			clr_country_flag = DA_redesigning_ARTIFICERtry
 			clr_country_flag = DA_redesigning_Cavalry
 			clr_country_flag = DA_redesigning_Artillery
+			clr_country_flag = DA_UNIT_DESIGN_IN_USE
 		}
 	}
 	after = {

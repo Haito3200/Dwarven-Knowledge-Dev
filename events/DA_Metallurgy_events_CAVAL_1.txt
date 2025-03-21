@@ -1295,7 +1295,12 @@ country_event = {
 			DA_Fire_rec = -0.01
 			DA_Shock_rec = -0.01
 	#		DA_Unique = none
-	#		DA_Electrical = none
+			DA_Electrical = yes
+			DA_power.electric = 0.02
+			DA_fire.electric = 0.00
+			DA_shock.electric = 0.00
+			DA_Fire_rec.electric = -0.01
+			DA_Shock_rec.electric = -0.01
 		}
 	}
 	option = {
@@ -3130,9 +3135,9 @@ country_event = {
 		}
 	}
 	after = {
-		country_event = {
-			id = DA_Metallurgy_events.61
-			days = 5
+		hidden_effect = {
+			set_country_flag = DA_selected_blueprint_CAVAL
+			clr_country_flag = DA_UNIT_DESIGN_IN_USE
 		}
 	}
 }

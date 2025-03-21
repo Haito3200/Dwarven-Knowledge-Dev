@@ -70,6 +70,26 @@ DA_initialize_metallurgy_variables = {
 			which = DA_Shock_rec_Metal_$DA_unit$
 			value = 0
 		}
+		change_variable = {
+			which = DA_power_Electric_$DA_unit$
+			value = 0
+		}
+		change_variable = {
+			which = DA_fire_Electric_$DA_unit$
+			value = 0
+		}
+		change_variable = {
+			which = DA_shock_Electric_$DA_unit$
+			value = 0
+		}
+		change_variable = {
+			which = DA_Fire_rec_Electric_$DA_unit$
+			value = 0
+		}
+		change_variable = {
+			which = DA_Shock_rec_Electric_$DA_unit$
+			value = 0
+		}
 		set_variable = {
 			which = DA_power_Rune_$DA_unit$
 			value = 0
@@ -146,6 +166,11 @@ DA_initialize_metallurgy_variables = {
 			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
 			which = DA_fake_electrical_conductivity_adder_var
 		}
+		clr_country_flag = DA_selected_blueprint_$DA_unit$
+		clr_country_flag = DA_selected_metal_$DA_unit$
+		clr_country_flag = DA_selected_$DA_unit$_rune_1
+		clr_country_flag = DA_selected_$DA_unit$_rune_2
+		clr_country_flag = DA_selected_$DA_unit$_rune_3
 	}
 }
 DA_apply_Blueprint = {										 # new effect
@@ -188,6 +213,37 @@ DA_apply_Blueprint = {										 # new effect
 			value = $DA_Shock_rec$
 		}
 	}
+	[[DA_Electrical]
+	# this flag is needed to apply electrical modifiers at the end with relative tooltip
+		custom_tooltip = DA_Electrical_blueprint_TT
+		custom_tooltip = DA_power.tt.$DA_power.electric$
+		custom_tooltip = DA_Fire.tt.$DA_fire.electric$
+		custom_tooltip = DA_shock.tt.$DA_shock.electric$
+		custom_tooltip = DA_Fire_rec.tt.$DA_Fire_rec.electric$
+		custom_tooltip = DA_Shock_rec.tt.$DA_Shock_rec.electric$
+		hidden_effect = {
+			change_variable = {
+				which = DA_power_Electric_$DA_unit$
+				value = $DA_power.electric$
+			}
+			change_variable = {
+				which = DA_fire_Electric_$DA_unit$
+				value = $DA_fire.electric$
+			}
+			change_variable = {
+				which = DA_shock_Electric_$DA_unit$
+				value = $DA_shock.electric$
+			}
+			change_variable = {
+				which = DA_Fire_rec_Electric_$DA_unit$
+				value = $DA_Fire_rec.electric$
+			}
+			change_variable = {
+				which = DA_Shock_rec_Electric_$DA_unit$
+				value = $DA_Shock_rec.electric$
+			}
+		}
+	]
 	[[DA_Unique]
 	# this flag is needed to apply unique modifiers at the end with relative tooltip
 		set_country_flag = DA_Unique_mod.BLUEPRINT.Flag.$DA_unit$.$DA_Unique$
@@ -205,17 +261,6 @@ DA_apply_Blueprint = {										 # new effect
 		tooltip = {
 			add_country_modifier = {
 				name = DA_Unique_mod.BLUEPRINT.$DA_unit$.$DA_Unique_2$
-				duration = -1
-			}
-		}
-	]
-	[[DA_Electrical]
-	# this flag is needed to apply electrical modifiers at the end with relative tooltip
-		set_country_flag = DA_Electrical_mod.BLUEPRINT.Flag.$DA_unit$.$DA_Electrical$
-		custom_tooltip = DA_Electrical_blueprint_TT
-		tooltip = {
-			add_country_modifier = {
-				name = DA_Electrical_mod.BLUEPRINT.$DA_unit$.$DA_Electrical$
 				duration = -1
 			}
 		}
@@ -305,6 +350,72 @@ DA_apply_Metal = {
 		change_variable = {
 			which = DA_Shock_rec_TOTAL_$DA_unit$
 			which = DA_Shock_rec_Metal_$DA_unit$
+		}
+		# Multiply total electric x EC
+		multiply_variable = {
+			which = DA_power_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_fire_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_shock_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Fire_rec_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Shock_rec_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+
+		# calculate total electric modifiers multiplied, metal multiplier was calculated earlier
+
+		change_variable = {
+			which = DA_fire_TOTAL_$DA_unit$
+			which = DA_fire_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_shock_TOTAL_$DA_unit$
+			which = DA_shock_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_power_TOTAL_$DA_unit$
+			which = DA_power_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Fire_rec_TOTAL_$DA_unit$
+			which = DA_Fire_rec_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Shock_rec_TOTAL_$DA_unit$
+			which = DA_Shock_rec_Electric_$DA_unit$
+		}
+		
+		# set the variables back to 0 for the next EC modifier, if any
+		set_variable = {
+			which = DA_power_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_fire_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_shock_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Fire_rec_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Shock_rec_Electric_$DA_unit$
+			value = 0
 		}
 	}
 }
@@ -529,6 +640,72 @@ DA_apply_alloy = {
 			which = DA_Shock_rec_TOTAL_$DA_unit$
 			which = DA_Shock_rec_Metal_$DA_unit$
 		}
+		# Multiply total electric x EC
+		multiply_variable = {
+			which = DA_power_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_fire_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_shock_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Fire_rec_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Shock_rec_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+
+		# calculate total electric modifiers multiplied, metal multiplier was calculated earlier
+
+		change_variable = {
+			which = DA_fire_TOTAL_$DA_unit$
+			which = DA_fire_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_shock_TOTAL_$DA_unit$
+			which = DA_shock_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_power_TOTAL_$DA_unit$
+			which = DA_power_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Fire_rec_TOTAL_$DA_unit$
+			which = DA_Fire_rec_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Shock_rec_TOTAL_$DA_unit$
+			which = DA_Shock_rec_Electric_$DA_unit$
+		}
+		
+		# set the variables back to 0 for the next EC modifier, if any
+		set_variable = {
+			which = DA_power_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_fire_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_shock_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Fire_rec_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Shock_rec_Electric_$DA_unit$
+			value = 0
+		}
 	}
 }
 DA_apply_Runes = {			# make it so you avoid coming here if you end up with 0 MC
@@ -542,6 +719,37 @@ DA_apply_Runes = {			# make it so you avoid coming here if you end up with 0 MC
 	custom_tooltip = DA_Fire_rec.tt.$DA_Fire_rec$
 	custom_tooltip = DA_Shock_rec.tt.$DA_Shock_rec$
 	custom_tooltip = DA_Rune_preview_tooltip_after
+	[[DA_Electrical]
+	# this flag is needed to apply electrical modifiers at the end with relative tooltip
+		custom_tooltip = DA_Electrical_rune_tt
+		custom_tooltip = DA_power.tt.$DA_power.electric$
+		custom_tooltip = DA_Fire.tt.$DA_fire.electric$
+		custom_tooltip = DA_shock.tt.$DA_shock.electric$
+		custom_tooltip = DA_Fire_rec.tt.$DA_Fire_rec.electric$
+		custom_tooltip = DA_Shock_rec.tt.$DA_Shock_rec.electric$
+		hidden_effect = {
+			change_variable = {
+				which = DA_power_Electric_$DA_unit$
+				value = $DA_power.electric$
+			}
+			change_variable = {
+				which = DA_fire_Electric_$DA_unit$
+				value = $DA_fire.electric$
+			}
+			change_variable = {
+				which = DA_shock_Electric_$DA_unit$
+				value = $DA_shock.electric$
+			}
+			change_variable = {
+				which = DA_Fire_rec_Electric_$DA_unit$
+				value = $DA_Fire_rec.electric$
+			}
+			change_variable = {
+				which = DA_Shock_rec_Electric_$DA_unit$
+				value = $DA_Shock_rec.electric$
+			}
+		}
+	]
 	[[DA_Unique]
 	# this flag is needed to apply unique modifiers at the end with relative tooltip
 		set_country_flag = DA_Unique_mod.RUNE.Flag.$DA_unit$.$DA_Unique$
@@ -583,62 +791,141 @@ DA_apply_Runes = {			# make it so you avoid coming here if you end up with 0 MC
 			which = DA_Runes_Slots_occupied_$DA_unit$
 			value = 1
 		}
-		if = {
-			limit = {
-				check_variable = {
-					which = DA_Runes_Slots_occupied_$DA_unit$
-					which = DA_Runes_Slots_STAT_MAX_$DA_unit$
-				}
-			}
-			# Multiply total rune x MC
-			multiply_variable = {
-				which = DA_power_Rune_$DA_unit$
-				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
-			}
-			multiply_variable = {
-				which = DA_fire_Rune_$DA_unit$
-				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
-			}
-			multiply_variable = {
-				which = DA_shock_Rune_$DA_unit$
-				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
-			}
-			multiply_variable = {
-				which = DA_Fire_rec_Rune_$DA_unit$
-				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
-			}
-			multiply_variable = {
-				which = DA_Shock_rec_Rune_$DA_unit$
-				which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
-			}
-			clr_country_flag = DA_redo.$DA_unit$
-	
-			# calculate total rune modifiers multiplied, metal multiplier was calculated earlier
-	
-			change_variable = {
-				which = DA_fire_TOTAL_$DA_unit$
-				which = DA_fire_Rune_$DA_unit$
-			}
-			change_variable = {
-				which = DA_shock_TOTAL_$DA_unit$
-				which = DA_shock_Rune_$DA_unit$
-			}
-			change_variable = {
-				which = DA_power_TOTAL_$DA_unit$
-				which = DA_power_Rune_$DA_unit$
-			}
-			change_variable = {
-				which = DA_Fire_rec_TOTAL_$DA_unit$
-				which = DA_Fire_rec_Rune_$DA_unit$
-			}
-			change_variable = {
-				which = DA_Shock_rec_TOTAL_$DA_unit$
-				which = DA_Shock_rec_Rune_$DA_unit$
-			}
+		# Multiply total rune x MC
+		multiply_variable = {
+			which = DA_power_Rune_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
 		}
-		else = {
-			set_country_flag = DA_redo.$DA_unit$
-			#calcolo dei totali
+		multiply_variable = {
+			which = DA_fire_Rune_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_shock_Rune_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Fire_rec_Rune_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Shock_rec_Rune_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+
+		# calculate total rune modifiers multiplied, metal multiplier was calculated earlier
+
+		change_variable = {
+			which = DA_fire_TOTAL_$DA_unit$
+			which = DA_fire_Rune_$DA_unit$
+		}
+		change_variable = {
+			which = DA_shock_TOTAL_$DA_unit$
+			which = DA_shock_Rune_$DA_unit$
+		}
+		change_variable = {
+			which = DA_power_TOTAL_$DA_unit$
+			which = DA_power_Rune_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Fire_rec_TOTAL_$DA_unit$
+			which = DA_Fire_rec_Rune_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Shock_rec_TOTAL_$DA_unit$
+			which = DA_Shock_rec_Rune_$DA_unit$
+		}
+		# set the variables back to 0 for the next rune, if any
+
+		set_variable = {
+			which = DA_fire_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_shock_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_power_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Fire_rec_Rune_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Shock_rec_Rune_$DA_unit$
+			value = 0
+		}
+
+
+
+		
+		# Multiply total electric x EC
+		multiply_variable = {
+			which = DA_power_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_fire_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_shock_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Fire_rec_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Shock_rec_Electric_$DA_unit$
+			which = DA_Metal_electrical_Conductivity_STAT.$DA_unit$
+		}
+
+		# calculate total electric modifiers multiplied, metal multiplier was calculated earlier
+
+		change_variable = {
+			which = DA_fire_TOTAL_$DA_unit$
+			which = DA_fire_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_shock_TOTAL_$DA_unit$
+			which = DA_shock_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_power_TOTAL_$DA_unit$
+			which = DA_power_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Fire_rec_TOTAL_$DA_unit$
+			which = DA_Fire_rec_Electric_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Shock_rec_TOTAL_$DA_unit$
+			which = DA_Shock_rec_Electric_$DA_unit$
+		}
+		
+		# set the variables back to 0 for the next EC modifier, if any
+		set_variable = {
+			which = DA_power_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_fire_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_shock_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Fire_rec_Electric_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Shock_rec_Electric_$DA_unit$
+			value = 0
 		}
 	}
 }
