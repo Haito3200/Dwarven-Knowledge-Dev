@@ -31,7 +31,7 @@ marketplace = {
 	time = 12
 
 	modifier = {
-		province_trade_power_modifier = 0.35
+		province_trade_power_modifier = 0.5
 	}
 	on_built = {
 		add_development_from_building = {
@@ -92,7 +92,7 @@ workshop = {
 	cost = 100
 	time = 12
 	modifier = {
-		local_production_efficiency = 0.35
+		local_production_efficiency = 0.5
 	}
 	on_built = {
 		add_development_from_building = {
@@ -144,8 +144,7 @@ temple = {
 	cost = 100
 	time = 12
 	modifier = {
-		local_tax_modifier = 0.25
-		local_missionary_strength = 0.01
+		local_tax_modifier = 0.4
 	}
 	on_built = {
 		on_built_tax_building_effect = yes
@@ -212,11 +211,25 @@ temple = {
 				duration = 7300
 			}
 		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = 1
+		}
 
 		owner = { accretive_path_harimari_chi_stacking_effect = { amount = 20 } }
 		owner = { accretive_path_goldscale_kobold_chi_stacking_effect = { amount = 20 } }
 
 		gronstunad_building_authority_effect = { value = 1 }
+		
+		if = {
+			limit = { province_group = infernal_court_temples }
+			infernal_deity_upgrade_effect = yes
+		}
+		spirit_fort_awakening_effect = yes
 	}
 	on_destroyed = {
 		on_province_tax_building_destroyed_estate_privileges_effect = yes
@@ -266,6 +279,14 @@ temple = {
 			type = tax
 			value = 1 
 		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = -1
+		}
 		remove_province_modifier = I98_IRS_activities
 	}
 	on_obsolete = {
@@ -280,7 +301,7 @@ barracks = {
 	cost = 100
 	time = 12
 	modifier = {
-		local_manpower_modifier = 0.4
+		local_manpower_modifier = 0.5
 	}
 	on_built = {
 		add_development_from_building = {
@@ -512,14 +533,16 @@ fort_15th = {
 				add_church_power = 10
 			}
 		}
-		remove_province_modifier = command_elephant_fort_buff
 
 		owner = { accretive_path_xiaken_chi_stacking_effect = { amount = 40 } }
 
 		#Anbennar
+		
+		#Anbennar
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 2 }
+		spirit_fort_awakening_effect = yes
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
@@ -544,6 +567,7 @@ fort_15th = {
 			limit = { has_province_flag = has_kobold_traps }
 			province_event = { id = kobold_traps.8 }
 		}
+		remove_province_modifier = command_elephant_fort_buff
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings destroyed!
@@ -610,7 +634,7 @@ courthouse = {
 	cost = 100
 	time = 12
 	modifier = {
-		local_state_maintenance_modifier = -0.15
+		local_state_maintenance_modifier = -0.25
 		local_autonomy = -0.1
 		local_governing_cost = -0.25
 		allowed_num_of_buildings = 1
@@ -643,6 +667,8 @@ courthouse = {
 				duration = 7300
 			}
 		}
+		
+		owner = { accretive_path_jiangyang_chi_stacking_effect = { amount = 10 } }
 
 		gronstunad_building_authority_effect = { value = 1 }
 	}
@@ -960,7 +986,6 @@ fort_16th = {
 				add_church_power = 10
 			}
 		}
-		remove_province_modifier = command_elephant_fort_buff
 		#Anbennar
 
 		owner = { accretive_path_xiaken_chi_stacking_effect = { amount = 40 } }
@@ -968,6 +993,7 @@ fort_16th = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 4 }
+		spirit_fort_awakening_effect = yes
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
@@ -981,6 +1007,7 @@ fort_16th = {
 				province_event = { id = kheionai.2 }
 			}
 		}
+		remove_province_modifier = command_elephant_fort_buff
 		if = { # Anbennar Kobold Traps
 			limit = { has_province_flag = has_kobold_traps }
 			province_event = { id = kobold_traps.8 }
@@ -1070,7 +1097,7 @@ cathedral = {
 	time = 12
 	modifier = {
 		local_missionary_strength = 0.03
-		local_tax_modifier = 0.5
+		local_tax_modifier = 0.6
 	}
 	on_built = {
 		on_built_tax_building_effect = yes
@@ -1129,11 +1156,26 @@ cathedral = {
 				duration = -1
 			}
 		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = 2
+		}
 		
 		owner = { accretive_path_harimari_chi_stacking_effect = { amount = 20 } }
 		owner = { accretive_path_goldscale_kobold_chi_stacking_effect = { amount = 20 } }
 
 		gronstunad_building_authority_effect = { value = 3 }
+		
+		if = {
+			limit = { province_group = infernal_court_temples }
+			infernal_deity_upgrade_effect = yes
+		}
+		spirit_fort_awakening_effect = yes
+
 	}
 	on_destroyed = {
 		on_province_tax_building_destroyed_estate_privileges_effect = yes
@@ -1160,6 +1202,14 @@ cathedral = {
 			type = tax
 			value = 2 
 		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = -2
+		}
 		remove_province_modifier = I98_IRS_activities
 		remove_province_modifier = commmand_tiger_temple_buff
 	}
@@ -1172,10 +1222,10 @@ cathedral = {
 }
 
 university = {
-	cost = 280
+	cost = 300
 	time = 12
 	modifier = {
-		local_development_cost = -0.15
+		local_development_cost = -0.20
 		allowed_num_of_buildings = 1
 	}
 
@@ -1280,7 +1330,7 @@ trade_depot = {
 	make_obsolete = marketplace
 
 	modifier = {
-		province_trade_power_modifier = 0.8
+		province_trade_power_modifier = 1
 	}
 
 	on_built = {
@@ -1393,7 +1443,7 @@ training_fields = {
 	make_obsolete = barracks
 
 	modifier = {
-		local_manpower_modifier = 0.8
+		local_manpower_modifier = 1
 	}
 
 	on_built = {
@@ -1570,6 +1620,7 @@ fort_17th = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 6 }
+		spirit_fort_awakening_effect = yes
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
@@ -1637,7 +1688,7 @@ stock_exchange = {
 	make_obsolete = trade_depot
 
 	modifier = {
-		province_trade_power_modifier = 1
+		province_trade_power_modifier = 1.25
 	}
 
 	on_built = {
@@ -1706,7 +1757,7 @@ counting_house = {
 
 	make_obsolete = workshop
 	modifier = {
-		local_production_efficiency = 0.70
+		local_production_efficiency = 1
 	}
 
 	on_built = {
@@ -1750,7 +1801,7 @@ town_hall = {
 	make_obsolete = courthouse
 
 	modifier = {
-		local_state_maintenance_modifier = -0.35
+		local_state_maintenance_modifier = -0.5
 		local_autonomy = -0.2
 		local_governing_cost = -0.5
 		allowed_num_of_buildings = 1
@@ -1774,6 +1825,8 @@ town_hall = {
 			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
 			FROM = { change_government_reform_progress = 4 }
 		}
+		
+		owner = { accretive_path_jiangyang_chi_stacking_effect = { amount = 10 } }
 
 		gronstunad_building_authority_effect = { value = 2 }
 	}
@@ -2062,6 +2115,7 @@ fort_18th = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 8 }
+		spirit_fort_awakening_effect = yes
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
@@ -3427,6 +3481,31 @@ mage_tower = {
 				duration = -1
 			}
 		}
+
+		#Rezankand
+		if = {
+			limit = {
+				owner = { 
+					mission_completed = rezankand_architects_of_the_future 
+					mission_completed = rezankand_faster_than_thought 
+				}
+			}
+			add_province_modifier = {
+				name = rezankand_light_matrix_upgraded
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				owner = { 
+					mission_completed = rezankand_architects_of_the_future 
+				}
+			}
+			add_province_modifier = {
+				name = rezankand_light_matrix
+				duration = -1
+			}
+		}
 		# DK
 		province_event = {
 			id = DA_building_event.40
@@ -3446,7 +3525,6 @@ mage_tower = {
 		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Water
 		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Earth
 		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Air
-		####
 		if = {
 			limit = {
 				region = alecand_region
@@ -3491,6 +3569,48 @@ mage_tower = {
 		if = {
 			limit = { has_province_modifier = mb_ichortap2 }
 			remove_province_modifier = mb_ichortap2
+		}
+
+		#Rezankand
+		if = {
+			limit = {
+				OR = {
+					has_province_modifier = rezankand_light_matrix
+					has_province_modifier = rezankand_light_matrix_upgraded
+				}
+			}
+			remove_province_modifier = rezankand_light_matrix
+			remove_province_modifier = rezankand_light_matrix_upgraded
+		}
+
+		if = {
+			limit = {
+				OR = {
+					has_province_modifier = rezankand_light_matrix_supply
+					has_province_modifier = rezankand_light_matrix_supply_upgraded
+					has_province_modifier = rezankand_light_matrix_logistic
+					has_province_modifier = rezankand_light_matrix_logistic_upgraded
+				}
+			}
+			remove_province_modifier = rezankand_light_matrix_supply
+			remove_province_modifier = rezankand_light_matrix_supply_upgraded
+			remove_province_modifier = rezankand_light_matrix_logistic
+			remove_province_modifier = rezankand_light_matrix_logistic_upgraded
+			every_neighbor_province = {
+				limit = {
+					owned_by = ROOT
+					NOT = {
+						any_neighbor_province = {
+							owned_by = ROOT
+							has_building = mage_tower
+						}
+					}
+				}
+				remove_province_modifier = rezankand_light_matrix_supply
+				remove_province_modifier = rezankand_light_matrix_supply_upgraded
+				remove_province_modifier = rezankand_light_matrix_logistic
+				remove_province_modifier = rezankand_light_matrix_logistic_upgraded
+			}
 		}
 	}
 }
@@ -4038,6 +4158,15 @@ railway_work = {
 						cost = 1
 					}
 				}
+				if = { 
+					limit = {
+						region = jade_mines_region
+						owner = { mission_completed = az_an_freeing_our_bretheren }
+					}
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
 			}
 			else_if = {
 				limit = { has_province_modifier = restored_rail }
@@ -4079,6 +4208,15 @@ railway_work = {
 						speed = 1.3
 						cost = 2
 					}
+				}
+				if = { 
+					limit = {
+						region = jade_mines_region
+						owner = { mission_completed = az_an_freeing_our_bretheren }
+					}
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
 				}
 			}
 			else_if = {
@@ -4604,22 +4742,6 @@ phoenix_empire_palace_build = {
 	}
 }
 
-xhazobkult_pyre = {
-	cost = 10
-	time = 1
-
-	build_trigger = {
-		owner = { religion = xhazobkult }
-	}
-
-	modifier = {
-	}
-
-	ai_will_do = {
-		factor = 0
-	}
-}
-
 #Mulen
 hanging_city_foundation = {
 	cost = 500
@@ -4654,5 +4776,3 @@ hanging_city_foundation = {
 		factor = 0
 	}
 }
-
-
