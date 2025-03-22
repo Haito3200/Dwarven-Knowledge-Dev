@@ -111,22 +111,25 @@ custom_button = {
 		always = yes
 	}
 	trigger = {
-        custom_trigger_tooltip = {
-            tooltip = DA_metallurgy_interface_NOT_IN_USE
-            NOt = { has_country_flag = DA_Metallurgy_interface_on }
+        # custom_trigger_tooltip = {
+            # tooltip = DA_metallurgy_interface_NOT_IN_USE
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_Metallurgy_interface_on }
         }
 	}
 	effect = {
-        DA_initialise_interface_variables = yes
-        if = {
-            limit = {
-                has_country_flag = DA_Metallurgy_interface_on
+        hidden_effect = {
+            DA_initialise_interface_variables = yes
+            if = {
+                limit = {
+                    has_country_flag = DA_Metallurgy_interface_on
+                }
+                clr_country_flag = DA_Metallurgy_interface_on
             }
-            clr_country_flag = DA_Metallurgy_interface_on
-        }
-        else = {
-            set_country_flag = DA_Metallurgy_interface_on
-            set_country_flag = DA_Metallurgy_interface_on_main
+            else = {
+                set_country_flag = DA_Metallurgy_interface_on
+                set_country_flag = DA_Metallurgy_interface_on_main
+            }
         }
 	}
 }
@@ -158,7 +161,9 @@ custom_button = {
 		always = yes
 	}
 	trigger = {
-        culture_group = dwarven
+        hidden_trigger = {
+            culture_group = dwarven
+        }
 	}
 	effect = {
         clr_country_flag = DA_Metallurgy_interface_on_main
@@ -204,10 +209,13 @@ custom_button = {
 	}
 	effect = {
         clr_country_flag = DA_Metallurgy_interface_on
+        
+        clr_country_flag = DA_Metallurgy_interface_on_wonders
+        clr_country_flag = DA_Metallurgy_interface_on_inventions
+        clr_country_flag = DA_Metallurgy_interface_on_research_facility
+
         clr_country_flag = DA_Metallurgy_interface_on_main
         clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
         clr_country_flag = DA_Metallurgy_interface_on_Alchemy
         clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
         clr_country_flag = DA_Metallurgy_interface_on_Mechanics
