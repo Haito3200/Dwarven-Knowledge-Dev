@@ -542,7 +542,7 @@ custom_button = {
         has_country_flag = DA_Metallurgy_interface_on_main
 	}
 	trigger = {
-		treasury = 35
+		treasury = 10
         manpower = 1
         custom_trigger_tooltip = {
             tooltip = DA_Warforged_Infantry_Forcelimit_tt
@@ -557,7 +557,7 @@ custom_button = {
         }
 	}
 	effect = {
-        add_treasury = -35
+        add_treasury = -10
         add_manpower = -1
         custom_tooltip = DA_create_1_Warforged_infantry_tt
         hidden_effect = {
@@ -604,7 +604,7 @@ custom_button = {
         has_country_flag = DA_Metallurgy_interface_on_main
 	}
 	trigger = {
-		treasury = 350
+		treasury = 100
         manpower = 10
         custom_trigger_tooltip = {
             tooltip = DA_Warforged_Infantry_Forcelimit_tt
@@ -619,7 +619,7 @@ custom_button = {
         }
 	}
 	effect = {
-        add_treasury = -350
+        add_treasury = -100
         add_manpower = -10
         custom_tooltip = DA_create_10_Warforged_infantry_tt
         hidden_effect = {
@@ -717,6 +717,14 @@ custom_button = {
 	}
 }
 
+custom_text_box = {
+    name = DA_Metallurgy_fake_cost_button_infantry.value #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metallurgy_fake_cost_button_infantry.value #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+
 
 
 custom_button = {
@@ -726,7 +734,7 @@ custom_button = {
         has_country_flag = DA_Metallurgy_interface_on_main
 	}
 	trigger = {
-		treasury = 35
+		treasury = 30
         manpower = 1
         custom_trigger_tooltip = {
             tooltip = DA_Warforged_Juggernauts_Forcelimit_tt
@@ -741,7 +749,7 @@ custom_button = {
         }
 	}
 	effect = {
-        add_treasury = -35
+        add_treasury = -30
         add_manpower = -1
         custom_tooltip = DA_create_1_Warforged_cavalry_tt
         hidden_effect = {
@@ -788,7 +796,7 @@ custom_button = {
         has_country_flag = DA_Metallurgy_interface_on_main
 	}
 	trigger = {
-		treasury = 350
+		treasury = 300
         manpower = 10
         custom_trigger_tooltip = {
             tooltip = DA_Warforged_Juggernauts_Forcelimit_tt
@@ -803,7 +811,7 @@ custom_button = {
         }
 	}
 	effect = {
-        add_treasury = -350
+        add_treasury = -300
         add_manpower = -10
         custom_tooltip = DA_create_10_Warforged_cavalry_tt
         hidden_effect = {
@@ -899,6 +907,12 @@ custom_button = {
 	}
 	effect = {
 	}
+}
+custom_text_box = {
+    name = DA_Metallurgy_fake_cost_button_cavalry.value #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metallurgy_fake_cost_button_cavalry.value #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 
@@ -1083,6 +1097,12 @@ custom_button = {
 	}
 	effect = {
 	}
+}
+custom_text_box = {
+    name = DA_Metallurgy_fake_cost_button_artillery.value #Must match a scripted instantTextBoxType in a .gui file
+    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    tooltip = DA_Metallurgy_fake_cost_button_artillery.value #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 
@@ -2170,7 +2190,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_ARTIL
             }
         }
-        mil_power = 50
+        mil_power = 30
         NOT = { has_country_modifier = DA_unit_design_in_prgress }
         custom_trigger_tooltip = {
             tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
@@ -2179,6 +2199,10 @@ custom_button = {
         if = {
             limit = {
                 has_country_flag = DA_metallurgy_show_INFAN
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_you_must_reset_the_unit_designer_first
+                NOT = { has_country_modifier = DA_metallurgy_infantry_modifier_fake }
             }
             custom_trigger_tooltip = {
                 tooltip = DA_must_have_selected_blueprint_first_tt
@@ -2194,6 +2218,10 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             custom_trigger_tooltip = {
+                tooltip = DA_you_must_reset_the_unit_designer_first
+                NOT = { has_country_modifier = DA_metallurgy_cavalry_modifier_fake }
+            }
+            custom_trigger_tooltip = {
                 tooltip = DA_must_have_selected_blueprint_first_tt
                 has_country_flag = DA_selected_blueprint_CAVAL
             }
@@ -2205,6 +2233,10 @@ custom_button = {
         else_if = {
             limit = {
                 has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_you_must_reset_the_unit_designer_first
+                NOT = { has_country_modifier = DA_metallurgy_artillery_modifier_fake }
             }
             custom_trigger_tooltip = {
                 tooltip = DA_must_have_selected_blueprint_first_tt
@@ -2230,7 +2262,7 @@ custom_button = {
                     DA_unit = INFAN
                 }
             }
-            add_mil_power = -50
+            add_mil_power = -30
             add_country_modifier = {
                 name = DA_unit_design_in_prgress
                 duration = 365
@@ -2252,7 +2284,7 @@ custom_button = {
                     DA_unit = CAVAL
                 }
             }
-            add_mil_power = -50
+            add_mil_power = -30
             add_country_modifier = {
                 name = DA_unit_design_in_prgress
                 duration = 365
@@ -2274,7 +2306,7 @@ custom_button = {
                     DA_unit = ARTIL
                 }
             }
-            add_mil_power = -50
+            add_mil_power = -30
             add_country_modifier = {
                 name = DA_unit_design_in_prgress
                 duration = 365
@@ -2316,6 +2348,9 @@ custom_button = {
             DA_remove_Unique_Metallurgy_modifiers_flags = {
                 DA_unit = INFAN
             }
+            hidden_effect = {
+			    remove_country_modifier = DA_metallurgy_infantry_modifier_fake
+            }
         }
         else_if = {
             limit = {
@@ -2327,6 +2362,9 @@ custom_button = {
             DA_remove_Unique_Metallurgy_modifiers_flags = {
                 DA_unit = CAVAL
             }
+            hidden_effect = {
+			    remove_country_modifier = DA_metallurgy_cavalry_modifier_fake
+            }
         }
         else_if = {
             limit = {
@@ -2337,6 +2375,9 @@ custom_button = {
             }
             DA_remove_Unique_Metallurgy_modifiers_flags = {
                 DA_unit = ARTIL
+            }
+            hidden_effect = {
+			    remove_country_modifier = DA_metallurgy_artillery_modifier_fake
             }
         }
 	}
