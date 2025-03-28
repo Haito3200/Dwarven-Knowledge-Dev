@@ -1,6 +1,6 @@
 guiTypes = {
 	
-	#Janissaries
+		#Janissaries #1.35
 	windowType = {
 		name = "janissaries_state_view"
 		backGround=""
@@ -18,11 +18,11 @@ guiTypes = {
 			buttonFont = "vic_18"
 			buttonText = "CREATE_JANISSARIES_BUTTON"
 
-			position = { x = 18 y = 0 }
+			position = { x = 5000 y = 0 } #Anbennar, was 18,0
 		}
 	}
 	
-	# Ottoman Pasha
+	# Ottoman Pasha #1.35
 	windowType = {
 		name = "pasha_state_view"
 		backGround=""
@@ -57,7 +57,7 @@ guiTypes = {
 		}
 	}
 	
-	# Orthodox Patriarch
+	# Orthodox Patriarch #1.35
 	windowType = {
 		name = "patriarch_state_view"
 		backGround=""
@@ -92,7 +92,7 @@ guiTypes = {
 		}
 	}
 	
-	# Manchu banners
+	# Manchu banners #1.35
 	windowType = {
 		name = "banners_state_view"
 		backGround=""
@@ -140,7 +140,7 @@ guiTypes = {
 		}
 	}
 	
-	# Cawa
+	# Cawa #1.35
 	windowType = {
 		name = "cawa_state_view"
 		backGround=""
@@ -735,12 +735,12 @@ guiTypes = {
 				quadTextureSprite ="GFX_checkbox_settlement_growth"
 			}
 
-			guiButtonType = {
-				name = "dig_deeper_capital"
-				position = { x= 449 y = 64 }
-				quadTextureSprite = "GFX_dig_deeper_button"
-				scripted = yes
-			}
+			# guiButtonType = {
+			# 	name = "dig_deeper_capital"
+			# 	position = { x= 449 y = 64 }
+			# 	quadTextureSprite = "GFX_dig_deeper_button"
+			# 	scripted = yes
+			# }
 
 			iconType = {
 				name = "diggy_diggy_estimate"
@@ -888,11 +888,10 @@ guiTypes = {
 				fixedsize = yes
 			}
 
-			#EXPLOSION FIX changed
 			guiButtonType =
 			{
 				name ="raze_button"
-				position = { x= 450 y = 28 }#changed OLD Y=60
+				position = { x= 450 y = 60 }
 				quadTextureSprite ="GFX_development_button_raze"
 				tooltip = ""
 				tooltipText =""
@@ -900,21 +899,6 @@ guiTypes = {
 				buttonText = ""
 				buttonFont = "vic_18"
 				Orientation = "UPPER_LEFT"
-			}#changed
-
-
-			guiButtonType =
-			{
-				name = "transmutative_path_infuse_chi_button"
-				position = { x= 450 y = 100 }#changed OLD Y=60
-				quadTextureSprite ="chi_wellspring_button"
-				tooltip = ""
-				tooltipText =""
-				delayedTooltipText = ""
-				buttonText = ""
-				buttonFont = "vic_18"
-				Orientation = "UPPER_LEFT"
-				scripted = yes
 			}
 
 
@@ -1055,7 +1039,7 @@ guiTypes = {
 				alwaystransparent = yes
 			}
 
-			### HRE	changed
+			### HRE
 			iconType =
 			{
 				name ="hre_icon"
@@ -1411,7 +1395,7 @@ guiTypes = {
 					position = { x = 65 y = 180 }
 					scale = 0.7
 				}
-				#changed
+
 				guiButtonType = {
 					name ="mutually_cancel"
 					quadTextureSprite = "GFX_alerticon_dismiss_always"
@@ -2686,6 +2670,93 @@ guiTypes = {
 				position = { x=478 y=144}
 				quadTextureSprite ="GFX_build_interface_building_tab"
 			}
+
+			guiButtonType = {
+				name = "province_button_button"
+				position = { x=478 y=194}
+				quadTextureSprite ="GFX_province_button_interface_tab"
+				scripted = yes
+			}
+			
+			#Province button UI - building UI closed
+			windowType = {
+				name = "province_button_window_closed"
+				position = { x = 486 y = 187 }
+				size = { x = 60 y = 200 }
+				Orientation = "UPPER_LEFT"
+				scripted = yes
+				
+				iconType = { #Background
+					name ="GFX_province_button_frame_bg_vertical"
+					spriteType = "GFX_province_button_frame_bg_vertical"
+					position = { x = 8 y = 9 }
+				}
+				guiButtonType = { #Close button
+					name = "province_button_close_button"
+					position = { x = 52 y = -9 }
+					quadTextureSprite ="GFX_closebutton2"
+					clicksound = close_window
+					scripted = yes
+				}
+				### New Province UI buttons must be added here below the previous ones in the right slot, this is for the _closed one (building UI closed)
+				#Slot 1 - Continent wide button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_1_closed"
+					quadTextureSprite = "GFX_province_button_dummy1"
+					position = { x = 22 y = 41 }
+					scripted = yes
+				}
+				guiButtonType = { #Sedentarization
+					name = "sedentarization_make_outpost_closed"
+					quadTextureSprite = "GFX_settle_tribe_button"
+					position = { x = 22 y = 41 }
+					scripted = yes
+				}
+
+				#Slot 2 - Province type button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_2_closed"
+					quadTextureSprite = "province_button_dummy2"
+					position = { x = 22 y = 86 }
+					scripted = yes
+				}
+				guiButtonType = { #Holds
+					name = "dig_deeper_capital_closed"
+					position = { x = 22 y = 86 }
+					quadTextureSprite = "GFX_dig_deeper_button"
+					scripted = yes
+				}
+
+				#Slot 3 - Religion specific button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_3_closed"
+					quadTextureSprite = "GFX_change_religion_button"
+					position = { x = 22 y = 131 }
+					scripted = yes
+				}
+				guiButtonType = { #Transmutative Path
+					name = "transmutative_path_infuse_chi_button_closed"
+					position = { x = 22 y = 131 }
+					quadTextureSprite = "chi_wellspring_button"
+					scripted = yes
+				}
+
+				#Slot 4 - Culture specific button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_4_closed"
+					quadTextureSprite = "GFX_promote_button"
+					position = { x = 26 y = 180 }
+					scripted = yes
+				}
+
+				#Slot 5 - Tag specific button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_5_closed"
+					quadTextureSprite = "GFX_make_state_button"
+					position = { x = 22 y = 221 }
+					scripted = yes
+				}
+			}
 		}
 
 
@@ -2958,7 +3029,7 @@ guiTypes = {
 				borderSize = {x = 0 y = 0}
 			}
 
-			smoothListboxType = {
+			smoothListboxType = { #1.35
 				name = "stateviews_listbox"
 				backGround = ""
 				position = { x = 12 y = 414 }
@@ -2977,6 +3048,7 @@ guiTypes = {
 			}
 		}
 
+
 		#### BUILDINGS WINDOW
 		windowType = {
 			name = "buildings_window"
@@ -2989,6 +3061,152 @@ guiTypes = {
 			fullScreen = no
 			moveable = 0
 			Orientation = "UPPER_LEFT"
+
+
+			#province button UI - building UI open no monument
+			windowType = {
+				name = "province_button_window_no_monument"
+				position = { x = 31 y = 60 }
+				size = { x = 475 y = 400 }
+				Orientation = "UPPER_LEFT"
+				scripted = yes
+
+				iconType = {
+					name ="GFX_province_button_frame_bg_no_monument"
+					spriteType = "GFX_province_button_frame_bg"
+					position = { x = 0 y = 0 }
+				}
+				### New Province UI buttons must be added here below the previous ones in the right slot, this is for both the no_monument and with_monument
+				#Slot 1 - Continent wide button
+				guiButtonType = {
+					name = "GFX_province_button_dummy_1_no_monument"
+					quadTextureSprite = "GFX_province_button_dummy1"
+					position = { x = 34 y = 38 }
+					scripted = yes
+				}
+				guiButtonType = { #Sedentarization
+					name = "sedentarization_make_outpost_no_monument"
+					quadTextureSprite = "GFX_settle_tribe_button"
+					position = { x = 34 y = 38 }
+					scripted = yes
+				}
+
+				#Slot 2 - Province type button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_2_no_monument"
+					quadTextureSprite = "province_button_dummy2"
+					position = { x = 79 y = 38 }
+					scripted = yes
+				}
+				guiButtonType = { #Hold no monument
+					name = "dig_deeper_capital_no_monument"
+					position = { x = 79 y = 38 }
+					quadTextureSprite = "GFX_dig_deeper_button"
+					scripted = yes
+				}
+
+				#Slot 3 - Religion specific button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_3_no_monument"
+					quadTextureSprite = "GFX_change_religion_button"
+					position = { x = 124 y = 38 }
+					scripted = yes
+				}
+				guiButtonType = { #Transmutative path no monument
+					name = "transmutative_path_infuse_chi_button_no_monument"
+					position = { x = 124 y = 38 }
+					quadTextureSprite = "chi_wellspring_button"
+					scripted = yes
+				}
+
+				#Slot 4 - Culture specific button
+				guiButtonType = {
+					name = "GFX_province_button_dummy_4_no_monument"
+					quadTextureSprite = "GFX_promote_button"
+					position = { x = 173 y = 42 }
+					scripted = yes
+				}
+
+				#Slot 5 - Tag specific button
+				guiButtonType = {
+					name = "GFX_province_button_dummy_5_no_monument"
+					quadTextureSprite = "GFX_make_state_button"
+					position = { x = 214 y = 38 }
+					scripted = yes
+				}
+			}
+			#province button UI - building UI open with monument
+			windowType = {
+				name = "province_button_window_with_monument"
+				position = { x = 31 y = -170 }
+				size = { x = 475 y = 400 }
+				Orientation = "UPPER_LEFT"
+				scripted = yes
+
+				iconType = {
+					name ="GFX_province_button_frame_bg_with_monument"
+					spriteType = "GFX_province_button_frame_bg"
+					position = { x = 0 y = -12 }
+				}
+				### New Province UI buttons must be added here below the previous ones in the right slot, this is for both the no_monument and with_monument
+				#Slot 1 - Continent wide button
+				guiButtonType = {
+					name = "GFX_province_button_dummy_1_with_monument"
+					quadTextureSprite = "GFX_province_button_dummy1"
+					position = { x = 34 y = 26 }
+					scripted = yes
+				}
+				guiButtonType = { #Sedentarization
+					name = "sedentarization_make_outpost_with_monument"
+					quadTextureSprite = "GFX_settle_tribe_button"
+					position = { x = 34 y = 26 }
+					scripted = yes
+				}
+
+				#Slot 2 - Province type button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_2_with_monument"
+					quadTextureSprite = "province_button_dummy2"
+					position = { x = 79 y = 26 }
+					scripted = yes
+				}
+				guiButtonType = { #Hold with monument
+					name = "dig_deeper_capital_with_monument"
+					position = { x = 79 y = 26 }
+					quadTextureSprite = "GFX_dig_deeper_button"
+					scripted = yes
+				}
+
+				#Slot 3 - Religion specific button
+				guiButtonType = { #Generic
+					name = "GFX_province_button_dummy_3_with_monument"
+					quadTextureSprite = "GFX_change_religion_button"
+					position = { x = 124 y = 26 }
+					scripted = yes
+				}
+				guiButtonType = { #Transmutative path with monument
+					name = "transmutative_path_infuse_chi_button_with_monument"
+					position = { x = 124 y = 26 }
+					quadTextureSprite = "chi_wellspring_button"
+					scripted = yes
+				}
+
+				#Slot 4 - Culture specific button
+				guiButtonType = {
+					name = "GFX_province_button_dummy_4_with_monument"
+					quadTextureSprite = "GFX_promote_button"
+					position = { x = 173 y = 30 }
+					scripted = yes
+				}
+
+				#Slot 5 - Tag specific button
+				guiButtonType = {
+					name = "GFX_province_button_dummy_5_with_monument"
+					quadTextureSprite = "GFX_make_state_button"
+					position = { x = 214 y = 26 }
+					scripted = yes
+				}
+			}
 
 			#### GREAT PROJECTS WINDOW
 			windowType = {
@@ -3031,6 +3249,7 @@ guiTypes = {
 					borderSize = { x = 0 y = 0 }
 				}
 			}
+
 			windowType = {
 				name = "general_buildings_window"
 				backGround=""
@@ -3042,7 +3261,6 @@ guiTypes = {
 				fullScreen = no
 				moveable = 0
 				Orientation = "UPPER_LEFT"
-				
 
 				iconType =
 				{
@@ -3100,7 +3318,7 @@ guiTypes = {
 					maxHeight = 32
 					format = left
 				}
-				
+
 				guiButtonType =
 				{
 					name ="expand_infrastructure_button"
@@ -3126,7 +3344,7 @@ guiTypes = {
 					buttonFont = "vic_18"
 					Orientation = "UPPER_LEFT"
 				}
-
+                
 				iconType =
 				{
 					name ="naval_forcelimit_icon"
@@ -3387,7 +3605,7 @@ guiTypes = {
 
 				instantTextBoxType = {
 					name = "window_title"
-					position = { x = 0 y = 5 } #flogi
+					position = { x = 0 y = 5 }
 					textureFile = ""
 					font = "vic_29s"
 					borderSize = {x = 4 y = 4}
@@ -3603,7 +3821,7 @@ guiTypes = {
 						spriteType = "GFX_governing_capacity"
 						position = { x= 205 y = 588  }
 						Orientation = "UPPER_LEFT"
-						scale = 0.75
+						scale = 0.75 #1.35 had no scale
 					}
 					
 					instantTextBoxType = {
@@ -4746,12 +4964,12 @@ guiTypes = {
 
 	positionType = {
 		name = "building_close_button_natives"
-		position = { x = 382 y = 200 }
+		position = { x = 382 y = 200 } #1.35 was y=-8
 	}
 
 	positionType = {
 		name = "building_close_button_natives_large"
-		position = { x = 382 y = 140 }
+		position = { x = 382 y = 140 } #1.35 was y=-164
 	}
 
 	positionType = {
@@ -4987,7 +5205,7 @@ guiTypes = {
 		}
 	}
 	
-		### UNIQUE BUILDING ENTRY this is what must be changed for the building slots!
+	### UNIQUE BUILDING ENTRY
 
 	positionType = {
 		name = "building_start"
@@ -5001,7 +5219,7 @@ guiTypes = {
 
 	positionType = {
 		name = "building_max_per_row"
-		position = { x = 6 y = 0 } # flogi 
+		position = { x = 6 y = 0 }
 	}
 
 
@@ -8080,6 +8298,7 @@ guiTypes = {
 			maxHeight = 20
 			format = left
 		}
+		
 		guiButtonType = {
 			name = "name_overlay"
 			position = { x = 31 y = 6 }
@@ -8254,7 +8473,7 @@ guiTypes = {
 				name = "edicts_listbox"
 				backGround = ""
 				position = { x = 500 y = 51 }
-				size = { x = 380 y = 450 }
+				size = { x = 380 y = 450 } #1.35 was y=400
 				horizontal = 0
 				scrollbartype = "standardlistbox_slider"
 				borderSize = {x = 0 y = 0}
