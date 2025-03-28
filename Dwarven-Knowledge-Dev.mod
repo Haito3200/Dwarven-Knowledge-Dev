@@ -18,4 +18,4 @@ dependencies={
 	"ACE - Anbennar Content Expanded"
 }
 supported_version="v1.37.5.0"
-path="C:/Users/Utente/Documents/Paradox Interactive/Europa Universalis IV/mod/Dwarven-Knowledge-Dev"
+path="mod/Dwarven-Knowledge-Dev"
