@@ -252,16 +252,66 @@ custom_button = {
         ruler_studying_magic = yes
         ruler_has_mage_personality = yes
 		DA_mana_required = {
+            amount = 20
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_ability_on_CD_tt
+            has_country_modifier = DA_arcane_arts_study_exp_CD
+        }
+	}
+	effect = {
+        DA_mana_spend = {
+            amount = 20
+        }
+		increase_study_experience = {
+			experience = 200
+		}
+        custom_tooltip = DA_CD_5_tt
+        hidden_effect = {
+            add_country_modifier = {
+                name = DA_arcane_arts_study_exp_CD
+                duration = 1825
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_Arcane_Arts_recruit_Arcanist_button
+	tooltip = DA_Arcane_Arts_recruit_Arcanist_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Magic_Theory_1 = yes
+        any_owned_province = {
+            has_building = mage_tower
+            custom_trigger_tooltip = {
+                tooltip = DA_Mage_Tower_Specialization_in_arcane_tt
+                OR = {
+                    has_province_modifier = DA_Mage_Tower_Specialization.Abjuration
+                    has_province_modifier = DA_Mage_Tower_Specialization.Divination
+                    has_province_modifier = DA_Mage_Tower_Specialization.Illusion
+                    has_province_modifier = DA_Mage_Tower_Specialization.Conjuration
+                    has_province_modifier = DA_Mage_Tower_Specialization.Enchantment
+                    has_province_modifier = DA_Mage_Tower_Specialization.Evocation
+                    has_province_modifier = DA_Mage_Tower_Specialization.Transmutation
+                    has_province_modifier = DA_Mage_Tower_Specialization.Necromancy
+                }
+            }
+        }
+		DA_mana_required = {
             amount = 25
         }
+        mil_power = 50
 	}
 	effect = {
         DA_mana_spend = {
             amount = 25
         }
-		increase_study_experience = {
-			experience = 200
-		}
+        add_mil_power = -50
+        country_event = {
+            id = DA_Tech_Arcane_Arts_event.1
+        }
 	}
 }
 custom_button = {
@@ -302,45 +352,6 @@ custom_button = {
         add_mil_power = -60
         country_event = {
             id = DA_Tech_Arcane_Arts_event.2
-        }
-	}
-}
-custom_button = {
-	name = DA_Arcane_Arts_recruit_Arcanist_button
-	tooltip = DA_Arcane_Arts_recruit_Arcanist_button_tt
-	potential = {
-        always = yes
-	}
-	trigger = {
-        DA_completed.Magic_Theory_1 = yes
-        any_owned_province = {
-            has_building = mage_tower
-            custom_trigger_tooltip = {
-                tooltip = DA_Mage_Tower_Specialization_in_arcane_tt
-                OR = {
-                    has_province_modifier = DA_Mage_Tower_Specialization.Abjuration
-                    has_province_modifier = DA_Mage_Tower_Specialization.Divination
-                    has_province_modifier = DA_Mage_Tower_Specialization.Illusion
-                    has_province_modifier = DA_Mage_Tower_Specialization.Conjuration
-                    has_province_modifier = DA_Mage_Tower_Specialization.Enchantment
-                    has_province_modifier = DA_Mage_Tower_Specialization.Evocation
-                    has_province_modifier = DA_Mage_Tower_Specialization.Transmutation
-                    has_province_modifier = DA_Mage_Tower_Specialization.Necromancy
-                }
-            }
-        }
-		DA_mana_required = {
-            amount = 25
-        }
-        mil_power = 50
-	}
-	effect = {
-        DA_mana_spend = {
-            amount = 25
-        }
-        add_mil_power = -50
-        country_event = {
-            id = DA_Tech_Arcane_Arts_event.1
         }
 	}
 }
