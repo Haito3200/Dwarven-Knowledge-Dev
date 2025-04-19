@@ -730,6 +730,102 @@ custom_icon = {
 	tooltip = diggy_hole_progress_tt
 }
 
+
+##############################################################################################################################################################################
+### PROVINCE UI from Dwarven Knowledge
+
+
+
+custom_button = { #Button for the UI when building UI is closed
+	name = DA_province_button_Alchemy_Prospecting
+	tooltip = ""
+	potential = {
+		owner = {
+			OR = {
+				tag = FROM
+				is_subject_of = FROM
+			}
+			FROM = {
+				NOT = { has_country_flag = province_button_UI_opened }
+			}
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_has_unknown_alchemy_material_in_province_tt
+			OR = {
+				has_province_modifier = DA_Alchemy_material.Unknown.common
+				has_province_modifier = DA_Alchemy_material.Unknown.rare
+				has_province_modifier = DA_Alchemy_material.Unknown.legendary
+			}
+		}
+		if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.common
+			}
+			owner = {
+				is_at_war = no
+				dip_power = 20
+				manpower = 5
+				treasury = 50
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.rare
+			}
+			owner = {
+				is_at_war = no
+				dip_power = 40
+				manpower = 10
+				treasury = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.legendary
+			}
+			owner = {
+				is_at_war = no
+				dip_power = 80
+				manpower = 20
+				treasury = 200
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.common
+			}
+			owner = {
+				add_dip_power = -20
+				add_manpower = -5
+				add_treasury = -50
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.rare
+			}
+			owner = {
+				add_dip_power = -40
+				add_manpower = -10
+				add_treasury = -100
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.legendary
+			}
+			owner = {
+				add_dip_power = -80
+				add_manpower = -20
+				add_treasury = -200
+			}
+		}
+	}
+}
 ##############################################################################################################################################################################
 ### PROVINCE UI GLOBAL
 ##############################################################################################################################################################################
