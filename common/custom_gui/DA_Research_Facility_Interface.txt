@@ -449,6 +449,18 @@ custom_button = {
 custom_button = {
 	name = DA_ADK_Disable_Button
 	tooltip = DA_ADK_Disable_Button_tt
+    frame = {  #Can define multiple frame clauses
+        number = 1 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = {
+            NOT = { has_country_flag = DA_Disabled_ADK_on_Click }
+        } #First matched frame clause will be used.
+    }
+    frame = {  #Can define multiple frame clauses
+        number = 2 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = {
+            has_country_flag = DA_Disabled_ADK_on_Click
+        } #First matched frame clause will be used.
+    }
 	potential = {
 		always = yes
 	}

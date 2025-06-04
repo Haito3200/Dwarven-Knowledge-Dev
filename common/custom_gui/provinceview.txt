@@ -738,19 +738,14 @@ custom_icon = {
 
 custom_button = { #Button for the UI when building UI is closed
 	name = DA_province_button_Alchemy_Prospecting
-	tooltip = ""
+	tooltip = DA_province_button_Alchemy_Prospecting_tt
 	potential = {
-		owner = {
-			OR = {
-				tag = FROM
-				is_subject_of = FROM
-			}
-			FROM = {
-				NOT = { has_country_flag = province_button_UI_opened }
-			}
-		}
+		always = yes
 	}
 	trigger = {
+		hidden_trigger = {
+			NOT = { has_province_modifier = DA_Alchemy_Material_exploration_workaround }
+		}
 		custom_trigger_tooltip = {
 			tooltip = DA_has_unknown_alchemy_material_in_province_tt
 			OR = {
@@ -794,6 +789,7 @@ custom_button = { #Button for the UI when building UI is closed
 		}
 	}
 	effect = {
+		custom_tooltip = DA_if_has_unknown_alchemy_material_in_province_find_it_tt
 		if = {
 			limit = {
 				has_province_modifier = DA_Alchemy_material.Unknown.common
@@ -802,6 +798,10 @@ custom_button = { #Button for the UI when building UI is closed
 				add_dip_power = -20
 				add_manpower = -5
 				add_treasury = -50
+			}
+			custom_tooltip = DA_the_process_takes_around_15_days
+			hidden_effect = {
+				add_province_triggered_modifier = DA_Alchemy_Material_exploration_workaround
 			}
 		}
 		else_if = {
@@ -813,6 +813,10 @@ custom_button = { #Button for the UI when building UI is closed
 				add_manpower = -10
 				add_treasury = -100
 			}
+			custom_tooltip = DA_the_process_takes_around_90_days
+			hidden_effect = {
+				add_province_triggered_modifier = DA_Alchemy_Material_exploration_workaround
+			}
 		}
 		else_if = {
 			limit = {
@@ -823,7 +827,57 @@ custom_button = { #Button for the UI when building UI is closed
 				add_manpower = -20
 				add_treasury = -200
 			}
+			custom_tooltip = DA_the_process_takes_around_120_days
+			hidden_effect = {
+				add_province_triggered_modifier = DA_Alchemy_Material_exploration_workaround
+			}
 		}
+	}
+}
+
+custom_button = {
+	name = DA_ADK_Disable_Province_Button
+	tooltip = DA_ADK_Disable_Province_Button_tt
+    frame = {  #Can define multiple frame clauses
+        number = 1 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = {
+			owner = {
+        		NOT = { has_country_flag = DA_Disabled_ADK_on_Click }
+			}
+        } #First matched frame clause will be used.
+    }
+    frame = {  #Can define multiple frame clauses
+        number = 2 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = {
+			owner = {
+        		has_country_flag = DA_Disabled_ADK_on_Click
+			}
+        } #First matched frame clause will be used.
+    }
+	potential = {
+		always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        hidden_effect = {
+            if = {
+                limit = {
+					owner = {
+						has_country_flag = DA_Disabled_ADK_on_Click
+					}
+                }
+				owner = {
+                	clr_country_flag = DA_Disabled_ADK_on_Click
+				}
+            }
+            else = {
+				owner = {
+                	set_country_flag = DA_Disabled_ADK_on_Click
+				}
+            }
+        }
 	}
 }
 ##############################################################################################################################################################################

@@ -1,170 +1,24 @@
 DA_give_staring_alchemy_materials = {
 	random_list = {
-		# common
-		2 = {
+		10 = {
 			add_province_modifier = {
-				name = DA_Alchemy_material.Silverleaf
+				name = DA_Alchemy_material.Unknown.common
 				duration = -1
 			}
 		}
-		2 = {
+		3 = {
 			add_province_modifier = {
-				name = DA_Alchemy_material.Ironroot
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Sageleaf
+				name = DA_Alchemy_material.Unknown.rare
 				duration = -1
 			}
 		}
 		1 = {
 			add_province_modifier = {
-				name = DA_Alchemy_material.Embergrass
+				name = DA_Alchemy_material.Unknown.legendary
 				duration = -1
 			}
 		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Glowberry
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Duskfern
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Stormvine
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Honeyroot
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Shadowmoss
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Golden_Thistle
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Bloodflower
-				duration = -1
-			}
-		}
-		# rare
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Nightshade_Amethyst
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Crimson_Thistle
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Maticore_Quill
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Voidglass
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Crypt_Shroom
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Mandrake_Root
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Drasil_Bark
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Healing_Slime
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Obsidian_Bloodstone
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Basilisk_Fang
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.The_Last_Wish
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Azure_Lotus
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Fey_Amber
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Wraith_Essence
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Griffon_Feather
-				duration = -1
-			}
-		}
-		1 = {
-			add_province_modifier = {
-				name = DA_Alchemy_material.Arcane_Fire
-				duration = -1
-			}
-		}
-		110 = {
+		8 = {
 		}
 	}
 }
@@ -174,22 +28,101 @@ DA_add_alchemy_material_Common = {
 		random_list = {
 			1 = {
 				trigger = {
-					NOT = { has_province_flag = DA_Mine_Aluminium }
+					NOT = { has_province_modifier = DA_Alchemy_material.Ironroot }
 				}
-				set_province_flag = DA_Mine_Aluminium
 				province_event = {
-					id = DA_Metallurgy_events.103 
-					days = 15
+					id = DA_Tech_Alchemy_Material_Event.100
+					days = 30
 				}
 			}
 			1 = {
 				trigger = {
-					NOT = { has_province_flag = DA_Mine_Chromium }
+					NOT = { has_province_modifier = DA_Alchemy_material.Silverleaf }
 				}
-				set_province_flag = DA_Mine_Chromium
 				province_event = {
-					id = DA_Metallurgy_events.105
-					days = 15
+					id = DA_Tech_Alchemy_Material_Event.101
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Sageleaf }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.102
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Embergrass }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.103
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Glowberry }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.104
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Duskfern }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.105
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Stormvine }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.106
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Honeyroot }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.107
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Shadowmoss }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.108
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Golden_Thistle }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.109
+					days = 30
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Bloodflower }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.110
+					days = 30
 				}
 			}
 		}
@@ -199,24 +132,354 @@ DA_add_alchemy_material_Rare = {
 	custom_tooltip = DA_find_alchemy_material_Rare_tt
 	hidden_effect = {
 		random_list = {
+
+			# these are NOT Anbennar lore-approved
+
 			1 = {
 				trigger = {
-					NOT = { has_province_flag = DA_Mine_Palladium }
+					NOT = { has_province_modifier = DA_Alchemy_material.Crypt_Shroom }
 				}
-				set_province_flag = DA_Mine_Palladium
 				province_event = {
-					id = DA_Metallurgy_events.106
-					days = 15
+					id = DA_Tech_Alchemy_Material_Event.200
+					days = 90
 				}
 			}
 			1 = {
 				trigger = {
-					NOT = { has_province_flag = DA_Mine_Platinum }
+					NOT = { has_province_modifier = DA_Alchemy_material.Mandrake_Root }
 				}
-				set_province_flag = DA_Mine_Platinum
 				province_event = {
-					id = DA_Metallurgy_events.107
-					days = 15
+					id = DA_Tech_Alchemy_Material_Event.201
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Basilisk_Fang }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.202
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Azure_Lotus }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.203
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.underground = yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Nightshade_Amethyst }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.204
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Drasil_Bark }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.206
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Fey_Amber }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.207
+					days = 90
+				}
+			}
+
+			# these are Anbennar lore-approved
+
+
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Manticore_Quill }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.209
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.serpentspine = yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Healing_Slimes }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.210
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.serpentspine = yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Hook_Horrors }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.211
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.serpentspine = yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Living_Crystals }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.212
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.serpentspine = yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Ironweave_Skitterers_silk }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.213
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.serpentspine = yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Logrhundr }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.214
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.serpentspine = yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Purple_Worm_blood }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.215
+					days = 90
+				}
+			}
+			10 = {
+				trigger = {
+					area = marrhold_area
+					NOT = { has_province_modifier = DA_Alchemy_material.Griffon_Feathers }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.216
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Sarhal = yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Tchoken_scales }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.217
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Bulwar =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Almiras }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.220
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Bulwar =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Basmu }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.221
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Bulwar =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Chamrus }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.222
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Bulwar =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Umu_Dabrutu }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.223
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Bulwar =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Asigallu }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.224
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Bulwar =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Girtablullu }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.225
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Bulwar =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Kusarikku }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.226
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Bulwar =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Sibargal }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.227
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.shadow_swamp_region =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.The_Last_Wish }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.228
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.shadow_swamp_region =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Hattiatia }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.229
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Almruk_Spikes }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.230
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Kircha_Ot_laf }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.231
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Rock_Crab_legs }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.232
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Roc_feathers }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.233
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Dire_Hyena_tooth }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.234
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Barzoazh_blood }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.235
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Bo_hide }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.236
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Shadhavar_horns }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.237
+					days = 90
+				}
+			}
+			1 = {
+				trigger = {
+					DA_province_type.Forbidden_Plains =  yes
+					NOT = { has_province_modifier = DA_Alchemy_material.Tlalusk_Tusks }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.238
+					days = 90
 				}
 			}
 		}
@@ -228,26 +491,86 @@ DA_add_alchemy_material_Legendary = {
 		random_list = {
 			1 = {
 				trigger = {
-					continent = serpentspine
-					NOT = { has_province_flag = DA_Mine_Adamantium }
+					NOT = { has_province_modifier = DA_Alchemy_material.Heart_of_the_World }
 				}
-				set_province_flag = DA_Mine_Adamantium
 				province_event = {
-					id = DA_Metallurgy_events.113
-					days = 15
+					id = DA_Tech_Alchemy_Material_Event.300
+					days = 120
 				}
 			}
 			1 = {
 				trigger = {
-					continent = serpentspine
-					NOT = { has_province_flag = DA_Mine_Hearth_blood }
+					NOT = { has_province_modifier = DA_Alchemy_material.Black_Sun_Shard }
 				}
-				set_province_flag = DA_Mine_Hearth_blood
 				province_event = {
-					id = DA_Metallurgy_events.115
-					days = 15
+					id = DA_Tech_Alchemy_Material_Event.301
+					days = 120
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Leviathan_Scales }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.302
+					days = 120
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Phoenix_Feather }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.303
+					days = 120
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Starheart_Core }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.304
+					days = 120
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_province_modifier = DA_Alchemy_material.Whispering_Crown }
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.305
+					days = 120
 				}
 			}
 		}
 	}
+}
+
+DA_apply_Alchemy_Material_shower = {										 # new effect
+	custom_tooltip = DA_Alchemy_Material_preview_tooltip
+	[[DA_Alchemy_Prop_1]
+		add_country_modifier = {
+			name = DA_Alchemy_modifier.$DA_Alchemy_Prop_1$.1
+			duration = -1
+		}
+	]
+	[[DA_Alchemy_Prop_2]
+		add_country_modifier = {
+			name = DA_Alchemy_modifier.$DA_Alchemy_Prop_2$.1
+			duration = -1
+		}
+	]
+	[[DA_Alchemy_Prop_3]
+		add_country_modifier = {
+			name = DA_Alchemy_modifier.$DA_Alchemy_Prop_3$.1
+			duration = -1
+		}
+	]
+	[[DA_Alchemy_Prop_4]
+		add_country_modifier = {
+			name = DA_Alchemy_modifier.$DA_Alchemy_Prop_4$.1
+			duration = -1
+		}
+	]
 }
