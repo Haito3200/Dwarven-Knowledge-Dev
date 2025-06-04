@@ -114,6 +114,48 @@ DA_Hold_exploration_workaround = {
 	} 
 }
 
+DA_Alchemy_Material_exploration_workaround = {
+	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	potential = {
+		always = yes
+	}
+	# Whether the triggered modifier is active
+	trigger = {
+		always = yes
+	}
+    
+	# The modifier to apply when the triggered modifier is active
+	local_state_maintenance_modifier = 0.3
+	# Province scope
+	on_activation = {
+		if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.common
+			}
+			remove_province_modifier = DA_Alchemy_material.Unknown.common
+			DA_add_alchemy_material_Common = yes
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.rare
+			}
+			remove_province_modifier = DA_Alchemy_material.Unknown.rare
+			DA_add_alchemy_material_Rare = yes
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_Alchemy_material.Unknown.legendary
+			}
+			remove_province_modifier = DA_Alchemy_material.Unknown.legendary
+			DA_add_alchemy_material_Legendary = yes
+		}
+		remove_province_triggered_modifier = DA_Alchemy_Material_exploration_workaround
+	}
+	
+	on_deactivation = {
+	} 
+}
+
 DA_Titanium_Vault_exploration_workaround = {
 	# Whether the triggered modifier is visible in the Triggered Modifiers window
 	potential = {
