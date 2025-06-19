@@ -234,12 +234,14 @@ custom_button = {
         always = yes
 	}
 	trigger = {
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development
-            always = no
-        }
+        DA_completed.Alchemy_1 = yes
 	}
 	effect = {
+        custom_tooltip = DA_alchemy_potion_preview_tt
+        tooltip = {
+            DA_give_alchemy_toxicity_modifier_effect = yes
+            DA_give_final_alchemy_modifiers_effect = yes
+        }
 	}
 }
 custom_button = {
@@ -249,12 +251,29 @@ custom_button = {
         always = yes
 	}
 	trigger = {
+        DA_completed.Alchemy_1 = yes
         custom_trigger_tooltip = {
-            tooltip = DA_in_development
-            always = no
+            tooltip = DA_alchemy_not_in_use_tt
+            NOT = { has_country_flag = DA_alchemy_in_use }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_alchemy_slot_not_in_use
+            NOT = { 
+                check_variable = {
+                    which = DA_alchemy_slot
+                    value = 1
+                }   
+            }
         }
 	}
 	effect = {
+        hidden_effect = {
+            set_country_flag = DA_alchemy_in_use
+        }
+        country_event = {
+            id = DA_Tech_Alchemy_event.1
+        }
+
 	}
 }
 custom_button = {
@@ -264,12 +283,28 @@ custom_button = {
         always = yes
 	}
 	trigger = {
+        DA_completed.Alchemy_1 = yes
         custom_trigger_tooltip = {
-            tooltip = DA_in_development
-            always = no
+            tooltip = DA_alchemy_not_in_use_tt
+            NOT = { has_country_flag = DA_alchemy_in_use }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_alchemy_slot_not_in_use
+            NOT = { 
+                check_variable = {
+                    which = DA_alchemy_slot
+                    value = 2
+                }   
+            }
         }
 	}
 	effect = {
+        hidden_effect = {
+            set_country_flag = DA_alchemy_in_use
+        }
+        country_event = {
+            id = DA_Tech_Alchemy_event.1
+        }
 	}
 }
 custom_button = {
@@ -279,12 +314,28 @@ custom_button = {
         always = yes
 	}
 	trigger = {
+        DA_completed.Alchemy_2 = yes
         custom_trigger_tooltip = {
-            tooltip = DA_in_development
-            always = no
+            tooltip = DA_alchemy_not_in_use_tt
+            NOT = { has_country_flag = DA_alchemy_in_use }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_alchemy_slot_not_in_use
+            NOT = { 
+                check_variable = {
+                    which = DA_alchemy_slot
+                    value = 3
+                }   
+            }
         }
 	}
 	effect = {
+        hidden_effect = {
+            set_country_flag = DA_alchemy_in_use
+        }
+        country_event = {
+            id = DA_Tech_Alchemy_event.1
+        }
 	}
 }
 custom_button = {
@@ -294,12 +345,28 @@ custom_button = {
         always = yes
 	}
 	trigger = {
+        DA_completed.Alchemy_4 = yes
         custom_trigger_tooltip = {
-            tooltip = DA_in_development
-            always = no
+            tooltip = DA_alchemy_not_in_use_tt
+            NOT = { has_country_flag = DA_alchemy_in_use }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_alchemy_slot_not_in_use
+            NOT = { 
+                check_variable = {
+                    which = DA_alchemy_slot
+                    value = 4
+                }   
+            }
         }
 	}
 	effect = {
+        hidden_effect = {
+            set_country_flag = DA_alchemy_in_use
+        }
+        country_event = {
+            id = DA_Tech_Alchemy_event.1
+        }
 	}
 }
 custom_button = {
@@ -310,11 +377,24 @@ custom_button = {
 	}
 	trigger = {
         custom_trigger_tooltip = {
-            tooltip = DA_in_development
-            always = no
+            tooltip = DA_alchemy_not_in_use_tt
+            NOT = { has_country_flag = DA_alchemy_in_use }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_alchemy_at_least_1_material_must_be_used_tt
+            check_variable = {
+                which = DA_alchemy_slot
+                value = 1
+            }   
         }
 	}
 	effect = {
+        hidden_effect = {
+            set_country_flag = DA_alchemy_in_use
+        }
+        country_event = {
+            id = DA_Tech_Alchemy_event.2
+        }
 	}
 }
 custom_button = {
@@ -325,10 +405,12 @@ custom_button = {
 	}
 	trigger = {
         custom_trigger_tooltip = {
-            tooltip = DA_in_development
-            always = no
+            tooltip = DA_alchemy_not_in_use_tt
+            NOT = { has_country_flag = DA_alchemy_in_use }
         }
 	}
 	effect = {
+        custom_tooltip = DA_reset_Alchemy_preview_tt
+        DA_reset_Alchemy_Variables = yes
 	}
 }

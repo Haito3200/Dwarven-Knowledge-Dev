@@ -1,0 +1,614 @@
+
+DA_alchemy_increase_toxicity_effect = {
+	
+	hidden_effect = {
+		DA_remove_toxicity_modifiers_effect = yes
+		change_variable = {
+			which = DA_Toxicity
+			value = $DA_amount$
+		}
+		DA_give_alchemy_toxicity_modifier_effect = yes
+	}
+	custom_tooltip = DA_Toxicity_increase_by_$DA_amount$
+}
+DA_alchemy_decrease_toxicity_effect = {
+	
+	hidden_effect = {
+		DA_remove_toxicity_modifiers_effect = yes
+		subtract_variable = {
+			which = DA_Toxicity
+			value = $DA_amount$
+		}
+		DA_give_alchemy_toxicity_modifier_effect = yes
+	}
+	custom_tooltip = DA_Toxicity_decrease_by_$DA_amount$
+}
+DA_if_alchemy_var_value_give_modifier_effect = {
+	if = {
+		limit = {
+			is_variable_equal = {
+				which = $DA_var$
+				value = $DA_value$
+			}
+		}
+		add_country_modifier = {
+			name = DA_Alchemy_modifier.$DA_modifier$
+			duration = -1
+		}
+	}
+}
+
+DA_give_final_alchemy_modifiers_effect = {
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_constitution DA_value = 1 DA_modifier = constitution.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_constitution DA_value = 2 DA_modifier = constitution.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_constitution DA_value = 3 DA_modifier = constitution.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_constitution DA_value = 4 DA_modifier = constitution.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_constitution DA_value = 5 DA_modifier = constitution.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_strength DA_value = 1 DA_modifier = strength.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_strength DA_value = 2 DA_modifier = strength.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_strength DA_value = 3 DA_modifier = strength.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_strength DA_value = 4 DA_modifier = strength.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_strength DA_value = 5 DA_modifier = strength.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_dexterity DA_value = 1 DA_modifier = dexterity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_dexterity DA_value = 2 DA_modifier = dexterity.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_dexterity DA_value = 3 DA_modifier = dexterity.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_dexterity DA_value = 4 DA_modifier = dexterity.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_dexterity DA_value = 5 DA_modifier = dexterity.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_intelligence DA_value = 1 DA_modifier = intelligence.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_intelligence DA_value = 2 DA_modifier = intelligence.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_intelligence DA_value = 3 DA_modifier = intelligence.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_intelligence DA_value = 4 DA_modifier = intelligence.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_intelligence DA_value = 5 DA_modifier = intelligence.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wisdom DA_value = 1 DA_modifier = wisdom.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wisdom DA_value = 2 DA_modifier = wisdom.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wisdom DA_value = 3 DA_modifier = wisdom.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wisdom DA_value = 4 DA_modifier = wisdom.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wisdom DA_value = 5 DA_modifier = wisdom.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_charisma DA_value = 1 DA_modifier = charisma.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_charisma DA_value = 2 DA_modifier = charisma.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_charisma DA_value = 3 DA_modifier = charisma.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_charisma DA_value = 4 DA_modifier = charisma.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_charisma DA_value = 5 DA_modifier = charisma.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_mindfog DA_value = 1 DA_modifier = mindfog.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_mindfog DA_value = 2 DA_modifier = mindfog.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_mindfog DA_value = 3 DA_modifier = mindfog.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_mindfog DA_value = 4 DA_modifier = mindfog.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_mindfog DA_value = 5 DA_modifier = mindfog.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_clarity DA_value = 1 DA_modifier = clarity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_clarity DA_value = 2 DA_modifier = clarity.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_clarity DA_value = 3 DA_modifier = clarity.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_clarity DA_value = 4 DA_modifier = clarity.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_clarity DA_value = 5 DA_modifier = clarity.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_focus DA_value = 1 DA_modifier = battle_focus.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_focus DA_value = 2 DA_modifier = battle_focus.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_focus DA_value = 3 DA_modifier = battle_focus.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_focus DA_value = 4 DA_modifier = battle_focus.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_focus DA_value = 5 DA_modifier = battle_focus.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_arcane_affinity DA_value = 1 DA_modifier = arcane_affinity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_arcane_affinity DA_value = 2 DA_modifier = arcane_affinity.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_arcane_affinity DA_value = 3 DA_modifier = arcane_affinity.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_arcane_affinity DA_value = 4 DA_modifier = arcane_affinity.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_arcane_affinity DA_value = 5 DA_modifier = arcane_affinity.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_iron_skin DA_value = 1 DA_modifier = iron_skin.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_iron_skin DA_value = 2 DA_modifier = iron_skin.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_iron_skin DA_value = 3 DA_modifier = iron_skin.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_iron_skin DA_value = 4 DA_modifier = iron_skin.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_iron_skin DA_value = 5 DA_modifier = iron_skin.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unyielding_spirit DA_value = 1 DA_modifier = unyielding_spirit.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unyielding_spirit DA_value = 2 DA_modifier = unyielding_spirit.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unyielding_spirit DA_value = 3 DA_modifier = unyielding_spirit.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unyielding_spirit DA_value = 4 DA_modifier = unyielding_spirit.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unyielding_spirit DA_value = 5 DA_modifier = unyielding_spirit.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_adaptive_combat DA_value = 1 DA_modifier = adaptive_combat.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_adaptive_combat DA_value = 2 DA_modifier = adaptive_combat.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_adaptive_combat DA_value = 3 DA_modifier = adaptive_combat.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_adaptive_combat DA_value = 4 DA_modifier = adaptive_combat.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_adaptive_combat DA_value = 5 DA_modifier = adaptive_combat.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_beast_instinct DA_value = 1 DA_modifier = beast_instinct.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_beast_instinct DA_value = 2 DA_modifier = beast_instinct.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_beast_instinct DA_value = 3 DA_modifier = beast_instinct.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_beast_instinct DA_value = 4 DA_modifier = beast_instinct.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_beast_instinct DA_value = 5 DA_modifier = beast_instinct.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_farsight DA_value = 1 DA_modifier = farsight.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_farsight DA_value = 2 DA_modifier = farsight.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_farsight DA_value = 3 DA_modifier = farsight.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_farsight DA_value = 4 DA_modifier = farsight.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_farsight DA_value = 5 DA_modifier = farsight.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_hyperfocus DA_value = 1 DA_modifier = hyperfocus.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_hyperfocus DA_value = 2 DA_modifier = hyperfocus.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_hyperfocus DA_value = 3 DA_modifier = hyperfocus.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_hyperfocus DA_value = 4 DA_modifier = hyperfocus.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_hyperfocus DA_value = 5 DA_modifier = hyperfocus.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_architect_vision DA_value = 1 DA_modifier = architect_vision.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_architect_vision DA_value = 2 DA_modifier = architect_vision.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_architect_vision DA_value = 3 DA_modifier = architect_vision.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_architect_vision DA_value = 4 DA_modifier = architect_vision.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_architect_vision DA_value = 5 DA_modifier = architect_vision.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_microscopic_sight DA_value = 1 DA_modifier = microscopic_sight.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_microscopic_sight DA_value = 2 DA_modifier = microscopic_sight.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_microscopic_sight DA_value = 3 DA_modifier = microscopic_sight.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_microscopic_sight DA_value = 4 DA_modifier = microscopic_sight.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_microscopic_sight DA_value = 5 DA_modifier = microscopic_sight.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wanderer_lore DA_value = 1 DA_modifier = wanderer_lore.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wanderer_lore DA_value = 2 DA_modifier = wanderer_lore.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wanderer_lore DA_value = 3 DA_modifier = wanderer_lore.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wanderer_lore DA_value = 4 DA_modifier = wanderer_lore.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_wanderer_lore DA_value = 5 DA_modifier = wanderer_lore.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fire_affinity DA_value = 1 DA_modifier = fire_affinity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fire_affinity DA_value = 2 DA_modifier = fire_affinity.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fire_affinity DA_value = 3 DA_modifier = fire_affinity.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fire_affinity DA_value = 4 DA_modifier = fire_affinity.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fire_affinity DA_value = 5 DA_modifier = fire_affinity.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_water_affinity DA_value = 1 DA_modifier = water_affinity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_water_affinity DA_value = 2 DA_modifier = water_affinity.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_water_affinity DA_value = 3 DA_modifier = water_affinity.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_water_affinity DA_value = 4 DA_modifier = water_affinity.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_water_affinity DA_value = 5 DA_modifier = water_affinity.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_air_affinity DA_value = 1 DA_modifier = air_affinity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_air_affinity DA_value = 2 DA_modifier = air_affinity.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_air_affinity DA_value = 3 DA_modifier = air_affinity.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_air_affinity DA_value = 4 DA_modifier = air_affinity.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_air_affinity DA_value = 5 DA_modifier = air_affinity.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_earth_affinity DA_value = 1 DA_modifier = earth_affinity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_earth_affinity DA_value = 2 DA_modifier = earth_affinity.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_earth_affinity DA_value = 3 DA_modifier = earth_affinity.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_earth_affinity DA_value = 4 DA_modifier = earth_affinity.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_earth_affinity DA_value = 5 DA_modifier = earth_affinity.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_frenzy DA_value = 1 DA_modifier = battle_frenzy.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_frenzy DA_value = 2 DA_modifier = battle_frenzy.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_frenzy DA_value = 3 DA_modifier = battle_frenzy.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_frenzy DA_value = 4 DA_modifier = battle_frenzy.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_battle_frenzy DA_value = 5 DA_modifier = battle_frenzy.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_bloodthirst DA_value = 1 DA_modifier = bloodthirst.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_bloodthirst DA_value = 2 DA_modifier = bloodthirst.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_bloodthirst DA_value = 3 DA_modifier = bloodthirst.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_bloodthirst DA_value = 4 DA_modifier = bloodthirst.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_bloodthirst DA_value = 5 DA_modifier = bloodthirst.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_night_veil DA_value = 1 DA_modifier = night_veil.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_night_veil DA_value = 2 DA_modifier = night_veil.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_night_veil DA_value = 3 DA_modifier = night_veil.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_night_veil DA_value = 4 DA_modifier = night_veil.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_night_veil DA_value = 5 DA_modifier = night_veil.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_corruptable_heart DA_value = 1 DA_modifier = corruptable_heart.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_corruptable_heart DA_value = 2 DA_modifier = corruptable_heart.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_corruptable_heart DA_value = 3 DA_modifier = corruptable_heart.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_corruptable_heart DA_value = 4 DA_modifier = corruptable_heart.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_corruptable_heart DA_value = 5 DA_modifier = corruptable_heart.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fanatic_fervor DA_value = 1 DA_modifier = fanatic_fervor.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fanatic_fervor DA_value = 2 DA_modifier = fanatic_fervor.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fanatic_fervor DA_value = 3 DA_modifier = fanatic_fervor.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fanatic_fervor DA_value = 4 DA_modifier = fanatic_fervor.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_fanatic_fervor DA_value = 5 DA_modifier = fanatic_fervor.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_genial_madness DA_value = 1 DA_modifier = genial_madness.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_genial_madness DA_value = 2 DA_modifier = genial_madness.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_genial_madness DA_value = 3 DA_modifier = genial_madness.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_genial_madness DA_value = 4 DA_modifier = genial_madness.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_genial_madness DA_value = 5 DA_modifier = genial_madness.5 }
+
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Hyper_Regeneration DA_value = 1 DA_modifier = Hyper_Regeneration.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Hyper_Regeneration DA_value = 2 DA_modifier = Hyper_Regeneration.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Hyper_Regeneration DA_value = 3 DA_modifier = Hyper_Regeneration.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Hyper_Regeneration DA_value = 4 DA_modifier = Hyper_Regeneration.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Hyper_Regeneration DA_value = 5 DA_modifier = Hyper_Regeneration.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_demonic_charm DA_value = 1 DA_modifier = demonic_charm.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_demonic_charm DA_value = 2 DA_modifier = demonic_charm.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_demonic_charm DA_value = 3 DA_modifier = demonic_charm.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_demonic_charm DA_value = 4 DA_modifier = demonic_charm.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_demonic_charm DA_value = 5 DA_modifier = demonic_charm.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_leviathan DA_value = 1 DA_modifier = leviathan.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_leviathan DA_value = 2 DA_modifier = leviathan.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_leviathan DA_value = 3 DA_modifier = leviathan.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_leviathan DA_value = 4 DA_modifier = leviathan.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_leviathan DA_value = 5 DA_modifier = leviathan.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_rejuvenation DA_value = 1 DA_modifier = rejuvenation.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_rejuvenation DA_value = 2 DA_modifier = rejuvenation.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_rejuvenation DA_value = 3 DA_modifier = rejuvenation.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_rejuvenation DA_value = 4 DA_modifier = rejuvenation.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_rejuvenation DA_value = 5 DA_modifier = rejuvenation.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unbreakable DA_value = 1 DA_modifier = unbreakable.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unbreakable DA_value = 2 DA_modifier = unbreakable.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unbreakable DA_value = 3 DA_modifier = unbreakable.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unbreakable DA_value = 4 DA_modifier = unbreakable.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_unbreakable DA_value = 5 DA_modifier = unbreakable.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Whispers_of_eternity DA_value = 1 DA_modifier = Whispers_of_eternity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Whispers_of_eternity DA_value = 2 DA_modifier = Whispers_of_eternity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Whispers_of_eternity DA_value = 3 DA_modifier = Whispers_of_eternity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Whispers_of_eternity DA_value = 4 DA_modifier = Whispers_of_eternity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Whispers_of_eternity DA_value = 5 DA_modifier = Whispers_of_eternity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_draconic_power DA_value = 1 DA_modifier = draconic_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_draconic_power DA_value = 2 DA_modifier = draconic_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_draconic_power DA_value = 3 DA_modifier = draconic_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_draconic_power DA_value = 4 DA_modifier = draconic_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_draconic_power DA_value = 5 DA_modifier = draconic_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_giant_power DA_value = 1 DA_modifier = giant_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_giant_power DA_value = 2 DA_modifier = giant_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_giant_power DA_value = 3 DA_modifier = giant_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_giant_power DA_value = 4 DA_modifier = giant_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_giant_power DA_value = 5 DA_modifier = giant_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_lich_power DA_value = 1 DA_modifier = lich_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_lich_power DA_value = 2 DA_modifier = lich_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_lich_power DA_value = 3 DA_modifier = lich_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_lich_power DA_value = 4 DA_modifier = lich_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_lich_power DA_value = 5 DA_modifier = lich_power.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_precursor_mana DA_value = 1 DA_modifier = precursor_mana.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_precursor_mana DA_value = 2 DA_modifier = precursor_mana.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_precursor_mana DA_value = 3 DA_modifier = precursor_mana.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_precursor_mana DA_value = 4 DA_modifier = precursor_mana.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_precursor_mana DA_value = 5 DA_modifier = precursor_mana.1 }
+}
+
+DA_give_alchemy_toxicity_modifier_effect = {
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 1 DA_modifier = Toxicity.1 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 2 DA_modifier = Toxicity.2 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 3 DA_modifier = Toxicity.3 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 4 DA_modifier = Toxicity.4 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 5 DA_modifier = Toxicity.5 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 6 DA_modifier = Toxicity.6 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 7 DA_modifier = Toxicity.7 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 8 DA_modifier = Toxicity.8 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 9 DA_modifier = Toxicity.9 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 10 DA_modifier = Toxicity.10 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 11 DA_modifier = Toxicity.11 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 12 DA_modifier = Toxicity.12 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 13 DA_modifier = Toxicity.13 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 14 DA_modifier = Toxicity.14 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 15 DA_modifier = Toxicity.15 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 16 DA_modifier = Toxicity.16 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 17 DA_modifier = Toxicity.17 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 18 DA_modifier = Toxicity.18 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 19 DA_modifier = Toxicity.19 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 20 DA_modifier = Toxicity.20 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 21 DA_modifier = Toxicity.21 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 22 DA_modifier = Toxicity.22 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 23 DA_modifier = Toxicity.23 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 24 DA_modifier = Toxicity.24 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 25 DA_modifier = Toxicity.25 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 26 DA_modifier = Toxicity.26 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 27 DA_modifier = Toxicity.27 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 28 DA_modifier = Toxicity.28 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 29 DA_modifier = Toxicity.29 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 30 DA_modifier = Toxicity.30 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 31 DA_modifier = Toxicity.31 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 32 DA_modifier = Toxicity.32 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 33 DA_modifier = Toxicity.33 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 34 DA_modifier = Toxicity.34 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 35 DA_modifier = Toxicity.35 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 36 DA_modifier = Toxicity.36 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 37 DA_modifier = Toxicity.37 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 38 DA_modifier = Toxicity.38 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 39 DA_modifier = Toxicity.39 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 40 DA_modifier = Toxicity.40 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 41 DA_modifier = Toxicity.41 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 42 DA_modifier = Toxicity.42 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 43 DA_modifier = Toxicity.43 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 44 DA_modifier = Toxicity.44 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 45 DA_modifier = Toxicity.45 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 46 DA_modifier = Toxicity.46 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 47 DA_modifier = Toxicity.47 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 48 DA_modifier = Toxicity.48 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 49 DA_modifier = Toxicity.49 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 50 DA_modifier = Toxicity.50 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 51 DA_modifier = Toxicity.51 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 52 DA_modifier = Toxicity.52 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 53 DA_modifier = Toxicity.53 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 54 DA_modifier = Toxicity.54 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 55 DA_modifier = Toxicity.55 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 56 DA_modifier = Toxicity.56 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 57 DA_modifier = Toxicity.57 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 58 DA_modifier = Toxicity.58 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 59 DA_modifier = Toxicity.59 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 60 DA_modifier = Toxicity.60 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 61 DA_modifier = Toxicity.61 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 62 DA_modifier = Toxicity.62 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 63 DA_modifier = Toxicity.63 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 64 DA_modifier = Toxicity.64 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 65 DA_modifier = Toxicity.65 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 66 DA_modifier = Toxicity.66 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 67 DA_modifier = Toxicity.67 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 68 DA_modifier = Toxicity.68 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 69 DA_modifier = Toxicity.69 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 70 DA_modifier = Toxicity.70 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 71 DA_modifier = Toxicity.71 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 72 DA_modifier = Toxicity.72 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 73 DA_modifier = Toxicity.73 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 74 DA_modifier = Toxicity.74 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 75 DA_modifier = Toxicity.75 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 76 DA_modifier = Toxicity.76 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 77 DA_modifier = Toxicity.77 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 78 DA_modifier = Toxicity.78 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 79 DA_modifier = Toxicity.79 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 80 DA_modifier = Toxicity.80 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 81 DA_modifier = Toxicity.81 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 82 DA_modifier = Toxicity.82 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 83 DA_modifier = Toxicity.83 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 84 DA_modifier = Toxicity.84 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 85 DA_modifier = Toxicity.85 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 86 DA_modifier = Toxicity.86 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 87 DA_modifier = Toxicity.87 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 88 DA_modifier = Toxicity.88 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 89 DA_modifier = Toxicity.89 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 90 DA_modifier = Toxicity.90 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 91 DA_modifier = Toxicity.91 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 92 DA_modifier = Toxicity.92 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 93 DA_modifier = Toxicity.93 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 94 DA_modifier = Toxicity.94 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 95 DA_modifier = Toxicity.95 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 96 DA_modifier = Toxicity.96 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 97 DA_modifier = Toxicity.97 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 98 DA_modifier = Toxicity.98 }
+	DA_if_alchemy_var_value_give_modifier_effect = { DA_var = DA_Toxicity DA_value = 99 DA_modifier = Toxicity.99 }
+	
+	if = {  # failsafe
+		limit = {
+			check_variable = {
+				which = DA_Toxicity
+				value = 100
+			}
+		}
+		add_country_modifier = {
+			name = DA_Alchemy_modifier.Toxicity.100
+			duration = -1
+		}
+	}
+}
+DA_remove_alchemy_modifiers_effect = {
+	remove_country_modifier = DA_Alchemy_modifier.constitution.1
+	remove_country_modifier = DA_Alchemy_modifier.constitution.2
+	remove_country_modifier = DA_Alchemy_modifier.constitution.3
+	remove_country_modifier = DA_Alchemy_modifier.constitution.4
+	remove_country_modifier = DA_Alchemy_modifier.constitution.5
+	remove_country_modifier = DA_Alchemy_modifier.strength.1
+	remove_country_modifier = DA_Alchemy_modifier.strength.2
+	remove_country_modifier = DA_Alchemy_modifier.strength.3
+	remove_country_modifier = DA_Alchemy_modifier.strength.4
+	remove_country_modifier = DA_Alchemy_modifier.strength.5
+	remove_country_modifier = DA_Alchemy_modifier.dexterity.1
+	remove_country_modifier = DA_Alchemy_modifier.dexterity.2
+	remove_country_modifier = DA_Alchemy_modifier.dexterity.3
+	remove_country_modifier = DA_Alchemy_modifier.dexterity.4
+	remove_country_modifier = DA_Alchemy_modifier.dexterity.5
+	remove_country_modifier = DA_Alchemy_modifier.intelligence.1
+	remove_country_modifier = DA_Alchemy_modifier.intelligence.2
+	remove_country_modifier = DA_Alchemy_modifier.intelligence.3
+	remove_country_modifier = DA_Alchemy_modifier.intelligence.4
+	remove_country_modifier = DA_Alchemy_modifier.intelligence.5
+	remove_country_modifier = DA_Alchemy_modifier.wisdom.1
+	remove_country_modifier = DA_Alchemy_modifier.wisdom.2
+	remove_country_modifier = DA_Alchemy_modifier.wisdom.3
+	remove_country_modifier = DA_Alchemy_modifier.wisdom.4
+	remove_country_modifier = DA_Alchemy_modifier.wisdom.5
+	remove_country_modifier = DA_Alchemy_modifier.charisma.1
+	remove_country_modifier = DA_Alchemy_modifier.charisma.2
+	remove_country_modifier = DA_Alchemy_modifier.charisma.3
+	remove_country_modifier = DA_Alchemy_modifier.charisma.4
+	remove_country_modifier = DA_Alchemy_modifier.charisma.5
+	remove_country_modifier = DA_Alchemy_modifier.mindfog.1
+	remove_country_modifier = DA_Alchemy_modifier.mindfog.2
+	remove_country_modifier = DA_Alchemy_modifier.mindfog.3
+	remove_country_modifier = DA_Alchemy_modifier.mindfog.4
+	remove_country_modifier = DA_Alchemy_modifier.mindfog.5
+	remove_country_modifier = DA_Alchemy_modifier.clarity.1
+	remove_country_modifier = DA_Alchemy_modifier.clarity.2
+	remove_country_modifier = DA_Alchemy_modifier.clarity.3
+	remove_country_modifier = DA_Alchemy_modifier.clarity.4
+	remove_country_modifier = DA_Alchemy_modifier.clarity.5
+	remove_country_modifier = DA_Alchemy_modifier.battle_focus.1
+	remove_country_modifier = DA_Alchemy_modifier.battle_focus.2
+	remove_country_modifier = DA_Alchemy_modifier.battle_focus.3
+	remove_country_modifier = DA_Alchemy_modifier.battle_focus.4
+	remove_country_modifier = DA_Alchemy_modifier.battle_focus.5
+	remove_country_modifier = DA_Alchemy_modifier.arcane_affinity.1
+	remove_country_modifier = DA_Alchemy_modifier.arcane_affinity.2
+	remove_country_modifier = DA_Alchemy_modifier.arcane_affinity.3
+	remove_country_modifier = DA_Alchemy_modifier.arcane_affinity.4
+	remove_country_modifier = DA_Alchemy_modifier.arcane_affinity.5
+	remove_country_modifier = DA_Alchemy_modifier.iron_skin.1
+	remove_country_modifier = DA_Alchemy_modifier.iron_skin.2
+	remove_country_modifier = DA_Alchemy_modifier.iron_skin.3
+	remove_country_modifier = DA_Alchemy_modifier.iron_skin.4
+	remove_country_modifier = DA_Alchemy_modifier.iron_skin.5
+	remove_country_modifier = DA_Alchemy_modifier.unyielding_spirit.1
+	remove_country_modifier = DA_Alchemy_modifier.unyielding_spirit.2
+	remove_country_modifier = DA_Alchemy_modifier.unyielding_spirit.3
+	remove_country_modifier = DA_Alchemy_modifier.unyielding_spirit.4
+	remove_country_modifier = DA_Alchemy_modifier.unyielding_spirit.5
+	remove_country_modifier = DA_Alchemy_modifier.adaptive_combat.1
+	remove_country_modifier = DA_Alchemy_modifier.adaptive_combat.2
+	remove_country_modifier = DA_Alchemy_modifier.adaptive_combat.3
+	remove_country_modifier = DA_Alchemy_modifier.adaptive_combat.4
+	remove_country_modifier = DA_Alchemy_modifier.adaptive_combat.5
+	remove_country_modifier = DA_Alchemy_modifier.beast_instinct.1
+	remove_country_modifier = DA_Alchemy_modifier.beast_instinct.2
+	remove_country_modifier = DA_Alchemy_modifier.beast_instinct.3
+	remove_country_modifier = DA_Alchemy_modifier.beast_instinct.4
+	remove_country_modifier = DA_Alchemy_modifier.beast_instinct.5
+	remove_country_modifier = DA_Alchemy_modifier.farsight.1
+	remove_country_modifier = DA_Alchemy_modifier.farsight.2
+	remove_country_modifier = DA_Alchemy_modifier.farsight.3
+	remove_country_modifier = DA_Alchemy_modifier.farsight.4
+	remove_country_modifier = DA_Alchemy_modifier.farsight.5
+	remove_country_modifier = DA_Alchemy_modifier.hyperfocus.1
+	remove_country_modifier = DA_Alchemy_modifier.hyperfocus.2
+	remove_country_modifier = DA_Alchemy_modifier.hyperfocus.3
+	remove_country_modifier = DA_Alchemy_modifier.hyperfocus.4
+	remove_country_modifier = DA_Alchemy_modifier.hyperfocus.5
+	remove_country_modifier = DA_Alchemy_modifier.architect_vision.1
+	remove_country_modifier = DA_Alchemy_modifier.architect_vision.2
+	remove_country_modifier = DA_Alchemy_modifier.architect_vision.3
+	remove_country_modifier = DA_Alchemy_modifier.architect_vision.4
+	remove_country_modifier = DA_Alchemy_modifier.architect_vision.5
+	remove_country_modifier = DA_Alchemy_modifier.microscopic_sight.1
+	remove_country_modifier = DA_Alchemy_modifier.microscopic_sight.2
+	remove_country_modifier = DA_Alchemy_modifier.microscopic_sight.3
+	remove_country_modifier = DA_Alchemy_modifier.microscopic_sight.4
+	remove_country_modifier = DA_Alchemy_modifier.microscopic_sight.5
+	remove_country_modifier = DA_Alchemy_modifier.wanderer_lore.1
+	remove_country_modifier = DA_Alchemy_modifier.wanderer_lore.2
+	remove_country_modifier = DA_Alchemy_modifier.wanderer_lore.3
+	remove_country_modifier = DA_Alchemy_modifier.wanderer_lore.4
+	remove_country_modifier = DA_Alchemy_modifier.wanderer_lore.5
+	remove_country_modifier = DA_Alchemy_modifier.fire_affinity.1
+	remove_country_modifier = DA_Alchemy_modifier.fire_affinity.2
+	remove_country_modifier = DA_Alchemy_modifier.fire_affinity.3
+	remove_country_modifier = DA_Alchemy_modifier.fire_affinity.4
+	remove_country_modifier = DA_Alchemy_modifier.fire_affinity.5
+	remove_country_modifier = DA_Alchemy_modifier.water_affinity.1
+	remove_country_modifier = DA_Alchemy_modifier.water_affinity.2
+	remove_country_modifier = DA_Alchemy_modifier.water_affinity.3
+	remove_country_modifier = DA_Alchemy_modifier.water_affinity.4
+	remove_country_modifier = DA_Alchemy_modifier.water_affinity.5
+	remove_country_modifier = DA_Alchemy_modifier.air_affinity.1
+	remove_country_modifier = DA_Alchemy_modifier.air_affinity.2
+	remove_country_modifier = DA_Alchemy_modifier.air_affinity.3
+	remove_country_modifier = DA_Alchemy_modifier.air_affinity.4
+	remove_country_modifier = DA_Alchemy_modifier.air_affinity.5
+	remove_country_modifier = DA_Alchemy_modifier.earth_affinity.1
+	remove_country_modifier = DA_Alchemy_modifier.earth_affinity.2
+	remove_country_modifier = DA_Alchemy_modifier.earth_affinity.3
+	remove_country_modifier = DA_Alchemy_modifier.earth_affinity.4
+	remove_country_modifier = DA_Alchemy_modifier.earth_affinity.5
+	remove_country_modifier = DA_Alchemy_modifier.battle_frenzy.1
+	remove_country_modifier = DA_Alchemy_modifier.battle_frenzy.2
+	remove_country_modifier = DA_Alchemy_modifier.battle_frenzy.3
+	remove_country_modifier = DA_Alchemy_modifier.battle_frenzy.4
+	remove_country_modifier = DA_Alchemy_modifier.battle_frenzy.5
+	remove_country_modifier = DA_Alchemy_modifier.bloodthirst.1
+	remove_country_modifier = DA_Alchemy_modifier.bloodthirst.2
+	remove_country_modifier = DA_Alchemy_modifier.bloodthirst.3
+	remove_country_modifier = DA_Alchemy_modifier.bloodthirst.4
+	remove_country_modifier = DA_Alchemy_modifier.bloodthirst.5
+	remove_country_modifier = DA_Alchemy_modifier.night_veil.1
+	remove_country_modifier = DA_Alchemy_modifier.night_veil.2
+	remove_country_modifier = DA_Alchemy_modifier.night_veil.3
+	remove_country_modifier = DA_Alchemy_modifier.night_veil.4
+	remove_country_modifier = DA_Alchemy_modifier.night_veil.5
+	remove_country_modifier = DA_Alchemy_modifier.corruptable_heart.1
+	remove_country_modifier = DA_Alchemy_modifier.corruptable_heart.2
+	remove_country_modifier = DA_Alchemy_modifier.corruptable_heart.3
+	remove_country_modifier = DA_Alchemy_modifier.corruptable_heart.4
+	remove_country_modifier = DA_Alchemy_modifier.corruptable_heart.5
+	remove_country_modifier = DA_Alchemy_modifier.fanatic_fervor.1
+	remove_country_modifier = DA_Alchemy_modifier.fanatic_fervor.2
+	remove_country_modifier = DA_Alchemy_modifier.fanatic_fervor.3
+	remove_country_modifier = DA_Alchemy_modifier.fanatic_fervor.4
+	remove_country_modifier = DA_Alchemy_modifier.fanatic_fervor.5
+	remove_country_modifier = DA_Alchemy_modifier.genial_madness.1
+	remove_country_modifier = DA_Alchemy_modifier.genial_madness.2
+	remove_country_modifier = DA_Alchemy_modifier.genial_madness.3
+	remove_country_modifier = DA_Alchemy_modifier.genial_madness.4
+	remove_country_modifier = DA_Alchemy_modifier.genial_madness.5
+	remove_country_modifier = DA_Alchemy_modifier.Hyper_Regeneration.1
+	remove_country_modifier = DA_Alchemy_modifier.demonic_charm.1
+	remove_country_modifier = DA_Alchemy_modifier.leviathan.1
+	remove_country_modifier = DA_Alchemy_modifier.rejuvenation.1
+	remove_country_modifier = DA_Alchemy_modifier.genial_madness.1
+	remove_country_modifier = DA_Alchemy_modifier.Whispers_of_eternity.1
+	remove_country_modifier = DA_Alchemy_modifier.draconic_power.1
+	remove_country_modifier = DA_Alchemy_modifier.giant_power.1
+	remove_country_modifier = DA_Alchemy_modifier.lich_power.1
+	remove_country_modifier = DA_Alchemy_modifier.precursor_mana.1
+}
+
+DA_remove_toxicity_modifiers_effect = {
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.1
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.2
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.3
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.4
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.5
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.6
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.7
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.8
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.9
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.10
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.11
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.12
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.13
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.14
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.15
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.16
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.17
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.18
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.19
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.20
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.21
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.22
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.23
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.24
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.25
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.26
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.27
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.28
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.29
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.30
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.31
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.32
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.33
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.34
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.35
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.36
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.37
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.38
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.39
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.40
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.41
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.42
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.43
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.44
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.45
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.46
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.47
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.48
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.49
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.50
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.51
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.52
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.53
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.54
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.55
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.56
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.57
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.58
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.59
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.60
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.61
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.62
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.63
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.64
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.65
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.66
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.67
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.68
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.69
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.70
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.71
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.72
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.73
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.74
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.75
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.76
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.77
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.78
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.79
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.80
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.81
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.82
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.83
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.84
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.85
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.86
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.87
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.88
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.89
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.90
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.91
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.92
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.93
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.94
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.95
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.96
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.97
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.98
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.99
+	remove_country_modifier = DA_Alchemy_modifier.Toxicity.100
+
+}
