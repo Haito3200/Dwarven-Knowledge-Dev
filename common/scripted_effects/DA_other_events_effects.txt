@@ -2451,25 +2451,61 @@ DA_on_yearly_pulse_2_effect = {
 	}
 	
 	export_to_variable = {
-		value = modifier:amount_of_musketeers
+		value = modifier:DA_fake_warforged_infantry_force_limit
 		variable_name = DA_Max_amount_of_warforged_infantry
 	}
+    export_to_variable = {
+        value = modifier:DA_fake_warforged_infantry_force_limit_modifier
+        variable_name = DA_amount_of_warforged_infantry_modifier
+    }
+    change_variable = {
+        which = DA_amount_of_warforged_infantry_modifier
+        value = 1
+    }
+    multiply_variable = {
+        which = DA_Max_amount_of_warforged_infantry
+        which = DA_amount_of_warforged_infantry_modifier
+    }
 	export_to_variable = {
 		value = trigger_value:num_of_musketeers
 		variable_name = DA_current_amount_of_warforged_infantry
 	}
 	export_to_variable = {
-		value = modifier:local_amount_of_hussars
+		value = modifier:DA_fake_warforged_cavalry_force_limit
 		variable_name = DA_Max_amount_of_warforged_cavalry
 	}
+    export_to_variable = {
+        value = modifier:DA_fake_warforged_cavalry_force_limit_modifier
+        variable_name = DA_amount_of_warforged_cavalry_modifier
+    }
+    change_variable = {
+        which = DA_amount_of_warforged_cavalry_modifier
+        value = 1
+    }
+    multiply_variable = {
+        which = DA_Max_amount_of_warforged_cavalry
+        which = DA_amount_of_warforged_cavalry_modifier
+    }
 	export_to_variable = {
 		value = trigger_value:num_of_hussars
 		variable_name = DA_current_amount_of_warforged_cavalry
 	}
 	export_to_variable = {
-		value = modifier:local_amount_of_cawa
+		value = modifier:DA_fake_warforged_artillery_force_limit
 		variable_name = DA_Max_amount_of_warforged_artillery
 	}
+    export_to_variable = {
+        value = modifier:DA_fake_warforged_artillery_force_limit_modifier
+        variable_name = DA_amount_of_warforged_artillery_modifier
+    }
+    change_variable = {
+        which = DA_amount_of_warforged_artillery_modifier
+        value = 1
+    }
+    multiply_variable = {
+        which = DA_Max_amount_of_warforged_artillery
+        which = DA_amount_of_warforged_artillery_modifier
+    }
 	export_to_variable = {
 		value = trigger_value:num_of_cawa
 		variable_name = DA_current_amount_of_warforged_artillery
@@ -2480,6 +2516,10 @@ DA_on_yearly_pulse_2_effect = {
 	export_to_variable = {
 		value = modifier:DA_fake_medicine_illness_spawn_chance
 		variable_name = DA_yearly_illness_spawn_chance
+	}
+	export_to_variable = { # probably best to just use this as the only variable
+		value = modifier:DA_fake_medicine_illness_spawn_chance_counter
+		variable_name = DA_yearly_illness_spawn_chance_counter
 	}
 
 
