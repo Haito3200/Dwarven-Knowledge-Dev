@@ -247,40 +247,6 @@ country_decisions = {
 		ai_importance = 400
 	}
 	
-	DA_explore_hold_ruins = {					# explore ruins, which have first been discovered during exploration, to be deleted
-		potential = {
-			any_owned_province = {
-				has_province_modifier = DA_Ancient_hold_ruins
-				NOT = { has_province_modifier = DA_Ancient_hold_explored }
-			}
-		}
-		
-		provinces_to_highlight = {
-			has_province_modifier = DA_Ancient_hold_ruins
-		}
-		
-		allow = {
-			treasury = 500
-		}
-		
-		effect = {
-			add_treasury = -500
-			every_owned_province = {
-				limit = {
-					has_province_modifier = DA_Ancient_hold_ruins
-				}
-				remove_province_modifier = DA_Ancient_hold_ruins
-				add_permanent_province_modifier = {
-					name = DA_Ancient_hold_explored
-					duration = -1
-				}
-			}
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-	}
 	DA_Find_translator = {					# archeologist for Hul-Jorkad event chain
 		potential = {
 			NOT = { has_country_flag = DA_translator_found }
