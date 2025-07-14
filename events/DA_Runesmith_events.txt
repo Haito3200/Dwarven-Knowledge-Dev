@@ -22,8 +22,17 @@ country_event = {
 
 	option = {
 		name = DA_Runesmiths_events.1.a
+		highlight = yes
 		trigger = {
-			has_country_flag = DA_RS_inventions_unlocked
+			hidden_trigger = {
+				has_country_flag = DA_RS_inventions_unlocked
+			}
+			DA_has_Rune_power_or_higher = yes
+			DA_completed.Medicine_1 = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+			DA_completed.Metallurgy_1 = yes
 		}
 		DA_start_research_t1 = yes
 
@@ -37,12 +46,7 @@ country_event = {
 			hidden_trigger = {
 				has_country_flag = DA_RS_inventions_unlocked
 			}
-			DA_has_Rune_power_or_higher = yes
-			DA_completed.Medicine_1 = yes
-			DA_completed.Alchemy_1 = yes
-			DA_completed.Magic_Theory_1 = yes
-			DA_completed.Mechanics_1 = yes
-			DA_completed.Metallurgy_1 = yes
+			DA_has_Steam_power_or_higher = yes
 		}
 		DA_start_research_t2 = yes
 		ai_chance = { factor = 5 }
@@ -52,21 +56,23 @@ country_event = {
 		name = DA_Runesmiths_events.1.c
 		highlight = yes
 		trigger = {
-			DA_has_Steam_power_or_higher = yes
-			DA_completed.Medicine_2 = yes
-			DA_completed.Alchemy_2 = yes
-			DA_completed.Magic_Theory_2 = yes
-			DA_completed.Mechanics_2 = yes
-			DA_completed.Metallurgy_2 = yes
+			hidden_trigger = {
+				has_country_flag = DA_RS_inventions_unlocked
+			}
+			DA_has_Energy_power_or_higher = yes
 		}
 		DA_start_research_t3 = yes
 		ai_chance = { factor = 10 }
 	}
 
 	option = {
-		name = DA_Runesmiths_events.1.e
+		name = DA_Runesmiths_events.1.e #unused for now
 		highlight = yes
 		trigger = {
+			always = no
+			hidden_trigger = {
+				has_country_flag = DA_RS_inventions_unlocked
+			}
 			DA_has_Energy_power_or_higher = yes
 			DA_completed.Medicine_3 = yes
 			DA_completed.Alchemy_3 = yes
