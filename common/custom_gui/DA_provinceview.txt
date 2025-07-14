@@ -915,6 +915,32 @@ custom_button = { #Button for the UI when building UI is closed
 custom_button = { #Button for the UI when building UI is closed
 	name = DA_province_button_quarantine
 	tooltip = DA_province_button_quarantine_tt
+    frame = {  #Can define multiple frame clauses
+        number = 1 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = {
+			has_province_modifier = DA_Medicine.Quarantined_province
+			DA_has_disease_in_province = yes
+        } #First matched frame clause will be used.
+    }
+    frame = {  #Can define multiple frame clauses
+        number = 2 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = {
+        	DA_has_disease_in_province = yes
+        } #First matched frame clause will be used.
+    }
+    frame = {  #Can define multiple frame clauses
+        number = 3 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = {
+			NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        	DA_has_disease_in_province = yes
+        } #First matched frame clause will be used.
+    }
+    frame = {  #Can define multiple frame clauses
+        number = 4 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = {
+			DA_has_disease_in_province = no
+        } #First matched frame clause will be used.
+    }
 	potential = {
 		always = yes
 	}
@@ -922,7 +948,6 @@ custom_button = { #Button for the UI when building UI is closed
 		owner = {
 			tag = FROM
 		}
-		has_building = mage_tower
 		NOT = {  has_province_modifier = DA_Medicine.Quarantined_province }
 		DA_has_disease_in_province = yes
 	}
@@ -940,7 +965,6 @@ custom_button = { #Button for the UI when building UI is closed
 		owner = {
 			tag = FROM
 		}
-		has_building = mage_tower
 		NOT = {  has_province_modifier = DA_Medicine.Burning_province }
 		DA_has_disease_in_province = yes
 	}
