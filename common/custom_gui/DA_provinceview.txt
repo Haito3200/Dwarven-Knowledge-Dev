@@ -895,6 +895,59 @@ custom_button = {
         }
 	}
 }
+
+custom_button = { #Button for the UI when building UI is closed
+	name = DA_province_button_Mage_Tower_Menu
+	tooltip = DA_province_button_Mage_Tower_Menu_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		owner = {
+			tag = FROM
+		}
+		has_building = mage_tower
+	}
+	effect = {
+	}
+}
+
+custom_button = { #Button for the UI when building UI is closed
+	name = DA_province_button_quarantine
+	tooltip = DA_province_button_quarantine_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		owner = {
+			tag = FROM
+		}
+		has_building = mage_tower
+		NOT = {  has_province_modifier = DA_Medicine.Quarantined_province }
+		DA_has_disease_in_province = yes
+	}
+	effect = {
+	}
+}
+
+custom_button = { #Button for the UI when building UI is closed
+	name = DA_province_button_burn
+	tooltip = DA_province_button_burn_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		owner = {
+			tag = FROM
+		}
+		has_building = mage_tower
+		NOT = {  has_province_modifier = DA_Medicine.Burning_province }
+		DA_has_disease_in_province = yes
+	}
+	effect = {
+	}
+}
+
 ##############################################################################################################################################################################
 ### PROVINCE UI GLOBAL
 ##############################################################################################################################################################################
