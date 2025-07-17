@@ -118,8 +118,8 @@ workshop = {
 	modifier = {
 		local_production_efficiency = 0.35
 		DA_fake_warforged_infantry_force_limit = 0.50
-		DA_fake_warforged_artillery_force_limit = 0.25
-		DA_fake_warforged_cavalry_force_limit = 0.35
+		DA_fake_warforged_cavalry_force_limit = 0.25
+		DA_fake_warforged_artillery_force_limit = 0.35
 	}
 	on_built = {
 		on_built_production_building_effect = yes
@@ -2079,8 +2079,8 @@ counting_house = {
 	modifier = {
 		local_production_efficiency = 0.70
 		DA_fake_warforged_infantry_force_limit = 1
-		DA_fake_warforged_artillery_force_limit = 0.5
-		DA_fake_warforged_cavalry_force_limit = 0.7
+		DA_fake_warforged_cavalry_force_limit = 0.5
+		DA_fake_warforged_artillery_force_limit = 0.7
 	}
 
 	on_built = {
@@ -4013,6 +4013,10 @@ mage_tower = {
 		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Water
 		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Earth
 		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Air
+		if = {
+			limit = { has_province_modifier = U10_containment_array }
+			remove_province_modifier = U10_containment_array
+		}
 		if = {
 			limit = {
 				region = alecand_region

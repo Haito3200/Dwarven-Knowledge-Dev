@@ -329,7 +329,7 @@ province_event = { # Lost expedition
 	}
 }
 
-province_event = { #found ruins of hold
+province_event = { #found ancestor tomb
 	id = DA_ADK_explore.11
 	title = "DA_ADK_explore.11.t"
 	desc = "DA_ADK_explore.11.d"
@@ -340,10 +340,29 @@ province_event = { #found ruins of hold
 	
 	option = {
 		name = "DA_ADK_explore.11.a"
-		add_permanent_province_modifier = {
-			name = DA_Ancient_hold_ruins
-			duration = -1
+		DA_Tech_prov.Metallurgy = {
+			amount = 300
 		}
+		DA_Set_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.11.b"
+		custom_tooltip = "???????"
+		hidden_effect = {
+			owner = {
+				DA_create_Low_tier_fire_general = {
+					DA_Trait = Low_Class_Rune_Mage_general_personality
+				}
+			}
+		}
+		DA_Set_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.11.c"
+		owner = {
+			add_stability_or_adm_power = yes
+		}
+		DA_province_prestige_relative_to_dig_level = yes
 		DA_Set_level_as_explored = yes
 	}
 	after = {

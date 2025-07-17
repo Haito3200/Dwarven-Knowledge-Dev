@@ -409,16 +409,12 @@ on_thri_yearly_pulse_3 = {
 on_thri_yearly_pulse_4 = {
 }
 on_startup = {
-	every_province = {
-		limit = {
-			is_wasteland = no
-			NOT = { has_province_flag = DA_alchemy_material_set_up }
-		}
-		set_province_flag = DA_alchemy_material_set_up
-		DA_give_staring_alchemy_materials = yes
-	}
 	events = {
 		DA_Buildings_menu.2
+	}
+	country_event = {
+		id = DA_Government_event.0
+		days = 8030
 	}
 }
 on_institution_embracement = {
@@ -789,6 +785,34 @@ on_battle_won_province = {
 		add_permanent_province_modifier = {
 			name = DA_Alchemy_material.Crimson_Thistle
 			duration = 3650
+		}
+	}
+}
+
+on_dependency_gained = {
+	if = {
+		limit = { ai = yes }
+		FROM = { 
+			remove_country_modifier = DA_AI_Buffs_medium
+			remove_country_modifier = DA_AI_Buffs_hard
+			remove_country_modifier = DA_AI_Buffs_very_hard
+			add_country_modifier = {
+				name = DA_AI_Buffs_vassal_reduction
+				duration = -1
+			}
+		}
+	}
+}
+
+on_dependency_lost = {	# when ai stops being vassal he loses vassal reduction and gets medium buff (can be made via global flags but not worth it, will update on next institution anyway)
+	if = {
+		limit = { ai = yes }
+		FROM = { 
+			remove_country_modifier = DA_AI_Buffs_vassal_reduction
+			add_country_modifier = {
+				name = DA_AI_Buffs_medium
+				duration = -1
+			}
 		}
 	}
 }

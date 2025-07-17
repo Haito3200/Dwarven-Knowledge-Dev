@@ -114,7 +114,7 @@ custom_button = {
         # custom_trigger_tooltip = {
             # tooltip = DA_metallurgy_interface_NOT_IN_USE
         hidden_trigger = {
-            NOT = { has_country_flag = DA_Metallurgy_interface_on }
+            always = yes
         }
 	}
 	effect = {
@@ -125,6 +125,16 @@ custom_button = {
                     has_country_flag = DA_Metallurgy_interface_on
                 }
                 clr_country_flag = DA_Metallurgy_interface_on
+                clr_country_flag = DA_Metallurgy_interface_on_main
+                clr_country_flag = DA_Metallurgy_interface_on_alloy
+                clr_country_flag = DA_Metallurgy_interface_on_Alchemy
+                clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
+                clr_country_flag = DA_Metallurgy_interface_on_Mechanics
+                clr_country_flag = DA_Metallurgy_interface_on_Medicine
+
+                clr_country_flag = DA_Metallurgy_interface_on_inventions
+                clr_country_flag = DA_Metallurgy_interface_on_research_facility
+                clr_country_flag = DA_Metallurgy_interface_on_wonders
             }
             else = {
                 set_country_flag = DA_Metallurgy_interface_on
@@ -140,12 +150,13 @@ custom_button = {
 		always = yes
 	}
 	trigger = {
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development
-            always = no
+        hidden_trigger = {
+            always = yes
         }
 	}
-	effect = {      # this is just to prevent people opening an half-done thing
+	effect = {      
+        custom_tooltip = DA_in_development
+        # this is just to prevent people opening an half-done thing
     #    if = {
     #        limit = {
     #            has_country_flag = DA_Black_Market_Interface_on
@@ -165,22 +176,30 @@ custom_button = {
 	}
 	trigger = {
         hidden_trigger = {
-            culture_group = dwarven
+            always = yes
         }
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-        clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-        clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-        clr_country_flag = DA_Metallurgy_interface_on_Medicine
+        if = {
+            limit = {
+                culture_group = dwarven
+            }
+            clr_country_flag = DA_Metallurgy_interface_on_main
+            clr_country_flag = DA_Metallurgy_interface_on_alloy
+            clr_country_flag = DA_Metallurgy_interface_on_Alchemy
+            clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
+            clr_country_flag = DA_Metallurgy_interface_on_Mechanics
+            clr_country_flag = DA_Metallurgy_interface_on_Medicine
 
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
+            clr_country_flag = DA_Metallurgy_interface_on_inventions
+            clr_country_flag = DA_Metallurgy_interface_on_research_facility
 
-        set_country_flag = DA_Metallurgy_interface_on
-        set_country_flag = DA_Metallurgy_interface_on_wonders
+            set_country_flag = DA_Metallurgy_interface_on
+            set_country_flag = DA_Metallurgy_interface_on_wonders
+        }
+        else = {
+            custom_tooltip = DA_custure_group_must_be_dwarven_tt
+        }
 	}
 }
 custom_window = {
@@ -249,6 +268,59 @@ custom_button = {
         clr_country_flag = DA_Metallurgy_interface_on_research_facility
         
         set_country_flag = DA_Metallurgy_interface_on_main
+	}
+}
+custom_button = {
+	name = DA_metallurgy_level_up_alert
+	tooltip = DA_technology_level_up_alert_tt
+	potential = {
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_metallurgy_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Metallurgy_1 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_1 = yes
+                    NOT = { DA_completed.Metallurgy_2 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_2 = yes
+                    NOT = { DA_completed.Metallurgy_3 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Metallurgy_3 = yes
+                    NOT = { DA_completed.Metallurgy_4 = yes }
+                    check_variable = {
+                        which = DA_metallurgy_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	trigger = {
+        hidden_trigger = {
+		    always = yes
+        }
+	}
+	effect = {
 	}
 }
 custom_button = {
@@ -330,6 +402,63 @@ custom_button = {
 	}
 }
 custom_button = {
+	name = DA_Arcane_Arts_level_up_alert
+	tooltip = DA_technology_level_up_alert_tt
+	potential = {
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_magic_theory_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Magic_Theory_1 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_1 = yes
+                    NOT = { DA_completed.Magic_Theory_2 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_2 = yes
+                    DA_completed.Elemental_Magic_Air = yes
+                    DA_completed.Elemental_Magic_Fire = yes
+                    DA_completed.Elemental_Magic_Water = yes
+                    DA_completed.Elemental_Magic_Earth = yes
+                    NOT = { DA_completed.Magic_Theory_3 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Magic_Theory_3 = yes
+                    NOT = { DA_completed.Magic_Theory_4 = yes }
+                    check_variable = {
+                        which = DA_acane_arts_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	trigger = {
+        hidden_trigger = {
+		    always = yes
+        }
+	}
+	effect = {
+	}
+}
+custom_button = {
 	name = DA_switch_button_Mechanics
 	tooltip = DA_switch_button_Mechanics_tt
 	potential = {
@@ -366,6 +495,59 @@ custom_button = {
                 variable_name = DA_alloy_legendary_slots
             }
         }
+	}
+}
+custom_button = {
+	name = DA_Mechanics_level_up_alert
+	tooltip = DA_technology_level_up_alert_tt
+	potential = {
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_mechanics_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Mechanics_1 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Mechanics_1 = yes
+                    NOT = { DA_completed.Mechanics_2 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Mechanics_2 = yes
+                    NOT = { DA_completed.Mechanics_3 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Mechanics_3 = yes
+                    NOT = { DA_completed.Mechanics_4 = yes }
+                    check_variable = {
+                        which = DA_mechanics_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	trigger = {
+        hidden_trigger = {
+		    always = yes
+        }
+	}
+	effect = {
 	}
 }
 custom_button = {
@@ -408,6 +590,59 @@ custom_button = {
 	}
 }
 custom_button = {
+	name = DA_Alchemy_level_up_alert
+	tooltip = DA_technology_level_up_alert_tt
+	potential = {
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_alchemy_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Alchemy_1 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Alchemy_1 = yes
+                    NOT = { DA_completed.Alchemy_2 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Alchemy_2 = yes
+                    NOT = { DA_completed.Alchemy_3 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Alchemy_3 = yes
+                    NOT = { DA_completed.Alchemy_4 = yes }
+                    check_variable = {
+                        which = DA_alchemy_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	trigger = {
+        hidden_trigger = {
+		    always = yes
+        }
+	}
+	effect = {
+	}
+}
+custom_button = {
 	name = DA_switch_button_Medicine
 	tooltip = DA_switch_button_Medicine_tt
 	potential = {
@@ -444,6 +679,59 @@ custom_button = {
                 variable_name = DA_alloy_legendary_slots
             }
         }
+	}
+}
+custom_button = {
+	name = DA_Medicine_level_up_alert
+	tooltip = DA_technology_level_up_alert_tt
+	potential = {
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
+        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        custom_trigger_tooltip = {
+            tooltip = DA_Increase_medicine_trigger_tt
+            OR = {
+                AND = {
+                    NOT = { DA_completed.Medicine_1 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 1000
+                    }
+                }
+                AND = {
+                    DA_completed.Medicine_1 = yes
+                    NOT = { DA_completed.Medicine_2 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 2500
+                    }
+                }
+                AND = {
+                    DA_completed.Medicine_2 = yes
+                    NOT = { DA_completed.Medicine_3 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 5000
+                    }
+                }
+                AND = {
+                    DA_completed.Medicine_3 = yes
+                    NOT = { DA_completed.Medicine_4 = yes }
+                    check_variable = {
+                        which = DA_medicine_exp
+                        value = 10000
+                    }
+                }
+            }
+        }
+        DA_has_NO_Project_active = yes
+	}
+	trigger = {
+        hidden_trigger = {
+		    always = yes
+        }
+	}
+	effect = {
 	}
 }
 
