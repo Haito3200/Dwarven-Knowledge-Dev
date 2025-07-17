@@ -499,353 +499,155 @@ DA_local_explored_dig_11 = {
 	monthly_splendor = 1
 }
 ##### AI buffs modifiers
-DA_AI_Buffs_1_easy = {
+DA_AI_Buffs_1 = {
 	reserves_organisation = 0.10
 	fort_maintenance_modifier = -0.50
 	army_tradition = 0.5
+	war_exhaustion = -0.25
 }
-DA_AI_Buffs_1_medium = {
+
+DA_AI_Buffs_2 = {							# too early for damage buffs, player unlikely able to make good blueprint yet
+	reserves_organisation = 0.20
+	fort_maintenance_modifier = -0.50
+	army_tradition = 1
+	war_exhaustion = -0.5
+}
+
+DA_AI_Buffs_3 = {							#early blueprints, about 5% boost
+	reserves_organisation = 0.30
+	fort_maintenance_modifier = -0.50
+	army_tradition = 1
+	war_exhaustion = -0.5
+	artillery_levels_available_vs_fort = 1
+	yearly_innovativeness = 0.2				#10 inno per 50 years
+}
+
+DA_AI_Buffs_4 = {							#bit stronger blueprints, i expect around 10% boost
+	reserves_organisation = 0.40
+	fort_maintenance_modifier = -0.50
+	army_tradition = 1
+	war_exhaustion = -0.5
+	artillery_levels_available_vs_fort = 1
+	yearly_innovativeness = 0.02				#10 inno per 50 years
+	artillery_fire = 0.10
+	artillery_shock = 0.05
+	backrow_artillery_damage = 0.10
+	infantry_fire =	0.05
+	infantry_shock = 0.075
+	cavalry_fire = 0.125
+	cavalry_shock =	0.25	
+}
+
+DA_AI_Buffs_5 = {
+	reserves_organisation = 0.50
+	fort_maintenance_modifier = -0.50
+	army_tradition = 1
+	war_exhaustion = -0.5
+	artillery_levels_available_vs_fort = 2
+	yearly_innovativeness = 0.02				#10 inno per 50 years
+	artillery_fire = 0.10
+	artillery_shock = 0.05
+	backrow_artillery_damage = 0.10	
+	garrison_size = 0.20
+	infantry_fire =	0.1
+	infantry_shock = 0.15
+	cavalry_fire = 0.25
+	cavalry_shock =	0.5
+}
+
+DA_AI_Buffs_6 = {
+	reserves_organisation = 0.50
+	fort_maintenance_modifier = -0.50
+	army_tradition = 1
+	war_exhaustion = -0.5
+	artillery_levels_available_vs_fort = 2
+	yearly_innovativeness = 0.2				#10 inno per 50 years
+	artillery_fire = 0.60
+	artillery_shock = 0.15
+	backrow_artillery_damage = 0.20	
+	garrison_size = 0.30
+	infantry_fire =	0.4
+	infantry_shock = 0.45
+	cavalry_fire = 0.5
+	cavalry_shock =	1
+}
+
+DA_AI_Buffs_7 = {
+	movement_speed = 0.20
+	reserves_organisation = 0.50
+	fort_maintenance_modifier = -0.50
+	army_tradition = 1
+	war_exhaustion = -0.5
+	artillery_levels_available_vs_fort = 2
+	yearly_innovativeness = 0.2				#10 inno per 50 years
+	artillery_fire = 0.60
+	artillery_shock = 0.55
+	backrow_artillery_damage = 0.30	
+	garrison_size = 0.30
+	infantry_fire =	0.5
+	infantry_shock = 0.45
+	cavalry_fire = 1
+	cavalry_shock =	1
+}
+
+DA_AI_Buffs_medium = {
 	global_tax_income = 24
-	reserves_organisation = 0.10
-	fort_maintenance_modifier = -0.50
-	army_tradition = 0.5
-
-	loot_amount = 0.50
-	available_province_loot = 0.50
+	loot_amount = 0.50					#loot speed, capped at 5 ducats per month by pdx / 20 in dw kn (defines)
+	available_province_loot = 0.50		#amount of loot in province
 	global_regiment_recruit_speed = -0.2
 }
-DA_AI_Buffs_1_hard = {
-	garrison_damage = 0.5
-	global_tax_income = 48
-	reserves_organisation = 0.10
-	fort_maintenance_modifier = -0.50
-	army_tradition = 0.5
+
+DA_AI_Buffs_hard = {
+	global_tax_income = 48	
+	loot_amount = 1
+	available_province_loot = 1
+	global_regiment_recruit_speed = -0.4
 	
-	loot_amount = 1
-	available_province_loot = 1
-	global_regiment_recruit_speed = -0.4
-	leader_land_fire = 1				
-	leader_land_manuever = 1
-	leader_land_shock = 1
-	leader_siege = 1
-}
-
-DA_AI_Buffs_2_easy = {
-	reserves_organisation = 0.20
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-}
-DA_AI_Buffs_2_medium = {
-	global_tax_income = 48
-	reserves_organisation = 0.20
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-
-	loot_amount = 0.50
-	available_province_loot = 0.50
-	global_regiment_recruit_speed = -0.2
-}
-DA_AI_Buffs_2_hard = {
-	garrison_damage = 0.5
-	global_tax_income = 96
-	reserves_organisation = 0.20
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	
-	loot_amount = 1
-	available_province_loot = 1
-	global_regiment_recruit_speed = -0.4
-	leader_land_fire = 1				
-	leader_land_manuever = 1
-	leader_land_shock = 1
-	leader_siege = 1
-}
-
-
-DA_AI_Buffs_3_easy = {
-	reserves_organisation = 0.30
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-}
-DA_AI_Buffs_3_medium = {
-	global_tax_income = 96
-	reserves_organisation = 0.30
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-
-	loot_amount = 0.50
-	available_province_loot = 0.50
-	global_regiment_recruit_speed = -0.2
-}
-DA_AI_Buffs_3_hard = {
-	garrison_damage = 0.5
-	global_tax_income = 192
-	reserves_organisation = 0.30
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	
-	loot_amount = 1
-	available_province_loot = 1
-	global_regiment_recruit_speed = -0.4
-	leader_land_fire = 1				
-	leader_land_manuever = 1
-	leader_land_shock = 1
-	leader_siege = 1
-}
-
-
-DA_AI_Buffs_4_easy = {
-	reserves_organisation = 0.40
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.10
-	artillery_shock = 0.05
-}
-DA_AI_Buffs_4_medium = {
-	global_tax_income = 96
-	reserves_organisation = 0.40
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.10
-	artillery_shock = 0.05
-
-	loot_amount = 0.50
-	available_province_loot = 0.50
-	global_regiment_recruit_speed = -0.2
-	mercenary_cost = -0.25
-	merc_maintenance_modifier = -0.25
-}
-DA_AI_Buffs_4_hard = {
-	garrison_damage = 0.5
-	global_tax_income = 192
-	reserves_organisation = 0.40
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.10
-	artillery_shock = 0.05
-	
-	loot_amount = 1
-	available_province_loot = 1
-	global_regiment_recruit_speed = -0.4
-	leader_land_fire = 1				
-	leader_land_manuever = 1
-	leader_land_shock = 1
-	leader_siege = 1
-	mercenary_cost = -0.5
-	merc_maintenance_modifier = -0.5
-}
-
-
-DA_AI_Buffs_5_easy = {
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.10
-	artillery_shock = 0.05
-	backrow_artillery_damage = 0.10	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.20
-	infantry_fire =	0.1
-	infantry_shock = 0.15
-	cavalry_fire = 0.25
-	cavalry_shock =	0.5
-}
-DA_AI_Buffs_5_medium = {
-	global_tax_income = 96
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.10
-	artillery_shock = 0.05
-	backrow_artillery_damage = 0.10	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.20
-	infantry_fire =	0.1
-	infantry_shock = 0.15
-	cavalry_fire = 0.25
-	cavalry_shock =	0.5
-
-	loot_amount = 0.50
-	available_province_loot = 0.50
-	global_regiment_recruit_speed = -0.22
-	mercenary_cost = -0.25
-	merc_maintenance_modifier = -0.25
-}
-DA_AI_Buffs_5_hard = {
-	garrison_damage = 0.5
-	global_tax_income = 192
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.10
-	artillery_shock = 0.05
-	backrow_artillery_damage = 0.10	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.20
-	infantry_fire =	0.1
-	infantry_shock = 0.15
-	cavalry_fire = 0.25
-	cavalry_shock =	0.5
-	
-	loot_amount = 1
-	available_province_loot = 1
-	global_regiment_recruit_speed = -0.4
-	leader_land_fire = 1				
-	leader_land_manuever = 1
-	leader_land_shock = 1
-	leader_siege = 1
-	mercenary_cost = -0.5
-	merc_maintenance_modifier = -0.5
-	discipline = 0.025
-}
-
-
-DA_AI_Buffs_6_easy = {
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.60
-	artillery_shock = 0.15
-	backrow_artillery_damage = 0.10	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.30
-	infantry_fire =	0.4
-	infantry_shock = 0.45
-	cavalry_fire = 0.5
-	cavalry_shock =	1
-}
-DA_AI_Buffs_6_medium = {
-	global_tax_income = 96
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.60
-	artillery_shock = 0.15
-	backrow_artillery_damage = 0.10	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.30
-	infantry_fire =	0.4
-	infantry_shock = 0.45
-	cavalry_fire = 0.5
-	cavalry_shock =	1
-
-	loot_amount = 0.50
-	available_province_loot = 0.50
-	global_regiment_recruit_speed = -0.22
-	mercenary_cost = -0.25
-	merc_maintenance_modifier = -0.25
-}
-DA_AI_Buffs_6_hard = {
-	garrison_damage = 0.5
-	global_tax_income = 192
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.60
-	artillery_shock = 0.15
-	backrow_artillery_damage = 0.10	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.30
-	infantry_fire =	0.4
-	infantry_shock = 0.45
-	cavalry_fire = 0.5
-	cavalry_shock =	1
-
-	loot_amount = 1
-	available_province_loot = 1
-	global_regiment_recruit_speed = -0.4
-	leader_land_fire = 1				
-	leader_land_manuever = 1
-	leader_land_shock = 1
-	leader_siege = 1
-	discipline = 0.05
-	morale_damage = 0.025
-	morale_damage_received = -0.025
-	mercenary_cost = -0.5
-	merc_maintenance_modifier = -0.5
-	own_territory_dice_roll_bonus = 1
-}
-
-
-DA_AI_Buffs_7_easy = {
-	movement_speed = 0.20
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.60
-	artillery_shock = 0.55
-	backrow_artillery_damage = 0.20	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.30
-	infantry_fire =	0.5
-	infantry_shock = 0.45
-	cavalry_fire = 1
-	cavalry_shock =	1
-}
-DA_AI_Buffs_7_medium = {
-	global_tax_income = 96
-	movement_speed = 0.20
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.60
-	artillery_shock = 0.55
-	backrow_artillery_damage = 0.20	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.30
-	infantry_fire =	0.5
-	infantry_shock = 0.45
-	cavalry_fire = 1
-	cavalry_shock =	1
-
-	loot_amount = 0.50
-	available_province_loot = 0.50
-	global_regiment_recruit_speed = -0.22
-	mercenary_cost = -0.25
-	merc_maintenance_modifier = -0.25
-}
-DA_AI_Buffs_7_hard = {
-	garrison_damage = 0.5
-	global_tax_income = 192
-	movement_speed = 0.20
-	reserves_organisation = 0.50
-	fort_maintenance_modifier = -0.50
-	army_tradition = 1
-	war_exhaustion = -0.5
-	artillery_fire = 0.60
-	artillery_shock = 0.55
-	backrow_artillery_damage = 0.20	
-	artillery_levels_available_vs_fort = 1
-	garrison_size = 0.30
-	infantry_fire =	0.5
-	infantry_shock = 0.45
-	cavalry_fire = 1
-	cavalry_shock =	1
-
-	loot_amount = 1
-	available_province_loot = 1
-	global_regiment_recruit_speed = -0.4
-	leader_land_fire = 1				
-	leader_land_manuever = 1
-	leader_land_shock = 1
-	leader_siege = 1
-	discipline = 0.075
 	morale_damage = 0.05
 	morale_damage_received = -0.05
+	fire_damage_received = -0.05
+	shock_damage_received = -0.05
+	mercenary_cost = -0.25
+	merc_maintenance_modifier = -0.25
+	garrison_damage = 0.5
+	max_general_fire = 1
+	max_general_maneuver = 1
+	max_general_shock = 1
+	max_general_siege = 1
+}
+
+DA_AI_Buffs_very_hard = {
+	global_tax_income = 96	
+	loot_amount = 2
+	available_province_loot = 2
+	global_regiment_recruit_speed = -0.4
+	
+	morale_damage = 0.1
+	morale_damage_received = -0.1
+	fire_damage_received = -0.1
+	shock_damage_received = -0.1
 	mercenary_cost = -0.5
 	merc_maintenance_modifier = -0.5
-	own_territory_dice_roll_bonus = 2
+	garrison_damage = 0.5
+	max_general_fire = 1
+	max_general_maneuver = 1
+	max_general_shock = 1
+	max_general_siege = 1
+	
+	leader_land_fire = 1				
+	leader_land_manuever = 1
+	leader_land_shock = 1
+	leader_siege = 1
+	infantry_power = 0.1
+	cavalry_power = 0.1
+	artillery_power = 0.1
+	max_hostile_attrition = 5					#its maximum cap, not attrition itself
+}
+
+DA_AI_Buffs_vassal_reduction = {
+	army_tradition = -0.5						#0 at 1st institution and +0.5 after 2nd
+	fort_maintenance_modifier = 0.25			#-25% in the end
+	war_exhaustion = 0.25						#0 at 1st, -0.25 after 2nd
 }
 
 ##### metallurgy empty modifiers
