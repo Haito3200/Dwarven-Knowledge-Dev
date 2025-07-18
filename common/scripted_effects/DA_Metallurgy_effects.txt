@@ -1758,8 +1758,7 @@ DA_Find_Runic_circuit_blueprint = {
 		}
 	}
 }
-
-DA_calculate_metal_provinces = {
+DA_metal_provinces_zero_values = {
 	set_variable = {
 		which = DA_Metal_owned_Iron
 		value = 0
@@ -1804,7 +1803,7 @@ DA_calculate_metal_provinces = {
 		which = DA_Metal_owned_Lead
 		value = 0
 	}
-
+	
 	# rare 1
 	set_variable = {
 		which = DA_Metal_owned_Quicksilver
@@ -1838,9 +1837,9 @@ DA_calculate_metal_provinces = {
 		which = DA_Metal_owned_Tungsten
 		value = 0
 	}
-
+	
 	# rares 2
-
+	
 	set_variable = {
 		which = DA_Metal_owned_Dagrite
 		value = 0
@@ -1873,9 +1872,9 @@ DA_calculate_metal_provinces = {
 		which = DA_Metal_owned_Octiron
 		value = 0
 	}
-
+	
 	# legendaries
-
+	
 	set_variable = {
 		which = DA_Metal_owned_Cindersteel
 		value = 0
@@ -1920,556 +1919,134 @@ DA_calculate_metal_provinces = {
 		which = DA_Metal_owned_Hihiirokane
 		value = 0
 	}
+}
+DA_calculate_trade_metals_values = {
+	#tradegood = <tradegood>, metal = <metal>
+	if = {
+		limit = {
+			trade_goods = $tradegood$
+			NOT = { has_province_flag = DA_Mine_$metal$ }
+		}
+		ROOT = {
+			# Do once then reuse that temp value for each metal
+			# export_to_variable = { which = temp value = trigger_value:base_production who = PREV }
+			change_variable = { which = DA_Metal_owned_$metal$ which = temp }
+		}
+	}
+}
+DA_calculate_mine_metals_values = {
+	if = {
+		limit = { has_province_flag = DA_Mine_$metal$ }
+		ROOT = {
+			# Do once then reuse that temp value for each metal
+			# export_to_variable = { which = temp value = trigger_value:base_production who = PREV }
+			change_variable = { which = DA_Metal_owned_$metal$ which = temp }
+		}
+	}
+}
+DA_calculate_modifiers_metals_values = {
+	if = {
+		limit = { has_province_modifier = $modifier$ }
+		ROOT = {
+			# Do once then reuse that temp value for each metal
+			# export_to_variable = { which = temp value = trigger_value:base_production who = PREV }
+			change_variable = { which = $variable$ which = temp }
+		}
+	}
+}
+DA_calculate_metal_provinces = {
 	# calculation
-	every_owned_province = {
-		if = {
-			limit = {
-				OR = {
-					trade_goods = iron
-					has_province_flag = DA_Mine_Iron
-				}
-			}
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Iron
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Iron
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = {
-				OR = {
-					trade_goods = copper
-					has_province_flag = DA_Mine_Copper
-				}
-			}
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Copper
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Copper
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = {
-				OR = {
-					trade_goods = gold
-					has_province_flag = DA_Mine_Gold
-				}
-			}
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Gold
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Gold
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Silver }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Silver
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Silver
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Tin }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Tin
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Tin
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Aluminium }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Aluminium
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Aluminium
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Titanium }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Titanium
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Titanium
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Chromium }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Chromium
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Chromium
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Castellium }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Castellium
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Castellium
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Zinc }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Zinc
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Zinc
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Lead }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Lead
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Lead
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Quicksilver }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Quicksilver
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Quicksilver
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Palladium }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Palladium
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Palladium
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Platinum }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Platinum
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Platinum
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Tantalum }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Tantalum
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Tantalum
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { trade_goods = damestear }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Damestear
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Damestear
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_modifier = DA_Meteoric_Silver_deposit }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Meteoric_Silver
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Meteoric_Silver
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Dagrite }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Dagrite
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Dagrite
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Rosemetal }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Rosemetal
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Rosemetal
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Cold_iron }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Cold_iron
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Cold_iron
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { 
-				OR = {
-					trade_goods = mithril
-					has_province_flag = DA_Mine_Mithril
-				}
-			}
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Mithril
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Mithril
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Cobalt }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Cobalt
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Cobalt
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Tungsten }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Tungsten
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Tungsten
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_modifier = ironwood_trees }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_IronWood
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_IronWood
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Orichalcum }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Orichalcum
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Orichalcum
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Octiron }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Octiron
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Octiron
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_modifier = small_ebonsteel_forge }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_EbonSteel
-				value = trigger_value:base_production
-			}
-			divide_variable = {
+	
+	# Don't use this scope in a scripted effect, causes MANY errors
+	# every_owned_province = {
+	# }
+	ROOT = {
+		export_to_variable = { which = temp value = trigger_value:base_production who = PREV }
+	}
+
+	#Real trade goods first
+	DA_calculate_trade_metals_values = { tradegood = iron metal = Iron }
+	DA_calculate_trade_metals_values = { tradegood = copper metal = Copper }
+	DA_calculate_trade_metals_values = { tradegood = gold metal = Gold }
+	DA_calculate_trade_metals_values = { tradegood = damestear metal = Damestear }
+	DA_calculate_trade_metals_values = { tradegood = mithril metal = Mithril }
+
+	#Mines
+	DA_calculate_mine_metals_values = { metal = Iron }
+	DA_calculate_mine_metals_values = { metal = Copper }
+	DA_calculate_mine_metals_values = { metal = Gold }
+	DA_calculate_mine_metals_values = { metal = Silver }
+	DA_calculate_mine_metals_values = { metal = Tin }
+	DA_calculate_mine_metals_values = { metal = Aluminium }
+	DA_calculate_mine_metals_values = { metal = Titanium }
+	DA_calculate_mine_metals_values = { metal = Chromium }
+	DA_calculate_mine_metals_values = { metal = Castellium }
+	DA_calculate_mine_metals_values = { metal = Zinc }
+	DA_calculate_mine_metals_values = { metal = Lead }
+	DA_calculate_mine_metals_values = { metal = Quicksilver }
+	DA_calculate_mine_metals_values = { metal = Palladium }
+	DA_calculate_mine_metals_values = { metal = Platinum }
+	DA_calculate_mine_metals_values = { metal = Tantalum }
+	DA_calculate_mine_metals_values = { metal = Dagrite }
+	DA_calculate_mine_metals_values = { metal = Rosemetal }
+	DA_calculate_mine_metals_values = { metal = Cold_iron }
+	DA_calculate_mine_metals_values = { metal = Mithril }
+	DA_calculate_mine_metals_values = { metal = Cobalt }
+	DA_calculate_mine_metals_values = { metal = Tungsten }
+	DA_calculate_mine_metals_values = { metal = Orichalcum }
+	DA_calculate_mine_metals_values = { metal = Octiron }
+	DA_calculate_mine_metals_values = { metal = Cindersteel }
+	DA_calculate_mine_metals_values = { metal = Magnetite }
+	DA_calculate_mine_metals_values = { metal = Mistium }
+	DA_calculate_mine_metals_values = { metal = Skyshard }
+	DA_calculate_mine_metals_values = { metal = Adamantium }
+	DA_calculate_mine_metals_values = { metal = Unastu_Argazen }
+	DA_calculate_mine_metals_values = { metal = Bloth_Dolur }
+	DA_calculate_mine_metals_values = { metal = Unobtainium }
+	DA_calculate_mine_metals_values = { metal = Hihiirokane }
+
+	#Modifiers
+	DA_calculate_modifiers_metals_values = {
+		modifier = DA_Meteoric_Silver_deposit
+		variable = DA_Metal_owned_Meteoric_Silver
+	}
+	DA_calculate_modifiers_metals_values = {
+		modifier = ironwood_trees
+		variable = DA_Metal_owned_IronWood
+	}
+	if = {
+		limit = { has_province_modifier = small_ebonsteel_forge }
+		ROOT = {
+			multiply_variable = { which = temp value = 0.5 }
+			change_variable = {
 				which = DA_Metal_owned_EbonSteel
-				value = 2
+				which = temp
 			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_EbonSteel
-					which = PREV
-				}
-			}
+			export_to_variable = { which = temp value = trigger_value:base_production who = PREV }
 		}
-		if = {
-			limit = { OR = { has_province_modifier = medium_ebonsteel_forge has_province_modifier = isolation_ebonsteel } }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_EbonSteel
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_EbonSteel
-					which = PREV
-				}
-			}
+	}
+	DA_calculate_modifiers_metals_values = {
+		modifier = medium_ebonsteel_forge
+		variable = DA_Metal_owned_EbonSteel
+	}
+	DA_calculate_modifiers_metals_values = {
+		modifier = isolation_ebonsteel
+		variable = DA_Metal_owned_EbonSteel
+	}
+	if = {
+		limit = { has_province_modifier = urviksten_ebonforge }
+		ROOT = { #Twice for 2x
+			change_variable = { which = DA_Metal_owned_EbonSteel which = temp }
+			change_variable = { which = DA_Metal_owned_EbonSteel which = temp }
 		}
-		if = {
-			limit = { has_province_modifier = urviksten_ebonforge }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_EbonSteel
-				value = trigger_value:base_production
-			}
-			multiply_variable = {
-				which = DA_Metal_owned_EbonSteel
-				value = 2
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_EbonSteel
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Cindersteel }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Cindersteel
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Cindersteel
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Magnetite }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Magnetite
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Magnetite
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Mistium }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Mistium
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Mistium
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Skyshard }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Skyshard
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Skyshard
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Adamantium }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Adamantium
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Adamantium
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Unastu_Argazen }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Unastu_Argazen
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Unastu_Argazen
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Bloth_Dolur }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Bloth_Dolur
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Bloth_Dolur
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_modifier = DA_Sylvanite_deposit }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Sylvanite
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Sylvanite
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_modifier = DA_VoidSteel_deposit }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_VoidSteel
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_VoidSteel
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Unobtainium }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Unobtainium
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Unobtainium
-					which = PREV
-				}
-			}
-		}
-		if = {
-			limit = { has_province_flag = DA_Mine_Hihiirokane }
-			export_to_variable = {
-				variable_name = DA_Metal_owned_Hihiirokane
-				value = trigger_value:base_production
-			}
-			FROM = {
-				change_variable = {
-					which = DA_Metal_owned_Hihiirokane
-					which = PREV
-				}
-			}
-		}
+	}
+	DA_calculate_modifiers_metals_values = {
+		modifier = DA_Sylvanite_deposit
+		variable = DA_Metal_owned_Sylvanite
+	}
+	DA_calculate_modifiers_metals_values = {
+		modifier = DA_VoidSteel_deposit
+		variable = DA_Metal_owned_VoidSteel
 	}
 }
 
