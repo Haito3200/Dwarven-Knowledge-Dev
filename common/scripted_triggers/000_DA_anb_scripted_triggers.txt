@@ -259,3 +259,32 @@ has_dip_advisor_5 = {
 		}
 	}
 }
+
+DA_can_use_infantry = {
+	custom_trigger_tooltip = {
+		tooltip = DA_no_infantry
+		NOT = {	has_country_modifier = centaur_military }
+	}
+}
+
+DA_can_use_cavalry = {
+	custom_trigger_tooltip = {
+		tooltip = DA_no_cavalry
+		OR = {
+			if = {			
+				limit = { has_country_modifier = harpy_military	}
+				OR = {
+					OR = {
+						tag = F62									#Duwarkani can build cav normally
+						was_tag = F62
+					}
+					OR = {											#Zoherin Apunsorya can build cav normally
+						tag = V20
+						was_tag = V20
+					}
+				}
+			}
+			NOT = {	has_country_modifier = harpy_military }
+		}
+	}
+}
