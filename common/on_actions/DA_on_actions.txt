@@ -141,6 +141,23 @@ on_conquest = { # reset exploration level on conquest, unique events can't happe
 			value = 1
 		}
 	}
+	if = {
+		limit = {
+			AND = {
+				OR = {
+					has_province_modifier = DA_Mine_2
+					has_province_modifier = DA_Mine_3
+					has_province_modifier = DA_Mine_4
+					has_province_modifier = DA_Mine_5
+				}
+				owner = { has_country_modifier = harpy_administration }
+			}
+		}
+		add_province_modifier = {
+			name = DA_harpy_mine_nerf
+			duration = -1
+		}
+	}
 }
 on_yearly_pulse_2 = {
 	DA_on_yearly_pulse_2_effect = yes
