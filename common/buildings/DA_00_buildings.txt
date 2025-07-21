@@ -1,0 +1,1255 @@
+# Do not change tags in here without changing every other reference to them.
+# If adding new buildings, make sure they are uniquely named.
+
+# cost = x #==> cost in $ to build (subject to other modifiers)
+# time = x #==> number of months to build.
+# modifier = m # a modifier on the province that the building gives
+# trigger = t # an and trigger that needs to be fullfilled to build and keep the building
+# one_per_country = yes/no # if yes, only one of these can exist in a country
+# manufactory = { trade_good trade_good } # list of trade goods that get a production bonus
+# onmap = yes/no # show as a sprite on the map
+
+# FROM = owner
+# ROOT = province
+
+# Building AI is now mainly hard-coded. The AI will estimate how much it gains yearly from each building,
+# convert the value to ducats, and take the building with biggest yearly return as a percentage of the build cost.
+# If lower than 1%, the AI will not consider the yearly return worth it.
+# It will also require higher yearly return if the economy in not in prime shape.
+# Forts' value also get converted to a yearly return based on terrain and strategic position, as well as available budget for fort maintenance.
+
+# AI can still be modded though; it will multiply the yearly return with the value of ai_will_do.
+# If you don't want the AI to build a building at all, make ai_will_do become 0.
+# AI will consider each building to be worth 0.01 ducats per year as a base, so making ai_will_do above cost will have them build it at some point.
+# It will still check whether it can afford a building before doing so though, but may save up to it.
+
+################################################
+# trade buildings
+################################################
+
+
+DA_local_market = { # local market, to be renamed
+	cost = 80
+	time = 12
+
+	modifier = {
+		province_trade_power_modifier = 0.25
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+marketplace = {
+	cost = 140
+	time = 12
+
+	make_obsolete = DA_local_market
+	modifier = {
+		province_trade_power_modifier = 0.5
+	}
+	on_built = {
+		add_development_from_building = {
+			building = marketplace
+			type = production
+			value = 1
+		}
+		
+		#Anbennar
+		anbennar_building_effect = yes
+
+		if = {
+			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
+			FROM = { change_government_reform_progress = 4 }
+		}
+		if = {
+			limit = {
+				FROM = {
+					religion = genie_cult
+					has_country_flag = holy_buildings_active
+				}
+			}
+			add_province_modifier = {
+				name = holy_buildings_sailors
+				duration = 7300
+			}
+		}
+		if = {
+			limit = { owner = { has_estate_privilege = estate_burghers_U10_construction_rights } }
+			area = {
+				limit = { owned_by = FROM }
+				add_province_modifier = {
+					name = U10_affluent_reclaimation
+					duration = -1
+				}
+			}
+		}
+
+		owner = { accretive_path_jiangszun_chi_stacking_effect = { amount = 20 } }
+		owner = { accretive_path_upper_raheni_chi_stacking_effect = { amount = 20 } }
+
+		gronstunad_building_authority_effect = { value = 1 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = trade }
+	}
+	on_destroyed = {
+		remove_development_from_building = {
+			building = marketplace
+			type = production
+			value = 1
+		}
+		if = {
+			limit = {
+				NOT = {
+					area_for_scope_province = {
+						owned_by = FROM
+						has_trade_building_trigger = yes
+					}
+				}
+			}
+			area = {
+				limit = { owned_by = FROM }
+				remove_province_modifier = U10_affluent_reclaimation
+			}
+		}
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+
+	on_obsolete = {
+		gronstunad_building_authority_effect = { value = -1 }
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+
+trade_depot = {
+	cost = 280
+	time = 12
+
+	make_obsolete = marketplace
+
+	modifier = {
+		province_trade_power_modifier = 0.75
+	}
+
+	on_built = {
+		add_development_from_upgrading_or_building = {
+			building = trade_depot
+			obsolete_building = marketplace
+			type = production
+			value = 2
+			upgrade_value = 1
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
+			FROM = { change_government_reform_progress = 4 }
+		}
+
+		owner = { accretive_path_jiangszun_chi_stacking_effect = { amount = 20 } }
+		owner = { accretive_path_upper_raheni_chi_stacking_effect = { amount = 20 } }
+
+		gronstunad_building_authority_effect = { value = 3 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = trade }
+
+		if = {
+			limit = { owner = { has_estate_privilege = estate_burghers_U10_construction_rights } }
+			area = {
+				limit = { owned_by = FROM }
+				add_province_modifier = {
+					name = U10_affluent_reclaimation
+					duration = -1
+				}
+			}
+		}
+	}
+	on_destroyed = {
+		remove_development_from_building = {
+			building = trade_depot
+			type = production
+			value = 2
+		}
+		if = {
+			limit = {
+				NOT = {
+					area_for_scope_province = {
+						owned_by = FROM
+						has_trade_building_trigger = yes
+					}
+				}
+			}
+			area = {
+				limit = { owned_by = FROM }
+				remove_province_modifier = U10_affluent_reclaimation
+			}
+		}
+	}
+	on_obsolete = {
+		gronstunad_building_authority_effect = { value = -3 }
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+stock_exchange = {
+	cost = 450
+	time = 12
+
+	make_obsolete = trade_depot
+
+	modifier = {
+		province_trade_power_modifier = 1.0
+	}
+
+	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_trade_depot
+			}
+			add_development_from_upgrading_or_building = {
+				building = stock_exchange
+				obsolete_building = trade_depot
+				type = production
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_marketplace
+			}
+			add_development_from_upgrading_or_building = {
+				building = stock_exchange
+				obsolete_building = marketplace
+				type = production
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = stock_exchange
+				type = production
+				value = 3
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
+			FROM = { change_government_reform_progress = 4 }
+		}
+
+		owner = { accretive_path_jiangszun_chi_stacking_effect = { amount = 20 } }
+		owner = { accretive_path_upper_raheni_chi_stacking_effect = { amount = 20 } }
+
+		gronstunad_building_authority_effect = { value = 4 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = trade }
+
+		if = {
+			limit = { owner = { has_estate_privilege = estate_burghers_U10_construction_rights } }
+			area = {
+				limit = { owned_by = FROM }
+				add_province_modifier = {
+					name = U10_affluent_reclaimation
+					duration = -1
+				}
+			}
+		}
+	}
+	on_destroyed = {
+		remove_development_from_building = {
+			building = stock_exchange
+			type = production
+			value = 3
+		}
+		if = {
+			limit = {
+				NOT = {
+					area_for_scope_province = {
+						owned_by = FROM
+						has_trade_building_trigger = yes
+					}
+				}
+			}
+			area = {
+				limit = { owned_by = FROM }
+				remove_province_modifier = U10_affluent_reclaimation
+			}
+		}
+	}
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+
+
+
+DA_arcane_appraiser = { # local market, to be renamed
+	cost = 150
+	time = 20
+
+	modifier = {
+		trade_value_modifier = 0.1
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_arcane_tech_exchange = { # local market, to be renamed
+	cost = 350
+	time = 40
+
+	make_obsolete = DA_arcane_appraiser
+	modifier = {
+		trade_value_modifier = 0.25
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+
+
+################################################
+# production buildings
+################################################
+
+workshop = {
+	cost = 80
+	time = 12
+	modifier = {
+		local_production_efficiency = 0.25
+	}
+	on_built = {
+		on_built_production_building_effect = yes
+		add_development_from_building = {
+			building = workshop
+			type = production
+			value = 1
+		}
+		
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_dragon_command_war_room_rights } }
+			FROM = { add_legitimacy = 0.5 }
+		}
+		if = {
+			limit = {
+				FROM = {
+					religion = genie_cult
+					has_country_flag = holy_buildings_active
+				}
+			}
+			add_province_modifier = {
+				name = holy_buildings_production
+				duration = 7300
+			}
+		}
+
+		gronstunad_building_authority_effect = { value = 1 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = prod }
+	}
+	on_destroyed = {
+		remove_development_from_building = {
+			building = workshop
+			type = production
+			value = 1
+		}
+	}
+	on_obsolete = {
+		gronstunad_building_authority_effect = { value = -1 }
+	}
+
+	allow_in_gold_provinces = no
+
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+counting_house = {
+	cost = 200
+	time = 12
+
+	build_trigger = {
+		DA_Province_has_arcane_power_or_higher = yes
+	}
+	make_obsolete = workshop
+	modifier = {
+		local_production_efficiency = 0.5
+	}
+
+	on_built = {
+		on_built_production_building_effect = yes
+		add_development_from_upgrading_or_building = {
+			building = counting_house
+			obsolete_building = workshop
+			type = production
+			value = 2
+			upgrade_value = 1
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_dragon_command_war_room_rights } }
+			FROM = { add_legitimacy = 0.5 }
+		}
+
+		gronstunad_building_authority_effect = { value = 4 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = prod }
+	}
+	on_destroyed = {
+		remove_development_from_building = {
+			building = counting_house
+			type = production
+			value = 2
+		}
+	}
+	on_obsolete = {
+	}
+
+	allow_in_gold_provinces = no
+
+	ai_will_do = {
+		factor = 1
+	}
+}
+DA_steam_workshop = {
+	cost = 450
+	time = 18
+
+	build_trigger = {
+		DA_Province_has_steam_power_or_higher = yes
+	}
+	make_obsolete = counting_house
+	modifier = {
+		local_production_efficiency = 0.7
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_electrical_workshop = {
+	cost = 450
+	time = 18
+
+	build_trigger = {
+		DA_Province_has_electric_power_or_higher = yes
+	}
+	make_obsolete = DA_steam_workshop
+	modifier = {
+		local_production_efficiency = 1.0
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+
+# artisan line
+
+DA_artisan_building_1 = {
+	cost = 100
+	time = 18
+
+	build_trigger = {
+		owner = {
+			custom_trigger_tooltip = {
+				tooltip = DA_unlocked.artisan_buildings.tt
+				has_country_flag = DA_Unlocked.artisan_buildings
+			}
+		}
+	}
+	modifier = {
+		trade_goods_size_modifier = 0.1
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_artisan_building_2 = {
+	cost = 200
+	time = 18
+
+	make_obsolete = DA_artisan_building_1
+	build_trigger = {
+		owner = {
+			custom_trigger_tooltip = {
+				tooltip = DA_unlocked.artisan_buildings.tt
+				has_country_flag = DA_Unlocked.artisan_buildings
+			}
+		}
+	}
+	modifier = {
+		trade_goods_size_modifier = 0.2
+		local_production_efficiency = -0.1
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_artisan_building_3 = {
+	cost = 300
+	time = 24
+
+	make_obsolete = DA_artisan_building_2
+	build_trigger = {
+		owner = {
+			custom_trigger_tooltip = {
+				tooltip = DA_unlocked.artisan_buildings.tt
+				has_country_flag = DA_Unlocked.artisan_buildings
+			}
+		}
+	}
+	modifier = {
+		trade_goods_size_modifier = 0.35
+		local_production_efficiency = -0.2
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+
+# assembler line
+
+DA_assembler_building_1 = {
+	cost = 160
+	time = 24
+
+	build_trigger = {
+		owner = {
+			custom_trigger_tooltip = {
+				tooltip = DA_unlocked.assembler_buildings.tt
+				has_country_flag = DA_Unlocked.assembler_buildings
+			}
+		}
+		DA_Province_has_arcane_power_or_higher = yes
+	}
+	modifier = {
+		trade_goods_size = 0.3
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_assembler_building_2 = {
+	cost = 320
+	time = 24
+
+	make_obsolete = DA_assembler_building_1
+	build_trigger = {
+		owner = {
+			custom_trigger_tooltip = {
+				tooltip = DA_unlocked.assembler_buildings.tt
+				has_country_flag = DA_Unlocked.assembler_buildings
+			}
+		}
+		DA_Province_has_steam_power_or_higher = yes
+	}
+	modifier = {
+		trade_goods_size = 0.6
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_assembler_building_3 = {
+	cost = 480
+	time = 36
+
+	make_obsolete = DA_assembler_building_2
+	build_trigger = {
+		owner = {
+			custom_trigger_tooltip = {
+				tooltip = DA_unlocked.assembler_buildings.tt
+				has_country_flag = DA_Unlocked.assembler_buildings
+			}
+		}
+		DA_Province_has_electric_power_or_higher = yes
+	}
+	modifier = {
+		trade_goods_size = 1
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+################################################
+# tax buildings
+################################################
+
+DA_tax_building_1 = {
+	cost = 80
+	time = 12
+
+	build_trigger = {
+	}
+	modifier = {
+		tax_income = 1.5
+		local_tax_modifier = 0.2
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_tax_building_2 = {
+	cost = 180
+	time = 12
+
+	make_obsolete = DA_tax_building_1
+	build_trigger = {
+	}
+	modifier = {
+		tax_income = 3
+		local_tax_modifier = 0.45
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_tax_building_3 = {
+	cost = 300
+	time = 18
+
+	make_obsolete = DA_tax_building_2
+	build_trigger = {
+	}
+	modifier = {
+		tax_income = 6
+		local_tax_modifier = 0.7
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_tax_building_4 = {
+	cost = 550
+	time = 24
+
+	make_obsolete = DA_tax_building_3
+	build_trigger = {
+	}
+	modifier = {
+		tax_income = 12
+		local_tax_modifier = 1.0
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_tax_building_5 = {
+	cost = 800
+	time = 36
+
+	make_obsolete = DA_tax_building_4
+	build_trigger = {
+	}
+	modifier = {
+		tax_income = 24
+		local_tax_modifier = 1.25
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+
+################################################
+# religion buildings
+################################################
+
+temple = {
+	cost = 80
+	time = 12
+	modifier = {
+		local_monthly_devastation = -0.02
+		local_unrest = -1
+		local_missionary_strength = 0.01
+		local_culture_conversion_time = -0.1
+	}
+	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		add_development_from_building = {
+			building = temple
+			type = tax
+			value = 1
+		}
+		
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
+			FROM = { change_government_reform_progress = 4 }
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 2
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = temples_modifier }
+				owned_by = FROM 
+			}
+			add_province_modifier = {
+				name = gov_expanded_temple_rights_mod
+				duration = -1
+			}
+		}
+		if = {
+			limit = { FROM = { religion = ynn_river_worship } }
+			FROM = { add_authority = 2 }
+		}
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_tiger_command_war_room_rights } }
+			FROM = { add_legitimacy = 0.5 }
+		}
+		Y72_add_dev_from_building = { #1.35, Chien Binhrung
+			building = temple
+			type = tax
+			value = 1 
+		}
+		if = {
+			limit = { FROM = { tag = I98 mission_completed = I98_involuntary_revenue_service } }
+			add_province_modifier = { name = I98_IRS_activities duration = -1 }
+		}
+		if = {
+			limit = {
+				FROM = {
+					religion = genie_cult
+					has_country_flag = holy_buildings_active
+				}
+			}
+			add_province_modifier = {
+				name = holy_buildings_tax
+				duration = 7300
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = 1
+		}
+
+		owner = { accretive_path_harimari_chi_stacking_effect = { amount = 20 } }
+		owner = { accretive_path_goldscale_kobold_chi_stacking_effect = { amount = 20 } }
+
+		gronstunad_building_authority_effect = { value = 1 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = tax }
+		
+		if = {
+			limit = { province_group = infernal_court_temples }
+			infernal_deity_upgrade_effect = yes
+		}
+		spirit_fort_awakening_effect = yes
+
+		if = {
+			limit = {
+				FROM = {
+					has_country_flag = zokka_temple_upgrade_flag
+				}
+			}
+			add_province_modifier = {
+				name = zokka_tithe
+				duration = -1
+			}
+		}
+	}
+	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = temple
+			type = tax
+			value = 1
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = -2
+				}
+			}
+		}
+		remove_province_modifier = gov_expanded_temple_rights_mod
+		if = {
+			limit = { FROM = { religion = ynn_river_worship } }
+			if = {
+				limit = { FROM = { is_subject = no } }
+				FROM = {
+					add_authority = -2
+					add_country_modifier = {
+						name = ynn_temple_crasher
+						duration = 1825 #5 Years
+					}
+				}
+			}
+			else = {
+				FROM = {
+					overlord = {
+						add_authority = -2
+						add_country_modifier = {
+							name = ynn_temple_crasher
+							duration = 1825 #5 Years
+						}
+					}
+				}
+			}
+		}
+		Y72_remove_dev_from_building = { #1.35, Chien Binhrung
+			building = temple
+			type = tax
+			value = 1 
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = -1
+		}
+		remove_province_modifier = I98_IRS_activities
+		remove_province_modifier = zokka_tithe
+	}
+	on_obsolete = {
+		gronstunad_building_authority_effect = { value = -1 }
+	}
+	ai_will_do = {
+		factor = 1
+	}
+}
+cathedral = {
+	make_obsolete = temple
+
+	cost = 200
+	time = 18
+	modifier = {
+		local_monthly_devastation = -0.04
+		local_unrest = -2
+		local_missionary_strength = 0.02
+		local_culture_conversion_time = -0.15
+	}
+	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		add_development_from_upgrading_or_building = {
+			building = cathedral
+			obsolete_building = temple
+			type = tax
+			value = 2
+			upgrade_value = 1
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 5
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = temples_modifier }
+				owned_by = FROM 
+			}
+			add_province_modifier = {
+				name = gov_expanded_temple_rights_mod
+				duration = -1
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
+			FROM = { change_government_reform_progress = 4 }
+		}
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_tiger_command_war_room_rights } }
+			FROM = { add_legitimacy = 0.5 }
+		}
+		Y72_add_dev_from_building = { #1.35, Chien Binhrung
+			building = cathedral 
+			type = tax
+			value = 2 
+		}
+		if = {
+			limit = { FROM = { tag = I98 mission_completed = I98_involuntary_revenue_service } }
+			add_province_modifier = { name = I98_IRS_activities duration = -1 }
+		}
+		if = {
+			limit = { FROM = { has_government_attribute = command_tiger_elevation_modifier } }
+			add_province_modifier = {
+				name = commmand_tiger_temple_buff
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = 2
+		}
+		
+		owner = { accretive_path_harimari_chi_stacking_effect = { amount = 20 } }
+		owner = { accretive_path_goldscale_kobold_chi_stacking_effect = { amount = 20 } }
+
+		gronstunad_building_authority_effect = { value = 3 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = tax }
+		
+		if = {
+			limit = {
+				FROM = {
+					has_country_flag = zokka_temple_upgrade_flag
+				}
+			}
+			add_province_modifier = {
+				name = zokka_tithe_better
+				duration = -1
+			}
+			remove_province_modifier = zokka_tithe
+		}
+		if = {
+			limit = { province_group = infernal_court_temples }
+			infernal_deity_upgrade_effect = yes
+		}
+		spirit_fort_awakening_effect = yes
+	}
+	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = cathedral
+			type = tax
+			value = 2 #1.35
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = -5
+				}
+			}
+		}
+		remove_province_modifier = gov_expanded_temple_rights_mod
+		#Anbennar
+		Y72_remove_dev_from_building = { #1.35, Chien Binhrung
+			building = cathedral 
+			type = tax
+			value = 2 
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = -2
+		}
+		remove_province_modifier = I98_IRS_activities
+		remove_province_modifier = commmand_tiger_temple_buff
+		remove_province_modifier = zokka_tithe_better
+	}
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1
+	}
+}
+DA_religious_building_3 = {
+
+	cost = 350
+	time = 18
+	modifier = {
+		local_monthly_devastation = -0.06
+		local_unrest = -3
+		local_missionary_strength = 0.03
+		local_culture_conversion_time = -0.2
+	}
+
+	make_obsolete = cathedral
+	build_trigger = {
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+DA_religious_building_4 = {
+	cost = 350
+	time = 18
+	modifier = {
+		local_monthly_devastation = -0.08
+		local_unrest = -4
+		local_missionary_strength = 0.04
+		local_culture_conversion_time = -0.25
+	}
+
+	make_obsolete = DA_religious_building_3
+	build_trigger = {
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
+
+	on_obsolete = {
+	}
+
+	ai_will_do = {
+		factor = 1.5 # Because hard-coded AI only considers what it will gain, not what its enemies will lose.
+	}
+}
+
+################################################
+# army buildings
+################################################
+
+
+################################################
+# navy buildings
+################################################
+
+
+################################################
+# infrastructure buildings
+################################################
+
+
+################################################
+# education buildings
+################################################
+
+
+################################################
+# government buildings
+################################################
+
+
+################################################
+# manufacturies buildings
+################################################
+
