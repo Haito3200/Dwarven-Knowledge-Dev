@@ -23,7 +23,7 @@
 
  DA_Fake_Research_progress_button_tt:0 "§L=========== Research Progress Explanation ==========§!\n\n                               §G[Root.DA_research_progress.GetValue]§!/§Y[Root.DA_research_progress_MAX.GetValue]§!\n\nResearch Progress: §G[Root.DA_research_progress.GetValue]§!\nResearch Target: §Y[Root.DA_research_progress_MAX.GetValue]§!\n\n§YResearch Progress§! increases by §Y1§! every month until it reaches the value of §YResearch Target§!. Once reached, the research reward will be given.\n§YResearch Target§!'s value is determined based on the type of research being done and varies between §Y36-120§!\n\nThrough Research the following things can be obtained: §YInventions§!, §oTechnologies§! and §YUpgrades§!,\n§L===============================================§!"
 
- DA_Production_Breakdown_short:0 "§L=============== Production Capacity ===============§!\nUsed Capacity:        §o[Root.DA_Production_Points_Upkeep.GetValue]§!\nMaximum Capacity:   §Y[Root.DA_MAX_Production_Points.GetValue]§!\nAvailable Capacity:  §G[Root.DA_REMAINING_Production_Points.GetValue]§!"
+ DA_Production_Breakdown_short:0 "§L=============== Production Capacity ===============§!\nUsed Capacity:        §o[Root.DA_Production_Points_Upkeep.GetValue]§!\nMaximum Capacity:   §Y[Root.DA_MAX_Production_Points.GetValue]§!\nAvailable Capacity:  §G[Root.get_DA_REMAINING_Production_Points]§!"
  DA_Production_multipliers:0 "\n§L=========== Production Capacity Multipliers ===========§!\n[Root.DA_get_production_Government]\n"
  DA_Production_no_multipliers:0 ""
  
@@ -71,10 +71,10 @@
  DA_Damestear_points_none_tt:0 "§g+0 - From Damestear (+2-6 per province)§!\n"
  DA_Static_Production_points_tt:0 "§G+[Root.DA_STATIC_Production_Points.GetValue]§! - From Missions\n"
  
- DA_cost_10_Production_capacity_to_maintain_tt:0 "Has §Y10§! Production Capacity available (Currently: §Y[Root.DA_REMAINING_Production_Points.GetValue]§!)"
- DA_cost_20_Production_capacity_to_maintain_tt:0 "Has §Y20§! Production Capacity available (Currently: §Y[Root.DA_REMAINING_Production_Points.GetValue]§!)"
- DA_cost_30_Production_capacity_to_maintain_tt:0 "Has §Y30§! Production Capacity available (Currently: §Y[Root.DA_REMAINING_Production_Points.GetValue]§!)"
- DA_cost_40_Production_capacity_to_maintain_tt:0 "Has §Y40§! Production Capacity available (Currently: §Y[Root.DA_REMAINING_Production_Points.GetValue]§!)"
+ DA_cost_10_Production_capacity_to_maintain_tt:0 "Has §Y10§! Production Capacity available (Currently: §Y[Root.get_DA_REMAINING_Production_Points]§!)"
+ DA_cost_20_Production_capacity_to_maintain_tt:0 "Has §Y20§! Production Capacity available (Currently: §Y[Root.get_DA_REMAINING_Production_Points]§!)"
+ DA_cost_30_Production_capacity_to_maintain_tt:0 "Has §Y30§! Production Capacity available (Currently: §Y[Root.get_DA_REMAINING_Production_Points]§!)"
+ DA_cost_40_Production_capacity_to_maintain_tt:0 "Has §Y40§! Production Capacity available (Currently: §Y[Root.get_DA_REMAINING_Production_Points]§!)"
  
 
  DA_decreases_Production_upkeep_by_10:0 "Frees §G10§! Production Capacity"
@@ -100,8 +100,8 @@
  DA_adk.150.a:0 "a"
 
  DA_Runesmiths_events.1.t:0 "Runesmiths Invention Research"
- DA_Runesmiths_events.1.d1:0 "We have just begun our journay in mass-produced Runes. We now have to focus on adapting old runes to the new production method.\nOnce we are done adapting a substatial amount of runes we can begin looking for more advanced applications...\nCurrently Adapted old §MRunes§!: [Root.DA_num_runes_unlocked.GetValue]/10"
- DA_Runesmiths_events.1.d2:0 "Our Knowledge of Runes and their application increases by the day. We no longer have to focus solely on adapting old runes and we create more complicated inventions. The Inventors are diveded in 3 factions:\nHigh Engineers: they have high mechanical knowledge and innovative approach but a medium understanding of Runes. Their inventions are often focused on mechanical aspects.\nRune Masters: The fathers of Rune magic, they try to have manufactured runes reach the same level of complexity of ancient non-manufactured Runes. Inventions are often focused on highly complex Runes.\nPioneers: Medium-High level of understanding of both engineering and Runes, young dwarves, very innovative approches. Their inventions are very ingenious but are sometimes unstable and can lead to accidents/unknown side-effects.\nCurrently Adapted old §MRunes§!: [Root.DA_num_runes_unlocked.GetValue]/10"
+ DA_Runesmiths_events.1.d1:0 "We have just begun our journay in mass-produced Runes. We now have to focus on adapting old runes to the new production method.\nOnce we are done adapting a substatial amount of runes we can begin looking for more advanced applications...\nCurrently Adapted old §MRunes§!: [Root.get_DA_num_runes_unlocked]/10"
+ DA_Runesmiths_events.1.d2:0 "Our Knowledge of Runes and their application increases by the day. We no longer have to focus solely on adapting old runes and we create more complicated inventions. The Inventors are diveded in 3 factions:\nHigh Engineers: they have high mechanical knowledge and innovative approach but a medium understanding of Runes. Their inventions are often focused on mechanical aspects.\nRune Masters: The fathers of Rune magic, they try to have manufactured runes reach the same level of complexity of ancient non-manufactured Runes. Inventions are often focused on highly complex Runes.\nPioneers: Medium-High level of understanding of both engineering and Runes, young dwarves, very innovative approches. Their inventions are very ingenious but are sometimes unstable and can lead to accidents/unknown side-effects.\nCurrently Adapted old §MRunes§!: [Root.get_DA_num_runes_unlocked]/10"
  DA_Runesmiths_events.1.a:0 "Runesmiths Research I"
  DA_Runesmiths_events.1.b:0 "Runesmiths Research II"
  DA_Runesmiths_events.1.c:0 "Runesmiths Research III"
@@ -124,9 +124,9 @@
 
  DA_RS_Rune_adaptation_tt:0 "Start §GRunesmiths Research§!: §MRune Adaptation§!, the process will take approximately §Y36 months§!"
  DA_give_random_rune_tt: "Unlocks a random §MRune§! §YPrivilege§!"
- DA_unlocked_at_least_4_runes:0 "Must have unlocked at least §Y4§! §MRunes§! (§R[Root.DA_num_runes_unlocked.GetValue]§!/§G10§!)"
- DA_unlocked_at_least_7_runes:0 "Must have unlocked at least §Y7§! §MRunes§! (§R[Root.DA_num_runes_unlocked.GetValue]§!/§G10§!)"
- DA_unlocked_all_Runes:0 "Must have unlocked all §Y10§! §MRunes§! (§R[Root.DA_num_runes_unlocked.GetValue]§!/§G10§!)"
+ DA_unlocked_at_least_4_runes:0 "Must have unlocked at least §Y4§! §MRunes§! (§R[Root.get_DA_num_runes_unlocked]§!/§G10§!)"
+ DA_unlocked_at_least_7_runes:0 "Must have unlocked at least §Y7§! §MRunes§! (§R[Root.get_DA_num_runes_unlocked]§!/§G10§!)"
+ DA_unlocked_all_Runes:0 "Must have unlocked all §Y10§! §MRunes§! (§R[Root.get_DA_num_runes_unlocked]§!/§G10§!)"
  DA_has_no_active_rune_tt:0 "Have NO active §MRune§! privileges"
  DA_has_no_active_production_point_privilege:0 "Have NO active §YRunesmith Privilege§! using Production Points"
 

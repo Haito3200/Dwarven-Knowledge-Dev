@@ -383,7 +383,15 @@ barracks = {
 		owner = { accretive_path_jiangyang_chi_stacking_effect = { amount = 20 } }
 
 		gronstunad_building_authority_effect = { value = 1 }
-	}
+		
+		if = { #Degakheion
+			limit = { FROM = { has_country_flag = degakheion_manpower_building_buff } }
+			add_province_modifier = {
+				name = G46_barracks_buff
+				duration = -1
+			}
+		}
+	} 
 	on_destroyed = {
 		# if = {
 			# limit = {
@@ -1347,7 +1355,6 @@ cathedral = {
 			infernal_deity_upgrade_effect = yes
 		}
 		spirit_fort_awakening_effect = yes
-
 	}
 	on_destroyed = {
 		on_province_tax_building_destroyed_estate_privileges_effect = yes
@@ -3989,6 +3996,10 @@ mage_tower = {
 		}
 	}
 	on_destroyed = {
+		if = {
+			limit = { has_province_modifier = U10_containment_array }
+			remove_province_modifier = U10_containment_array
+		}
 		# DK
 		remove_province_modifier = DA_Mage_Tower_Specialization.Abjuration
 		remove_province_modifier = DA_Mage_Tower_Specialization.Divination

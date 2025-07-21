@@ -9,9 +9,14 @@ country_event = {
 
 	is_triggered_only = yes
 	hidden = yes
+	immediate = {
+		DA_metal_provinces_zero_values = yes
+		every_owned_province = {
+			DA_calculate_metal_provinces = yes
+		}
+	}
 	option = {
 		name = "DA_Metallurgy_events.0.a"
-		DA_calculate_metal_provinces = yes
 	}
 }
 province_event = {
@@ -41,15 +46,6 @@ province_event = {
 			}
 			add_permanent_province_modifier = {
 				name = DA_ventilation_mod_Mine_2
-				duration = -1
-			}
-		}
-		if = {
-			limit = {
-				owner = { has_country_modifier = harpy_administration }
-			}
-			add_province_modifier = {
-				name = DA_harpy_mine_nerf
 				duration = -1
 			}
 		}
@@ -1035,4 +1031,3 @@ province_event = {
 		DA_new_missions_tech_tree = yes
 	}
 }
-
