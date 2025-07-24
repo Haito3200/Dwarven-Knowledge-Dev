@@ -1,0 +1,1036 @@
+
+#######################################
+#######################################
+######### VANILLA IDEAS START #########
+#######################################
+#######################################
+
+
+# ESPIONAGE IDEAS
+spy_ideas = {
+	category = DIP
+
+	bonus = {
+		rebel_support_efficiency = 1
+		spy_action_cost_modifier = -0.15 #1.35
+	}
+	
+	claim_fabrication = {
+		can_claim_states = yes #1.35
+		can_transfer_vassal_wargoal = yes #1.35
+	}
+
+	state_propaganda = {
+		ae_impact = -0.15
+	}
+
+	efficient_spies = {
+		spy_offence = 0.5
+		siege_ability = 0.1
+	}	
+	
+	agent_training = {
+		diplomats = 1
+		advisor_cost = -0.10
+	}
+
+	vetting = {
+		global_spy_defence = 0.25
+		yearly_corruption = -0.1
+	}
+	
+	privateers = {
+		capture_ship_chance = 0.175
+		privateer_efficiency = 0.25
+	}
+	
+	blackmailing = {
+		monthly_favor_modifier = 0.25
+		accept_vassalization_reasons = 12
+		num_of_pronoiars = 1
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 1.1
+			personality = ai_militarist 
+		}
+		modifier = {
+			factor = 0.45
+			NOT = { monthly_dip = 7 }
+		}
+		modifier = {
+			factor = 1.25
+			has_idea_group = aristocracy_ideas
+		}
+	}
+}
+
+
+diplomatic_ideas = {
+	category = DIP
+	bonus = {
+		reduced_stab_impacts = yes
+	}
+	
+	grand_banquets = {
+		diplomats = 1
+	}
+	foreign_embassies = { #1.35
+		dip_advisor_cost = -0.20
+	}
+	cabinet = {
+		diplomatic_upkeep = 1
+	}
+	benign_diplomats = {
+		improve_relation_modifier = 0.20
+		diplomats = 1 #1.35
+	}
+	experienced_diplomats  = {
+		diplomatic_reputation = 1.5
+	}
+	flexible_negotiation = {
+		province_warscore_cost = -0.125
+	}
+	diplomatic_corps = {
+		dip_tech_cost_modifier = -0.1
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 0.5
+
+		modifier = {
+			factor = 2
+			is_emperor = yes
+		}
+		modifier = { 	
+			factor = 0.75 
+			NOT = { monthly_dip = 7 }
+		}
+		modifier = {
+			factor = 1.25
+			personality = ai_diplomat 
+		}
+	}
+}
+
+
+
+# TRADE IDEAS
+trade_ideas = {
+	category = DIP
+
+	bonus = {
+		merchants = 1
+		burghers_loyalty_modifier = 0.1
+		#jains_loyalty_modifier = 0.1
+		#vaisyas_loyalty_modifier = 0.1
+	}
+
+	shrewd_commerce_practise = {
+ 		global_trade_power = 0.15
+  	}
+  	free_trade = {
+  		merchants = 1
+  	}
+	merchant_adventures = {
+		trade_range_modifier = 0.25
+	}
+	national_trade_policy = {
+		trade_efficiency = 0.075
+		mercantilism_cost = -0.20
+	}
+	overseas_merchants = {
+		placed_merchant_power = 10 #1.35
+	}
+	trade_manipulation = {
+		trade_steering = 0.175
+	}
+	fast_negotiations = {
+		caravan_power = 0.20
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 0.4
+		modifier = {
+			factor = 0
+			NOT = { num_of_cities = 6 }
+			NOT = { has_government_attribute = is_merchant_republic }
+		}
+		modifier = {
+			factor = 2
+			has_government_attribute = is_merchant_republic
+		}
+		modifier = {
+			factor = 1.25
+			personality = ai_capitalist 
+			trade_income_percentage = 0.35
+		}
+		modifier = {
+			factor = 1.25
+			home_trade_node = {
+				trade_share = {
+					country = ROOT 
+					share = 0.4
+				}
+			}
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_idea_group = infrastructure_ideas
+				has_idea_group = economic_ideas
+			}
+		}
+	}
+}
+
+
+
+exploration_ideas = {
+	category = DIP
+	important = yes
+
+	bonus = {
+		cb_on_primitives = yes
+	}
+
+	quest_for_the_new_world	= {
+		may_explore = yes
+		naval_attrition = -0.075 #1.35
+	}
+	colonial_ventures = {
+		colonists = 1
+		effect = { remove_temporary_colonist = yes }
+	}
+	overseas_exploration = {
+		range = 0.5
+	}
+	land_of_opportunity = {
+		global_colonial_growth = 10
+	}
+	factories = { #1.35
+		trade_company_governing_cost = -0.075
+		trade_company_investment_cost = -0.075
+	}
+	free_colonies = {
+		colonist_placement_chance = 0.075
+	}
+	global_empire = {
+		naval_forcelimit_modifier = 0.20
+		treasure_fleet_income = 0.20
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 0.75
+		modifier = {
+			factor = 0
+			is_colonial_nation = yes
+		}
+		modifier = {
+			factor = 0
+			is_tribal = yes
+		}
+		modifier = {
+			factor = 0
+			is_subject = yes
+		}		
+		modifier = {
+			factor = 0
+			primitives = yes
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				current_age = age_of_absolutism #too late
+				current_age = age_of_revolutions
+			}
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				any_owned_province = {
+					has_port = yes
+					# sea_zone = {
+					# 	NOT = { region = dameshead_sea_region }
+					# }
+				}
+			}
+			NOT = { 
+				any_owned_province = { 
+					is_in_capital_area = yes
+					has_empty_adjacent_province = yes
+				} 
+			}
+		}
+		#Anbennar - Totally redid this factor
+		modifier = {
+			factor = 0.1
+			NOT = { num_of_ports = 3 }
+			NOT = { 
+				any_owned_province = { 
+					is_in_capital_area = yes
+					has_empty_adjacent_province = yes
+				}
+			}
+		}
+		#modifier = {
+		#	factor = 0.01
+		#	NOT = {
+		#		AND = {
+		#			has_global_flag = delete_cannor_region 
+		#			NOT = { has_global_flag = delete_north_aelantir_region }
+		#			NOT = { has_global_flag = delete_south_aelantir_region }
+		#		}
+		#	}
+		#	NOT = { has_institution = renaissance }
+		#	NOT = { tag = A01 }
+		#	NOT = { tag = A02 }
+		#	NOT = { tag = A09 }
+		#	NOT = { tag = A21 }
+		#}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				AND = {
+					has_global_flag = delete_cannor_region 
+					NOT = { has_global_flag = delete_north_aelantir_region }
+					NOT = { has_global_flag = delete_south_aelantir_region }
+				}
+			}
+			capital_scope = {
+				NOT = {
+					OR = {
+						region = lencenor_region
+						region = dragon_coast_region
+						region = dalr_region
+						region = west_dameshead_region
+						region = east_dameshead_region
+						region = businor_region
+						region = akasik_region
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			culture_group = kobold
+		}
+		#modifier = {
+		#	factor = 0.1
+		#	NOT = {
+		#		AND = {
+		#			has_global_flag = delete_cannor_region 
+		#			NOT = { has_global_flag = delete_north_aelantir_region }
+		#			NOT = { has_global_flag = delete_south_aelantir_region }
+		#		}
+		#	}
+		#	NOT = { is_year = 1490 }
+		#	capital_scope = {
+		#		NOT = {
+		#			OR = {
+		#				region = lencenor_region
+		#				region = dragon_coast_region
+		#				region = akasik_region
+		#			}
+		#		}
+		#	}
+		#}
+		modifier = {
+			factor = 2.0
+			num_of_ports = 5
+		}
+		modifier = {
+			factor = 2.0
+			num_of_ports = 10
+		}
+		modifier = {
+			factor = 2.0
+			num_of_ports = 15
+		}
+		modifier = {
+			factor = 2.0
+			num_of_ports = 20
+		}
+#		modifier = {	#sun elves wanting to reclaim homeland
+#			factor = 1000
+#			primary_culture = sun_elf
+#			num_of_ports = 5
+#		}
+		# modifier = {
+		# 	factor = 20 #de facto x2
+		# 	culture_group = kheionai_ruinborn_elf
+		# }
+		modifier = {
+			factor = 1000
+			OR = {
+				tag = A21 #Venail
+				tag = A33 #Verne
+				tag = A11 #Pearlsedge
+			}
+		}
+		modifier = {
+			factor = 10
+			OR = {
+				tag = A01 #Lorent
+				tag = A02 #Deranne
+				tag = A47 #Eborthil
+				tag = A29 #Busilar
+				tag = A79 #Gnomish Hierarchy (if they somehow form)
+			}
+		}
+		modifier = {
+			factor = 1.5
+			OR = {
+				tag = Z08 #Bjarnrik (if they somehow are successful)
+				tag = A31 #Moonhaven
+				tag = A05 #Reveria
+			}
+		}
+	}
+}
+
+maritime_ideas = {
+	category = DIP
+
+	trigger = {
+		primitives = no
+	}
+
+	bonus = {
+		sea_repair = yes
+		movement_speed_in_fleet_modifier = 1 
+	}
+
+	merchant_traditions = {
+		naval_tradition_from_trade = 1.0
+		trade_range_modifier = 0.25
+	}
+	merchant_marine = {
+		global_sailors_modifier = 0.35
+		allowed_marine_fraction = 0.2
+	}
+	sheltered_ports = {
+		global_ship_repair = 0.075
+		sailor_maintenance_modifer = -0.075
+	}
+	grand_navy = {
+		naval_forcelimit_modifier = 0.35
+		ship_power_propagation = 0.2
+	}
+	ships_penny = {
+		global_ship_cost = -0.1
+	}
+	sea_hawks = {
+		global_naval_engagement_modifier = 0.1 #1.35
+		admiral_cost = -0.2
+	}
+	naval_fighting_instruction = {
+		blockade_efficiency = 0.35
+		privateer_efficiency = 0.2
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 0.55 #1.35
+		modifier = {
+			factor = 0
+			is_tribal = yes
+		}
+		modifier = {
+			factor = 0
+			primitives = yes
+		}
+		modifier = {
+			factor = 0
+			NOT = { num_of_ports = 1 }
+			NOT = { is_colonial_nation = yes }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { num_of_ports = 10 }
+			current_age = age_of_discovery 
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { num_of_ports = 20 }
+			current_age = age_of_reformation 
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { num_of_ports = 30 }
+			current_age = age_of_absolutism 
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { num_of_ports = 40 }
+			current_age = age_of_revolutions 
+		}
+		modifier = {
+			factor = 0.35
+			NOT = { num_of_ports = 15 }
+		}
+		modifier = {
+			factor = 1.5 
+			capital_scope = {
+				is_island = yes 
+			}
+		}
+		modifier = {
+			factor = 1.5
+			has_global_modifier_value = {
+				which = naval_forcelimit_modifier 
+				value = 0.25
+			}
+		}
+		modifier = {
+			factor = 1.15
+			light_ship_fraction = 0.25
+		}
+		modifier = {
+			factor = 2.5
+			has_government_attribute = is_pirate_republic_reform
+		}
+	}
+}
+
+influence_ideas = {
+	category = DIP
+
+	bonus = {
+		unjustified_demands = -0.35
+	}
+	trigger = {
+		NOT = { has_idea_group = DA_isolationism_ideas }
+	}
+
+	tribute_system = {
+		vassal_income = 0.25
+	}
+	
+	additional_loyalist_recruitment = {
+		reduced_liberty_desire = 15
+		vassal_naval_forcelimit_bonus = 0.1 #1.35
+	}
+	
+	integrated_elites = {
+		diplomatic_annexation_cost = -0.15
+	}
+	buffer_states = {
+		diplomatic_upkeep = 1
+	}
+	diplomatic_influence = {
+		diplomatic_reputation = 1.5
+	}
+	postal_service = {
+		envoy_travel_time = -0.25
+		liberty_desire_from_subject_development = -0.1 #1.35
+	}
+	marcher_lords = {
+		vassal_forcelimit_bonus = 1
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 0.5
+		modifier = {
+			factor = 1.5
+			is_emperor = yes
+		}
+		modifier = {
+			factor = 1.5
+			num_of_subjects = 2
+		}
+		modifier = {
+			factor = 1.5
+			num_of_subjects = 3
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { monthly_dip = 8 }
+		}
+	}
+}
+
+DA_isolationism_ideas = {
+	category = DIP
+
+	bonus = {
+		defensiveness = 0.15
+	}
+	trigger = {
+		NOT = { has_idea_group = influence_ideas }
+	}
+
+	DA_isolationism_ideas1 = {
+		global_own_trade_power = 0.10
+	}
+	
+	DA_isolationism_ideas2 = {
+		global_spy_defence = 0.33
+		vassal_income = -0.25
+	}
+	
+	DA_isolationism_ideas3 = {
+		global_unrest = -3
+		diplomats = -1
+	}
+	DA_isolationism_ideas4 = {
+		fort_maintenance_modifier = -0.20
+		diplomatic_upkeep = -1
+	}
+	DA_isolationism_ideas5 = {
+		development_cost_in_primary_culture = -0.10
+		liberty_desire_from_subject_development = 0.15
+	}
+	DA_isolationism_ideas6 = {
+		legitimacy = 1
+		republican_tradition = 0.5
+		devotion = 1
+		horde_unity = 1
+		meritocracy = 1
+	}
+	DA_isolationism_ideas7 = {
+		stability_cost_modifier = -0.25
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 0.65
+		modifier = {
+			factor = 0.5
+			is_emperor = yes
+		}
+		modifier = {
+			factor = 0.5
+			num_of_subjects = 2
+		}
+		modifier = {
+			factor = 0.5
+			num_of_subjects = 3
+		}
+	}
+}
+
+court_ideas = { #1.35
+	category = DIP
+
+
+	bonus = {
+		legitimacy = 0.5 
+		republican_tradition = 0.2
+		devotion = 0.5 
+		horde_unity = 0.5
+		meritocracy = 0.25 
+		imperial_mandate = 0.1
+		imperial_authority = 0.05
+	}
+	
+	long_echo = {
+		power_projection_from_insults = 1
+		diplomatic_reputation = 0.75
+	}
+	recognize_hierarchy = {
+		all_estate_loyalty_equilibrium = 0.1
+		loyalty_change_on_revoked = 0.05
+	}
+	welcoming_ceremonies = {
+		prestige = 0.5
+		monthly_persian_influence = 0.1
+	}
+	tranquil_coordination = {
+		reform_progress_growth = 0.15
+	}
+	respected_authority = {
+		all_estate_possible_privileges = 1
+	}
+	palace_of_splendor = {
+		monthly_splendor = 2 
+		estate_interaction_cooldown_modifier = -0.15
+	}
+	court_embassies = {
+		free_dip_policy = 1
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 0.5
+		modifier = {
+			factor = 1.25
+			num_of_powerful_estates = 3 
+		}
+		modifier = {
+			factor = 1.2
+			personality = ai_diplomat
+		}
+		modifier = {
+			factor = 1.1 
+			national_focus = DIP 
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { monthly_dip = 8 } 
+		}
+	}
+}
+
+
+DA_glory_ideas = {
+	category = DIP
+
+	bonus = {
+		diplomatic_reputation = 1.5
+	}
+
+	trigger = {
+	}
+
+	DA_glory_ideas1 = {
+		prestige = 1
+	}	
+	
+	DA_glory_ideas2 = {
+		global_trade_power = 0.05
+	}
+
+	DA_glory_ideas3 = {
+		placed_merchant_power = 5
+		trade_range_modifier = 0.25
+	}
+
+	DA_glory_ideas4 = {
+		governing_capacity_modifier = 0.1
+	}
+	
+	DA_glory_ideas5 = {
+		diplomats = 1
+	}
+	
+	DA_glory_ideas6 = {
+		great_project_upgrade_cost = -0.25
+	}
+	DA_glory_ideas7 = {
+		great_project_upgrade_time = -0.25
+	}
+
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+
+DA_Propaganda_ideas = {
+	category = DIP
+
+	bonus = {
+		infantry_cost = -0.1
+		cavalry_cost = -0.05
+	}
+
+	trigger = {
+	}
+
+	DA_Propaganda_ideas1 = {
+		prestige = 0.5
+	}	
+	
+	DA_Propaganda_ideas2 = {
+		diplomats = 1
+		improve_relation_modifier = 0.1
+	}
+
+	DA_Propaganda_ideas3 = {
+		spy_offence = 0.1
+		global_spy_defence = 0.1
+	}
+
+	DA_Propaganda_ideas4 = {
+		ae_impact = -0.1
+	}
+	
+	DA_Propaganda_ideas5 = {
+		land_morale = 0.05
+		manpower_in_accepted_culture_provinces = 0.05
+	}
+	
+	DA_Propaganda_ideas6 = {
+		war_exhaustion = -0.03
+	}
+	DA_Propaganda_ideas7 = {
+		unjustified_demands = -0.15
+	}
+
+	ai_will_do = {
+		factor = 0.8
+	}
+}
+
+DA_Nationalism_ideas = {
+	category = DIP
+
+	bonus = {
+		advisor_cost = 0.10
+		same_culture_advisor_cost = -0.20
+	}
+
+	trigger = {
+		NOT = { has_idea_group = DA_Assimilation_ideas }
+	}
+
+	DA_Nationalism_ideas1 = {
+		defensiveness = 0.1
+	}	
+	
+	DA_Nationalism_ideas2 = {
+		global_colonial_growth = 40
+		native_assimilation = -0.5
+		native_uprising_chance = 0.35
+	}
+
+	DA_Nationalism_ideas3 = {
+		global_spy_defence = 0.2
+	}
+
+	DA_Nationalism_ideas4 = {
+		tolerance_own = 1
+		land_morale = 0.05
+	}
+	
+	DA_Nationalism_ideas5 = {
+		culture_conversion_cost = -0.20
+		culture_conversion_time = -0.20
+	}
+	
+	DA_Nationalism_ideas6 = {
+		manpower_in_true_faith_provinces= 0.1
+		institution_spread_from_true_faith = 0.1
+	}
+	DA_Nationalism_ideas7 = {
+		hostile_attrition = 1
+	}
+
+	ai_will_do = {
+		factor = 0.8
+	}
+}
+
+DA_Assimilation_ideas = {
+	category = DIP
+
+	bonus = {
+		years_of_nationalism = -5
+	}
+
+	trigger = {
+		NOT = { has_idea_group = DA_Nationalism_ideas }
+	}
+
+	DA_Assimilation_ideas1 = {
+		promote_culture_cost = -0.35
+	}	
+	
+	DA_Assimilation_ideas2 = {
+		diplomatic_annexation_cost = -0.15
+	}
+
+	DA_Assimilation_ideas3 = {
+		num_accepted_cultures = 2
+	}
+
+	DA_Assimilation_ideas4 = {
+		religious_unity = 0.15
+	}
+	
+	DA_Assimilation_ideas5 = {
+		global_manpower_modifier = 0.1
+	}
+	
+	DA_Assimilation_ideas6 = {
+		core_creation = -0.1
+	}
+	DA_Assimilation_ideas7 = {
+		global_autonomy = -0.05
+	}
+
+	ai_will_do = {
+		factor = 0.8
+		modifier = {
+			factor = 2
+			vassal = 1
+		}
+		modifier = {
+			factor = 0
+			has_idea_group = religious_ideas
+		}
+		modifier = {
+			factor = 0.5
+			has_idea_group = humanist_ideas
+		}
+	}
+}
+
+DA_Dynastic_ideas = {
+	category = DIP
+
+	bonus = {
+		liberty_desire_from_subject_development = -0.20
+	}
+
+	trigger = {
+	}
+
+	DA_Dynastic_ideas1 = {
+		global_tax_modifier = 0.10
+	}	
+	
+	DA_Dynastic_ideas2 = {
+		monarch_admin_power = 1
+		state_maintenance_modifier = -0.05
+	}
+
+	DA_Dynastic_ideas3 = {
+		diplomatic_reputation = 1
+	}
+
+	DA_Dynastic_ideas4 = {
+		monarch_diplomatic_power = 1
+		improve_relation_modifier = 0.05
+	}
+	
+	DA_Dynastic_ideas5 = {
+		monarch_military_power = 1
+		land_morale = 0.05
+	}
+	
+	DA_Dynastic_ideas6 = {
+		legitimacy = 1
+		republican_tradition = 0.5
+		devotion = 1
+		horde_unity = 1
+		meritocracy = 1
+	}
+	DA_Dynastic_ideas7 = {
+		monarch_lifespan = 0.25
+	}
+
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 1.5
+			num_of_cities = 50
+		}
+		modifier = {
+			factor = 1.5
+			is_emperor = yes
+		}
+		modifier = {
+			factor = 2
+			vassal = 1
+		}
+	}
+}
+
+DA_Great_Power_ideas = {
+	category = DIP
+
+	bonus = {
+		diplomatic_reputation = 2
+	}
+
+	trigger = {
+		is_great_power = yes
+	}
+
+	DA_Great_Power_ideas1 = {
+		global_trade_power = 0.05
+	}	
+	
+	DA_Great_Power_ideas2 = {
+		unjustified_demands = -0.15
+	}
+
+	DA_Great_Power_ideas3 = {
+		accept_vassalization_reasons = 20
+		diplomatic_upkeep = 1
+	}
+
+	DA_Great_Power_ideas4 = {
+		liberty_desire_from_subject_development = -0.1
+		vassal_income = 0.2
+	}
+	
+	DA_Great_Power_ideas5 = {
+		spy_offence = 0.1
+		global_spy_defence = 0.1
+	}
+	
+	DA_Great_Power_ideas6 = {
+		diplomats = 1
+	}
+	DA_Great_Power_ideas7 = {
+		merchants = 1
+	}
+
+	ai_will_do = {
+		factor = 1.1
+	}
+}
+
+DA_HRE_emperor_ideas = {
+	category = DIP
+	bonus = {
+		imperial_authority = 0.05
+	}
+	trigger = {
+		is_emperor = yes
+	}
+	
+	DA_HRE_emperor_ideas1 = {
+		diplomats = 2
+	}
+	DA_HRE_emperor_ideas2 = {
+		diplomatic_upkeep = 2
+	}
+	DA_HRE_emperor_ideas3 = {
+		imperial_authority = 0.05
+	}
+	DA_HRE_emperor_ideas4 = {
+		diplomatic_reputation = 1
+	}
+	DA_HRE_emperor_ideas5  = {
+		spy_offence = 0.15
+		global_spy_defence = 0.15
+	}
+	DA_HRE_emperor_ideas6 = {
+		province_warscore_cost = -0.1
+	}
+	DA_HRE_emperor_ideas7 = {
+		yearly_corruption = -0.05
+	}
+
+	ai_will_do = {
+		factor = 15
+
+	}
+}

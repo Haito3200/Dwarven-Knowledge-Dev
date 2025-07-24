@@ -6,6 +6,13 @@ DA_Runeforged_fort = {
 	build_trigger = {
 		owner = {
 			has_country_flag = DA_can_build_runeforged_fort
+			custom_trigger_tooltip = {
+				tooltip = DA_has_1_ADK
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 1
+				}
+			}
 		}
 		OR = {
 			has_terrain = dwarven_hold
@@ -36,6 +43,8 @@ DA_Runeforged_fort = {
 	}
 	on_destroyed = {
 	}
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 }
 
 DA_Runeforged_fort_t2 = {
@@ -45,6 +54,13 @@ DA_Runeforged_fort_t2 = {
 	build_trigger = {
 		owner = {
 			has_country_flag = DA_can_build_runeforged_fort_t2
+			custom_trigger_tooltip = {
+				tooltip = DA_has_2_ADK
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 2
+				}
+			}
 		}
 		OR = {
 			has_terrain = dwarven_hold
@@ -81,6 +97,8 @@ DA_Runeforged_fort_t2 = {
 	}
 	on_destroyed = {
 	}
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 }
 
 DA_Runeforged_fort_t3 = {
@@ -90,6 +108,13 @@ DA_Runeforged_fort_t3 = {
 	build_trigger = {
 		owner = {
 			has_country_flag = DA_can_build_runeforged_fort_t3
+			custom_trigger_tooltip = {
+				tooltip = DA_has_3_ADK
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 3
+				}
+			}
 		}
 		OR = {
 			has_terrain = dwarven_hold
@@ -130,6 +155,8 @@ DA_Runeforged_fort_t3 = {
 	}
 	on_destroyed = {
 	}
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 }
 
 DA_Hehogrim_Runeforged_fort = {
@@ -139,6 +166,13 @@ DA_Hehogrim_Runeforged_fort = {
 	build_trigger = {
 		owner = {
 			has_country_flag = DA_can_build_Hehogrim_Runeforged_fort
+			custom_trigger_tooltip = {
+				tooltip = DA_has_4_ADK
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 4
+				}
+			}
 		}
 		OR = {
 			has_terrain = dwarven_hold
@@ -186,6 +220,8 @@ DA_Hehogrim_Runeforged_fort = {
 	}
 	on_destroyed = {
 	}
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 }
 
 DA_Runeforged_Amldihr_fort = {
@@ -227,6 +263,8 @@ DA_Runeforged_Amldihr_fort = {
 	}
 	on_destroyed = {
 	}
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 }
 
 DA_Reinforced_capital = {
@@ -266,135 +304,8 @@ DA_Reinforced_capital = {
 	}
 	on_destroyed = {
 	}
-}
-
-DA_railway_work = {
-	cost = 30
-	time = 18
-
-
-	build_trigger = {
-		has_terrain = dwarven_road
-		NOT = { has_province_modifier = dwarovar_rail }
-		owner = {
-			has_country_flag = DA_can_upgrade_rails
-		}
-		DA_upgradable_railway_province = yes
-	}
-
-	modifier = {
-		allowed_num_of_buildings = 1
-	}
-
-	on_built = {
-		hidden_effect = {
-			remove_building = DA_railway_work
-			remove_province_modifier = DA_rail_faster_mod_1
-			remove_province_modifier = DA_rail_trade_mod_1
-			remove_province_modifier = DA_rail_traps_mod_1
-			remove_province_modifier = DA_rail_supply_mod_1
-			remove_province_modifier = DA_rail_faster_mod_2
-			remove_province_modifier = DA_rail_trade_mod_2
-			remove_province_modifier = DA_rail_traps_mod_2
-			remove_province_modifier = DA_rail_supply_mod_2
-			if = {
-				limit = { 
-					owner = {
-						has_country_flag = DA_rail_faster1_c
-						NOT = { has_country_flag = DA_rail_faster2_c }
-					}
-				}
-				add_permanent_province_modifier = {
-					name = DA_rail_faster_mod_1
-					duration = -1
-				}
-			}
-			if = {
-				limit = { 
-					owner = {
-						has_country_flag = DA_rail_trade1_c
-						NOT = { has_country_flag = DA_rail_trade2_c }
-					}
-				}
-				add_permanent_province_modifier = {
-					name = DA_rail_trade_mod_1
-					duration = -1
-				}
-			}
-			if = {
-				limit = { 
-					owner = {
-						has_country_flag = DA_rail_traps1_c
-						NOT = { has_country_flag = DA_rail_traps2_c }
-					}
-				}
-				add_permanent_province_modifier = {
-					name = DA_rail_traps_mod_1
-					duration = -1
-				}
-			}
-			if = {
-				limit = { 
-					owner = {
-						has_country_flag = DA_rail_supply1_c
-						NOT = { has_country_flag = DA_rail_supply2_c }
-					}
-				}
-				add_permanent_province_modifier = {
-					name = DA_rail_supply_mod_1
-					duration = -1
-				}
-			}
-			if = {
-				limit = { 
-					owner = {
-						has_country_flag = DA_rail_faster2_c
-					}
-				}
-				add_permanent_province_modifier = {
-					name = DA_rail_faster_mod_2
-					duration = -1
-				}
-			}
-			if = {
-				limit = { 
-					owner = {
-						has_country_flag = DA_rail_trade2_c
-					}
-				}
-				add_permanent_province_modifier = {
-					name = DA_rail_trade_mod_2
-					duration = -1
-				}
-			}
-			if = {
-				limit = { 
-					owner = {
-						has_country_flag = DA_rail_traps2_c
-					}
-				}
-				add_permanent_province_modifier = {
-					name = DA_rail_traps_mod_2
-					duration = -1
-				}
-			}
-			if = {
-				limit = { 
-					owner = {
-						has_country_flag = DA_rail_supply2_c
-					}
-				}
-				add_permanent_province_modifier = {
-					name = DA_rail_supply_mod_2
-					duration = -1
-				}
-			}
-		}
-    }
-
-	ai_will_do = {
-		factor = 200
-	}
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 }
 
 DA_railway_Restoration = {
@@ -1117,9 +1028,12 @@ DA_Mine_Expansion = {
 }
 
 DA_SB_Alchemy_reagents = {
-	cost = 500
-	time = 36
 
+	cost = 500
+	time = 60
+	manufactory = {
+		all
+	}
 
 	build_trigger = {
 	}
@@ -1138,12 +1052,16 @@ DA_SB_Alchemy_reagents = {
 		DA_fake_alchemy_reagents_adder = 1
 	}
 
+	onmap = no
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
 	on_built = {
 		#Anbennar
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
     }
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 
 	ai_will_do = {
 		factor = 0
@@ -1151,9 +1069,12 @@ DA_SB_Alchemy_reagents = {
 }
 
 DA_SB_Arcane_metal = {
-	cost = 500
-	time = 36
 
+	cost = 500
+	time = 60
+	manufactory = {
+		all
+	}
 
 	build_trigger = {
 	}
@@ -1172,12 +1093,16 @@ DA_SB_Arcane_metal = {
 		DA_fake_arcane_metal_adder = 1
 	}
 
+	onmap = no
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
 	on_built = {
 		#Anbennar
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
     }
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 
 	ai_will_do = {
 		factor = 0
@@ -1185,9 +1110,12 @@ DA_SB_Arcane_metal = {
 }
 
 DA_SB_Building_materials = {
-	cost = 500
-	time = 36
 
+	cost = 500
+	time = 60
+	manufactory = {
+		all
+	}
 
 	build_trigger = {
 	}
@@ -1206,12 +1134,16 @@ DA_SB_Building_materials = {
 		DA_fake_enchanted_building_material_adder = 1
 	}
 
+	onmap = no
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
 	on_built = {
 		#Anbennar
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
     }
+	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 
 	ai_will_do = {
 		factor = 0
