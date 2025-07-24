@@ -5,40 +5,74 @@
 ######################################################
 
 DA_Medicine_1 = {
+	DA_fake_medicine_quarantine_efficiency = 0.05
 	DA_fake_medicine_illness_spawn_chance_counter = 5
 }
 DA_Medicine_2 = {
+	DA_fake_medicine_quarantine_efficiency = 0.10
 	DA_fake_medicine_illness_spawn_chance_counter = 10
 }
 DA_Medicine_3 = {
+	DA_fake_medicine_quarantine_efficiency = 0.15
 	DA_fake_medicine_illness_spawn_chance_counter = 15
 }
 DA_Medicine_4 = {
+	DA_fake_medicine_quarantine_efficiency = 0.20
 	DA_fake_medicine_illness_spawn_chance_counter = 20
 }
 
 ######### food and health policies ##########
 
 
-DA_Medicine.Food_Policy.none = {
-	DA_fake_medicine_illness_spawn_chance_counter = -0.10
+#DA_Medicine.Food_Policy.none doesn't exist
+
+DA_Medicine.Food_Policy.discard_spoiled_food = {
+	state_maintenance_modifier = 0.025
+	DA_fake_medicine_illness_spawn_chance_counter = 5
 }
-DA_Medicine.Food_Policy.bland_controls = {
-	DA_fake_medicine_illness_spawn_chance_counter = -0.10
+DA_Medicine.Food_Policy.basic_controls = {
+	global_tax_modifier = -0.05
+	state_maintenance_modifier = 0.05
+	DA_fake_medicine_illness_spawn_chance_counter = 10
 }
-DA_Medicine.Food_Policy.none = {
-	DA_fake_medicine_illness_spawn_chance_counter = -0.10
+DA_Medicine.Food_Policy.food_control_agency = {
+	global_tax_modifier = -0.10
+	DA_fake_medicine_illness_spawn_chance_counter = 15
 }
-DA_Medicine.Food_Policy.none = {
-	DA_fake_medicine_illness_spawn_chance_counter = -0.10
+DA_Medicine.Food_Policy.strict_controls = {
+	global_tax_modifier = -0.075
+	state_maintenance_modifier = 0.1
+	DA_fake_medicine_illness_spawn_chance_counter = 15
 }
-DA_Medicine.Food_Policy.none = {
-	DA_fake_medicine_illness_spawn_chance_counter = -0.10
-}
-DA_Medicine.Food_Policy.none = {
-	DA_fake_medicine_illness_spawn_chance_counter = -0.10
+DA_Medicine.Food_Policy.high_standards = {
+	state_maintenance_modifier = 0.25
+	DA_fake_medicine_illness_spawn_chance_counter = 20
 }
 
+
+
+DA_Medicine.Health_Policy.private_local_doctors = {
+	global_unrest = 1
+	state_maintenance_modifier = 0.025
+	DA_fake_medicine_illness_spawn_chance_counter = 5
+}
+DA_Medicine.Health_Policy.private_clinics_incentives = {
+	global_unrest = 1.5
+	global_tax_modifier = -0.05
+	DA_fake_medicine_illness_spawn_chance_counter = 10
+}
+DA_Medicine.Health_Policy.private_national_healthcare = {
+	global_unrest = 3
+	DA_fake_medicine_illness_spawn_chance_counter = 15
+}
+DA_Medicine.Health_Policy.basic_public_healthcare = {
+	global_tax_modifier = -0.1
+	DA_fake_medicine_illness_spawn_chance_counter = 10
+}
+DA_Medicine.Health_Policy.public_healthcare = {
+	global_tax_modifier = -0.2
+	DA_fake_medicine_illness_spawn_chance_counter = 20
+}
 ######### illnesses modifiers ##########
 
 DA_Medicine.Quarantined_province = {
