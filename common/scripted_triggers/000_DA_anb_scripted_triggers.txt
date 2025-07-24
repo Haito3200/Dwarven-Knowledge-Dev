@@ -272,14 +272,16 @@ DA_can_use_cavalry = {
 		tooltip = DA_no_cavalry
 		OR = {
 			OR = {
-				tag = F62									#Duwarkani can build cav normally
-				was_tag = F62
+				OR = {
+					tag = F62									#Duwarkani can build cav normally
+					was_tag = F62
+				}
+				OR = {											#Zoherin Apunsorya can build cav normally
+					tag = V20
+					was_tag = V20
+				}
 			}
-			OR = {											#Zoherin Apunsorya can build cav normally
-				tag = V20
-				was_tag = V20
-			}
+			NOT = {	has_country_modifier = harpy_military }
 		}
-		NOT = {	has_country_modifier = harpy_military }
 	}
 }
