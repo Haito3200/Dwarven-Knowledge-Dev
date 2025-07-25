@@ -808,7 +808,7 @@ on_battle_won_province = {
 
 on_dependency_gained = {
 	if = {
-		limit = { ai = yes }
+		limit = { FROM = { ai = yes } }
 		FROM = { 
 			remove_country_modifier = DA_AI_Buffs_medium
 			remove_country_modifier = DA_AI_Buffs_hard
@@ -823,7 +823,7 @@ on_dependency_gained = {
 
 on_dependency_lost = {	# when ai stops being vassal he loses vassal reduction and gets medium buff (can be made via global flags but not worth it, will update on next institution anyway)
 	if = {
-		limit = { ai = yes }
+		limit = { FROM = { ai = yes } }
 		FROM = { 
 			remove_country_modifier = DA_AI_Buffs_vassal_reduction
 			add_country_modifier = {
