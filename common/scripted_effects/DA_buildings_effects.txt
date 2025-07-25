@@ -1,0 +1,71 @@
+##############
+### Pipes ###
+##############
+pipes_construct_every_pipe = { #Used in country scope
+	every_owned_province = {
+		limit = {
+			can_build_pipe = yes
+			NOT = { has_construction = any }
+			NOT = { has_colonist = yes }
+		}
+		add_building_construction = {
+			building = DA_steam_pipes
+			speed = $speed$
+			cost = $cost$
+		}
+	}
+}
+
+construct_every_adjacent_pipes = { #Used in building scope
+	every_neighbor_province = {
+		limit = {
+			NOT = { has_construction = any }
+			NOT = { has_colonist = yes }
+			can_build_pipe = yes
+			is_city = yes
+			is_state = yes
+			owned_by = FROM
+		}
+		add_building_construction = {
+			building = DA_steam_pipes
+			speed = $speed$
+			cost = $cost$
+		}
+	}
+}
+
+##############
+### Cables ###
+##############
+cables_construct_every_cable = { #Used in country scope
+	every_owned_province = {
+		limit = {
+			can_build_cable = yes
+			NOT = { has_construction = any }
+			NOT = { has_colonist = yes }
+		}
+		add_building_construction = {
+			building = DA_electricity_cables
+			speed = $speed$
+			cost = $cost$
+		}
+	}
+}
+
+construct_every_adjacent_cables = { #Used in building scope
+	every_neighbor_province = {
+		limit = {
+			NOT = { has_construction = any }
+			NOT = { has_colonist = yes }
+			can_build_cable = yes
+			is_city = yes
+			is_state = yes
+			owned_by = FROM
+		}
+		add_building_construction = {
+			building = DA_electricity_cables
+			speed = $speed$
+			cost = $cost$
+		}
+	}
+}

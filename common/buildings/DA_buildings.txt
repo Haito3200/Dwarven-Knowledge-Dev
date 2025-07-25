@@ -477,19 +477,7 @@ DA_steam_pipes = {
 	cost = 40
 	time = 24
 
-
-	build_trigger = {
-		NOT = { has_terrain = dwarven_hold }
-		NOT = { has_terrain = dwarven_hold_surface }
-		NOT = { has_terrain = city_terrain }
-		owner = {
-			DA_completed.Mechanics_2 = yes
-			DA_completed.Magic_Theory_2 = yes
-		}
-		any_neighbor_province = {
-			DA_Province_has_steam_power_or_higher = yes
-		}
-	}
+	build_trigger = { can_build_pipe = yes }
 
 	modifier = {
 		local_state_maintenance_modifier = -0.25
@@ -501,6 +489,42 @@ DA_steam_pipes = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
+		
+		hidden_effect = {
+			if = { 
+				limit = {
+					FROM = { 
+						NOT = { has_country_flag = auto_build_pipes }
+						NOT = { has_country_flag = never_auto_build_pipes }
+						NOT = { has_country_modifier = temp_auto_build_pipes }
+						NOT = { has_country_modifier = no_pipes_and_event_notif_for_5_years }
+					}
+				}
+				if = {
+					limit = { 
+						FROM = { NOT = { has_country_modifier = no_pipes_event_notif_for_5_years } }
+					}
+					FROM = { 
+						country_event = { id = DA_building_event.101 }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { 
+						treasury = 40
+						OR = { 
+							has_country_flag = auto_build_pipes 
+							has_country_modifier = temp_auto_build_pipes
+						}
+					}
+				}
+				construct_every_adjacent_pipes = {
+					speed = 1
+					cost = 1
+				}
+			}
+		}
     }
 
 	keep_trigger = {
@@ -516,18 +540,7 @@ DA_electricity_cables = {
 
 	make_obsolete = DA_steam_pipes
 
-	build_trigger = {
-		NOT = { has_terrain = dwarven_hold }
-		NOT = { has_terrain = dwarven_hold_surface }
-		NOT = { has_terrain = city_terrain }
-		owner = {
-			DA_completed.Mechanics_3 = yes
-			DA_completed.Magic_Theory_3 = yes
-		}
-		any_neighbor_province = {
-			DA_Province_has_electric_power_or_higher = yes
-		}
-	}
+	build_trigger = { can_build_cable = yes }
 
 	modifier = {
 		allowed_num_of_buildings = 1
@@ -539,6 +552,42 @@ DA_electricity_cables = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
+		
+		hidden_effect = {
+			if = { 
+				limit = {
+					FROM = { 
+						NOT = { has_country_flag = auto_build_cables }
+						NOT = { has_country_flag = never_auto_build_cables }
+						NOT = { has_country_modifier = temp_auto_build_cables }
+						NOT = { has_country_modifier = no_cables_and_event_notif_for_5_years }
+					}
+				}
+				if = {
+					limit = { 
+						FROM = { NOT = { has_country_modifier = no_cables_event_notif_for_5_years } }
+					}
+					FROM = { 
+						country_event = { id = DA_building_event.102 }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { 
+						treasury = 80
+						OR = { 
+							has_country_flag = auto_build_cables 
+							has_country_modifier = temp_auto_build_cables
+						}
+					}
+				}
+				construct_every_adjacent_cables = {
+					speed = 1
+					cost = 1
+				}
+			}
+		}
     }
 
 	keep_trigger = {
