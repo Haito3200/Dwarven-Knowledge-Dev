@@ -665,6 +665,15 @@ custom_button = {
         clr_country_flag = DA_Metallurgy_interface_on_inventions
         clr_country_flag = DA_Metallurgy_interface_on_research_facility
 
+        if = {
+            limit = {
+                NOT = { has_country_flag = DA_Medicine_interface.common_non_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.non_common_non_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.common_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.non_common_magical }
+            }
+            set_country_flag = DA_Medicine_interface.common_non_magical
+        }
         set_country_flag = DA_Metallurgy_interface_on_Medicine
         hidden_effect = {
             export_to_variable = {
