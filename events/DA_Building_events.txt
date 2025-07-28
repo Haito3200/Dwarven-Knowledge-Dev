@@ -1018,3 +1018,217 @@ province_event = {
 		}
 	}
 }
+
+country_event = {
+	id = DA_building_event.100 		# 
+	title = "DA_building_event.100.t"
+	desc = "DA_building_event.100.d"
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	trigger = {
+		always = yes
+	}
+	
+	option = {
+		name = "DA_building_event.100.a"
+	}
+}
+
+country_event = { #Event manager for pipes
+	id = DA_building_event.101 		# 
+	title = "DA_building_event.101.t"
+	desc = "DA_building_event.101.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = { #Continue as usual and don't notify this event only for 5 years
+        name = diggy.760.a
+        ai_chance = { factor = 0 }
+		custom_tooltip = no_pipes_event_notif_for_5_years
+		hidden_effect = {
+			add_country_modifier = { 
+				name = no_pipes_event_notif_for_5_years 
+				duration = 1825 
+				hidden = yes 
+			}
+		}
+	}
+	
+	option = { #Continue as usual and don't notify everything for 5 years
+        name = diggy.760.aa
+        ai_chance = { factor = 0 }
+		custom_tooltip = no_pipes_and_event_notif_for_5_years
+		hidden_effect = {
+			add_country_modifier = { 
+				name = no_pipes_and_event_notif_for_5_years 
+				duration = 1825 
+				hidden = yes 
+			}
+		}
+	}
+
+	option = { #Auto build and don't notify for 5 years 
+        name = diggy.760.b
+        ai_chance = { factor = 0 }
+		custom_tooltip = rebuild_pipes_temporary_tooltip
+		custom_tooltip = rebuild_pipes_tooltip
+		hidden_effect = {
+			add_country_modifier = { 
+				name = temp_auto_build_pipes 
+				duration = 1825 
+				hidden = yes 
+			}
+			pipes_construct_every_pipe = {
+				speed = 1
+				cost = 1
+			}
+		}
+	}
+
+	option = { #Always autobuild and never notify
+        name = diggy.760.c
+        ai_chance = { factor = 0 }
+		custom_tooltip = rebuild_pipes_auto_tooltip
+		custom_tooltip = rebuild_pipes_tooltip
+		hidden_effect = {
+			set_country_flag = auto_build_pipes
+			pipes_construct_every_pipe = {
+				speed = 1
+				cost = 1
+			}
+		}
+	}
+
+	option = { #Never autobuild and never notify
+        name = diggy.760.d.1
+        ai_chance = { factor = 100 }
+		custom_tooltip = rebuild_pipes_never_tooltip
+		set_country_flag = never_auto_build_pipes
+	}
+}
+
+country_event = { #Event manager for cables
+	id = DA_building_event.102 		# 
+	title = "DA_building_event.102.t"
+	desc = "DA_building_event.102.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = { #Continue as usual and don't notify this event only for 5 years
+        name = diggy.760.a
+        ai_chance = { factor = 0 }
+		custom_tooltip = no_cables_event_notif_for_5_years
+		hidden_effect = {
+			add_country_modifier = { 
+				name = no_cables_event_notif_for_5_years 
+				duration = 1825 
+				hidden = yes 
+			}
+		}
+	}
+	
+	option = { #Continue as usual and don't notify everything for 5 years
+        name = diggy.760.aa
+        ai_chance = { factor = 0 }
+		custom_tooltip = no_cables_and_event_notif_for_5_years
+		hidden_effect = {
+			add_country_modifier = { 
+				name = no_cables_and_event_notif_for_5_years 
+				duration = 1825 
+				hidden = yes 
+			}
+		}
+	}
+
+	option = { #Auto build and don't notify for 5 years 
+        name = diggy.760.b
+        ai_chance = { factor = 0 }
+		custom_tooltip = rebuild_cables_temporary_tooltip
+		custom_tooltip = rebuild_cables_tooltip
+		hidden_effect = {
+			add_country_modifier = { 
+				name = temp_auto_build_cables 
+				duration = 1825 
+				hidden = yes 
+			}
+			cables_construct_every_cable = {
+				speed = 1
+				cost = 1
+			}
+		}
+	}
+
+	option = { #Always autobuild and never notify
+        name = diggy.760.c
+        ai_chance = { factor = 0 }
+		custom_tooltip = rebuild_cables_auto_tooltip
+		custom_tooltip = rebuild_cables_tooltip
+		hidden_effect = {
+			set_country_flag = auto_build_cables
+			cables_construct_every_cable = {
+				speed = 1
+				cost = 1
+			}
+		}
+	}
+
+	option = { #Never autobuild and never notify
+        name = diggy.760.d.1
+        ai_chance = { factor = 100 }
+		custom_tooltip = rebuild_cables_never_tooltip
+		set_country_flag = never_auto_build_cables
+	}
+}
+
+country_event = { #failsafe to auto-build in provinces that was busy with building smth else previously / pipes
+	id = DA_building_event.103 		# 
+	title = "DA_building_event.101.t"
+	desc = "DA_building_event.101.d"
+	picture = INVENTION_eventPicture
+	
+	hidden = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "DA_building_event.103.a"
+		OR = { 
+			has_country_flag = auto_build_pipes 
+			has_country_modifier = temp_auto_build_pipes
+		}
+		hidden_effect = {
+			pipes_construct_every_pipe = {
+				speed = 1
+				cost = 1
+			}
+		}
+	}
+}
+
+country_event = { #failsafe to auto-build in provinces that was busy with building smth else previously / cables
+	id = DA_building_event.104 		# 
+	title = "DA_building_event.102.t"
+	desc = "DA_building_event.102.d"
+	picture = INVENTION_eventPicture
+	
+	hidden = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "DA_building_event.104.a"
+		OR = { 
+			has_country_flag = auto_build_cables 
+			has_country_modifier = temp_auto_build_cables
+		}
+		hidden_effect = {
+			cables_construct_every_cable = {
+				speed = 1
+				cost = 1
+			}
+		}
+	}
+}
