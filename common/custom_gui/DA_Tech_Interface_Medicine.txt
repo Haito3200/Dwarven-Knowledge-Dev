@@ -249,7 +249,44 @@ custom_button = {
         always = yes
 	}
 	effect = {
-        #disease effect here
+        if = {
+            limit = {
+                NOT = { has_country_flag = DA_Medicine_interface.common_non_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.non_common_non_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.common_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.non_common_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.curses }
+            }
+            set_country_flag = DA_Medicine_interface.common_non_magical
+        }
+        if = {
+            limit = { 
+                has_country_flag = DA_Medicine_interface.non_common_non_magical
+            }
+            clr_country_flag = DA_Medicine_interface.non_common_non_magical
+            set_country_flag = DA_Medicine_interface.common_non_magical
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_Medicine_interface.common_magical
+            }
+            clr_country_flag = DA_Medicine_interface.common_magical
+            set_country_flag = DA_Medicine_interface.non_common_non_magical
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_Medicine_interface.non_common_magical
+            }
+            clr_country_flag = DA_Medicine_interface.non_common_magical
+            set_country_flag = DA_Medicine_interface.common_magical
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_Medicine_interface.curses
+            }
+            clr_country_flag = DA_Medicine_interface.curses
+            set_country_flag = DA_Medicine_interface.non_common_magical
+        }
 	}
 }
 custom_button = {
@@ -262,7 +299,44 @@ custom_button = {
         always = yes
 	}
 	effect = {
-        #disease effect here
+        if = {
+            limit = {
+                NOT = { has_country_flag = DA_Medicine_interface.common_non_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.non_common_non_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.common_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.non_common_magical }
+                NOT = { has_country_flag = DA_Medicine_interface.curses }
+            }
+            set_country_flag = DA_Medicine_interface.common_non_magical
+        }
+        if = {
+            limit = { 
+                has_country_flag = DA_Medicine_interface.common_non_magical
+            }
+            clr_country_flag = DA_Medicine_interface.common_non_magical
+            set_country_flag = DA_Medicine_interface.non_common_non_magical
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_Medicine_interface.non_common_non_magical
+            }
+            clr_country_flag = DA_Medicine_interface.non_common_non_magical
+            set_country_flag = DA_Medicine_interface.common_magical
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_Medicine_interface.common_magical
+            }
+            clr_country_flag = DA_Medicine_interface.common_magical
+            set_country_flag = DA_Medicine_interface.non_common_magical
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_Medicine_interface.common_magical
+            }
+            clr_country_flag = DA_Medicine_interface.common_magical
+            set_country_flag = DA_Medicine_interface.curses
+        }
 	}
 }
 
@@ -335,15 +409,15 @@ custom_window = {
 # illness Marsh_Fever
 
 custom_window = {
-    name = DA_Medicine_Interface_disease_1
+    name = DA_Medicine_Interface_disease_1_1
     potential = {
         has_country_flag = DA_Metallurgy_interface_on_Medicine
         has_country_flag = DA_Medicine_interface.common_non_magical
     }
 }
 custom_button = {
-	name = DA_disease_1_shower
-	tooltip = DA_disease_1_shower_tt
+	name = DA_disease_1_1_shower
+	tooltip = DA_Disease.Marsh_Fever
 	potential = {
         always = yes
 	}
@@ -364,8 +438,8 @@ custom_button = {
 	}
 }
 custom_button = {
-	name = DA_disease_1_burn_button
-	tooltip = DA_disease_1_burn_button_tt
+	name = DA_disease_1_1_burn_button
+	tooltip = DA_disease_burn_button_tt
 	potential = {
         always = yes
 	}
@@ -376,6 +450,28 @@ custom_button = {
         }
 	}
 	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
         hidden_effect = {
             every_owned_province = {
                 limit = {
@@ -386,18 +482,26 @@ custom_button = {
                 add_base_production = -2
                 add_base_manpower = -3
                 add_devastation = 25
-                add_unrest = 10
+                add_unrest = 20
                 add_permanent_province_modifier = {
                     name = DA_Medicine.Burning_province
                     duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
                 }
             }
         }
 	}
 }
 custom_button = {
-	name = DA_disease_1_cure_button
-	tooltip = DA_disease_1_cure_button_tt
+	name = DA_disease_1_1_cure_button
+	tooltip = DA_disease_cure_button_tt
 	potential = {
         always = yes
 	}
@@ -409,6 +513,10 @@ custom_button = {
             limit = {
                 DA_researched_illness_Marsh_Fever = no
             }
+            DA_alchemy_reagents_total_required = {
+                amount = 5
+            }
+            adm_power = 50
             NOT = { has_country_modifier = DA_Medicine.illness_research }
             any_owned_province = {
                 has_province_modifier = DA_Disease.Marsh_Fever
@@ -443,6 +551,10 @@ custom_button = {
             limit = {
                 DA_researched_illness_Marsh_Fever = no
             }
+            DA_alchemy_reagents_spend = {
+                amount = 5
+            }
+            add_adm_power = -50
             add_country_modifier = {
                 name = DA_Medicine.illness_research
                 duration = -1
@@ -457,12 +569,13 @@ custom_button = {
 	}
 }
 custom_button = {
-	name = DA_disease_1_poison_button
-	tooltip = DA_disease_1_poison_button_tt
+	name = DA_disease_1_1_poison_button
+	tooltip = DA_disease_poison_button_tt
 	potential = {
         always = yes
 	}
 	trigger = {
+        has_idea = DA_Medicine_ideas6
         DA_researched_illness_Marsh_Fever = yes
         any_rival_country = {
             has_spy_network_from = {
@@ -472,12 +585,49 @@ custom_button = {
         }
 	}
 	effect = {
-        #disease effect here
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.100
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            ai = yes
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
 	}
 }
 custom_button = {
-	name = DA_disease_1_quarantine_locked_strip
-	tooltip = DA_disease_1_quarantine_locked_strip_tt
+	name = DA_disease_1_1_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
     
     frame = {
         number = 1
@@ -512,7 +662,7 @@ custom_button = {
         trigger = {
             any_owned_province = {
 			    has_province_modifier = DA_Disease.Marsh_Fever
-                NOt = { has_province_modifier = DA_Medicine.Quarantined_province }
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
             }
         } 
     }
@@ -530,13 +680,15 @@ custom_button = {
 	trigger = {
         any_owned_province = {
 		    has_province_modifier = DA_Disease.Marsh_Fever
-            NOt = { has_province_modifier = DA_Medicine.Quarantined_province }
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
         }
 	}
 	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
         every_owned_province = {
             limit = {
                 has_province_modifier = DA_Disease.Marsh_Fever
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
             }
             add_province_modifier = {
                 name = DA_Medicine.Quarantined_province

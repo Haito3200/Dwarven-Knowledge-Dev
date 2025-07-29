@@ -2,6 +2,202 @@
 namespace = DA_Tech_Medicine_event
 
 
+country_event = {
+	id = DA_Tech_Medicine_event.0
+	title = DA_Tech_Medicine_event.0.t
+	desc = DA_Tech_Medicine_event.0.d
+	picture = DA_Medicine_illness_image_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		ai = no
+		any_owned_province = {
+			DA_has_disease_in_province = no
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 70
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -50
+				}
+			}
+		}
+		modifier = {
+			factor = 60
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -50
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -40
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -50
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -40
+				}
+			}
+		}
+		modifier = {
+			factor = 40
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -40
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -30
+				}
+			}
+		}
+		modifier = {
+			factor = 30
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -30
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -20
+				}
+			}
+		}
+		modifier = {
+			factor = 20
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -20
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -10
+				}
+			}
+		}
+		modifier = {
+			factor = 10
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -10
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 0
+				}
+			}
+		}
+		modifier = {
+			factor = 7
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 0
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 10
+				}
+			}
+		}
+		modifier = {
+			factor = 5
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 10
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 20
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 20
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 30
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 30
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 40
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 40
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 50
+				}
+			}
+		}
+	}
+
+	option = {
+		name = DA_Tech_Medicine_event.1.a
+		random_owned_province = {
+			limit = {
+				DA_has_disease_in_province = no
+			}
+			DA_Medicine_give_random_illness_in_province = yes
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Medicine_event.1    # burning gives results
+	title = DA_Tech_Medicine_event.1.t
+	desc = DA_Tech_Medicine_event.1.d
+	picture = DA_Medicine_illness_image_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = DA_Tech_Medicine_event.1.a
+		DA_Medicine_remove_illnesses_in_province = yes
+	}
+}
+
 ######### illnesses events ##########
 
 province_event = {
