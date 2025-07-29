@@ -923,12 +923,6 @@ custom_button = { #Button for the UI when building UI is closed
         } #First matched frame clause will be used.
     }
     frame = {  #Can define multiple frame clauses
-        number = 2 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-        trigger = {
-        	DA_has_disease_in_province = yes
-        } #First matched frame clause will be used.
-    }
-    frame = {  #Can define multiple frame clauses
         number = 3 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
         trigger = {
 			NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
@@ -948,10 +942,22 @@ custom_button = { #Button for the UI when building UI is closed
 		owner = {
 			tag = FROM
 		}
-		NOT = {  has_province_modifier = DA_Medicine.Quarantined_province }
 		DA_has_disease_in_province = yes
 	}
 	effect = {
+		if = {
+			limit = {
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+			}
+        	custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+			add_province_modifier = {
+				name = DA_Medicine.Quarantined_province 
+				duration = -1
+			}
+		}
+		else = {
+			remove_province_modifier = DA_Medicine.Quarantined_province 
+		}
 	}
 }
 
@@ -969,6 +975,23 @@ custom_button = { #Button for the UI when building UI is closed
 		DA_has_disease_in_province = yes
 	}
 	effect = {
+        add_base_tax = -1
+        add_base_production = -2
+        add_base_manpower = -3
+        add_devastation = 25
+        add_unrest = 20
+        add_permanent_province_modifier = {
+            name = DA_Medicine.Burning_province
+            duration = 1825
+        }
+        custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+        hidden_effect = {
+            province_event = {
+                id = DA_Tech_Medicine_event.1
+                days = 60
+                random = 730
+            }
+        }
 	}
 }
 

@@ -411,6 +411,22 @@ on_thri_yearly_pulse = {
 	country_event = { #runic gate event, to be reworked
 		id = DA_adk.103
 	}
+    if = {
+        limit = {
+			ai = no
+            any_owned_province = {
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        }
+    }
+    random_owned_province = {
+        limit = {
+            has_province_modifier = DA_Medicine.Quarantined_province
+        }
+        province_event = {
+            id = DA_Tech_Medicine_event.1
+        }
+    }
 }
 on_thri_yearly_pulse_2 = {
 	every_owned_province = {

@@ -29,6 +29,25 @@ DA_Medicine_remove_illnesses_in_province = {
 	remove_province_modifier = DA_Medicine.Quarantined_province
 }
 
+DA_Medicine_remove_food_policy = {
+	remove_country_modifier = DA_Medicine.Food_Policy.AW_discard_spoiled_food
+	remove_country_modifier = DA_Medicine.Food_Policy.AW_basic_controls
+	remove_country_modifier = DA_Medicine.Food_Policy.FCA_private
+	remove_country_modifier = DA_Medicine.Food_Policy.FCA_statal
+	remove_country_modifier = DA_Medicine.Food_Policy.FCA_authority
+	remove_country_modifier = DA_Medicine.Food_Policy.FCA_strict_controls
+	remove_country_modifier = DA_Medicine.Food_Policy.FCA_magic_anomaly_detector
+}
+DA_Medicine_remove_health_policy = {
+	remove_country_modifier = DA_Medicine.Health_Policy.private_local_doctors
+	remove_country_modifier = DA_Medicine.Health_Policy.HC_private_basic
+	remove_country_modifier = DA_Medicine.Health_Policy.HC_statal_basic
+	remove_country_modifier = DA_Medicine.Health_Policy.HC_private
+	remove_country_modifier = DA_Medicine.Health_Policy.HC_statal
+	remove_country_modifier = DA_Medicine.Health_Policy.HC_private_all_purpose_magic_healing_device
+	remove_country_modifier = DA_Medicine.Health_Policy.HC_statal_all_purpose_magic_healing_device
+}
+
 DA_Medicine_give_random_illness_in_province = {
 	random_list = {
 		1 = {
@@ -109,7 +128,9 @@ DA_Medicine_give_random_illness_in_province = {
 	}
 	if = {
 		limit = {
-			ai = yes
+			owner = {
+				ai = yes
+			}
 		}
         add_base_tax = -1
         add_base_production = -2
