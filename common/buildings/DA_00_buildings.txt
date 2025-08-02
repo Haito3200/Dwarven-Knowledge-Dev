@@ -36,8 +36,83 @@ DA_local_market = { # local market, to be renamed
 		province_trade_power_modifier = 0.25
 	}
 	on_built = {
+		add_development_from_building = {
+			building = DA_local_market
+			type = production
+			value = 1
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = trade_1
+			upgrade_2 = trade_2
+			upgrade_3 = trade_3
+			upgrade_4 = trade_4
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+
+		if = {
+			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
+			FROM = { change_government_reform_progress = 4 }
+		}
+		if = {
+			limit = {
+				FROM = {
+					religion = genie_cult
+					has_country_flag = holy_buildings_active
+				}
+			}
+			add_province_modifier = {
+				name = holy_buildings_sailors
+				duration = 7300
+			}
+		}
+		if = {
+			limit = { owner = { has_estate_privilege = estate_burghers_U10_construction_rights } }
+			area = {
+				limit = { owned_by = FROM }
+				add_province_modifier = {
+					name = U10_affluent_reclaimation
+					duration = -1
+				}
+			}
+		}
+
+		owner = { accretive_path_jiangszun_chi_stacking_effect = { amount = 20 } }
+		owner = { accretive_path_upper_raheni_chi_stacking_effect = { amount = 20 } }
+
+		gronstunad_building_authority_effect = { value = 1 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = trade }
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_local_market
+			type = production
+			value = 1
+		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.trade_1
+		remove_province_modifier = DA_mechanics_upgrade.trade_2
+		remove_province_modifier = DA_mechanics_upgrade.trade_3
+		remove_province_modifier = DA_mechanics_upgrade.trade_4
+
+		#anbennar
+
+		if = {
+			limit = {
+				NOT = {
+					area_for_scope_province = {
+						owned_by = FROM
+						has_trade_building_trigger = yes
+					}
+				}
+			}
+			area = {
+				limit = { owned_by = FROM }
+				remove_province_modifier = U10_affluent_reclaimation
+			}
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -59,10 +134,31 @@ marketplace = {
 		province_trade_power_modifier = 0.5
 	}
 	on_built = {
-		add_development_from_building = {
-			building = marketplace
-			type = production
-			value = 1
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_local_market
+			}
+			add_development_from_upgrading_or_building = {
+				building = marketplace
+				obsolete_building = DA_local_market
+				type = production
+				value = 2
+				upgrade_value = 1
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = marketplace
+				type = production
+				value = 2
+			}
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = trade_1
+			upgrade_2 = trade_2
+			upgrade_3 = trade_3
+			upgrade_4 = trade_4
 		}
 		
 		#Anbennar
@@ -106,8 +202,14 @@ marketplace = {
 		remove_development_from_building = {
 			building = marketplace
 			type = production
-			value = 1
+			value = 2
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.trade_1
+		remove_province_modifier = DA_mechanics_upgrade.trade_2
+		remove_province_modifier = DA_mechanics_upgrade.trade_3
+		remove_province_modifier = DA_mechanics_upgrade.trade_4
+		#
 		if = {
 			limit = {
 				NOT = {
@@ -148,12 +250,43 @@ trade_depot = {
 	}
 
 	on_built = {
-		add_development_from_upgrading_or_building = {
-			building = trade_depot
-			obsolete_building = marketplace
-			type = production
-			value = 2
-			upgrade_value = 1
+		if = {
+			limit = {
+				has_province_flag = built_dev_marketplace
+			}
+			add_development_from_upgrading_or_building = {
+				building = trade_depot
+				obsolete_building = marketplace
+				type = production
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_local_market
+			}
+			add_development_from_upgrading_or_building = {
+				building = trade_depot
+				obsolete_building = DA_local_market
+				type = production
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = trade_depot
+				type = production
+				value = 3
+			}
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = trade_1
+			upgrade_2 = trade_2
+			upgrade_3 = trade_3
+			upgrade_4 = trade_4
 		}
 		#Anbennar
 		anbennar_building_effect = yes
@@ -184,8 +317,14 @@ trade_depot = {
 		remove_development_from_building = {
 			building = trade_depot
 			type = production
-			value = 2
+			value = 3
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.trade_1
+		remove_province_modifier = DA_mechanics_upgrade.trade_2
+		remove_province_modifier = DA_mechanics_upgrade.trade_3
+		remove_province_modifier = DA_mechanics_upgrade.trade_4
+		#
 		if = {
 			limit = {
 				NOT = {
@@ -228,7 +367,7 @@ stock_exchange = {
 				building = stock_exchange
 				obsolete_building = trade_depot
 				type = production
-				value = 3
+				value = 4
 				upgrade_value = 1
 			}
 		}
@@ -240,16 +379,35 @@ stock_exchange = {
 				building = stock_exchange
 				obsolete_building = marketplace
 				type = production
-				value = 3
+				value = 4
 				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_marketplace
+			}
+			add_development_from_upgrading_or_building = {
+				building = stock_exchange
+				obsolete_building = DA_local_market
+				type = production
+				value = 4
+				upgrade_value = 3
 			}
 		}
 		else = {
 			add_development_from_building = {
 				building = stock_exchange
 				type = production
-				value = 3
+				value = 4
 			}
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = trade_1
+			upgrade_2 = trade_2
+			upgrade_3 = trade_3
+			upgrade_4 = trade_4
 		}
 		#Anbennar
 		anbennar_building_effect = yes
@@ -280,8 +438,14 @@ stock_exchange = {
 		remove_development_from_building = {
 			building = stock_exchange
 			type = production
-			value = 3
+			value = 4
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.trade_1
+		remove_province_modifier = DA_mechanics_upgrade.trade_2
+		remove_province_modifier = DA_mechanics_upgrade.trade_3
+		remove_province_modifier = DA_mechanics_upgrade.trade_4
+		#
 		if = {
 			limit = {
 				NOT = {
@@ -315,8 +479,30 @@ DA_arcane_appraiser = { # local market, to be renamed
 		trade_value_modifier = 0.1
 	}
 	on_built = {
+		add_development_from_building = {
+			building = DA_arcane_appraiser
+			type = production
+			value = 1
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = appraiser_1
+		#	upgrade_2 = trade_2
+		#	upgrade_3 = trade_3
+		#	upgrade_4 = trade_4
+		}
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_arcane_appraiser
+			type = production
+			value = 1
+		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.appraiser_1
+		#
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -338,8 +524,32 @@ DA_arcane_tech_exchange = { # local market, to be renamed
 		trade_value_modifier = 0.25
 	}
 	on_built = {
+		add_development_from_upgrading_or_building = {
+			building = DA_arcane_tech_exchange
+			obsolete_building = DA_arcane_appraiser
+			type = production
+			value = 1
+			upgrade_value = 1
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = appraiser_1
+		#	upgrade_2 = trade_2
+		#	upgrade_3 = trade_3
+		#	upgrade_4 = trade_4
+		}
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_arcane_tech_exchange
+			type = production
+			value = 2
+		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.appraiser_1
+		#
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -473,8 +683,55 @@ DA_steam_workshop = {
 		local_production_efficiency = 0.7
 	}
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_counting_house
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_steam_workshop
+				obsolete_building = counting_house
+				type = production
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_workshop
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_steam_workshop
+				obsolete_building = workshop
+				type = production
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_steam_workshop
+				type = production
+				value = 3
+			}
+		}
+		on_built_production_building_effect = yes
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_dragon_command_war_room_rights } }
+			FROM = { add_legitimacy = 0.5 }
+		}
+
+		gronstunad_building_authority_effect = { value = 4 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = prod }
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = counting_house
+			type = production
+			value = 3
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -499,8 +756,67 @@ DA_electrical_workshop = {
 		local_production_efficiency = 1.0
 	}
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_steam_workshop
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_electrical_workshop
+				obsolete_building = DA_steam_workshop
+				type = production
+				value = 4
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_counting_house
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_electrical_workshop
+				obsolete_building = counting_house
+				type = production
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_workshop
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_electrical_workshop
+				obsolete_building = workshop
+				type = production
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_electrical_workshop
+				type = production
+				value = 4
+			}
+		}
+		on_built_production_building_effect = yes
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_dragon_command_war_room_rights } }
+			FROM = { add_legitimacy = 0.5 }
+		}
+
+		gronstunad_building_authority_effect = { value = 4 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = prod }
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = counting_house
+			type = production
+			value = 3
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -532,6 +848,9 @@ DA_artisan_building_1 = {
 		trade_goods_size_modifier = 0.1
 	}
 	on_built = {
+		on_built_production_building_effect = yes
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -564,6 +883,9 @@ DA_artisan_building_2 = {
 		local_production_efficiency = -0.1
 	}
 	on_built = {
+		on_built_production_building_effect = yes
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -596,6 +918,9 @@ DA_artisan_building_3 = {
 		local_production_efficiency = -0.2
 	}
 	on_built = {
+		on_built_production_building_effect = yes
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -630,6 +955,9 @@ DA_assembler_building_1 = {
 		trade_goods_size = 0.3
 	}
 	on_built = {
+		on_built_production_building_effect = yes
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -662,6 +990,9 @@ DA_assembler_building_2 = {
 		trade_goods_size = 0.6
 	}
 	on_built = {
+		on_built_production_building_effect = yes
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -694,6 +1025,9 @@ DA_assembler_building_3 = {
 		trade_goods_size = 1
 	}
 	on_built = {
+		on_built_production_building_effect = yes
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -723,8 +1057,24 @@ DA_tax_building_1 = {
 		local_tax_modifier = 0.2
 	}
 	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		add_development_from_building = {
+			building = temple
+			type = tax
+			value = 1
+		}
+		
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = temple
+			type = tax
+			value = 1
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -749,8 +1099,38 @@ DA_tax_building_2 = {
 		local_tax_modifier = 0.45
 	}
 	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_1
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_2
+				obsolete_building = DA_tax_building_1
+				type = production
+				value = 2
+				upgrade_value = 3
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_tax_building_2
+				type = production
+				value = 2
+			}
+		}
+		
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = DA_tax_building_2
+			type = tax
+			value = 2
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -775,8 +1155,50 @@ DA_tax_building_3 = {
 		local_tax_modifier = 0.7
 	}
 	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_1
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_3
+				obsolete_building = DA_tax_building_1
+				type = production
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_2
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_3
+				obsolete_building = DA_tax_building_2
+				type = production
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_tax_building_3
+				type = production
+				value = 3
+			}
+		}
+		
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = DA_tax_building_3
+			type = tax
+			value = 3
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -801,8 +1223,62 @@ DA_tax_building_4 = {
 		local_tax_modifier = 1.0
 	}
 	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_4
+				obsolete_building = DA_tax_building_3
+				type = production
+				value = 4
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_1
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_4
+				obsolete_building = DA_tax_building_1
+				type = production
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_2
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_4
+				obsolete_building = DA_tax_building_2
+				type = production
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_tax_building_4
+				type = production
+				value = 4
+			}
+		}
+		
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = DA_tax_building_4
+			type = tax
+			value = 4
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -827,8 +1303,74 @@ DA_tax_building_5 = {
 		local_tax_modifier = 1.25
 	}
 	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_4
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_5
+				obsolete_building = DA_tax_building_4
+				type = production
+				value = 5
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_1
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_5
+				obsolete_building = DA_tax_building_1
+				type = production
+				value = 5
+				upgrade_value = 4
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_2
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_5
+				obsolete_building = DA_tax_building_2
+				type = production
+				value = 5
+				upgrade_value = 3
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_tax_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_tax_building_5
+				obsolete_building = DA_tax_building_3
+				type = production
+				value = 5
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_tax_building_5
+				type = production
+				value = 5
+			}
+		}
+		
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = DA_tax_building_5
+			type = tax
+			value = 5
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1181,16 +1723,158 @@ DA_religious_building_3 = {
 	}
 
 	make_obsolete = cathedral
-	build_trigger = {
-	}
 	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		if = {
+			limit = {
+				has_province_flag = built_dev_cathedral
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_religious_building_3
+				obsolete_building = cathedral
+				type = tax
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_temple
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_religious_building_3
+				obsolete_building = temple
+				type = tax
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_religious_building_3
+				type = tax
+				value = 3
+			}
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 5
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = temples_modifier }
+				owned_by = FROM 
+			}
+			add_province_modifier = {
+				name = gov_expanded_temple_rights_mod
+				duration = -1
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
+			FROM = { change_government_reform_progress = 4 }
+		}
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_tiger_command_war_room_rights } }
+			FROM = { add_legitimacy = 0.5 }
+		}
+		Y72_add_dev_from_building = { #1.35, Chien Binhrung
+			building = cathedral 
+			type = tax
+			value = 2 
+		}
+		if = {
+			limit = { FROM = { tag = I98 mission_completed = I98_involuntary_revenue_service } }
+			add_province_modifier = { name = I98_IRS_activities duration = -1 }
+		}
+		if = {
+			limit = { FROM = { has_government_attribute = command_tiger_elevation_modifier } }
+			add_province_modifier = {
+				name = commmand_tiger_temple_buff
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = 2
+		}
+		
+		owner = { accretive_path_harimari_chi_stacking_effect = { amount = 20 } }
+		owner = { accretive_path_goldscale_kobold_chi_stacking_effect = { amount = 20 } }
+
+		gronstunad_building_authority_effect = { value = 3 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = tax }
+		
+		if = {
+			limit = {
+				FROM = {
+					has_country_flag = zokka_temple_upgrade_flag
+				}
+			}
+			add_province_modifier = {
+				name = zokka_tithe_better
+				duration = -1
+			}
+			remove_province_modifier = zokka_tithe
+		}
+		if = {
+			limit = { province_group = infernal_court_temples }
+			infernal_deity_upgrade_effect = yes
+		}
+		spirit_fort_awakening_effect = yes
 	}
 	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = DA_religious_building_3
+			type = tax
+			value = 3 #1.35
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = -5
+				}
+			}
+		}
+		remove_province_modifier = gov_expanded_temple_rights_mod
+		#Anbennar
+		Y72_remove_dev_from_building = { #1.35, Chien Binhrung
+			building = cathedral 
+			type = tax
+			value = 2 
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = -2
+		}
+		remove_province_modifier = I98_IRS_activities
+		remove_province_modifier = commmand_tiger_temple_buff
+		remove_province_modifier = zokka_tithe_better
 	}
-
-	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
-	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
-
 	on_obsolete = {
 	}
 
@@ -1210,16 +1894,170 @@ DA_religious_building_4 = {
 	}
 
 	make_obsolete = DA_religious_building_3
-	build_trigger = {
-	}
 	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_religious_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_religious_building_4
+				obsolete_building = cathedral
+				type = tax
+				value = 4
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_cathedral
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_religious_building_4
+				obsolete_building = cathedral
+				type = tax
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_temple
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_religious_building_4
+				obsolete_building = temple
+				type = tax
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_religious_building_4
+				type = tax
+				value = 4
+			}
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 5
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = temples_modifier }
+				owned_by = FROM 
+			}
+			add_province_modifier = {
+				name = gov_expanded_temple_rights_mod
+				duration = -1
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_government_attribute = learning_by_doing_reform_effect } }
+			FROM = { change_government_reform_progress = 4 }
+		}
+		if = {
+			limit = { FROM = { has_estate_privilege = estate_tiger_command_war_room_rights } }
+			FROM = { add_legitimacy = 0.5 }
+		}
+		Y72_add_dev_from_building = { #1.35, Chien Binhrung
+			building = cathedral 
+			type = tax
+			value = 2 
+		}
+		if = {
+			limit = { FROM = { tag = I98 mission_completed = I98_involuntary_revenue_service } }
+			add_province_modifier = { name = I98_IRS_activities duration = -1 }
+		}
+		if = {
+			limit = { FROM = { has_government_attribute = command_tiger_elevation_modifier } }
+			add_province_modifier = {
+				name = commmand_tiger_temple_buff
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = 2
+		}
+		
+		owner = { accretive_path_harimari_chi_stacking_effect = { amount = 20 } }
+		owner = { accretive_path_goldscale_kobold_chi_stacking_effect = { amount = 20 } }
+
+		gronstunad_building_authority_effect = { value = 3 }
+
+		sponsored_adventurers_building_reform_effect = { value = 5 type = tax }
+		
+		if = {
+			limit = {
+				FROM = {
+					has_country_flag = zokka_temple_upgrade_flag
+				}
+			}
+			add_province_modifier = {
+				name = zokka_tithe_better
+				duration = -1
+			}
+			remove_province_modifier = zokka_tithe
+		}
+		if = {
+			limit = { province_group = infernal_court_temples }
+			infernal_deity_upgrade_effect = yes
+		}
+		spirit_fort_awakening_effect = yes
 	}
 	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		remove_development_from_building = {
+			building = DA_religious_building_4
+			type = tax
+			value = 4 #1.35
+		}
+		if = {
+			limit = {
+				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = -5
+				}
+			}
+		}
+		remove_province_modifier = gov_expanded_temple_rights_mod
+		#Anbennar
+		Y72_remove_dev_from_building = { #1.35, Chien Binhrung
+			building = cathedral 
+			type = tax
+			value = 2 
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_estate_privilege = estate_church_corinsfield_church_raisings
+				}
+			}
+			add_base_tax = -2
+		}
+		remove_province_modifier = I98_IRS_activities
+		remove_province_modifier = commmand_tiger_temple_buff
+		remove_province_modifier = zokka_tithe_better
 	}
-
-	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
-	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
-
 	on_obsolete = {
 	}
 
@@ -1244,8 +2082,22 @@ DA_warforged_building_1 = {
 		DA_fake_warforged_artillery_force_limit = 0.75
 	}
 	on_built = {
+		on_built_manpower_building_effect = yes 
+		add_development_from_building = {
+			building = DA_warforged_building_1
+			type = manpower
+			value = 1
+		}
+
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_warforged_building_1
+			type = manpower
+			value = 1 #1.35
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1271,8 +2123,24 @@ DA_warforged_building_2 = {
 		DA_fake_warforged_artillery_force_limit = 1.5
 	}
 	on_built = {
+		on_built_manpower_building_effect = yes 
+		add_development_from_upgrading_or_building = {
+			building = DA_warforged_building_2
+			obsolete_building = DA_warforged_building_1
+			type = manpower
+			value = 2
+			upgrade_value = 1
+		}
+
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_warforged_building_2
+			type = manpower
+			value = 2 #1.35
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1299,8 +2167,48 @@ DA_warforged_building_3 = {
 		DA_fake_warforged_artillery_force_limit = 2.25
 	}
 	on_built = {
+		on_built_manpower_building_effect = yes 
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_warforged_building_1
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_warforged_building_3
+				obsolete_building = DA_warforged_building_1
+				type = manpower
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_warforged_building_2
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_warforged_building_3
+				obsolete_building = DA_warforged_building_2
+				type = manpower
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_warforged_building_3
+				type = manpower
+				value = 3
+			}
+		}
+
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_warforged_building_3
+			type = manpower
+			value = 3 #1.35
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1327,8 +2235,60 @@ DA_warforged_building_4 = {
 		DA_fake_warforged_artillery_force_limit = 3
 	}
 	on_built = {
+		on_built_manpower_building_effect = yes 
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_warforged_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_warforged_building_4
+				obsolete_building = DA_warforged_building_3
+				type = manpower
+				value = 4
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_warforged_building_2
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_warforged_building_4
+				obsolete_building = DA_warforged_building_2
+				type = manpower
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_warforged_building_1
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_warforged_building_4
+				obsolete_building = DA_warforged_building_1
+				type = manpower
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_warforged_building_4
+				type = manpower
+				value = 4
+			}
+		}
+
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_warforged_building_4
+			type = manpower
+			value = 4 #1.35
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1545,8 +2505,48 @@ DA_manpower_building_3 = {
 		local_manpower_modifier = 0.6
 	}
 	on_built = {
+		on_built_manpower_building_effect = yes 
+		if = {
+			limit = {
+				has_province_flag = built_dev_barracks
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_manpower_building_3
+				obsolete_building = barracks
+				type = manpower
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_training_fields
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_manpower_building_3
+				obsolete_building = training_fields
+				type = manpower
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_manpower_building_3
+				type = manpower
+				value = 3
+			}
+		}
+
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_manpower_building_3
+			type = manpower
+			value = 3 #1.35
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1572,8 +2572,60 @@ DA_manpower_building_4 = {
 		local_manpower_modifier = 0.8
 	}
 	on_built = {
+		on_built_manpower_building_effect = yes 
+		if = {
+			limit = {
+				has_province_flag = built_dev_barracks
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_manpower_building_4
+				obsolete_building = barracks
+				type = manpower
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_training_fields
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_manpower_building_4
+				obsolete_building = training_fields
+				type = manpower
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_DA_manpower_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_manpower_building_4
+				obsolete_building = DA_manpower_building_3
+				type = manpower
+				value = 4
+				upgrade_value = 1
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_manpower_building_4
+				type = manpower
+				value = 4
+			}
+		}
+
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_manpower_building_4
+			type = manpower
+			value = 4 #1.35
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1725,8 +2777,46 @@ DA_forcelimit_building_3 = {
 		land_forcelimit = 1.5
 	}
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_conscription_center
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_forcelimit_building_3
+				obsolete_building = conscription_center
+				type = manpower
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_regimental_camp
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_forcelimit_building_3
+				obsolete_building = regimental_camp
+				type = manpower
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_forcelimit_building_3
+				type = manpower
+				value = 3
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_forcelimit_building_3
+			type = manpower
+			value = 3
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1752,8 +2842,58 @@ DA_forcelimit_building_4 = {
 		land_forcelimit = 2
 	}
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_forcelimit_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_forcelimit_building_4
+				obsolete_building = DA_forcelimit_building_3
+				type = manpower
+				value = 4
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_conscription_center
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_forcelimit_building_4
+				obsolete_building = conscription_center
+				type = manpower
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_regimental_camp
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_forcelimit_building_4
+				obsolete_building = regimental_camp
+				type = manpower
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_forcelimit_building_4
+				type = manpower
+				value = 4
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_forcelimit_building_4
+			type = manpower
+			value = 4
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1809,19 +2949,11 @@ shipyard = {
 
 	ai_will_do = {
 		factor = 1
-		modifier = {
-			factor = 1.5 # bit more likely if close to the naval force limit
-			FROM = { navy_size_percentage = 0.95 }
-		}
-		modifier = {
-			factor = 1.1
-			local_autonomy = 50
-		}
 	}
 }
 
 grand_shipyard = {
-	cost = 300
+	cost = 200
 	time = 12
 
 	make_obsolete = shipyard
@@ -1874,23 +3006,17 @@ grand_shipyard = {
 
 	ai_will_do = {
 		factor = 1
-		modifier = {
-			factor = 1.5 # bit more likely if close to the force limit
-			FROM = { navy_size_percentage = 0.95 }
-		}
-		modifier = {
-			factor = 1.1
-			local_autonomy = 50
-		}
 	}
 }
 
 DA_navy_forcelimit_building_3 = {
-	cost = 280
+	cost = 350
 	time = 18
 
 	make_obsolete = grand_shipyard
+
 	build_trigger = {
+		has_port = yes
 	}
 	modifier = {
 		naval_forcelimit = 3
@@ -1900,8 +3026,48 @@ DA_navy_forcelimit_building_3 = {
 		local_has_galleass = yes #1.35
 	}
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_grand_shipyard
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_forcelimit_building_3
+				obsolete_building = grand_shipyard
+				type = production
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_shipyard
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_forcelimit_building_3
+				obsolete_building = shipyard
+				type = production
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_navy_forcelimit_building_3
+				type = production
+				value = 3
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+
+		gronstunad_building_authority_effect = { value = 4 }
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_navy_forcelimit_building_3
+			type = production
+			value = 3
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1915,11 +3081,13 @@ DA_navy_forcelimit_building_3 = {
 	}
 }
 DA_navy_forcelimit_building_4 = {
-	cost = 560
+	cost = 500
 	time = 24
 
 	make_obsolete = DA_navy_forcelimit_building_3
+
 	build_trigger = {
+		has_port = yes
 	}
 	modifier = {
 		naval_forcelimit = 4
@@ -1929,8 +3097,60 @@ DA_navy_forcelimit_building_4 = {
 		local_has_galleass = yes #1.35
 	}
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_navy_forcelimit_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_forcelimit_building_4
+				obsolete_building = DA_navy_forcelimit_building_3
+				type = production
+				value = 4
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_grand_shipyard
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_forcelimit_building_4
+				obsolete_building = grand_shipyard
+				type = production
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_shipyard
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_forcelimit_building_4
+				obsolete_building = shipyard
+				type = production
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_navy_forcelimit_building_4
+				type = production
+				value = 4
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+
+		gronstunad_building_authority_effect = { value = 4 }
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_navy_forcelimit_building_4
+			type = production
+			value = 4
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2146,18 +3366,60 @@ DA_navy_sailors_building_3 = {
 	time = 18
 
 	make_obsolete = drydock
+
 	build_trigger = {
+		has_port = yes
 	}
 	modifier = {
-		local_ship_cost = -0.125
+		local_ship_cost = -0.1
 		local_sailors = 150
 		local_sailors_modifier = 0.6
 		local_has_man_of_war = yes #1.35
 		local_has_galleass = yes #1.35
 	}
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_drydock
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_sailors_building_3
+				obsolete_building = drydock
+				type = production
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_dock
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_sailors_building_3
+				obsolete_building = dock
+				type = production
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_navy_sailors_building_3
+				type = production
+				value = 3
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+
+		gronstunad_building_authority_effect = { value = 3 }
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_navy_sailors_building_3
+			type = production
+			value = 3
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2175,18 +3437,72 @@ DA_navy_sailors_building_4 = {
 	time = 24
 
 	make_obsolete = DA_navy_sailors_building_3
+
 	build_trigger = {
+		has_port = yes
 	}
 	modifier = {
-		local_ship_cost = -0.1
+		local_ship_cost = -0.125
 		local_sailors = 200
 		local_sailors_modifier = 0.8
 		local_has_man_of_war = yes #1.35
 		local_has_galleass = yes #1.35
 	}
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_navy_sailors_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_sailors_building_4
+				obsolete_building = DA_navy_sailors_building_3
+				type = production
+				value = 4
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_drydock
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_sailors_building_4
+				obsolete_building = drydock
+				type = production
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_dock
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_navy_sailors_building_4
+				obsolete_building = dock
+				type = production
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_navy_sailors_building_4
+				type = production
+				value = 4
+			}
+		}
+		#Anbennar
+		anbennar_building_effect = yes
+
+		gronstunad_building_authority_effect = { value = 4 }
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_navy_sailors_building_4
+			type = production
+			value = 4
+		}
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2282,6 +3598,8 @@ DA_road_building_1 = {
 	}
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2305,6 +3623,8 @@ DA_road_building_2 = {
 	make_obsolete = DA_road_building_1
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2328,6 +3648,8 @@ DA_road_building_3 = {
 	make_obsolete = DA_road_building_2
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2351,6 +3673,8 @@ DA_road_building_4 = {
 	make_obsolete = DA_road_building_3
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2375,6 +3699,8 @@ DA_deposit_building_1 = {
 	}
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2398,6 +3724,8 @@ DA_deposit_building_2 = {
 	make_obsolete = DA_deposit_building_1
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2421,6 +3749,8 @@ DA_deposit_building_3 = {
 	make_obsolete = DA_deposit_building_2
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2444,6 +3774,8 @@ DA_deposit_building_4 = {
 	make_obsolete = DA_deposit_building_3
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2473,6 +3805,8 @@ DA_education_building_1 = {
 	}
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
 	}
@@ -2499,6 +3833,9 @@ DA_education_building_2 = {
 	}
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
+		gronstunad_building_authority_effect = { value = 1 }
 	}
 	on_destroyed = {
 	}
@@ -2525,6 +3862,9 @@ DA_education_building_3 = {
 	}
 
 	on_built = {
+		#Anbennar
+		anbennar_building_effect = yes
+		gronstunad_building_authority_effect = { value = 2 }
 	}
 	on_destroyed = {
 	}
@@ -2918,8 +4258,47 @@ DA_government_building_3 = {
 	make_obsolete = town_hall
 
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_town_hall
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_government_building_3
+				obsolete_building = town_hall
+				type = tax
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_courthouse
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_government_building_3
+				obsolete_building = courthouse
+				type = tax
+				value = 3
+				upgrade_value = 2
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_government_building_3
+				type = tax
+				value = 3
+			}
+		}
+
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_government_building_3
+			type = tax
+			value = 3 #1.35
+		}
 	}
 	on_obsolete = {
 	}
@@ -2940,8 +4319,59 @@ DA_government_building_4 = {
 	make_obsolete = DA_government_building_3
 
 	on_built = {
+		if = {
+			limit = {
+				has_province_flag = built_dev_DA_government_building_3
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_government_building_4
+				obsolete_building = DA_government_building_3
+				type = tax
+				value = 3
+				upgrade_value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_town_hall
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_government_building_4
+				obsolete_building = town_hall
+				type = tax
+				value = 4
+				upgrade_value = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_flag = built_dev_courthouse
+			}
+			add_development_from_upgrading_or_building = {
+				building = DA_government_building_4
+				obsolete_building = courthouse
+				type = tax
+				value = 4
+				upgrade_value = 3
+			}
+		}
+		else = {
+			add_development_from_building = {
+				building = DA_government_building_4
+				type = tax
+				value = 4
+			}
+		}
+
+		#Anbennar
+		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_government_building_4
+			type = tax
+			value = 4 #1.35
+		}
 	}
 	on_obsolete = {
 	}
@@ -3762,11 +5192,26 @@ DA_tax_office_manufactory = {
 	onmap = no
 	show_separate = yes # Means as a manufactory it will be shown according to the old way
 	on_built = {
+		add_dev_from_building = { #1.35
+			building = DA_tax_office_manufactory 
+			type = tax 
+			value = 1 
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
+
+		on_built_manufactory_effect = yes
     }
+	
+	on_destroyed = {
+		remove_development_from_building = {
+			building = DA_tax_office_manufactory
+			type = tax
+			value = 1 #1.35
+		}
+	}
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
 	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 

@@ -227,3 +227,486 @@ custom_text_box = {
     tooltip = DA_Tech_Shower.Mechanics.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
+
+
+custom_text_box = {
+    name = DA_Mechanics_Shower_t1_points #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Mechanics_Shower_t1_points #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Mechanics_Shower_t2_points #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Mechanics_Shower_t2_points #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Mechanics_Shower_t2_points #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Mechanics_Shower_t2_points #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+custom_text_box = {
+    name = DA_Mechanics_Shower_t4_points #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Mechanics_Shower_t4_points #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = DA_mechanics_buy_T1_point
+	tooltip = DA_mechanics_buy_T1_point_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        if = {
+            limit = {
+                has_idea = DA_Mechanics_ideas6
+            }
+            innovativeness = 4
+        }
+        else = {
+            innovativeness = 5
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                has_idea = DA_Mechanics_ideas6
+            }
+            change_innovativeness = -4
+        }
+        else = {
+            change_innovativeness = -5
+        }
+        DA_gain_mechanics_inno_points_1 = yes
+	}
+}
+custom_button = {
+	name = DA_mechanics_buy_T2_point
+	tooltip = DA_mechanics_buy_T2_point_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_2 = yes
+        if = {
+            limit = {
+                has_idea = DA_Mechanics_ideas6
+            }
+            innovativeness = 8
+        }
+        else = {
+            innovativeness = 10
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                has_idea = DA_Mechanics_ideas6
+            }
+            change_innovativeness = -8
+        }
+        else = {
+            change_innovativeness = -10
+        }
+        DA_gain_mechanics_inno_points_2 = yes
+	}
+}
+custom_button = {
+	name = DA_mechanics_buy_T3_point
+	tooltip = DA_mechanics_buy_T3_point_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_3 = yes
+        if = {
+            limit = {
+                has_idea = DA_Mechanics_ideas6
+            }
+            innovativeness = 12
+        }
+        else = {
+            innovativeness = 15
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                has_idea = DA_Mechanics_ideas6
+            }
+            change_innovativeness = -12
+        }
+        else = {
+            change_innovativeness = -15
+        }
+        DA_gain_mechanics_inno_points_3 = yes
+	}
+}
+custom_button = {
+	name = DA_mechanics_buy_T4_point
+	tooltip = DA_mechanics_buy_T4_point_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_4 = yes
+        if = {
+            limit = {
+                has_idea = DA_Mechanics_ideas6
+            }
+            innovativeness = 16
+        }
+        else = {
+            innovativeness = 20
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                has_idea = DA_Mechanics_ideas6
+            }
+            change_innovativeness = -16
+        }
+        else = {
+            change_innovativeness = -20
+        }
+        DA_gain_mechanics_inno_points_4 = yes
+	}
+}
+
+
+
+
+custom_button = {
+	name = DA_mechanics_trade_and_production_switch_button
+	tooltip = DA_mechanics_trade_and_production_switch_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        clr_country_flag = DA_mechanics_tax_and_religion_on
+        clr_country_flag = DA_mechanics_education_and_government_on
+        clr_country_flag = DA_mechanics_infrastructure_on
+        clr_country_flag = DA_mechanics_army_on
+        clr_country_flag = DA_mechanics_navy_on
+
+        set_country_flag = DA_mechanics_trade_and_production_on
+	}
+}
+custom_button = {
+	name = DA_mechanics_tax_and_religion_switch_button
+	tooltip = DA_mechanics_tax_and_religion_switch_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        clr_country_flag = DA_mechanics_trade_and_production_on
+        clr_country_flag = DA_mechanics_education_and_government_on
+        clr_country_flag = DA_mechanics_infrastructure_on
+        clr_country_flag = DA_mechanics_army_on
+        clr_country_flag = DA_mechanics_navy_on
+
+        set_country_flag = DA_mechanics_tax_and_religion_on
+	}
+}
+custom_button = {
+	name = DA_mechanics_education_and_government_switch_button
+	tooltip = DA_mechanics_education_and_government_switch_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        clr_country_flag = DA_mechanics_trade_and_production_on
+        clr_country_flag = DA_mechanics_tax_and_religion_on
+        clr_country_flag = DA_mechanics_infrastructure_on
+        clr_country_flag = DA_mechanics_army_on
+        clr_country_flag = DA_mechanics_navy_on
+
+        set_country_flag = DA_mechanics_education_and_government_on
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_switch_button
+	tooltip = DA_mechanics_infrastructure_switch_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        clr_country_flag = DA_mechanics_trade_and_production_on
+        clr_country_flag = DA_mechanics_tax_and_religion_on
+        clr_country_flag = DA_mechanics_education_and_government_on
+        clr_country_flag = DA_mechanics_army_on
+        clr_country_flag = DA_mechanics_navy_on
+
+        set_country_flag = DA_mechanics_infrastructure_on
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_switch_button
+	tooltip = DA_mechanics_army_switch_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        clr_country_flag = DA_mechanics_trade_and_production_on
+        clr_country_flag = DA_mechanics_tax_and_religion_on
+        clr_country_flag = DA_mechanics_education_and_government_on
+        clr_country_flag = DA_mechanics_infrastructure_on
+        clr_country_flag = DA_mechanics_navy_on
+
+        set_country_flag = DA_mechanics_army_on
+	}
+}
+custom_button = {
+	name = DA_mechanics_navy_switch_button
+	tooltip = DA_mechanics_navy_switch_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        clr_country_flag = DA_mechanics_trade_and_production_on
+        clr_country_flag = DA_mechanics_tax_and_religion_on
+        clr_country_flag = DA_mechanics_education_and_government_on
+        clr_country_flag = DA_mechanics_infrastructure_on
+        clr_country_flag = DA_mechanics_army_on
+
+        set_country_flag = DA_mechanics_navy_on
+	}
+}
+
+
+
+
+# upgrades
+
+
+custom_window = {
+    name = DA_Mechanics_Interface
+    potential = {
+        has_country_flag = DA_mechanics_trade_and_production_on
+    }
+}
+custom_window = {
+    name = DA_mechanics_window_tax_and_religion
+    potential = {
+        has_country_flag = DA_mechanics_tax_and_religion_on
+    }
+}
+custom_window = {
+    name = DA_mechanics_window_education_and_government
+    potential = {
+        has_country_flag = DA_mechanics_education_and_government_on
+    }
+}
+custom_window = {
+    name = DA_mechanics_window_infrastructure
+    potential = {
+        has_country_flag = DA_mechanics_infrastructure_on
+    }
+}
+custom_window = {
+    name = DA_mechanics_window_army
+    potential = {
+        has_country_flag = DA_mechanics_army_on
+    }
+}
+custom_window = {
+    name = DA_mechanics_window_navy
+    potential = {
+        has_country_flag = DA_mechanics_navy_on
+    }
+}
+
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_1_1
+	tooltip = DA_mechanics_trade_and_production_upgrade_1_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.trade_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.trade_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.trade_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_local_market
+                        has_building = marketplace
+                        has_building = trade_depot
+                        has_building = stock_exchange
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.trade_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_1_2
+	tooltip = DA_mechanics_trade_and_production_upgrade_1_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.trade_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.trade_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.trade_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.trade_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.trade_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_local_market
+                        has_building = marketplace
+                        has_building = trade_depot
+                        has_building = stock_exchange
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.trade_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.trade_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_1_3
+	tooltip = DA_mechanics_trade_and_production_upgrade_1_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.trade_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.trade_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.trade_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.trade_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.trade_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_local_market
+                        has_building = marketplace
+                        has_building = trade_depot
+                        has_building = stock_exchange
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.trade_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.trade_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_1_4
+	tooltip = DA_mechanics_trade_and_production_upgrade_1_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.trade_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.trade_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.trade_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.trade_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.trade_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_local_market
+                        has_building = marketplace
+                        has_building = trade_depot
+                        has_building = stock_exchange
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.trade_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.trade_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
