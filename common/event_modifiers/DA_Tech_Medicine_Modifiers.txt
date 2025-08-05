@@ -26,57 +26,99 @@ DA_Medicine_4 = {
 
 #DA_Medicine.Food_Policy.none doesn't exist
 
-DA_Medicine.Food_Policy.discard_spoiled_food = {
+# level 1 policies
+DA_Medicine.Food_Policy.AW_discard_spoiled_food = {
 	state_maintenance_modifier = 0.025
 	DA_fake_medicine_illness_spawn_chance_counter = 5
 }
-DA_Medicine.Food_Policy.basic_controls = {
+DA_Medicine.Food_Policy.AW_basic_controls = {
 	global_tax_modifier = -0.05
-	state_maintenance_modifier = 0.05
+	DA_fake_medicine_illness_spawn_chance_counter = 5
+}
+# level 2 policies
+DA_Medicine.Food_Policy.FCA_private = {
+	global_unrest = 2
 	DA_fake_medicine_illness_spawn_chance_counter = 10
 }
-DA_Medicine.Food_Policy.food_control_agency = {
-	global_tax_modifier = -0.10
+DA_Medicine.Food_Policy.FCA_statal = {
+	state_maintenance_modifier = 0.1
+	DA_fake_medicine_illness_spawn_chance_counter = 10
+}
+# level 3 policies
+DA_Medicine.Food_Policy.FCA_authority = {
+	prestige = -0.5
 	DA_fake_medicine_illness_spawn_chance_counter = 15
 }
-DA_Medicine.Food_Policy.strict_controls = {
+DA_Medicine.Food_Policy.FCA_strict_controls = {
 	global_tax_modifier = -0.075
 	state_maintenance_modifier = 0.1
 	DA_fake_medicine_illness_spawn_chance_counter = 15
 }
-DA_Medicine.Food_Policy.high_standards = {
+# level 4 policies
+DA_Medicine.Food_Policy.FCA_magic_anomaly_detector = {
 	state_maintenance_modifier = 0.25
-	DA_fake_medicine_illness_spawn_chance_counter = 20
+	DA_fake_medicine_illness_spawn_chance_counter = 25
 }
 
 
 
+
+# level 1 policies
 DA_Medicine.Health_Policy.private_local_doctors = {
-	global_unrest = 1
 	state_maintenance_modifier = 0.025
 	DA_fake_medicine_illness_spawn_chance_counter = 5
 }
-DA_Medicine.Health_Policy.private_clinics_incentives = {
+# level 2 policies
+DA_Medicine.Health_Policy.HC_private_basic = {
 	global_unrest = 1.5
-	global_tax_modifier = -0.05
+	manpower_recovery_speed = 0.05
+	global_manpower_modifier = 0.025
 	DA_fake_medicine_illness_spawn_chance_counter = 10
 }
-DA_Medicine.Health_Policy.private_national_healthcare = {
+DA_Medicine.Health_Policy.HC_statal_basic = {
+	state_maintenance_modifier = 0.05
+	global_tax_modifier = -0.05
+	manpower_recovery_speed = 0.05
+	global_manpower_modifier = 0.025
+	DA_fake_medicine_illness_spawn_chance_counter = 10
+}
+# level 3 policies
+DA_Medicine.Health_Policy.HC_private = {
 	global_unrest = 3
+	manpower_recovery_speed = 0.1
+	global_manpower_modifier = 0.05
 	DA_fake_medicine_illness_spawn_chance_counter = 15
 }
-DA_Medicine.Health_Policy.basic_public_healthcare = {
+DA_Medicine.Health_Policy.HC_statal = {
+	state_maintenance_modifier = 0.1
 	global_tax_modifier = -0.1
-	DA_fake_medicine_illness_spawn_chance_counter = 10
+	manpower_recovery_speed = 0.1
+	global_manpower_modifier = 0.05
+	DA_fake_medicine_illness_spawn_chance_counter = 15
 }
-DA_Medicine.Health_Policy.public_healthcare = {
+# level 4 policies
+DA_Medicine.Health_Policy.HC_private_all_purpose_magic_healing_device = {
+	global_unrest = 4.5
+	manpower_recovery_speed = 0.20
+	global_manpower_modifier = 0.10
+	DA_fake_medicine_illness_spawn_chance_counter = 25
+}
+DA_Medicine.Health_Policy.HC_statal_all_purpose_magic_healing_device = {
+	state_maintenance_modifier = 0.2
 	global_tax_modifier = -0.2
-	DA_fake_medicine_illness_spawn_chance_counter = 20
+	manpower_recovery_speed = 0.20
+	global_manpower_modifier = 0.10
+	DA_fake_medicine_illness_spawn_chance_counter = 25
 }
+
+
+
+
 ######### illnesses modifiers ##########
 
 DA_Medicine.Quarantined_province = {
-	min_local_autonomy = 0.35
+	picture = "DA_Medicine_quarantined_modifier_image"
+	min_local_autonomy = 35
 	local_unrest = 4
 	local_manpower_modifier = -1
 	province_trade_power_modifier = -0.5
@@ -84,6 +126,7 @@ DA_Medicine.Quarantined_province = {
 	local_defensiveness = 0.25
 }
 DA_Medicine.Burning_province = {
+	picture = "DA_Medicine_burning_modifier_image"
 	local_unrest = 10
 	local_monthly_devastation = 1
 }
@@ -96,6 +139,7 @@ DA_Medicine.illness_research = {
 # common, non magical
 
 DA_Disease.Marsh_Fever = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.15
 	province_trade_power_modifier = -0.15
 	local_production_efficiency = -0.1
@@ -103,6 +147,7 @@ DA_Disease.Marsh_Fever = {
 	local_monthly_devastation = 0.1
 }
 DA_Disease.Red_Cough = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.15
 	province_trade_power_modifier = -0.15
 	local_production_efficiency = -0.1
@@ -110,6 +155,7 @@ DA_Disease.Red_Cough = {
 	local_monthly_devastation = 0.1
 }
 DA_Disease.Flu = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.15
 	province_trade_power_modifier = -0.15
 	local_production_efficiency = -0.1
@@ -117,6 +163,7 @@ DA_Disease.Flu = {
 	local_monthly_devastation = 0.1
 }
 DA_Disease.Gutrot = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.15
 	province_trade_power_modifier = -0.15
 	local_production_efficiency = -0.1
@@ -129,6 +176,7 @@ DA_Disease.Gutrot = {
 
 
 DA_Disease.Duskwither_Plague = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.2
 	province_trade_power_modifier = -0.2
 	local_production_efficiency = -0.15
@@ -136,6 +184,7 @@ DA_Disease.Duskwither_Plague = {
 	local_monthly_devastation = 0.15
 }
 DA_Disease.Silent_Pox = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.2
 	province_trade_power_modifier = -0.2
 	local_production_efficiency = -0.15
@@ -143,6 +192,7 @@ DA_Disease.Silent_Pox = {
 	local_monthly_devastation = 0.15
 }
 DA_Disease.Redblight = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.2
 	province_trade_power_modifier = -0.2
 	local_production_efficiency = -0.15
@@ -150,6 +200,7 @@ DA_Disease.Redblight = {
 	local_monthly_devastation = 0.15
 }
 DA_Disease.Chulklung = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.2
 	province_trade_power_modifier = -0.2
 	local_production_efficiency = -0.15
@@ -162,6 +213,7 @@ DA_Disease.Chulklung = {
 
 
 DA_Disease.Mana_Overload = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.3
 	province_trade_power_modifier = -0.3
 	local_production_efficiency = -0.25
@@ -169,6 +221,7 @@ DA_Disease.Mana_Overload = {
 	local_monthly_devastation = 0.25
 }
 DA_Disease.Mana_Corruption = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.3
 	province_trade_power_modifier = -0.3
 	local_production_efficiency = -0.25
@@ -176,6 +229,7 @@ DA_Disease.Mana_Corruption = {
 	local_monthly_devastation = 0.25
 }
 DA_Disease.Metallic_Corrosion = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.3
 	province_trade_power_modifier = -0.3
 	local_production_efficiency = -0.25
@@ -183,6 +237,7 @@ DA_Disease.Metallic_Corrosion = {
 	local_monthly_devastation = 0.25
 }
 DA_Disease.Soulblight = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.3
 	province_trade_power_modifier = -0.3
 	local_production_efficiency = -0.25
@@ -195,6 +250,7 @@ DA_Disease.Soulblight = {
 
 
 DA_Disease.Dreams_of_Reality = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.4
 	province_trade_power_modifier = -0.4
 	local_production_efficiency = -0.35
@@ -202,6 +258,7 @@ DA_Disease.Dreams_of_Reality = {
 	local_monthly_devastation = 0.35
 }
 DA_Disease.Godscar = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.4
 	province_trade_power_modifier = -0.4
 	local_production_efficiency = -0.35
@@ -209,6 +266,7 @@ DA_Disease.Godscar = {
 	local_monthly_devastation = 0.35
 }
 DA_Disease.White_Thorns = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.4
 	province_trade_power_modifier = -0.4
 	local_production_efficiency = -0.35
@@ -221,7 +279,8 @@ DA_Disease.White_Thorns = {
 
 
 DA_Disease.Seven_Deadly_Sins = {
-	min_local_autonomy = 0.30
+	picture = "DA_Alchemy_illness_modifier_image"
+	min_local_autonomy = 30
 	local_manpower_modifier = -0.65
 	province_trade_power_modifier = -0.65
 	local_production_efficiency = -0.5
@@ -230,11 +289,13 @@ DA_Disease.Seven_Deadly_Sins = {
 	local_monthly_devastation = 0.5
 }
 DA_Disease.Bender_of_Will = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_unrest = -20
 	local_assault_fort_ability = 2.0
 	local_defensiveness = -1.5
 }
 DA_Disease.White_Pestilence = {
+	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.9
 	province_trade_power_modifier = -0.9
 	local_production_efficiency = -0.75

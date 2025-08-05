@@ -2,6 +2,419 @@
 namespace = DA_Tech_Medicine_event
 
 
+country_event = {
+	id = DA_Tech_Medicine_event.0
+	title = DA_Tech_Medicine_event.0.t
+	desc = DA_Tech_Medicine_event.0.d
+	picture = DA_Medicine_illness_image_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		ai = no
+		any_owned_province = {
+			DA_has_disease_in_province = no
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 70
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -50
+				}
+			}
+		}
+		modifier = {
+			factor = 60
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -50
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -40
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -50
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -40
+				}
+			}
+		}
+		modifier = {
+			factor = 40
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -40
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -30
+				}
+			}
+		}
+		modifier = {
+			factor = 30
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -30
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -20
+				}
+			}
+		}
+		modifier = {
+			factor = 20
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -20
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = -10
+				}
+			}
+		}
+		modifier = {
+			factor = 10
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = -10
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 0
+				}
+			}
+		}
+		modifier = {
+			factor = 7
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 0
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 10
+				}
+			}
+		}
+		modifier = {
+			factor = 5
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 10
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 20
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 20
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 30
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 30
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 40
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = {
+				which = DA_yearly_illness_spawn_chance_counter
+				value = 40
+			}
+			NOT = {
+				check_variable = {
+					which = DA_yearly_illness_spawn_chance_counter
+					value = 50
+				}
+			}
+		}
+	}
+
+	option = {
+		name = DA_Tech_Medicine_event.1.a
+		random_owned_province = {
+			limit = {
+				DA_has_disease_in_province = no
+			}
+			DA_Medicine_give_random_illness_in_province = yes
+		}
+	}
+}
+
+province_event = {
+	id = DA_Tech_Medicine_event.1    # remove illness from province
+	title = DA_Tech_Medicine_event.1.t
+	desc = DA_Tech_Medicine_event.1.d
+	picture = DA_Medicine_illness_image_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = DA_Tech_Medicine_event.1.a
+		DA_Medicine_remove_illnesses_in_province = yes
+	}
+}
+
+province_event = {
+	id = DA_Tech_Medicine_event.2    # remove illness from province
+	title = DA_Tech_Medicine_event.1.t
+	desc = DA_Tech_Medicine_event.1.d
+	picture = DA_Medicine_illness_image_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		DA_has_disease_in_province = yes
+		has_province_modifier = DA_Medicine.Quarantined_province
+	}
+
+	option = {
+		name = DA_Tech_Medicine_event.1.a
+		DA_Medicine_remove_illnesses_in_province = yes
+	}
+}
+
+country_event = {
+	id = DA_Tech_Medicine_event.3    # food policy
+	title = DA_Tech_Medicine_event.3.t
+	desc = DA_Tech_Medicine_event.3.d
+	picture = DA_Alchemy_material_image_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Tech_Medicine_event.3.none
+		DA_Medicine_remove_food_policy = yes
+	}
+	option = {
+		name = DA_Tech_Medicine_event.3.discard_spoiled_food
+		DA_Medicine_remove_food_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Food_Policy.AW_discard_spoiled_food
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.3.AW_basic_controls
+		DA_Medicine_remove_food_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Food_Policy.AW_basic_controls
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.3.FCA_private
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_2 = yes
+		}
+		DA_Medicine_remove_food_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Food_Policy.FCA_private
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.3.FCA_statal
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_2 = yes
+		}
+		DA_Medicine_remove_food_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Food_Policy.FCA_statal
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.3.FCA_authority
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_3 = yes
+		}
+		DA_Medicine_remove_food_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Food_Policy.FCA_authority
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.3.FCA_strict_controls
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_3 = yes
+		}
+		DA_Medicine_remove_food_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Food_Policy.FCA_strict_controls
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.3.FCA_magic_anomaly_detector
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_4 = yes
+		}
+		DA_Medicine_remove_food_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Food_Policy.FCA_magic_anomaly_detector
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = DA_Tech_Medicine_event.4    # health policy
+	title = DA_Tech_Medicine_event.4.t
+	desc = DA_Tech_Medicine_event.4.d
+	picture = DA_Alchemy_material_image_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Tech_Medicine_event.4.none
+		DA_Medicine_remove_health_policy = yes
+	}
+	option = {
+		name = DA_Tech_Medicine_event.4.private_local_doctors
+		DA_Medicine_remove_health_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Health_Policy.private_local_doctors
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.4.HC_private_basic
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_2 = yes
+		}
+		DA_Medicine_remove_health_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Health_Policy.HC_private_basic
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.4.HC_statal_basic
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_2 = yes
+		}
+		DA_Medicine_remove_health_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Health_Policy.HC_statal_basic
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.4.HC_private
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_3 = yes
+		}
+		DA_Medicine_remove_health_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Health_Policy.HC_private
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.4.HC_statal
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_3 = yes
+		}
+		DA_Medicine_remove_health_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Health_Policy.HC_statal
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.4.HC_private_all_purpose_magic_healing_device
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_4 = yes
+		}
+		DA_Medicine_remove_health_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Health_Policy.HC_private_all_purpose_magic_healing_device
+			duration = -1
+		}
+	}
+	option = {
+		name = DA_Tech_Medicine_event.4.HC_statal_all_purpose_magic_healing_device
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_4 = yes
+		}
+		DA_Medicine_remove_health_policy = yes
+		add_adm_power = -25
+		add_country_modifier = {
+			name = DA_Medicine.Health_Policy.HC_statal_all_purpose_magic_healing_device
+			duration = -1
+		}
+	}
+}
+
 ######### illnesses events ##########
 
 province_event = {
@@ -32,7 +445,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Marsh_Fever
+					has_country_flag = DA_researched_illness.Marsh_Fever
 				}
 			}
 		}
@@ -85,7 +498,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Red_Cough
+					has_country_flag = DA_researched_illness.Red_Cough
 				}
 			}
 		}
@@ -138,7 +551,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Flu
+					has_country_flag = DA_researched_illness.Flu
 				}
 			}
 		}
@@ -191,7 +604,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Gutrot
+					has_country_flag = DA_researched_illness.Gutrot
 				}
 			}
 		}
@@ -244,7 +657,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Duskwither_Plague
+					has_country_flag = DA_researched_illness.Duskwither_Plague
 				}
 			}
 		}
@@ -297,7 +710,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Silent_Pox
+					has_country_flag = DA_researched_illness.Silent_Pox
 				}
 			}
 		}
@@ -350,7 +763,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Redblight
+					has_country_flag = DA_researched_illness.Redblight
 				}
 			}
 		}
@@ -403,7 +816,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Chulklung
+					has_country_flag = DA_researched_illness.Chulklung
 				}
 			}
 		}
@@ -456,7 +869,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Mana_Overload
+					has_country_flag = DA_researched_illness.Mana_Overload
 				}
 			}
 		}
@@ -509,7 +922,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Mana_Corruption
+					has_country_flag = DA_researched_illness.Mana_Corruption
 				}
 			}
 		}
@@ -562,7 +975,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Metallic_Corrosion
+					has_country_flag = DA_researched_illness.Metallic_Corrosion
 				}
 			}
 		}
@@ -615,7 +1028,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Soulblight
+					has_country_flag = DA_researched_illness.Soulblight
 				}
 			}
 		}
@@ -668,7 +1081,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Dreams_of_Reality
+					has_country_flag = DA_researched_illness.Dreams_of_Reality
 				}
 			}
 		}
@@ -708,9 +1121,9 @@ province_event = {
 			duration = -1
 		}
 		DA_Medicine_Illness_shower = {
-			DA_severity = 1
-			DA_propagation = 1
-			DA_complexity = 1
+			DA_severity = 3
+			DA_propagation = 3
+			DA_complexity = 4
 			DA_Illness_cost = 20
 		}
 	}
@@ -721,7 +1134,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Godscar
+					has_country_flag = DA_researched_illness.Godscar
 				}
 			}
 		}
@@ -761,9 +1174,9 @@ province_event = {
 			duration = -1
 		}
 		DA_Medicine_Illness_shower = {
-			DA_severity = 1
-			DA_propagation = 1
-			DA_complexity = 1
+			DA_severity = 5
+			DA_propagation = 2
+			DA_complexity = 4
 			DA_Illness_cost = 20
 		}
 	}
@@ -774,7 +1187,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.White_Thorns
+					has_country_flag = DA_researched_illness.White_Thorns
 				}
 			}
 		}
@@ -814,9 +1227,9 @@ province_event = {
 			duration = -1
 		}
 		DA_Medicine_Illness_shower = {
-			DA_severity = 1
-			DA_propagation = 1
-			DA_complexity = 1
+			DA_severity = 4
+			DA_propagation = 0
+			DA_complexity = 5
 			DA_Illness_cost = 25
 		}
 	}
@@ -827,7 +1240,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Seven_Deadly_Sins
+					has_country_flag = DA_researched_illness.Seven_Deadly_Sins
 				}
 			}
 		}
@@ -867,9 +1280,9 @@ province_event = {
 			duration = -1
 		}
 		DA_Medicine_Illness_shower = {
-			DA_severity = 1
-			DA_propagation = 1
-			DA_complexity = 1
+			DA_severity = 3
+			DA_propagation = 0
+			DA_complexity = 5
 			DA_Illness_cost = 25
 		}
 	}
@@ -880,7 +1293,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.Bender_of_Will
+					has_country_flag = DA_researched_illness.Bender_of_Will
 				}
 			}
 		}
@@ -933,7 +1346,7 @@ province_event = {
 			custom_trigger_tooltip = {
 				tooltip = DA_already_researched_cure_tt
 				owner = {
-					has_country_flag = DA_Disease_Cured.White_Pestilence
+					has_country_flag = DA_researched_illness.White_Pestilence
 				}
 			}
 		}

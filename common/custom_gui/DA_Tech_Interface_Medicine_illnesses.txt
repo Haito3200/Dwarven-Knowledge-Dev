@@ -1,0 +1,5440 @@
+# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
+
+
+
+# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
+#custom_button = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the button is visible
+#    trigger = { } #Determines when the button is clickable
+#    effect = { } #Effect
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_text_box = {
+#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
+#    potential = { } #Determines when the text is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    #To localize it, use the name of the button as a key, can also use customizable localisation
+#}
+
+#custom_icon = {
+#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
+#    potential = { } #Determines when the icon is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_shield = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the shield is visible
+#    trigger = { } #Determines when the shield is clickable
+#    effect = { } #Effect for clicking
+#    tooltip = localisation_key #Can use customizable localisation
+#    global_event_target = <string> # Global event target name
+#    open_country = <bool> #If clicking opens the country view
+#}
+
+##############################  Supported files with scopes ##############################
+#   The Gui objects must be directly inside the specified window Gui element!
+#   FROM is always the country that clicks
+#   provinceview.gui:
+#       province_window         (ROOT: Clicked province)
+#       buildings_window        (ROOT: Clicked province)
+#       state_window            (ROOT: Clicked province)
+#   countrycourtview.gui:
+#       countrycourtview        (ROOT = FROM)
+#   countrygovernmentview.gui:
+#       countrygovernmentview   (ROOT = FROM)
+#   countrydiplomacyview.gui:
+#       countrydiplimacyview    (ROOT: Selected country)
+#   countryeconomyview.gui:
+#       countryeconomyview      (ROOT = FROM)
+#   countrytradeview.gui:
+#       countrytradeview        (ROOT = FROM)
+#   countrytechnologyview.gui:
+#       countrytechnologyview   (ROOT = FROM)
+#   countryideasview.gui:
+#       countryideasview        (ROOT = FROM)
+#   countrymissionsview.gui:
+#       countrymissionsview     (ROOT: Selected country)
+#   countrydecisionview.gui:
+#       countrydecisionsview    (ROOT = FROM)
+#   countrystabilityview.gui:
+#       countrystabilityview    (ROOT = FROM)
+#   countryreligionview.gui:
+#       countryreligionview     (ROOT = FROM)
+#   countrymilitaryview.gui:
+#       countrymilitaryview     (ROOT = FROM)
+#   countrysubjectsview.gui:
+#       countrysubjectview      (ROOT = FROM)
+#   countryestatesview.gui:
+#       countryestatesview      (ROOT = FROM)
+#   ages_view.gui:
+#       ages_view               (ROOT = FROM)
+#   tradeinterface.gui:
+#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
+#   hre.gui:
+#       hre_window              (ROOT = FROM)
+#   papacy.gui:
+#       papacy_window           (ROOT = FROM)
+#   faction.gui:
+#       All faction windows     (ROOT = FROM)
+#   celestialempireview.gui:
+#       celestial_window        (ROOT = FROM)
+#   countrynativesview.gui:
+#       natives_window          (ROOT = FROM)
+#   religiousreforms.gui:
+#       reforms_window          (ROOT = FROM)
+#   parliament.gui:
+#       parliament_window       (ROOT = FROM)
+
+
+# illness Marsh_Fever
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_1_1
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.common_non_magical
+    }
+}
+custom_button = {
+	name = DA_disease_1_1_shower
+	tooltip = DA_Disease.Marsh_Fever
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Marsh_Fever
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_1_1_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Marsh_Fever
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Marsh_Fever
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_1_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Marsh_Fever
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Marsh_Fever = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 5
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Marsh_Fever
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Marsh_Fever = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Marsh_Fever
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Marsh_Fever = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Marsh_Fever
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Marsh_Fever
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Marsh_Fever = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 5
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1000
+                days = 730
+                random = 365
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_1_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Marsh_Fever = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.100
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_1_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 10
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Marsh_Fever
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 10
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Marsh_Fever
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Marsh_Fever
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Marsh_Fever }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Marsh_Fever
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Marsh_Fever
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Red_Cough
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_1_2
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.common_non_magical
+    }
+}
+custom_button = {
+	name = DA_disease_1_2_shower
+	tooltip = DA_Disease.Red_Cough
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Red_Cough
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_1_2_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Red_Cough
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Red_Cough
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_2_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Red_Cough
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Red_Cough = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 5
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Red_Cough
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Red_Cough = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Red_Cough
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Red_Cough = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Red_Cough
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Red_Cough
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Red_Cough = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 5
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1010
+                days = 730
+                random = 365
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_2_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Red_Cough = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.101
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_2_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 10
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Red_Cough
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 10
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Red_Cough
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Red_Cough
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Red_Cough }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Red_Cough
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Red_Cough
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Flu
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_1_3
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.common_non_magical
+    }
+}
+custom_button = {
+	name = DA_disease_1_3_shower
+	tooltip = DA_Disease.Flu
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Flu
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_1_3_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Flu
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Flu
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_3_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Flu
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Flu = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 5
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Flu
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Flu = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Flu
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Flu = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Flu
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Flu
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Flu = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 5
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1020
+                days = 730
+                random = 365
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_3_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Flu = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.102
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_3_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 10
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Flu
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 10
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Flu
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Flu
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Flu }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Flu
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Flu
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Gutrot
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_1_4
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.common_non_magical
+    }
+}
+custom_button = {
+	name = DA_disease_1_4_shower
+	tooltip = DA_Disease.Gutrot
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Gutrot
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_1_4_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Gutrot
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Gutrot
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_4_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Gutrot
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Gutrot = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 5
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Gutrot
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Gutrot = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Gutrot
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Gutrot = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Gutrot
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Gutrot
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Gutrot = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 5
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1030
+                days = 730
+                random = 365
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_4_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Gutrot = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.103
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_1_4_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 10
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Gutrot
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 10
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Gutrot
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Gutrot
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Gutrot }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Gutrot
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Gutrot
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+# tier 2 illnesses
+
+
+# illness Duskwither_Plague
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_2_1
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.non_common_non_magical
+    }
+}
+custom_button = {
+	name = DA_disease_2_1_shower
+	tooltip = DA_Disease.Duskwither_Plague
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Duskwither_Plague
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_2_1_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Duskwither_Plague
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Duskwither_Plague
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_1_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_2 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Duskwither_Plague
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Duskwither_Plague = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 10
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Duskwither_Plague
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Duskwither_Plague = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Duskwither_Plague
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Duskwither_Plague = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Duskwither_Plague
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Duskwither_Plague
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Duskwither_Plague = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 10
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1100
+                days = 730
+                random = 730
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_1_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_2 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Duskwither_Plague = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.110
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_1_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 20
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Duskwither_Plague
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 20
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Duskwither_Plague
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Duskwither_Plague
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Duskwither_Plague }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Duskwither_Plague
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Duskwither_Plague
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Silent_Pox
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_2_2
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.non_common_non_magical
+    }
+}
+custom_button = {
+	name = DA_disease_2_2_shower
+	tooltip = DA_Disease.Silent_Pox
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Silent_Pox
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_2_2_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Silent_Pox
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Silent_Pox
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_2_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_2 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Silent_Pox
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Silent_Pox = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 10
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Silent_Pox
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Silent_Pox = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Silent_Pox
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Silent_Pox = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Silent_Pox
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Silent_Pox
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Silent_Pox = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 10
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1110
+                days = 730
+                random = 730
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_2_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_2 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Silent_Pox = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.111
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_2_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 20
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Silent_Pox
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 20
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Silent_Pox
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Silent_Pox
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Silent_Pox }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Silent_Pox
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Silent_Pox
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Redblight
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_2_3
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.non_common_non_magical
+    }
+}
+custom_button = {
+	name = DA_disease_2_3_shower
+	tooltip = DA_Disease.Redblight
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Redblight
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_2_3_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Redblight
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Redblight
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_3_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_2 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Redblight
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Redblight = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 10
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Redblight
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Redblight = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Redblight
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Redblight = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Redblight
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Redblight
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Redblight = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 10
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1120
+                days = 730
+                random = 730
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_3_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_2 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Redblight = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.112
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_3_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 20
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Redblight
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 20
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Redblight
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Redblight
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Redblight }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Redblight
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Redblight
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Chulklung
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_2_4
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.non_common_non_magical
+    }
+}
+custom_button = {
+	name = DA_disease_2_4_shower
+	tooltip = DA_Disease.Chulklung
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Chulklung
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_2_4_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Chulklung
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Chulklung
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_4_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_2 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Chulklung
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Chulklung = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 10
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Chulklung
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Chulklung = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Chulklung
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Chulklung = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Chulklung
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Chulklung
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Chulklung = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 10
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1130
+                days = 730
+                random = 730
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_4_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_2 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Chulklung = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.113
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_2_4_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 20
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Chulklung
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 20
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Chulklung
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Chulklung
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Chulklung }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Chulklung
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Chulklung
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# tier 3 illnesses
+
+
+# illness Mana_Overload
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_3_1
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.common_magical
+    }
+}
+custom_button = {
+	name = DA_disease_3_1_shower
+	tooltip = DA_Disease.Mana_Overload
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Mana_Overload
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_3_1_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Mana_Overload
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Mana_Overload
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_1_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_3 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Mana_Overload
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Mana_Overload = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 15
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Mana_Overload
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Mana_Overload = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Mana_Overload
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Mana_Overload = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Mana_Overload
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Mana_Overload
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Mana_Overload = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 15
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1200
+                days = 1095
+                random = 730
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_1_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_3 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Mana_Overload = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.120
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_1_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 30
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Mana_Overload
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 30
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Mana_Overload
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Mana_Overload
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Mana_Overload }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Mana_Overload
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Mana_Overload
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Mana_Corruption
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_3_2
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.common_magical
+    }
+}
+custom_button = {
+	name = DA_disease_3_2_shower
+	tooltip = DA_Disease.Mana_Corruption
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Mana_Corruption
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_3_2_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Mana_Corruption
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Mana_Corruption
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_2_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_3 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Mana_Corruption
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Mana_Corruption = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 15
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Mana_Corruption
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Mana_Corruption = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Mana_Corruption
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Mana_Corruption = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Mana_Corruption
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Mana_Corruption
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Mana_Corruption = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 15
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1210
+                days = 1095
+                random = 730
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_2_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_3 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Mana_Corruption = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.121
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_2_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 30
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Mana_Corruption
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 30
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Mana_Corruption
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Mana_Corruption
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Mana_Corruption }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Mana_Corruption
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Mana_Corruption
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Metallic_Corrosion
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_3_3
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.common_magical
+    }
+}
+custom_button = {
+	name = DA_disease_3_3_shower
+	tooltip = DA_Disease.Metallic_Corrosion
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Metallic_Corrosion
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_3_3_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Metallic_Corrosion
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Metallic_Corrosion
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_3_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_3 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Metallic_Corrosion
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Metallic_Corrosion = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 15
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Metallic_Corrosion
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Metallic_Corrosion = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Metallic_Corrosion
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Metallic_Corrosion = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Metallic_Corrosion
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Metallic_Corrosion
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Metallic_Corrosion = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 15
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1220
+                days = 1095
+                random = 730
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_3_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_3 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Metallic_Corrosion = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.122
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_3_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 30
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Metallic_Corrosion
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 30
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Metallic_Corrosion
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Metallic_Corrosion
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Metallic_Corrosion }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Metallic_Corrosion
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Metallic_Corrosion
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Soulblight
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_3_4
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.common_magical
+    }
+}
+custom_button = {
+	name = DA_disease_3_4_shower
+	tooltip = DA_Disease.Soulblight
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Soulblight
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_3_4_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Soulblight
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Soulblight
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_4_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_3 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Soulblight
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Soulblight = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 15
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Soulblight
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Soulblight = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Soulblight
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Soulblight = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Soulblight
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Soulblight
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Soulblight = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 15
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1230
+                days = 1095
+                random = 730
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_4_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_3 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Soulblight = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.123
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_3_4_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 30
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Metallic_Corrosion
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 30
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Metallic_Corrosion
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Metallic_Corrosion
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Metallic_Corrosion }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Metallic_Corrosion
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Metallic_Corrosion
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# tier 4 illnesses
+
+
+# illness Dreams_of_Reality
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_4_1
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.non_common_magical
+    }
+}
+custom_button = {
+	name = DA_disease_4_1_shower
+	tooltip = DA_Disease.Dreams_of_Reality
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Dreams_of_Reality
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_4_1_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Dreams_of_Reality
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Dreams_of_Reality
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_1_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Dreams_of_Reality
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Dreams_of_Reality = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 20
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Dreams_of_Reality
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Dreams_of_Reality = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Dreams_of_Reality
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Dreams_of_Reality = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Dreams_of_Reality
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Dreams_of_Reality
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Dreams_of_Reality = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 20
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1300
+                days = 1095
+                random = 1095
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_1_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Dreams_of_Reality = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.130
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_1_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 40
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Dreams_of_Reality
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 40
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Dreams_of_Reality
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Dreams_of_Reality
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Dreams_of_Reality }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Dreams_of_Reality
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Dreams_of_Reality
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Godscar
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_4_2
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.non_common_magical
+    }
+}
+custom_button = {
+	name = DA_disease_4_2_shower
+	tooltip = DA_Disease.Godscar
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Godscar
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_4_2_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Godscar
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Godscar
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_2_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Godscar
+        }
+        if = {
+            limit = {
+                DA_researched_illness_Godscar = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 20
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Godscar
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Godscar = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Godscar
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Godscar = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Godscar
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Godscar
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Godscar = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 20
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1310
+                days = 1095
+                random = 1095
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_2_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Godscar = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.131
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_2_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 40
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Godscar
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 40
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Godscar
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Godscar
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Godscar }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Godscar
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Godscar
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness White_Thorns
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_4_3
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.non_common_magical
+    }
+}
+custom_button = {
+	name = DA_disease_4_3_shower
+	tooltip = DA_Disease.White_Thorns
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.White_Thorns
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_4_3_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.White_Thorns
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.White_Thorns
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_3_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        any_owned_province = {
+            has_province_modifier = DA_Disease.White_Thorns
+        }
+        if = {
+            limit = {
+                DA_researched_illness_White_Thorns = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 20
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+            any_owned_province = {
+                has_province_modifier = DA_Disease.White_Thorns
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_White_Thorns = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.White_Thorns
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_White_Thorns = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.White_Thorns
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.White_Thorns
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_White_Thorns = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 20
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1320
+                days = 1095
+                random = 1095
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_3_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_White_Thorns = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.132
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_4_3_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 40
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.White_Thorns
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 40
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.White_Thorns
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.White_Thorns
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.White_Thorns }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.White_Thorns
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.White_Thorns
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# curses
+
+
+# illness Seven_Deadly_Sins
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_5_1
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.curses
+    }
+}
+custom_button = {
+	name = DA_disease_5_1_shower
+	tooltip = DA_Disease.Seven_Deadly_Sins
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Seven_Deadly_Sins
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_5_1_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Seven_Deadly_Sins
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Seven_Deadly_Sins
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_1_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        if = {
+            limit = {
+                DA_researched_illness_Seven_Deadly_Sins = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 25
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+			has_idea = DA_Medicine_ideas6
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Seven_Deadly_Sins = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Seven_Deadly_Sins
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Seven_Deadly_Sins = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Seven_Deadly_Sins
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Seven_Deadly_Sins
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Seven_Deadly_Sins = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 25
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1400
+                days = 1460
+                random = 1095
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_1_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Seven_Deadly_Sins = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.140
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_1_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 50
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Seven_Deadly_Sins
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 50
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Seven_Deadly_Sins
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Seven_Deadly_Sins
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Seven_Deadly_Sins }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Seven_Deadly_Sins
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Seven_Deadly_Sins
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness Bender_of_Will
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_5_2
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.curses
+    }
+}
+custom_button = {
+	name = DA_disease_5_2_shower
+	tooltip = DA_Disease.Bender_of_Will
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.Bender_of_Will
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_5_2_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.Bender_of_Will
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Bender_of_Will
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_2_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        if = {
+            limit = {
+                DA_researched_illness_Bender_of_Will = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 25
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+			has_idea = DA_Medicine_ideas6
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Bender_of_Will = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.Bender_of_Will
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_Bender_of_Will = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.Bender_of_Will
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.Bender_of_Will
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_Bender_of_Will = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 25
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1410
+                days = 1460
+                random = 1095
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_2_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_Bender_of_Will = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.141
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_2_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 50
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Bender_of_Will
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 50
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Bender_of_Will
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.Bender_of_Will
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.Bender_of_Will }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.Bender_of_Will
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.Bender_of_Will
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}
+
+# illness White_Pestilence
+
+custom_window = {
+    name = DA_Medicine_Interface_disease_5_3
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_Medicine
+        has_country_flag = DA_Medicine_interface.curses
+    }
+}
+custom_button = {
+	name = DA_disease_5_3_shower
+	tooltip = DA_Disease.White_Pestilence
+	potential = {
+        always = yes
+	}
+	trigger = {
+        always = yes
+	}
+	effect = {
+        custom_tooltip = DA_fake_illness_modifier_shower_tt
+        tooltip = {
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = DA_Disease.White_Pestilence
+                    duration = -1
+                }
+            }
+        }
+        #disease effect here
+	}
+}
+custom_button = {
+	name = DA_disease_5_3_burn_button
+	tooltip = DA_disease_burn_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        any_owned_province = {
+            has_province_modifier = DA_Disease.White_Pestilence
+            NOT = { has_province_modifier = DA_Medicine.Burning_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_every_owned_infected_province_will_get_this_tt
+        tooltip = {
+            random_owned_province = {
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.White_Pestilence
+                    NOT = { has_province_modifier = DA_Medicine.Burning_province }
+                }
+                add_base_tax = -1
+                add_base_production = -2
+                add_base_manpower = -3
+                add_devastation = 25
+                add_unrest = 20
+                add_permanent_province_modifier = {
+                    name = DA_Medicine.Burning_province
+                    duration = 1825
+                }
+                custom_tooltip = DA_illness_will_be_deleted_in_60_to_790_days
+                hidden_effect = {
+                    province_event = {
+                        id = DA_Tech_Medicine_event.1
+                        days = 60
+                        random = 730
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_3_cure_button
+	tooltip = DA_disease_cure_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        if = {
+            limit = {
+                DA_researched_illness_White_Pestilence = no
+            }
+            DA_alchemy_reagents_total_required = {
+                amount = 50
+            }
+            adm_power = 50
+            NOT = { has_country_modifier = DA_Medicine.illness_research }
+			has_idea = DA_Medicine_ideas6
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_White_Pestilence = yes
+            }
+            treasury = 10
+            any_owned_province = {
+                has_province_modifier = DA_Disease.White_Pestilence
+            }
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                DA_researched_illness_White_Pestilence = yes
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = DA_Disease.White_Pestilence
+                }
+                owner = {
+                    add_treasury = -10
+                }
+                remove_province_modifier = DA_Disease.White_Pestilence
+            }
+        }
+        else_if = {
+            limit = {
+                DA_researched_illness_White_Pestilence = no
+            }
+            DA_alchemy_reagents_spend = {
+                amount = 50
+            }
+            add_adm_power = -50
+            add_country_modifier = {
+                name = DA_Medicine.illness_research
+                duration = -1
+            }
+            # make this the research finished event
+            country_event = {
+                id = DA_Tech_Medicine_event.1420
+                days = 1825
+                random = 1825
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_3_poison_button
+	tooltip = DA_disease_poison_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_4 = yes
+        has_idea = DA_Medicine_ideas6
+        DA_researched_illness_White_Pestilence = yes
+        any_rival_country = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+        random_rival_country = {
+            limit = {
+                has_spy_network_from = {
+                    who = FROM
+                    value = 25
+                }
+            }
+            add_spy_network_from = {
+                who = FROM
+                value = -25
+            }
+            capital_scope = {
+                province_event = {
+                    id = DA_Tech_Medicine_event.142
+                }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            owner = {
+                                ai = yes
+                            }
+                        }
+                        add_base_tax = -1
+                        add_base_production = -2
+                        add_base_manpower = -3
+                        add_devastation = 25
+                        add_unrest = 20
+                        add_permanent_province_modifier = {
+                            name = DA_Medicine.Burning_province
+                            duration = 1825
+                        }
+                        province_event = {
+                            id = DA_Tech_Medicine_event.1
+                            days = 60
+                            random = 730
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_disease_5_3_quarantine_locked_strip
+	tooltip = DA_disease_quarantine_locked_strip_tt
+    
+    frame = {
+        number = 1
+        trigger = {
+            check_variable = {
+                which = DA_quarantine_efficiency
+                value = 50
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.White_Pestilence
+			    has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 2
+        trigger = {
+            NOT = {
+                check_variable = {
+                    which = DA_quarantine_efficiency
+                    value = 50
+                }
+            }
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.White_Pestilence
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        } 
+    }
+    frame = {
+        number = 3
+        trigger = {
+            any_owned_province = {
+			    has_province_modifier = DA_Disease.White_Pestilence
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+        } 
+    }
+    frame = {
+        number = 4
+        trigger = {
+            all_owned_province = {
+                NOT = { has_province_modifier = DA_Disease.White_Pestilence }
+            }
+        } 
+    }
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Medicine_1 = yes
+        any_owned_province = {
+		    has_province_modifier = DA_Disease.White_Pestilence
+            NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+        }
+	}
+	effect = {
+        custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+        every_owned_province = {
+            limit = {
+                has_province_modifier = DA_Disease.White_Pestilence
+                NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
+            }
+            add_province_modifier = {
+                name = DA_Medicine.Quarantined_province
+                duration = -1
+            }
+        }
+	}
+}

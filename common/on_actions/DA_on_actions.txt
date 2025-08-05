@@ -141,6 +141,7 @@ on_conquest = { # reset exploration level on conquest, unique events can't happe
 			value = 1
 		}
 	}
+	DA_on_conquest_scripted_effect = yes
 	if = {
 		limit = {
 			AND = {
@@ -381,12 +382,21 @@ on_four_year_pulse_4 = {
 	}
 }
 on_bi_yearly_pulse_4 = {
+	random_owned_province = {
+		limit = {
+			DA_has_disease_in_province = yes
+			has_province_modifier = DA_Medicine.Quarantined_province
+		}
+		province_event = {
+			id = DA_Tech_Medicine_event.2
+		}
+	}
 }
 on_thri_yearly_pulse = {
 	random_events  = { #Runesmiths unlocks / perdiodical events 
-		50 = DA_adk.4
-		50 = DA_adk.40
-		200 = DA_adk.5
+		20 = DA_adk.4
+		20 = DA_adk.40
+		400 = DA_adk.5
 		200 = DA_adk.51
 		200 = DA_adk.7
 		200 = DA_adk.9
@@ -401,11 +411,32 @@ on_thri_yearly_pulse = {
 		200 = DA_Khugdihr_event.1
 		200 = DA_Krakdhumvror_event.1
 		200 = DA_Orlazam_az_dihr_event.1
-		10 = 0
+		1 = 0
 	}
+	random_events  = { #medicine illness spawn event
+		10 = DA_Tech_Medicine_event.0
+		100 = 0
+	}
+	
 	country_event = { #runic gate event, to be reworked
 		id = DA_adk.103
 	}
+    if = {
+        limit = {
+			ai = no
+            any_owned_province = {
+                has_province_modifier = DA_Medicine.Quarantined_province
+            }
+        }
+    }
+    random_owned_province = {
+        limit = {
+            has_province_modifier = DA_Medicine.Quarantined_province
+        }
+        province_event = {
+            id = DA_Tech_Medicine_event.1
+        }
+    }
 }
 on_thri_yearly_pulse_2 = {
 	every_owned_province = {
@@ -424,6 +455,9 @@ on_thri_yearly_pulse_2 = {
 	}
 }
 on_thri_yearly_pulse_3 = {
+	events = {
+		DA_building_event.200
+	}
 }
 on_thri_yearly_pulse_4 = {
 }

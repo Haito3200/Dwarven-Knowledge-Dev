@@ -790,8 +790,9 @@ DA_Nationalism_ideas = {
 	category = DIP
 
 	bonus = {
-		advisor_cost = 0.10
+		advisor_cost = 0.15
 		same_culture_advisor_cost = -0.20
+		same_religion_advisor_cost = -0.20
 	}
 
 	trigger = {
@@ -818,8 +819,8 @@ DA_Nationalism_ideas = {
 	}
 	
 	DA_Nationalism_ideas5 = {
-		culture_conversion_cost = -0.20
-		culture_conversion_time = -0.20
+		culture_conversion_cost = -0.15
+		culture_conversion_time = -0.15
 	}
 	
 	DA_Nationalism_ideas6 = {
@@ -867,7 +868,7 @@ DA_Assimilation_ideas = {
 	}
 	
 	DA_Assimilation_ideas6 = {
-		core_creation = -0.1
+		core_creation = -0.075
 	}
 	DA_Assimilation_ideas7 = {
 		global_autonomy = -0.05
@@ -890,6 +891,151 @@ DA_Assimilation_ideas = {
 	}
 }
 
+
+
+DA_Arcane_arts_ideas = {
+	category = DIP
+
+	bonus = {
+		DA_fake_cost_adder = 2
+		DA_fake_rune_slots_adder = 1
+	}
+
+	trigger = {
+	}
+
+	DA_Arcane_arts_ideas1 = {
+		mages_loyalty_modifier = 0.1
+	}	
+	DA_Arcane_arts_ideas2 = {
+		DA_fake_yearly_mana_generation = 1
+		effect = {
+			DA_mana_cap_increase = {
+				amount = 50
+			}
+		}
+		removed_effect = {
+			DA_mana_cap_increase = {
+				amount = -50
+			}
+		}
+	}
+	DA_Arcane_arts_ideas3 = {
+		advisor_cost = -0.05
+	}
+	DA_Arcane_arts_ideas4 = {
+		prestige = 0.5
+	}
+	DA_Arcane_arts_ideas5 = {
+		global_allowed_num_of_buildings = 1
+		effect = {
+			if = {
+				limit = {
+					culture_group = dwarven
+				}
+				country_event = {
+					id = DA_Runesmith_invention.15
+				}
+				country_event = {
+					id = DA_Runesmith_invention.16
+				}
+				country_event = {
+					id = DA_Runesmith_invention.17
+				}
+				country_event = {
+					id = DA_Runesmith_invention.18
+				}
+			}
+			else = {
+				capital_scope = {
+					DA_Tech_prov.Magic_Theory = {
+						amount = 300
+					}
+				}
+			}
+		}
+	}
+	DA_Arcane_arts_ideas6 = {
+		max_general_shock = 1
+		effect = {
+			capital_scope = {
+				DA_Tech_prov.Magic_Theory = {
+					amount = 300
+				}
+			}
+		}
+		removed_effect = {
+			capital_scope = {
+				DA_Tech_prov.Magic_Theory = {
+					amount = -300
+				}
+			}
+		}
+	}
+	DA_Arcane_arts_ideas7 = {
+		DA_fake_yearly_mana_generation = 1
+		effect = {
+			capital_scope = {
+				DA_Tech_prov.Magic_Theory = {
+					amount = 300
+				}
+			}
+		}
+		removed_effect = {
+			capital_scope = {
+				DA_Tech_prov.Magic_Theory = {
+					amount = -300
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		factor = 1.1
+	}
+}
+
+DA_Alchemy_ideas = {
+	category = DIP
+
+	bonus = {
+		trade_efficiency = 0.075
+	}
+
+	trigger = {
+	}
+
+	DA_Alchemy_ideas1 = {
+		province_trade_power_modifier = 0.05
+		DA_fake_alchemy_reagents_adder = 2
+	}	
+	DA_Alchemy_ideas2 = {
+		merchants = 1
+	}
+	DA_Alchemy_ideas3 = {
+		global_prosperity_growth = 0.25
+	}
+	DA_Alchemy_ideas4 = {
+		# 10% chance of higher rarity material
+		adventurers_loyalty_modifier = 0.05
+	}
+	DA_Alchemy_ideas5 = {
+		global_own_trade_power = 0.1
+	}
+	DA_Alchemy_ideas6 = {
+		# 5% chance of double legendary
+		adventurers_loyalty_modifier = 0.05
+	}
+	DA_Alchemy_ideas7 = {
+		mercantilism_cost = -0.2
+	}
+
+	ai_will_do = {
+		factor = 1.1
+	}
+}
+
+
 DA_Dynastic_ideas = {
 	category = DIP
 
@@ -910,7 +1056,7 @@ DA_Dynastic_ideas = {
 	}
 
 	DA_Dynastic_ideas3 = {
-		diplomatic_reputation = 1
+		diplomatic_reputation = 1.5
 	}
 
 	DA_Dynastic_ideas4 = {
@@ -955,7 +1101,7 @@ DA_Great_Power_ideas = {
 	category = DIP
 
 	bonus = {
-		diplomatic_reputation = 2
+		diplomatic_reputation = 1.5
 	}
 
 	trigger = {
@@ -968,6 +1114,7 @@ DA_Great_Power_ideas = {
 	
 	DA_Great_Power_ideas2 = {
 		unjustified_demands = -0.15
+		overextension_impact_modifier = -0.15
 	}
 
 	DA_Great_Power_ideas3 = {
@@ -997,6 +1144,57 @@ DA_Great_Power_ideas = {
 	}
 }
 
+DA_HRE_member_ideas = {
+	category = DIP
+
+	bonus = {
+		legitimate_subject_elector = 10
+	}
+	trigger = {
+		is_emperor = no
+		is_part_of_hre = yes
+	}
+	DA_HRE_member_ideas1  = {
+		global_tax_income = 12
+	}
+	DA_HRE_member_ideas2 = {
+		land_forcelimit = 5
+		global_manpower = 5
+	}
+	DA_HRE_member_ideas3 = {
+		ae_impact = -0.1
+	}
+	DA_HRE_member_ideas4 = {
+		diplomats = 1
+		diplomatic_upkeep = 1
+	}
+	DA_HRE_member_ideas5 = {
+		core_creation = -0.05
+	}
+	DA_HRE_member_ideas6 = {
+		fabricate_claims_cost = -0.25
+	}
+	DA_HRE_member_ideas7 = {
+		prestige_decay = -0.01
+		#Anbennar
+		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+	}
+
+	ai_will_do = {
+		factor = 2
+		modifier = {
+			factor = 0.45
+			is_elector = yes
+		}
+		modifier = {
+			factor = 0
+			is_emperor = yes
+		}
+	}
+}
+
+
 DA_HRE_emperor_ideas = {
 	category = DIP
 	bonus = {
@@ -1016,7 +1214,7 @@ DA_HRE_emperor_ideas = {
 		imperial_authority = 0.05
 	}
 	DA_HRE_emperor_ideas4 = {
-		diplomatic_reputation = 1
+		diplomatic_reputation = 1.5
 	}
 	DA_HRE_emperor_ideas5  = {
 		spy_offence = 0.15
