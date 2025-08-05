@@ -21,6 +21,30 @@ DA_mithril_production_boost = {
 	} 
 }
 
+DA_Magma_Forge_increase_workaround = {
+	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	potential = {
+		always = yes
+	}
+	# Whether the triggered modifier is active
+	trigger = {
+		always = yes
+	}
+    
+	# The modifier to apply when the triggered modifier is active
+	local_unrest = 1
+	# Province scope
+	on_activation = {
+		province_event = {
+			id = DA_Magma_forge_event.3
+			days = 30
+		}
+		remove_province_triggered_modifier = DA_Magma_Forge_increase_workaround
+	}
+	
+	on_deactivation = {
+	} 
+}
 DA_Hold_exploration_workaround = {
 	# Whether the triggered modifier is visible in the Triggered Modifiers window
 	potential = {
@@ -133,21 +157,73 @@ DA_Alchemy_Material_exploration_workaround = {
 				has_province_modifier = DA_Alchemy_material.Unknown.common
 			}
 			remove_province_modifier = DA_Alchemy_material.Unknown.common
-			DA_add_alchemy_material_Common = yes
+			if = {
+				limit = {
+					owner = {
+						has_idea = DA_Alchemy_ideas4
+					}
+				}
+				random_list = {
+					9 = {
+						DA_add_alchemy_material_Common = yes
+					}
+					1 = {
+						DA_add_alchemy_material_Rare = yes
+					}
+				}
+			}
+			else = {
+				DA_add_alchemy_material_Common = yes
+			}
 		}
 		else_if = {
 			limit = {
 				has_province_modifier = DA_Alchemy_material.Unknown.rare
 			}
 			remove_province_modifier = DA_Alchemy_material.Unknown.rare
-			DA_add_alchemy_material_Rare = yes
+			if = {
+				limit = {
+					owner = {
+						has_idea = DA_Alchemy_ideas4
+					}
+				}
+				random_list = {
+					9 = {
+						DA_add_alchemy_material_Rare = yes
+					}
+					1 = {
+						DA_add_alchemy_material_Legendary = yes
+					}
+				}
+			}
+			else = {
+				DA_add_alchemy_material_Rare = yes
+			}
 		}
 		else_if = {
 			limit = {
 				has_province_modifier = DA_Alchemy_material.Unknown.legendary
 			}
 			remove_province_modifier = DA_Alchemy_material.Unknown.legendary
-			DA_add_alchemy_material_Legendary = yes
+			if = {
+				limit = {
+					owner = {
+						has_idea = DA_Alchemy_ideas6
+					}
+				}
+				random_list = {
+					19 = {
+						DA_add_alchemy_material_Legendary = yes
+					}
+					1 = {
+						DA_add_alchemy_material_Legendary = yes
+						DA_add_alchemy_material_Legendary = yes
+					}
+				}
+			}
+			else = {
+				DA_add_alchemy_material_Legendary = yes
+			}
 		}
 		remove_province_triggered_modifier = DA_Alchemy_Material_exploration_workaround
 	}

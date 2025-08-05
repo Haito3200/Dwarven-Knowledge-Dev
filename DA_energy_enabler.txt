@@ -1,192 +1,93 @@
 
-defined_text = {
-	name = DA_get_Argrastun_Main_deity
-	random = no
-	
-	text = {
-        localisation_key = "Dagrin"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.dagrin
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_2_2
+	tooltip = DA_mechanics_infrastructure_upgrade_2_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.cables_2.flag
+            }
         }
-    }
-	text = {
-        localisation_key = "anvelind"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.anvelind
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.cables_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.cables_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.cables_2
+                duration = -1
+            }
         }
-    }
-	text = {
-        localisation_key = "durvorazir"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.durvorazir
+        set_country_flag = DA_mechanics_upgrade.cables_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_steam_pipes
+                        has_building = DA_electricity_cables
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.cables_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.cables_2
+                    duration = -1
+                }
+            }
         }
-    }
-	text = {
-        localisation_key = "margurz"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.margurz
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_2_3
+	tooltip = DA_mechanics_infrastructure_upgrade_2_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.cables_2.flag
         }
-    }
-	text = {
-        localisation_key = "miradeth"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.miradeth
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.cables_3.flag
+            }
         }
-    }
-	text = {
-        localisation_key = "azmirethazin"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.azmirethazin
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.cables_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.cables_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.cables_3
+                duration = -1
+            }
         }
-    }
-	text = {
-        localisation_key = "argezenna"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.argezenna
+        set_country_flag = DA_mechanics_upgrade.cables_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_steam_pipes
+                        has_building = DA_electricity_cables
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.cables_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.cables_3
+                    duration = -1
+                }
+            }
         }
-    }
-	text = {
-        localisation_key = "auirikus"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.auirikus
-        }
-    }
-	text = {
-        localisation_key = "urisazirn"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.urisazirn
-        }
-    }
-	text = {
-        localisation_key = "dolurazan"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.dolurazan
-        }
-    }
-	text = {
-        localisation_key = "derzobrazan"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.derzobrazan
-        }
-    }
-	text = {
-        localisation_key = "bervinazan"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.bervinazan
-        }
-    }
-	text = {
-        localisation_key = "karazlov"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.karazlov
-        }
-    }
-	text = {
-        localisation_key = "grimthar"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.grimthar
-        }
-    }
-	text = {
-        localisation_key = "verdrik"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.verdrik
-        }
-    }
-	text = {
-        localisation_key = "thyrfen"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.thyrfen
-        }
-    }
-	text = {
-        localisation_key = "werdun"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.werdun
-        }
-    }
-	text = {
-        localisation_key = "lorgrim"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.lorgrim
-        }
-    }
-	text = {
-        localisation_key = "lorgram"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.lorgram
-        }
-    }
-	text = {
-        localisation_key = "grobilazk"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.grobilazk
-        }
-    }
-	text = {
-        localisation_key = "dagrin"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.dagrin_a
-        }
-    }
-	text = {
-        localisation_key = "gimron"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.gimron
-        }
-    }
-	text = {
-        localisation_key = "hehogrim"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.hehogrim
-        }
-    }
-	text = {
-        localisation_key = "mellegar"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.mellegar
-        }
-    }
-	text = {
-        localisation_key = "urist"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.urist
-        }
-    }
-	text = {
-        localisation_key = "quila"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.quila
-        }
-    }
-	text = {
-        localisation_key = "balgar"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.balgar
-        }
-    }
-	text = {
-        localisation_key = "krummul"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.krummul
-        }
-    }
-	text = {
-        localisation_key = "murri"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.murri
-        }
-    }
-	text = {
-        localisation_key = "Runefather"
-        trigger = {
-            has_country_modifier = DA_Argrastun_Cathedral.Main.Runefather
-        }
-    }
-	text = {
-        localisation_key = "None"
-        trigger = {
-            always = yes
-        }
-    }
+	}
 }

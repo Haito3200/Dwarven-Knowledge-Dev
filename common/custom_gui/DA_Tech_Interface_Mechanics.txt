@@ -235,24 +235,6 @@ custom_text_box = {
     tooltip = DA_Mechanics_Shower_t1_points #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
-custom_text_box = {
-    name = DA_Mechanics_Shower_t2_points #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Mechanics_Shower_t2_points #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-custom_text_box = {
-    name = DA_Mechanics_Shower_t2_points #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Mechanics_Shower_t2_points #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-custom_text_box = {
-    name = DA_Mechanics_Shower_t4_points #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Mechanics_Shower_t4_points #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
 
 custom_button = {
 	name = DA_mechanics_buy_T1_point
@@ -283,99 +265,6 @@ custom_button = {
             change_innovativeness = -5
         }
         DA_gain_mechanics_inno_points_1 = yes
-	}
-}
-custom_button = {
-	name = DA_mechanics_buy_T2_point
-	tooltip = DA_mechanics_buy_T2_point_tt
-	potential = {
-        always = yes
-	}
-	trigger = {
-        DA_completed.Mechanics_2 = yes
-        if = {
-            limit = {
-                has_idea = DA_Mechanics_ideas6
-            }
-            innovativeness = 8
-        }
-        else = {
-            innovativeness = 10
-        }
-	}
-	effect = {
-        if = {
-            limit = {
-                has_idea = DA_Mechanics_ideas6
-            }
-            change_innovativeness = -8
-        }
-        else = {
-            change_innovativeness = -10
-        }
-        DA_gain_mechanics_inno_points_2 = yes
-	}
-}
-custom_button = {
-	name = DA_mechanics_buy_T3_point
-	tooltip = DA_mechanics_buy_T3_point_tt
-	potential = {
-        always = yes
-	}
-	trigger = {
-        DA_completed.Mechanics_3 = yes
-        if = {
-            limit = {
-                has_idea = DA_Mechanics_ideas6
-            }
-            innovativeness = 12
-        }
-        else = {
-            innovativeness = 15
-        }
-	}
-	effect = {
-        if = {
-            limit = {
-                has_idea = DA_Mechanics_ideas6
-            }
-            change_innovativeness = -12
-        }
-        else = {
-            change_innovativeness = -15
-        }
-        DA_gain_mechanics_inno_points_3 = yes
-	}
-}
-custom_button = {
-	name = DA_mechanics_buy_T4_point
-	tooltip = DA_mechanics_buy_T4_point_tt
-	potential = {
-        always = yes
-	}
-	trigger = {
-        DA_completed.Mechanics_4 = yes
-        if = {
-            limit = {
-                has_idea = DA_Mechanics_ideas6
-            }
-            innovativeness = 16
-        }
-        else = {
-            innovativeness = 20
-        }
-	}
-	effect = {
-        if = {
-            limit = {
-                has_idea = DA_Mechanics_ideas6
-            }
-            change_innovativeness = -16
-        }
-        else = {
-            change_innovativeness = -20
-        }
-        DA_gain_mechanics_inno_points_4 = yes
 	}
 }
 
@@ -504,7 +393,7 @@ custom_button = {
 
 
 custom_window = {
-    name = DA_Mechanics_Interface
+    name = DA_mechanics_window_trade_and_production
     potential = {
         has_country_flag = DA_mechanics_trade_and_production_on
     }
@@ -549,6 +438,12 @@ custom_button = {
 	trigger = {
         DA_completed.Mechanics_1 = yes
         DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.trade_1.flag
+            }
+        }
 	}
 	effect = {
         DA_spend_mechanics_inno_points_1 = yes
@@ -591,6 +486,12 @@ custom_button = {
         }
         DA_completed.Mechanics_2 = yes
         DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.trade_2.flag
+            }
+        }
 	}
 	effect = {
         DA_spend_mechanics_inno_points_2 = yes
@@ -635,6 +536,12 @@ custom_button = {
         }
         DA_completed.Mechanics_3 = yes
         DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.trade_3.flag
+            }
+        }
 	}
 	effect = {
         DA_spend_mechanics_inno_points_3 = yes
@@ -679,6 +586,12 @@ custom_button = {
         }
         DA_completed.Mechanics_4 = yes
         DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.trade_4.flag
+            }
+        }
 	}
 	effect = {
         DA_spend_mechanics_inno_points_4 = yes
@@ -710,3 +623,2958 @@ custom_button = {
         }
 	}
 }
+
+# appraiser
+
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_2_1
+	tooltip = DA_mechanics_trade_and_production_upgrade_2_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_Mechanics_Unlocked_building.appraiser_buildings
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_Mechanics_Unlocks_building.tt
+        set_country_flag = DA_Mechanics_Unlocked_building.appraiser_buildings
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_2_2
+	tooltip = DA_mechanics_trade_and_production_upgrade_2_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_Mechanics_Unlocked_building.appraiser_buildings
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.appraiser_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.appraiser_2.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.appraiser_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.appraiser_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_arcane_appraiser
+                        has_building = DA_arcane_tech_exchange
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.appraiser_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+# workshop
+
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_3_1
+	tooltip = DA_mechanics_trade_and_production_upgrade_3_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.workshop_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.workshop_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.workshop_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.workshop_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = workshop
+                        has_building = counting_house
+                        has_building = DA_steam_workshop
+                        has_building = DA_electrical_workshop
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.workshop_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_3_2
+	tooltip = DA_mechanics_trade_and_production_upgrade_3_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.workshop_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.workshop_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.workshop_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.workshop_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.workshop_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.workshop_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = workshop
+                        has_building = counting_house
+                        has_building = DA_steam_workshop
+                        has_building = DA_electrical_workshop
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.workshop_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.workshop_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_3_3
+	tooltip = DA_mechanics_trade_and_production_upgrade_3_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.workshop_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.workshop_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.workshop_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.workshop_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.workshop_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.workshop_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = workshop
+                        has_building = counting_house
+                        has_building = DA_steam_workshop
+                        has_building = DA_electrical_workshop
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.workshop_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.workshop_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_3_4
+	tooltip = DA_mechanics_trade_and_production_upgrade_3_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.workshop_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.workshop_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.workshop_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.workshop_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.workshop_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.workshop_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = workshop
+                        has_building = counting_house
+                        has_building = DA_steam_workshop
+                        has_building = DA_electrical_workshop
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.workshop_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.workshop_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+# artisan
+
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_4_1
+	tooltip = DA_mechanics_trade_and_production_upgrade_4_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_Mechanics_Unlocked_building.artisan_buildings
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_Mechanics_Unlocks_building.tt
+        set_country_flag = DA_Mechanics_Unlocked_building.artisan_buildings
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_4_2
+	tooltip = DA_mechanics_trade_and_production_upgrade_4_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_Mechanics_Unlocked_building.artisan_buildings
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.artisan_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.artisan_2.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.artisan_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.artisan_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_artisan_building_1
+                        has_building = DA_artisan_building_2
+                        has_building = DA_artisan_building_3
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.artisan_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+# assembler
+
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_5_1
+	tooltip = DA_mechanics_trade_and_production_upgrade_5_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_Mechanics_Unlocked_building.assembler_buildings
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_Mechanics_Unlocks_building.tt
+        set_country_flag = DA_Mechanics_Unlocked_building.assembler_buildings
+	}
+}
+custom_button = {
+	name = DA_mechanics_trade_and_production_upgrade_5_2
+	tooltip = DA_mechanics_trade_and_production_upgrade_5_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_Mechanics_Unlocked_building.assembler_buildings
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.assembler_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.assembler_2.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.assembler_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.assembler_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_assembler_building_1
+                        has_building = DA_assembler_building_2
+                        has_building = DA_assembler_building_3
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.assembler_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+
+# tax
+
+custom_button = {
+	name = DA_mechanics_tax_and_religion_upgrade_1_1
+	tooltip = DA_mechanics_tax_and_religion_upgrade_1_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.tax_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.tax_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.tax_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.tax_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_tax_building_1
+                        has_building = DA_tax_building_2
+                        has_building = DA_tax_building_3
+                        has_building = DA_tax_building_4
+                        has_building = DA_tax_building_5
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.tax_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_tax_and_religion_upgrade_1_2
+	tooltip = DA_mechanics_tax_and_religion_upgrade_1_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.tax_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.tax_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.tax_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.tax_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.tax_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.tax_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_tax_building_1
+                        has_building = DA_tax_building_2
+                        has_building = DA_tax_building_3
+                        has_building = DA_tax_building_4
+                        has_building = DA_tax_building_5
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.tax_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.tax_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_tax_and_religion_upgrade_1_3
+	tooltip = DA_mechanics_tax_and_religion_upgrade_1_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.tax_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.tax_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.tax_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.tax_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.tax_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.tax_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_tax_building_1
+                        has_building = DA_tax_building_2
+                        has_building = DA_tax_building_3
+                        has_building = DA_tax_building_4
+                        has_building = DA_tax_building_5
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.tax_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.tax_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_tax_and_religion_upgrade_1_4
+	tooltip = DA_mechanics_tax_and_religion_upgrade_1_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.tax_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.tax_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.tax_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.tax_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.tax_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.tax_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_tax_building_1
+                        has_building = DA_tax_building_2
+                        has_building = DA_tax_building_3
+                        has_building = DA_tax_building_4
+                        has_building = DA_tax_building_5
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.tax_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.tax_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+
+
+
+# religion
+
+custom_button = {
+	name = DA_mechanics_tax_and_religion_upgrade_3_1
+	tooltip = DA_mechanics_tax_and_religion_upgrade_3_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.religion_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.religion_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.religion_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.religion_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = temple
+                        has_building = cathedral
+                        has_building = DA_religious_building_3
+                        has_building = DA_religious_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.religion_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_tax_and_religion_upgrade_3_2
+	tooltip = DA_mechanics_tax_and_religion_upgrade_3_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.religion_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.religion_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.religion_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.religion_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.religion_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.religion_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = temple
+                        has_building = cathedral
+                        has_building = DA_religious_building_3
+                        has_building = DA_religious_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.religion_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.religion_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_tax_and_religion_upgrade_3_3
+	tooltip = DA_mechanics_tax_and_religion_upgrade_3_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.religion_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.religion_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.religion_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.religion_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.religion_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.religion_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = temple
+                        has_building = cathedral
+                        has_building = DA_religious_building_3
+                        has_building = DA_religious_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.religion_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.religion_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_tax_and_religion_upgrade_3_4
+	tooltip = DA_mechanics_tax_and_religion_upgrade_3_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.religion_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.religion_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.religion_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.religion_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.religion_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.religion_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = temple
+                        has_building = cathedral
+                        has_building = DA_religious_building_3
+                        has_building = DA_religious_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.religion_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.religion_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+# education
+
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_1_1
+	tooltip = DA_mechanics_education_and_government_upgrade_1_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.education_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.education_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.education_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.education_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_education_building_1
+                        has_building = DA_education_building_2
+                        has_building = DA_education_building_3
+                        has_building = university
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.education_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_1_2
+	tooltip = DA_mechanics_education_and_government_upgrade_1_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.education_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.education_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.education_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.education_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.education_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.education_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_education_building_1
+                        has_building = DA_education_building_2
+                        has_building = DA_education_building_3
+                        has_building = university
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.education_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.education_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_1_3
+	tooltip = DA_mechanics_education_and_government_upgrade_1_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.education_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.education_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.education_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.education_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.education_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.education_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_education_building_1
+                        has_building = DA_education_building_2
+                        has_building = DA_education_building_3
+                        has_building = university
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.education_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.education_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_1_4
+	tooltip = DA_mechanics_education_and_government_upgrade_1_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.education_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.education_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.education_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.education_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.education_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.education_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_education_building_1
+                        has_building = DA_education_building_2
+                        has_building = DA_education_building_3
+                        has_building = university
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.education_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.education_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+# innovation event upgrade
+
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_3_2
+	tooltip = DA_mechanics_education_and_government_upgrade_3_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.education_2_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.education_2_1.tt
+        set_country_flag = DA_mechanics_upgrade.education_2_1.flag
+	}
+}
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_3_3
+	tooltip = DA_mechanics_education_and_government_upgrade_3_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.education_2_1.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.education_2_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.education_2_2.tt
+        set_country_flag = DA_mechanics_upgrade.education_2_2.flag
+	}
+}
+
+
+# government
+
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_4_1
+	tooltip = DA_mechanics_education_and_government_upgrade_4_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.government_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.government_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.government_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.government_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = courthouse
+                        has_building = town_hall
+                        has_building = DA_government_building_3
+                        has_building = DA_government_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.government_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_4_2
+	tooltip = DA_mechanics_education_and_government_upgrade_4_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.government_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.government_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.government_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.government_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.government_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.government_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = courthouse
+                        has_building = town_hall
+                        has_building = DA_government_building_3
+                        has_building = DA_government_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.government_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.government_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_4_3
+	tooltip = DA_mechanics_education_and_government_upgrade_4_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.government_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.government_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.government_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.government_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.government_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.government_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = courthouse
+                        has_building = town_hall
+                        has_building = DA_government_building_3
+                        has_building = DA_government_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.government_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.government_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_education_and_government_upgrade_4_4
+	tooltip = DA_mechanics_education_and_government_upgrade_4_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.government_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.government_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.government_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.government_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.government_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.government_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = courthouse
+                        has_building = town_hall
+                        has_building = DA_government_building_3
+                        has_building = DA_government_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.government_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.government_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+
+
+
+# generators
+
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_1_1
+	tooltip = DA_mechanics_infrastructure_upgrade_1_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.generators_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.generators_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.generators_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.generators_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_PS_1
+                        has_building = DA_PS_2
+                        has_building = DA_PS_3
+                        has_building = DA_PS_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.generators_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_1_2
+	tooltip = DA_mechanics_infrastructure_upgrade_1_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.generators_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.generators_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.generators_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.generators_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.generators_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.generators_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_PS_1
+                        has_building = DA_PS_2
+                        has_building = DA_PS_3
+                        has_building = DA_PS_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.generators_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.generators_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_1_3
+	tooltip = DA_mechanics_infrastructure_upgrade_1_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.generators_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.generators_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.generators_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.generators_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.generators_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.generators_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_PS_1
+                        has_building = DA_PS_2
+                        has_building = DA_PS_3
+                        has_building = DA_PS_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.generators_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.generators_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_1_4
+	tooltip = DA_mechanics_infrastructure_upgrade_1_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.generators_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.generators_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.generators_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.generators_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.generators_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.generators_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_PS_1
+                        has_building = DA_PS_2
+                        has_building = DA_PS_3
+                        has_building = DA_PS_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.generators_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.generators_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_2_2
+	tooltip = DA_mechanics_infrastructure_upgrade_2_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.cables_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.cables_2.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.cables_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.cables_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_steam_pipes
+                        has_building = DA_electricity_cables
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.cables_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_2_3
+	tooltip = DA_mechanics_infrastructure_upgrade_2_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.cables_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.cables_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.cables_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.cables_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.cables_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.cables_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_steam_pipes
+                        has_building = DA_electricity_cables
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.cables_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.cables_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+# deposit
+
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_3_1
+	tooltip = DA_mechanics_infrastructure_upgrade_3_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.deposit_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.deposit_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.deposit_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.deposit_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_deposit_building_1
+                        has_building = DA_deposit_building_2
+                        has_building = DA_deposit_building_3
+                        has_building = DA_deposit_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.deposit_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_3_2
+	tooltip = DA_mechanics_infrastructure_upgrade_3_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.deposit_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.deposit_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.deposit_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.deposit_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.deposit_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.deposit_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_deposit_building_1
+                        has_building = DA_deposit_building_2
+                        has_building = DA_deposit_building_3
+                        has_building = DA_deposit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.deposit_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.deposit_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_3_3
+	tooltip = DA_mechanics_infrastructure_upgrade_3_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.deposit_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.deposit_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.deposit_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.deposit_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.deposit_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.deposit_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_deposit_building_1
+                        has_building = DA_deposit_building_2
+                        has_building = DA_deposit_building_3
+                        has_building = DA_deposit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.deposit_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.deposit_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_3_4
+	tooltip = DA_mechanics_infrastructure_upgrade_3_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.deposit_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.deposit_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.deposit_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.deposit_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.deposit_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.deposit_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_deposit_building_1
+                        has_building = DA_deposit_building_2
+                        has_building = DA_deposit_building_3
+                        has_building = DA_deposit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.deposit_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.deposit_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+
+
+# road
+
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_4_1
+	tooltip = DA_mechanics_infrastructure_upgrade_4_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.road_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.road_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.road_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.road_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_road_building_1
+                        has_building = DA_road_building_2
+                        has_building = DA_road_building_3
+                        has_building = DA_road_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.road_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_4_2
+	tooltip = DA_mechanics_infrastructure_upgrade_4_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.road_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.road_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.road_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.road_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.road_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.road_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_road_building_1
+                        has_building = DA_road_building_2
+                        has_building = DA_road_building_3
+                        has_building = DA_road_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.road_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.road_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_4_3
+	tooltip = DA_mechanics_infrastructure_upgrade_4_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.road_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.road_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.road_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.road_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.road_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.road_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_road_building_1
+                        has_building = DA_road_building_2
+                        has_building = DA_road_building_3
+                        has_building = DA_road_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.road_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.road_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_infrastructure_upgrade_4_4
+	tooltip = DA_mechanics_infrastructure_upgrade_4_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.road_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.road_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.road_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.road_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.road_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.road_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_road_building_1
+                        has_building = DA_road_building_2
+                        has_building = DA_road_building_3
+                        has_building = DA_road_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.road_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.road_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+
+# manpower
+
+custom_button = {
+	name = DA_mechanics_army_upgrade_1_1
+	tooltip = DA_mechanics_army_upgrade_1_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.manpower_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.manpower_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.manpower_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.manpower_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = barracks
+                        has_building = training_fields
+                        has_building = DA_manpower_building_3
+                        has_building = DA_manpower_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.manpower_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_1_2
+	tooltip = DA_mechanics_army_upgrade_1_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.manpower_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.manpower_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.manpower_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.manpower_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.manpower_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.manpower_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = barracks
+                        has_building = training_fields
+                        has_building = DA_manpower_building_3
+                        has_building = DA_manpower_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.manpower_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.manpower_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_1_3
+	tooltip = DA_mechanics_army_upgrade_1_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.manpower_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.manpower_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.manpower_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.manpower_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.manpower_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.manpower_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = barracks
+                        has_building = training_fields
+                        has_building = DA_manpower_building_3
+                        has_building = DA_manpower_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.manpower_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.manpower_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_1_4
+	tooltip = DA_mechanics_army_upgrade_1_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.manpower_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.manpower_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.manpower_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.manpower_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.manpower_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.manpower_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = barracks
+                        has_building = training_fields
+                        has_building = DA_manpower_building_3
+                        has_building = DA_manpower_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.manpower_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.manpower_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+
+# forcelimit
+
+custom_button = {
+	name = DA_mechanics_army_upgrade_3_1
+	tooltip = DA_mechanics_army_upgrade_3_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.forcelimit_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.forcelimit_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.forcelimit_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.forcelimit_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = conscription_center
+                        has_building = regimental_camp
+                        has_building = DA_forcelimit_building_3
+                        has_building = DA_forcelimit_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.forcelimit_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_3_2
+	tooltip = DA_mechanics_army_upgrade_3_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.forcelimit_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.forcelimit_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.forcelimit_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.forcelimit_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.forcelimit_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.forcelimit_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = conscription_center
+                        has_building = regimental_camp
+                        has_building = DA_forcelimit_building_3
+                        has_building = DA_forcelimit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.forcelimit_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.forcelimit_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_3_3
+	tooltip = DA_mechanics_army_upgrade_3_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.forcelimit_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.forcelimit_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.forcelimit_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.forcelimit_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.forcelimit_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.forcelimit_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = conscription_center
+                        has_building = regimental_camp
+                        has_building = DA_forcelimit_building_3
+                        has_building = DA_forcelimit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.forcelimit_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.forcelimit_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_3_4
+	tooltip = DA_mechanics_army_upgrade_3_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.forcelimit_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.forcelimit_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.forcelimit_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.forcelimit_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.forcelimit_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.forcelimit_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = conscription_center
+                        has_building = regimental_camp
+                        has_building = DA_forcelimit_building_3
+                        has_building = DA_forcelimit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.forcelimit_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.forcelimit_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+# warforged
+
+custom_button = {
+	name = DA_mechanics_army_upgrade_5_1
+	tooltip = DA_mechanics_army_upgrade_5_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.warforged_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.warforged_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.warforged_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.warforged_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_warforged_building_1
+                        has_building = DA_warforged_building_2
+                        has_building = DA_warforged_building_3
+                        has_building = DA_warforged_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.warforged_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_5_2
+	tooltip = DA_mechanics_army_upgrade_5_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.warforged_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.warforged_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.warforged_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.warforged_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.warforged_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.warforged_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_warforged_building_1
+                        has_building = DA_warforged_building_2
+                        has_building = DA_warforged_building_3
+                        has_building = DA_warforged_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.warforged_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.warforged_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_5_3
+	tooltip = DA_mechanics_army_upgrade_5_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.warforged_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.warforged_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.warforged_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.warforged_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.warforged_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.warforged_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_warforged_building_1
+                        has_building = DA_warforged_building_2
+                        has_building = DA_warforged_building_3
+                        has_building = DA_warforged_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.warforged_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.warforged_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_army_upgrade_5_4
+	tooltip = DA_mechanics_army_upgrade_5_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.warforged_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.warforged_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.warforged_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.warforged_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.warforged_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.warforged_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = DA_warforged_building_1
+                        has_building = DA_warforged_building_2
+                        has_building = DA_warforged_building_3
+                        has_building = DA_warforged_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.warforged_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.warforged_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+
+# sailors
+
+custom_button = {
+	name = DA_mechanics_navy_upgrade_1_1
+	tooltip = DA_mechanics_navy_upgrade_1_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.sailors_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.sailors_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.sailors_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.sailors_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = dock
+                        has_building = drydock
+                        has_building = DA_navy_sailors_building_3
+                        has_building = DA_navy_sailors_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.sailors_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_navy_upgrade_1_2
+	tooltip = DA_mechanics_navy_upgrade_1_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.sailors_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.sailors_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.sailors_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.sailors_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.sailors_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.sailors_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = dock
+                        has_building = drydock
+                        has_building = DA_navy_sailors_building_3
+                        has_building = DA_navy_sailors_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.sailors_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.sailors_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_navy_upgrade_1_3
+	tooltip = DA_mechanics_navy_upgrade_1_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.sailors_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.sailors_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.sailors_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.sailors_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.sailors_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.sailors_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = dock
+                        has_building = drydock
+                        has_building = DA_navy_sailors_building_3
+                        has_building = DA_navy_sailors_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.sailors_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.sailors_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_navy_upgrade_1_4
+	tooltip = DA_mechanics_navy_upgrade_1_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.sailors_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.sailors_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.sailors_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.sailors_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.sailors_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.sailors_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = dock
+                        has_building = drydock
+                        has_building = DA_navy_sailors_building_3
+                        has_building = DA_navy_sailors_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.sailors_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.sailors_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+
+
+
+
+# navy force limit
+
+custom_button = {
+	name = DA_mechanics_navy_upgrade_3_1
+	tooltip = DA_mechanics_navy_upgrade_3_1.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_completed.Mechanics_1 = yes
+        DA_has_mechanics_inno_points_1 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.navy_forcelimit_1.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_1 = yes
+        custom_tooltip = DA_mechanics_upgrade.navy_forcelimit_1.tt
+        tooltip = {
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.navy_forcelimit_1
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.navy_forcelimit_1.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = shipyard
+                        has_building = grand_shipyard
+                        has_building = DA_navy_forcelimit_building_3
+                        has_building = DA_navy_forcelimit_building_4
+                    }
+                }
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.navy_forcelimit_1
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_navy_upgrade_3_2
+	tooltip = DA_mechanics_navy_upgrade_3_2.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.navy_forcelimit_1.flag
+        }
+        DA_completed.Mechanics_2 = yes
+        DA_has_mechanics_inno_points_2 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.navy_forcelimit_2.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_2 = yes
+        custom_tooltip = DA_mechanics_upgrade.navy_forcelimit_2.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_1
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.navy_forcelimit_2
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.navy_forcelimit_2.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = shipyard
+                        has_building = grand_shipyard
+                        has_building = DA_navy_forcelimit_building_3
+                        has_building = DA_navy_forcelimit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_1
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.navy_forcelimit_2
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_navy_upgrade_3_3
+	tooltip = DA_mechanics_navy_upgrade_3_3.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.navy_forcelimit_2.flag
+        }
+        DA_completed.Mechanics_3 = yes
+        DA_has_mechanics_inno_points_3 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.navy_forcelimit_3.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_3 = yes
+        custom_tooltip = DA_mechanics_upgrade.navy_forcelimit_3.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_2
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.navy_forcelimit_3
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.navy_forcelimit_3.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = shipyard
+                        has_building = grand_shipyard
+                        has_building = DA_navy_forcelimit_building_3
+                        has_building = DA_navy_forcelimit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.navy_forcelimit_3
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_mechanics_navy_upgrade_3_4
+	tooltip = DA_mechanics_navy_upgrade_3_4.tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_completed_previous_mechanics_upgrade_tt
+            has_country_flag = DA_mechanics_upgrade.navy_forcelimit_3.flag
+        }
+        DA_completed.Mechanics_4 = yes
+        DA_has_mechanics_inno_points_4 = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_mechanics_upgrade_already_unlocked_tt
+            NOT = {
+                has_country_flag = DA_mechanics_upgrade.navy_forcelimit_4.flag
+            }
+        }
+	}
+	effect = {
+        DA_spend_mechanics_inno_points_4 = yes
+        custom_tooltip = DA_mechanics_upgrade.navy_forcelimit_4.tt
+        tooltip = {
+            remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_3
+            add_permanent_province_modifier = {
+                name = DA_mechanics_upgrade.navy_forcelimit_4
+                duration = -1
+            }
+        }
+        set_country_flag = DA_mechanics_upgrade.navy_forcelimit_4.flag
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        has_building = shipyard
+                        has_building = grand_shipyard
+                        has_building = DA_navy_forcelimit_building_3
+                        has_building = DA_navy_forcelimit_building_4
+                    }
+                }
+                remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_2
+                add_permanent_province_modifier = {
+                    name = DA_mechanics_upgrade.navy_forcelimit_4
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+

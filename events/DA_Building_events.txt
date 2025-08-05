@@ -1193,13 +1193,15 @@ country_event = { #failsafe to auto-build in provinces that was busy with buildi
 	
 	hidden = yes
 	is_triggered_only = yes
-	
-	option = {
-		name = "DA_building_event.103.a"
+	trigger = {
 		OR = { 
 			has_country_flag = auto_build_pipes 
 			has_country_modifier = temp_auto_build_pipes
 		}
+	}
+	
+	option = {
+		name = "DA_building_event.103.a"
 		hidden_effect = {
 			pipes_construct_every_pipe = {
 				speed = 1
@@ -1217,18 +1219,55 @@ country_event = { #failsafe to auto-build in provinces that was busy with buildi
 	
 	hidden = yes
 	is_triggered_only = yes
-	
-	option = {
-		name = "DA_building_event.104.a"
+	trigger = {
 		OR = { 
 			has_country_flag = auto_build_cables 
 			has_country_modifier = temp_auto_build_cables
 		}
+	}
+	
+	option = {
+		name = "DA_building_event.104.a"
 		hidden_effect = {
 			cables_construct_every_cable = {
 				speed = 1
 				cost = 1
 			}
+		}
+	}
+}
+
+
+
+
+
+
+#########################################################
+############## mechanics building events ################
+#########################################################
+
+
+country_event = { #innovation event from mechanics
+	id = DA_building_event.200 		# 
+	title = "DA_building_event.200.t"
+	desc = "DA_building_event.200.d"
+	picture = INVENTION_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_mechanics_upgrade.education_2_1.flag
+	}
+	
+	option = {
+		name = "DA_building_event.200.a"
+		if = {
+			limit = {
+				has_country_flag = DA_mechanics_upgrade.education_2_2.flag
+			}
+			change_innovativeness = 2
+		}
+		else = {
+			change_innovativeness = 1
 		}
 	}
 }

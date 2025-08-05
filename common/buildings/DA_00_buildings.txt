@@ -478,6 +478,14 @@ DA_arcane_appraiser = { # local market, to be renamed
 	modifier = {
 		trade_value_modifier = 0.1
 	}
+	build_trigger = {
+		owner = {
+			custom_trigger_tooltip = {
+				tooltip = DA_must_use_Mechanics_to_Unlock_building.tt
+				has_country_flag = DA_Mechanics_Unlocked_building.appraiser_buildings
+			}
+		}
+	}
 	on_built = {
 		add_development_from_building = {
 			building = DA_arcane_appraiser
@@ -485,11 +493,8 @@ DA_arcane_appraiser = { # local market, to be renamed
 			value = 1
 		}
 		# AKT
-		DA_mechanics_upgrade_applier_4 = {
-			upgrade_1 = appraiser_1
-		#	upgrade_2 = trade_2
-		#	upgrade_3 = trade_3
-		#	upgrade_4 = trade_4
+		DA_mechanics_upgrade_applier_1 = {
+			upgrade_1 = appraiser_2
 		}
 		#Anbennar
 		anbennar_building_effect = yes
@@ -501,7 +506,7 @@ DA_arcane_appraiser = { # local market, to be renamed
 			value = 1
 		}
 		# AKT
-		remove_province_modifier = DA_mechanics_upgrade.appraiser_1
+		remove_province_modifier = DA_mechanics_upgrade.appraiser_2
 		#
 	}
 
@@ -523,6 +528,14 @@ DA_arcane_tech_exchange = { # local market, to be renamed
 	modifier = {
 		trade_value_modifier = 0.25
 	}
+	build_trigger = {
+		owner = {
+			custom_trigger_tooltip = {
+				tooltip = DA_must_use_Mechanics_to_Unlock_building.tt
+				has_country_flag = DA_Mechanics_Unlocked_building.appraiser_buildings
+			}
+		}
+	}
 	on_built = {
 		add_development_from_upgrading_or_building = {
 			building = DA_arcane_tech_exchange
@@ -532,11 +545,8 @@ DA_arcane_tech_exchange = { # local market, to be renamed
 			upgrade_value = 1
 		}
 		# AKT
-		DA_mechanics_upgrade_applier_4 = {
-			upgrade_1 = appraiser_1
-		#	upgrade_2 = trade_2
-		#	upgrade_3 = trade_3
-		#	upgrade_4 = trade_4
+		DA_mechanics_upgrade_applier_1 = {
+			upgrade_1 = appraiser_2
 		}
 		#Anbennar
 		anbennar_building_effect = yes
@@ -548,7 +558,7 @@ DA_arcane_tech_exchange = { # local market, to be renamed
 			value = 2
 		}
 		# AKT
-		remove_province_modifier = DA_mechanics_upgrade.appraiser_1
+		remove_province_modifier = DA_mechanics_upgrade.appraiser_2
 		#
 	}
 
@@ -581,6 +591,13 @@ workshop = {
 			type = production
 			value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = workshop_1
+			upgrade_2 = workshop_2
+			upgrade_3 = workshop_3
+			upgrade_4 = workshop_4
+		}
 		
 		#Anbennar
 		anbennar_building_effect = yes
@@ -611,6 +628,11 @@ workshop = {
 			type = production
 			value = 1
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.workshop_1
+		remove_province_modifier = DA_mechanics_upgrade.workshop_2
+		remove_province_modifier = DA_mechanics_upgrade.workshop_3
+		remove_province_modifier = DA_mechanics_upgrade.workshop_4
 	}
 	on_obsolete = {
 		gronstunad_building_authority_effect = { value = -1 }
@@ -644,6 +666,13 @@ counting_house = {
 			value = 2
 			upgrade_value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = workshop_1
+			upgrade_2 = workshop_2
+			upgrade_3 = workshop_3
+			upgrade_4 = workshop_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -661,6 +690,11 @@ counting_house = {
 			type = production
 			value = 2
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.workshop_1
+		remove_province_modifier = DA_mechanics_upgrade.workshop_2
+		remove_province_modifier = DA_mechanics_upgrade.workshop_3
+		remove_province_modifier = DA_mechanics_upgrade.workshop_4
 	}
 	on_obsolete = {
 	}
@@ -715,6 +749,13 @@ DA_steam_workshop = {
 			}
 		}
 		on_built_production_building_effect = yes
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = workshop_1
+			upgrade_2 = workshop_2
+			upgrade_3 = workshop_3
+			upgrade_4 = workshop_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -732,6 +773,11 @@ DA_steam_workshop = {
 			type = production
 			value = 3
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.workshop_1
+		remove_province_modifier = DA_mechanics_upgrade.workshop_2
+		remove_province_modifier = DA_mechanics_upgrade.workshop_3
+		remove_province_modifier = DA_mechanics_upgrade.workshop_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -800,6 +846,13 @@ DA_electrical_workshop = {
 			}
 		}
 		on_built_production_building_effect = yes
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = workshop_1
+			upgrade_2 = workshop_2
+			upgrade_3 = workshop_3
+			upgrade_4 = workshop_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -823,6 +876,11 @@ DA_electrical_workshop = {
 	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 
 	on_obsolete = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.workshop_1
+		remove_province_modifier = DA_mechanics_upgrade.workshop_2
+		remove_province_modifier = DA_mechanics_upgrade.workshop_3
+		remove_province_modifier = DA_mechanics_upgrade.workshop_4
 	}
 
 	ai_will_do = {
@@ -839,8 +897,8 @@ DA_artisan_building_1 = {
 	build_trigger = {
 		owner = {
 			custom_trigger_tooltip = {
-				tooltip = DA_unlocked.artisan_buildings.tt
-				has_country_flag = DA_Unlocked.artisan_buildings
+				tooltip = DA_must_use_Mechanics_to_Unlock_building.tt
+				has_country_flag = DA_Mechanics_Unlocked_building.artisan_buildings
 			}
 		}
 	}
@@ -849,10 +907,16 @@ DA_artisan_building_1 = {
 	}
 	on_built = {
 		on_built_production_building_effect = yes
+		# AKT
+		DA_mechanics_upgrade_applier_1 = {
+			upgrade_1 = artisan_2
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.artisan_2
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -873,8 +937,8 @@ DA_artisan_building_2 = {
 	build_trigger = {
 		owner = {
 			custom_trigger_tooltip = {
-				tooltip = DA_unlocked.artisan_buildings.tt
-				has_country_flag = DA_Unlocked.artisan_buildings
+				tooltip = DA_must_use_Mechanics_to_Unlock_building.tt
+				has_country_flag = DA_Mechanics_Unlocked_building.artisan_buildings
 			}
 		}
 	}
@@ -884,10 +948,16 @@ DA_artisan_building_2 = {
 	}
 	on_built = {
 		on_built_production_building_effect = yes
+		# AKT
+		DA_mechanics_upgrade_applier_1 = {
+			upgrade_1 = artisan_2
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.artisan_2
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -908,8 +978,8 @@ DA_artisan_building_3 = {
 	build_trigger = {
 		owner = {
 			custom_trigger_tooltip = {
-				tooltip = DA_unlocked.artisan_buildings.tt
-				has_country_flag = DA_Unlocked.artisan_buildings
+				tooltip = DA_must_use_Mechanics_to_Unlock_building.tt
+				has_country_flag = DA_Mechanics_Unlocked_building.artisan_buildings
 			}
 		}
 	}
@@ -919,10 +989,16 @@ DA_artisan_building_3 = {
 	}
 	on_built = {
 		on_built_production_building_effect = yes
+		# AKT
+		DA_mechanics_upgrade_applier_1 = {
+			upgrade_1 = artisan_2
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.artisan_2
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -945,8 +1021,8 @@ DA_assembler_building_1 = {
 	build_trigger = {
 		owner = {
 			custom_trigger_tooltip = {
-				tooltip = DA_unlocked.assembler_buildings.tt
-				has_country_flag = DA_Unlocked.assembler_buildings
+				tooltip = DA_must_use_Mechanics_to_Unlock_building.tt
+				has_country_flag = DA_Mechanics_Unlocked_building.assembler_buildings
 			}
 		}
 		DA_Province_has_arcane_power_or_higher = yes
@@ -956,10 +1032,16 @@ DA_assembler_building_1 = {
 	}
 	on_built = {
 		on_built_production_building_effect = yes
+		# AKT
+		DA_mechanics_upgrade_applier_1 = {
+			upgrade_1 = assembler_2
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.assembler_2
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -980,8 +1062,8 @@ DA_assembler_building_2 = {
 	build_trigger = {
 		owner = {
 			custom_trigger_tooltip = {
-				tooltip = DA_unlocked.assembler_buildings.tt
-				has_country_flag = DA_Unlocked.assembler_buildings
+				tooltip = DA_must_use_Mechanics_to_Unlock_building.tt
+				has_country_flag = DA_Mechanics_Unlocked_building.assembler_buildings
 			}
 		}
 		DA_Province_has_steam_power_or_higher = yes
@@ -991,10 +1073,16 @@ DA_assembler_building_2 = {
 	}
 	on_built = {
 		on_built_production_building_effect = yes
+		# AKT
+		DA_mechanics_upgrade_applier_1 = {
+			upgrade_1 = assembler_2
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.assembler_2
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1015,8 +1103,8 @@ DA_assembler_building_3 = {
 	build_trigger = {
 		owner = {
 			custom_trigger_tooltip = {
-				tooltip = DA_unlocked.assembler_buildings.tt
-				has_country_flag = DA_Unlocked.assembler_buildings
+				tooltip = DA_must_use_Mechanics_to_Unlock_building.tt
+				has_country_flag = DA_Mechanics_Unlocked_building.assembler_buildings
 			}
 		}
 		DA_Province_has_electric_power_or_higher = yes
@@ -1026,10 +1114,16 @@ DA_assembler_building_3 = {
 	}
 	on_built = {
 		on_built_production_building_effect = yes
+		# AKT
+		DA_mechanics_upgrade_applier_1 = {
+			upgrade_1 = assembler_2
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.assembler_2
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1064,6 +1158,13 @@ DA_tax_building_1 = {
 			type = tax
 			value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = tax_1
+			upgrade_2 = tax_2
+			upgrade_3 = tax_3
+			upgrade_4 = tax_4
+		}
 		
 		#Anbennar
 		anbennar_building_effect = yes
@@ -1075,6 +1176,11 @@ DA_tax_building_1 = {
 			type = tax
 			value = 1
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.tax_1
+		remove_province_modifier = DA_mechanics_upgrade.tax_2
+		remove_province_modifier = DA_mechanics_upgrade.tax_3
+		remove_province_modifier = DA_mechanics_upgrade.tax_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1120,6 +1226,13 @@ DA_tax_building_2 = {
 				value = 2
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = tax_1
+			upgrade_2 = tax_2
+			upgrade_3 = tax_3
+			upgrade_4 = tax_4
+		}
 		
 		#Anbennar
 		anbennar_building_effect = yes
@@ -1131,6 +1244,11 @@ DA_tax_building_2 = {
 			type = tax
 			value = 2
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.tax_1
+		remove_province_modifier = DA_mechanics_upgrade.tax_2
+		remove_province_modifier = DA_mechanics_upgrade.tax_3
+		remove_province_modifier = DA_mechanics_upgrade.tax_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1188,6 +1306,13 @@ DA_tax_building_3 = {
 				value = 3
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = tax_1
+			upgrade_2 = tax_2
+			upgrade_3 = tax_3
+			upgrade_4 = tax_4
+		}
 		
 		#Anbennar
 		anbennar_building_effect = yes
@@ -1199,6 +1324,11 @@ DA_tax_building_3 = {
 			type = tax
 			value = 3
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.tax_1
+		remove_province_modifier = DA_mechanics_upgrade.tax_2
+		remove_province_modifier = DA_mechanics_upgrade.tax_3
+		remove_province_modifier = DA_mechanics_upgrade.tax_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1268,6 +1398,13 @@ DA_tax_building_4 = {
 				value = 4
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = tax_1
+			upgrade_2 = tax_2
+			upgrade_3 = tax_3
+			upgrade_4 = tax_4
+		}
 		
 		#Anbennar
 		anbennar_building_effect = yes
@@ -1279,6 +1416,11 @@ DA_tax_building_4 = {
 			type = tax
 			value = 4
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.tax_1
+		remove_province_modifier = DA_mechanics_upgrade.tax_2
+		remove_province_modifier = DA_mechanics_upgrade.tax_3
+		remove_province_modifier = DA_mechanics_upgrade.tax_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1360,6 +1502,13 @@ DA_tax_building_5 = {
 				value = 5
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = tax_1
+			upgrade_2 = tax_2
+			upgrade_3 = tax_3
+			upgrade_4 = tax_4
+		}
 		
 		#Anbennar
 		anbennar_building_effect = yes
@@ -1371,6 +1520,11 @@ DA_tax_building_5 = {
 			type = tax
 			value = 5
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.tax_1
+		remove_province_modifier = DA_mechanics_upgrade.tax_2
+		remove_province_modifier = DA_mechanics_upgrade.tax_3
+		remove_province_modifier = DA_mechanics_upgrade.tax_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -1405,6 +1559,13 @@ temple = {
 			building = temple
 			type = tax
 			value = 1
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = religion_1
+			upgrade_2 = religion_2
+			upgrade_3 = religion_3
+			upgrade_4 = religion_4
 		}
 		
 		#Anbennar
@@ -1504,6 +1665,12 @@ temple = {
 			type = tax
 			value = 1
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.religion_1
+		remove_province_modifier = DA_mechanics_upgrade.religion_2
+		remove_province_modifier = DA_mechanics_upgrade.religion_3
+		remove_province_modifier = DA_mechanics_upgrade.religion_4
+
 		if = {
 			limit = {
 				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
@@ -1606,6 +1773,13 @@ cathedral = {
 				duration = -1
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = religion_1
+			upgrade_2 = religion_2
+			upgrade_3 = religion_3
+			upgrade_4 = religion_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -1673,6 +1847,12 @@ cathedral = {
 			type = tax
 			value = 2 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.religion_1
+		remove_province_modifier = DA_mechanics_upgrade.religion_2
+		remove_province_modifier = DA_mechanics_upgrade.religion_3
+		remove_province_modifier = DA_mechanics_upgrade.religion_4
+
 		if = {
 			limit = {
 				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
@@ -1778,6 +1958,13 @@ DA_religious_building_3 = {
 				duration = -1
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = religion_1
+			upgrade_2 = religion_2
+			upgrade_3 = religion_3
+			upgrade_4 = religion_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -1857,6 +2044,11 @@ DA_religious_building_3 = {
 			}
 		}
 		remove_province_modifier = gov_expanded_temple_rights_mod
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.religion_1
+		remove_province_modifier = DA_mechanics_upgrade.religion_2
+		remove_province_modifier = DA_mechanics_upgrade.religion_3
+		remove_province_modifier = DA_mechanics_upgrade.religion_4
 		#Anbennar
 		Y72_remove_dev_from_building = { #1.35, Chien Binhrung
 			building = cathedral 
@@ -1961,6 +2153,13 @@ DA_religious_building_4 = {
 				duration = -1
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = religion_1
+			upgrade_2 = religion_2
+			upgrade_3 = religion_3
+			upgrade_4 = religion_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -2028,6 +2227,12 @@ DA_religious_building_4 = {
 			type = tax
 			value = 4 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.religion_1
+		remove_province_modifier = DA_mechanics_upgrade.religion_2
+		remove_province_modifier = DA_mechanics_upgrade.religion_3
+		remove_province_modifier = DA_mechanics_upgrade.religion_4
+
 		if = {
 			limit = {
 				FROM = { has_government_attribute = on_church_built_clergy_loyalty }
@@ -2088,6 +2293,13 @@ DA_warforged_building_1 = {
 			type = manpower
 			value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = warforged_1
+			upgrade_2 = warforged_2
+			upgrade_3 = warforged_3
+			upgrade_4 = warforged_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -2098,6 +2310,11 @@ DA_warforged_building_1 = {
 			type = manpower
 			value = 1 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.warforged_1
+		remove_province_modifier = DA_mechanics_upgrade.warforged_2
+		remove_province_modifier = DA_mechanics_upgrade.warforged_3
+		remove_province_modifier = DA_mechanics_upgrade.warforged_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2131,6 +2348,13 @@ DA_warforged_building_2 = {
 			value = 2
 			upgrade_value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = warforged_1
+			upgrade_2 = warforged_2
+			upgrade_3 = warforged_3
+			upgrade_4 = warforged_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -2141,6 +2365,11 @@ DA_warforged_building_2 = {
 			type = manpower
 			value = 2 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.warforged_1
+		remove_province_modifier = DA_mechanics_upgrade.warforged_2
+		remove_province_modifier = DA_mechanics_upgrade.warforged_3
+		remove_province_modifier = DA_mechanics_upgrade.warforged_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2199,6 +2428,13 @@ DA_warforged_building_3 = {
 				value = 3
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = warforged_1
+			upgrade_2 = warforged_2
+			upgrade_3 = warforged_3
+			upgrade_4 = warforged_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -2209,6 +2445,11 @@ DA_warforged_building_3 = {
 			type = manpower
 			value = 3 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.warforged_1
+		remove_province_modifier = DA_mechanics_upgrade.warforged_2
+		remove_province_modifier = DA_mechanics_upgrade.warforged_3
+		remove_province_modifier = DA_mechanics_upgrade.warforged_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2279,6 +2520,13 @@ DA_warforged_building_4 = {
 				value = 4
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = warforged_1
+			upgrade_2 = warforged_2
+			upgrade_3 = warforged_3
+			upgrade_4 = warforged_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -2289,6 +2537,11 @@ DA_warforged_building_4 = {
 			type = manpower
 			value = 4 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.warforged_1
+		remove_province_modifier = DA_mechanics_upgrade.warforged_2
+		remove_province_modifier = DA_mechanics_upgrade.warforged_3
+		remove_province_modifier = DA_mechanics_upgrade.warforged_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2322,6 +2575,13 @@ barracks = {
 
 		update_improved_military_buildings_modifier = { #1.35
 			building = barracks
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = manpower_1
+			upgrade_2 = manpower_2
+			upgrade_3 = manpower_3
+			upgrade_4 = manpower_4
 		}
 
 		#Anbennar
@@ -2371,6 +2631,11 @@ barracks = {
 			type = manpower
 			value = 1
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.manpower_1
+		remove_province_modifier = DA_mechanics_upgrade.manpower_2
+		remove_province_modifier = DA_mechanics_upgrade.manpower_3
+		remove_province_modifier = DA_mechanics_upgrade.manpower_4
 
 		update_improved_military_buildings_modifier = {
 			building = barracks #1.35
@@ -2428,6 +2693,13 @@ training_fields = {
 		update_improved_military_buildings_modifier = { #1.35
 			building = training_fields
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = manpower_1
+			upgrade_2 = manpower_2
+			upgrade_3 = manpower_3
+			upgrade_4 = manpower_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -2459,6 +2731,11 @@ training_fields = {
 		update_improved_military_buildings_modifier = { #1.35
 			building = training_fields
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.manpower_1
+		remove_province_modifier = DA_mechanics_upgrade.manpower_2
+		remove_province_modifier = DA_mechanics_upgrade.manpower_3
+		remove_province_modifier = DA_mechanics_upgrade.manpower_4
 		#Anbennar
 		if = { #Taychendi Empire
 			limit = { FROM =  { has_country_flag = J84_training_fields_flag } }
@@ -2537,6 +2814,13 @@ DA_manpower_building_3 = {
 				value = 3
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = manpower_1
+			upgrade_2 = manpower_2
+			upgrade_3 = manpower_3
+			upgrade_4 = manpower_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -2547,6 +2831,11 @@ DA_manpower_building_3 = {
 			type = manpower
 			value = 3 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.manpower_1
+		remove_province_modifier = DA_mechanics_upgrade.manpower_2
+		remove_province_modifier = DA_mechanics_upgrade.manpower_3
+		remove_province_modifier = DA_mechanics_upgrade.manpower_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2616,6 +2905,13 @@ DA_manpower_building_4 = {
 				value = 4
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = manpower_1
+			upgrade_2 = manpower_2
+			upgrade_3 = manpower_3
+			upgrade_4 = manpower_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -2626,6 +2922,11 @@ DA_manpower_building_4 = {
 			type = manpower
 			value = 4 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.manpower_1
+		remove_province_modifier = DA_mechanics_upgrade.manpower_2
+		remove_province_modifier = DA_mechanics_upgrade.manpower_3
+		remove_province_modifier = DA_mechanics_upgrade.manpower_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2658,6 +2959,13 @@ regimental_camp = {
 			type = manpower
 			value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = forcelimit_1
+			upgrade_2 = forcelimit_2
+			upgrade_3 = forcelimit_3
+			upgrade_4 = forcelimit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -2681,6 +2989,11 @@ regimental_camp = {
 			type = manpower
 			value = 1
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_1
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_2
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_3
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_4
 	}
 	on_obsolete = {
 		gronstunad_building_authority_effect = { value = -2 }
@@ -2725,6 +3038,13 @@ conscription_center = {
 		update_improved_military_buildings_modifier = { #1.35
 			building = conscription_center
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = forcelimit_1
+			upgrade_2 = forcelimit_2
+			upgrade_3 = forcelimit_3
+			upgrade_4 = forcelimit_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -2743,6 +3063,11 @@ conscription_center = {
 			type = manpower
 			value = 2
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_1
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_2
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_3
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_4
 
 		update_improved_military_buildings_modifier = { #1.35
 			building = conscription_center
@@ -2808,6 +3133,13 @@ DA_forcelimit_building_3 = {
 				value = 3
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = forcelimit_1
+			upgrade_2 = forcelimit_2
+			upgrade_3 = forcelimit_3
+			upgrade_4 = forcelimit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
@@ -2817,6 +3149,11 @@ DA_forcelimit_building_3 = {
 			type = manpower
 			value = 3
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_1
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_2
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_3
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2885,6 +3222,13 @@ DA_forcelimit_building_4 = {
 				value = 4
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = forcelimit_1
+			upgrade_2 = forcelimit_2
+			upgrade_3 = forcelimit_3
+			upgrade_4 = forcelimit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
@@ -2894,6 +3238,11 @@ DA_forcelimit_building_4 = {
 			type = manpower
 			value = 4
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_1
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_2
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_3
+		remove_province_modifier = DA_mechanics_upgrade.forcelimit_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -2931,6 +3280,13 @@ shipyard = {
 			type = production
 			value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = navy_forcelimit_1
+			upgrade_2 = navy_forcelimit_2
+			upgrade_3 = navy_forcelimit_3
+			upgrade_4 = navy_forcelimit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 
@@ -2942,6 +3298,11 @@ shipyard = {
 			type = production
 			value = 1
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_1
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_2
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_3
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_4
 	}
 	on_obsolete = {
 		gronstunad_building_authority_effect = { value = -1 }
@@ -2977,6 +3338,13 @@ grand_shipyard = {
 			value = 2
 			upgrade_value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = navy_forcelimit_1
+			upgrade_2 = navy_forcelimit_2
+			upgrade_3 = navy_forcelimit_3
+			upgrade_4 = navy_forcelimit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -2992,6 +3360,12 @@ grand_shipyard = {
 			type = production
 			value = 2
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_1
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_2
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_3
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_4
+
 		if = {
 			limit = { has_province_modifier = sca_swe_danish_shipyard }
 			remove_province_modifier = sca_swe_danish_shipyard
@@ -3057,6 +3431,13 @@ DA_navy_forcelimit_building_3 = {
 				value = 3
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = navy_forcelimit_1
+			upgrade_2 = navy_forcelimit_2
+			upgrade_3 = navy_forcelimit_3
+			upgrade_4 = navy_forcelimit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 
@@ -3068,6 +3449,11 @@ DA_navy_forcelimit_building_3 = {
 			type = production
 			value = 3
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_1
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_2
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_3
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -3140,6 +3526,13 @@ DA_navy_forcelimit_building_4 = {
 				value = 4
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = navy_forcelimit_1
+			upgrade_2 = navy_forcelimit_2
+			upgrade_3 = navy_forcelimit_3
+			upgrade_4 = navy_forcelimit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 
@@ -3151,6 +3544,11 @@ DA_navy_forcelimit_building_4 = {
 			type = production
 			value = 4
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_1
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_2
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_3
+		remove_province_modifier = DA_mechanics_upgrade.navy_forcelimit_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -3186,6 +3584,13 @@ dock = {
 			building = dock
 			type = production
 			value = 1
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = sailors_1
+			upgrade_2 = sailors_2
+			upgrade_3 = sailors_3
+			upgrade_4 = sailors_4
 		}
 		#Anbennar
 		anbennar_building_effect = yes
@@ -3232,6 +3637,12 @@ dock = {
 			type = production
 			value = 1
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.sailors_1
+		remove_province_modifier = DA_mechanics_upgrade.sailors_2
+		remove_province_modifier = DA_mechanics_upgrade.sailors_3
+		remove_province_modifier = DA_mechanics_upgrade.sailors_4
+
 		if = {
 			limit = { has_province_modifier = lizardfolk_imperial_fisheries }
 			remove_province_modifier = lizardfolk_imperial_fisheries
@@ -3316,6 +3727,13 @@ drydock = {
 			value = 2
 			upgrade_value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = sailors_1
+			upgrade_2 = sailors_2
+			upgrade_3 = sailors_3
+			upgrade_4 = sailors_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 
@@ -3347,6 +3765,12 @@ drydock = {
 			type = production
 			value = 2
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.sailors_1
+		remove_province_modifier = DA_mechanics_upgrade.sailors_2
+		remove_province_modifier = DA_mechanics_upgrade.sailors_3
+		remove_province_modifier = DA_mechanics_upgrade.sailors_4
+
 		if = {
 			limit = { has_province_modifier = lizardfolk_imperial_fisheries }
 			remove_province_modifier = lizardfolk_imperial_fisheries
@@ -3409,6 +3833,13 @@ DA_navy_sailors_building_3 = {
 				value = 3
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = sailors_1
+			upgrade_2 = sailors_2
+			upgrade_3 = sailors_3
+			upgrade_4 = sailors_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 
@@ -3420,6 +3851,11 @@ DA_navy_sailors_building_3 = {
 			type = production
 			value = 3
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.sailors_1
+		remove_province_modifier = DA_mechanics_upgrade.sailors_2
+		remove_province_modifier = DA_mechanics_upgrade.sailors_3
+		remove_province_modifier = DA_mechanics_upgrade.sailors_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -3492,6 +3928,13 @@ DA_navy_sailors_building_4 = {
 				value = 4
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = sailors_1
+			upgrade_2 = sailors_2
+			upgrade_3 = sailors_3
+			upgrade_4 = sailors_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 
@@ -3503,6 +3946,11 @@ DA_navy_sailors_building_4 = {
 			type = production
 			value = 4
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.sailors_1
+		remove_province_modifier = DA_mechanics_upgrade.sailors_2
+		remove_province_modifier = DA_mechanics_upgrade.sailors_3
+		remove_province_modifier = DA_mechanics_upgrade.sailors_4
 	}
 
 	on_construction_started = { } #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
@@ -3598,10 +4046,22 @@ DA_road_building_1 = {
 	}
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = road_1
+			upgrade_2 = road_2
+			upgrade_3 = road_3
+			upgrade_4 = road_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.road_1
+		remove_province_modifier = DA_mechanics_upgrade.road_2
+		remove_province_modifier = DA_mechanics_upgrade.road_3
+		remove_province_modifier = DA_mechanics_upgrade.road_4
 	}
 	on_obsolete = {
 	}
@@ -3623,10 +4083,22 @@ DA_road_building_2 = {
 	make_obsolete = DA_road_building_1
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = road_1
+			upgrade_2 = road_2
+			upgrade_3 = road_3
+			upgrade_4 = road_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.road_1
+		remove_province_modifier = DA_mechanics_upgrade.road_2
+		remove_province_modifier = DA_mechanics_upgrade.road_3
+		remove_province_modifier = DA_mechanics_upgrade.road_4
 	}
 	on_obsolete = {
 	}
@@ -3648,10 +4120,22 @@ DA_road_building_3 = {
 	make_obsolete = DA_road_building_2
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = road_1
+			upgrade_2 = road_2
+			upgrade_3 = road_3
+			upgrade_4 = road_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.road_1
+		remove_province_modifier = DA_mechanics_upgrade.road_2
+		remove_province_modifier = DA_mechanics_upgrade.road_3
+		remove_province_modifier = DA_mechanics_upgrade.road_4
 	}
 	on_obsolete = {
 	}
@@ -3673,10 +4157,22 @@ DA_road_building_4 = {
 	make_obsolete = DA_road_building_3
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = road_1
+			upgrade_2 = road_2
+			upgrade_3 = road_3
+			upgrade_4 = road_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.road_1
+		remove_province_modifier = DA_mechanics_upgrade.road_2
+		remove_province_modifier = DA_mechanics_upgrade.road_3
+		remove_province_modifier = DA_mechanics_upgrade.road_4
 	}
 	on_obsolete = {
 	}
@@ -3699,10 +4195,22 @@ DA_deposit_building_1 = {
 	}
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = deposit_1
+			upgrade_2 = deposit_2
+			upgrade_3 = deposit_3
+			upgrade_4 = deposit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.deposit_1
+		remove_province_modifier = DA_mechanics_upgrade.deposit_2
+		remove_province_modifier = DA_mechanics_upgrade.deposit_3
+		remove_province_modifier = DA_mechanics_upgrade.deposit_4
 	}
 	on_obsolete = {
 	}
@@ -3724,10 +4232,22 @@ DA_deposit_building_2 = {
 	make_obsolete = DA_deposit_building_1
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = deposit_1
+			upgrade_2 = deposit_2
+			upgrade_3 = deposit_3
+			upgrade_4 = deposit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.deposit_1
+		remove_province_modifier = DA_mechanics_upgrade.deposit_2
+		remove_province_modifier = DA_mechanics_upgrade.deposit_3
+		remove_province_modifier = DA_mechanics_upgrade.deposit_4
 	}
 	on_obsolete = {
 	}
@@ -3749,10 +4269,22 @@ DA_deposit_building_3 = {
 	make_obsolete = DA_deposit_building_2
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = deposit_1
+			upgrade_2 = deposit_2
+			upgrade_3 = deposit_3
+			upgrade_4 = deposit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.deposit_1
+		remove_province_modifier = DA_mechanics_upgrade.deposit_2
+		remove_province_modifier = DA_mechanics_upgrade.deposit_3
+		remove_province_modifier = DA_mechanics_upgrade.deposit_4
 	}
 	on_obsolete = {
 	}
@@ -3774,10 +4306,22 @@ DA_deposit_building_4 = {
 	make_obsolete = DA_deposit_building_3
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = deposit_1
+			upgrade_2 = deposit_2
+			upgrade_3 = deposit_3
+			upgrade_4 = deposit_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 	}
 	on_destroyed = {
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.deposit_1
+		remove_province_modifier = DA_mechanics_upgrade.deposit_2
+		remove_province_modifier = DA_mechanics_upgrade.deposit_3
+		remove_province_modifier = DA_mechanics_upgrade.deposit_4
 	}
 	on_obsolete = {
 	}
@@ -3800,11 +4344,22 @@ DA_education_building_1 = {
 	modifier = {
 		local_development_cost = -0.025
 		allowed_num_of_buildings = 1
-		DA_fake_research_time_discount = 1
 		local_institution_spread = 0.025
 	}
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = education_1
+			upgrade_2 = education_2
+			upgrade_3 = education_3
+			upgrade_4 = education_4
+		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.education_1
+		remove_province_modifier = DA_mechanics_upgrade.education_2
+		remove_province_modifier = DA_mechanics_upgrade.education_3
+		remove_province_modifier = DA_mechanics_upgrade.education_4
 		#Anbennar
 		anbennar_building_effect = yes
 	}
@@ -3828,11 +4383,22 @@ DA_education_building_2 = {
 	modifier = {
 		local_development_cost = -0.05
 		allowed_num_of_buildings = 1
-		DA_fake_research_time_discount = 1
 		local_institution_spread = 0.05
 	}
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = education_1
+			upgrade_2 = education_2
+			upgrade_3 = education_3
+			upgrade_4 = education_4
+		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.education_1
+		remove_province_modifier = DA_mechanics_upgrade.education_2
+		remove_province_modifier = DA_mechanics_upgrade.education_3
+		remove_province_modifier = DA_mechanics_upgrade.education_4
 		#Anbennar
 		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 1 }
@@ -3857,11 +4423,22 @@ DA_education_building_3 = {
 	modifier = {
 		local_development_cost = -0.10
 		allowed_num_of_buildings = 1
-		DA_fake_research_time_discount = 2
 		local_institution_spread = 0.1
 	}
 
 	on_built = {
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = education_1
+			upgrade_2 = education_2
+			upgrade_3 = education_3
+			upgrade_4 = education_4
+		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.education_1
+		remove_province_modifier = DA_mechanics_upgrade.education_2
+		remove_province_modifier = DA_mechanics_upgrade.education_3
+		remove_province_modifier = DA_mechanics_upgrade.education_4
 		#Anbennar
 		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 2 }
@@ -3883,7 +4460,6 @@ university = {
 	modifier = {
 		local_development_cost = -0.20
 		allowed_num_of_buildings = 1
-		DA_fake_research_time_discount = 2
 		local_institution_spread = 0.15
 	}
 
@@ -3892,6 +4468,13 @@ university = {
 			building = university
 			type = tax
 			value = 2
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = education_1
+			upgrade_2 = education_2
+			upgrade_3 = education_3
+			upgrade_4 = education_4
 		}
 		#Anbennar
 		anbennar_building_effect = yes
@@ -3946,6 +4529,11 @@ university = {
 			type = tax
 			value = 2
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.education_1
+		remove_province_modifier = DA_mechanics_upgrade.education_2
+		remove_province_modifier = DA_mechanics_upgrade.education_3
+		remove_province_modifier = DA_mechanics_upgrade.education_4
 		remove_province_modifier = eduz_ginakku_university
 		dt_community_advancement_institution_spread_effect = yes 
 	}
@@ -3979,43 +4567,6 @@ university = {
 			factor = 2
 			is_capital = yes
 		}
-		modifier = {
-			factor = 0.5
-			OR = {
-				has_climate = tropical
-				has_climate = arid
-			}
-		}
-		modifier = {
-			factor = 0.2
-			has_climate = arctic
-		}
-		modifier = {
-			factor = 1.2
-			OR = {
-				has_terrain = grasslands
-				has_terrain = drylands
-			}
-		}
-		modifier = {
-			factor = 1.3
-			has_terrain = farmlands
-		}
-		modifier = {
-			factor = 2
-			is_year = 1690 # Enlightenment spawns in 1700
-			not = {
-				owner = {
-					has_institution = enlightenment
-				}
-			}
-			not = {
-				provincial_institution_progress = {
-					which = enlightenment
-					value = 20
-				}
-			}
-		}
 	}
 }
 
@@ -4037,6 +4588,13 @@ courthouse = {
 			building = courthouse
 			type = tax
 			value = 1
+		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = government_1
+			upgrade_2 = government_2
+			upgrade_3 = government_3
+			upgrade_4 = government_4
 		}
 		#Anbennar
 		anbennar_building_effect = yes
@@ -4071,6 +4629,11 @@ courthouse = {
 			type = tax
 			value = 1
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.government_1
+		remove_province_modifier = DA_mechanics_upgrade.government_2
+		remove_province_modifier = DA_mechanics_upgrade.government_3
+		remove_province_modifier = DA_mechanics_upgrade.government_4
 	}
 	on_obsolete = {
 		gronstunad_building_authority_effect = { value = -1 }
@@ -4157,6 +4720,13 @@ town_hall = {
 			value = 2
 			upgrade_value = 1
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = government_1
+			upgrade_2 = government_2
+			upgrade_3 = government_3
+			upgrade_4 = government_4
+		}
 		#Anbennar
 		anbennar_building_effect = yes
 		if = {
@@ -4178,6 +4748,11 @@ town_hall = {
 			type = tax
 			value = 2
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.government_1
+		remove_province_modifier = DA_mechanics_upgrade.government_2
+		remove_province_modifier = DA_mechanics_upgrade.government_3
+		remove_province_modifier = DA_mechanics_upgrade.government_4
 	}
 	on_obsolete = {
 	}
@@ -4289,6 +4864,13 @@ DA_government_building_3 = {
 				value = 3
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = government_1
+			upgrade_2 = government_2
+			upgrade_3 = government_3
+			upgrade_4 = government_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -4299,6 +4881,11 @@ DA_government_building_3 = {
 			type = tax
 			value = 3 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.government_1
+		remove_province_modifier = DA_mechanics_upgrade.government_2
+		remove_province_modifier = DA_mechanics_upgrade.government_3
+		remove_province_modifier = DA_mechanics_upgrade.government_4
 	}
 	on_obsolete = {
 	}
@@ -4362,6 +4949,13 @@ DA_government_building_4 = {
 				value = 4
 			}
 		}
+		# AKT
+		DA_mechanics_upgrade_applier_4 = {
+			upgrade_1 = government_1
+			upgrade_2 = government_2
+			upgrade_3 = government_3
+			upgrade_4 = government_4
+		}
 
 		#Anbennar
 		anbennar_building_effect = yes
@@ -4372,6 +4966,11 @@ DA_government_building_4 = {
 			type = tax
 			value = 4 #1.35
 		}
+		# AKT
+		remove_province_modifier = DA_mechanics_upgrade.government_1
+		remove_province_modifier = DA_mechanics_upgrade.government_2
+		remove_province_modifier = DA_mechanics_upgrade.government_3
+		remove_province_modifier = DA_mechanics_upgrade.government_4
 	}
 	on_obsolete = {
 	}
@@ -5183,10 +5782,10 @@ DA_tax_office_manufactory = {
 		paper
 	}
 	modifier = {
-		tax_income = 6
+		tax_income = 8
 	}
 	bonus_modifier = {
-		tax_income = 3
+		tax_income = 4
 	}
 
 	onmap = no

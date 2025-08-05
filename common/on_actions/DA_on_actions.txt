@@ -141,6 +141,7 @@ on_conquest = { # reset exploration level on conquest, unique events can't happe
 			value = 1
 		}
 	}
+	DA_on_conquest_scripted_effect = yes
 	if = {
 		limit = {
 			AND = {
@@ -381,6 +382,15 @@ on_four_year_pulse_4 = {
 	}
 }
 on_bi_yearly_pulse_4 = {
+	random_owned_province = {
+		limit = {
+			DA_has_disease_in_province = yes
+			has_province_modifier = DA_Medicine.Quarantined_province
+		}
+		province_event = {
+			id = DA_Tech_Medicine_event.2
+		}
+	}
 }
 on_thri_yearly_pulse = {
 	random_events  = { #Runesmiths unlocks / perdiodical events 
@@ -445,6 +455,9 @@ on_thri_yearly_pulse_2 = {
 	}
 }
 on_thri_yearly_pulse_3 = {
+	events = {
+		DA_building_event.200
+	}
 }
 on_thri_yearly_pulse_4 = {
 }
