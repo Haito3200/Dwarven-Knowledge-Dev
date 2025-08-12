@@ -1003,3 +1003,173 @@ DA_create_High_tier_shock_general = {
 		clear_saved_name = root_name_female
 	}
 }
+
+
+
+
+DA_create_High_tier_balanced_general = {
+	hidden_effect = {
+		set_saved_name = {
+			key = root_name_male
+			type = advisor
+			scope = ROOT
+		}
+		set_saved_name = {
+			key = root_name_female
+			type = advisor
+			female = yes
+			scope = ROOT
+		}
+		if = {
+			limit = {
+				army_tradition = 0.00
+				NOT = { army_tradition = 20 }
+			}
+			random_list = {
+				50 = {
+					define_general = {
+						fire = 3
+						shock = 4
+						manuever = 3
+						siege = 2
+						trait = $DA_Trait$
+						name = root_name_male
+					}
+				}
+				50 = {
+					define_general = {
+						fire = 3
+						shock = 4
+						manuever = 3
+						siege = 2
+						trait = $DA_Trait$
+						female = yes
+						name = root_name_female
+					}
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				army_tradition = 20
+				NOT = { army_tradition = 40 }
+			}
+			random_list = {
+				50 = {
+					define_general = {
+						fire = 4
+						shock = 5
+						manuever = 4
+						siege = 3
+						trait = $DA_Trait$
+						name = root_name_male
+					}
+				}
+				50 = {
+					define_general = {
+						fire = 4
+						shock = 5
+						manuever = 4
+						siege = 3
+						trait = $DA_Trait$
+						female = yes
+						name = root_name_female
+					}
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				army_tradition = 40
+				NOT = { army_tradition = 60 }
+			}
+			random_list = {
+				50 = {
+					define_general = {
+						fire = 5
+						shock = 6
+						manuever = 5
+						siege = 4
+						trait = $DA_Trait$
+						name = root_name_male
+					}
+				}
+				50 = {
+					define_general = {
+						fire = 5
+						shock = 6
+						manuever = 5
+						siege = 4
+						trait = $DA_Trait$
+						female = yes
+						name = root_name_female
+					}
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				army_tradition = 60
+				NOT = { army_tradition = 80 }
+			}
+			random_list = {
+				50 = {
+					define_general = {
+						fire = 6
+						shock = 6
+						manuever = 5
+						siege = 5
+						trait = $DA_Trait$
+						name = root_name_male
+					}
+				}
+				50 = {
+					define_general = {
+						fire = 6
+						shock = 6
+						manuever = 5
+						siege = 5
+						trait = $DA_Trait$
+						female = yes
+						name = root_name_female
+					}
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				army_tradition = 80
+			}
+			random_list = {
+				50 = {
+					define_general = {
+						fire = 7
+						shock = 7
+						manuever = 5
+						siege = 5
+						trait = $DA_Trait$
+						name = root_name_male
+					}
+				}
+				50 = {
+					define_general = {
+						fire = 7
+						shock = 7
+						manuever = 5
+						siege = 5
+						trait = $DA_Trait$
+						female = yes
+						name = root_name_female
+					}
+				}
+			}
+		}
+			
+		clear_saved_name = root_name_male
+		clear_saved_name = root_name_female
+	}
+}

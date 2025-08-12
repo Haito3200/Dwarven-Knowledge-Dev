@@ -302,7 +302,16 @@ custom_button = {
         always = yes
 	}
 	trigger = {
-        DA_completed.Alchemy_1 = yes
+        if = {
+            limit = {
+                full_idea_group = DA_Alchemy_ideas
+            }
+            DA_completed.Alchemy_1 = yes
+        }
+        else = {
+            DA_completed.Alchemy_2 = yes
+        }
+
         custom_trigger_tooltip = {
             tooltip = DA_alchemy_not_in_use_tt
             NOT = { has_country_flag = DA_alchemy_in_use }
@@ -341,7 +350,16 @@ custom_button = {
         always = yes
 	}
 	trigger = {
-        DA_completed.Alchemy_2 = yes
+        if = {
+            limit = {
+                full_idea_group = DA_Alchemy_ideas
+            }
+            DA_completed.Alchemy_2 = yes
+        }
+        else = {
+            DA_completed.Alchemy_4 = yes
+        }
+        
         custom_trigger_tooltip = {
             tooltip = DA_alchemy_not_in_use_tt
             NOT = { has_country_flag = DA_alchemy_in_use }
@@ -380,7 +398,18 @@ custom_button = {
         always = yes
 	}
 	trigger = {
-        DA_completed.Alchemy_4 = yes
+        if = {
+            limit = {
+                full_idea_group = DA_Alchemy_ideas
+            }
+            DA_completed.Alchemy_4 = yes
+        }
+        else = {
+            custom_trigger_tooltip = {
+                tooltip = DA_you_need_to_have_the_alchemy_idea_group
+                always = no
+            }
+        }
         custom_trigger_tooltip = {
             tooltip = DA_alchemy_not_in_use_tt
             NOT = { has_country_flag = DA_alchemy_in_use }

@@ -66,7 +66,7 @@ DA_Magma_Forge = {
 		country_modifiers = {
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Magma_Forge_T1_tt
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
 		}
 	}
 	tier_2 = {
@@ -89,7 +89,7 @@ DA_Magma_Forge = {
 		country_modifiers = {
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Magma_Forge_T2_tt
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
 		}
 	}
 	tier_3 = {
@@ -118,7 +118,7 @@ DA_Magma_Forge = {
 			DA_fake_metal_strength_adder = 1
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Magma_Forge_T3_tt
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
 		}
 	}
 }
@@ -189,7 +189,7 @@ DA_Titanium_Vault = {
 			innovativeness_gain = 0.10
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Magma_Forge_T1_tt
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
 		}
 	}
 	tier_2 = {
@@ -210,7 +210,7 @@ DA_Titanium_Vault = {
 			innovativeness_gain = 0.20
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Magma_Forge_T2_tt
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
 		}
 	}
 	tier_3 = {
@@ -231,7 +231,7 @@ DA_Titanium_Vault = {
 			innovativeness_gain = 0.30
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Magma_Forge_T3_tt
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
 		}
 	}
 }
@@ -250,6 +250,881 @@ DA_Argrastun_Cathedral = {
 		custom_trigger_tooltip = {
 			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
 			has_province_flag = DA_Argrastun_Cathedral_found
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {		
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_development_cost = -0.05
+		}
+		area_modifier = {
+			local_unrest = -1
+		}
+		country_modifiers = {
+			diplomatic_reputation = 0.25
+			global_missionary_strength = 0.005
+			church_power_modifier = 0.10
+		}
+		on_upgraded = {
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_development_cost = -0.10
+		}
+		area_modifier = {
+			local_unrest = -3
+		}
+		country_modifiers = {
+			diplomatic_reputation = 0.5
+			global_missionary_strength = 0.01
+			church_power_modifier = 0.25
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_development_cost = -0.15
+		}
+		area_modifier = {
+			local_unrest = -5
+		}
+		country_modifiers = {
+			diplomatic_reputation = 1
+			missionaries = 1
+			global_missionary_strength = 0.02
+			church_power_modifier = 0.50
+		}
+		on_upgraded = {
+		}
+	}
+}
+
+
+#new / reworked
+
+DA_Ancient_Research_facility1 = {
+	start = 4119
+	date = 2023.03.31
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Halanna_heart_found
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {		
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 4000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 10000
+		}
+		province_modifiers = {	
+			local_state_maintenance_modifier = 0.50
+			local_great_project_upgrade_cost = 0.10
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			technology_cost = -0.025
+			idea_cost = -0.025
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			hidden_effect = {
+				owner = {
+					country_event = { 
+						id = DA_Halanna_heart.1
+					}
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 25000
+		}
+		province_modifiers = {	
+			local_state_maintenance_modifier = 1.00
+			local_great_project_upgrade_cost = 0.15
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			technology_cost = -0.05
+			idea_cost = -0.05
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			hidden_effect = {
+				owner = {
+					country_event = { 
+						id = DA_Halanna_heart.2
+					}
+				}
+			}
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 480
+		}
+		cost_to_upgrade = {
+			factor = 50000
+		}
+		province_modifiers = {	
+			local_state_maintenance_modifier = 2.00
+			local_great_project_upgrade_cost = 0.20
+		}
+		area_modifier = {
+			
+		}
+		country_modifiers = {
+			technology_cost = -0.1
+			idea_cost = -0.1
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			hidden_effect = {
+				owner = {
+					country_event = { 
+						id = DA_Halanna_heart.3
+					}
+				}
+			}
+			change_trade_goods = damestear
+			custom_tooltip = DA_permanent_Damestear
+			hidden_effect = {
+				set_province_flag = permanent_damestear
+				province_event = {
+					id = DA_Amldihr_Authority_event.2
+					days = 30
+				}
+			}
+		}
+	}
+}
+
+
+#The MIthril Workshop 
+The_Dwarven_Workshop = {
+	start = 4236
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Mithril_workshop_found
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {		
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 12
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 3000
+		}
+		province_modifiers = {
+			local_manpower_modifier = 0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			DA_fake_warforged_infantry_force_limit = 5
+			yearly_army_professionalism = 0.0005
+			army_tradition = 0.25
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_manpower_modifier = 0.2
+		}
+		area_modifier = {
+			local_manpower_modifier = 0.1
+		}
+		country_modifiers = {
+			DA_fake_warforged_infantry_force_limit = 10
+			yearly_army_professionalism = 0.001
+			army_tradition = 0.5
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 480
+		}
+		cost_to_upgrade = {
+			factor = 15000
+		}
+		province_modifiers = {
+			local_manpower_modifier = 0.25
+		}
+		area_modifier = {
+			local_manpower_modifier = 0.15
+		}
+		country_modifiers = {
+			DA_fake_warforged_infantry_force_limit = 20
+			yearly_army_professionalism = 0.002
+			army_tradition = 1
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+}
+
+#The observatory
+The_Sky_Hold = {
+	start = 4020
+	date = 1700.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_dur_vaz_blueprints_found
+		}
+	}
+	on_built = {		
+	}
+	on_destroyed = {		
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 24
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			
+		}
+		on_upgraded = {
+			hidden_effect = {
+				province_event = {
+					id = DA_Dur_Vazhatun_event.1
+				}
+			}
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 3000
+		}
+		province_modifiers = {	
+			local_development_cost = -0.10
+			local_unrest = 2
+		}
+		area_modifier = {
+			local_institution_spread = 0.2
+		}
+		country_modifiers = {
+			technology_cost = -0.025
+		}
+		on_upgraded = {
+			hidden_effect = {
+				province_event = {
+					id = DA_Dur_Vazhatun_event.2
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 180
+		}
+		cost_to_upgrade = {
+			factor = 8000
+		}
+		province_modifiers = {	
+			local_development_cost = -0.20
+			local_unrest = 4
+		}
+		area_modifier = {
+			local_institution_spread = 0.4
+		}
+		country_modifiers = {
+			technology_cost = -0.05
+			monthly_splendor = 1
+		}
+		on_upgraded = {
+			hidden_effect = {
+				province_event = {
+					id = DA_Dur_Vazhatun_event.3
+				}
+			}
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 15000
+		}
+		province_modifiers = {	
+			local_development_cost = -0.30
+			local_unrest = 6
+		}
+		area_modifier = {
+			local_institution_spread = 0.8
+		}
+		country_modifiers = {
+			technology_cost = -0.075
+			monthly_splendor = 2
+		}
+		on_upgraded = {
+			hidden_effect = {
+				province_event = {
+					id = DA_Dur_Vazhatun_event.4
+				}
+			}
+		}
+	}
+}
+#The Ducaniel laboratory
+The_Dwarven_Laboratory = {
+	start = 2963
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {	
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Ducaniel_lab_found
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {		
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 3000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = {
+				province_event = {
+					id = DA_Hul_Jorkad_event.1
+				}	
+			}
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 5000
+		}
+		province_modifiers = {	
+			local_development_cost = -0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			innovativeness_gain = 0.20
+		}
+		on_upgraded = {
+			owner = { 
+				change_innovativeness = 2
+			}
+			change_trade_goods = precursor_relics
+			custom_tooltip = DA_permanent_precursor_relics
+			hidden_effect = {
+				set_province_flag = permanent_precursor_relics
+				province_event = {
+					id = DA_Hul_Jorkad_event.2
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 15000
+		}
+		province_modifiers = {	
+			local_development_cost = -0.2
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			innovativeness_gain = 1.00
+		}
+		on_upgraded = {
+			owner = { 
+				change_innovativeness = 5
+			}
+			hidden_effect = {
+				province_event = {
+					id = DA_Hul_Jorkad_event.3
+				}
+			}
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 480
+		}
+		cost_to_upgrade = {
+			factor = 30000
+		}
+		province_modifiers = {	
+			local_development_cost = -0.4
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			innovativeness_gain = 1.50
+		}
+		on_upgraded = {
+			owner = { 
+				change_innovativeness = 10
+			}
+			hidden_effect = {
+				province_event = {
+					id = DA_Hul_Jorkad_event.4
+				}
+			}
+		}
+	}
+}
+
+
+DA_Railway_HQ = {
+	start = 2931 
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Railway_HQ_found
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {		
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_development_cost = -0.05
+		}
+		area_modifier = {
+			local_unrest = -1
+		}
+		country_modifiers = {
+			diplomatic_reputation = 0.25
+			global_missionary_strength = 0.005
+			church_power_modifier = 0.10
+		}
+		on_upgraded = {
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_development_cost = -0.10
+		}
+		area_modifier = {
+			local_unrest = -3
+		}
+		country_modifiers = {
+			diplomatic_reputation = 0.5
+			global_missionary_strength = 0.01
+			church_power_modifier = 0.25
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_development_cost = -0.15
+		}
+		area_modifier = {
+			local_unrest = -5
+		}
+		country_modifiers = {
+			diplomatic_reputation = 1
+			missionaries = 1
+			global_missionary_strength = 0.02
+			church_power_modifier = 0.50
+		}
+		on_upgraded = {
+		}
+	}
+}
+
+
+DA_Exoskeletons_Workshop = {
+	start = 2868 
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Railway_HQ_found
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {		
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_development_cost = -0.05
+		}
+		area_modifier = {
+			local_unrest = -1
+		}
+		country_modifiers = {
+			diplomatic_reputation = 0.25
+			global_missionary_strength = 0.005
+			church_power_modifier = 0.10
+		}
+		on_upgraded = {
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_development_cost = -0.10
+		}
+		area_modifier = {
+			local_unrest = -3
+		}
+		country_modifiers = {
+			diplomatic_reputation = 0.5
+			global_missionary_strength = 0.01
+			church_power_modifier = 0.25
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_development_cost = -0.15
+		}
+		area_modifier = {
+			local_unrest = -5
+		}
+		country_modifiers = {
+			diplomatic_reputation = 1
+			missionaries = 1
+			global_missionary_strength = 0.02
+			church_power_modifier = 0.50
+		}
+		on_upgraded = {
+		}
+	}
+}
+
+
+DA_Earth_Shatterer = {
+	start = 2868 
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Earth_Shatterer_found
 		}
 	}
 	on_built = {

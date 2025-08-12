@@ -1,0 +1,472 @@
+# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
+
+
+
+# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
+#custom_button = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the button is visible
+#    trigger = { } #Determines when the button is clickable
+#    effect = { } #Effect
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_text_box = {
+#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
+#    potential = { } #Determines when the text is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    #To localize it, use the name of the button as a key, can also use customizable localisation
+#}
+
+#custom_icon = {
+#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
+#    potential = { } #Determines when the icon is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_shield = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the shield is visible
+#    trigger = { } #Determines when the shield is clickable
+#    effect = { } #Effect for clicking
+#    tooltip = localisation_key #Can use customizable localisation
+#    global_event_target = <string> # Global event target name
+#    open_country = <bool> #If clicking opens the country view
+#}
+
+##############################  Supported files with scopes ##############################
+#   The Gui objects must be directly inside the specified window Gui element!
+#   FROM is always the country that clicks
+#   provinceview.gui:
+#       province_window         (ROOT: Clicked province)
+#       buildings_window        (ROOT: Clicked province)
+#       state_window            (ROOT: Clicked province)
+#   countrycourtview.gui:
+#       countrycourtview        (ROOT = FROM)
+#   countrygovernmentview.gui:
+#       countrygovernmentview   (ROOT = FROM)
+#   countrydiplomacyview.gui:
+#       countrydiplimacyview    (ROOT: Selected country)
+#   countryeconomyview.gui:
+#       countryeconomyview      (ROOT = FROM)
+#   countrytradeview.gui:
+#       countrytradeview        (ROOT = FROM)
+#   countrytechnologyview.gui:
+#       countrytechnologyview   (ROOT = FROM)
+#   countryideasview.gui:
+#       countryideasview        (ROOT = FROM)
+#   countrymissionsview.gui:
+#       countrymissionsview     (ROOT: Selected country)
+#   countrydecisionview.gui:
+#       countrydecisionsview    (ROOT = FROM)
+#   countrystabilityview.gui:
+#       countrystabilityview    (ROOT = FROM)
+#   countryreligionview.gui:
+#       countryreligionview     (ROOT = FROM)
+#   countrymilitaryview.gui:
+#       countrymilitaryview     (ROOT = FROM)
+#   countrysubjectsview.gui:
+#       countrysubjectview      (ROOT = FROM)
+#   countryestatesview.gui:
+#       countryestatesview      (ROOT = FROM)
+#   ages_view.gui:
+#       ages_view               (ROOT = FROM)
+#   tradeinterface.gui:
+#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
+#   hre.gui:
+#       hre_window              (ROOT = FROM)
+#   papacy.gui:
+#       papacy_window           (ROOT = FROM)
+#   faction.gui:
+#       All faction windows     (ROOT = FROM)
+#   celestialempireview.gui:
+#       celestial_window        (ROOT = FROM)
+#   countrynativesview.gui:
+#       natives_window          (ROOT = FROM)
+#   religiousreforms.gui:
+#       reforms_window          (ROOT = FROM)
+#   parliament.gui:
+#       parliament_window       (ROOT = FROM)
+
+
+
+
+
+
+
+# magma forge
+
+
+custom_window = {
+    name = DA_The_Dwarven_Workshop_Window
+    potential = {
+        has_country_flag = DA_Metallurgy_interface_on_wonders
+        has_country_flag = DA_show_wonder_The_Dwarven_Workshop
+    }
+}
+
+custom_button = {
+	name = DA_close_button_The_Dwarven_Workshop
+	tooltip = DA_Wonder_close_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_wonder_The_Dwarven_Workshop
+	}
+}
+
+custom_icon = {
+    name = DA_The_Dwarven_Workshop_Wonder_image
+    potential = {
+		always = yes
+    }
+}
+
+custom_text_box = {
+    name = DA_The_Dwarven_Workshop_name_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_The_Dwarven_Workshop_name_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_The_Dwarven_Workshop_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_The_Dwarven_Workshop_dwarven_name_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = DA_The_Dwarven_Workshop_upgrade_button
+	tooltip = DA_Wonder_upgrade_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_The_Dwarven_Workshop_in_use }
+		}
+		4236 = {
+			owned_by = prev
+			has_great_project = {
+				type = The_Dwarven_Workshop
+				tier = 0
+			}
+		}
+		if = {
+			limit = {
+				4236 = {
+					AND = {
+						has_great_project = {
+							type = The_Dwarven_Workshop
+							tier = 0
+						}
+						NOT = { has_great_project = { type = The_Dwarven_Workshop tier = 1 } }
+					}
+				}
+			}
+			4236 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_4_or_higher
+					DA_has_dig_level_4_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = {
+				amount = 10
+			}
+			DA_enchanted_building_material_total_required = {
+				amount = 10
+			}
+			DA_arcane_metal_total_required = {
+				amount = 10
+			}
+			treasury = 1600
+		}
+		if = {
+			limit = {
+				4236 = {
+					AND = {
+						has_great_project = {
+							type = The_Dwarven_Workshop
+							tier = 1
+						}
+						NOT = { has_great_project = { type = The_Dwarven_Workshop tier = 2 } }
+					}
+				}
+			}
+			4236 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_6_or_higher
+					DA_has_dig_level_6_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = {
+				amount = 20
+			}
+			DA_enchanted_building_material_total_required = {
+				amount = 20
+			}
+			DA_arcane_metal_total_required = {
+				amount = 20
+			}
+			treasury = 3750
+		}
+		if = {
+			limit = {
+				4236 = {
+					AND = {
+						has_great_project = {
+							type = The_Dwarven_Workshop
+							tier = 2
+						}
+						NOT = { has_great_project = { type = The_Dwarven_Workshop tier = 3 } }
+					}
+				}
+			}
+			4236 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_8_or_higher
+					DA_has_dig_level_8_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = {
+				amount = 40
+			}
+			DA_enchanted_building_material_total_required = {
+				amount = 40
+			}
+			DA_arcane_metal_total_required = {
+				amount = 40
+			}
+			treasury = 7500
+		}
+		if = {
+			limit = {
+				4236 = {
+					has_great_project = {
+						type = The_Dwarven_Workshop
+						tier = 3
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Maxed_wonder_tt
+				always = no
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				4236 = {
+					AND = {
+						has_great_project = {
+							type = The_Dwarven_Workshop
+							tier = 0
+						}
+						NOT = { has_great_project = { type = The_Dwarven_Workshop tier = 1 } }
+					}
+				}
+			}
+			DA_alchemy_reagents_spend = {
+				amount = 10
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 10
+			}
+			DA_arcane_metal_spend = {
+				amount = 10
+			}
+			add_treasury = -1600
+			4236 = {
+				add_great_project_tier = {
+					type = The_Dwarven_Workshop
+					tier = 1
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_Mithradum_event.2
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				4236 = {
+					AND = {
+						has_great_project = {
+							type = The_Dwarven_Workshop
+							tier = 1
+						}
+						NOT = { has_great_project = { type = The_Dwarven_Workshop tier = 2 } }
+					}
+				}
+			}
+			DA_alchemy_reagents_spend = {
+				amount = 20
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 20
+			}
+			DA_arcane_metal_spend = {
+				amount = 20
+			}
+			add_treasury = -3750
+			4236 = {
+				add_great_project_tier = {
+					type = The_Dwarven_Workshop
+					tier = 1
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_Mithradum_event.3
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				4236 = {
+					AND = {
+						has_great_project = {
+							type = The_Dwarven_Workshop
+							tier = 2
+						}
+						NOT = { has_great_project = { type = The_Dwarven_Workshop tier = 3 } }
+					}
+				}
+			}
+			DA_alchemy_reagents_spend = {
+				amount = 40
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 40
+			}
+			DA_arcane_metal_spend = {
+				amount = 40
+			}
+			add_treasury = -7500
+			4236 = {
+				add_great_project_tier = {
+					type = The_Dwarven_Workshop
+					tier = 1
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_Mithradum_event.4
+				}
+			}
+		}
+	}
+}
+
+custom_text_box = {
+    name = DA_The_Dwarven_Workshop_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_The_Dwarven_Workshop_Wonder_level_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_The_Dwarven_Workshop_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_The_Dwarven_Workshop_Wonder_location_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+
+custom_button = {
+	name = DA_The_Dwarven_Workshop_button_training
+	tooltip = DA_The_Dwarven_Workshop_button_training_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		owns = 4236
+		4236 = {
+			has_great_project = {
+				type = The_Dwarven_Workshop
+				tier = 1
+			}
+		}
+		mil_power = 50
+	}
+	effect = {
+		country_event = {
+			id = DA_Mithradum_event.1
+		}
+	}
+}
+
+custom_button = {
+	name = DA_The_Dwarven_Workshop_button_general
+	tooltip = DA_The_Dwarven_Workshop_button_general_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		owns = 4236
+		4236 = {
+			has_great_project = {
+				type = The_Dwarven_Workshop
+				tier = 2
+			}
+		}
+		treasury = 750
+		mil_power = 75
+		check_variable = {
+			ancientDwarvenKnowledge = 7
+		}
+	}
+	effect = {
+		add_treasury = -750
+		add_mil_power = -75
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 7 } }
+		custom_tooltip = DA_cost_7_ADK
+		DA_create_High_tier_balanced_general = {
+			DA_Trait = Mithril_Class_Rune_Mage_general_personality
+		}
+	}
+}
+custom_icon = {
+    name = DA_The_Dwarven_Workshop_panel_mithril
+    potential = {
+		owns = 4236
+		4236 = {
+			has_great_project = {
+				type = The_Dwarven_Workshop
+				tier = 3
+			}
+		}
+    }
+}
+
+
+custom_text_box = {
+    name = DA_The_Dwarven_Workshop_mithril_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = {
+		owns = 4236
+		4236 = {
+			has_great_project = {
+				type = The_Dwarven_Workshop
+				tier = 3
+			}
+		}
+	} #Determines when the text is visible
+    tooltip = DA_The_Dwarven_Workshop_mithril_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
