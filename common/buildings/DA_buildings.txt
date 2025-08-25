@@ -308,13 +308,142 @@ DA_Reinforced_capital = {
 	on_construction_canceled = { } #Fires when you cancel the construction, ROOT - Province FROM - Country that canceled 1.25
 }
 
+
+DA_railway_work = {
+	cost = 30
+	time = 18
+
+
+	build_trigger = {
+		has_terrain = dwarven_road
+		NOT = { has_province_modifier = dwarovar_rail }
+		owner = {
+			has_country_flag = DA_can_upgrade_rails
+		}
+		DA_upgradable_railway_province = yes
+	}
+
+	modifier = {
+		allowed_num_of_buildings = 1
+	}
+
+	on_built = {
+		hidden_effect = {
+			remove_building = DA_railway_work
+			remove_province_modifier = DA_rail_faster_mod_1
+			remove_province_modifier = DA_rail_trade_mod_1
+			remove_province_modifier = DA_rail_traps_mod_1
+			remove_province_modifier = DA_rail_supply_mod_1
+			remove_province_modifier = DA_rail_faster_mod_2
+			remove_province_modifier = DA_rail_trade_mod_2
+			remove_province_modifier = DA_rail_traps_mod_2
+			remove_province_modifier = DA_rail_supply_mod_2
+			if = {
+				limit = { 
+					owner = {
+						has_country_flag = DA_rail_faster1_c
+						NOT = { has_country_flag = DA_rail_faster2_c }
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_rail_faster_mod_1
+					duration = -1
+				}
+			}
+			if = {
+				limit = { 
+					owner = {
+						has_country_flag = DA_rail_trade1_c
+						NOT = { has_country_flag = DA_rail_trade2_c }
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_rail_trade_mod_1
+					duration = -1
+				}
+			}
+			if = {
+				limit = { 
+					owner = {
+						has_country_flag = DA_rail_traps1_c
+						NOT = { has_country_flag = DA_rail_traps2_c }
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_rail_traps_mod_1
+					duration = -1
+				}
+			}
+			if = {
+				limit = { 
+					owner = {
+						has_country_flag = DA_rail_supply1_c
+						NOT = { has_country_flag = DA_rail_supply2_c }
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_rail_supply_mod_1
+					duration = -1
+				}
+			}
+			if = {
+				limit = { 
+					owner = {
+						has_country_flag = DA_rail_faster2_c
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_rail_faster_mod_2
+					duration = -1
+				}
+			}
+			if = {
+				limit = { 
+					owner = {
+						has_country_flag = DA_rail_trade2_c
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_rail_trade_mod_2
+					duration = -1
+				}
+			}
+			if = {
+				limit = { 
+					owner = {
+						has_country_flag = DA_rail_traps2_c
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_rail_traps_mod_2
+					duration = -1
+				}
+			}
+			if = {
+				limit = { 
+					owner = {
+						has_country_flag = DA_rail_supply2_c
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_rail_supply_mod_2
+					duration = -1
+				}
+			}
+		}
+    }
+
+	ai_will_do = {
+		factor = 200
+	}
+}
+
 DA_railway_Restoration = {
 	cost = 15
 	time = 12
 
 
 	build_trigger = {
-		has_terrain = dwarven_road
 		has_province_modifier = dwarovar_rail
 		owner = {
 			DA_completed.Mechanics_2 = yes
@@ -397,7 +526,6 @@ DA_railway_Advancement = {
 
 
 	build_trigger = {
-		has_terrain = dwarven_road
 		has_province_modifier = restored_rail
 		owner = {
 			DA_completed.Mechanics_3 = yes
@@ -470,6 +598,73 @@ DA_railway_Advancement = {
 
 	ai_will_do = {
 		factor = 200
+	}
+}
+
+DA_turrets_of_orldhum_applier = {
+	cost = 50
+	time = 18
+
+
+	build_trigger = {
+	}
+
+	modifier = {
+	}
+
+	on_built = {
+		remove_building = DA_turrets_of_orldhum_applier
+		if = {
+			limit = {
+				NOT = { has_province_modifier = DA_HO_Turrets4 }
+			}
+			if = {
+				limit = {
+					has_province_modifier = DA_HO_Turrets3
+				}
+				remove_province_modifier = DA_HO_Turrets3
+				add_permanent_province_modifier = {
+					name = DA_HO_Turrets4
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_province_modifier = DA_HO_Turrets2
+				}
+				remove_province_modifier = DA_HO_Turrets2
+				add_permanent_province_modifier = {
+					name = DA_HO_Turrets3
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_province_modifier = DA_HO_Turrets
+				}
+				remove_province_modifier = DA_HO_Turrets
+				add_permanent_province_modifier = {
+					name = DA_HO_Turrets2
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { has_province_modifier = DA_HO_Turrets4 }
+					NOT = { has_province_modifier = DA_HO_Turrets3 }
+					NOT = { has_province_modifier = DA_HO_Turrets2 }
+					NOT = { has_province_modifier = DA_HO_Turrets }
+				}
+				add_permanent_province_modifier = {
+					name = DA_HO_Turrets
+					duration = -1
+				}
+			}
+		}
+    }
+
+	ai_will_do = {
+		factor = 0
 	}
 }
 

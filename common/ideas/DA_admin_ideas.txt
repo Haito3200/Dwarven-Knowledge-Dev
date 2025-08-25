@@ -5,931 +5,6 @@
 # applied science
 # Approach to science
 
-innovativeness_ideas = {
-	category = ADM
-
-	bonus = {
-		advisor_cost = -0.15 #1.35
-		artificers_loyalty_modifier = 0.1	#Anbennar
-	}
-
-	trigger = {
-		NOT = { has_idea_group = DA_applied_science_ideas }
-		NOT = { has_idea_group = DA_Obscurantism_ideas }
-	}
-	patron_of_art  = {
-		prestige_decay = -0.01
-	}
-	empiricism = {
-		innovativeness_gain = 0.5
-	}
-	scientific_revolution = {
-		technology_cost = -0.075
-		embracement_cost = -0.1
-	}
-	dynamic_court = {
-		diplomatic_reputation = 1
-		advisor_pool = 1
-	}
-	print_culture = {
-		global_institution_spread = 0.25
-	}
-	optimism = {
-		war_exhaustion = -0.05
-		monthly_splendor = 1 #1.35
-	}
-	expanded_policies = {
-		free_adm_policy = 1
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 0.55
-		modifier = {
-			factor = 1.25
-			has_reform = steppe_horde
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { monthly_adm = 8 }
-		}
-		modifier = {
-			factor = 1.25
-			innovativeness = 40
-			NOT = { is_year = 1650 }
-		}
-		modifier = {
-			factor = 1.25
-			OR = { 
-				ruler_has_personality = scholar_personality 
-				ruler_has_personality = free_thinker_personality
-				in_golden_age = yes 	
-			}
-		}
-		modifier = {
-			factor = 1.1
-			personality = ai_capitalist
-		}
-		modifier = {
-			factor = 1.25
-			OR = {
-				has_idea_group = economic_ideas 
-				has_idea_group = offensive_ideas 
-				has_idea_group = naval_ideas
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_year = 1700 
-				innovativeness = 80
-			}
-		}
-	}
-}
-
-DA_applied_science_ideas = {
-	category = ADM
-
-	bonus = {
-		expand_infrastructure_cost_modifier = -0.5
-	}
-
-	trigger = {
-		NOT = { has_idea_group = innovativeness_ideas }
-		NOT = { has_idea_group = DA_Obscurantism_ideas }
-	}
-
-	DA_applied_science_ideas1 = {
-		build_cost = -0.075
-	}
-	DA_applied_science_ideas2 = {
-		manpower_recovery_speed = 0.05
-		DA_fake_medicine_illness_spawn_chance_counter = 5
-	}
-	DA_applied_science_ideas3  = {
-		build_time = -0.10
-	}
-	DA_applied_science_ideas4 = {
-		innovativeness_gain = 0.25
-		advisor_pool = 1
-	}
-	DA_applied_science_ideas5 = {
-		idea_cost = -0.05
-	}
-	DA_applied_science_ideas6 = {
-		production_efficiency = 0.125
-		legitimacy = -0.25
-		horde_unity = -0.25
-		devotion = -0.25
-		republican_tradition = -0.1
-	}
-	DA_applied_science_ideas7 = {
-		global_institution_spread = 0.2
-	}
-
-	ai_will_do = {
-		factor = 1.05
-	}
-}
-
-DA_Obscurantism_ideas = {
-	category = ADM
-
-	bonus = {
-		max_absolutism_effect = 0.1
-	}
-
-	trigger = {
-		NOT = { has_idea_group = innovativeness_ideas }
-		NOT = { has_idea_group = DA_applied_science_ideas }
-	}
-
-	DA_Obscurantism_ideas1 = {
-		stability_cost_modifier = -0.15
-		land_morale = 0.05
-	}
-	DA_Obscurantism_ideas2 = {
-		religious_unity = 0.10
-		global_tax_modifier = 0.10
-	}
-	DA_Obscurantism_ideas3  = {
-		global_unrest = -4
-		global_rebel_suppression_efficiency = 0.25
-		technology_cost = 0.075
-		idea_cost = 0.05
-	}
-	DA_Obscurantism_ideas4 = {
-		legitimacy = 0.5
-		horde_unity = 0.5
-		republican_tradition = 0.15
-		effect = {
-			custom_tooltip = DA_add_magic_study_modifier_25_tt
-			hidden_effect = { update_magic_study_experience_modifier = { value = 25 }  } 
-		}
-		removed_effect = {
-			hidden_effect = { update_magic_study_experience_modifier = { value = -25 }  } 
-		}
-	}
-	DA_Obscurantism_ideas5 = {
-		missionaries = 1
-		missionary_maintenance_cost = 0.5
-		global_missionary_strength = 0.01
-	}
-	DA_Obscurantism_ideas6 = {
-		tolerance_own = 2
-		devotion = 1
-		papal_influence = 1
-		monthly_karma = 0.05
-		monthly_piety = 0.05
-	}
-	DA_Obscurantism_ideas7 = {
-		max_absolutism = 10
-		yearly_absolutism = 0.5
-	}
-
-	ai_will_do = {
-		factor = 1.05
-	}
-}
-
-
-
-economic_ideas = {
-	category = ADM
-
-	bonus = {
-		global_trade_goods_size_modifier = 0.075 #1.35
-	}
-
-	bureaucracy = { 
-		global_tax_modifier = 0.15 #1.35
-	}
-	national_bank = {
-		inflation_reduction = 0.1
-	}
-	merchant_passes = {
-		merchants = 1
-	}
-	efficient_mining = {
-		gold_depletion_chance_modifier = -0.25
-	}
-	debt_and_loans = {
-		interest = -0.5
-	}
-	nationalistic_enthusiasm = {
-		land_maintenance_modifier = -0.05
-	}
-	smithian_economics = { 
-		#Mechanic: +1/-1 Dev from Manufactories		#Note for modders; the two mechanics introduced in 1.35   
-		production_efficiency = 0.075					#for eco ideas are done so via on_actions 
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
- 	}
-
-	ai_will_do = {
-		factor = 0.35
-		modifier = {
-			factor = 2
-			inflation = 5
-		}
-		modifier = {
-			factor = 1.25
-			inflation = 10
-		}
-		modifier = {
-			factor = 1.5
-			has_reform = steppe_horde
-		}
-		modifier = {
-			factor = 1.1
-			num_of_cities = 20
-		}
-		modifier = {
-			factor = 1.1
-			num_of_cities = 50
-		}
-		modifier = {
-			factor = 1.2
-			personality = ai_capitalist 
-		}
-		modifier = { 
-			factor = 0.8
-			NOT = { monthly_adm = 7 } 
-		}
-		modifier = {
-			factor = 1.1
-			national_focus = ADM 
-		}
-		modifier = {
-			factor = 1.05
-			OR = {
-				has_idea_group = quality_ideas
-				has_idea_group = trade_ideas
-				has_idea_group = offensive_ideas 
-			}
-		}
-	}
-}
-
-
-
-DA_monastic_ideas = {
-	category = ADM
-
-	bonus = {
-		global_unrest = -2
-		relation_with_same_religion = 10
-		#brahmins_hindu_loyalty_modifier = 0.1
-		church_loyalty_modifier = 0.1
-
-		# ANBENNAR
-		uppercastes_loyalty_modifier = 0.05 #half because Aristo/Divine/Religious also gives 5%
-	}
-
-	DA_monastic_ideas1 = {
-		missionaries = 1
-		missionary_maintenance_cost = -0.25 #1.35
-	}
-	DA_monastic_ideas2 = { 
-		global_monthly_devastation = -0.05
-		global_prosperity_growth = 0.05
-	}
-	DA_monastic_ideas3 = {
-		global_missionary_strength = 0.02
-	}
-	DA_monastic_ideas4 = {
-		stability_cost_modifier = -0.15
-	}
-	DA_monastic_ideas5 = { #1.35
-		papal_influence = 2
-		devotion = 0.25
-		monthly_fervor_increase = 0.25
-		church_power_modifier = 0.1
-		monthly_piety_accelerator = 0.001
-		yearly_karma_decay = 0.1
-		yearly_doom_reduction = 1
-		yearly_authority = 0.15
-		yearly_patriarch_authority = 0.005
-		prestige_per_development_from_conversion = 0.1
-	}
-	DA_monastic_ideas6 = {
-		culture_conversion_cost = -0.10
-	}
-	DA_monastic_ideas7 = {
-		culture_conversion_time = -0.15
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			has_idea_group = humanist_ideas
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { religious_unity = 0.5 }
-		}
-		modifier = {
-			factor = 0.75
-			personality = ai_diplomat
-		}
-		modifier = {
-			factor = 0.25
-			religious_unity = 0.95 
-		}
-		modifier = {
-			factor = 0.25
-			NOT = {
-				any_neighbor_country = {
-					religion = ROOT 
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { monthly_adm = 7 }
-		}
-	}
-}
-
-religious_ideas = {
-	category = ADM
-
-	bonus = {
-		culture_conversion_cost = -0.15
-		relation_with_same_religion = 15
-		relation_with_heathens  = -10
-		#brahmins_hindu_loyalty_modifier = 0.1
-		church_loyalty_modifier = 0.1
-
-		# ANBENNAR
-		uppercastes_loyalty_modifier = 0.05 #half because Aristo/Divine/Religious also gives 5%
-	}
-
-	missionary_schools = {
-		missionaries = 1
-		missionary_maintenance_cost = -0.25 #1.35
-	}
-	church_attendance_duty = { 
-		manpower_in_true_faith_provinces = 0.075 #1.35
-	}
-	divine_supremacy = {
-		global_missionary_strength = 0.02
-	}
-	devoutness = {
-		tolerance_own = 2
-	}
-	inquisition = { #1.35
-		papal_influence = 2
-		devotion = 0.25
-		monthly_fervor_increase = 0.25
-		church_power_modifier = 0.1
-		monthly_piety_accelerator = 0.001
-		yearly_karma_decay = 0.1
-		yearly_doom_reduction = 1
-		yearly_authority = 0.15
-		yearly_patriarch_authority = 0.005
-		prestige_per_development_from_conversion = 0.1
-	}
-	religious_tradition = {
-		reverse_relation_with_same_religion = 10 #1.35
-	}
-	deus_vult = {
-		morale_damage_received = -0.025
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			has_idea_group = humanist_ideas
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { religious_unity = 0.5 }
-		}
-		modifier = {
-			factor = 0.75
-			personality = ai_diplomat
-		}
-		modifier = {
-			factor = 0.25
-			religious_unity = 0.95 
-		}
-		modifier = {
-			factor = 0.25
-			NOT = {
-				any_neighbor_country = {
-					religion = ROOT 
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { monthly_adm = 7 }
-		}
-	}
-}
-
-
-DA_Holy_War_ideas = {
-	category = ADM
-
-	bonus = {
-		enforce_religion_cost = -0.25
-		cb_on_religious_enemies = yes
-		#brahmins_hindu_loyalty_modifier = 0.1
-		church_loyalty_modifier = 0.1
-
-		# ANBENNAR
-		uppercastes_loyalty_modifier = 0.05 #half because Aristo/Divine/Religious also gives 5%
-	}
-
-	DA_Holy_War_ideas1 = {
-		global_tax_modifier = 0.10
-	}
-	DA_Holy_War_ideas2 = {
-		warscore_cost_vs_other_religion = -0.10
-	}
-	DA_Holy_War_ideas3 = {
-		land_morale = 0.075
-		discipline = -0.025
-		prestige_from_land = 0.25
-	}
-	DA_Holy_War_ideas4 = {
-		institution_spread_from_true_faith = 0.1
-		manpower_in_true_faith_provinces = 0.05
-	}
-	DA_Holy_War_ideas5 = { #1.35
-		missionaries = 1
-		prestige_per_development_from_conversion = 1
-	}
-	DA_Holy_War_ideas6 = {
-		global_missionary_strength = 0.03
-		tolerance_heretic = -1
-		tolerance_heathen = -1
-	}
-	DA_Holy_War_ideas7 = {
-		war_exhaustion = -0.05
-		relation_with_same_religion = 20
-		relation_with_heretics  = -10
-		relation_with_heathens  = -20
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			has_idea_group = humanist_ideas
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { religious_unity = 0.5 }
-		}
-		modifier = {
-			factor = 0.75
-			personality = ai_diplomat
-		}
-		modifier = {
-			factor = 0.25
-			religious_unity = 0.95 
-		}
-		modifier = {
-			factor = 0.25
-			NOT = {
-				any_neighbor_country = {
-					religion = ROOT 
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { monthly_adm = 7 }
-		}
-	}
-}
-
-
-expansion_ideas = {
-	category = ADM
-	important = yes
-
-	bonus = {
- 		min_autonomy_in_territories = -0.1
-	}
-
-	additional_colonists = {
-		colonists = 1
-		effect = { remove_temporary_colonist = yes }
-	}
-	additional_merchants = {
-		merchants = 1
-	}
-	faster_colonists = {
-		global_colonial_growth = 20
-	}
-	vice_roys  = {
-		global_tariffs = 0.10 #1.35
- 		envoy_travel_time = -0.20
- 	}
-	additional_diplomats = { #1.35
-		diplomats = 1
-		reduced_liberty_desire_on_other_continent = 5
-	}
-	general_colonization_law  = {
-		colonists = 1
-		colonist_placement_chance = 0.05
-		effect = { remove_temporary_colonist = yes }
-	}
-	competetive_merchants  = {
-		global_trade_power = 0.15
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 0.5
-		modifier = {
-			factor = 10
-			OR = {
-				has_idea_group = exploration_ideas
-				is_colonial_nation = yes
-			}
-		}
-		modifier = {
-			factor = 0	#Serpentspine starts alread get colonists
-			capital_scope = {
-				continent = serpentspine
-			}
-			OR = {
-				has_reform = adventurer_reform
-				has_reform = dwarovar_warband
-				has_reform = dwarovar_squatter
-			}
-		}
-		modifier = {
-			factor = 10	#Serpentspine starts alread get colonists
-			capital_scope = {
-				continent = serpentspine
-			}
-			NOT = { is_year = 1500 }
-			OR = {
-				has_reform = dwarovar_dwarven_clan_reform
-			}
-		}
-		modifier = {
-			factor = 0	#Escanni bois dont take this
-			OR = {
-				has_reform = adventurer_reform
-				has_reform = greentide_horde
-			}
-		}
-		modifier = {
-			factor = 5
-			OR = {
-				tag = A11 #Pearlsedge
-				tag = A02 #Deranne
-				tag = A21 #Venail
-				tag = A47 #Eborthil
-				tag = A05 #Reveria
-				tag = U08 #Ekha
-				tag = A19 #Portnamm
-				tag = A06 #Nimscodd
-				tag = H66 #Jaherian
-				tag = H67 #Rezankand
-				tag = A79 #Gnomish Hierarchy
-			}
-		}
-		
-		modifier = {
-			factor = 100
-			OR = {
-				tag = Z18 #Frozenmaw
-				tag = Z50 #Grombar
-				tag = Z45 #Vrorenmarch
-			}
-			adm_tech = 7
-			any_owned_province = {
-				has_empty_adjacent_province = yes
-			}
-		}
-		modifier = {
-			factor = 100
-			NOT = { has_dlc = "Third Rome" } # Has siberian frontier instead
-			OR = {
-				technology_group = tech_orcish
-				technology_group = tech_black_orcish
-				technology_group = tech_goblin
-			}
-			any_owned_province = {
-				has_empty_adjacent_province = yes
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_idea_group = exploration_ideas }
-			NOT = { is_colonial_nation = yes }
-			OR = {
-				NOT = {
-					any_owned_province = {
-						has_empty_adjacent_province = yes
-					}
-				}
-				AND = {
-					capital_scope = {
-						OR = {
-							superregion = western_cannor_superregion
-							superregion = escann_superregion
-						}
-					}
-					NOT = { is_year = 1500 }
-				}
-			}
-		}
-		modifier = {
-			factor = 0.1
-			NOT = {
-				technology_group = tech_cannorian
-				technology_group = tech_halfling
-				technology_group = tech_gerudian
-				technology_group = tech_gnomish
-				technology_group = tech_salahadesi
-				technology_group = tech_elven
-				technology_group = tech_bulwari
-				technology_group = tech_triunic
-				technology_group = tech_kheionai
-			}
-		}
-	}
-}
-
-administrative_ideas = {
-	category = ADM
-
-	bonus = {
-		governing_capacity_modifier = 0.15 #1.35
-		#eunuchs_loyalty_modifier = 0.1
-	}
-
-	administrative_council = {
-		adm_advisor_cost = -0.20  #1.35
-	}
-	local_rule = {
-		advisor_pool = 1
-		num_of_pronoiars = 1
-	}
-	adaptability = {
-		core_creation = -0.1
-	}
-	cultural_regulations = { #1.35
-		promote_culture_cost = -0.25
-	}
-	stable_government = { #1.35
-		stability_cost_modifier = -0.2 
-	}
-	centralization = { #1.35
-		global_autonomy = -0.05
-	}
-	civil_servants = {
-		adm_tech_cost_modifier = -0.075
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 0.65
-		#modifier = {
-		#	factor = 2
-		#	has_strong_mil_national_ideas = yes 
-		#}
-		modifier = { 
-			factor = 0.75
-			NOT = { monthly_adm = 8 }
-		}
-		modifier = { 
-			factor = 1.05
-			is_great_power = yes 
-		}
-		modifier = { 
-			factor = 1.05
-			national_focus = ADM 
-		}
-		modifier = { 
-			factor = 1.1
-			personality = ai_militarist  
-		}
-		modifier = { 
-			factor = 1.25
-			OR = { 
-				has_global_modifier_value = { 
-					which = core_creation 
-					value = 0.15
-				}
-				# has_reform = livonian_military_monarchy
-				# has_reform = prussian_theocratic_reform
-				# has_reform = prussian_republic_reform
-				# has_reform = prussian_monarchy
-				# has_reform = prussian_monarchy_base
-				governing_capacity_percentage = 0.9
-			}
-		}
-	}
-}
-
-humanist_ideas = {
-	category = ADM
-
-	bonus = {
-		idea_cost = -0.05
-		yearly_harmony = 0.25  # Used if religion uses harmony (confucianism)
-		#brahmins_muslim_loyalty_modifier = 0.1
-		#dhimmi_loyalty_modifier = 0.1
-
-		# ANBENNAR
-		lowercastes_loyalty_modifier = 0.1
-	}
-
-	local_traditions = {
-		global_unrest = -2
-		harmonization_speed = 0.25
-	}
-	indirect_rule = {
-		years_of_nationalism = -7
-	}
-	ecumenism = { #1.35
-		tolerance_heretic = 2
-	}
-	cultural_ties = {
-		num_accepted_cultures = 2
-	}
-	humanist_tolerance = { #1.35
-		tolerance_heathen = 2
-		religious_unity = 0.15
-	}
-	benevolence = {
-		improve_relation_modifier = 0.2
-	}
-	tolerance_idea = { #1.35
-		tolerance_of_heretics_capacity = 1 
-		tolerance_of_heathens_capacity = 1
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 0.55
-		modifier = {
-			factor = 0
-			has_idea_group = religious_ideas
-		}
-		modifier = {
-			factor = 0.5
-			any_rival_country = {
-				NOT = { religion = ROOT } 
-			}
-		}
-		modifier = {
-			factor = 1.25
-			personality = ai_militarist
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { monthly_adm = 8 }
-		}
-		modifier = {
-			factor = 3
-			religion_group = faithless
-			NOT = { religion = godlost }
-		}
-		modifier = {
-			factor = 1.1 
-			national_focus = ADM 
-		}
-		modifier = {
-			factor = 1.25
-			has_idea_group = offensive_ideas 
-		}
-	}
-}
-
-DA_Statecraft_ideas = {
-	category = ADM
-
-	bonus = {
-		possible_policy = 1
-	}
-
-	trigger = {
-		
-	}
-
-	DA_Statecraft_ideas1  = {
-		global_tax_modifier = 0.10
-	}
-	DA_Statecraft_ideas2 = {
-		state_maintenance_modifier = -0.15
-	}
-	DA_Statecraft_ideas3 = {
-		advisor_cost = -0.1
-	}
-	DA_Statecraft_ideas4 = {
-		inflation_reduction = 0.1
-		inflation_action_cost = -0.15
-	}
-	DA_Statecraft_ideas5 = {
-		interest = -1
-	}
-	DA_Statecraft_ideas6 = {
-		diplomatic_upkeep = 1
-	}
-	DA_Statecraft_ideas7 = {
-		governing_capacity_modifier = 0.15
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1.05
-	}
-}
-
-infrastructure_ideas = { #1.35
-	category = ADM
-	
-
-	bonus = {
-		development_cost = -0.1
-	}
-
-	state_efficiency = {
-		global_prosperity_growth = 0.2
-		state_maintenance_modifier = -0.25
-	}
-	organised_construction = {
-		build_cost = -0.075
-	}
-	efficient_construction_plans = {
-		expand_infrastructure_cost_modifier = -0.2
-	}
-	expanded_infrastructure_network = {
-		movement_speed = 0.1
-		center_of_trade_upgrade_cost = -0.15
-	}
-	administrative_efficiency_idea = {
-		state_governing_cost = -0.1
-	}
-	fort_logistics = {
-		fort_maintenance_modifier = -0.2
- 	}
-	regulation_bureau = {
-		expand_administration_cost = -1
-		build_time = -0.2
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 0.7
-		modifier = {
-			factor = 1.1 
-			personality = ai_capitalist
-		}
-		modifier = {
-			factor = 1.1
-			national_focus = ADM 
-		}
-		modifier = { 
-			factor = 0.75 
-			NOT = { monthly_adm = 8 }
-		}
-		modifier = {
-			factor = 1.15
-			OR = {
-				has_idea_group = trade_ideas
-				has_idea_group = naval_ideas
-			}
-		}
-	}
-}
-
 
 DA_Medicine_ideas = {
 	category = ADM
@@ -958,16 +33,58 @@ DA_Medicine_ideas = {
 	}
 	DA_Medicine_ideas5 = {
 		manpower_recovery_speed = 0.1
+		effect = {
+			capital_scope = {
+				DA_Tech_prov.Medicine = {
+					amount = 300
+				}
+			}
+		}
+		removed_effect = {
+			capital_scope = {
+				DA_Tech_prov.Medicine = {
+					amount = -300
+				}
+			}
+		}
 	}
 	DA_Medicine_ideas6 = {
 		#this enables the poisoning mechanic
 		spy_offence = 0.1
+		effect = {
+			capital_scope = {
+				DA_Tech_prov.Medicine = {
+					amount = 300
+				}
+			}
+		}
+		removed_effect = {
+			capital_scope = {
+				DA_Tech_prov.Medicine = {
+					amount = -300
+				}
+			}
+		}
 	}
 	DA_Medicine_ideas7 = {
-		development_cost = -0.05
+		development_cost = -0.10
 		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		effect = { 
+			capital_scope = {
+				DA_Tech_prov.Medicine = {
+					amount = 300
+				}
+			}
+			increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes 
+		}
+		removed_effect = { 
+			capital_scope = {
+				DA_Tech_prov.Medicine = {
+					amount = -300
+				}
+			}
+			decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes 
+		}
 	}
 
 	ai_will_do = {
@@ -987,10 +104,10 @@ DA_Mechanics_ideas = {
 	}
 
 	DA_Mechanics_ideas1 = {
-		build_cost = -0.075
+		build_cost = -0.1
 	}
 	DA_Mechanics_ideas2 = {
-		production_efficiency = 0.075
+		production_efficiency = 0.1
 		effect = {
 			DA_gain_mechanics_inno_points_1 = yes
 		}
@@ -1005,365 +122,64 @@ DA_Mechanics_ideas = {
 		defensiveness = 0.1
 	}
 	DA_Mechanics_ideas5 = {
-		idea_cost = -0.05
+		idea_cost = -0.1
+		effect = {
+			capital_scope = {
+				DA_Tech_prov.Mechanics = {
+					amount = 300
+				}
+			}
+		}
+		removed_effect = {
+			capital_scope = {
+				DA_Tech_prov.Mechanics = {
+					amount = -300
+				}
+			}
+		}
 	}
 	DA_Mechanics_ideas6 = {
 		#this reduces mechanics inno points price
 		innovativeness_gain = 0.1
 		effect = {
 			DA_gain_mechanics_inno_points_2 = yes
+			capital_scope = {
+				DA_Tech_prov.Mechanics = {
+					amount = 300
+				}
+			}
 		}
 		removed_effect = {
 			DA_spend_mechanics_inno_points_2 = yes
+			capital_scope = {
+				DA_Tech_prov.Mechanics = {
+					amount = -300
+				}
+			}
 		}
 	}
 	DA_Mechanics_ideas7 = {
 		DA_fake_research_time_discount = 10
 		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1.05
-	}
-}
-
-
-DA_Technocratic_ideas = {
-	category = ADM
-
-	bonus = {
-		build_time = -0.10
-	}
-
-	trigger = {
-		has_estate = estate_artificers
-		NOT = { has_idea_group = DA_Magocratic_ideas }
-		NOT = { has_idea_group = DA_Adventurer_ideas }
-		NOT = { has_idea_group = DA_Monstrous_ideas }
-	}
-
-	DA_Technocratic_ideas1 = {
-		innovativeness_gain = 0.2
-	}
-	DA_Technocratic_ideas2 = {
-		artificers_loyalty_modifier = 0.05
-		removed_effect = {
-			debuff_artifice_points_5 = yes
-		}
-		effect = {
-			mission_reward_artifice_points_5 = yes
-		}
-	}
-	DA_Technocratic_ideas3  = {
-		discipline = 0.001
-		removed_effect = {
-			remove_country_modifier = DA_Technocratic_ideas_buff_artificers
-		}
-		effect = {
-			add_country_modifier = {
-				name = DA_Technocratic_ideas_buff_artificers
-				duration = -1
-			}
-		}
-	}
-	DA_Technocratic_ideas4 = {
-		technology_cost = -0.05
-	}
-	DA_Technocratic_ideas5 = {
-		embracement_cost = -0.1
-	}
-	DA_Technocratic_ideas6 = {
-		production_efficiency = 0.075
-	}
-	DA_Technocratic_ideas7 = {
-		idea_cost = -0.05
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1.05
-	}
-}
-
-
-DA_Magocratic_ideas = {
-	category = ADM
-
-	bonus = {
-		technology_cost = 0.05
-		all_power_cost = -0.025
-	}
-
-	trigger = {
-		has_estate = estate_mages
-		NOT = { has_idea_group = DA_Technocratic_ideas }
-		NOT = { has_idea_group = DA_Adventurer_ideas }
-		NOT = { has_idea_group = DA_Monstrous_ideas }
-	}
-
-	DA_Magocratic_ideas1 = {
-		monarch_lifespan = 0.1
-		effect = {
-			custom_tooltip = DA_add_magic_study_modifier_25_tt
-			hidden_effect = { update_magic_study_experience_modifier = { value = 25 }  } 
-		}
-		removed_effect = {
-			hidden_effect = { update_magic_study_experience_modifier = { value = -25 }  } 
-		}
-	}
-	DA_Magocratic_ideas2 = {
-		global_tax_modifier = 0.1
-	}
-	DA_Magocratic_ideas3  = {
-		mages_loyalty_modifier = 0.1
-	}
-	DA_Magocratic_ideas4 = {
-		prestige_decay = -0.005
-		advisor_pool = 1
-	}
-	DA_Magocratic_ideas5 = {
-		leader_cost = -0.05
-		effect = {
-			custom_tooltip = DA_battlemage_commoner_to_appear_tt
-			hidden_effect = { set_country_flag = battlemage_common  } 
-		}
-		removed_effect = {
-			hidden_effect = { clr_country_flag = battlemage_common  } 
-		}
-	}
-	DA_Magocratic_ideas6 = {
-		legitimacy = 0.5
-		horde_unity = 0.5
-		devotion = 0.5
-		republican_tradition = 0.15
-	}
-	DA_Magocratic_ideas7 = {
-		max_general_shock = 1
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1.05
-	}
-}
-
-
-DA_Adventurer_ideas = {
-	category = ADM
-
-	bonus = {
-		adventurers_loyalty_modifier = 0.1
-	}
-
-	trigger = {
-		OR = {
-			has_adventurer_reform = yes
-			has_reform = adventurer_reform
-			has_reform = dwarovar_adventurer_reform
-			has_reform = aelantir_adventurer_reform
-			has_reform = baashidi_adventurer_reform
-			has_reform = dwarovar_warband
-			has_reform = dwarovar_squatter
-		}
-		NOT = { has_idea_group = DA_Magocratic_ideas }
-		NOT = { has_idea_group = DA_Technocratic_ideas }
-		NOT = { has_idea_group = DA_Monstrous_ideas }
-	}
-
-	DA_Adventurer_ideas1 = {
-		land_forcelimit = 5
-		monthly_adventurer_unity = 0.25
-	}
-	DA_Adventurer_ideas2 = {
-		mercenary_cost = -0.1
-		mercenary_discipline = 0.025
-	}
-	DA_Adventurer_ideas3  = {
-		advisor_pool = 1
-		advisor_cost = -0.05
-	}
-	DA_Adventurer_ideas4 = {
-		manpower_recovery_speed = 0.1
-		mercenary_manpower = 0.1
-	}
-	DA_Adventurer_ideas5 = {
-		global_tax_income = 12
-	}
-	DA_Adventurer_ideas6 = {
-		leader_cost = -0.1
-	}
-	DA_Adventurer_ideas7 = {
-		leader_land_manuever = 1
-		max_general_maneuver = 1
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1
-	}
-}
-
-
-DA_Monstrous_ideas = {
-	category = ADM
-
-	bonus = {
-		infantry_cost = -0.10
-	}
-
-	trigger = {
-		has_country_modifier = monstrous_nation
-		NOT = { has_idea_group = DA_Magocratic_ideas }
-		NOT = { has_idea_group = DA_Adventurer_ideas }
-		NOT = { has_idea_group = DA_Technocratic_ideas }
-	}
-
-	DA_Monstrous_ideas1 = {
-		shock_damage = 0.10
-	}
-	DA_Monstrous_ideas2 = {
-		build_cost = -0.75
-	}
-	DA_Monstrous_ideas3  = {
-		global_tax_modifier = 0.10
-	}
-	DA_Monstrous_ideas4 = {
-		manpower_recovery_speed = 0.10
-	}
-	DA_Monstrous_ideas5 = {
-		idea_cost = -0.05
-	}
-	DA_Monstrous_ideas6 = {
-		global_institution_spread = 0.20
-	}
-	DA_Monstrous_ideas7 = {
-		embracement_cost = -0.10
-		effect = {
-			custom_tooltip = DA_decrease_monstrous_5_if_demonsterizing_tt
-			if = {
-				limit = {
-					has_country_modifier = monstrous_nation
-					has_country_flag = removing_monstrous
+		effect = { 
+			capital_scope = {
+				DA_Tech_prov.Mechanics = {
+					amount = 300
 				}
-				decrease_monstrous_5 = yes
 			}
-			increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes
+			increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes 
 		}
-		#Anbennar
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
+		removed_effect = { 
+			capital_scope = {
+				DA_Tech_prov.Mechanics = {
+					amount = -300
+				}
+			}
+			decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes 
+		}
 	}
 
 	ai_will_do = {
 		factor = 1.05
-	}
-}
-
-DA_Witch_King_ideas = {
-	category = ADM
-
-	bonus = {
-		technology_cost = 0.1
-		idea_cost = 0.05
-		all_power_cost = -0.05
-	}
-
-	trigger = {
-		has_ruler_modifier = witch_king_modifier
-	}
-
-	DA_Witch_King_ideas1 = {
-		monarch_lifespan = 0.125
-		effect = {
-			custom_tooltip = DA_add_magic_study_modifier_25_tt
-			hidden_effect = { update_magic_study_experience_modifier = { value = 25 }  } 
-		}
-		removed_effect = {
-			hidden_effect = { update_magic_study_experience_modifier = { value = -25 }  } 
-		}
-	}
-	DA_Witch_King_ideas2 = {
-		global_unrest = 2
-		max_absolutism = 10
-	}
-	DA_Witch_King_ideas3  = {
-		diplomatic_reputation = -1
-		yearly_absolutism = 1
-		max_absolutism_effect = 0.1
-	}
-	DA_Witch_King_ideas4 = {
-		global_tax_modifier = 0.15
-	}
-	DA_Witch_King_ideas5 = {
-		monarch_lifespan = 0.125
-		effect = {
-			custom_tooltip = DA_add_magic_study_modifier_25_tt
-			hidden_effect = { update_magic_study_experience_modifier = { value = 25 }  } 
-		}
-		removed_effect = {
-			hidden_effect = { update_magic_study_experience_modifier = { value = -25 }  } 
-		}
-	}
-	DA_Witch_King_ideas6 = {
-		governing_capacity_modifier = 0.15
-	}
-	DA_Witch_King_ideas7 = {
-		core_creation = -0.1
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 1.05
-	}
-}
-
-
-DA_Celestial_empire_ideas = {
-	category = ADM
-
-	bonus = {
-		diplomatic_reputation = 1
-	}
-	trigger = {
-		is_emperor_of_china = yes
-	}
-	DA_Celestial_empire_ideas1  = {
-		imperial_mandate = 0.1
-	}
-	DA_Celestial_empire_ideas2 = {
-		governing_capacity_modifier = 0.2
-	}
-	DA_Celestial_empire_ideas3 = {
-		meritocracy = 1
-		free_leader_pool = 1
-	}
-	DA_Celestial_empire_ideas4 = {
-		monarch_admin_power = 1
-	}
-	DA_Celestial_empire_ideas5 = {
-		monthly_splendor = 2
-	}
-	DA_Celestial_empire_ideas6 = {
-		diplomats = 1
-		diplomatic_upkeep = 2
-	}
-	DA_Celestial_empire_ideas7 = {
-		advisor_cost = -0.1
-		#Anbennar
-		effect = { increase_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-		removed_effect = { decrease_legitimacy_equivalent_absolutism_from_idea_groups_mod = yes }
-	}
-
-	ai_will_do = {
-		factor = 10
 	}
 }

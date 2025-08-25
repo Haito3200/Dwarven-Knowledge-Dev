@@ -2,161 +2,6 @@
 #Dwarven Knowledge
 ####################
 #Ancient_Research_facility Halanna
-DA_Ancient_Research_facility1 = {
-	start = 4119
-	date = 2023.03.31
-	time = {
-		months = 12
-	}
-	build_cost = 10000
-	can_be_moved = no
-	move_days_per_unit_distance = 1
-	starting_tier = 0
-	type = monument
-	build_trigger = {
-		owner = {
-			has_country_modifier = DA_Halanna_heart
-		}
-	}
-	on_built = {
-	}
-	on_destroyed = {		
-	}
-	can_use_modifiers_trigger = {
-		AND = {
-			custom_trigger_tooltip = {
-				tooltip = DA_tooltip_has_dig_level_11_or_higher
-				DA_has_dig_level_11_or_higher = yes
-			}
-			culture_group = dwarven
-			province_is_or_accepts_culture = yes
-		}
-	}
-	can_upgrade_trigger = {
-		AND = {
-			custom_trigger_tooltip = {
-				tooltip = DA_tooltip_has_dig_level_11_or_higher
-					DA_has_dig_level_11_or_higher = yes
-			}
-			culture_group = dwarven
-			province_is_or_accepts_culture = yes
-			owner = {
-				innovativeness = 90
-			}
-		}
-	}
-	keep_trigger = {
-	}
-	tier_0 = {
-		upgrade_time = {
-			months = 60
-		}
-		cost_to_upgrade = {
-			factor = 4000
-		}
-		province_modifiers = {
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			
-		}
-		on_upgraded = {
-		}
-	}
-	tier_1 = {
-		upgrade_time = {
-			months = 120
-		}
-		cost_to_upgrade = {
-			factor = 10000
-		}
-		province_modifiers = {	
-			local_state_maintenance_modifier = 0.50
-			local_great_project_upgrade_cost = 0.10
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			technology_cost = -0.025
-			idea_cost = -0.025
-		}
-		on_upgraded = {
-			hidden_effect = {
-				owner = {
-					country_event = { 
-						id = DA_Halanna_heart.1
-					}
-				}
-			}
-		}
-	}
-	tier_2 = {
-		upgrade_time = {
-			months = 240
-		}
-		cost_to_upgrade = {
-			factor = 25000
-		}
-		province_modifiers = {	
-			local_state_maintenance_modifier = 1.00
-			local_great_project_upgrade_cost = 0.15
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			technology_cost = -0.05
-			idea_cost = -0.05
-		}
-		on_upgraded = {
-			hidden_effect = {
-				owner = {
-					country_event = { 
-						id = DA_Halanna_heart.2
-					}
-				}
-			}
-		}
-	}
-	tier_3 = {
-		upgrade_time = {
-			months = 480
-		}
-		cost_to_upgrade = {
-			factor = 50000
-		}
-		province_modifiers = {	
-			local_state_maintenance_modifier = 2.00
-			local_great_project_upgrade_cost = 0.20
-		}
-		area_modifier = {
-			
-		}
-		country_modifiers = {
-			technology_cost = -0.1
-			idea_cost = -0.1
-		}
-		on_upgraded = {
-			hidden_effect = {
-				owner = {
-					country_event = { 
-						id = DA_Halanna_heart.3
-					}
-				}
-			}
-			change_trade_goods = damestear
-			custom_tooltip = DA_permanent_Damestear
-			hidden_effect = {
-				set_province_flag = permanent_damestear
-				province_event = {
-					id = DA_Amldihr_Authority_event.2
-					days = 30
-				}
-			}
-		}
-	}
-}
-
 #The Citadel Hold
 The_Dwarven_Megalopolis = {
 	start = 4119
@@ -337,506 +182,6 @@ The_Dwarven_Megalopolis = {
 		}
 	}
 }
-#The MIthril Workshop 
-The_Dwarven_Workshop = {
-	start = 4236
-	date = 2023.01.01
-	time = {
-		months = 12
-	}
-	build_cost = 100
-	can_be_moved = no
-	move_days_per_unit_distance = 1
-	starting_tier = 0
-	type = monument
-	build_trigger = {	
-		has_province_flag = DA_Mithril_workshop_found
-	}
-	on_built = {
-	}
-	on_destroyed = {		
-	}
-	can_use_modifiers_trigger = {
-		AND = {
-			custom_trigger_tooltip = {
-				tooltip = DA_tooltip_has_dig_level_4_or_higher
-				DA_has_dig_level_4_or_higher = yes
-			}
-			culture_group = dwarven
-			owner = {
-				innovativeness = 40
-			}
-		}
-	}
-	can_upgrade_trigger = {
-		culture_group = dwarven
-		owner = {
-			innovativeness = 40
-		}
-		custom_trigger_tooltip = {
-			tooltip = DA_can_upgrade_monument_4_8
-			OR = {
-				AND = {
-					has_great_project = {
-						type = The_Dwarven_Workshop
-						tier = 0
-					}
-					NOT = { has_great_project = { type = The_Dwarven_Workshop tier = 1 } }
-					DA_has_dig_level_4_or_higher = yes
-				}
-				AND = {
-					has_great_project = {
-						type = The_Dwarven_Workshop
-						tier = 1
-					}
-					NOT = { has_great_project = { type = The_Dwarven_Workshop tier = 2 } }
-					DA_has_dig_level_6_or_higher = yes
-				}
-				AND = {
-					has_great_project = {
-						type = The_Dwarven_Workshop
-						tier = 2
-					}
-					DA_has_dig_level_8_or_higher = yes
-				}
-			}
-		}
-	}
-	keep_trigger = {
-	}
-	tier_0 = {
-		upgrade_time = {
-			months = 12
-		}
-		cost_to_upgrade = {
-			factor = 1000
-		}
-		province_modifiers = {
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			
-		}
-		on_upgraded = {
-		}
-	}
-	tier_1 = {
-		upgrade_time = {
-			months = 120
-		}
-		cost_to_upgrade = {
-			factor = 3000
-		}
-		province_modifiers = {
-			local_great_project_upgrade_cost = 0.10	
-			local_state_maintenance_modifier = 0.25
-			local_production_efficiency = 0.10
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			global_trade_goods_size_modifier = 0.025
-		}
-		on_upgraded = {
-			add_base_production = 2
-			hidden_effect = {
-				owner = {
-					country_event = {
-						id = DA_adk.107
-					}
-				}
-			}
-		}
-	}
-	tier_2 = {
-		upgrade_time = {
-			months = 240
-		}
-		cost_to_upgrade = {
-			factor = 7000
-		}
-		province_modifiers = {	
-			local_great_project_upgrade_cost = 0.15
-			local_state_maintenance_modifier = 0.50
-			local_production_efficiency = 0.25
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			global_trade_goods_size_modifier = 0.05
-		}
-		on_upgraded = {
-			add_base_production = 3
-			hidden_effect = {
-				province_event = {
-					id = DA_adk.108
-				}
-			}
-		}
-	}
-	tier_3 = {
-		upgrade_time = {
-			months = 480
-		}
-		cost_to_upgrade = {
-			factor = 15000
-		}
-		province_modifiers = {
-			local_state_maintenance_modifier = 1.00
-			local_production_efficiency = 0.50
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			global_trade_goods_size_modifier = 0.1
-		}
-		on_upgraded = {
-			add_base_production = 5
-			custom_tooltip = DA_can_mithril_rune_mage_recruit
-		}
-	}
-}
-#The observatory
-The_Sky_Hold = {
-	start = 4020
-	date = 1700.01.01
-	time = {
-		months = 12
-	}
-	build_cost = 1000
-	can_be_moved = no
-	move_days_per_unit_distance = 1
-	starting_tier = 0
-	type = monument
-	build_trigger = {	
-		has_province_flag = DA_dur_vaz_blueprints_found
-	}
-	on_built = {		
-	}
-	on_destroyed = {		
-	}
-	can_use_modifiers_trigger = {
-		AND = {
-			custom_trigger_tooltip = {
-				tooltip = DA_tooltip_has_dig_level_3_or_higher
-				DA_has_dig_level_3_or_higher = yes
-			}
-			culture_group = dwarven
-			province_is_or_accepts_culture = yes
-			owner = {
-				innovativeness = 30
-			}
-		}
-	}
-	can_upgrade_trigger = {
-		culture_group = dwarven
-		owner = {
-			innovativeness = 30
-		}
-		custom_trigger_tooltip = {
-			tooltip = DA_can_upgrade_monument_3_7
-			OR = {
-				AND = {
-					has_great_project = {
-						type = The_Sky_Hold
-						tier = 0
-					}
-					NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } }
-					DA_has_dig_level_3_or_higher = yes
-				}
-				AND = {
-					has_great_project = {
-						type = The_Sky_Hold
-						tier = 1
-					}
-					NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } }
-					DA_has_dig_level_5_or_higher = yes
-				}
-				AND = {
-					has_great_project = {
-						type = The_Sky_Hold
-						tier = 2
-					}
-					DA_has_dig_level_7_or_higher = yes
-				}
-			}
-		}
-	}
-	keep_trigger = {
-	}
-	tier_0 = {
-		upgrade_time = {
-			months = 24
-		}
-		cost_to_upgrade = {
-			factor = 2000
-		}
-		province_modifiers = {
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			
-		}
-		on_upgraded = {
-			hidden_effect = {
-				province_event = {
-					id = DA_Dur_Vazhatun_event.1
-				}
-			}
-		}
-	}
-	tier_1 = {
-		upgrade_time = {
-			months = 120
-		}
-		cost_to_upgrade = {
-			factor = 3000
-		}
-		province_modifiers = {	
-			local_development_cost = -0.10
-			local_unrest = 2
-		}
-		area_modifier = {
-			local_institution_spread = 0.2
-		}
-		country_modifiers = {
-			technology_cost = -0.025
-		}
-		on_upgraded = {
-			hidden_effect = {
-				province_event = {
-					id = DA_Dur_Vazhatun_event.2
-				}
-			}
-		}
-	}
-	tier_2 = {
-		upgrade_time = {
-			months = 180
-		}
-		cost_to_upgrade = {
-			factor = 8000
-		}
-		province_modifiers = {	
-			local_development_cost = -0.20
-			local_unrest = 4
-		}
-		area_modifier = {
-			local_institution_spread = 0.4
-		}
-		country_modifiers = {
-			technology_cost = -0.05
-			monthly_splendor = 1
-		}
-		on_upgraded = {
-			hidden_effect = {
-				province_event = {
-					id = DA_Dur_Vazhatun_event.3
-				}
-			}
-		}
-	}
-	tier_3 = {
-		upgrade_time = {
-			months = 240
-		}
-		cost_to_upgrade = {
-			factor = 15000
-		}
-		province_modifiers = {	
-			local_development_cost = -0.30
-			local_unrest = 6
-		}
-		area_modifier = {
-			local_institution_spread = 0.8
-		}
-		country_modifiers = {
-			technology_cost = -0.075
-			monthly_splendor = 2
-		}
-		on_upgraded = {
-			hidden_effect = {
-				province_event = {
-					id = DA_Dur_Vazhatun_event.4
-				}
-			}
-		}
-	}
-}
-#The Ducaniel laboratory
-The_Dwarven_Laboratory = {
-	start = 2963
-	date = 2023.01.01
-	time = {
-		months = 24
-	}
-	build_cost = 3000
-	can_be_moved = no
-	move_days_per_unit_distance = 1
-	starting_tier = 0
-	type = monument
-	build_trigger = {	
-		has_province_flag = DA_Ducaniel_lab_found
-		owner = {
-			has_country_flag = DA_translator_found
-		}
-	}
-	on_built = {
-	}
-	on_destroyed = {		
-	}
-	can_use_modifiers_trigger = {
-		AND = {
-			custom_trigger_tooltip = {
-				tooltip = DA_tooltip_has_dig_level_4_or_higher
-				DA_has_dig_level_4_or_higher = yes
-			}
-			culture_group = dwarven
-			province_is_or_accepts_culture = yes
-		}
-	}
-	can_upgrade_trigger = {
-		culture_group = dwarven
-		owner = {
-			innovativeness = 40
-		}
-		custom_trigger_tooltip = {
-			tooltip = DA_can_upgrade_monument_4_8
-			OR = {
-				AND = {
-					has_great_project = {
-						type = The_Dwarven_Laboratory
-						tier = 0
-					}
-					NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 1 } }
-					DA_has_dig_level_4_or_higher = yes
-				}
-				AND = {
-					has_great_project = {
-						type = The_Dwarven_Laboratory
-						tier = 1
-					}
-					NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 2 } }
-					DA_has_dig_level_6_or_higher = yes
-				}
-				AND = {
-					has_great_project = {
-						type = The_Dwarven_Laboratory
-						tier = 2
-					}
-					DA_has_dig_level_8_or_higher = yes
-				}
-			}
-		}
-	}
-	keep_trigger = {
-	}
-	tier_0 = {
-		upgrade_time = {
-			months = 60
-		}
-		cost_to_upgrade = {
-			factor = 3000
-		}
-		province_modifiers = {
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-		}
-		on_upgraded = {
-			hidden_effect = {
-				province_event = {
-					id = DA_Hul_Jorkad_event.1
-				}	
-			}
-		}
-	}
-	tier_1 = {
-		upgrade_time = {
-			months = 120
-		}
-		cost_to_upgrade = {
-			factor = 5000
-		}
-		province_modifiers = {	
-			local_development_cost = -0.1
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			innovativeness_gain = 0.20
-		}
-		on_upgraded = {
-			owner = { 
-				change_innovativeness = 2
-			}
-			change_trade_goods = precursor_relics
-			custom_tooltip = DA_permanent_precursor_relics
-			hidden_effect = {
-				set_province_flag = permanent_precursor_relics
-				province_event = {
-					id = DA_Hul_Jorkad_event.2
-				}
-			}
-		}
-	}
-	tier_2 = {
-		upgrade_time = {
-			months = 240
-		}
-		cost_to_upgrade = {
-			factor = 15000
-		}
-		province_modifiers = {	
-			local_development_cost = -0.2
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			innovativeness_gain = 1.00
-		}
-		on_upgraded = {
-			owner = { 
-				change_innovativeness = 5
-			}
-			hidden_effect = {
-				province_event = {
-					id = DA_Hul_Jorkad_event.3
-				}
-			}
-		}
-	}
-	tier_3 = {
-		upgrade_time = {
-			months = 480
-		}
-		cost_to_upgrade = {
-			factor = 30000
-		}
-		province_modifiers = {	
-			local_development_cost = -0.4
-		}
-		area_modifier = {
-		}
-		country_modifiers = {
-			innovativeness_gain = 1.50
-		}
-		on_upgraded = {
-			owner = { 
-				change_innovativeness = 10
-			}
-			hidden_effect = {
-				province_event = {
-					id = DA_Hul_Jorkad_event.4
-				}
-			}
-		}
-	}
-}
-
 #The Basalt wall buildable from Gor Burad's magama forge in the adjacent vale
 DA_Verkal_Jorkad = {
 	start = 672
@@ -988,6 +333,118 @@ DA_Verkal_Jorkad = {
 					}
 				}
 			}
+		}
+	}
+}
+
+
+
+#The ovdal kanzad's monument to reach the top of the mountain
+DA_Upward_Digger = {
+	start = 672 # find the correct province
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+	}
+	on_built = {
+	}
+	on_destroyed = {		
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_defensiveness = 0.25
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = {
+				owner = {
+					country_event = {
+						id = DA_Magma_forge_event.16
+					}
+				}
+			}
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {	
+			local_defensiveness = 0.50
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			prestige = 0.25
+		}
+		on_upgraded = {
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {	
+			local_defensiveness = 0.75
+			local_hostile_attrition = 2
+			max_attrition = 2
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			prestige = 0.50
+			diplomatic_reputation = 0.25
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {	
+			local_defensiveness = 1.00
+			local_hostile_attrition = 5
+			max_attrition = 5
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			prestige = 1
+			diplomatic_reputation = 0.5
+		}
+		on_upgraded = {
 		}
 	}
 }

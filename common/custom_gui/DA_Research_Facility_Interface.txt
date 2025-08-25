@@ -118,6 +118,77 @@ custom_text_box = {
 }
 
 custom_button = {
+	name = DA_artificial_mage_ruler_button
+	tooltip = DA_Research_facility_menu.1.b.tooltip
+	potential = {
+        always = yes
+	}
+	trigger = {
+		has_country_flag = DA_can_make_mage
+		NOT = {	ruler_has_mage_personality = yes }
+		treasury = 1000
+        custom_trigger_tooltip = {
+            tooltip = DA_has_10_ADK
+		    check_variable = { ancientDwarvenKnowledge = 10 }
+        }
+	}
+	effect = {
+        hidden_effect = {
+            country_event = {
+                id = DA_adk.6
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_runic_grafting_button
+	tooltip = DA_Research_facility_menu.1.c
+	potential = {
+        always = yes
+	}
+	trigger = {
+		has_country_flag = DA_can_graft_new_runes
+		ruler_studying_magic = yes
+		ruler_has_mage_personality = yes
+		treasury = 100
+		NOT = {	has_country_modifier = DA_Graft_runes_cooldown }
+        custom_trigger_tooltip = {
+            tooltip = DA_has_5_ADK
+		    check_variable = { ancientDwarvenKnowledge = 5 }
+        }
+	}
+	effect = {
+        hidden_effect = {
+            country_event = {
+                id = DA_adk.8
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_runic_leader_button
+	tooltip = DA_Research_facility_menu.1.d
+	potential = {
+        always = yes
+	}
+	trigger = {
+		has_country_flag = DA_Can_create_leaders
+		treasury = 250
+		mil_power = 50
+        custom_trigger_tooltip = {
+            tooltip = DA_has_5_ADK
+		    check_variable = { ancientDwarvenKnowledge = 5 }
+        }
+	}
+	effect = {
+        hidden_effect = {
+            country_event = {
+                id = DA_adk.10
+            }
+        }
+	}
+}
+custom_button = {
 	name = DA_Fake_Capacity_button
 	tooltip = DA_Fake_Capacity_button_tt
 	potential = {

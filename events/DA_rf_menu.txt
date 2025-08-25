@@ -295,52 +295,6 @@ country_event = {
 	}
 
 	option = {
-		name = "DA_Research_facility_menu.1.e1" #create Gate for tp
-		trigger = {
-			culture_group = dwarven
-			has_country_flag = DA_Can_create_Gates
-			treasury = 3000
-			check_variable = { ancientDwarvenKnowledge = 5 }
-			any_core_province = {
-				owned_by = root
-				DA_has_dig_level_4_or_higher = yes
-				NOT = { has_province_flag = DA_building_gate_in_prov }
-				NOT = { has_province_modifier = DA_dwarven_TP_Gate }
-			}
-		}
-		custom_tooltip = DA_Research_facility_menu.1.e1.tooltip
-		country_event = {
-			id = DA_adk.17
-		}
-		ai_chance = {
-			factor = 0
-		}
-	}
-
-	option = {
-		name = "DA_Research_facility_menu.1.e2" # use gates for teleport
-		trigger = {
-			culture_group = dwarven
-			has_country_flag = DA_Can_create_Gates
-			calc_true_if = {
-				all_core_province = {
-					owned_by = root
-					has_siege = no
-					has_province_modifier = DA_dwarven_TP_Gate
-				}
-				amount = 2
-			}
-		}
-		custom_tooltip = DA_Research_facility_menu.1.e2.tooltip
-		country_event = {
-			id = DA_adk.19
-		}
-		ai_chance = {
-			factor = 0
-		}
-	}
-
-	option = {
 		name = "DA_Research_facility_menu.1.N1" # unlock flagship modification
 		trigger = {
 			culture_group = dwarven

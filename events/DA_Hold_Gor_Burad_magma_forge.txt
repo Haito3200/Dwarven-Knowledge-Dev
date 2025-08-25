@@ -295,6 +295,113 @@ country_event = {
 	}
 }
 
+province_event = {
+	id = DA_Magma_forge_event.200 # magma forge buildings
+	title = "DA_Magma_forge_event.10.t"
+	desc = "DA_Magma_forge_event.10.d"
+	picture = FORGE_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Magma_forge_event.10.a"
+		trigger = {
+			owner = {
+				DA_Magma_Level_required = {
+					amount = 40
+				}
+				DA_enchanted_building_material_total_required = {
+					amount = 5
+				}
+				treasury = 500
+			}
+			has_province_modifier = DA_regulated_magma_vein
+			NOT = { has_province_modifier = DA_Magma_Building_Workshop }
+		}
+
+		owner = {
+			DA_Magma_Level_spend = {
+				amount = 40
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 5
+			}
+			add_treasury = -500
+		}
+		add_permanent_province_modifier = {
+			name = DA_Magma_Building_Workshop
+			duration = -1
+		}
+	}
+	option = {
+		name = "DA_Magma_forge_event.10.b"
+		trigger = {
+			owner = {
+				DA_Magma_Level_required = {
+					amount = 60
+				}
+				DA_enchanted_building_material_total_required = {
+					amount = 10
+				}
+				treasury = 650
+			}
+			has_province_modifier = DA_regulated_magma_vein
+					NOT = { has_province_modifier = DA_Magma_Building_Moat }
+		}
+
+		owner = {
+			DA_Magma_Level_spend = {
+				amount = 60
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 10
+			}
+			add_treasury = -650
+		}
+		add_permanent_province_modifier = {
+			name = DA_Magma_Building_Moat
+			duration = -1
+		}
+	}
+	option = {
+		name = "DA_Magma_forge_event.10.c"
+		trigger = {
+			owner = {
+				DA_Magma_Level_required = {
+					amount = 100
+				}
+				DA_enchanted_building_material_total_required = {
+					amount = 10
+				}
+				treasury = 500
+			}
+			has_province_modifier = DA_regulated_magma_vein
+			has_terrain = dwarven_road
+			NOT = { has_province_modifier = DA_Magma_Building_Moat }
+		}
+
+		owner = {
+			DA_Magma_Level_spend = {
+				amount = 100
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 10
+			}
+			add_treasury = -500
+		}
+		add_permanent_province_modifier = {
+			name = DA_Magma_Building_Road
+			duration = -1
+		}
+	}
+	option = {
+		name = "DA_Magma_forge_event.10.Go_Back"
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
 country_event = {    # magma workshop construction
 	id = DA_Magma_forge_event.100 
 	title = "DA_Magma_forge_event.100.t"

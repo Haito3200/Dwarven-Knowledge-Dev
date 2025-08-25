@@ -150,10 +150,6 @@ DA_initialize_metallurgy_variables = {
 			value = modifier:DA_fake_rune_combat_ability_modifier
 			variable_name = DA_fake_rune_combat_ability_modifier_var
 		}
-		export_to_variable = {
-			value = modifier:DA_fake_cost_adder
-			variable_name = DA_fake_cost_adder_var
-		}
 		change_variable = {
 			which = DA_Metal_strength_STAT.$DA_unit$
 			which = DA_fake_metal_strength_adder_var
@@ -184,6 +180,23 @@ DA_apply_Blueprint = {										 # new effect
 	custom_tooltip = DA_Shock_rec.tt.$DA_Shock_rec$
 	custom_tooltip = DA_Blueprint_preview_tooltip_after
 	hidden_effect = {
+		export_to_variable = {
+			value = modifier:DA_fake_cost_adder
+			variable_name = DA_fake_cost_adder_var
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_rune_slots_adder
+			variable_name = DA_fake_rune_slots_adder_var
+		}
+		change_variable = {
+			which = DA_Cost_$DA_unit$
+			which = DA_fake_cost_adder_var
+		}
+		change_variable = {
+			which = DA_Runes_Slots_STAT_MAX_$DA_unit$
+			which = DA_fake_rune_slots_adder_var
+		}
+		
 		change_variable = {
 			which = DA_Cost_$DA_unit$
 			value = $DA_Cost$

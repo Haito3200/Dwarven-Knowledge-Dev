@@ -106,16 +106,16 @@
 
 
 custom_window = {
-    name = DA_Argrastun_Cathedral_Window
+    name = DA_Exoskeletons_Workshop_Window
     potential = {
         has_country_flag = DA_Metallurgy_interface_on_wonders
-        has_country_flag = DA_show_wonder_Argrastun_Cathedral
+        has_country_flag = DA_show_wonder_Exoskeletons_Workshop
     }
 }
 
 custom_button = {
-	name = DA_close_button_Argrastun_Cathedral
-	tooltip = DA_close_button_Argrastun_Cathedral_tt
+	name = DA_close_button_Exoskeletons_Workshop
+	tooltip = DA_Wonder_close_button_tt
 	potential = {
 		always = yes
 	}
@@ -123,92 +123,98 @@ custom_button = {
 		always = yes
 	}
 	effect = {
-		clr_country_flag = DA_show_wonder_Argrastun_Cathedral
+		clr_country_flag = DA_show_wonder_Exoskeletons_Workshop
 	}
 }
 
 custom_icon = {
-    name = DA_Argrastun_Cathedral_Wonder_image
+    name = DA_Exoskeletons_Workshop_Wonder_image
     potential = {
 		always = yes
     }
 }
 
 custom_text_box = {
-    name = DA_Argrastun_Cathedral_name_shower #Must match a scripted instantTextBoxType in a .gui file
+    name = DA_Exoskeletons_Workshop_name_shower #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Argrastun_Cathedral_name_shower_tt #Can use customizable localisation
+    tooltip = DA_Exoskeletons_Workshop_name_shower_tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
-    name = DA_Argrastun_Cathedral_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
+    name = DA_Exoskeletons_Workshop_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Argrastun_Cathedral_dwarven_name_shower_tt #Can use customizable localisation
+    tooltip = DA_Exoskeletons_Workshop_dwarven_name_shower_tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_button = {
-	name = DA_Argrastun_Cathedral_upgrade_button
-	tooltip = DA_Argrastun_Cathedral_upgrade_button_tt
+	name = DA_Exoskeletons_Workshop_upgrade_button
+	tooltip = DA_Wonder_upgrade_button_tt
 	potential = {
 		always = yes
 	}
 	trigger = {
 		custom_trigger_tooltip = {
 			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Argrastun_Cathedral_in_use }
+			NOT = { has_country_flag = DA_Wonder_DA_Exoskeletons_Workshop_in_use }
 		}
-		4284 = {
+		2868 = {
 			owned_by = prev
 			has_great_project = {
-				type = DA_Argrastun_Cathedral
+				type = DA_Exoskeletons_Workshop
 				tier = 0
 			}
 		}
 		if = {
 			limit = {
-				4284 = {
+				2868 = {
 					AND = {
 						has_great_project = {
-							type = DA_Argrastun_Cathedral
+							type = DA_Exoskeletons_Workshop
 							tier = 0
 						}
-						NOT = { has_great_project = { type = DA_Argrastun_Cathedral tier = 1 } }
+						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } }
 					}
 				}
 			}
-			4284 = {
+			2868 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_4_or_higher
 					DA_has_dig_level_4_or_higher = yes
 				}
 			}
+			DA_alchemy_reagents_total_required = {
+				amount = 10
+			}
 			DA_enchanted_building_material_total_required = {
-				amount = 5
+				amount = 10
 			}
 			DA_arcane_metal_total_required = {
-				amount = 5
+				amount = 10
 			}
 			treasury = 1600
 		}
 		if = {
 			limit = {
-				4284 = {
+				2868 = {
 					AND = {
 						has_great_project = {
-							type = DA_Argrastun_Cathedral
+							type = DA_Exoskeletons_Workshop
 							tier = 1
 						}
-						NOT = { has_great_project = { type = DA_Argrastun_Cathedral tier = 2 } }
+						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } }
 					}
 				}
 			}
-			4284 = {
+			2868 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_6_or_higher
 					DA_has_dig_level_6_or_higher = yes
 				}
+			}
+			DA_alchemy_reagents_total_required = {
+				amount = 20
 			}
 			DA_enchanted_building_material_total_required = {
 				amount = 20
@@ -220,21 +226,24 @@ custom_button = {
 		}
 		if = {
 			limit = {
-				4284 = {
+				2868 = {
 					AND = {
 						has_great_project = {
-							type = DA_Argrastun_Cathedral
+							type = DA_Exoskeletons_Workshop
 							tier = 2
 						}
-						NOT = { has_great_project = { type = DA_Argrastun_Cathedral tier = 3 } }
+						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } }
 					}
 				}
 			}
-			4284 = {
+			2868 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_8_or_higher
 					DA_has_dig_level_8_or_higher = yes
 				}
+			}
+			DA_alchemy_reagents_total_required = {
+				amount = 40
 			}
 			DA_enchanted_building_material_total_required = {
 				amount = 40
@@ -246,9 +255,9 @@ custom_button = {
 		}
 		if = {
 			limit = {
-				4284 = {
+				2868 = {
 					has_great_project = {
-						type = DA_Argrastun_Cathedral
+						type = DA_Exoskeletons_Workshop
 						tier = 3
 					}
 				}
@@ -262,51 +271,57 @@ custom_button = {
 	effect = {
 		if = {
 			limit = {
-				4284 = {
+				2868 = {
 					AND = {
 						has_great_project = {
-							type = DA_Argrastun_Cathedral
+							type = DA_Exoskeletons_Workshop
 							tier = 0
 						}
-						NOT = { has_great_project = { type = DA_Argrastun_Cathedral tier = 1 } }
+						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } }
 					}
 				}
 			}
+			DA_alchemy_reagents_spend = {
+				amount = 10
+			}
 			DA_enchanted_building_material_spend = {
-				amount = 5
+				amount = 10
 			}
 			DA_arcane_metal_spend = {
-				amount = 5
+				amount = 10
 			}
 			add_treasury = -1600
-			4284 = {
+			2868 = {
 				add_great_project_tier = {
-					type = DA_Argrastun_Cathedral
+					type = DA_Exoskeletons_Workshop
 					tier = 1
 				}
 			}
-			# hidden_effect = {
-			# 	# country_event = {
-			# 	# 	id = DA_Argrastun_Cathedral_event.11
-			# 	# 	days = 365
-			# 	# }
-			# 	# country_event = {
-			# 	# 	id = DA_Argrastun_Cathedral_event.12
-			# 	# 	days = 1095
-			# 	# }
-			# }
+			hidden_effect = {
+				country_event = {
+					id = DA_Exoskeletons_Workshop_event.11
+					days = 365
+				}
+				country_event = {
+					id = DA_Exoskeletons_Workshop_event.12
+					days = 1095
+				}
+			}
 		}
 		else_if = {
 			limit = {
-				4284 = {
+				2868 = {
 					AND = {
 						has_great_project = {
-							type = DA_Argrastun_Cathedral
+							type = DA_Exoskeletons_Workshop
 							tier = 1
 						}
-						NOT = { has_great_project = { type = DA_Argrastun_Cathedral tier = 2 } }
+						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } }
 					}
 				}
+			}
+			DA_alchemy_reagents_spend = {
+				amount = 20
 			}
 			DA_enchanted_building_material_spend = {
 				amount = 20
@@ -315,24 +330,27 @@ custom_button = {
 				amount = 20
 			}
 			add_treasury = -3750
-			4284 = {
+			2868 = {
 				add_great_project_tier = {
-					type = DA_Argrastun_Cathedral
+					type = DA_Exoskeletons_Workshop
 					tier = 1
 				}
 			}
 		}
 		else_if = {
 			limit = {
-				4284 = {
+				2868 = {
 					AND = {
 						has_great_project = {
-							type = DA_Argrastun_Cathedral
+							type = DA_Exoskeletons_Workshop
 							tier = 2
 						}
-						NOT = { has_great_project = { type = DA_Argrastun_Cathedral tier = 3 } }
+						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } }
 					}
 				}
+			}
+			DA_alchemy_reagents_spend = {
+				amount = 40
 			}
 			DA_enchanted_building_material_spend = {
 				amount = 40
@@ -341,199 +359,32 @@ custom_button = {
 				amount = 40
 			}
 			add_treasury = -7500
-			4284 = {
+			2868 = {
 				add_great_project_tier = {
-					type = DA_Argrastun_Cathedral
+					type = DA_Exoskeletons_Workshop
 					tier = 1
 				}
 			}
-			# hidden_effect = {
-			# 	country_event = {
-			# 		id = DA_Argrastun_Cathedral_event.14
-			# 		days = 3650
-			# 	}
-			# }
+			hidden_effect = {
+				country_event = {
+					id = DA_Exoskeletons_Workshop_event.14
+					days = 3650
+				}
+			}
 		}
 	}
 }
 
 custom_text_box = {
-    name = DA_Argrastun_Cathedral_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
+    name = DA_Exoskeletons_Workshop_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Argrastun_Cathedral_Wonder_level_shower_tt #Can use customizable localisation
+    tooltip = DA_Exoskeletons_Workshop_Wonder_level_shower_tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
-    name = DA_Argrastun_Cathedral_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
+    name = DA_Exoskeletons_Workshop_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Argrastun_Cathedral_Wonder_location_shower_tt #Can use customizable localisation
+    tooltip = DA_Exoskeletons_Workshop_Wonder_location_shower_tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-
-custom_button = {
-	name = DA_Argrastun_Cathedral_button_1
-	tooltip = DA_Argrastun_Cathedral_button_1_tt
-	potential = {
-		4284 = {
-			has_province_flag = DA_Argrastun_Cathedral_found_secondary_shrine_1
-		}
-	}
-	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Argrastun_Cathedral_in_use }
-		}
-		4284 = {
-			has_great_project = {
-				type = DA_Argrastun_Cathedral
-				tier = 1
-			}
-		}
-		DA_enchanted_building_material_total_required = {
-			amount = 5
-		}
-		treasury = 350
-	}
-	effect = {
-		DA_enchanted_building_material_spend = {
-			amount = 5
-		}
-		add_treasury = -350
-		country_event = {
-			id = DA_Hold_Ovdal_Az_An.1
-		}
-	}
-}
-
-custom_text_box = {
-    name = DA_Argrastun_Cathedral_button_1_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = {
-		4284 = {
-			has_province_flag = DA_Argrastun_Cathedral_found_secondary_shrine_1
-		}
-	 } #Determines when the text is visible
-    tooltip = DA_Argrastun_Cathedral_button_1_shower #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-
-custom_button = {
-	name = DA_Argrastun_Cathedral_button_2
-	tooltip = DA_Argrastun_Cathedral_button_2_tt
-	potential = {
-		4284 = {
-			has_province_flag = DA_Argrastun_Cathedral_found_secondary_shrine_2
-		}
-	}
-	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Argrastun_Cathedral_in_use }
-		}
-		4284 = {
-			has_great_project = {
-				type = DA_Argrastun_Cathedral
-				tier = 1
-			}
-		}
-		DA_enchanted_building_material_total_required = {
-			amount = 5
-		}
-		treasury = 350
-	}
-	effect = {
-		DA_enchanted_building_material_spend = {
-			amount = 5
-		}
-		add_treasury = -350
-		country_event = {
-			id = DA_Hold_Ovdal_Az_An.2
-		}
-	}
-}
-
-custom_text_box = {
-    name = DA_Argrastun_Cathedral_button_2_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = {
-		4284 = {
-			has_province_flag = DA_Argrastun_Cathedral_found_secondary_shrine_2
-		}
-	 } #Determines when the text is visible
-    tooltip = DA_Argrastun_Cathedral_button_2_shower #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-
-
-custom_button = {
-	name = DA_Argrastun_Cathedral_button_3
-	tooltip = DA_Argrastun_Cathedral_button_3_tt
-	potential = {
-		4284 = {
-			has_province_flag = DA_Argrastun_Cathedral_found_Main_Cathedral
-		}
-	}
-	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Argrastun_Cathedral_in_use }
-		}
-		4284 = {
-			has_great_project = {
-				type = DA_Argrastun_Cathedral
-				tier = 2
-			}
-		}
-		DA_enchanted_building_material_total_required = {
-			amount = 15
-		}
-		treasury = 1000
-	}
-	effect = {
-		DA_enchanted_building_material_spend = {
-			amount = 15
-		}
-		add_treasury = -1000
-		country_event = {
-			id = DA_Hold_Ovdal_Az_An.3
-		}
-	}
-}
-
-custom_text_box = {
-    name = DA_Argrastun_Cathedral_button_3_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = {
-		4284 = {
-			has_province_flag = DA_Argrastun_Cathedral_found_Main_Cathedral
-		}
-	 } #Determines when the text is visible
-    tooltip = DA_Argrastun_Cathedral_button_3_shower #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-
-
-custom_button = {
-	name = DA_Argrastun_Cathedral_button_4
-	tooltip = DA_Argrastun_Cathedral_button_4_tt
-	potential = {
-		4284 = {
-			has_province_flag = DA_restored_MF
-		}
-	}
-	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Argrastun_Cathedral_in_use }
-		}
-		4284 = {
-			has_great_project = {
-				type = DA_Argrastun_Cathedral
-				tier = 3
-			}
-		}
-	}
-	effect = {
-		#country_event = {
-		#	id = DA_Argrastun_Cathedral_event.4
-		#}
-	}
 }
