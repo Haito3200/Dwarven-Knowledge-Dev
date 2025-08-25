@@ -1052,10 +1052,311 @@ custom_button = { #Button for the UI when building UI is closed
 	}
 }
 
+custom_button = { #Button for the UI when building UI is closed
+	name = DA_Magma_Vein_Province_Button
+	tooltip = DA_Magma_Vein_Province_Button
+	potential = {
+		region = serpentreach_region
+	}
+	trigger = {
+		NOT = { has_province_modifier = DA_unregulated_magma_vein }
+		NOT = { has_province_modifier = DA_regulated_magma_vein }
+		4039 = {
+			owned_by = FROM
+			has_great_project = {
+				type = DA_Magma_Forge
+				tier = 1
+			}
+		}
+		owner = {
+			tag = FROM
+			DA_Magma_Level_required = {
+				amount = 60
+			}
+			DA_enchanted_building_material_total_required = {
+				amount = 5
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Wonder_unlocked_this_ability_tt
+				has_country_flag = DA_MF_can_create_regulated_veins
+			}
+		}
+	}
+	effect = {
+		owner = {
+			DA_Magma_Level_spend = {
+				amount = 60
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 5
+			}
+			add_treasury = -350
+		}
+		add_permanent_province_modifier = {
+			name = DA_regulated_magma_vein
+			duration = -1
+		}
+	}
+}
+
+custom_button = { #Button for the UI when building UI is closed
+	name = DA_Magma_Vein_Province_Button_2
+	tooltip = DA_Magma_Vein_Province_Button_2
+	potential = {
+		region = serpentreach_region
+	}
+	trigger = {
+		4039 = {
+			owned_by = FROM
+			has_great_project = {
+				type = DA_Magma_Forge
+				tier = 3
+			}
+		}
+		owner = {
+			tag = FROM
+			DA_Magma_Level_required = {
+				amount = 40
+			}
+			DA_enchanted_building_material_total_required = {
+				amount = 5
+			}
+			treasury = 500
+		}
+	}
+	effect = {
+		province_event = {
+			id = DA_Magma_forge_event.200
+		}
+	}
+}
+
+custom_button = { #Button for the UI when building UI is closed
+	name = DA_Meteorite_Summoning_Province_Button
+	tooltip = DA_Meteorite_Summoning_Province_Button
+	potential = {
+		region = northern_pass_region
+		NOT = { has_terrain = cavern }
+	}
+	trigger = {
+		owner = {
+			tag = FROM
+		}
+	}
+	effect = {
+	}
+}
+
+custom_button = { #Button for the UI when building UI is closed
+	name = DA_Turrets_of_Orldhum_Province_Button
+	tooltip = DA_Turrets_of_Orldhum_Province_Button
+	potential = {
+		region = west_dwarovar_region
+	}
+	trigger = {
+		if = {
+			limit = {
+				has_province_modifier = DA_HO_Turrets4
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Maxed_wonder_tt
+				always = no
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_HO_Turrets3
+			}
+			owner = {
+				tag = FROM
+				has_country_flag = DA_can_build_HO_turrets
+				any_owned_province = {
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 3
+					}
+				}
+				treasury = 50
+			}
+			OR = {
+				has_terrain = cavern
+				has_terrain = dwarven_road
+			}
+			OR = {
+				has_building = fort_15th
+				has_building = fort_16th
+				has_building = fort_17th
+				has_building = fort_18th
+			}
+			NOT = { has_construction = any }
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_HO_Turrets2
+			}
+			owner = {
+				tag = FROM
+				has_country_flag = DA_can_build_HO_turrets
+				any_owned_province = {
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 2
+					}
+				}
+				treasury = 50
+			}
+			OR = {
+				has_terrain = cavern
+				has_terrain = dwarven_road
+			}
+			OR = {
+				has_building = fort_15th
+				has_building = fort_16th
+				has_building = fort_17th
+				has_building = fort_18th
+			}
+			NOT = { has_construction = any }
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = DA_HO_Turrets
+			}
+			owner = {
+				tag = FROM
+				has_country_flag = DA_can_build_HO_turrets
+				any_owned_province = {
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 1
+					}
+				}
+				treasury = 50
+			}
+			OR = {
+				has_terrain = cavern
+				has_terrain = dwarven_road
+			}
+			OR = {
+				has_building = fort_15th
+				has_building = fort_16th
+				has_building = fort_17th
+				has_building = fort_18th
+			}
+			NOT = { has_construction = any }
+		}
+		else_if = {
+			limit = {
+				NOT = { has_province_modifier = DA_HO_Turrets4 }
+				NOT = { has_province_modifier = DA_HO_Turrets3 }
+				NOT = { has_province_modifier = DA_HO_Turrets2 }
+				NOT = { has_province_modifier = DA_HO_Turrets }
+			}
+			owner = {
+				tag = FROM
+				has_country_flag = DA_can_build_HO_turrets
+				treasury = 50
+			}
+			OR = {
+				has_terrain = cavern
+				has_terrain = dwarven_road
+			}
+			OR = {
+				has_building = fort_15th
+				has_building = fort_16th
+				has_building = fort_17th
+				has_building = fort_18th
+			}
+			NOT = { has_construction = any }
+		}
+	}
+	effect = {
+		add_building_construction = {
+			building = DA_turrets_of_orldhum_applier
+			cost = 1
+			speed = 1
+		}
+	}
+}
+
 ##############################################################################################################################################################################
-### PROVINCE UI GLOBAL
+### PROVINCE UI hostile targeting
 ##############################################################################################################################################################################
 # to add a button here you need to add a new one in the appropriate slot below the others
 # these behave like decisions
 # after that you need to add them in provinceview.gui, in three spots, do it like it's already done there to find the places CTRL+F 'province button UI' in the gui file
 ##############################################################################################################################################################################
+
+custom_window = {
+	name = DA_province_button_window_closed
+	potential = {
+		NOT = {
+			owned_by = from
+		}
+		owner = {
+			NOT = { alliance_with = from }
+			NOT = { vassal_of = from }
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_province_button_frame_bg_vertical
+	potential = {
+		always = yes
+	}
+}
+
+custom_button = { #Button for the UI when targeting enemy provinces
+	name = DA_Medicine_poison_Province_Button
+	tooltip = DA_Medicine_poison_Province_Button
+	potential = {
+		always = yes
+	}
+	trigger = {
+		from = {
+    		DA_completed.Medicine_1 = yes
+			has_idea = DA_Medicine_ideas6
+		}
+        owner = {
+            has_spy_network_from = {
+                who = FROM
+                value = 25
+            }
+        }
+	}
+	effect = {
+		save_event_target_as = DA_poisonable_province
+		from = {
+			country_event = { #make the event to select illness here
+				id = DA_Tech_Medicine_event.5
+			}
+		}
+	}
+}
+
+custom_button = { #Button for the UI when targeting enemy provinces
+	name = DA_province_menu_button_earth_shatterer
+	tooltip = DA_province_menu_button_earth_shatterer
+	potential = {
+		always = yes
+	}
+	trigger = {
+		from = {
+			any_owned_province = {
+				has_great_project = {
+					type = DA_Earth_Shatterer
+					tier = 1
+				}
+			}
+		}
+	}
+	effect = {
+		hidden_effect = {
+			every_province = {
+				clr_province_flag = DA_Earth_shatterer_target
+			}
+		}
+		custom_tooltip = DA_Earth_shatterer_target_must_be_fired_from_wonder_tt
+		set_province_flag = DA_Earth_shatterer_target
+	}
+}

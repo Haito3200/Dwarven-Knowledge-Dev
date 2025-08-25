@@ -137,14 +137,14 @@ custom_icon = {
 custom_text_box = {
     name = DA_Earth_Shatterer_name_shower #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Earth_Shatterer_name_shower_tt #Can use customizable localisation
+    tooltip = DA_Earth_Shatterer_name_shower #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Earth_Shatterer_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Earth_Shatterer_dwarven_name_shower_tt #Can use customizable localisation
+    tooltip = DA_Earth_Shatterer_dwarven_name_shower #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
@@ -159,7 +159,7 @@ custom_button = {
 			tooltip = DA_Wonder_in_use_tt
 			NOT = { has_country_flag = DA_Wonder_Earth_Shatterer_in_use }
 		}
-		4020 = {
+		4247 = {
 			owned_by = prev
 			has_great_project = {
 				type = DA_Earth_Shatterer
@@ -168,7 +168,7 @@ custom_button = {
 		}
 		if = {
 			limit = {
-				4020 = {
+				4247 = {
 					AND = {
 						has_great_project = {
 							type = DA_Earth_Shatterer
@@ -178,7 +178,7 @@ custom_button = {
 					}
 				}
 			}
-			4020 = {
+			4247 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_4_or_higher
 					DA_has_dig_level_4_or_higher = yes
@@ -197,7 +197,7 @@ custom_button = {
 		}
 		if = {
 			limit = {
-				4020 = {
+				4247 = {
 					AND = {
 						has_great_project = {
 							type = DA_Earth_Shatterer
@@ -207,7 +207,7 @@ custom_button = {
 					}
 				}
 			}
-			4020 = {
+			4247 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_6_or_higher
 					DA_has_dig_level_6_or_higher = yes
@@ -226,7 +226,7 @@ custom_button = {
 		}
 		if = {
 			limit = {
-				4020 = {
+				4247 = {
 					AND = {
 						has_great_project = {
 							type = DA_Earth_Shatterer
@@ -236,7 +236,7 @@ custom_button = {
 					}
 				}
 			}
-			4020 = {
+			4247 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_8_or_higher
 					DA_has_dig_level_8_or_higher = yes
@@ -255,7 +255,7 @@ custom_button = {
 		}
 		if = {
 			limit = {
-				4020 = {
+				4247 = {
 					has_great_project = {
 						type = DA_Earth_Shatterer
 						tier = 3
@@ -271,7 +271,7 @@ custom_button = {
 	effect = {
 		if = {
 			limit = {
-				4020 = {
+				4247 = {
 					AND = {
 						has_great_project = {
 							type = DA_Earth_Shatterer
@@ -291,7 +291,7 @@ custom_button = {
 				amount = 10
 			}
 			add_treasury = -1600
-			4020 = {
+			4247 = {
 				add_great_project_tier = {
 					type = DA_Earth_Shatterer
 					tier = 1
@@ -310,7 +310,7 @@ custom_button = {
 		}
 		else_if = {
 			limit = {
-				4020 = {
+				4247 = {
 					AND = {
 						has_great_project = {
 							type = DA_Earth_Shatterer
@@ -330,7 +330,7 @@ custom_button = {
 				amount = 20
 			}
 			add_treasury = -3750
-			4020 = {
+			4247 = {
 				add_great_project_tier = {
 					type = DA_Earth_Shatterer
 					tier = 1
@@ -339,7 +339,7 @@ custom_button = {
 		}
 		else_if = {
 			limit = {
-				4020 = {
+				4247 = {
 					AND = {
 						has_great_project = {
 							type = DA_Earth_Shatterer
@@ -359,7 +359,7 @@ custom_button = {
 				amount = 40
 			}
 			add_treasury = -7500
-			4020 = {
+			4247 = {
 				add_great_project_tier = {
 					type = DA_Earth_Shatterer
 					tier = 1
@@ -378,7 +378,7 @@ custom_button = {
 custom_text_box = {
     name = DA_Earth_Shatterer_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Earth_Shatterer_Wonder_level_shower_tt #Can use customizable localisation
+    tooltip = DA_Earth_Shatterer_Wonder_level_shower #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
@@ -387,4 +387,297 @@ custom_text_box = {
     potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Earth_Shatterer_Wonder_location_shower_tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_icon = {
+    name = DA_Earth_Shatterer_power_panel
+    potential = {
+		always = yes
+    }
+}
+custom_icon = {
+    name = DA_Earth_Shatterer_bullet_enhancement_panel
+    potential = {
+		always = yes
+    }
+}
+custom_button = {
+	name = DA_Earth_Shatterer_button_bullet_type_yes_no_1
+	tooltip = DA_Earth_Shatterer_button_bullet_type_yes_no_1
+	frame = {
+		number = 1
+		trigger = {
+			4247 = {
+				has_province_flag = DA_Earth_Shatterer.gargantuan_bullet
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			4247 = {
+				NOT = { has_province_flag = DA_Earth_Shatterer.gargantuan_bullet }
+			}
+		}
+	}
+	potential = {
+		always = yes
+	}
+	trigger = {
+	}
+	effect = {
+		if = {
+			limit = {
+				4247 = {
+					NOT = { has_province_flag = DA_Earth_Shatterer.gargantuan_bullet }
+				}
+			}
+			DA_Earth_Shatterer_power_cost_increase = { amount = 10 }
+			4247 = {
+				set_province_flag = DA_Earth_Shatterer.gargantuan_bullet
+			}
+		}
+		else = {
+			DA_Earth_Shatterer_power_cost_decrease = { amount = 10 }
+			4247 = {
+				clr_province_flag = DA_Earth_Shatterer.gargantuan_bullet
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Earth_Shatterer_button_bullet_type_yes_no_2
+	tooltip = DA_Earth_Shatterer_button_bullet_type_yes_no_2
+	frame = {
+		number = 1
+		trigger = {
+			4247 = {
+				has_province_flag = DA_Earth_Shatterer.penetrating_power
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			4247 = {
+				NOT = { has_province_flag = DA_Earth_Shatterer.penetrating_power }
+			}
+		}
+	}
+	potential = {
+		always = yes
+	}
+	trigger = {
+		4247 = {
+			has_great_project = {
+				type = DA_Earth_Shatterer
+				tier = 1
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				4247 = {
+					NOT = { has_province_flag = DA_Earth_Shatterer.penetrating_power }
+				}
+			}
+			DA_Earth_Shatterer_power_cost_increase = { amount = 20 }
+			4247 = {
+				set_province_flag = DA_Earth_Shatterer.penetrating_power
+			}
+		}
+		else = {
+			DA_Earth_Shatterer_power_cost_decrease = { amount = 20 }
+			4247 = {
+				clr_province_flag = DA_Earth_Shatterer.penetrating_power
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Earth_Shatterer_button_bullet_type_yes_no_3
+	tooltip = DA_Earth_Shatterer_button_bullet_type_yes_no_3
+	frame = {
+		number = 1
+		trigger = {
+			4247 = {
+				has_province_flag = DA_Earth_Shatterer.earth_shatterer
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			4247 = {
+				NOT = { has_province_flag = DA_Earth_Shatterer.earth_shatterer }
+			}
+		}
+	}
+	potential = {
+		always = yes
+	}
+	trigger = {
+		4247 = {
+			has_great_project = {
+				type = DA_Earth_Shatterer
+				tier = 2
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				4247 = {
+					NOT = { has_province_flag = DA_Earth_Shatterer.earth_shatterer }
+				}
+			}
+			DA_Earth_Shatterer_power_cost_increase = { amount = 20 }
+			4247 = {
+				set_province_flag = DA_Earth_Shatterer.earth_shatterer
+			}
+		}
+		else = {
+			DA_Earth_Shatterer_power_cost_decrease = { amount = 20 }
+			4247 = {
+				clr_province_flag = DA_Earth_Shatterer.earth_shatterer
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Earth_Shatterer_button_bullet_type_yes_no_4
+	tooltip = DA_Earth_Shatterer_button_bullet_type_yes_no_4
+	frame = {
+		number = 1
+		trigger = {
+			4247 = {
+				has_province_flag = DA_Earth_Shatterer.Poison_Imbuement
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			4247 = {
+				NOT = { has_province_flag = DA_Earth_Shatterer.Poison_Imbuement }
+			}
+		}
+	}
+	potential = {
+		always = yes
+	}
+	trigger = {
+		4247 = {
+			has_great_project = {
+				type = DA_Earth_Shatterer
+				tier = 2
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				4247 = {
+					NOT = { has_province_flag = DA_Earth_Shatterer.Poison_Imbuement }
+				}
+			}
+			DA_Earth_Shatterer_power_cost_increase = { amount = 30 }
+			4247 = {
+				set_province_flag = DA_Earth_Shatterer.Poison_Imbuement
+			}
+		}
+		else = {
+			DA_Earth_Shatterer_power_cost_decrease = { amount = 30 }
+			4247 = {
+				clr_province_flag = DA_Earth_Shatterer.Poison_Imbuement
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Earth_Shatterer_button_bullet_type_yes_no_5
+	tooltip = DA_Earth_Shatterer_button_bullet_type_yes_no_5
+	frame = {
+		number = 1
+		trigger = {
+			4247 = {
+				has_province_flag = DA_Earth_Shatterer.Halanna_wrath
+			}
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			4247 = {
+				NOT = { has_province_flag = DA_Earth_Shatterer.Halanna_wrath }
+			}
+		}
+	}
+	potential = {
+		always = yes
+	}
+	trigger = {
+		4247 = {
+			has_great_project = {
+				type = DA_Earth_Shatterer
+				tier = 3
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				4247 = {
+					NOT = { has_province_flag = DA_Earth_Shatterer.Halanna_wrath }
+				}
+			}
+			DA_Earth_Shatterer_power_cost_increase = { amount = 50 }
+			4247 = {
+				set_province_flag = DA_Earth_Shatterer.Halanna_wrath
+			}
+		}
+		else = {
+			DA_Earth_Shatterer_power_cost_decrease = { amount = 50 }
+			4247 = {
+				clr_province_flag = DA_Earth_Shatterer.Halanna_wrath
+			}
+		}
+	}
+}
+
+custom_text_box = {
+    name = DA_Earth_Shatterer_bullet_cost_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Earth_Shatterer_bullet_cost_shower #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_text_box = {
+    name = DA_Earth_Shatterer_bullet_power_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Earth_Shatterer_bullet_power_shower #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = DA_Earth_Shatterer_button_fire
+	tooltip = DA_Earth_Shatterer_button_fire
+	potential = {
+		always = yes
+	}
+	trigger = {
+		4247 = {
+			has_great_project = {
+				type = DA_Earth_Shatterer
+				tier = 1
+			}
+		}
+	}
+	effect = {
+	}
 }

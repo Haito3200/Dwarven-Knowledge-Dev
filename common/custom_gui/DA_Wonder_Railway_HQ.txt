@@ -299,12 +299,8 @@ custom_button = {
 			}
 			hidden_effect = {
 				country_event = {
-					id = DA_Railway_HQ_event.11
+					id = DA_railway_event.3
 					days = 365
-				}
-				country_event = {
-					id = DA_Railway_HQ_event.12
-					days = 1095
 				}
 			}
 		}
@@ -367,8 +363,8 @@ custom_button = {
 			}
 			hidden_effect = {
 				country_event = {
-					id = DA_Railway_HQ_event.14
-					days = 3650
+					id = DA_railway_event.3
+					days = 365
 				}
 			}
 		}
@@ -388,3 +384,2905 @@ custom_text_box = {
     tooltip = DA_Railway_HQ_Wonder_location_shower_tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
+
+
+custom_icon = {
+    name = DA_Railway_panel_empty_taller_image
+    potential = {
+		always = yes
+    }
+}
+
+custom_button = {
+	name = DA_previous_zone_panel_button
+	tooltip = DA_previous_zone_panel_button
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			2931 = {
+				change_variable = {
+					which = DA_Railway_HQ_zone_shower
+					value = -1
+				}
+				if = {
+					limit = {
+						NOT = {
+							check_variable = {
+								which = DA_Railway_HQ_zone_shower
+								value = 1
+							}
+						}
+					}
+					set_variable = {
+						which = DA_Railway_HQ_zone_shower
+						value = 14
+					}
+				}
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = DA_next_zone_panel_button
+	tooltip = DA_next_zone_panel_button
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			2931 = {
+				change_variable = {
+					which = DA_Railway_HQ_zone_shower
+					value = 1
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = DA_Railway_HQ_zone_shower
+							value = 15
+						}
+					}
+					set_variable = {
+						which = DA_Railway_HQ_zone_shower
+						value = 1
+					}
+				}
+			}
+		}
+	}
+}
+
+custom_text_box = {
+    name = DA_Railway_HQ_zone_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Railway_HQ_zone_shower #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+
+#################### 1 ####################
+
+custom_icon = {
+    name = DA_Railway_HQ_giant_anvil
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 1
+			}
+		}
+    }
+}
+custom_button = {
+	name = GFX_DA_Railway_HQ_button_extension_1
+	tooltip = DA_Railway_HQ_button_extension_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 1
+			}
+		}
+		4211 = {
+			NOT = { has_province_modifier = dwarovar_rail }
+			NOT = { has_province_modifier = restored_rail }
+			NOT = { has_province_modifier = advanced_rail }
+		}
+	}
+	trigger = {
+		treasury = 100
+		owns = 4211
+		owns = 4210
+		owns = 4209
+		owns = 4207
+		owns = 4206
+		owns = 4205
+		owns = 4204
+		owns = 4203
+		owns = 4201
+		owns = 4198
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4211
+						province_id = 4210
+						province_id = 4209
+						province_id = 4207
+						province_id = 4206
+						province_id = 4205
+						province_id = 4204
+						province_id = 4203
+						province_id = 4201
+						province_id = 4198
+					}
+				}
+				add_permanent_province_modifier = {
+					name = dwarovar_rail
+					duration = -1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_1
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 1
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		4211 = { owned_by = from NOT = { has_construction = any } }
+		4210 = { owned_by = from NOT = { has_construction = any } }
+		4209 = { owned_by = from NOT = { has_construction = any } }
+		4207 = { owned_by = from NOT = { has_construction = any } }
+		4206 = { owned_by = from NOT = { has_construction = any } }
+		4205 = { owned_by = from NOT = { has_construction = any } }
+		4204 = { owned_by = from NOT = { has_construction = any } }
+		4203 = { owned_by = from NOT = { has_construction = any } }
+		4201 = { owned_by = from NOT = { has_construction = any } }
+		4198 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4211
+						province_id = 4210
+						province_id = 4209
+						province_id = 4207
+						province_id = 4206
+						province_id = 4205
+						province_id = 4204
+						province_id = 4203
+						province_id = 4201
+						province_id = 4198
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_1
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 1
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		4211 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 4211
+		owns = 4210
+		owns = 4209
+		owns = 4207
+		owns = 4206
+		owns = 4205
+		owns = 4204
+		owns = 4203
+		owns = 4201
+		owns = 4198
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4211
+						province_id = 4210
+						province_id = 4209
+						province_id = 4207
+						province_id = 4206
+						province_id = 4205
+						province_id = 4204
+						province_id = 4203
+						province_id = 4201
+						province_id = 4198
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_1
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 1
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 4211
+		owns = 4210
+		owns = 4209
+		owns = 4207
+		owns = 4206
+		owns = 4205
+		owns = 4204
+		owns = 4203
+		owns = 4201
+		owns = 4198
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				4211 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4211
+							province_id = 4210
+							province_id = 4209
+							province_id = 4207
+							province_id = 4206
+							province_id = 4205
+							province_id = 4204
+							province_id = 4203
+							province_id = 4201
+							province_id = 4198
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4211
+							province_id = 4210
+							province_id = 4209
+							province_id = 4207
+							province_id = 4206
+							province_id = 4205
+							province_id = 4204
+							province_id = 4203
+							province_id = 4201
+							province_id = 4198
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 2 ####################
+
+custom_icon = {
+    name = DA_Railway_HQ_khugdihr
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 2
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_2
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 2
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2864 = { owned_by = from NOT = { has_construction = any } }
+		2935 = { owned_by = from NOT = { has_construction = any } }
+		2865 = { owned_by = from NOT = { has_construction = any } }
+		2866 = { owned_by = from NOT = { has_construction = any } }
+		2867 = { owned_by = from NOT = { has_construction = any } }
+		2871 = { owned_by = from NOT = { has_construction = any } }
+		4043 = { owned_by = from NOT = { has_construction = any } }
+		2872 = { owned_by = from NOT = { has_construction = any } }
+		2933 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2864
+						province_id = 2935
+						province_id = 2865
+						province_id = 2866
+						province_id = 2867
+						province_id = 2871
+						province_id = 4043
+						province_id = 2872
+						province_id = 2933
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_2
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 2
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2864 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2864
+		owns = 2935
+		owns = 2865
+		owns = 2866
+		owns = 2867
+		owns = 2871
+		owns = 4043
+		owns = 2872
+		owns = 2933
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2864
+						province_id = 2935
+						province_id = 2865
+						province_id = 2866
+						province_id = 2867
+						province_id = 2871
+						province_id = 4043
+						province_id = 2872
+						province_id = 2933
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_2
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 2
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2864
+		owns = 2935
+		owns = 2865
+		owns = 2866
+		owns = 2867
+		owns = 2871
+		owns = 4043
+		owns = 2872
+		owns = 2933
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2864 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2864
+							province_id = 2935
+							province_id = 2865
+							province_id = 2866
+							province_id = 2867
+							province_id = 2871
+							province_id = 4043
+							province_id = 2872
+							province_id = 2933
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2864
+							province_id = 2935
+							province_id = 2865
+							province_id = 2866
+							province_id = 2867
+							province_id = 2871
+							province_id = 4043
+							province_id = 2872
+							province_id = 2933
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 3 ####################
+
+custom_icon = {
+    name = DA_Railway_HQ_Amldihr
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 3
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_3
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 3
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		4121 = { owned_by = from NOT = { has_construction = any } }
+		4120 = { owned_by = from NOT = { has_construction = any } }
+		2992 = { owned_by = from NOT = { has_construction = any } }
+		2993 = { owned_by = from NOT = { has_construction = any } }
+		2994 = { owned_by = from NOT = { has_construction = any } }
+		2996 = { owned_by = from NOT = { has_construction = any } }
+		2997 = { owned_by = from NOT = { has_construction = any } }
+		2998 = { owned_by = from NOT = { has_construction = any } }
+		2999 = { owned_by = from NOT = { has_construction = any } }
+		3000 = { owned_by = from NOT = { has_construction = any } }
+		3001 = { owned_by = from NOT = { has_construction = any } }
+		3002 = { owned_by = from NOT = { has_construction = any } }
+		3003 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4121
+						province_id = 4120
+						province_id = 2992
+						province_id = 2993
+						province_id = 2994
+						province_id = 2996
+						province_id = 2997
+						province_id = 2998
+						province_id = 2999
+						province_id = 3000
+						province_id = 3001
+						province_id = 3002
+						province_id = 3003
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_3
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 3
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		4121 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 4121
+		owns = 4120
+		owns = 2992
+		owns = 2993
+		owns = 2994
+		owns = 2996
+		owns = 2997
+		owns = 2998
+		owns = 2999
+		owns = 3000
+		owns = 3001
+		owns = 3002
+		owns = 3003
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4121
+						province_id = 4120
+						province_id = 2992
+						province_id = 2993
+						province_id = 2994
+						province_id = 2996
+						province_id = 2997
+						province_id = 2998
+						province_id = 2999
+						province_id = 3000
+						province_id = 3001
+						province_id = 3002
+						province_id = 3003
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_3
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 3
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 4121
+		owns = 4120
+		owns = 2992
+		owns = 2993
+		owns = 2994
+		owns = 2996
+		owns = 2997
+		owns = 2998
+		owns = 2999
+		owns = 3000
+		owns = 3001
+		owns = 3002
+		owns = 3003
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				4121 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4121
+							province_id = 4120
+							province_id = 2992
+							province_id = 2993
+							province_id = 2994
+							province_id = 2996
+							province_id = 2997
+							province_id = 2998
+							province_id = 2999
+							province_id = 3000
+							province_id = 3001
+							province_id = 3002
+							province_id = 3003
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4121
+							province_id = 4120
+							province_id = 2992
+							province_id = 2993
+							province_id = 2994
+							province_id = 2996
+							province_id = 2997
+							province_id = 2998
+							province_id = 2999
+							province_id = 3000
+							province_id = 3001
+							province_id = 3002
+							province_id = 3003
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 4 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_Er_Natvir
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 4
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_4
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 4
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2873 = { owned_by = from NOT = { has_construction = any } }
+		2874 = { owned_by = from NOT = { has_construction = any } }
+		2875 = { owned_by = from NOT = { has_construction = any } }
+		2876 = { owned_by = from NOT = { has_construction = any } }
+		2932 = { owned_by = from NOT = { has_construction = any } }
+		2934 = { owned_by = from NOT = { has_construction = any } }
+		2986 = { owned_by = from NOT = { has_construction = any } }
+		2988 = { owned_by = from NOT = { has_construction = any } }
+		2989 = { owned_by = from NOT = { has_construction = any } }
+		2990 = { owned_by = from NOT = { has_construction = any } }
+		2991 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2873
+						province_id = 2874
+						province_id = 2875
+						province_id = 2876
+						province_id = 2932
+						province_id = 2934
+						province_id = 2986
+						province_id = 2988
+						province_id = 2989
+						province_id = 2990
+						province_id = 2991
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_4
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 4
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2873 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2873
+		owns = 2874
+		owns = 2875
+		owns = 2876
+		owns = 2932
+		owns = 2934
+		owns = 2986
+		owns = 2988
+		owns = 2989
+		owns = 2990
+		owns = 2991
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2873
+						province_id = 2874
+						province_id = 2875
+						province_id = 2876
+						province_id = 2932
+						province_id = 2934
+						province_id = 2986
+						province_id = 2988
+						province_id = 2989
+						province_id = 2990
+						province_id = 2991
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_4
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 4
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2873
+		owns = 2874
+		owns = 2875
+		owns = 2876
+		owns = 2932
+		owns = 2934
+		owns = 2986
+		owns = 2988
+		owns = 2989
+		owns = 2990
+		owns = 2991
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2873 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2873
+							province_id = 2874
+							province_id = 2875
+							province_id = 2876
+							province_id = 2932
+							province_id = 2934
+							province_id = 2986
+							province_id = 2988
+							province_id = 2989
+							province_id = 2990
+							province_id = 2991
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2873
+							province_id = 2874
+							province_id = 2875
+							province_id = 2876
+							province_id = 2932
+							province_id = 2934
+							province_id = 2986
+							province_id = 2988
+							province_id = 2989
+							province_id = 2990
+							province_id = 2991
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 5 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_Verkal_Kozenad
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 5
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_5
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 5
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2877 = { owned_by = from NOT = { has_construction = any } }
+		2878 = { owned_by = from NOT = { has_construction = any } }
+		2879 = { owned_by = from NOT = { has_construction = any } }
+		2937 = { owned_by = from NOT = { has_construction = any } }
+		4103 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2877
+						province_id = 2878
+						province_id = 2879
+						province_id = 2937
+						province_id = 4103
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_5
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 5
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2877 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2877
+		owns = 2878
+		owns = 2879
+		owns = 2937
+		owns = 4103
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2877
+						province_id = 2878
+						province_id = 2879
+						province_id = 2937
+						province_id = 4103
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_5
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 5
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2877
+		owns = 2878
+		owns = 2879
+		owns = 2937
+		owns = 4103
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2877 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2877
+							province_id = 2878
+							province_id = 2879
+							province_id = 2937
+							province_id = 4103
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2877
+							province_id = 2878
+							province_id = 2879
+							province_id = 2937
+							province_id = 4103
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 6 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_Hul_Jorkad
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 6
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_6
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 6
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2880 = { owned_by = from NOT = { has_construction = any } }
+		2881 = { owned_by = from NOT = { has_construction = any } }
+		2882 = { owned_by = from NOT = { has_construction = any } }
+		2884 = { owned_by = from NOT = { has_construction = any } }
+		4029 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2880
+						province_id = 2881
+						province_id = 2882
+						province_id = 2883
+						province_id = 2884
+						province_id = 4029
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_6
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 6
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2880 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2880
+		owns = 2881
+		owns = 2882
+		owns = 2883
+		owns = 2884
+		owns = 4029
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2880
+						province_id = 2881
+						province_id = 2882
+						province_id = 2883
+						province_id = 2884
+						province_id = 4029
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_6
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 6
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2880
+		owns = 2881
+		owns = 2882
+		owns = 2883
+		owns = 2884
+		owns = 4029
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2880 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2880
+							province_id = 2881
+							province_id = 2882
+							province_id = 2883
+							province_id = 2884
+							province_id = 4029
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2880
+							province_id = 2881
+							province_id = 2882
+							province_id = 2883
+							province_id = 2884
+							province_id = 4029
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 7 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_Gor_Burad
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 7
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_7
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 7
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2980 = { owned_by = from NOT = { has_construction = any } }
+		2981 = { owned_by = from NOT = { has_construction = any } }
+		2984 = { owned_by = from NOT = { has_construction = any } }
+		2985 = { owned_by = from NOT = { has_construction = any } }
+		4036 = { owned_by = from NOT = { has_construction = any } }
+		4037 = { owned_by = from NOT = { has_construction = any } }
+		4038 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2981
+						province_id = 2980
+						province_id = 2984
+						province_id = 2985
+						province_id = 4036
+						province_id = 4037
+						province_id = 4038
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_7
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 7
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2981 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2981
+		owns = 2980
+		owns = 2984
+		owns = 2985
+		owns = 4036
+		owns = 4037
+		owns = 4038
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2981
+						province_id = 2980
+						province_id = 2984
+						province_id = 2985
+						province_id = 4036
+						province_id = 4037
+						province_id = 4038
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_7
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 7
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2981
+		owns = 2980
+		owns = 2984
+		owns = 2985
+		owns = 4036
+		owns = 4037
+		owns = 4038
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2981 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2981
+							province_id = 2980
+							province_id = 2984
+							province_id = 2985
+							province_id = 4036
+							province_id = 4037
+							province_id = 4038
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2981
+							province_id = 2980
+							province_id = 2984
+							province_id = 2985
+							province_id = 4036
+							province_id = 4037
+							province_id = 4038
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 8 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_serpentsreach_center
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 8
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_8
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 8
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2944 = { owned_by = from NOT = { has_construction = any } }
+		2945 = { owned_by = from NOT = { has_construction = any } }
+		2946 = { owned_by = from NOT = { has_construction = any } }
+		2962 = { owned_by = from NOT = { has_construction = any } }
+		2968 = { owned_by = from NOT = { has_construction = any } }
+		2969 = { owned_by = from NOT = { has_construction = any } }
+		2970 = { owned_by = from NOT = { has_construction = any } }
+		2979 = { owned_by = from NOT = { has_construction = any } }
+		4240 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2944
+						province_id = 2945
+						province_id = 2946
+						province_id = 2962
+						province_id = 2968
+						province_id = 2969
+						province_id = 2970
+						province_id = 2979
+						province_id = 4240
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_8
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 8
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2944 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2944
+		owns = 2945
+		owns = 2946
+		owns = 2962
+		owns = 2968
+		owns = 2969
+		owns = 2970
+		owns = 2979
+		owns = 4240
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2944
+						province_id = 2945
+						province_id = 2946
+						province_id = 2962
+						province_id = 2968
+						province_id = 2969
+						province_id = 2970
+						province_id = 2979
+						province_id = 4240
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_8
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 8
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2944
+		owns = 2945
+		owns = 2946
+		owns = 2962
+		owns = 2968
+		owns = 2969
+		owns = 2970
+		owns = 2979
+		owns = 4240
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2944 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2944
+							province_id = 2945
+							province_id = 2946
+							province_id = 2962
+							province_id = 2968
+							province_id = 2969
+							province_id = 2970
+							province_id = 2979
+							province_id = 4240
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2944
+							province_id = 2945
+							province_id = 2946
+							province_id = 2962
+							province_id = 2968
+							province_id = 2969
+							province_id = 2970
+							province_id = 2979
+							province_id = 4240
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 9 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_serpentsreach_west
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 9
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_9
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 9
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2943 = { owned_by = from NOT = { has_construction = any } }
+		2954 = { owned_by = from NOT = { has_construction = any } }
+		2955 = { owned_by = from NOT = { has_construction = any } }
+		2956 = { owned_by = from NOT = { has_construction = any } }
+		2957 = { owned_by = from NOT = { has_construction = any } }
+		2987 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2943
+						province_id = 2954
+						province_id = 2955
+						province_id = 2956
+						province_id = 2957
+						province_id = 2987
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_9
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 9
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2943 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2943
+		owns = 2954
+		owns = 2955
+		owns = 2956
+		owns = 2957
+		owns = 2987
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2943
+						province_id = 2954
+						province_id = 2955
+						province_id = 2956
+						province_id = 2957
+						province_id = 2987
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_9
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 9
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2943
+		owns = 2954
+		owns = 2955
+		owns = 2956
+		owns = 2957
+		owns = 2987
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2943 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2943
+							province_id = 2954
+							province_id = 2955
+							province_id = 2956
+							province_id = 2957
+							province_id = 2987
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2943
+							province_id = 2954
+							province_id = 2955
+							province_id = 2956
+							province_id = 2957
+							province_id = 2987
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 10 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_central_dwarovar_west
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 10
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_10
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 10
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2885 = { owned_by = from NOT = { has_construction = any } }
+		2886 = { owned_by = from NOT = { has_construction = any } }
+		2887 = { owned_by = from NOT = { has_construction = any } }
+		2888 = { owned_by = from NOT = { has_construction = any } }
+		2889 = { owned_by = from NOT = { has_construction = any } }
+		2890 = { owned_by = from NOT = { has_construction = any } }
+		2891 = { owned_by = from NOT = { has_construction = any } }
+		4027 = { owned_by = from NOT = { has_construction = any } }
+		4028 = { owned_by = from NOT = { has_construction = any } }
+		4082 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2885
+						province_id = 2886
+						province_id = 2887
+						province_id = 2888
+						province_id = 2889
+						province_id = 2890
+						province_id = 2891
+						province_id = 4027
+						province_id = 4028
+						province_id = 4082
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_10
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 10
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2885 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2885
+		owns = 2886
+		owns = 2887
+		owns = 2888
+		owns = 2889
+		owns = 2890
+		owns = 2891
+		owns = 4027
+		owns = 4028
+		owns = 4082
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2885
+						province_id = 2886
+						province_id = 2887
+						province_id = 2888
+						province_id = 2889
+						province_id = 2890
+						province_id = 2891
+						province_id = 4027
+						province_id = 4028
+						province_id = 4082
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_10
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 10
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2885
+		owns = 2886
+		owns = 2887
+		owns = 2888
+		owns = 2889
+		owns = 2890
+		owns = 2891
+		owns = 4027
+		owns = 4028
+		owns = 4082
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2885 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2885
+							province_id = 2886
+							province_id = 2887
+							province_id = 2888
+							province_id = 2889
+							province_id = 2890
+							province_id = 2891
+							province_id = 4027
+							province_id = 4028
+							province_id = 4082
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2885
+							province_id = 2886
+							province_id = 2887
+							province_id = 2888
+							province_id = 2889
+							province_id = 2890
+							province_id = 2891
+							province_id = 4027
+							province_id = 4028
+							province_id = 4082
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 11 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_central_dwarovar_east
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 11
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_11
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 11
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		2892 = { owned_by = from NOT = { has_construction = any } }
+		2893 = { owned_by = from NOT = { has_construction = any } }
+		2894 = { owned_by = from NOT = { has_construction = any } }
+		2895 = { owned_by = from NOT = { has_construction = any } }
+		4090 = { owned_by = from NOT = { has_construction = any } }
+		4091 = { owned_by = from NOT = { has_construction = any } }
+		4111 = { owned_by = from NOT = { has_construction = any } }
+		4112 = { owned_by = from NOT = { has_construction = any } }
+		4113 = { owned_by = from NOT = { has_construction = any } }
+		4114 = { owned_by = from NOT = { has_construction = any } }
+		4231 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2892
+						province_id = 2893
+						province_id = 2894
+						province_id = 2895
+						province_id = 4090
+						province_id = 4091
+						province_id = 4111
+						province_id = 4112
+						province_id = 4113
+						province_id = 4114
+						province_id = 4231
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_11
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 11
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		2892 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 2892
+		owns = 2893
+		owns = 2894
+		owns = 2895
+		owns = 4090
+		owns = 4091
+		owns = 4111
+		owns = 4112
+		owns = 4113
+		owns = 4114
+		owns = 4231
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 2892
+						province_id = 2893
+						province_id = 2894
+						province_id = 2895
+						province_id = 4090
+						province_id = 4091
+						province_id = 4111
+						province_id = 4112
+						province_id = 4113
+						province_id = 4114
+						province_id = 4231
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_11
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 11
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 2892
+		owns = 2893
+		owns = 2894
+		owns = 2895
+		owns = 4090
+		owns = 4091
+		owns = 4111
+		owns = 4112
+		owns = 4113
+		owns = 4114
+		owns = 4231
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				2892 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2892
+							province_id = 2893
+							province_id = 2894
+							province_id = 2895
+							province_id = 4090
+							province_id = 4091
+							province_id = 4111
+							province_id = 4112
+							province_id = 4113
+							province_id = 4114
+							province_id = 4231
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2892
+							province_id = 2893
+							province_id = 2894
+							province_id = 2895
+							province_id = 4090
+							province_id = 4091
+							province_id = 4111
+							province_id = 4112
+							province_id = 4113
+							province_id = 4114
+							province_id = 4231
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 12 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_central_ovdal_kanzad
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 12
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_12
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 12
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		4242 = { owned_by = from NOT = { has_construction = any } }
+		4243 = { owned_by = from NOT = { has_construction = any } }
+		4244 = { owned_by = from NOT = { has_construction = any } }
+		4245 = { owned_by = from NOT = { has_construction = any } }
+		4248 = { owned_by = from NOT = { has_construction = any } }
+		4249 = { owned_by = from NOT = { has_construction = any } }
+		4250 = { owned_by = from NOT = { has_construction = any } }
+		4251 = { owned_by = from NOT = { has_construction = any } }
+		4252 = { owned_by = from NOT = { has_construction = any } }
+		4253 = { owned_by = from NOT = { has_construction = any } }
+		4254 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4242
+						province_id = 4243
+						province_id = 4244
+						province_id = 4245
+						province_id = 4248
+						province_id = 4249
+						province_id = 4250
+						province_id = 4251
+						province_id = 4252
+						province_id = 4253
+						province_id = 4254
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_12
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 12
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		4242 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 4242
+		owns = 4243
+		owns = 4244
+		owns = 4245
+		owns = 4248
+		owns = 4249
+		owns = 4250
+		owns = 4251
+		owns = 4252
+		owns = 4253
+		owns = 4254
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4242
+						province_id = 4243
+						province_id = 4244
+						province_id = 4245
+						province_id = 4248
+						province_id = 4249
+						province_id = 4250
+						province_id = 4251
+						province_id = 4252
+						province_id = 4253
+						province_id = 4254
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_12
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 12
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 4242
+		owns = 4243
+		owns = 4244
+		owns = 4245
+		owns = 4248
+		owns = 4249
+		owns = 4250
+		owns = 4251
+		owns = 4252
+		owns = 4253
+		owns = 4254
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				4242 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4242
+							province_id = 4243
+							province_id = 4244
+							province_id = 4245
+							province_id = 4248
+							province_id = 4249
+							province_id = 4250
+							province_id = 4251
+							province_id = 4252
+							province_id = 4253
+							province_id = 4254
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4242
+							province_id = 4243
+							province_id = 4244
+							province_id = 4245
+							province_id = 4248
+							province_id = 4249
+							province_id = 4250
+							province_id = 4251
+							province_id = 4252
+							province_id = 4253
+							province_id = 4254
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 13 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_central_hul_az_krakazol
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 13
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_13
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 13
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		4255 = { owned_by = from NOT = { has_construction = any } }
+		4256 = { owned_by = from NOT = { has_construction = any } }
+		4257 = { owned_by = from NOT = { has_construction = any } }
+		4258 = { owned_by = from NOT = { has_construction = any } }
+		4259 = { owned_by = from NOT = { has_construction = any } }
+		4260 = { owned_by = from NOT = { has_construction = any } }
+		4261 = { owned_by = from NOT = { has_construction = any } }
+		4262 = { owned_by = from NOT = { has_construction = any } }
+		4263 = { owned_by = from NOT = { has_construction = any } }
+		4264 = { owned_by = from NOT = { has_construction = any } }
+		4297 = { owned_by = from NOT = { has_construction = any } }
+		4298 = { owned_by = from NOT = { has_construction = any } }
+		4300 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4255
+						province_id = 4256
+						province_id = 4257
+						province_id = 4258
+						province_id = 4259
+						province_id = 4260
+						province_id = 4261
+						province_id = 4262
+						province_id = 4263
+						province_id = 4264
+						province_id = 4297
+						province_id = 4298
+						province_id = 4300
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_13
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 13
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		4255 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 4255
+		owns = 4256
+		owns = 4257
+		owns = 4258
+		owns = 4259
+		owns = 4260
+		owns = 4261
+		owns = 4262
+		owns = 4263
+		owns = 4264
+		owns = 4297
+		owns = 4298
+		owns = 4300
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4255
+						province_id = 4256
+						province_id = 4257
+						province_id = 4258
+						province_id = 4259
+						province_id = 4260
+						province_id = 4261
+						province_id = 4262
+						province_id = 4263
+						province_id = 4264
+						province_id = 4297
+						province_id = 4298
+						province_id = 4300
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_13
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 13
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 4255
+		owns = 4256
+		owns = 4257
+		owns = 4258
+		owns = 4259
+		owns = 4260
+		owns = 4261
+		owns = 4262
+		owns = 4263
+		owns = 4264
+		owns = 4297
+		owns = 4298
+		owns = 4300
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				4255 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4255
+							province_id = 4256
+							province_id = 4257
+							province_id = 4258
+							province_id = 4259
+							province_id = 4260
+							province_id = 4261
+							province_id = 4262
+							province_id = 4263
+							province_id = 4264
+							province_id = 4297
+							province_id = 4298
+							province_id = 4300
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4255
+							province_id = 4256
+							province_id = 4257
+							province_id = 4258
+							province_id = 4259
+							province_id = 4260
+							province_id = 4261
+							province_id = 4262
+							province_id = 4263
+							province_id = 4264
+							province_id = 4297
+							province_id = 4298
+							province_id = 4300
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#################### 14 ####################
+
+
+custom_icon = {
+    name = DA_Railway_HQ_central_jade_mines
+    potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 14
+			}
+		}
+    }
+}
+custom_button = {
+	name = DA_Railway_HQ_button_upgrades_14
+	tooltip = DA_Railway_HQ_button_upgrades_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 14
+			}
+		}
+	}
+	trigger = {
+		treasury = 100
+		4301 = { owned_by = from NOT = { has_construction = any } }
+		4302 = { owned_by = from NOT = { has_construction = any } }
+		4303 = { owned_by = from NOT = { has_construction = any } }
+		4304 = { owned_by = from NOT = { has_construction = any } }
+		4305 = { owned_by = from NOT = { has_construction = any } }
+		4306 = { owned_by = from NOT = { has_construction = any } }
+		4307 = { owned_by = from NOT = { has_construction = any } }
+		4308 = { owned_by = from NOT = { has_construction = any } }
+		4309 = { owned_by = from NOT = { has_construction = any } }
+		4310 = { owned_by = from NOT = { has_construction = any } }
+		4356 = { owned_by = from NOT = { has_construction = any } }
+		4359 = { owned_by = from NOT = { has_construction = any } }
+		4360 = { owned_by = from NOT = { has_construction = any } }
+		4314 = { owned_by = from NOT = { has_construction = any } }
+		4315 = { owned_by = from NOT = { has_construction = any } }
+		4316 = { owned_by = from NOT = { has_construction = any } }
+		4317 = { owned_by = from NOT = { has_construction = any } }
+		4318 = { owned_by = from NOT = { has_construction = any } }
+		4319 = { owned_by = from NOT = { has_construction = any } }
+		4320 = { owned_by = from NOT = { has_construction = any } }
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4301
+						province_id = 4302
+						province_id = 4303
+						province_id = 4304
+						province_id = 4305
+						province_id = 4306
+						province_id = 4307
+						province_id = 4308
+						province_id = 4309
+						province_id = 4310
+						province_id = 4356
+						province_id = 4359
+						province_id = 4360
+						province_id = 4314
+						province_id = 4315
+						province_id = 4316
+						province_id = 4317
+						province_id = 4318
+						province_id = 4319
+						province_id = 4320
+					}
+				}
+				add_building_construction = {
+					building = DA_railway_work
+					speed = 1
+					cost = 1
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_overload_14
+	tooltip = DA_Railway_HQ_button_overload_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 14
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		4301 = { NOT = { has_province_modifier = DA_railway_mod_overload } }
+		owns = 4301
+		owns = 4302
+		owns = 4303
+		owns = 4304
+		owns = 4305
+		owns = 4306
+		owns = 4307
+		owns = 4308
+		owns = 4309
+		owns = 4310
+		owns = 4356
+		owns = 4359
+		owns = 4360
+		owns = 4314
+		owns = 4315
+		owns = 4316
+		owns = 4317
+		owns = 4318
+		owns = 4319
+		owns = 4320
+	}
+	effect = {
+		adm_power_cost = 50
+		custom_tooltip = DA_Railway_HQ_button_overload_applied_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						province_id = 4301
+						province_id = 4302
+						province_id = 4303
+						province_id = 4304
+						province_id = 4305
+						province_id = 4306
+						province_id = 4307
+						province_id = 4308
+						province_id = 4309
+						province_id = 4310
+						province_id = 4356
+						province_id = 4359
+						province_id = 4360
+						province_id = 4314
+						province_id = 4315
+						province_id = 4316
+						province_id = 4317
+						province_id = 4318
+						province_id = 4319
+						province_id = 4320
+					}
+				}
+				add_permanent_province_modifier = {
+					name = DA_railway_mod_overload
+					duration = 720
+				}
+			}
+		}
+	}
+}
+custom_button = {
+	name = DA_Railway_HQ_button_shutdown_14
+	tooltip = DA_Railway_HQ_button_shutdown_tt
+	potential = {
+		2931 = {
+			is_variable_equal = {
+				which = DA_Railway_HQ_zone_shower
+				value = 14
+			}
+		}
+	}
+	trigger = {
+		adm_power = 50
+		owns = 4301
+		owns = 4302
+		owns = 4303
+		owns = 4304
+		owns = 4305
+		owns = 4306
+		owns = 4307
+		owns = 4308
+		owns = 4309
+		owns = 4310
+		owns = 4356
+		owns = 4359
+		owns = 4360
+		owns = 4314
+		owns = 4315
+		owns = 4316
+		owns = 4317
+		owns = 4318
+		owns = 4319
+		owns = 4320
+	}
+	effect = {
+		adm_power_cost = 50
+		if = {
+			limit = {
+				4301 = {
+					has_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+			custom_tooltip = DA_Railway_HQ_button_shutdown_revoked_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4301
+							province_id = 4302
+							province_id = 4303
+							province_id = 4304
+							province_id = 4305
+							province_id = 4306
+							province_id = 4307
+							province_id = 4308
+							province_id = 4309
+							province_id = 4310
+							province_id = 4356
+							province_id = 4359
+							province_id = 4360
+							province_id = 4314
+							province_id = 4315
+							province_id = 4316
+							province_id = 4317
+							province_id = 4318
+							province_id = 4319
+							province_id = 4320
+						}
+					}
+					remove_province_modifier = DA_railway_mod_shut_down
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Railway_HQ_button_shutdown_applied_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4301
+							province_id = 4302
+							province_id = 4303
+							province_id = 4304
+							province_id = 4305
+							province_id = 4306
+							province_id = 4307
+							province_id = 4308
+							province_id = 4309
+							province_id = 4310
+							province_id = 4356
+							province_id = 4359
+							province_id = 4360
+							province_id = 4314
+							province_id = 4315
+							province_id = 4316
+							province_id = 4317
+							province_id = 4318
+							province_id = 4319
+							province_id = 4320
+						}
+					}
+					add_permanent_province_modifier = {
+						name = DA_railway_mod_shut_down
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+########################################
+
