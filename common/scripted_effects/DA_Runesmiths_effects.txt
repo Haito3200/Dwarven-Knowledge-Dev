@@ -138,6 +138,33 @@ DA_start_rune_research = {
 			which = DA_research_progress_MAX
 			value = 36
 		}
+		subtract_variable = {
+			which = DA_research_progress_MAX
+			which = DA_research_time_discount_1
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = DA_research_progress_MAX
+						value = 18
+					}
+				}
+			}
+			set_variable = {
+				which = DA_research_progress_MAX
+				value = 18
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = DA_research_time_discount_1
+				value = 1
+			}
+		}
+		custom_tooltip = DA_research_time_discount_1_tt
 	}
 }
 DA_start_research_t1 = {
