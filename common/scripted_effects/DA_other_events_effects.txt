@@ -2161,18 +2161,6 @@ DA_remove_ai_buffs = {
 DA_on_country_creation_effect = {
 	DA_reset_Alchemy_Variables = yes
 	
-	set_variable = {
-		which = DA_Arcane_Arts_mana_cap
-		value = 100
-	}
-	set_variable = {
-		which = DA_Arcane_Arts_mana
-		value = 25
-	}
-	set_variable = {
-		which = DA_yearly_mana_generation
-		value = 1
-	}
 	if = {
 		limit = {
 			ai = yes
@@ -2358,27 +2346,6 @@ DA_on_yearly_pulse_2_effect = {
 		multiply_variable = {
 			which = DA_quarantine_efficiency_shower
 			value = 100
-		}
-		
-		export_to_variable = {
-			value = modifier:DA_fake_yearly_mana_generation
-			variable_name = DA_yearly_mana_generation
-		}
-		change_variable = {
-			which = DA_Arcane_Arts_mana
-			which = DA_yearly_mana_generation
-		}
-		if = {
-			limit = {
-				check_variable = {
-					which = DA_Arcane_Arts_mana
-					which = DA_Arcane_Arts_mana_cap
-				}
-			}
-			set_variable = {
-				which = DA_Arcane_Arts_mana
-				which = DA_Arcane_Arts_mana_cap
-			}
 		}
 	}
 }
