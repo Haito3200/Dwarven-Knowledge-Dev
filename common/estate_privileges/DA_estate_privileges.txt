@@ -1640,34 +1640,12 @@ DA_RS_SOC_LUX_Lifespan_extension_rituals = {
 	can_revoke = { hidden_trigger = { ai = yes } }
 	on_granted = {
 		DA_grants_production_basic = yes
-		if = {
-			limit = {
-				has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.Magic_Theory_2
-			}
-            custom_tooltip = DA_add_magic_study_modifier_25_tt
-            hidden_effect = { update_magic_study_experience_modifier = { value = 25 }  } 
-			set_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-		}
 	}
 	on_revoked = {
 		DA_remove_production_basic = yes
-		if = {
-			limit = {
-				has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-			}
-            hidden_effect = { update_magic_study_experience_modifier = { value = -25 }  } 
-			clr_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-		}
 	}
 	on_invalid = {
 		DA_remove_production_basic = yes
-		if = {
-			limit = {
-				has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-			}
-            hidden_effect = { update_magic_study_experience_modifier = { value = -25 }  } 
-			clr_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-		}
 	}
 	penalties = {
 	}
@@ -1675,6 +1653,11 @@ DA_RS_SOC_LUX_Lifespan_extension_rituals = {
 		DA_Runesmiths_privilege_slots = 1
 		monarch_lifespan = 0.25
 		nobles_loyalty_modifier = 0.05
+	}
+	
+	conditional_modifier = {
+		trigger = { has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff }
+		modifier = { mages_ruler_experience_mod = 0.2 }
 	}
 	conditional_modifier = {
 		trigger = { has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.Medicine_2 }
