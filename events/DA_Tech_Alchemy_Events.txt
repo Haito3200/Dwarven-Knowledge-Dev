@@ -1198,9 +1198,21 @@ country_event = {
 			name = DA_Alchemy_starting_production
 			duration = 365
 		}
-		country_event = {
-			id = DA_Tech_Alchemy_event.3
-			days = 365
+		if = {
+			limit = {
+				has_idea = DA_Alchemy_ideas4
+			}
+			custom_tooltip = DA_Alchemy_ideas4_faster_brewing_tt
+			country_event = {
+				id = DA_Tech_Alchemy_event.3
+				days = 90
+			}
+		}
+		else = {
+			country_event = {
+				id = DA_Tech_Alchemy_event.3
+				days = 365
+			}
 		}
 	}
 }
@@ -1250,12 +1262,27 @@ country_event = {
 	option = {
 		name = DA_Tech_Alchemy_event.4.continue
 		custom_tooltip = DA_continue_producing_alchemy_tt
-		DA_alchemy_increase_toxicity_effect = {
-			DA_amount = 2
+		if = {
+			limit = {
+				has_idea = DA_Alchemy_ideas6
+			}
+			custom_tooltip = DA_Alchemy_ideas6_reduced_malus_tt
+			DA_alchemy_increase_toxicity_effect = {
+				DA_amount = 1
+			}
+			country_event = {
+				id = DA_Tech_Alchemy_event.4
+				days = 1095
+			}
 		}
-		country_event = {
-			id = DA_Tech_Alchemy_event.4
-			days = 730
+		else = {
+			DA_alchemy_increase_toxicity_effect = {
+				DA_amount = 3
+			}
+			country_event = {
+				id = DA_Tech_Alchemy_event.4
+				days = 1095
+			}
 		}
 	}
 }
