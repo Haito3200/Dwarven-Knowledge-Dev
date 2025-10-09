@@ -65,13 +65,81 @@ DA_Magma_Level_spend = {
 	}
 }
 
+DA_Earth_Shatterer_power_gain = { # is fired in 4247
+	hidden_effect = {
+			change_variable = {
+				which = DA_Earth_Shatterer_power
+				value = $amount$
+			}
+			if = {
+				limit = {
+					has_great_project = {
+						type = DA_Earth_Shatterer
+						tier = 3
+					}
+					check_variable = {
+						which = DA_Earth_Shatterer_power
+						value = 200
+					}
+				}
+				set_variable = {
+					which = DA_Earth_Shatterer_power
+					value = 200
+				}
+			}
+			else_if = {
+				limit = {
+					has_great_project = {
+						type = DA_Earth_Shatterer
+						tier = 2
+					}
+					NOT = {
+						has_great_project = {
+							type = DA_Earth_Shatterer
+							tier = 3
+						}
+					}
+					check_variable = {
+						which = DA_Earth_Shatterer_power
+						value = 150
+					}
+				}
+				set_variable = {
+					which = DA_Earth_Shatterer_power
+					value = 150
+				}
+			}
+			else_if = {
+				limit = {
+					has_great_project = {
+						type = DA_Earth_Shatterer
+						tier = 1
+					}
+					NOT = {
+						has_great_project = {
+							type = DA_Earth_Shatterer
+							tier = 2
+						}
+					}
+					check_variable = {
+						which = DA_Earth_Shatterer_power
+						value = 100
+					}
+				}
+				set_variable = {
+					which = DA_Earth_Shatterer_power
+					value = 100
+				}
+			}
+	}
+}
 DA_Earth_Shatterer_power_spend = {
-	custom_tooltip = DA_Earth_Shatterer_power_spend_$amount$_tt
+	custom_tooltip = DA_Earth_Shatterer_power_spend_tt
 	hidden_effect = {
 		4247 = {
 			subtract_variable = {
 				which = DA_Earth_Shatterer_power
-				value = $amount$
+				which = DA_Earth_Shatterer_power_cost
 			}
 		}
 	}

@@ -341,7 +341,7 @@ DA_Verkal_Jorkad = {
 
 #The ovdal kanzad's monument to reach the top of the mountain
 DA_Upward_Digger = {
-	start = 672 # find the correct province
+	start = 4247
 	date = 2023.01.01
 	time = {
 		months = 1
@@ -352,6 +352,7 @@ DA_Upward_Digger = {
 	starting_tier = 0
 	type = monument
 	build_trigger = {
+		has_province_flag = DA_Upward_Digger_buildable
 	}
 	on_built = {
 	}
@@ -365,86 +366,78 @@ DA_Upward_Digger = {
 	}
 	tier_0 = {
 		upgrade_time = {
-			months = 120
+			months = 1
 		}
 		cost_to_upgrade = {
-			factor = 1000
+			factor = 0
 		}
 		province_modifiers = {
-			local_defensiveness = 0.25
 		}
 		area_modifier = {
 		}
 		country_modifiers = {
 		}
 		on_upgraded = {
-			hidden_effect = {
-				owner = {
-					country_event = {
-						id = DA_Magma_forge_event.16
-					}
-				}
-			}
 		}
 	}
 	tier_1 = {
 		upgrade_time = {
-			months = 120
+			months = 24
 		}
 		cost_to_upgrade = {
-			factor = 2000
+			factor = 500
 		}
-		province_modifiers = {	
-			local_defensiveness = 0.50
+		province_modifiers = {
+			local_development_cost = -0.025
+			allowed_num_of_buildings = 1
 		}
 		area_modifier = {
 		}
 		country_modifiers = {
-			prestige = 0.25
 		}
 		on_upgraded = {
 		}
 	}
 	tier_2 = {
 		upgrade_time = {
-			months = 240
+			months = 36
 		}
 		cost_to_upgrade = {
-			factor = 3500
+			factor = 750
 		}
-		province_modifiers = {	
-			local_defensiveness = 0.75
-			local_hostile_attrition = 2
-			max_attrition = 2
+		province_modifiers = {
+			local_development_cost = -0.05
+			allowed_num_of_manufactories = 1
+			allowed_num_of_buildings = 2
 		}
 		area_modifier = {
 		}
 		country_modifiers = {
-			prestige = 0.50
-			diplomatic_reputation = 0.25
 		}
 		on_upgraded = {
 		}
 	}
 	tier_3 = {
 		upgrade_time = {
-			months = 360
+			months = 48
 		}
 		cost_to_upgrade = {
-			factor = 7000
+			factor = 1000
 		}
-		province_modifiers = {	
-			local_defensiveness = 1.00
-			local_hostile_attrition = 5
-			max_attrition = 5
+		province_modifiers = {
+			local_development_cost = -0.075
+			allowed_num_of_manufactories = 2
+			allowed_num_of_buildings = 3
 		}
 		area_modifier = {
 		}
 		country_modifiers = {
-			prestige = 1
-			diplomatic_reputation = 0.5
 		}
 		on_upgraded = {
+			province_event = {
+				id = DA_Hold_Ovdal_Kanzad_event.2
+				days = 1
+			}
 		}
 	}
 }

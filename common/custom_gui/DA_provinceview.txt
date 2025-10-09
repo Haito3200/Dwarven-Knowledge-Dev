@@ -1349,6 +1349,58 @@ custom_button = { #Button for the UI when targeting enemy provinces
 				}
 			}
 		}
+		if = {
+			limit = {
+				OR = {
+					continent = asia
+					superregion = bulwar_superregion
+					superregion = east_serpentspine_superregion
+					region = middle_dwarovar_region
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_cannon_range_t1_tt
+				always = yes
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					continent = serpentspine
+					continent = europe
+					continent = africa
+					superregion = gerudia_superregion
+					superregion = rahen_superregion
+					superregion = western_cannor_superregion
+					superregion = west_serpentspine_superregion
+					superregion = fangaula_superregion
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_cannon_range_t2_tt
+				from = {
+					any_owned_province = {
+						has_great_project = {
+							type = DA_Earth_Shatterer
+							tier = 2
+						}
+					}
+				}
+			}
+		}
+		else = {
+			custom_trigger_tooltip = {
+				tooltip = DA_cannon_range_t3_tt
+				from = {
+					any_owned_province = {
+						has_great_project = {
+							type = DA_Earth_Shatterer
+							tier = 3
+						}
+					}
+				}
+			}
+		}
 	}
 	effect = {
 		hidden_effect = {

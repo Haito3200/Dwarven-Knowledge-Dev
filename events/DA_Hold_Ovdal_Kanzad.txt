@@ -1,0 +1,147 @@
+namespace = DA_Hold_Ovdal_Kanzad_event
+
+country_event = {
+	id = DA_Hold_Ovdal_Kanzad_event.1 				# can build DA_Upward_Digger
+	title = "DA_Hold_Ovdal_Kanzad_event.1.t"
+	desc = "DA_Hold_Ovdal_Kanzad_event.1.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		4247 = { 
+			DA_has_dig_level_4_or_higher = yes
+			NOT = { has_province_flag = DA_Upward_Digger_buildable }
+			owned_by = from
+		}
+	}
+
+	option = {
+		goto = 4247
+		name = "DA_Hold_Ovdal_Kanzad_event.1.a"
+		4247 = { 
+			custom_tooltip = DA_Upward_Digger_buildable_tt
+			set_province_flag = DA_Upward_Digger_buildable
+		}
+	}
+}
+
+province_event = {
+	id = DA_Hold_Ovdal_Kanzad_event.2 			# can build halanna wrath, flavor
+	title = "DA_Hold_Ovdal_Kanzad_event.2.t"
+	desc = "DA_Hold_Ovdal_Kanzad_event.2.d"
+	picture = DA_research_facility_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Ovdal_Kanzad_event.2.a"
+		hidden_effect = {
+			
+			DA_Earth_Shatterer_power_cost_increase = { amount = 10 }
+		}
+	}
+}
+
+province_event = {
+	id = DA_Hold_Ovdal_Kanzad_event.21 			# periodical gain power event
+	title = "DA_Hold_Ovdal_Kanzad_event.2.t"
+	desc = "DA_Hold_Ovdal_Kanzad_event.2.d"
+	picture = DA_research_facility_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Ovdal_Kanzad_event.2.a"
+		if = {
+			limit = {
+				has_great_project = {
+					type = DA_Earth_Shatterer
+					tier = 3
+				}
+			}
+			DA_Earth_Shatterer_power_gain = {
+				amount = 3
+			}
+		}
+		else_if = {
+			limit = {
+				has_great_project = {
+					type = DA_Earth_Shatterer
+					tier = 2
+				}
+			}
+			DA_Earth_Shatterer_power_gain = {
+				amount = 2
+			}
+		}
+		else_if = {
+			limit = {
+				has_great_project = {
+					type = DA_Earth_Shatterer
+					tier = 1
+				}
+			}
+			DA_Earth_Shatterer_power_gain = {
+				amount = 1
+			}
+		}
+		add_province_triggered_modifier = DA_hearth_shatterer_power_increase_workaround
+	}
+}
+
+
+country_event = {
+	id = DA_Hold_Ovdal_Kanzad_event.3 				# halanna wrath firing event
+	title = "DA_Hold_Ovdal_Kanzad_event.3.t"
+	desc = "DA_Hold_Ovdal_Kanzad_event.3.d"
+	picture = ULMISBAR_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_province = {
+				limit = {
+					has_province_flag = DA_Earth_shatterer_target
+				}
+				save_event_target_as = DA_Earth_shatterer_target_saved
+			}
+		}
+	}
+
+	option = {
+		goto = DA_Earth_shatterer_target_saved
+		name = "DA_Hold_Ovdal_Kanzad_event.3.a"
+		event_target:DA_Earth_shatterer_target_saved = {
+			DA_Earth_shatterer_effect = yes
+			if = {
+				limit = {
+					4247 = { 
+						has_province_flag = DA_Earth_Shatterer.earth_shatterer
+					}
+				}
+				custom_tooltip = DA_will_hit_neighbor_provinces_tt
+				hidden_effect = {
+					every_neighbor_province = {
+						DA_Earth_shatterer_effect = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_Hold_Ovdal_Kanzad_event.30 				# halanna wrath firing event
+	title = "DA_Hold_Ovdal_Kanzad_event.30.t"
+	desc = "DA_Hold_Ovdal_Kanzad_event.30.d"
+	picture = ULMISBAR_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Hold_Ovdal_Kanzad_event.3.a"
+		custom_tooltip = DA_Halanna_wrath_incoming_tt
+	}
+}

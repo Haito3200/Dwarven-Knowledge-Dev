@@ -296,15 +296,10 @@ custom_button = {
 					type = DA_Earth_Shatterer
 					tier = 1
 				}
-			}
-			hidden_effect = {
-				country_event = {
-					id = DA_Earth_Shatterer_event.11
-					days = 365
-				}
-				country_event = {
-					id = DA_Earth_Shatterer_event.12
-					days = 1095
+				hidden_effect = {
+					province_event = {
+						id = DA_Hold_Ovdal_Kanzad_event.21
+					}
 				}
 			}
 		}
@@ -365,12 +360,6 @@ custom_button = {
 					tier = 1
 				}
 			}
-			hidden_effect = {
-				country_event = {
-					id = DA_Earth_Shatterer_event.14
-					days = 3650
-				}
-			}
 		}
 	}
 }
@@ -424,8 +413,15 @@ custom_button = {
 		always = yes
 	}
 	trigger = {
+		4247 = {
+			has_great_project = {
+				type = DA_Earth_Shatterer
+				tier = 1
+			}
+		}
 	}
 	effect = {
+		custom_tooltip = DA_Earth_Shatterer.gargantuan_bullet.applied_tt
 		if = {
 			limit = {
 				4247 = {
@@ -477,6 +473,7 @@ custom_button = {
 		}
 	}
 	effect = {
+		custom_tooltip = DA_Earth_Shatterer.penetrating_power.applied_tt
 		if = {
 			limit = {
 				4247 = {
@@ -528,6 +525,8 @@ custom_button = {
 		}
 	}
 	effect = {
+		custom_tooltip = DA_Earth_Shatterer.gargantuan_bullet.applied_tt
+		custom_tooltip = DA_Earth_Shatterer.earth_shatterer.applied_tt
 		if = {
 			limit = {
 				4247 = {
@@ -579,6 +578,7 @@ custom_button = {
 		}
 	}
 	effect = {
+		custom_tooltip = DA_Earth_Shatterer.Poison_Imbuement.applied_tt
 		if = {
 			limit = {
 				4247 = {
@@ -630,6 +630,8 @@ custom_button = {
 		}
 	}
 	effect = {
+		custom_tooltip = DA_Earth_Shatterer.gargantuan_bullet.applied_tt
+		custom_tooltip = DA_Earth_Shatterer.Halanna_wrath.applied_tt
 		if = {
 			limit = {
 				4247 = {
@@ -676,8 +678,61 @@ custom_button = {
 				type = DA_Earth_Shatterer
 				tier = 1
 			}
+			check_variable = {
+				which = DA_Earth_Shatterer_power
+				which = DA_Earth_Shatterer_power_cost
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_Earth_Shatterer_must_have_selected_a_target_tt
+			any_province = {
+				has_province_flag = DA_Earth_shatterer_target
+			}
+		}
+		DA_Earth_Shatterer_power_required = yes
+		DA_enchanted_building_material_total_required = {
+			amount = 10
 		}
 	}
 	effect = {
+		DA_Earth_Shatterer_power_spend = yes
+		DA_enchanted_building_material_spend = {
+			amount = 10
+		}
+		country_event = {
+			id = DA_Hold_Ovdal_Kanzad_event.3
+			days = 15
+		}
+		hidden_effect = {
+			random_province = {
+				limit = {
+					has_province_flag = DA_Earth_shatterer_target
+				}
+				province_event = {
+					id = DA_Hold_Ovdal_Kanzad_event.30
+				}
+			}
+		}
+		tooltip = {
+			random_province = {
+				limit = {
+					has_province_flag = DA_Earth_shatterer_target
+				}
+				DA_Earth_shatterer_effect = yes
+				if = {
+					limit = {
+						4247 = { 
+							has_province_flag = DA_Earth_Shatterer.earth_shatterer
+						}
+					}
+					custom_tooltip = DA_Area_of_effect_increased_tt
+					hidden_effect = {
+						every_neighbor_province = {
+							DA_Earth_shatterer_effect = yes
+						}
+					}
+				}
+			}
+		}
 	}
 }

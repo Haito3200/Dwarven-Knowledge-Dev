@@ -21,6 +21,30 @@ DA_mithril_production_boost = {
 	} 
 }
 
+DA_hearth_shatterer_power_increase_workaround = {
+	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	potential = {
+		always = yes
+	}
+	# Whether the triggered modifier is active
+	trigger = {
+		always = yes
+	}
+    
+	# The modifier to apply when the triggered modifier is active
+	local_state_maintenance_modifier = 0.1
+	# Province scope
+	on_activation = {
+		province_event = {
+			id = DA_Hold_Ovdal_Kanzad_event.21
+			days = 30
+		}
+		remove_province_triggered_modifier = DA_hearth_shatterer_power_increase_workaround
+	}
+	
+	on_deactivation = {
+	} 
+}
 DA_Magma_Forge_increase_workaround = {
 	# Whether the triggered modifier is visible in the Triggered Modifiers window
 	potential = {
