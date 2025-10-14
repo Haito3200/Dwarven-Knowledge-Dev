@@ -11,6 +11,7 @@ province_event = {
 	option = {
 		name = DA_Expedition_camp_event.3.a
 		custom_tooltip = DA_Expedition_camp_event.3.tooltip
+		change_party_supplies = { remove_tooltip = yes loss = 4 }
 		hidden_effect = {
 			random_list = {
 				33 = {
@@ -155,7 +156,7 @@ province_event = {
 		
 		change_party_manpower = { remove_tooltip = yes loss = 200}
 		change_party_morale = { remove_tooltip = yes loss = 0.5}
-		change_party_supplies = { add_tooltip = yes add = 4 }
+		change_party_supplies = { add_tooltip = yes add = 10 }
 		change_party_loot = { add_tooltip = yes add = 75}
 
 		ai_chance = { factor = 1 }
@@ -232,7 +233,6 @@ province_event = {
 		name = DA_Expedition_camp_event.13.b			# take some and go on
 		
 		change_party_loot = { add_tooltip = yes add = 150 }
-		change_party_supplies = { remove_tooltip = yes loss = 4 }
 
 
 		ai_chance = { factor = 1 }
@@ -261,7 +261,6 @@ province_event = {
 		name = DA_Expedition_camp_event.14.b			# take some and go on
 		
 		change_party_loot = { add_tooltip = yes add = 250 }
-		change_party_supplies = { remove_tooltip = yes loss = 4 }
 
 
 		ai_chance = { factor = 1 }
@@ -279,7 +278,6 @@ province_event = {
 	option = {
 		name = DA_Expedition_camp_event.2.a
 		add_adk_effect = { add = 3 }
-		change_party_supplies = { remove_tooltip = yes loss = 4 }
 
 
 		ai_chance = { factor = 1 }
@@ -321,6 +319,7 @@ province_event = {
 		
 		change_party_morale = { remove_tooltip = yes loss = 0.5}
 		change_party_loot = { add_tooltip = yes add = 150}
+		change_party_supplies = { add_tooltip = yes add = 4 }
 
 
 		ai_chance = { factor = 1 }
@@ -348,6 +347,7 @@ province_event = {
 
 		change_party_morale = { add_tooltip = yes add = 0.5}
 		change_party_loot = { add_tooltip = yes add = 100}
+		change_party_supplies = { add_tooltip = yes add = 4 }
 
 		ai_chance = { factor = 1 }
 	}
@@ -362,7 +362,6 @@ province_event = {
 
 		change_party_loot = { remove_tooltip = yes loss = 100}
 		change_party_morale = { remove_tooltip = yes loss = 0.5}
-		change_party_supplies = { remove_tooltip = yes loss = 4 }
 
 		ai_chance = { factor = 1 }
 	}
@@ -381,6 +380,7 @@ province_event = {
 
 		change_party_morale = { add_tooltip = yes add = 0.5}
 		change_party_loot = { add_tooltip = yes add = 100}
+		change_party_supplies = { add_tooltip = yes add = 4 }
 
 		ai_chance = { factor = 1 }
 	}
@@ -395,7 +395,6 @@ province_event = {
 
 		change_party_loot = { remove_tooltip = yes loss = 100}
 		change_party_morale = { remove_tooltip = yes loss = 0.5}
-		change_party_supplies = { remove_tooltip = yes loss = 4 }
 
 		ai_chance = { factor = 1 }
 	}
@@ -425,6 +424,7 @@ province_event = {
 		DA_Find_Advanced_rune = yes
 
 		change_party_morale = { add_tooltip = yes add = 0.5}
+		change_party_supplies = { add_tooltip = yes add = 4 }
 
 		ai_chance = { factor = 1 }
 	}
@@ -442,12 +442,13 @@ province_event = {
 			duration = -1
 		}
 		add_adk_effect = { add = 3 }
+		change_party_supplies = { add_tooltip = yes add = 4 }
 		ai_chance = { factor = 1 }
 	}
 }
 
 province_event = {
-	id = DA_Expedition_camp_event.25				# secret passage, gunpowder storage
+	id = DA_Expedition_camp_event.25				# secret passage, training grounds
 	title = DA_Expedition_camp_event.25.t
 	desc = DA_Expedition_camp_event.25.d
 	picture = CAVE_eventPicture
@@ -459,14 +460,15 @@ province_event = {
 
 		change_party_loot = { add_tooltip = yes add = 100}
 		change_party_supplies = { add_tooltip = yes add = 10 }
-		add_army_professionalism = 0.02
+		owner = {
+			add_army_professionalism = 0.02
+		}
 
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_Expedition_camp_event.25.b			# restore it
 
-		change_party_supplies = { remove_tooltip = yes loss = 4 }
 
 		random = {
 			chance = 50
