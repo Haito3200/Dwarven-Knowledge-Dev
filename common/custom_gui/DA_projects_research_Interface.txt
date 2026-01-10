@@ -110,3 +110,165 @@ custom_icon = {
         has_country_flag = DA_projects_research_Interface_on
     }
 }
+
+custom_text_box = {
+    name = DA_projects_research_Interface_on_name_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_projects_research_Interface_on_name_shower #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+    name = DA_projects_research_Interface_on_button_previous
+    tooltip = DA_projects_research_Interface_on_button_previous_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_projects_research_Interface_on_arcane_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Steam_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Electrical_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Unique_1 }
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                has_country_flag = DA_projects_research_Interface_on_arcane_2
+            }
+            clr_country_flag = DA_projects_research_Interface_on_arcane_2
+            set_country_flag = DA_projects_research_Interface_on_arcane_1
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_Interface_on_button_next
+    tooltip = DA_projects_research_Interface_on_button_next_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_projects_research_Interface_on_arcane_2 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Steam_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Electrical_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Unique_1 }
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                has_country_flag = DA_projects_research_Interface_on_arcane_1
+            }
+            clr_country_flag = DA_projects_research_Interface_on_arcane_1
+            set_country_flag = DA_projects_research_Interface_on_arcane_2
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_button_Arcane
+    tooltip = DA_projects_research_button_Arcane_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        always = yes
+    }
+    effect = {
+        clr_country_flag = DA_projects_research_Interface_on_arcane_1
+        clr_country_flag = DA_projects_research_Interface_on_arcane_2
+        clr_country_flag = DA_projects_research_Interface_on_Steam_1
+        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
+        clr_country_flag = DA_projects_research_Interface_on_Unique_1
+
+        set_country_flag = DA_projects_research_Interface_on_arcane_1
+    }
+}
+custom_button = {
+    name = DA_projects_research_button_Steam
+    tooltip = DA_projects_research_button_Steam_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        always = yes
+    }
+    effect = {
+        clr_country_flag = DA_projects_research_Interface_on_arcane_1
+        clr_country_flag = DA_projects_research_Interface_on_arcane_2
+        clr_country_flag = DA_projects_research_Interface_on_Steam_1
+        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
+        clr_country_flag = DA_projects_research_Interface_on_Unique_1
+
+        set_country_flag = DA_projects_research_Interface_on_Steam_1
+    }
+}
+custom_button = {
+    name = DA_projects_research_button_Electrical
+    tooltip = DA_projects_research_button_Electrical_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        always = yes
+    }
+    effect = {
+        clr_country_flag = DA_projects_research_Interface_on_arcane_1
+        clr_country_flag = DA_projects_research_Interface_on_arcane_2
+        clr_country_flag = DA_projects_research_Interface_on_Steam_1
+        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
+        clr_country_flag = DA_projects_research_Interface_on_Unique_1
+
+        set_country_flag = DA_projects_research_Interface_on_Electrical_1
+    }
+}
+custom_button = {
+    name = DA_projects_research_button_Unique
+    tooltip = DA_projects_research_button_Unique_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        always = yes
+    }
+    effect = {
+        clr_country_flag = DA_projects_research_Interface_on_arcane_1
+        clr_country_flag = DA_projects_research_Interface_on_arcane_2
+        clr_country_flag = DA_projects_research_Interface_on_Steam_1
+        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
+        clr_country_flag = DA_projects_research_Interface_on_Unique_1
+
+        set_country_flag = DA_projects_research_Interface_on_Unique_1
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Arcane_1
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_arcane_1
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Arcane_2
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_arcane_2
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Steam_1
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_Steam_1
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Electrical_1
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_Electrical_1
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Unique_1
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_Unique_1
+    }
+}
