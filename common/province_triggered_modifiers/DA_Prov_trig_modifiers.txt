@@ -204,6 +204,28 @@ DA_Alchemy_Material_exploration_workaround = {
 	} 
 }
 
+DA_irrigation_trade_good_change_workaround = {
+	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	potential = {
+		always = yes
+	}
+	# Whether the triggered modifier is active
+	trigger = {
+		always = yes
+	}
+    
+	# The modifier to apply when the triggered modifier is active
+	local_state_maintenance_modifier = 0.3
+	# Province scope
+	on_activation = {
+		DA_irrigation_changes_trade_good_effect = yes
+		remove_province_triggered_modifier = DA_irrigation_trade_good_change_workaround
+	}
+	
+	on_deactivation = {
+	} 
+}
+
 DA_Titanium_Vault_exploration_workaround = {
 	# Whether the triggered modifier is visible in the Triggered Modifiers window
 	potential = {
