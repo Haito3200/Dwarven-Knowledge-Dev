@@ -22,9 +22,9 @@
 
  DA_start_research_t4_tt:0 "Start §GRunesmiths Research§!: §YTier IV§!, the process will take approximately §Y120 months§!\n\nYou will be able to unlock §YMasterwork Upgrades§!, §YTechnology Experience§! and §MConceptual Magic§!\n\n(If you get a temporary modifier as research reward, try another research Tier)\n\n this in not used for now"
  set_research_privilege_tt:0 "§YInvention Research§! will be granted to §YRunesmiths§!:\nNational Tax Modifier: §R-10.0%§!§!"
- DA_Production_Breakdown:0 "[Root.DA_getProductionBreakdownShort]\n\n§L============ Maximum Capacity Sources ===========§!\n[Root.DA_get_Runesmiths_Administration][Root.DA_get_Runesmiths_Manufactories][Root.DA_get_Runesmiths_Industrialization][Root.DA_get_Runesmiths_Influence][Root.DA_get_Runesmiths_Innovativeness][Root.DA_get_Runesmiths_Iron][Root.DA_get_Runesmiths_Copper][Root.DA_get_Runesmiths_Glass][Root.DA_get_Runesmiths_Gems][Root.DA_get_Runesmiths_Gold][Root.DA_get_Runesmiths_Coal][Root.DA_get_Runesmiths_Mithril][Root.DA_get_Runesmiths_Damestear][Root.DA_get_Runesmiths_MIssions][Root.DA_get_production_multipliers]\n§L===============================================§!\n§RGoing beyond your Production Capacity will result in a negative modifier!§!"
- DA_Fake_Capacity_button_tt:0 "[Root.DA_getProductionBreakdownShort]\n\n§L============ Maximum Capacity Sources ===========§!\n[Root.DA_get_Runesmiths_Administration][Root.DA_get_Runesmiths_Manufactories][Root.DA_get_Runesmiths_Industrialization][Root.DA_get_Runesmiths_Influence][Root.DA_get_Runesmiths_Innovativeness][Root.DA_get_Runesmiths_Iron][Root.DA_get_Runesmiths_Copper][Root.DA_get_Runesmiths_Glass][Root.DA_get_Runesmiths_Gems][Root.DA_get_Runesmiths_Gold][Root.DA_get_Runesmiths_Coal][Root.DA_get_Runesmiths_Mithril][Root.DA_get_Runesmiths_Damestear][Root.DA_get_Runesmiths_MIssions][Root.DA_get_production_multipliers]\n§L===============================================§!\n§RGoing beyond your Production Capacity will result in a negative modifier!§!"
- DA_Fake_Capacity_button_2_tt:0 "[Root.DA_getProductionBreakdownShort]\n\n§L============ Maximum Capacity Sources ===========§!\n[Root.DA_get_Runesmiths_Administration][Root.DA_get_Runesmiths_Manufactories][Root.DA_get_Runesmiths_Industrialization][Root.DA_get_Runesmiths_Influence][Root.DA_get_Runesmiths_Innovativeness][Root.DA_get_Runesmiths_Iron][Root.DA_get_Runesmiths_Copper][Root.DA_get_Runesmiths_Glass][Root.DA_get_Runesmiths_Gems][Root.DA_get_Runesmiths_Gold][Root.DA_get_Runesmiths_Coal][Root.DA_get_Runesmiths_Mithril][Root.DA_get_Runesmiths_Damestear][Root.DA_get_Runesmiths_MIssions][Root.DA_get_production_multipliers]\n§L===============================================§!\n§RGoing beyond your Production Capacity will result in a negative modifier!§!"
+ DA_Production_Breakdown:0 "[Root.DA_getProductionBreakdownShort]\n\n§L============ Maximum Capacity Sources ===========§!\n[Root.DA_get_prod_cap_from_buildings][Root.DA_get_prod_cap_from_mines][Root.DA_get_prod_cap_from_techs][Root.DA_get_prod_cap_from_development][Root.DA_get_prod_cap_from_rewards][Root.DA_get_prod_cap_Multiplier]\n§L===============================================§!\n§RGoing beyond your Production Capacity will result in a negative modifier!§!"
+ DA_Fake_Capacity_button_tt:0 "[Root.DA_getProductionBreakdownShort]\n\n§L============ Maximum Capacity Sources ===========§!\n[Root.DA_get_prod_cap_from_buildings][Root.DA_get_prod_cap_from_mines][Root.DA_get_prod_cap_from_techs][Root.DA_get_prod_cap_from_development][Root.DA_get_prod_cap_from_rewards][Root.DA_get_prod_cap_Multiplier]\n§L===============================================§!\n§RGoing beyond your Production Capacity will result in a negative modifier!§!"
+ DA_Fake_Capacity_button_2_tt:0 "[Root.DA_getProductionBreakdownShort]\n\n§L============ Maximum Capacity Sources ===========§!\n[Root.DA_get_prod_cap_from_buildings][Root.DA_get_prod_cap_from_mines][Root.DA_get_prod_cap_from_techs][Root.DA_get_prod_cap_from_development][Root.DA_get_prod_cap_from_rewards][Root.DA_get_prod_cap_Multiplier]\n§L===============================================§!\n§RGoing beyond your Production Capacity will result in a negative modifier!§!"
 
  DA_Fake_Research_progress_button_tt:0 "§L=========== Research Progress Explanation ==========§!\n\n                               §G[Root.DA_research_progress.GetValue]§!/§Y[Root.DA_research_progress_MAX.GetValue]§!\n\nResearch Progress: §G[Root.DA_research_progress.GetValue]§!\nResearch Target: §Y[Root.DA_research_progress_MAX.GetValue]§!\n\n§YResearch Progress§! increases by §Y1§! every month until it reaches the value of §YResearch Target§!. Once reached, the research reward will be given.\n§YResearch Target§!'s value is determined based on the type of research being done and varies between §Y36-120§!\n\nThrough Research the following things can be obtained: §YInventions§!, §oTechnologies§! and §YUpgrades§!,\n§L===============================================§!"
 
@@ -35,46 +35,18 @@
  DA_Production_Breakdown_decision_tt:0 "\n[Root.DA_get_Runesmiths_BreakdownFull]\n\nClick the Decision to update your Production Capacity breakdown!"
  
  
- DA_Production_administration_dwarven:0 "§G+5§! - Has Dwarven Administration\n"
- DA_RS_administration_none:0 ""
+ 
+ DA_get_prod_cap_from_buildings_tt:0 "§G+[Root.DA_production_capacity_from_buildings_var.GetValue]§! - From Buildings\n"
 
- DA_RS_manufactories_embraced:0 "§G+5§! - Has embraced Manufactories\n"
- DA_RS_manufactories_not_embraced:0 "§R-5§! - Has NOT embraced Manufactories\n"
- 
- DA_RS_industrialization_embraced:0 "§G+5§! - Has embraced Industrialization\n"
- DA_RS_industrialization_not_embraced:0 "§g+0 - Has embraced Industrialization§!\n"
- 
- DA_Runesmiths_influence_60:0 "§G+12§! - 60-100 Runesmiths Influence\n"
- DA_Runesmiths_influence_40:0 "§G+8§! - 40-60 Runesmiths Influence\n"
- DA_Runesmiths_influence_20:0 "§G+4§! - 20-40 Runesmiths Influence\n"
- DA_Runesmiths_influence_0:0 "§G+2§! - 0-20 Runesmiths Influence\n"
- DA_Runesmiths_influence_none:0 ""
- 
- 
- DA_RS_innovativeness_100:0 "§G+5§! - 100 Innovativeness\n"
- DA_RS_innovativeness_80:0 "§G+4§! - at least 80 Innovativeness\n"
- DA_RS_innovativeness_60:0 "§G+3§! - at least 60 Innovativeness\n"
- DA_RS_innovativeness_40:0 "§G+2§! - at least 40 Innovativeness\n"
- DA_RS_innovativeness_20:0 "§G+1§! - at least 20 Innovativeness\n"
- DA_RS_innovativeness_0:0 "§g+0 - at least 20 Innovativeness§!\n"
- 
- DA_Iron_points_tt:0 "§G+[Root.DA_Iron_productions_points.GetValue]§! - From Iron (+0.5-1.5 per province)\n"
- DA_Iron_points_none_tt:0 "§g+0 - From Iron (+0.5-1.5 per province)§!\n"
- DA_Copper_points_tt:0 "§G+[Root.DA_Copper_productions_points.GetValue]§! - From Copper (+0.5-1.5 per province)\n"
- DA_Copper_points_none_tt:0 "§g+0 - From Copper (+0.5-1.5 per province)§!\n"
- DA_Glass_points_tt:0 "§G+[Root.DA_glass_productions_points.GetValue]§! - From Glass (+0.5-1.5 per province)\n"
- DA_Glass_points_none_tt:0 "§g+0 - From Glass (+0.5-1.5 per province)§!\n"
- DA_Gems_points_tt:0 "§G+[Root.DA_gems_productions_points.GetValue]§! - From Gems (+0.5-1.5 per province)\n"
- DA_Gems_points_none_tt:0 "§g+0 - From Gems (+0.5-1.5 per province)§!\n"
- DA_Gold_points_tt:0 "§G+[Root.DA_gold_productions_points.GetValue]§! - From Gold (+0.5-1.5 per province)\n"
- DA_Gold_points_none_tt:0 "§g+0 - From Gold (+0.5-1.5 per province)§!\n"
- DA_Mithril_points_tt:0 "§G+[Root.DA_Mithril_productions_points.GetValue]§! - From Mithril (+2-6 per province)\n"
- DA_Mithril_points_none_tt:0 "§g+0 - From Mithril (+2-6 per province)§!\n"
- DA_Coal_points_tt:0 "§G+[Root.DA_Coal_productions_points.GetValue]§! - From Coal (+1-3 per province)\n"
- DA_Coal_points_none_tt:0 "§g+0 - From Coal (+1-3 per province)§!\n"
- DA_Damestear_points_tt:0 "§G+[Root.DA_Damestear_productions_points.GetValue]§! - From Damestear (+2-6 per province)\n"
- DA_Damestear_points_none_tt:0 "§g+0 - From Damestear (+2-6 per province)§!\n"
- DA_Static_Production_points_tt:0 "§G+[Root.DA_STATIC_Production_Points.GetValue]§! - From Missions\n"
+ DA_get_prod_cap_from_mines_tt:0 "§G+[Root.DA_production_capacity_from_mines_var.GetValue]§! - From Mines (+0.15 per mine level, for each mine)\n"
+
+ DA_get_prod_cap_from_techs_tt:0 "§G+[Root.DA_production_capacity_from_techs_var.GetValue]§! - From Alchemy / Mechanics (+2 per level)\n"
+
+ DA_get_prod_cap_from_development_tt:0 "§G+[Root.DA_production_capacity_from_development_var.GetValue]§! - From Development (+0.1 per dev point)\n"
+
+ DA_get_prod_cap_Multiplier_tt:0 "\nThe total Production points will be then multiplied by §G[Root.DA_Production_Points_Multiplier.GetValue]§! \n"
+
+DA_get_prod_cap_from_rewards_tt:0 "§G+[Root.DA_STATIC_Production_Points.GetValue]§! - From Rewards/Projects\n"
  
  DA_cost_10_Production_capacity_to_maintain_tt:0 "Has §Y10§! Production Capacity available (Currently: §Y[Root.get_DA_REMAINING_Production_Points]§!)"
  DA_cost_20_Production_capacity_to_maintain_tt:0 "Has §Y20§! Production Capacity available (Currently: §Y[Root.get_DA_REMAINING_Production_Points]§!)"
