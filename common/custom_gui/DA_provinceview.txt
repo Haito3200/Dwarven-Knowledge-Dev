@@ -25,21 +25,6 @@ custom_button = {
 	}
 	trigger = {
 		has_subterranean_race = yes
-		if = {
-			limit = {
-				NOT = {
-					is_capital = yes
-					has_province_modifier = ruined_hold
-					has_province_modifier = partially_ruined_hold
-					has_province_modifier = damaged_hold
-					has_province_modifier = infested_hold
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = has_centralized_hold_operations_tt
-				owner = { has_country_flag = hold_operation }
-			}
-		}
 		owner = {
 			if = {
 				limit = { NOT = { has_country_modifier = dwarven_administration } }
@@ -217,13 +202,13 @@ custom_button = {
 					limit = { is_capital = yes }
 					setup_digging_deeper_capital = yes
 					start_digging_deeper = yes
+					owner = { set_country_flag = is_digging }
 				}
 				else = {
 					setup_digging_deeper_non_capital = yes
 					start_digging_deeper_non_capital = yes
 				}
 			}
-			set_country_flag = is_digging
 			play_sound = diggy_diggy_pickaxe_sfx
 		}
 	}
