@@ -1,20 +1,73 @@
 
-DA_mithril_production_boost = {
+DA_research_increase_workaround = {
 	# Whether the triggered modifier is visible in the Triggered Modifiers window
 	potential = {
-		trade_goods = mithril
+		always = yes
 	}
 	# Whether the triggered modifier is active
 	trigger = {
-		trade_goods = mithril
-		culture_group = dwarven
+		always = yes
 	}
     
 	# The modifier to apply when the triggered modifier is active
-	local_state_maintenance_modifier = 0.05
-	trade_goods_size_modifier = 0.15
+	local_state_maintenance_modifier = 0.1
 	# Province scope
 	on_activation = {
+		owner = {
+			country_event = {
+				id = DA_General_Research_events.2
+				days = 30
+			}
+		}
+		remove_province_triggered_modifier = DA_research_increase_workaround
+	}
+	
+	on_deactivation = {
+	} 
+}
+
+DA_random_tech_exp_workaround = {
+	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	potential = {
+		always = yes
+	}
+	# Whether the triggered modifier is active
+	trigger = {
+		always = yes
+	}
+    
+	# The modifier to apply when the triggered modifier is active
+	local_state_maintenance_modifier = 0.1
+	# Province scope
+	on_activation = {
+		random_list = {
+			1 = {
+				DA_Tech_prov.Alchemy = {
+					amount = 200
+				}
+			}
+			1 = {
+				DA_Tech_prov.Magic_Theory = {
+					amount = 200
+				}
+			}
+			1 = {
+				DA_Tech_prov.Mechanics = {
+					amount = 200
+				}
+			}
+			1 = {
+				DA_Tech_prov.Medicine = {
+					amount = 200
+				}
+			}
+			1 = {
+				DA_Tech_prov.Metallurgy = {
+					amount = 200
+				}
+			}
+		}
+		remove_province_triggered_modifier = DA_research_increase_workaround
 	}
 	
 	on_deactivation = {

@@ -1,10 +1,127 @@
 
-	every_province = {
-		limit = {
-			is_wasteland = no
-			NOT = { has_province_modifier = DA_Alchemy_material.Unknown.common }
-			NOT = { has_province_modifier = DA_Alchemy_material.Unknown.rare }
-			NOT = { has_province_modifier = DA_Alchemy_material.Unknown.legendary }
-		}
-		DA_give_staring_alchemy_materials = yes
-	}
+custom_button = {
+    name = DA_projects_research_buttons_background_mage_leaders_1
+    tooltip = DA_projects_research_buttons_background_mage_leaders_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_3_or_higher = yes	
+		DA_yet_to_complete.mage_leaders = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.mage_leaders = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.mage_leaders = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = mage_leaders
+            time = 48
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_mage_leaders_2
+    tooltip = DA_projects_research_buttons_background_mage_leaders_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_5_or_higher = yes	
+        DA_completed.mage_leaders = yes
+        DA_yet_to_complete.mage_leaders_t2 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.mage_leaders_t2 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.mage_leaders_t2 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = mage_leaders_2
+            time = 60
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_mage_leaders_3
+    tooltip = DA_projects_research_buttons_background_mage_leaders_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_6_or_higher = yes	
+        DA_completed.mage_leaders_t2 = yes
+        DA_yet_to_complete.mage_leaders_t3 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.mage_leaders_t3 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.mage_leaders_t3 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = mage_leaders_3
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_mage_leaders_4
+    tooltip = DA_projects_research_buttons_background_mage_leaders_4_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.mage_leaders_t3 = yes
+        DA_yet_to_complete.mage_leaders_t4 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.mage_leaders_t4 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.mage_leaders_t4 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = mage_leaders_4
+            time = 96
+            electric = yes
+        }
+    }
+}

@@ -118,6 +118,208 @@ custom_text_box = {
 }
 
 custom_button = {
+	name = DA_Research_facility_level_background
+	tooltip = DA_Research_facility_level_background_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        hidden_trigger = {
+            always = yes
+        }
+	}
+	effect = {
+	}
+}
+custom_text_box = {
+    name = DA_Research_facility_level_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_Research_facility_level_shower_tt #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = DA_RF_Expansion_button
+	tooltip = DA_RF_Expansion_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        if = {
+            limit = { NOT = { has_estate = estate_da_runesmiths } }
+            NOT = { has_reform = dwarovar_adventurer_reform } 
+            DA_Expandable_dig_2 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_2 }
+            DA_Expandable_dig_3 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_3 }
+            DA_Expandable_dig_4 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_4 }
+            DA_Expandable_dig_5 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_5 }
+            DA_Expandable_dig_6 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_6 }
+            DA_Expandable_dig_7 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_7 }
+            DA_Expandable_dig_8 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_8 }
+            DA_Expandable_dig_9 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_9 }
+            DA_Expandable_dig_10 = yes
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_10 }
+            DA_Expandable_dig_11 = yes
+        }
+	}
+	effect = {
+        if = {
+            limit = {
+                NOT = { has_reform = dwarovar_adventurer_reform } 
+                DA_Expandable_dig_2 = yes
+            }
+			hidden_effect = { set_country_flag = DA_supporting_Runesmiths } 
+			add_treasury = -50
+			country_event = {
+				id = DA_Government_event.1
+				days = 5
+			}
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_2 DA_Expandable_dig_3 = yes }
+			add_treasury = -100
+			remove_estate_privilege = estate_da_runesmiths_RF_2
+			set_estate_privilege = estate_da_runesmiths_RF_3
+			define_advisor = {
+				type = Hold_restorer
+				discount = yes
+				skill = 1
+			}
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_3 DA_Expandable_dig_4 = yes }
+			add_treasury = -200
+			remove_estate_privilege = estate_da_runesmiths_RF_3
+			set_estate_privilege = estate_da_runesmiths_RF_4
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_4 DA_Expandable_dig_5 = yes }
+			add_treasury = -400
+			remove_estate_privilege = estate_da_runesmiths_RF_4
+			set_estate_privilege = estate_da_runesmiths_RF_5
+			define_advisor = {
+				type = DA_runesmith
+				discount = yes
+				skill = 2
+			}
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_5 DA_Expandable_dig_6 = yes }
+			add_treasury = -600
+			remove_estate_privilege = estate_da_runesmiths_RF_5
+			set_estate_privilege = estate_da_runesmiths_RF_6
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_6 DA_Expandable_dig_7 = yes }
+			add_treasury = -1000
+			DA_MAX_RS_Invention_slots_increase_1 = yes
+			remove_estate_privilege = estate_da_runesmiths_RF_6
+			set_estate_privilege = estate_da_runesmiths_RF_7
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_7 DA_Expandable_dig_8 = yes }
+			add_treasury = -1600
+			remove_estate_privilege = estate_da_runesmiths_RF_7
+			set_estate_privilege = estate_da_runesmiths_RF_8
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_8 DA_Expandable_dig_9 = yes }
+			add_treasury = -2400
+			DA_MAX_RS_Invention_slots_increase_1 = yes
+			remove_estate_privilege = estate_da_runesmiths_RF_8
+			set_estate_privilege = estate_da_runesmiths_RF_9
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_9 DA_Expandable_dig_10 = yes }
+			add_treasury = -5000
+			DA_MAX_RS_Invention_slots_increase_1 = yes
+			remove_estate_privilege = estate_da_runesmiths_RF_9
+			set_estate_privilege = estate_da_runesmiths_RF_10
+        }
+        else_if = {
+            limit = { has_estate_privilege = estate_da_runesmiths_RF_10 DA_Expandable_dig_11 = yes }
+			add_treasury = -10000
+			DA_MAX_RS_Invention_slots_increase_1 = yes
+			remove_estate_privilege = estate_da_runesmiths_RF_10
+			set_estate_privilege = estate_da_runesmiths_RF_11
+        }
+	}
+}
+custom_button = {
+	name = DA_RF_ADK_reverse_engineer_button
+	tooltip = DA_RF_ADK_reverse_engineer_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_has_RF_2_or_higher = yes
+		treasury = 100
+        custom_trigger_tooltip = {
+            tooltip = DA_has_3_ADK
+		    check_variable = { ancientDwarvenKnowledge = 3 }
+        }
+	}
+	effect = {
+        add_treasury = -100
+		custom_tooltip = DA_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+        custom_tooltip = DA_gain_random_tech_exp_tt
+        hidden_effect = {
+            add_province_triggered_modifier = DA_random_tech_exp_workaround
+        }
+	}
+}
+custom_button = {
+	name = DA_RF_Ancestors_Teachings_button
+	tooltip = DA_RF_Ancestors_Teachings_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        DA_has_RF_4_or_higher = yes
+		treasury = 250
+        custom_trigger_tooltip = {
+            tooltip = DA_has_5_ADK
+		    check_variable = { ancientDwarvenKnowledge = 5 }
+        }
+        NOT = { has_country_modifier = DA_ancestors_teachings_mod }
+	}
+	effect = {
+        add_treasury = -250
+		custom_tooltip = DA_cost_5_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+        add_country_modifier = {
+            name = DA_ancestors_teachings_mod
+            duration = 1825
+        }
+	}
+}
+custom_button = {
 	name = DA_artificial_mage_ruler_button
 	tooltip = DA_Research_facility_menu.1.b.tooltip
 	potential = {
@@ -517,6 +719,13 @@ custom_button = {
 	}
 }
 
+custom_icon = {
+    name = DA_ADK_RF_icon
+    potential = {
+		always = yes
+    }
+    tooltip = DA_ADK_explanation_tt
+}
 custom_button = {
 	name = DA_ADK_Disable_Button
 	tooltip = DA_ADK_Disable_Button_tt

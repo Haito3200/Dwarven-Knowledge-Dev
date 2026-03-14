@@ -348,40 +348,6 @@ country_event = {
 	}
 
 
-	option = {
-		name = "DA_Research_facility_menu.1.m1" #Mithril boost economy
-		trigger = {
-			culture_group = dwarven
-			any_core_province = {
-				province_id = 4236
-				has_province_flag = DA_Mithril_workshop_found
-				has_great_project = {
-					type = The_Dwarven_Workshop
-					tier = 1
-				}
-			}
-			any_core_province = {
-				trade_goods = mithril
-				NOT = { has_province_modifier = DA_mithril_production_boost }
-			}
-			check_variable = { ancientDwarvenKnowledge = 5 }
-		}
-		custom_tooltip = DA_Research_facility_menu.1.m1.tooltip
-		hidden_effect = {
-			subtract_variable = { ancientDwarvenKnowledge = 5 }
-			every_core_province = {
-				limit = {
-					NOT = { has_province_modifier = DA_mithril_production_boost }
-					trade_goods = mithril
-				}
-				add_province_triggered_modifier = DA_mithril_production_boost
-			}
-			clr_country_flag = DA_rf_menu_in_use
-		}
-		ai_chance = {
-			factor = 10
-		}
-	}
 
 	option = {
 		name = "DA_Research_facility_menu.1.z" #Open Runic Gate
