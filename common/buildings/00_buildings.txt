@@ -64,6 +64,14 @@ wharf = {
 		#Anbennar - Exwes
 		on_province_wharf_manufactory_built_estate_privileges_effect = yes 
 
+		#Anbennar - Deranne
+		if = {
+			limit = {
+				FROM = { has_estate_privilege = estate_burghers_deranne_dalairey_lumber }
+			}
+			FROM = { deranne_add_lumber_buff_on_wharf_constructed_effect = yes }
+		}
+
 		# ANBENNAR
 		if = {
 			limit = {
@@ -92,11 +100,12 @@ wharf = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
-
+		on_production_manufactory_built_effect = yes
 		on_built_manufactory_effect = yes
 	}
 
 	on_destroyed = {
+		on_production_manufactory_destroyed_effect = yes
 		remove_development_from_building = {
 			building = manufactory
 			type = production
@@ -115,8 +124,19 @@ wharf = {
 			limit = { FROM = { has_reform = kai_diligent_bureucracy } }
 			anb_manufactory_discount_remove = yes
 		}
+		if = {
+			limit = {
+				FROM = { has_estate_privilege = estate_burghers_deranne_dalairey_lumber }
+				trade_goods = naval_supplies
+			}
+			FROM = { deranne_add_lumber_buff_on_wharf_constructed_effect = yes }
+		}
 	}
 	on_obsolete = {
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
 	}
 
 	ai_will_do = {
@@ -171,7 +191,7 @@ weapons = {
 			value = 1 
 		}
 
-		# ANBENNAR
+		#Anbennar
 		if = {
 			limit = {
 				area = castonath_area
@@ -190,6 +210,7 @@ weapons = {
 			clr_province_flag = latest_manufactory_built_is_furnace
 			clr_province_flag = latest_manufactory_built_is_mage_tower
 		}
+		#Anbennar
 		if = {
 			limit = { FROM = { has_estate_privilege = estate_dragon_command_war_room_rights } }
 			FROM = { add_legitimacy = 1 }
@@ -199,18 +220,33 @@ weapons = {
 			limit = { FROM = { has_reform = kai_diligent_bureucracy } }
 			anb_manufactory_discount = yes
 		}
-		#Anbennar
-
-		owner = { accretive_path_beikling_chi_stacking_effect = { amount = 100 } }
+		#Anbennar - The Red Citadel
+		if = {
+			limit = {
+				OR = {
+					culture = beikling
+					culture = nuraryi_harpy
+				}
+				4974 = {
+					owned_by = FROM
+					has_province_modifier = the_masterforge_upgrade
+				}
+			}
+			add_province_modifier = {
+				name = beikling_better_forging
+				duration = -1
+			}
+		}
 
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
-
+		on_production_manufactory_built_effect = yes
 		on_built_manufactory_effect = yes
 	}
 
 	on_destroyed = {
+		on_production_manufactory_destroyed_effect = yes
 		remove_development_from_building = {
 			building = manufactory
 			type = production
@@ -226,8 +262,16 @@ weapons = {
 			limit = { FROM = { has_reform = kai_diligent_bureucracy } }
 			anb_manufactory_discount_remove = yes
 		}
+		if = {
+			limit = { has_province_modifier = beikling_better_forging }
+			remove_province_modifier = beikling_better_forging
+		}
 	}
 	on_obsolete = {
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
 	}
 
 	ai_will_do = {
@@ -283,11 +327,27 @@ textile = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
-
+		on_production_manufactory_built_effect = yes
 		on_built_manufactory_effect = yes
+
+		# Yemotaferi MT
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = S50_manufactory_modifiers
+				}
+				has_terrain = shadow_swamp_terrain
+				trade_goods = dyes
+			}
+			add_province_modifier = {
+				name = S50_nightblossom_cloak_weavers
+				duration = -1
+			}
+		}
 	}
 
 	on_destroyed = {
+		on_production_manufactory_destroyed_effect = yes
 		remove_development_from_building = {
 			building = manufactory
 			type = production
@@ -302,8 +362,17 @@ textile = {
 			limit = { FROM = { has_reform = kai_diligent_bureucracy } }
 			anb_manufactory_discount_remove = yes
 		}
+		#Yemotaferi MT
+		if = {
+			limit = { has_province_modifier = S50_nightblossom_cloak_weavers }
+			remove_province_modifier = S50_nightblossom_cloak_weavers
+		}
 	}
 	on_obsolete = {
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
 	}
 
 	ai_will_do = {
@@ -360,14 +429,14 @@ plantations = {
 		#Anbennar
 		anbennar_building_effect = yes
 
-		owner = { accretive_path_naamjyut_chi_stacking_effect = { amount = 100 } }
 
 		gronstunad_building_authority_effect = { value = 5 }
-
+		on_production_manufactory_built_effect = yes
 		on_built_manufactory_effect = yes
 	}
 
 	on_destroyed = {
+		on_production_manufactory_destroyed_effect = yes
 		remove_development_from_building = {
 			building = manufactory
 			type = production
@@ -384,6 +453,10 @@ plantations = {
 		}
 	}
 	on_obsolete = {
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
 	}
 
 	ai_will_do = {
@@ -445,7 +518,7 @@ tradecompany = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
-
+		on_production_manufactory_built_effect = yes
 		on_built_manufactory_effect = yes
 
 		if = {
@@ -472,6 +545,7 @@ tradecompany = {
 	}
 
 	on_destroyed = {
+		on_production_manufactory_destroyed_effect = yes
 		remove_development_from_building = {
 			building = manufactory
 			type = production
@@ -500,6 +574,10 @@ tradecompany = {
 		}
 	}
 	on_obsolete = {
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
 	}
 
 	ai_will_do = {
@@ -561,8 +639,9 @@ farm_estate = {
 			FROM = { add_legitimacy = 1 }
 		}
 
-		gronstunad_building_authority_effect = { value = 5 }
 
+		gronstunad_building_authority_effect = { value = 5 }
+		on_production_manufactory_built_effect = yes
 		on_built_manufactory_effect = yes
 
 		if = {
@@ -605,6 +684,8 @@ farm_estate = {
 				duration = -1
 			}
 		}
+		# Salla Myna
+		I27_se_apply_aviary_adjacency_mods = yes
 		#shelokmengi capstone S57
 		if = {
 			limit = {
@@ -617,9 +698,19 @@ farm_estate = {
 				duration = -1
 			}
 		}
+		if = { #Flying Hound
+			limit = {
+				owner = { has_country_flag = B43_feed_the_homeland_1_flag }
+			}
+			add_province_modifier = {
+				name = B43_feed_the_homeland_2
+				duration = -1
+			}
+		}
 	}
 
 	on_destroyed = {
+		on_production_manufactory_destroyed_effect = yes
 		remove_development_from_building = {
 			building = manufactory
 			type = production
@@ -669,10 +760,20 @@ farm_estate = {
 			}
 			remove_province_modifier = Z35_noble_slaveowners_2
 		}
+		# Salla Myna
+		I27_se_remove_well_fed_hawks_mods = yes
+
 		#shelokmengi
 		remove_province_modifier = S57_empire_of_grain
+
+		#Flying Hound
+		remove_province_modifier = B43_feed_the_homeland_2
 	}
 	on_obsolete = {
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
 	}
 
 	ai_will_do = {
@@ -730,10 +831,26 @@ mills = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
-
+		on_production_manufactory_built_effect = yes
 		on_built_manufactory_effect = yes
+
+		# Yemotaferi MT
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = S50_manufactory_modifiers
+				}
+				has_terrain = shadow_swamp_terrain
+				trade_goods = tropical_wood
+			}
+			add_province_modifier = {
+				name = S50_lotunga_pine_groves
+				duration = -1
+			}
+		}
 	}
 	on_destroyed = {
+		on_production_manufactory_destroyed_effect = yes
 		remove_development_from_building = {
 			building = manufactory
 			type = production
@@ -748,8 +865,18 @@ mills = {
 			limit = { FROM = { has_reform = kai_diligent_bureucracy } }
 			anb_manufactory_discount_remove = yes
 		}
+
+		#Yemotaferi MT
+		if = {
+			limit = { has_province_modifier = S50_lotunga_pine_groves }
+			remove_province_modifier = S50_lotunga_pine_groves
+		}
 	}
 	on_obsolete = {
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
 	}
 
 	ai_will_do = {
@@ -822,6 +949,10 @@ furnace = {
 		}
 	}
 	on_obsolete = {
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
 	}
 
 	ai_will_do = {
@@ -1376,14 +1507,11 @@ railway_work = {
 						cost = 1
 					}
 				}
-				if = { 
+				if = {
 					limit = {
-						region = jade_mines_region
-						owner = { mission_completed = az_an_freeing_our_bretheren }
+						owner = { has_country_flag = hyti_base_trains }
 					}
-					add_base_tax = 1
-					add_base_production = 1
-					add_base_manpower = 1
+					remove_province_modifier = hyti_cave_mod6
 				}
 			}
 			else_if = {
@@ -1427,14 +1555,23 @@ railway_work = {
 						cost = 2
 					}
 				}
-				if = { 
+				if = {
 					limit = {
-						region = jade_mines_region
-						owner = { mission_completed = az_an_freeing_our_bretheren }
+						owner = { has_country_flag = hyti_magic_trains }
 					}
-					add_base_tax = 1
-					add_base_production = 1
-					add_base_manpower = 1
+					if = {
+						limit = { owner = { has_estate_privilege = artifice_invention_hyti_magiwind } }
+						add_province_modifier = {
+							name = hyti_magic_trains_on
+							duration = -1
+						}
+					}
+					else = {
+						add_province_modifier = {
+							name = hyti_magic_trains_off
+							duration = -1
+						}
+					}
 				}
 			}
 			else_if = {
@@ -1478,6 +1615,15 @@ railway_work = {
 						cost = 2
 					}
 				}
+			}
+			if = { 
+				limit = {
+					region = jade_mines_region
+					owner = { mission_completed = az_an_freeing_our_bretheren }
+				}
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
 			}
 		}
     }

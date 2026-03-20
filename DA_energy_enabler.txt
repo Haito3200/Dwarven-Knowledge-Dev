@@ -1,12 +1,421 @@
 
-			4461 = {
-				kill_units = {
-					who = enemy
-				}
-				kill_units = {
-					who = controller
-				}
-				kill_units = {
-					who = owner
+mage_tower = {
+	manufactory = {
+		all
+	}
+	build_trigger = {
+		OR = {
+			FROM = { has_not_banned_magic = yes }
+			FROM = { has_country_modifier = command_the_korashi_secret }
+		}
+	}
+
+	bonus_manufactory = { # Will apply an extra modifier if these goods
+		damestear
+		precursor_relics
+		incense
+		chinaware
+		ivory
+	}
+
+	modifier = {
+		local_development_cost = -0.1
+		local_hostile_attrition = 1
+	}
+	bonus_modifier = {
+		local_development_cost = -0.1
+		local_hostile_attrition = 1
+	}
+	onmap = no
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
+
+	ai_will_do = {
+		factor = 1
+	}
+	on_built = {
+		if = {
+			limit = {
+				NOT = {
+					FROM = { has_not_banned_magic = yes }
+					FROM = { has_country_modifier = command_the_korashi_secret }
 				}
 			}
+			remove_building = mage_tower
+		}
+		if = {
+			limit = {
+				area = castonath_area
+			}
+			set_province_flag = latest_manufactory_built_is_mage_tower
+			clr_province_flag = latest_manufactory_built_is_farm_estate
+			clr_province_flag = latest_manufactory_built_is_ramparts
+			clr_province_flag = latest_manufactory_built_is_impressment_offices
+			clr_province_flag = latest_manufactory_built_is_wharf
+			clr_province_flag = latest_manufactory_built_is_textile
+			clr_province_flag = latest_manufactory_built_is_weapons
+			clr_province_flag = latest_manufactory_built_is_state_house
+			clr_province_flag = latest_manufactory_built_is_plantations
+			clr_province_flag = latest_manufactory_built_is_tradecompany
+			clr_province_flag = latest_manufactory_built_is_soldiers_households
+			clr_province_flag = latest_manufactory_built_is_mills
+			clr_province_flag = latest_manufactory_built_is_furnace
+		}
+		if = {
+			limit = {
+				region = alecand_region
+			}
+			hidden_effect = {
+				province_event = { id = kheionai.3 }
+			}
+		}
+		if = {
+			limit = { FROM = { has_government_attribute = crown_land_from_mage_towers } }
+			FROM = {
+				change_estate_land_share = {
+					estate = all
+					share = -1
+				}
+			}
+		}
+		#Anbennar - Thangoya Tier 2 Reform Mechanic, Feel Free To Reuse
+		if = {
+			limit = { FROM = { has_reform = kai_diligent_bureucracy } }
+			anb_manufactory_discount = yes
+		}
+		anbennar_building_effect = yes
+		#Anbennar - Irkorzik
+		if = {
+			limit = { 
+				owner = { has_estate_privilege = estate_church_sandstorm_summoning }
+				owner = { has_country_flag = irkorzik_sandstorm_summoning_buff }
+			}
+			add_province_modifier = { name = irkorzik_sandstorm_summoning_buff duration = -1 }
+		}
+		else_if = {
+			limit = { 
+				owner = { has_estate_privilege = estate_church_sandstorm_summoning }
+			}
+			add_province_modifier = { name = irkorzik_sandstorm_summoning duration = -1 }
+		}
+		#Anbennar - Irkorzik, but can be used by anyone. Feel free to use.
+		anb_add_extra_mage_tower_dev = yes
+
+		gronstunad_building_authority_effect = { value = 1 }
+
+		on_built_manufactory_effect = yes
+
+		#Anbennar - Brrtekuh
+		if = {
+			limit = {
+				has_fort_building_trigger = yes
+				owner = {
+					OR = {
+						has_estate_privilege = estate_church_U10_purification_posts_along_the_sorrow
+						has_country_modifier = U10_exorcist_combine
+					}
+				}
+			}
+			add_province_modifier = {
+				name = U10_containment_array
+				duration = -1
+			}
+		}
+
+		#Anbennar - Masked Butcher
+		if = {
+			limit = {
+				owner = { has_country_flag = mb_ichortap_flag }
+				NOT = { owner = { has_country_flag = mb_buffed_ichortap_flag } }
+				superregion = deepwoods_superregion
+			}
+			add_province_modifier = {
+				name = mb_ichortap
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				owner = { has_country_flag = mb_buffed_ichortap_flag }
+				superregion = deepwoods_superregion
+			}
+			add_province_modifier = {
+				name = mb_ichortap2
+				duration = -1
+			}
+		}
+
+		#Rezankand
+		if = {
+			limit = {
+				owner = { 
+					mission_completed = rezankand_architects_of_the_future 
+					mission_completed = rezankand_faster_than_thought 
+				}
+			}
+			add_province_modifier = {
+				name = rezankand_light_matrix_upgraded
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				owner = { 
+					mission_completed = rezankand_architects_of_the_future 
+				}
+			}
+			add_province_modifier = {
+				name = rezankand_light_matrix
+				duration = -1
+			}
+		}
+		#Toarnaire
+		if = {
+			limit = {
+				province_id = 33 owner = { mission_completed = toarnaire_mageblood }
+			}
+			add_province_modifier = {
+				name = toarnaire_toarnaire_mage_tower
+				duration =  -1
+			}
+		}
+		if = {
+			limit = { owner = { has_estate_privilege = estate_mages_development_of_mage_towers } }
+			if = {
+				limit = { owner = { has_government_attribute = caretakers_of_mage_towers_upgrade  } }
+				add_province_modifier = { name = estate_mages_development_of_mage_towers_improved_mod duration = -1 }
+			}
+			
+			else =  { add_province_modifier = { name = estate_mages_development_of_mage_towers_mod duration = -1 } }
+		}
+		if = { #salla drennen veil stuff
+			limit = {
+				owner = {
+					has_country_flag = I28_project_unlock
+				}
+			}
+			if = {
+				limit = { owner = { at_least_magic_project_level = { project = drennen_project_1 level = 3 } } }
+				province_event = {
+					id = salla_drennen.23
+				}
+			}
+			else_if = {
+				limit = { owner = { at_least_magic_project_level = { project = drennen_project_1 level = 2 } } }
+				province_event = {
+					id = salla_drennen.22
+				}
+			}
+		}
+		if = { #Deranne
+			limit = {
+				region = lencenor_region
+				has_building = temple
+				FROM = {
+					has_estate_privilege = estate_church_deranne_seaflower_skalds
+				}
+				NOT = {
+					area_for_scope_province = {
+						has_province_flag = deranne_skalds_province_flag
+					}
+				}
+			}
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+			set_province_flag = deranne_skalds_province_flag
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 5
+				}
+			}
+		}
+		umbral_fog_apply = yes #umbral covenant
+		if = { ##Great fun with Great Storm# #Either the player or its subject has a thing which has consequences# #
+			limit = { province_id = 5138 } #Tirughuun
+			if = {
+				limit = { FROM = { has_country_flag = I80_tirughuun_mage_tower } }
+				FROM = { 
+					clr_country_flag = I80_tirughuun_mage_tower
+					increase_magic_experience = { unmodified_amount = 150 }
+				}
+			}
+			if = {
+				limit = { FROM = { overlord = { has_country_flag = I80_tirughuun_mage_tower } } }
+				FROM = { 
+					overlord = { 
+						clr_country_flag = I80_tirughuun_mage_tower
+						increase_magic_experience = { unmodified_amount = 100 }
+					}
+				}
+			}
+		}
+
+		if = { #Black Herd - Refund 50% of the cost
+			limit = { FROM = { has_government_attribute = magocratic_caehnate_mage_towers } }
+			hidden_effect = {
+				FROM = {
+					export_to_variable = {
+						which = build_cost_var
+						value = modifier:build_cost
+					}
+					export_to_variable = {
+						which = local_build_cost_var
+						value = modifier:local_build_cost
+						who = PREV
+					}
+					change_variable = { build_cost_var = 1 }
+					change_variable = { local_build_cost_var = 1 }
+					if = {
+						limit = { NOT = { check_variable = { build_cost_var = 0 } } }
+						set_variable = { build_cost_var = 0 }
+					}
+					if = {
+						limit = { NOT = { check_variable = { local_build_cost_var = 0 } } }
+						set_variable = { local_build_cost_var = 0 }
+					}
+					multiply_variable = { which = build_cost_var value = 250 }
+					multiply_variable = { which = build_cost_var which = local_build_cost_var }
+					var_effect = { 
+						effect = add_treasury 
+						var = build_cost_var 
+						sign = + 
+					}
+				}
+			}
+		}
+		if = { #Magical Fortress
+			limit = { FROM = { at_least_magic_project_level = { project = magical_fortress level = 3 } } }
+			add_province_modifier = { name = magical_fortress_province_mod duration = -1 }
+		}
+
+		if = { #Orenvalyam
+			limit = {
+				region = amadia_region
+				owner = { has_country_flag = U39_amadia_mage_build_flag }
+			}
+			area = {
+				limit = { owned_by = U39 } #Orenvalyam
+				add_province_modifier = {
+					name = U39_wild_magic_tempered
+					duration = -1
+				}
+			}
+		}
+	}
+	on_destroyed = {
+		if = {
+			limit = { has_province_modifier = U10_containment_array }
+			remove_province_modifier = U10_containment_array
+		}
+		if = {
+			limit = {
+				region = alecand_region
+			}
+			hidden_effect = {
+				province_event = { id = kheionai.3 }
+			}
+		}
+		if = {
+			limit = { FROM = { has_reform = kai_diligent_bureucracy } }
+			anb_manufactory_discount_remove = yes
+		}
+		anbennar_building_effect = yes
+		if = {
+			limit = { FROM = { has_government_attribute = crown_land_from_mage_towers } }
+			FROM = {
+				change_estate_land_share = {
+					estate = all
+					share = 1
+				}
+			}
+		}
+		#Anbennar - Irkorzik
+		if = {
+			limit = { 
+				owner = { has_estate_privilege = estate_church_sandstorm_summoning } 
+				owner = { has_country_flag = irkorzik_upgraded_sandstorm_summoning }
+				has_province_modifier = irkorzik_sandstorm_summoning_buff
+			}
+			remove_province_modifier = irkorzik_sandstorm_summoning_buff
+		}
+		else_if = {
+			limit = { 
+				owner = { has_estate_privilege = estate_church_sandstorm_summoning } 
+				has_province_modifier = irkorzik_sandstorm_summoning
+			}
+			remove_province_modifier = irkorzik_sandstorm_summoning
+		}
+		#Anbennar - Irkorzik, but can be used by anyone. Feel free to use
+		anb_remove_extra_mage_tower_dev = yes
+
+		#Anbennar - Masked Butcher
+		if = {
+			limit = { has_province_modifier = mb_ichortap }
+			remove_province_modifier = mb_ichortap
+		}
+		if = {
+			limit = { has_province_modifier = mb_ichortap2 }
+			remove_province_modifier = mb_ichortap2
+		}
+
+		#Rezankand
+		if = {
+			limit = {
+				OR = {
+					has_province_modifier = rezankand_light_matrix
+					has_province_modifier = rezankand_light_matrix_upgraded
+				}
+			}
+			remove_province_modifier = rezankand_light_matrix
+			remove_province_modifier = rezankand_light_matrix_upgraded
+		}
+
+		if = {
+			limit = {
+				OR = {
+					has_province_modifier = rezankand_light_matrix_supply
+					has_province_modifier = rezankand_light_matrix_supply_upgraded
+					has_province_modifier = rezankand_light_matrix_logistic
+					has_province_modifier = rezankand_light_matrix_logistic_upgraded
+				}
+			}
+			remove_province_modifier = rezankand_light_matrix_supply
+			remove_province_modifier = rezankand_light_matrix_supply_upgraded
+			remove_province_modifier = rezankand_light_matrix_logistic
+			remove_province_modifier = rezankand_light_matrix_logistic_upgraded
+			every_neighbor_province = {
+				limit = {
+					owned_by = FROM
+					NOT = {
+						any_neighbor_province = {
+							owned_by = FROM
+							has_building = mage_tower
+						}
+					}
+				}
+				remove_province_modifier = rezankand_light_matrix_supply
+				remove_province_modifier = rezankand_light_matrix_supply_upgraded
+				remove_province_modifier = rezankand_light_matrix_logistic
+				remove_province_modifier = rezankand_light_matrix_logistic_upgraded
+			}
+		}
+		#Toarnaire
+		if = {
+			limit = {
+				province_id = 33 owner = { mission_completed = toarnaire_mageblood }
+			}
+			remove_province_modifier = toarnaire_toarnaire_mage_tower
+		}
+
+		umbral_fog_clear = yes #umbral covenant
+		#Mage Estate
+		remove_province_modifier = estate_mages_development_of_mage_towers_mod
+		remove_province_modifier = estate_mages_development_of_mage_towers_improved_mod
+		remove_province_modifier = magical_fortress_province_mod #Magical Fortress
+	}
+
+	on_construction_started = {  #Fires when you start the construction,  ROOT - Province FROM - Country that started 1.35
+		anb_instantly_finish_next_construction = yes
+	}
+}
