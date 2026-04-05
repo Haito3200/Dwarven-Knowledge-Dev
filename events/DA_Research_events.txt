@@ -70,7 +70,7 @@ country_event = {
 		name = DA_Research_events.2.b
 		highlight = yes
 		trigger = {
-			innovativeness = 100
+			innovativeness = 80
 			hidden_trigger = {
 				NOT = { DA_unstoppable_research_in_progress = yes }
 			}
@@ -114,7 +114,7 @@ country_event = {
 		name = DA_Research_events.3.b
 		highlight = yes
 		trigger = {
-			corruption = 4
+			corruption = 5
 		}
 		add_prestige = -15
 		add_corruption = 2
@@ -160,84 +160,6 @@ country_event = {
 	option = {
 		name = DA_Research_events.4.b
 		DA_Research_add = { amount = 12 }
-	}
-	
-	
-}
-
-country_event = {
-	id = DA_Research_events.5
-	title = DA_Research_events.5.t
-	desc = DA_Research_events.5.d
-	picture = INVENTION_eventPicture
-
-	trigger = {
-		ai = no
-		has_country_flag = DA_research_in_progress
-		hidden_trigger = {
-			NOT = { DA_unstoppable_research_in_progress = yes }
-		}
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
-	}
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	is_triggered_only = yes
-
-	option = {
-		name = DA_Research_events.5.a
-		DA_Research_terminate = yes
-	}
-	option = {
-		name = DA_Research_events.5.b
-		highlight = yes
-		trigger = {
-			OR = {
-				court_mage = 2
-				Hold_restorer = 2
-				DA_runesmith = 2
-			}
-		}
-		DA_Research_lose = { amount = 6 }
-	}
-	option = {
-		name = DA_Research_events.5.c
-		highlight = yes
-		trigger = {
-			OR = {
-				court_mage = 4
-				Hold_restorer = 4
-				DA_runesmith = 4
-			}
-		}
-		DA_Research_add = { amount = 6 }
-	}
-	option = {
-		name = DA_Research_events.5.e
-		highlight = yes
-		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = DA_has_20_ADK
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 20
-				}
-			}
-		}
-		custom_tooltip = DA_cost_20_ADK
-		hidden_effect = {
-			subtract_variable = {
-				which = ancientDwarvenKnowledge
-				value = 20
-			}
-		}
-		DA_Research_add = { amount = 6 }
 	}
 	
 	
