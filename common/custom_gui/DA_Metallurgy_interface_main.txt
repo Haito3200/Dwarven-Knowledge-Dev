@@ -134,6 +134,136 @@ custom_button = {
         }
 	}
 }
+
+custom_icon = {
+    name = DA_topbar_alert_explore_hold
+    potential = {
+        OR = {
+            culture_group = dwarven
+            culture_group = goblin
+            culture_group = kobold
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_Has_unexplored_dig_level_tooltip
+            NOT = { has_country_flag = DA_ADK_menu_in_use }
+            OR = {
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_1_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_2 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 25
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_2_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_3 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 50
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_3_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_4 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 100
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_4_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_5 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 200
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_5_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_6 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 300
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_6_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_7 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 500
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_7_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_8 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 800
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_8_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_9 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 1200
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_9_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_10 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 2500
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_10_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_11 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 5000
+                    }
+                }
+            }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_ADK_menu_CD_tt
+            NOT = { has_country_flag = DA_ADK_menu_in_use }
+            NOT = { has_country_modifier = DA_ADK_menu_cooldown }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_ADK_menu_Exp_in_progress_tt
+            NOT = {
+                any_owned_province = {
+                    has_province_flag = DA_expedition_in_progress
+                }
+            }
+        }
+    }
+    tooltip = DA_topbar_alert_explore_hold_tt
+}
+
+custom_icon = {
+    name = DA_topbar_alert_research_unused
+    potential = {
+		NOT = { has_country_flag = DA_research_in_progress }
+    }
+    tooltip = DA_topbar_alert_research_unused_tt
+}
+
 custom_button = {
 	name = DA_access_Projects_research_button
 	tooltip = DA_access_Projects_research_button_tt
@@ -146,8 +276,9 @@ custom_button = {
         }
 	}
 	effect = {      
-        custom_tooltip = DA_in_development_tt
-        # this is just to prevent people opening an half-done thing
+        hidden_effect = {
+            DA_initialise_interface_variables = yes
+        }
         if = {
             limit = {
                 DA_has_any_interface_active_trigger = yes
@@ -202,9 +333,10 @@ custom_button = {
             always = yes
         }
 	}
-	effect = {
-        custom_tooltip = DA_in_development_tt
-        # this is just to prevent people opening an half-done thing
+	effect = {  
+        hidden_effect = {
+            DA_initialise_interface_variables = yes
+        }
         if = {
             limit = {
                 DA_has_any_interface_active_trigger = yes
@@ -303,7 +435,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Metallurgy_1 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 1000
                     }
                 }
@@ -311,7 +443,7 @@ custom_button = {
                     DA_completed.Metallurgy_1 = yes
                     NOT = { DA_completed.Metallurgy_2 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 2500
                     }
                 }
@@ -319,7 +451,7 @@ custom_button = {
                     DA_completed.Metallurgy_2 = yes
                     NOT = { DA_completed.Metallurgy_3 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 5000
                     }
                 }
@@ -327,7 +459,7 @@ custom_button = {
                     DA_completed.Metallurgy_3 = yes
                     NOT = { DA_completed.Metallurgy_4 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 10000
                     }
                 }
@@ -351,7 +483,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 1000
                 }
                 country_event = {
@@ -365,7 +497,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 2500
                 }
                 country_event = {
@@ -379,7 +511,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 5000
                 }
                 country_event = {
@@ -393,7 +525,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 10000
                 }
                 country_event = {
@@ -473,7 +605,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Magic_Theory_1 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 1000
                     }
                 }
@@ -481,7 +613,7 @@ custom_button = {
                     DA_completed.Magic_Theory_1 = yes
                     NOT = { DA_completed.Magic_Theory_2 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 2500
                     }
                 }
@@ -493,7 +625,7 @@ custom_button = {
                     DA_completed.Elemental_Magic_Earth = yes
                     NOT = { DA_completed.Magic_Theory_3 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 5000
                     }
                 }
@@ -501,7 +633,7 @@ custom_button = {
                     DA_completed.Magic_Theory_3 = yes
                     NOT = { DA_completed.Magic_Theory_4 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 10000
                     }
                 }
@@ -525,7 +657,7 @@ custom_button = {
                     NOT = { DA_completed.Magic_Theory_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_acane_arts_exp
+                    which = DA_Arcane_Arts_exp
                     value = 1000
                 }
                 country_event = {
@@ -539,7 +671,7 @@ custom_button = {
                     NOT = { DA_completed.Magic_Theory_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_acane_arts_exp
+                    which = DA_Arcane_Arts_exp
                     value = 2500
                 }
                 country_event = {
@@ -553,7 +685,7 @@ custom_button = {
                     NOT = { DA_completed.Magic_Theory_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_acane_arts_exp
+                    which = DA_Arcane_Arts_exp
                     value = 5000
                 }
                 country_event = {
@@ -567,7 +699,7 @@ custom_button = {
                     NOT = { DA_completed.Magic_Theory_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_acane_arts_exp
+                    which = DA_Arcane_Arts_exp
                     value = 10000
                 }
                 country_event = {
@@ -618,7 +750,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Mechanics_1 = yes }
                     check_variable = {
-                        which = DA_mechanics_exp
+                        which = DA_Mechanics_exp
                         value = 1000
                     }
                 }
@@ -626,7 +758,7 @@ custom_button = {
                     DA_completed.Mechanics_1 = yes
                     NOT = { DA_completed.Mechanics_2 = yes }
                     check_variable = {
-                        which = DA_mechanics_exp
+                        which = DA_Mechanics_exp
                         value = 2500
                     }
                 }
@@ -634,7 +766,7 @@ custom_button = {
                     DA_completed.Mechanics_2 = yes
                     NOT = { DA_completed.Mechanics_3 = yes }
                     check_variable = {
-                        which = DA_mechanics_exp
+                        which = DA_Mechanics_exp
                         value = 5000
                     }
                 }
@@ -642,7 +774,7 @@ custom_button = {
                     DA_completed.Mechanics_3 = yes
                     NOT = { DA_completed.Mechanics_4 = yes }
                     check_variable = {
-                        which = DA_mechanics_exp
+                        which = DA_Mechanics_exp
                         value = 10000
                     }
                 }
@@ -666,7 +798,7 @@ custom_button = {
                     NOT = { DA_completed.Mechanics_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_mechanics_exp
+                    which = DA_Mechanics_exp
                     value = 1000
                 }
                 country_event = {
@@ -680,7 +812,7 @@ custom_button = {
                     NOT = { DA_completed.Mechanics_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_mechanics_exp
+                    which = DA_Mechanics_exp
                     value = 2500
                 }
                 country_event = {
@@ -694,7 +826,7 @@ custom_button = {
                     NOT = { DA_completed.Mechanics_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_mechanics_exp
+                    which = DA_Mechanics_exp
                     value = 5000
                 }
                 country_event = {
@@ -708,7 +840,7 @@ custom_button = {
                     NOT = { DA_completed.Mechanics_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_mechanics_exp
+                    which = DA_Mechanics_exp
                     value = 10000
                 }
                 country_event = {
@@ -759,7 +891,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Alchemy_1 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 1000
                     }
                 }
@@ -767,7 +899,7 @@ custom_button = {
                     DA_completed.Alchemy_1 = yes
                     NOT = { DA_completed.Alchemy_2 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 2500
                     }
                 }
@@ -775,7 +907,7 @@ custom_button = {
                     DA_completed.Alchemy_2 = yes
                     NOT = { DA_completed.Alchemy_3 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 5000
                     }
                 }
@@ -783,7 +915,7 @@ custom_button = {
                     DA_completed.Alchemy_3 = yes
                     NOT = { DA_completed.Alchemy_4 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 10000
                     }
                 }
@@ -807,7 +939,7 @@ custom_button = {
                     NOT = { DA_completed.Alchemy_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_alchemy_exp
+                    which = DA_Alchemy_exp
                     value = 1000
                 }
                 country_event = {
@@ -821,7 +953,7 @@ custom_button = {
                     NOT = { DA_completed.Alchemy_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_alchemy_exp
+                    which = DA_Alchemy_exp
                     value = 2500
                 }
                 country_event = {
@@ -835,7 +967,7 @@ custom_button = {
                     NOT = { DA_completed.Alchemy_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_alchemy_exp
+                    which = DA_Alchemy_exp
                     value = 5000
                 }
                 country_event = {
@@ -849,7 +981,7 @@ custom_button = {
                     NOT = { DA_completed.Alchemy_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_alchemy_exp
+                    which = DA_Alchemy_exp
                     value = 10000
                 }
                 country_event = {
@@ -910,7 +1042,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Medicine_1 = yes }
                     check_variable = {
-                        which = DA_medicine_exp
+                        which = DA_Medicine_exp
                         value = 1000
                     }
                 }
@@ -918,7 +1050,7 @@ custom_button = {
                     DA_completed.Medicine_1 = yes
                     NOT = { DA_completed.Medicine_2 = yes }
                     check_variable = {
-                        which = DA_medicine_exp
+                        which = DA_Medicine_exp
                         value = 2500
                     }
                 }
@@ -926,7 +1058,7 @@ custom_button = {
                     DA_completed.Medicine_2 = yes
                     NOT = { DA_completed.Medicine_3 = yes }
                     check_variable = {
-                        which = DA_medicine_exp
+                        which = DA_Medicine_exp
                         value = 5000
                     }
                 }
@@ -934,7 +1066,7 @@ custom_button = {
                     DA_completed.Medicine_3 = yes
                     NOT = { DA_completed.Medicine_4 = yes }
                     check_variable = {
-                        which = DA_medicine_exp
+                        which = DA_Medicine_exp
                         value = 10000
                     }
                 }
@@ -958,7 +1090,7 @@ custom_button = {
                     NOT = { DA_completed.Medicine_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_medicine_exp
+                    which = DA_Medicine_exp
                     value = 1000
                 }
                 country_event = {
@@ -972,7 +1104,7 @@ custom_button = {
                     NOT = { DA_completed.Medicine_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_medicine_exp
+                    which = DA_Medicine_exp
                     value = 2500
                 }
                 country_event = {
@@ -986,7 +1118,7 @@ custom_button = {
                     NOT = { DA_completed.Medicine_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_medicine_exp
+                    which = DA_Medicine_exp
                     value = 5000
                 }
                 country_event = {
@@ -1000,7 +1132,7 @@ custom_button = {
                     NOT = { DA_completed.Medicine_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_medicine_exp
+                    which = DA_Medicine_exp
                     value = 10000
                 }
                 country_event = {
@@ -3077,7 +3209,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Metallurgy_1 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 1000
                     }
                 }
@@ -3085,7 +3217,7 @@ custom_button = {
                     DA_completed.Metallurgy_1 = yes
                     NOT = { DA_completed.Metallurgy_2 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 2500
                     }
                 }
@@ -3093,7 +3225,7 @@ custom_button = {
                     DA_completed.Metallurgy_2 = yes
                     NOT = { DA_completed.Metallurgy_3 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 5000
                     }
                 }
@@ -3101,7 +3233,7 @@ custom_button = {
                     DA_completed.Metallurgy_3 = yes
                     NOT = { DA_completed.Metallurgy_4 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 10000
                     }
                 }
@@ -3120,7 +3252,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 1000
                 }
                 country_event = {
@@ -3134,7 +3266,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 2500
                 }
                 country_event = {
@@ -3148,7 +3280,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 5000
                 }
                 country_event = {
@@ -3162,7 +3294,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 10000
                 }
                 country_event = {

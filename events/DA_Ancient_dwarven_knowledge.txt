@@ -212,24 +212,6 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = {
-		culture_group = dwarven
-		OR = {
-			AND = {
-				has_country_flag = DA_can_make_mage
-				NOT = {	has_country_flag = DA_can_make_mage_t1 }
-				DA_has_RF_4_or_higher = yes
-			}
-			AND = {
-				has_country_flag = DA_can_make_mage_t1
-				NOT = {	has_country_flag = DA_can_make_mage_t2 }
-				DA_has_RF_6_or_higher = yes
-			}
-			AND = {
-				has_country_flag = DA_can_make_mage_t2
-				NOT = {	has_country_flag = DA_can_make_mage_t3 }
-				DA_has_RF_8_or_higher = yes
-			}
-		}
 	}	
 	
 	option = {
@@ -296,10 +278,6 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = {
-		culture_group = dwarven
-		has_country_flag = DA_can_make_mage
-		NOT = { has_country_flag = DA_can_graft_new_runes }
-		DA_has_RF_4_or_higher = yes
 	}	
 	
 	option = {
@@ -413,9 +391,6 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = {
-		culture_group = dwarven
-		NOT = { has_country_flag = DA_Can_create_leaders }
-		DA_has_RF_4_or_higher = yes
 	}	
 	
 	option = {
@@ -864,9 +839,6 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = {
-		culture_group = dwarven
-		NOT = { has_country_flag = DA_can_build_Runic_barrier }
-		DA_has_RF_2_or_higher = yes	
 	}
 	
 	option = {
@@ -896,19 +868,6 @@ country_event = {
 
 	is_triggered_only = yes
 	trigger = {
-		culture_group = dwarven
-		OR = {
-			AND = {
-				has_country_flag = DA_can_build_Runic_barrier
-				NOT = { has_country_flag = DA_can_build_Runic_barrier_t2 }
-				DA_has_RF_4_or_higher = yes	
-			}	
-			AND = {
-				has_country_flag = DA_can_build_Runic_barrier_t2
-				NOT = { has_country_flag = DA_can_build_Runic_barrier_t3 }
-				DA_has_RF_6_or_higher = yes	
-			}	
-		}
 	}	
 	
 	option = {
@@ -931,18 +890,31 @@ country_event = {
 }
 
 country_event = {
+	id = DA_adk.132 #unlocks DA_impenetrable_dwarovar
+	title = "DA_adk.132.t"
+	desc = "DA_adk.132.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+	}
+	
+	option = {
+		name = "DA_adk.13.a"
+		add_country_modifier = {
+			name = "DA_impenetrable_dwarovar"
+			duration = -1
+		}
+	}	
+}
+
+country_event = {
 	id = DA_adk.11 #unlocks runeforged fort
 	title = "DA_adk.11.t"
 	desc = "DA_adk.11.d"
 	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		culture_group = dwarven
-		has_country_flag = DA_can_build_Runic_barrier
-		NOT = { has_country_flag = DA_can_build_runeforged_fort }
-		DA_has_RF_3_or_higher = yes	
-	}	
 	
 	option = {
 		name = "DA_adk.11.a"

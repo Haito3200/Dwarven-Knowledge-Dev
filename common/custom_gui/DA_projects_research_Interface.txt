@@ -166,82 +166,7 @@ custom_button = {
         }
     }
 }
-custom_button = {
-    name = DA_projects_research_button_Arcane
-    tooltip = DA_projects_research_button_Arcane_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        always = yes
-    }
-    effect = {
-        clr_country_flag = DA_projects_research_Interface_on_arcane_1
-        clr_country_flag = DA_projects_research_Interface_on_arcane_2
-        clr_country_flag = DA_projects_research_Interface_on_Steam_1
-        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
-        clr_country_flag = DA_projects_research_Interface_on_Unique_1
 
-        set_country_flag = DA_projects_research_Interface_on_arcane_1
-    }
-}
-custom_button = {
-    name = DA_projects_research_button_Steam
-    tooltip = DA_projects_research_button_Steam_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        always = yes
-    }
-    effect = {
-        clr_country_flag = DA_projects_research_Interface_on_arcane_1
-        clr_country_flag = DA_projects_research_Interface_on_arcane_2
-        clr_country_flag = DA_projects_research_Interface_on_Steam_1
-        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
-        clr_country_flag = DA_projects_research_Interface_on_Unique_1
-
-        set_country_flag = DA_projects_research_Interface_on_Steam_1
-    }
-}
-custom_button = {
-    name = DA_projects_research_button_Electrical
-    tooltip = DA_projects_research_button_Electrical_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        always = yes
-    }
-    effect = {
-        clr_country_flag = DA_projects_research_Interface_on_arcane_1
-        clr_country_flag = DA_projects_research_Interface_on_arcane_2
-        clr_country_flag = DA_projects_research_Interface_on_Steam_1
-        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
-        clr_country_flag = DA_projects_research_Interface_on_Unique_1
-
-        set_country_flag = DA_projects_research_Interface_on_Electrical_1
-    }
-}
-custom_button = {
-    name = DA_projects_research_button_Unique
-    tooltip = DA_projects_research_button_Unique_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        always = yes
-    }
-    effect = {
-        clr_country_flag = DA_projects_research_Interface_on_arcane_1
-        clr_country_flag = DA_projects_research_Interface_on_arcane_2
-        clr_country_flag = DA_projects_research_Interface_on_Steam_1
-        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
-        clr_country_flag = DA_projects_research_Interface_on_Unique_1
-
-        set_country_flag = DA_projects_research_Interface_on_Unique_1
-    }
-}
 custom_window = {
     name = DA_projects_research_Interface_Arcane_1
     potential = {
@@ -272,3 +197,217 @@ custom_window = {
         has_country_flag = DA_projects_research_Interface_on_Unique_1
     }
 }
+
+
+custom_button = {
+	name = DA_Miscellaneous_Research_Button
+	tooltip = DA_Miscellaneous_Research_Button_tt
+	potential = {
+		always = yes
+	}
+    trigger = {
+        DA_available_research = yes
+    }
+	effect = {
+        country_event = {
+            id = DA_General_Research_events.100
+        }
+		add_adm_power = -10
+		add_dip_power = -10
+		add_mil_power = -10
+	}
+}
+
+
+
+    # idk what this even is
+	custom_button = { name = DA_research_progress_bar_frame potential = { always = no } tooltip = DA_Fake_Research_progress_button_tt }
+	custom_text_box = { name = DA_research_progress_bar_frame potential = { always = no } tooltip = DA_Fake_Research_progress_button_tt }
+	custom_text_box = { name = DA_research_progress_bar potential = { always = no } }
+	custom_button = {
+		name = DA_research_progress_bar
+		frame_variable = DA_research_progress_percent
+	}
+	custom_icon = {
+		name = DA_research_progress_bar_frame
+		tooltip = DA_Fake_Research_progress_button_tt
+	}
+
+###############################################################
+
+
+custom_button = {
+    name = DA_projects_research_buttons_stop
+    tooltip = DA_projects_research_buttons_stop_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_research_in_progress_tt
+            has_country_flag = DA_research_in_progress
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_research_is_not_unstoppable_tt
+            NOT = { has_country_flag = DA_research_is_unstoppable }
+        }
+    }
+    effect = {
+        custom_tooltip = DA_reset_research_tt
+        hidden_effect = {
+            DA_reset_research = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_Advancement_arcane
+    tooltip = DA_projects_research_buttons_background_Advancement_arcane_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        hidden_trigger = {
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = no
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = yes
+        }
+    }
+    effect = {
+    }
+}
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Advancement_steam
+    tooltip = DA_projects_research_buttons_background_Advancement_steam_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Magic_Theory_2 = yes
+        DA_completed.Mechanics_2 = yes
+        DA_completed.Alchemy_2 = yes
+        DA_yet_to_complete.Steam_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_completed.Steam_Power_Project = no
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Steam_Power_Project = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = steam
+            time = 120
+            steam = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.300
+                days = 30
+            }
+        }
+    }
+}
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Advancement_electric
+    tooltip = DA_projects_research_buttons_background_Advancement_electric_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Magic_Theory_3 = yes
+        DA_completed.Mechanics_3 = yes
+        DA_completed.Alchemy_3 = yes
+        DA_completed.Steam_Power_Project = yes
+        DA_yet_to_complete.Electric_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_completed.Electric_Power_Project = no
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Electric_Power_Project = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = electric
+            time = 180
+            electric = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.310
+                days = 30
+            }
+        }
+    }
+}
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Advancement_tracendence
+    tooltip = DA_projects_research_buttons_background_Advancement_tracendence_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Electric_Power_Project = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_in_development_tt
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = trascendence
+            time = 240
+            electric = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = { #to be done
+                id = DA_project_event.310
+                days = 30
+            }
+        }
+    }
+}
+

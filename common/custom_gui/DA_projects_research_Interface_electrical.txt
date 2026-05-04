@@ -1,0 +1,542 @@
+
+###################################################################################
+###################################################################################
+############################### Electrical ########################################
+###################################################################################
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_button_Electrical
+    tooltip = DA_projects_research_button_Electrical_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_completed.Electric_Power_Project = yes
+    }
+    effect = {
+        clr_country_flag = DA_projects_research_Interface_on_arcane_1
+        clr_country_flag = DA_projects_research_Interface_on_arcane_2
+        clr_country_flag = DA_projects_research_Interface_on_Steam_1
+        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
+        clr_country_flag = DA_projects_research_Interface_on_Unique_1
+
+        set_country_flag = DA_projects_research_Interface_on_Electrical_1
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_conceptual_magic_life
+    tooltip = DA_projects_research_buttons_background_conceptual_magic_life_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Magic_Theory_3 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Universal_Law_Life.tt
+			has_country_flag = DA_Project.Allowed.Universal_Law_Life
+		}
+        DA_yet_to_complete.Universal_Law_Life = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Universal_Law_Life = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Universal_Law_Life = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Universal_Law_Life
+            time = 96
+            electric = yes
+            unstoppable = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_conceptual_magic_death
+    tooltip = DA_projects_research_buttons_background_conceptual_magic_death_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Magic_Theory_3 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Universal_Law_Death.tt
+			has_country_flag = DA_Project.Allowed.Universal_Law_Death
+		}
+        DA_yet_to_complete.Universal_Law_Death = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Universal_Law_Death = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Universal_Law_Death = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Universal_Law_Death
+            time = 96
+            electric = yes
+            unstoppable = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_conceptual_magic_time
+    tooltip = DA_projects_research_buttons_background_conceptual_magic_time_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Magic_Theory_3 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Universal_Law_Time.tt
+			has_country_flag = DA_Project.Allowed.Universal_Law_Time
+		}
+        DA_yet_to_complete.Universal_Law_Time = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Universal_Law_Time = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Universal_Law_Time = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Universal_Law_Time
+            time = 96
+            electric = yes
+            unstoppable = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_conceptual_magic_space
+    tooltip = DA_projects_research_buttons_background_conceptual_magic_space_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Magic_Theory_3 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Universal_Law_Space.tt
+			has_country_flag = DA_Project.Allowed.Universal_Law_Space
+		}
+        DA_yet_to_complete.Universal_Law_Space = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Universal_Law_Space = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Universal_Law_Space = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Universal_Law_Space
+            time = 96
+            electric = yes
+            unstoppable = yes
+        }
+    }
+}
+
+custom_button = {
+    name = DA_projects_research_buttons_background_conceptual_magic_repeatable
+    tooltip = DA_projects_research_buttons_background_conceptual_magic_repeatable_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Magic_Theory_3 = yes
+        OR = {
+            DA_completed.Universal_Law_Life = yes
+            DA_completed.Universal_Law_Death = yes
+            DA_completed.Universal_Law_Time = yes
+            DA_completed.Universal_Law_Space = yes
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        country_event = {
+            id = DA_General_Research_events.20
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_dimensional_engineering_1
+    tooltip = DA_projects_research_buttons_background_dimensional_engineering_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Mechanics_4 = yes
+		DA_completed.Magic_Theory_4 = yes
+        DA_completed.Universal_Law_Space = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Dimensional_eng.tt
+			has_country_flag = DA_Project.Allowed.Dimensional_eng
+		}
+		DA_yet_to_complete.Dimensional_eng = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Dimensional_eng = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Dimensional_eng = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Dimensional_eng
+            time = 120
+            electric = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.244
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_dimensional_engineering_2
+    tooltip = DA_projects_research_buttons_background_dimensional_engineering_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Dimensional_eng = yes
+        DA_completed.Electric_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Dimensional_eng_2
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Airships_1
+    tooltip = DA_projects_research_buttons_background_Airships_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Alchemy_3 = yes
+		DA_completed.Magic_Theory_3 = yes
+		DA_completed.Mechanics_3 = yes
+		DA_yet_to_complete.Airships = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Airships = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Airships = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Airships
+            time = 120
+            electric = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.350
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_Airships_2
+    tooltip = DA_projects_research_buttons_background_Airships_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Airships = yes
+        DA_completed.Electric_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Airships_2
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_resonance_1
+    tooltip = DA_projects_research_buttons_background_resonance_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Alchemy_4 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Resonance.tt
+			has_country_flag = DA_Project.Allowed.Resonance
+		}
+		DA_yet_to_complete.Resonance = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Resonance = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Resonance = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Resonance
+            time = 120
+            electric = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.236
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_resonance_2
+    tooltip = DA_projects_research_buttons_background_resonance_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Resonance = yes
+        DA_completed.Electric_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Resonance_2
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Tesla_1
+    tooltip = DA_projects_research_buttons_background_Tesla_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Alchemy_4 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Tesla.tt
+			has_country_flag = DA_Project.Allowed.Tesla
+		}
+		DA_yet_to_complete.Tesla = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Tesla = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Tesla = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Tesla
+            time = 120
+            electric = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.240
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_Tesla_2
+    tooltip = DA_projects_research_buttons_background_Tesla_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Tesla = yes
+        DA_completed.Electric_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Tesla_2
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################

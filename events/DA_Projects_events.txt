@@ -14,6 +14,8 @@ country_event = {
 
 	option = {
 		name = DA_project_event.98.a
+		set_country_flag = DA_Disabled_simple_Runes
+		custom_tooltip = DA_Disabled_simple_Runes_tt
 		ai_chance = { factor = 1 }
 	}
 }
@@ -601,9 +603,14 @@ country_event = {
 	option = {
 		name = DA_project_event.113.a
 		ai_chance = { factor = 1 }
-		country_event = {
-			id = DA_project_event.114
-			days = 90
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.114
+				days = 120
+				random = 30
+			}
 		}
 	}
 }
@@ -627,10 +634,7 @@ country_event = {
 			influence = 10
 			duration = 3650
 		}
-		country_event = {
-			id = DA_project_event.115
-			days = 180
-		}
+		DA_Research_add = { amount = 8 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -641,10 +645,7 @@ country_event = {
 			influence = 5
 			duration = 3650
 		}
-		country_event = {
-			id = DA_project_event.115
-			days = 365
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -658,11 +659,17 @@ country_event = {
 			influence = -5
 			duration = 3650
 		}
-		country_event = {
-			id = DA_project_event.115
-			days = 770
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.115
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -680,10 +687,7 @@ country_event = {
 		trigger = {
 			innovativeness = 40
 		}
-		country_event = {
-			id = DA_project_event.116
-			days = 180
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -692,20 +696,23 @@ country_event = {
 		trigger = {
 			DA_has_RF_6_or_higher = yes
 		}
-		country_event = {
-			id = DA_project_event.116
-			days = 180
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.115.c
 		add_years_of_income = -0.25
-		country_event = {
-			id = DA_project_event.116
-			days = 365
-		}
+		DA_Research_add = { amount = 3 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.116
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -728,10 +735,7 @@ country_event = {
 				amount = 15
 			}
 		}
-		country_event = {
-			id = DA_project_event.117
-			days = 180
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -744,10 +748,7 @@ country_event = {
 			}
 		}
 		change_innovativeness = 2
-		country_event = {
-			id = DA_project_event.117
-			days = 180
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -758,10 +759,7 @@ country_event = {
 			skill = 3
 			discount = yes
 		}
-		country_event = {
-			id = DA_project_event.117
-			days = 180
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -781,6 +779,8 @@ country_event = {
 		ai_chance = { factor = 1 }
 	}
 }
+
+#############################################################
 
 country_event = {
 	id = DA_project_event.118
@@ -966,7 +966,7 @@ country_event = {
 	}
 }
 
-country_event = {
+country_event = { #these are to be deleted before next update
 	id = DA_project_event.125
 	title = DA_project_event.125.t
 	desc = DA_project_event.125.d
@@ -1210,11 +1210,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.201.a
-		country_event = {
-			id = DA_project_event.202
-			days = 365
-			random = 120
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1222,11 +1218,6 @@ country_event = {
 		highlight = yes
 		trigger = {
 			innovativeness = 30
-		}
-		country_event = {
-			id = DA_project_event.202
-			days = 240
-			random = 60
 		}
 		ai_chance = { factor = 1 }
 	}
@@ -1239,12 +1230,17 @@ country_event = {
 				loyalty = 40
 			}
 		}
-		country_event = {
-			id = DA_project_event.202
-			days = 120
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.202
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1258,11 +1254,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.202.a
-		country_event = {
-			id = DA_project_event.203
-			days = 365
-			random = 120
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1271,11 +1263,7 @@ country_event = {
 		trigger = {
 			natural_scientist = 3
 		}
-		country_event = {
-			id = DA_project_event.203
-			days = 240
-			random = 60
-		}
+		DA_Research_add = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1284,11 +1272,7 @@ country_event = {
 		trigger = {
 			innovativeness = 70
 		}
-		country_event = {
-			id = DA_project_event.203
-			days = 240
-			random = 60
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1300,12 +1284,17 @@ country_event = {
 				loyalty = 45
 			}
 		}
-		country_event = {
-			id = DA_project_event.203
-			days = 120
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.203
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1319,11 +1308,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.203.a
-		country_event = {
-			id = DA_project_event.204
-			days = 730
-			random = 240
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1332,11 +1317,7 @@ country_event = {
 		trigger = {
 			DA_completed.Metallurgy_2 = yes
 		}
-		country_event = {
-			id = DA_project_event.204
-			days = 240
-			random = 60
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1345,11 +1326,7 @@ country_event = {
 		trigger = {
 			DA_completed.Metallurgy_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.204
-			days = 120
-			random = 30
-		}
+		DA_Research_add = { amount = 12 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -1382,12 +1359,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.205.a
-		country_event = {
-			id = DA_project_event.206
-			days = 120
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.206
+				days = 60
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1401,11 +1382,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.206.a
-		country_event = {
-			id = DA_project_event.207
-			days = 730
-			random = 120
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1414,12 +1391,7 @@ country_event = {
 		trigger = {
 			DA_completed.Alchemy_2 = yes
 		}
-		add_prestige = 5
-		country_event = {
-			id = DA_project_event.207
-			days = 365
-			random = 60
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1428,13 +1400,17 @@ country_event = {
 		trigger = {
 			DA_completed.Alchemy_3 = yes
 		}
-		add_prestige = 10
-		country_event = {
-			id = DA_project_event.207
-			days = 120
-			random = 60
-		}
+		DA_Research_add = { amount = 8 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.207
+				days = 60
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1448,11 +1424,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.207.a
-		country_event = {
-			id = DA_project_event.208
-			days = 730
-			random = 120
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1461,11 +1433,7 @@ country_event = {
 		trigger = {
 			DA_completed.Magic_Theory_2 = yes
 		}
-		country_event = {
-			id = DA_project_event.208
-			days = 365
-			random = 60
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1474,11 +1442,7 @@ country_event = {
 		trigger = {
 			DA_completed.Magic_Theory_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.208
-			days = 120
-			random = 30
-		}
+		DA_Research_add = { amount = 8 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -1511,12 +1475,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.209.a
-		country_event = {
-			id = DA_project_event.210
-			days = 120
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.210
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1530,40 +1498,39 @@ country_event = {
 
 	option = {
 		name = DA_project_event.210.a
-		country_event = {
-			id = DA_project_event.211
-			days = 730
-			random = 120
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.210.b
 		highlight = yes
 		trigger = {
+			treasury = 100
 			DA_completed.Mechanics_2 = yes
 		}
 		add_treasury = -250
-		country_event = {
-			id = DA_project_event.211
-			days = 365
-			random = 60
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.210.c
 		highlight = yes
 		trigger = {
+			treasury = 200
 			DA_completed.Mechanics_3 = yes
 		}
 		add_treasury = -500
-		country_event = {
-			id = DA_project_event.211
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 8 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.211
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1577,11 +1544,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.211.a
-		country_event = {
-			id = DA_project_event.212
-			days = 730
-			random = 120
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1590,11 +1553,7 @@ country_event = {
 		trigger = {
 			DA_completed.Magic_Theory_2 = yes
 		}
-		country_event = {
-			id = DA_project_event.212
-			days = 365
-			random = 60
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1603,12 +1562,17 @@ country_event = {
 		trigger = {
 			DA_completed.Magic_Theory_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.212
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 8 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.212
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1622,11 +1586,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.212.a
-		country_event = {
-			id = DA_project_event.213
-			days = 730
-			random = 120
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1636,11 +1596,7 @@ country_event = {
 			DA_completed.Metallurgy_2 = yes
 			DA_completed.Magic_Theory_2 = yes
 		}
-		country_event = {
-			id = DA_project_event.213
-			days = 365
-			random = 60
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1650,11 +1606,7 @@ country_event = {
 			DA_completed.Metallurgy_3 = yes
 			DA_completed.Magic_Theory_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.213
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 8 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -1819,11 +1771,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.222.a
-		country_event = {
-			id = DA_project_event.223
-			days = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.223
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1837,11 +1794,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.223.a
-		country_event = {
-			id = DA_project_event.224
-			days = 730
-			random = 60
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1850,11 +1803,7 @@ country_event = {
 		trigger = {
 			DA_completed.Mechanics_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.224
-			days = 365
-			random = 60
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1863,12 +1812,17 @@ country_event = {
 		trigger = {
 			DA_completed.Mechanics_4 = yes
 		}
-		country_event = {
-			id = DA_project_event.224
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 8 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.224
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1882,11 +1836,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.224.a
-		country_event = {
-			id = DA_project_event.225
-			days = 365
-			random = 30
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1895,11 +1845,7 @@ country_event = {
 		trigger = {
 			innovativeness = 70
 		}
-		country_event = {
-			id = DA_project_event.225
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1912,12 +1858,17 @@ country_event = {
 				natural_scientist = 3
 			}
 		}
-		country_event = {
-			id = DA_project_event.225
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.225
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -1931,11 +1882,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.225.a
-		country_event = {
-			id = DA_project_event.226
-			days = 730
-			random = 365
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1948,11 +1895,7 @@ country_event = {
 				natural_scientist = 5
 			}
 		}
-		country_event = {
-			id = DA_project_event.226
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -1961,11 +1904,7 @@ country_event = {
 		trigger = {
 			DA_completed.Magic_Theory_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.226
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2000,11 +1939,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.227.a
-		country_event = {
-			id = DA_project_event.228
-			days = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.228
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2018,11 +1962,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.228.a
-		country_event = {
-			id = DA_project_event.229
-			days = 730
-			random = 60
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2031,11 +1971,7 @@ country_event = {
 		trigger = {
 			DA_completed.Medicine_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.229
-			days = 365
-			random = 60
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2043,15 +1979,23 @@ country_event = {
 		highlight = yes
 		trigger = {
 			any_core_province = {
-				has_building = DA_Hospital_3
+				OR = {
+					has_building = DA_Hospital_2
+					has_building = DA_Hospital_3
+				}
 			}
 		}
-		country_event = {
-			id = DA_project_event.229
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.229
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2065,11 +2009,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.229.a
-		country_event = {
-			id = DA_project_event.230
-			days = 365
-			random = 30
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2077,15 +2017,22 @@ country_event = {
 		highlight = yes
 		trigger = {
 			OR = {
-				DA_runesmith = 3
+				court_mage = 4
+				Hold_restorer = 3
+				DA_runesmith = 2
 			}
 		}
-		country_event = {
-			id = DA_project_event.230
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.230
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2099,11 +2046,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.230.a
-		country_event = {
-			id = DA_project_event.231
-			days = 730
-			random = 365
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2112,11 +2055,7 @@ country_event = {
 		trigger = {
 			natural_scientist = 3
 		}
-		country_event = {
-			id = DA_project_event.231
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2126,11 +2065,7 @@ country_event = {
 			DA_completed.Magic_Theory_3 = yes
 			DA_completed.Alchemy_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.231
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2164,11 +2099,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.232.a
-		country_event = {
-			id = DA_project_event.233
-			days = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.233
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2182,37 +2122,25 @@ country_event = {
 
 	option = {
 		name = DA_project_event.233.a
-		country_event = {
-			id = DA_project_event.234
-			days = 730
-			random = 60
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.233.b
 		highlight = yes
 		trigger = {
-			DA_completed.Medicine_4 = yes
+			DA_completed.Medicine_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.234
-			days = 240
-			random = 60
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.233.c
 		highlight = yes
 		trigger = {
-			DA_completed.Mechanics_4 = yes
+			DA_completed.Mechanics_3 = yes
 		}
-		country_event = {
-			id = DA_project_event.234
-			days = 240
-			random = 30
-		}
+		DA_Research_add = { amount = 4 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2222,12 +2150,17 @@ country_event = {
 			DA_completed.Medicine_4 = yes
 			DA_completed.Mechanics_4 = yes
 		}
-		country_event = {
-			id = DA_project_event.234
-			days = 60
-			random = 20
-		}
+		DA_Research_add = { amount = 12 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.234
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2241,11 +2174,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.234.a
-		country_event = {
-			id = DA_project_event.235
-			days = 365
-			random = 30
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2254,11 +2183,7 @@ country_event = {
 		trigger = {
 			DA_completed.Magic_Theory_4 = yes
 		}
-		country_event = {
-			id = DA_project_event.235
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2293,11 +2218,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.236.a
-		country_event = {
-			id = DA_project_event.237
-			days = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.237
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2311,11 +2241,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.237.a
-		country_event = {
-			id = DA_project_event.238
-			days = 730
-			random = 60
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2324,12 +2250,17 @@ country_event = {
 		trigger = {
 			DA_completed.Mechanics_4 = yes
 		}
-		country_event = {
-			id = DA_project_event.238
-			days = 240
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.238
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2343,24 +2274,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.238.a
-		country_event = {
-			id = DA_project_event.239
-			days = 365
-			random = 30
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.238.b
 		highlight = yes
 		trigger = {
-			innovativeness = 70
+			innovativeness = 80
 		}
-		country_event = {
-			id = DA_project_event.239
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2396,11 +2319,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.240.a
-		country_event = {
-			id = DA_project_event.241
-			days = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.241
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2414,11 +2342,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.241.a
-		country_event = {
-			id = DA_project_event.242
-			days = 730
-			random = 60
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2428,25 +2352,26 @@ country_event = {
 			DA_completed.Magic_Theory_3 = yes
 			DA_completed.Mechanics_4 = yes
 		}
-		country_event = {
-			id = DA_project_event.242
-			days = 240
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.241.b
 		highlight = yes
 		trigger = {
-			innovativeness = 100
+			innovativeness = 90
 		}
-		country_event = {
-			id = DA_project_event.242
-			days = 240
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.242
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2460,11 +2385,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.242.a
-		country_event = {
-			id = DA_project_event.243
-			days = 365
-			random = 30
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2473,11 +2394,7 @@ country_event = {
 		trigger = {
 			DA_completed.Resonance = yes
 		}
-		country_event = {
-			id = DA_project_event.243
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 12 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2512,11 +2429,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.244.a
-		country_event = {
-			id = DA_project_event.245
-			days = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.245
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2530,25 +2452,26 @@ country_event = {
 
 	option = {
 		name = DA_project_event.245.a
-		country_event = {
-			id = DA_project_event.246
-			days = 730
-			random = 60
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.245.b
 		highlight = yes
 		trigger = {
-			innovativeness = 100
+			innovativeness = 80
 		}
-		country_event = {
-			id = DA_project_event.246
-			days = 240
-			random = 40
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.246
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2562,11 +2485,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.246.a
-		country_event = {
-			id = DA_project_event.247
-			days = 730
-			random = 30
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2575,11 +2494,7 @@ country_event = {
 			innovativeness = 3
 		}
 		change_innovativeness = -3
-		country_event = {
-			id = DA_project_event.247
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -2588,12 +2503,17 @@ country_event = {
 		trigger = {
 			full_idea_group = innovativeness_ideas
 		}
-		country_event = {
-			id = DA_project_event.247
-			days = 180
-			random = 30
-		}
+		DA_Research_add = { amount = 6 }
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.247
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2607,11 +2527,7 @@ country_event = {
 
 	option = {
 		name = DA_project_event.247.a
-		country_event = {
-			id = DA_project_event.248
-			days = 365
-			random = 30
-		}
+		DA_Research_lose = { amount = 3 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2634,7 +2550,7 @@ country_event = {
 
 
 
-
+##############################################
 
 
 country_event = {
@@ -2647,12 +2563,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.300.a
-		country_event = {
-			id = DA_project_event.301
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.301
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2666,12 +2586,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.301.a
-		country_event = {
-			id = DA_project_event.302
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.302
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2685,12 +2609,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.302.a
-		country_event = {
-			id = DA_project_event.303
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.303
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2704,12 +2632,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.303.a
-		country_event = {
-			id = DA_project_event.304
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.304
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2723,11 +2655,6 @@ country_event = {
 
 	option = {
 		name = DA_project_event.304.a
-		country_event = {
-			id = DA_project_event.305
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2749,6 +2676,8 @@ country_event = {
 	}
 }
 
+##############################################
+
 country_event = {
 	id = DA_project_event.310
 	title = DA_project_event.310.t
@@ -2759,12 +2688,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.310.a
-		country_event = {
-			id = DA_project_event.311
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.311
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2778,12 +2711,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.310.a
-		country_event = {
-			id = DA_project_event.312
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.312
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2797,12 +2734,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.310.a
-		country_event = {
-			id = DA_project_event.313
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.313
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2816,12 +2757,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.310.a
-		country_event = {
-			id = DA_project_event.314
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.314
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2835,11 +2780,6 @@ country_event = {
 
 	option = {
 		name = DA_project_event.310.a
-		country_event = {
-			id = DA_project_event.315
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2861,6 +2801,8 @@ country_event = {
 	}
 }
 
+##############################################
+
 country_event = {
 	id = DA_project_event.320
 	title = DA_project_event.320.t
@@ -2871,12 +2813,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.320.a
-		country_event = {
-			id = DA_project_event.321
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.321
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2890,12 +2836,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.320.a
-		country_event = {
-			id = DA_project_event.322
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.322
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2909,12 +2859,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.320.a
-		country_event = {
-			id = DA_project_event.323
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.323
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -2928,11 +2882,6 @@ country_event = {
 
 	option = {
 		name = DA_project_event.320.a
-		country_event = {
-			id = DA_project_event.324
-			days = 180
-			random = 60
-		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -2955,6 +2904,8 @@ country_event = {
 	}
 }
 
+##############################################
+
 country_event = {
 	id = DA_project_event.325 # to be deleted or redone entirely
 	title = DA_project_event.325.t
@@ -2973,6 +2924,8 @@ country_event = {
 	}
 }
 
+##############################################
+
 country_event = {
 	id = DA_project_event.330
 	title = DA_project_event.330.t
@@ -2983,12 +2936,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.330.a
-		country_event = {
-			id = DA_project_event.331
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.331
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3002,12 +2959,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.330.a
-		country_event = {
-			id = DA_project_event.332
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.332
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3021,12 +2982,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.330.a
-		country_event = {
-			id = DA_project_event.333
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.333
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3040,11 +3005,6 @@ country_event = {
 
 	option = {
 		name = DA_project_event.330.a
-		country_event = {
-			id = DA_project_event.334
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -3067,6 +3027,8 @@ country_event = {
 	}
 }
 
+##############################################
+
 country_event = {
 	id = DA_project_event.335 # to be deleted or redone entirely
 	title = DA_project_event.335.t
@@ -3085,6 +3047,8 @@ country_event = {
 	}
 }
 
+##############################################
+
 country_event = {
 	id = DA_project_event.340		# residual Mana on holy relics
 	title = DA_project_event.340.t
@@ -3095,12 +3059,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.340.a
-		country_event = {
-			id = DA_project_event.341
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.341
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3114,12 +3082,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.341.a
-		country_event = {
-			id = DA_project_event.342
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.342
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3133,12 +3105,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.342.a
-		country_event = {
-			id = DA_project_event.343
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.343
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3152,11 +3128,6 @@ country_event = {
 
 	option = {
 		name = DA_project_event.343.a
-		country_event = {
-			id = DA_project_event.344
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -3179,6 +3150,8 @@ country_event = {
 	}
 }
 
+##############################################
+
 country_event = {
 	id = DA_project_event.345
 	title = DA_project_event.345.t
@@ -3189,12 +3162,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.345.a
-		country_event = {
-			id = DA_project_event.346
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.346
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3208,12 +3185,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.345.a
-		country_event = {
-			id = DA_project_event.347
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.347
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3227,12 +3208,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.345.a
-		country_event = {
-			id = DA_project_event.348
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.348
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3246,11 +3231,6 @@ country_event = {
 
 	option = {
 		name = DA_project_event.345.a
-		country_event = {
-			id = DA_project_event.349
-			days = 90
-			random = 60
-		}
 		ai_chance = { factor = 1 }
 	}
 }
@@ -3273,6 +3253,8 @@ country_event = {
 	}
 }
 
+##############################################
+
 country_event = {
 	id = DA_project_event.350
 	title = DA_project_event.350.t
@@ -3283,12 +3265,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.350.a
-		country_event = {
-			id = DA_project_event.351
-			days = 365
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.351
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3302,12 +3288,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.350.a
-		country_event = {
-			id = DA_project_event.352
-			days = 365
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.352
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3321,12 +3311,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.350.a
-		country_event = {
-			id = DA_project_event.353
-			days = 365
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.353
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3340,12 +3334,16 @@ country_event = {
 
 	option = {
 		name = DA_project_event.350.a
-		country_event = {
-			id = DA_project_event.354
-			days = 365
-			random = 60
-		}
 		ai_chance = { factor = 1 }
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.354
+				days = 120
+				random = 30
+			}
+		}
 	}
 }
 
@@ -3359,24 +3357,15 @@ country_event = {
 
 	option = {
 		name = DA_project_event.354.a
-		country_event = {
-			id = DA_project_event.355
-			days = 365
-			random = 60
-		}
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.354.b
 		add_years_of_income = -2
+		DA_Research_lose = { amount = 12 }
 		add_country_modifier = {
 			name = DA_Civilian_Airships_logistics
 			duration = -1
-		}
-		country_event = {
-			id = DA_project_event.355
-			days = 365
-			random = 60
 		}
 		ai_chance = { factor = 1 }
 	}
@@ -3409,6 +3398,46 @@ country_event = {
 		hidden_effect = {
 			set_country_flag = DA_Project.completed.Airships
 		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+##############################################
+
+
+country_event = {
+	id = DA_project_event.360
+	title = DA_project_event.360.t
+	desc = DA_project_event.360.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_project_event.360.a
+		trigger = {
+			NOT = { has_country_flag = DA_unlocked.genetic_engineering }
+		}
+		custom_tooltip = DA_unlocked.genetic_engineering.tt
+		set_country_flag = DA_unlocked.genetic_engineering
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_project_event.360.b
+		trigger = {
+			NOT = { has_country_flag = DA_unlocked.mega_engineering }
+		}
+		custom_tooltip = DA_unlocked.mega_engineering.tt
+		set_country_flag = DA_unlocked.mega_engineering
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_project_event.360.c
+		trigger = {
+			NOT = { has_country_flag = DA_unlocked.mana_core }
+		}
+		custom_tooltip = DA_unlocked.mana_core.tt
+		set_country_flag = DA_unlocked.mana_core
 		ai_chance = { factor = 1 }
 	}
 }

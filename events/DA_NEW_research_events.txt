@@ -1,0 +1,553 @@
+
+namespace = DA_General_Research_events
+
+country_event = {
+	id = DA_General_Research_events.1
+	title = DA_General_Research_events.1.t
+	desc = DA_General_Research_events.1.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_General_Research_events.1.a
+		trigger = {
+			has_country_flag = DA_General_MT_part_2_enabled
+		}
+		DA_start_general_research_t1 = yes
+
+		ai_chance = { factor = 1 }
+	}
+
+	option = {
+		name = DA_General_Research_events.1.b
+		highlight = yes
+		trigger = {
+			hidden_trigger = {
+				has_country_flag = DA_General_MT_part_2_enabled
+			}
+			DA_has_Steam_power_or_higher = yes
+		}
+		DA_start_general_research_t2 = yes
+		ai_chance = { factor = 5 }
+	}
+
+	option = {
+		name = DA_General_Research_events.1.c
+		highlight = yes
+		trigger = {
+			hidden_trigger = {
+				has_country_flag = DA_General_MT_part_2_enabled
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		DA_start_general_research_t3 = yes
+		ai_chance = { factor = 10 }
+	}
+
+	option = {
+		name = DA_General_Research_events.1.z #escape
+		highlight = yes
+		ai_chance = { factor = 0.1 }
+		
+		add_adm_power = 10
+		add_dip_power = 10
+		add_mil_power = 10
+		remove_country_modifier = DA_General_research_Mod
+	}
+	after = {
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.2
+	title = DA_General_Research_events.2.t
+	desc = DA_General_Research_events.2.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.2.a
+		export_to_variable = {
+			value = modifier:DA_fake_research_speed_gain
+			which = DA_research_speed_gain_var
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_research_speed_gain_percentage
+			which = DA_research_speed_gain_percentage_var
+		}
+		multiply_variable = {
+			which = DA_research_speed_gain_var
+			which = DA_research_speed_gain_percentage_var
+		}
+		
+		multiply_variable = {
+			which = DA_research_speed_gain_var
+			value = 100
+		}
+		round_variable = {
+			which = DA_research_speed_gain_var
+			value = 0
+		}
+		divide_variable = {
+			which = DA_research_speed_gain_var
+			value = 100
+		}
+		change_variable = {
+			which = DA_research_progress
+			which = DA_research_speed_gain_var
+		}
+		if = {
+			limit = { check_variable = {
+				which = DA_research_progress
+				which = DA_research_progress_MAX
+			} }
+			country_event = {
+				id = DA_General_Research_events.3
+			}
+		}
+		else = {
+			capital_scope = {
+				add_province_triggered_modifier = DA_research_increase_workaround
+			}
+		}
+
+		# this is just for showing the bar
+		set_variable = { which = DA_research_progress_percent which = DA_research_progress }
+		divide_variable = { which = DA_research_progress_percent which = DA_research_progress_MAX }
+		multiply_variable = { DA_research_progress_percent = 100 }
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.3
+	title = DA_General_Research_events.2.t
+	desc = DA_General_Research_events.2.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+	hidden = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.2.a
+		remove_estate_privilege = DA_Runesmith_research_privilege
+		DA_research_gives_reward = yes
+		DA_reset_research = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+
+##############################################
+##############################################
+##############################################
+##############################################
+
+
+country_event = {
+	id = DA_General_Research_events.10
+	title = DA_General_Research_events.10.t
+	desc = DA_General_Research_events.10.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.10.a
+		highlight = yes
+		trigger = {
+            DA_completed.Elemental_Magic_Water = yes
+			hidden_trigger = {
+				OR = {
+					NOT = { has_country_flag = DA_Unlocked.Water_Torrential_Defense }
+					NOT = { has_country_flag = DA_Unlocked.Water_Calming_Water }
+					NOT = { has_country_flag = DA_Unlocked.Water_Frostbite_Grasp }
+				}
+			}
+		}
+        DA_start_research = {
+            flag = water_2
+            time = 36
+            arcane = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.10.b
+		highlight = yes
+		trigger = {
+            DA_completed.Elemental_Magic_Air = yes
+			hidden_trigger = {
+				OR = {
+					NOT = { has_country_flag = DA_Unlocked.Air_Windborne_Swiftness }
+					NOT = { has_country_flag = DA_Unlocked.Air_Galeforce_Impact }
+					NOT = { has_country_flag = DA_Unlocked.Air_Airy_Shielding }
+				}
+			}
+		}
+        DA_start_research = {
+            flag = air_2
+            time = 36
+            arcane = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.10.c
+		highlight = yes
+		trigger = {
+            DA_completed.Elemental_Magic_Fire = yes
+			hidden_trigger = {
+				OR = {
+					NOT = { has_country_flag = DA_Unlocked.Fire_Pyrokinetic_Shield }
+					NOT = { has_country_flag = DA_Unlocked.Fire_Scorching_Aura }
+					NOT = { has_country_flag = DA_Unlocked.Fire_Flameburst_Impact }
+				}
+			}
+		}
+        DA_start_research = {
+            flag = fire_2
+            time = 36
+            arcane = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.10.e
+		highlight = yes
+		trigger = {
+            DA_completed.Elemental_Magic_Earth = yes
+			hidden_trigger = {
+				OR = {
+					NOT = { has_country_flag = DA_Unlocked.Earth_Earthen_Grasp }
+					NOT = { has_country_flag = DA_Unlocked.Earth_StoneSkin }
+					NOT = { has_country_flag = DA_Unlocked.Earth_Earthbound_Strength }
+				}
+			}
+		}
+        DA_start_research = {
+            flag = earth_2
+            time = 36
+            arcane = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.10.back
+		ai_chance = { factor = 1 }
+	}
+}
+
+# warforged unlock events
+
+
+country_event = {
+	id = DA_General_Research_events.11
+	title = DA_General_Research_events.11.t
+	desc = DA_General_Research_events.11.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.11.a
+		custom_tooltip = DA_enable_Warforged_infantry_tt
+		set_country_flag = DA_enable_metallurgy_System
+		hidden_effect = {
+			DA_enable_Metal_Infan = yes
+			DA_initialize_metallurgy_variables = { DA_unit = INFAN } 
+			DA_initialize_metallurgy_variables = { DA_unit = CAVAL } 
+			DA_initialize_metallurgy_variables = { DA_unit = ARTIL } 
+			clr_country_flag = DA_redesigning_Infantry
+			clr_country_flag = DA_redesigning_Cavalry
+			clr_country_flag = DA_redesigning_Artillery
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+
+
+country_event = {
+	id = DA_General_Research_events.12
+	title = DA_General_Research_events.12.t
+	desc = DA_General_Research_events.12.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.12.a
+		custom_tooltip = DA_enable_Warforged_juggernauts_tt
+		set_country_flag = DA_enable_metallurgy_System_cav
+		DA_enable_Metal_Caval = yes
+		ai_chance = { factor = 1 }
+	}
+}
+
+
+country_event = {
+	id = DA_General_Research_events.13
+	title = DA_General_Research_events.13.t
+	desc = DA_General_Research_events.13.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.13.a
+		custom_tooltip = DA_enable_warforged_artillery_tt
+		set_country_flag = DA_enable_metallurgy_System_art
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = DA_General_Research_events.14
+	title = DA_General_Research_events.14.t
+	desc = DA_General_Research_events.14.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.14.a
+		debuff_artifice_points_5 = yes
+		custom_tooltip = DA_enable_metallurgy_System_artificer_tt
+		set_country_flag = DA_enable_metallurgy_System_artificer
+		ai_chance = { factor = 1 }
+	}
+}
+
+
+# conceptual magic
+country_event = {
+	id = DA_General_Research_events.20
+	title = DA_General_Research_events.20.t
+	desc = DA_General_Research_events.20.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.20.a
+		highlight = yes
+		trigger = {
+            DA_completed.Universal_Law_Life = yes
+			hidden_trigger = {
+				OR = {
+					NOT = { has_country_flag = DA_Unlocked.Life_Vitality }
+					NOT = { has_country_flag = DA_Unlocked.Life_Renawal }
+					NOT = { has_country_flag = DA_Unlocked.Life_Adaptation }
+					NOT = { has_country_flag = DA_Unlocked.Life_Movement }
+				}
+			}
+		}
+        DA_start_research = {
+            flag = Universal_Law_Life_2
+            time = 72
+            electric = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.20.b
+		highlight = yes
+		trigger = {
+            DA_completed.Universal_Law_Death = yes
+			hidden_trigger = {
+				OR = {
+					NOT = { has_country_flag = DA_Unlocked.Death_Decay }
+					NOT = { has_country_flag = DA_Unlocked.Death_Memorial }
+					NOT = { has_country_flag = DA_Unlocked.Death_Stillness }
+				}
+			}
+		}
+        DA_start_research = {
+            flag = Universal_Law_Death_2
+            time = 72
+            electric = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.20.c
+		highlight = yes
+		trigger = {
+            DA_completed.Universal_Law_Time = yes
+			hidden_trigger = {
+				OR = {
+					NOT = { has_country_flag = DA_Unlocked.Time_Perception }
+					NOT = { has_country_flag = DA_Unlocked.Time_Change }
+					NOT = { has_country_flag = DA_Unlocked.Time_Life_Death_Cycle }
+				}
+			}
+		}
+        DA_start_research = {
+            flag = Universal_Law_Time_2
+            time = 72
+            electric = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.20.e
+		highlight = yes
+		trigger = {
+            DA_completed.Universal_Law_Space = yes
+			hidden_trigger = {
+				OR = {
+					NOT = { has_country_flag = DA_Unlocked.Space_Teleportation }
+					NOT = { has_country_flag = DA_Unlocked.Space_Dimensional_Damage }
+					NOT = { has_country_flag = DA_Unlocked.Space_Spatial_Perception }
+				}
+			}
+		}
+        DA_start_research = {
+            flag = Universal_Law_Space_2
+            time = 72
+            electric = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.10.back
+		ai_chance = { factor = 1 }
+	}
+}
+
+
+
+# misclellaneous research
+country_event = {
+	id = DA_General_Research_events.100
+	title = DA_General_Research_events.100.t
+	desc = DA_General_Research_events.100.d
+	picture = INVENTION_eventPicture
+
+	trigger = {
+		always = yes
+	}
+
+	is_triggered_only = yes
+
+
+	immediate = {
+	}
+
+	option = {
+		name = DA_General_Research_events.100.a
+        DA_start_research = {
+            flag = alchemy
+            time = 60
+            steam = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.100.b
+        DA_start_research = {
+            flag = arcane_arts
+            time = 60
+            steam = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.100.c
+        DA_start_research = {
+            flag = mechanics
+            time = 60
+            steam = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.100.e
+        DA_start_research = {
+            flag = medicine
+            time = 60
+            steam = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_General_Research_events.100.f
+        DA_start_research = {
+            flag = metallurgy
+            time = 60
+            steam = yes
+        }
+		ai_chance = { factor = 1 }
+	}
+}
