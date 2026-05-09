@@ -967,6 +967,10 @@ DA_apply_metallurgy_infcav_modifiers_effect = {
 ################ POWER MODIFIERS #####################
 ######################################################
 
+    if = { #limiter
+        limit = { check_variable = { which = DA_power_TOTAL_$DA_unit$ value = 1.01 } }
+        add_country_modifier = { name = DA_power.$DA_unit$.1.00 duration = -1 hidden = yes }
+    }
     if = {
         limit = { is_variable_equal = { which = DA_power_TOTAL_$DA_unit$ value = 1.00 } }
         add_country_modifier = { name = DA_power.$DA_unit$.1.00 duration = -1 hidden = yes }
@@ -1767,11 +1771,19 @@ DA_apply_metallurgy_infcav_modifiers_effect = {
         limit = { is_variable_equal = { which = DA_power_TOTAL_$DA_unit$ value = -1.00 } }
         add_country_modifier = { name = DA_power.$DA_unit$.-1.00 duration = -1 hidden = yes }
     }
+    if = {
+        limit = { NOT = { check_variable = { which = DA_power_TOTAL_$DA_unit$ value = -1.00 } } }
+        add_country_modifier = { name = DA_power.$DA_unit$.-1.00 duration = -1 hidden = yes }
+    }
 
 ######################################################
 ################ FIRE_DAMAGE MODIFIERS ###############
 ######################################################
 
+    if = {
+        limit = { check_variable = { which = DA_fire_damage_TOTAL_$DA_unit$ value = 1.00 } }
+        add_country_modifier = { name = DA_fire_damage.$DA_unit$.1.00 duration = -1 hidden = yes }
+    }
     if = {
         limit = { is_variable_equal = { which = DA_fire_damage_TOTAL_$DA_unit$ value = 1.00 } }
         add_country_modifier = { name = DA_fire_damage.$DA_unit$.1.00 duration = -1 hidden = yes }
@@ -2572,11 +2584,19 @@ DA_apply_metallurgy_infcav_modifiers_effect = {
         limit = { is_variable_equal = { which = DA_fire_damage_TOTAL_$DA_unit$ value = -1.00 } }
         add_country_modifier = { name = DA_fire_damage.$DA_unit$.-1.00 duration = -1 hidden = yes }
     }
+    if = {
+        limit = { NOT = { check_variable = { which = DA_fire_damage_TOTAL_$DA_unit$ value = -1.00 } } }
+        add_country_modifier = { name = DA_fire_damage.$DA_unit$.-1.00 duration = -1 hidden = yes }
+    }
 
 ######################################################
 ################ SHOCK_DAMAGE MODIFIERS ##############
 ######################################################
 
+    if = { #limiter
+        limit = { check_variable = { which = DA_shock_damage_TOTAL_$DA_unit$ value = 1.00 } }
+        add_country_modifier = { name = DA_shock_damage.$DA_unit$.1.00 duration = -1 hidden = yes }
+    }
     if = {
         limit = { is_variable_equal = { which = DA_shock_damage_TOTAL_$DA_unit$ value = 1.00 } }
         add_country_modifier = { name = DA_shock_damage.$DA_unit$.1.00 duration = -1 hidden = yes }
@@ -3377,11 +3397,19 @@ DA_apply_metallurgy_infcav_modifiers_effect = {
         limit = { is_variable_equal = { which = DA_shock_damage_TOTAL_$DA_unit$ value = -1.00 } }
         add_country_modifier = { name = DA_shock_damage.$DA_unit$.-1.00 duration = -1 hidden = yes }
     }
+    if = { #limiter
+        limit = { NOT = { check_variable = { which = DA_shock_damage_TOTAL_$DA_unit$ value = -1.00 } } }
+        add_country_modifier = { name = DA_shock_damage.$DA_unit$.-1.00 duration = -1 hidden = yes }
+    }
 
 ######################################################
 ################ SHOCK_DAMAGE_RECEIVED MODIFIERS #####
 ######################################################
 
+    if = { #limiter
+        limit = { check_variable = { which = DA_shock_damage_received_TOTAL_$DA_unit$ value = 0.80 } }
+        add_country_modifier = { name = DA_shock_damage_received.$DA_unit$.0.80 duration = -1 hidden = yes }
+    }
     if = {
         limit = { is_variable_equal = { which = DA_shock_damage_received_TOTAL_$DA_unit$ value = 0.80 } }
         add_country_modifier = { name = DA_shock_damage_received.$DA_unit$.0.80 duration = -1 hidden = yes }
@@ -4102,11 +4130,19 @@ DA_apply_metallurgy_infcav_modifiers_effect = {
         limit = { is_variable_equal = { which = DA_shock_damage_received_TOTAL_$DA_unit$ value = -1.00 } }
         add_country_modifier = { name = DA_shock_damage_received.$DA_unit$.-1.00 duration = -1 hidden = yes }
     }
+    if = { #limiter
+        limit = { NOT = { check_variable = { which = DA_shock_damage_received_TOTAL_$DA_unit$ value = -1.00 } } }
+        add_country_modifier = { name = DA_shock_damage_received.$DA_unit$.-1.00 duration = -1 hidden = yes }
+    }
 
 ######################################################
 ################ FIRE_DAMAGE_RECEIVED MODIFIERS ######
 ######################################################
 
+    if = { #limiter
+        limit = { check_variable = { which = DA_fire_damage_received_TOTAL_$DA_unit$ value = 0.80 } }
+        add_country_modifier = { name = DA_fire_damage_received.$DA_unit$.0.80 duration = -1 hidden = yes }
+    }
     if = {
         limit = { is_variable_equal = { which = DA_fire_damage_received_TOTAL_$DA_unit$ value = 0.80 } }
         add_country_modifier = { name = DA_fire_damage_received.$DA_unit$.0.80 duration = -1 hidden = yes }
@@ -4825,6 +4861,10 @@ DA_apply_metallurgy_infcav_modifiers_effect = {
     }
     if = {
         limit = { is_variable_equal = { which = DA_fire_damage_received_TOTAL_$DA_unit$ value = -1.00 } }
+        add_country_modifier = { name = DA_fire_damage_received.$DA_unit$.-1.00 duration = -1 hidden = yes }
+    }
+    if = { #limiter
+        limit = { NOT = { check_variable = { which = DA_fire_damage_received_TOTAL_$DA_unit$ value = -1.00 } } }
         add_country_modifier = { name = DA_fire_damage_received.$DA_unit$.-1.00 duration = -1 hidden = yes }
     }
 
