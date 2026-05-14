@@ -1,0 +1,3379 @@
+namespace = DA_Metallurgy_events
+
+country_event = {
+	id = DA_Metallurgy_events.40 # ARTIFICERtry blueprint
+	title = "DA_Metallurgy_events.40.t"
+	desc = "DA_Metallurgy_events.40.d"
+	picture = {
+		trigger = {
+			NOT = {
+				AND = {
+				#	culture_group = dwarven
+				#	culture_group = harimari
+				#	culture_group = centaur
+				#	culture_group = ogre
+				#	culture_group = gnollish
+				#	culture_group = orcish
+					culture_group = goblin
+				#	culture_group = harpy
+				#	culture_group = halfling
+				#	culture_group = gnomish
+				#	culture_group = kobold
+				#	culture_group = elven
+				#	culture_group = lizardfolk
+				}
+			}
+		}
+		picture = DA_forge_blueprint_eventPicture
+	}
+	picture = {
+		trigger = { culture_group = goblin }
+		picture = DA_forge_blueprint_goblin_eventPicture
+	}
+
+	trigger = {
+		always = yes
+	}
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Metallurgy_events.50.a"
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_RUNE_SLOTS = 0
+			DA_power = 0.01
+			DA_fire = 0.00
+			DA_shock = 0.00
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.00
+	#		DA_Unique = none
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Bludgeon"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 6
+			DA_RUNE_SLOTS = 0
+			DA_power = 0.00
+			DA_fire = 0.00
+			DA_shock = 0.06
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.00
+	#		DA_Unique = none
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spear_and_shield"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 6
+			DA_RUNE_SLOTS = 0
+			DA_power = 0.00
+			DA_fire = 0.00
+			DA_shock = 0.00
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.03
+	#		DA_Unique = none
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Battle_axe"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 6
+			DA_RUNE_SLOTS = 0
+			DA_power = 0.01
+			DA_fire = 0.00
+			DA_shock = 0.01
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.01
+	#		DA_Unique = none
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Bow"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 8						#
+			DA_RUNE_SLOTS = 0				#	+4 per slot
+			DA_power = 0.00					#	+3 per point	
+			DA_fire = 0.08					#	+1 per point	8
+			DA_shock = 0.00					#	+1 per point	
+			DA_Fire_rec = -0.00				#	+2 per point
+			DA_Shock_rec = -0.00			#	+2 per point
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Crossbow"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 8						#
+			DA_RUNE_SLOTS = 0				#	+4 per slot
+			DA_power = 0.01					#	+3 per point	3
+			DA_fire = 0.01					#	+1 per point	1	
+			DA_shock = 0.00					#	+1 per point	
+			DA_Fire_rec = -0.01				#	+2 per point	2
+			DA_Shock_rec = -0.01			#	+2 per point	2
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Throwing_Spears"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 8						#
+			DA_RUNE_SLOTS = 0				#	+4 per slot
+			DA_power = 0.02					#	+3 per point	6
+			DA_fire = 0.00					#	+1 per point
+			DA_shock = 0.00					#	+1 per point	
+			DA_Fire_rec = -0.00				#	+2 per point
+			DA_Shock_rec = -0.01			#	+2 per point	2
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Wand_of_magic_missile"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Wand_of_magic_missile
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = fire_damage.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.03
+				DA_shock.Magical = 0.02
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Staff_of_mage_armor"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Staff_of_mage_armor
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.01
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = defense.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.01
+				DA_Shock_rec.Magical = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Staff_of_shield"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Staff_of_shield
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = defense.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.00
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.02
+				DA_Shock_rec.Magical = -0.02
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Wand_of_scorching_ray"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Wand_of_scorching_ray
+			}
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = offense.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.04
+				DA_shock.Magical = 0.03
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_googles"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_googles
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = shock_damage_received.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.01
+				DA_Shock_rec.Magical = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Multi_Ammunition_Musket_1"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Multi_Ammunition_Musket_1
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Medicine_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.01
+				DA_fire = 0.03
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = fire_damage.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Blade"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Blade
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.03
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.02
+				DA_Unique = shock_damage.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Multi_Ammunition_Pistol_1"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Multi_Ammunition_Pistol_1
+			}
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.01
+				DA_fire = 0.01
+				DA_shock = 0.01
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = offense.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Multi_Ammunition_Sniper_Rifle_1"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Multi_Ammunition_Sniper_Rifle_1
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.01
+				DA_fire = 0.03
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = fire_damage.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Tower_shield"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Tower_shield
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.02
+				DA_Shock_rec = -0.02
+				DA_Unique = defense.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Pike"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Pike
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.01
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.02
+				DA_Unique = shock_damage.1
+				DA_Unique_2 = shock_damage_received.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Simplified_homunculus"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Simplified_homunculus
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.01
+				DA_shock = 0.01
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = morale_damage.1
+				DA_Unique_2 = morale_damage_received.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Staff_of_mending"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Staff_of_mending
+			}
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = land_maintenance_modifier.2
+				DA_Unique_2 = reinforce_cost_modifier.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Def_Golem_1"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Def_Golem_1
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Golem
+			}
+			DA_completed.Golem = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Golem.1
+				DA_Unique_2 = defense.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Atk_Golem_1"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Atk_Golem_1
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Golem
+			}
+			DA_completed.Golem = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.04
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = Golem.1
+				DA_Unique_2 = shock_damage.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_limbs"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_limbs
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = defense.1
+				DA_Unique_2 = offense.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_Gyro_Lance"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_Gyro_Lance
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.03
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.01
+				DA_Unique = shock_damage.1
+				DA_Unique_2 = shock_damage_received.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_gauntlets"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_gauntlets
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.05
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.01
+				DA_Unique = shock_damage.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_Iron_Watch"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_Iron_Watch
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = ClockWork.Clock_Iron_Watch
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_rep_crossbow"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_rep_crossbow
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.04
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = fire_damage.3
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_Stonebreaker"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_Stonebreaker
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.04
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = shock_damage.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_Bulwark_sentinel"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_Bulwark_sentinel
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.02
+				DA_Unique = ClockWork.Clock_Bulwark_sentinel
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clockwork_golem.1"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clockwork_golem.1
+			}
+			OR = {
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Golem
+				}
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = ClockWork
+				}
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Golem = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Compound.Clockwork_golem.1
+				DA_Unique_2 = defense.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Expl_Javelin"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Expl_Javelin
+			}
+			DA_completed.Explosive = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 6
+			DA_RUNE_SLOTS = 0
+			DA_power = 0.00
+			DA_fire = 0.02
+			DA_shock = 0.01
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.00
+			DA_Unique = EXPLOSIVE_RANGED.1
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Expl_Arbalest"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Expl_Arbalest
+			}
+			DA_completed.Explosive = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 6
+			DA_RUNE_SLOTS = 1
+			DA_power = 0.00
+			DA_fire = 0.02
+			DA_shock = 0.00
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.00
+			DA_Unique = EXPLOSIVE_RANGED.1
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Expl_Hand_Cannon"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Expl_Hand_Cannon
+			}
+			DA_completed.Explosive = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 6
+			DA_RUNE_SLOTS = 1
+			DA_power = 0.00
+			DA_fire = 0.02
+			DA_shock = 0.00
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.00
+			DA_Unique = EXPLOSIVE_RANGED.1
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Expl_Throwing_Knife"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Expl_Throwing_Knife
+			}
+			DA_completed.Explosive = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_1 = yes
+			DA_completed.Mechanics_1 = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 6
+			DA_RUNE_SLOTS = 0
+			DA_power = 0.01
+			DA_fire = 0.02
+			DA_shock = 0.00
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.00
+			DA_Unique = EXPLOSIVE_RANGED.1
+	#		DA_Electrical = none
+		}
+	}
+
+	#steam
+
+	option = {
+		name = "DA_Metallurgy_events.50.Warhammer"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Steam_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 10
+			DA_RUNE_SLOTS = 1
+			DA_power = 0.01
+			DA_fire = 0.00
+			DA_shock = 0.05
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.00
+	#		DA_Unique = none
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Tower_shield"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Steam_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 10
+			DA_RUNE_SLOTS = 1
+			DA_power = 0.00
+			DA_fire = 0.00
+			DA_shock = 0.00
+			DA_Fire_rec = -0.02
+			DA_Shock_rec = -0.02
+	#		DA_Unique = none
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Sword"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Steam_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 10
+			DA_RUNE_SLOTS = 1
+			DA_power = 0.02
+			DA_fire = 0.00
+			DA_shock = 0.02
+			DA_Fire_rec = -0.00
+			DA_Shock_rec = -0.00
+	#		DA_Unique = none
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Rifle"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Steam_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 10					#	point discount -2
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.02					#	+3 per point	6
+			DA_fire = 0.02					#	+1 per point	2
+			DA_shock = 0.00					#	+1 per point		
+			DA_Fire_rec = -0.00				#	+2 per point
+			DA_Shock_rec = -0.00			#	+2 per point
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Shotgun"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Steam_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 10					#	point discount -2
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.00					#	+3 per point	
+			DA_fire = 0.00					#	+1 per point
+			DA_shock = 0.00					#	+1 per point		
+			DA_Fire_rec = -0.00				#	+2 per point
+			DA_Shock_rec = -0.04			#	+2 per point	8
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Flamethrower"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Steam_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 10					#	point discount -2
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.00					#	+3 per point	
+			DA_fire = 0.06					#	+1 per point	6
+			DA_shock = 0.02					#	+1 per point	2	
+			DA_Fire_rec = -0.00				#	+2 per point
+			DA_Shock_rec = -0.00			#	+2 per point
+	#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_amulet_of_versatility"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_amulet_of_versatility
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 2
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+		#		DA_Unique = Motorization.2
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Steam_Powered_Exosuit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Steam_Powered_Exosuit
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Alchemy_1 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 13
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.03
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = combat_ability.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Steam_Powered_Drill_Spears"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Steam_Powered_Drill_Spears
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.08
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.01
+				DA_Unique = shock_damage.1
+				DA_Unique_2 = shock_damage_received.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Steam_Multi_Ammunition_Musket_2"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Steam_Multi_Ammunition_Musket_2
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.03
+				DA_shock = 0.01
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = fire_damage.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Steam_Multi_Ammunition_Pistol_2"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Steam_Multi_Ammunition_Pistol_2
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 13
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.01
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = offense.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Steam_Multi_Ammunition_Sniper_Rifle_2"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Steam_Multi_Ammunition_Sniper_Rifle_2
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.04
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = fire_damage.3
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Def_Golem_2"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Def_Golem_2
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Golem
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Golem = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.02
+				DA_Shock_rec = -0.02
+				DA_Unique = Golem.2
+				DA_Unique_2 = defense.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Atk_Golem_2"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Atk_Golem_2
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Golem
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Golem = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.03
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Golem.2
+				DA_Unique_2 = shock_damage.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_exoskeleton"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_exoskeleton
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = combat_ability.2
+				DA_Unique_2 = defense.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_Steam_Bolter"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_Steam_Bolter
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 12
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.02
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = fire_damage.2
+				DA_Unique_2 = combat_ability.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_Steam_gauntlets"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_Steam_gauntlets
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_2 = yes
+			DA_completed.Mechanics_2 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 12
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.06
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = shock_damage.3
+				DA_Unique_2 = morale_damage.1
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Vehicle_Steam_Arcanomech_Vanguard"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Vehicle_Steam_Arcanomech_Vanguard
+			}
+			OR = {
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Motorization
+				}
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Golem
+				}
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Motorization = yes
+			DA_completed.Golem = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.02
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = Motorization.2.Vanguard
+				DA_Unique_2 = offense.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Vehicle_Steam_Arcanomech_Holder"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Vehicle_Steam_Arcanomech_Holder
+			}
+			OR = {
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Motorization
+				}
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Golem
+				}
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Motorization = yes
+			DA_completed.Golem = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Motorization.2.Holder
+				DA_Unique_2 = defense.2
+		#		DA_Electrical = none
+		}
+	}
+
+	#electric
+
+	option = {
+		name = "DA_Metallurgy_events.50.Chainsaw"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 12					#	point discount -4
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.00					#	+3 per point
+			DA_fire = 0.00					#	+1 per point
+			DA_shock = 0.01					#	+1 per point	1
+			DA_Fire_rec = -0.00				#	+2 per point
+			DA_Shock_rec = -0.00			#	+2 per point
+			DA_Electrical = yes				#
+			DA_power.electric = 0.03		#	+3 per point	9
+			DA_fire.electric = 0.00			#	+1 per point
+			DA_shock.electric = 0.002		#	+1 per point	2
+			DA_Fire_rec.electric = -0.00	#	+2 per point
+			DA_Shock_rec.electric = -0.00	#	+2 per point
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Gauntlets"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 12					#	point discount -4
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.00					#	+3 per point
+			DA_fire = 0.00					#	+1 per point
+			DA_shock = 0.00					#	+1 per point	
+			DA_Fire_rec = -0.01				#	+2 per point	2
+			DA_Shock_rec = -0.01			#	+2 per point	2	
+			DA_Electrical = yes				#
+			DA_power.electric = 0.00		#	+3 per point	
+			DA_fire.electric = 0.00			#	+1 per point
+			DA_shock.electric = 0.04		#	+1 per point	4
+			DA_Fire_rec.electric = -0.01	#	+2 per point	2
+			DA_Shock_rec.electric = -0.01	#	+2 per point	2
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Halberds"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 12					#	point discount -4
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.01					#	+3 per point	3
+			DA_fire = 0.00					#	+1 per point
+			DA_shock = 0.00					#	+1 per point	
+			DA_Fire_rec = -0.00				#	+2 per point
+			DA_Shock_rec = -0.00			#	+2 per point	
+			DA_Electrical = yes				#
+			DA_power.electric = 0.02		#	+3 per point	6
+			DA_fire.electric = 0.00			#	+1 per point	
+			DA_shock.electric = 0.01		#	+1 per point	1
+			DA_Fire_rec.electric = -0.00	#	+2 per point
+			DA_Shock_rec.electric = -0.01	#	+2 per point	2
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Assault_rifle"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 12					#	point discount -4
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.02					#	+3 per point	6
+			DA_fire = 0.00					#	+1 per point
+			DA_shock = 0.00					#	+1 per point	
+			DA_Fire_rec = -0.00				#	+2 per point
+			DA_Shock_rec = -0.00			#	+2 per point	
+			DA_Electrical = yes				#
+			DA_power.electric = 0.01		#	+3 per point	3
+			DA_fire.electric = 0.03			#	+1 per point	3
+			DA_shock.electric = 0.00		#	+1 per point	
+			DA_Fire_rec.electric = -0.00	#	+2 per point
+			DA_Shock_rec.electric = -0.00	#	+2 per point	
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Machine_gun"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 12					#	point discount -4
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.00					#	+3 per point	
+			DA_fire = 0.00					#	+1 per point
+			DA_shock = 0.00					#	+1 per point	
+			DA_Fire_rec = -0.01				#	+2 per point	2
+			DA_Shock_rec = -0.01			#	+2 per point	2	
+			DA_Electrical = yes				#
+			DA_power.electric = 0.00		#	+3 per point	
+			DA_fire.electric = 0.00			#	+1 per point	
+			DA_shock.electric = 0.00		#	+1 per point	
+			DA_Fire_rec.electric = -0.03	#	+2 per point	6
+			DA_Shock_rec.electric = -0.01	#	+2 per point	2
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Grenade_Launchers"
+		highlight = yes
+		trigger = {
+			DA_selected_punk_allows_normal_BPs = {
+				DA_unit = ARTIFICER
+			}
+			DA_has_Energy_power_or_higher = yes
+		}
+		DA_apply_Blueprint = {
+			DA_unit = ARTIFICER
+			DA_Cost = 12					#	point discount -4
+			DA_RUNE_SLOTS = 1				#	+4 per slot		4
+			DA_power = 0.00					#	+3 per point	
+			DA_fire = 0.00					#	+1 per point
+			DA_shock = 0.00					#	+1 per point	
+			DA_Fire_rec = -0.01				#	+2 per point	2
+			DA_Shock_rec = -0.01			#	+2 per point	2	
+			DA_Electrical = yes				#
+			DA_power.electric = 0.02		#	+3 per point	6
+			DA_fire.electric = 0.02			#	+1 per point	2
+			DA_shock.electric = 0.00		#	+1 per point	
+			DA_Fire_rec.electric = -0.00	#	+2 per point
+			DA_Shock_rec.electric = -0.00	#	+2 per point	
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Electric_Armor"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Electric_Armor
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 20
+				DA_RUNE_SLOTS = 2
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = defense.4
+				DA_Unique_2 = combat_ability.2
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Electric_multi_caster_wand_Fire_Shield"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Electric_multi_caster_wand_Fire_Shield
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = defense.4
+				DA_Unique_2 = morale_damage_received.2
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+				DA_Magical = yes
+				DA_power.Magical = 0.02
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.02
+				DA_Shock_rec.Magical = -0.02
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Electric_multi_caster_staff_Ice_Storm"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Electric_multi_caster_staff_Ice_Storm
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 22
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = offense.4
+				DA_Unique_2 = morale_damage.2
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.02
+				DA_shock.electric = 0.02
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.00
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.02
+				DA_shock.Magical = 0.02
+				DA_Fire_rec.Magical = -0.01
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Electric_amulet_of_undying"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Electric_amulet_of_undying
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Alchemy_4 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_4 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 22
+				DA_RUNE_SLOTS = 2
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = regiment_manpower_usage.4
+				DA_Unique_2 = land_attrition.4
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.01
+				DA_Shock_rec.Magical = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Def_Golem_3"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Def_Golem_3
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Golem
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Golem = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 24
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.02
+				DA_Shock_rec = -0.02
+				DA_Unique = Golem.3
+				DA_Unique_2 = defense.4
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Runic_Atk_Golem_3"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Runic_Atk_Golem_3
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Golem
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Golem = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 24
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.06
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Golem.3
+				DA_Unique_2 = offense.4
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.04
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_electric_exoskeleton"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_electric_exoskeleton
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 23
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = combat_ability.4
+				DA_Unique_2 = defense.4
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.02
+				DA_Shock_rec.electric = -0.02
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_electric_staff_of_conjure_construct"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_electric_staff_of_conjure_construct
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 22
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = regiment_manpower_usage.4
+				DA_Unique_2 = reserves_organisation.3
+				DA_Electrical = yes
+				DA_power.electric = 0.02
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+				DA_Magical = yes
+				DA_power.Magical = 0.02
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.01
+				DA_Shock_rec.Magical = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Clock_electric_gauntlets"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Clock_electric_gauntlets
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = ClockWork
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.04
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = shock_damage.4
+				DA_Unique_2 = morale_damage.3
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.04
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Tesla_portable_railgun"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Tesla_portable_railgun
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Tesla
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Tesla = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 19
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = discipline.3
+				DA_Unique_2 = fire_damage.5
+				DA_Electrical = yes
+				DA_power.electric = 0.02
+				DA_fire.electric = 0.10
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Tesla_Shocking_Warhammer"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Tesla_Shocking_Warhammer
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Tesla
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Tesla = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.06
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = discipline.3
+				DA_Unique_2 = shock_damage.5
+				DA_Electrical = yes
+				DA_power.electric = 0.02
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.06
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Tesla_Suit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Tesla_Suit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Tesla
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Tesla = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 24
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = discipline.3
+				DA_Unique_2 = combat_ability.4
+				DA_Electrical = yes
+				DA_power.electric = 0.02
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.02
+				DA_Shock_rec.electric = -0.02
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Resonance_Warhammers"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Resonance_Warhammers
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Resonance
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Resonance = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 22
+				DA_RUNE_SLOTS = 2
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = discipline.3
+				DA_Unique_2 = shock_damage.5
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.03
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Resonance_wand_of_Shatter"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Resonance_wand_of_Shatter
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Resonance
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Resonance = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 22
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = morale_damage.4
+				DA_Unique_2 = offense.5
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.01
+				DA_shock.electric = 0.01
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+				DA_Magical = yes
+				DA_power.Magical = 0.02
+				DA_fire.Magical = 0.04
+				DA_shock.Magical = 0.04
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Resonance_staff_of_haste"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Resonance_staff_of_haste
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Resonance
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Resonance = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 23
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = combat_ability.4
+				DA_Unique_2 = discipline.4
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+				DA_Magical = yes
+				DA_power.Magical = 0.02
+				DA_fire.Magical = 0.04
+				DA_shock.Magical = 0.04
+				DA_Fire_rec.Magical = -0.01
+				DA_Shock_rec.Magical = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Resonance_Throwing_Spears"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Resonance_Throwing_Spears
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Resonance
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Resonance = yes
+			DA_completed.Alchemy_2 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 19
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.01
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.01
+				DA_Unique = assault_fort_cost_modifier.3
+				DA_Unique_2 = offense.4
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.01
+				DA_shock.electric = 0.01
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+
+
+
+	############# general MT's blueprints
+	option = {
+		name = "DA_Metallurgy_events.50.Curse_Magic_staff_of_hex"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Curse_Magic_staff_of_hex
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Curse
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = shock_damage.1
+				DA_Unique_2 = morale_damage.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Curse_Magic_Swords_of_withering"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Curse_Magic_Swords_of_withering
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Curse
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = shock_damage.2
+				DA_Unique_2 = morale_damage.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.02
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Curse_staff_of_ray_of_sickeness"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Curse_staff_of_ray_of_sickeness
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Curse
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.01
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = morale_damage.2
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.03
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Curse_Death_Armor"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Curse_Death_Armor
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Curse
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.01
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = morale_damage_received.2
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.00
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.01
+				DA_Shock_rec.Magical = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Curse_wand_of_Ray_of_Enfeeblement"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Curse_wand_of_Ray_of_Enfeeblement
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Curse
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = morale_damage.1
+				DA_Unique_2 = morale_damage.1
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.04
+				DA_shock.Magical = 0.01
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Holy_Magic_Holy_Armor"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Holy_Magic_Holy_Armor
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Divine
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 8
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.02
+				DA_Shock_rec = -0.02
+				DA_Unique = Divine.Armor
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Holy_Magic_Healing_totems"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Holy_Magic_Healing_totems
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Divine
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = Divine.Healing_totems
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.00
+				DA_Fire_rec.Magical = -0.02
+				DA_Shock_rec.Magical = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Holy_Magic_Consacreted_Swords"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Holy_Magic_Consacreted_Swords
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Divine
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 7
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = morale_damage.1
+				DA_Unique_2 = shock_damage.2
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.00
+				DA_shock.Magical = 0.02
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Holy_Magic_Staff_of_divine_smite"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Holy_Magic_Staff_of_divine_smite
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Divine
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.00
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = offense.2
+		#		DA_Electrical = none
+				DA_Magical = yes
+				DA_power.Magical = 0.01
+				DA_fire.Magical = 0.02
+				DA_shock.Magical = 0.03
+				DA_Fire_rec.Magical = -0.00
+				DA_Shock_rec.Magical = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Low_Fire_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Low_Fire_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.02
+				DA_shock = 0.04
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = Spirit_Low_Fire_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Low_Water_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Low_Water_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.01
+				DA_shock = 0.01
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_Low_Water_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Low_Air_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Low_Air_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.01
+				DA_shock = 0.01
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_Low_Air_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Low_Earth_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Low_Earth_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 9
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.01
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.02
+				DA_Unique = Spirit_Low_Earth_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Low_Shadow_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Low_Shadow_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 10
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_Low_Shadow_Spirit
+		#		DA_Electrical = none
+		}
+	}
+
+	#steam
+	
+	option = {
+		name = "DA_Metallurgy_events.50.Mechanization_Defender"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Mechanization_Defender
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Mechanization
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Mechanization_Defender
+				DA_Unique_2 = defense.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Mechanization_Vanguard"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Mechanization_Vanguard
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Mechanization
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.02
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.00
+				DA_Unique = Mechanization_Vanguard
+				DA_Unique_2 = offense.2
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Middle_Air_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Middle_Air_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 13
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.01
+				DA_shock = 0.02
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_Middle_Air_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Middle_Fire_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Middle_Fire_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 13
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.05
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = Spirit_Middle_Fire_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Middle_Water_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Middle_Water_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 13
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.01
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.02
+				DA_Unique = Spirit_Middle_Water_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Middle_Earth_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Middle_Earth_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 13
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.02
+				DA_Shock_rec = -0.02
+				DA_Unique = Spirit_Middle_Earth_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_Middle_Shadow_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_Middle_Shadow_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 14
+				DA_RUNE_SLOTS = 0
+				DA_power = 0.03
+				DA_fire = 0.00
+				DA_shock = 0.01
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_Middle_Shadow_Spirit
+		#		DA_Electrical = none
+		}
+	}
+	#electric
+
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_High_Air_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_High_Air_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.01
+				DA_shock = 0.01
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_High_Air_Spirit
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.01
+				DA_shock.electric = 0.01
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_High_Fire_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_High_Fire_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.02
+				DA_shock = 0.02
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = Spirit_High_Fire_Spirit
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.01
+				DA_shock.electric = 0.02
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_High_Water_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_High_Water_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.03
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_High_Water_Spirit
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_High_Earth_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_High_Earth_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_High_Earth_Spirit
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Spirit_High_Shadow_Spirit"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Spirit_High_Shadow_Spirit
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Spirits
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 24
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.01
+				DA_shock = 0.01
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Spirit_High_Shadow_Spirit
+				DA_Electrical = yes
+				DA_power.electric = 0.02
+				DA_fire.electric = 0.01
+				DA_shock.electric = 0.01
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Dimensional_Eng_Blade"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Dimensional_Eng_Blade
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Dimensional_Eng
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.04
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = shock_damage.4
+				DA_Unique_2 = morale_damage.3
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.04
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Dimensional_Eng_Shattering_Bullets"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Dimensional_Eng_Shattering_Bullets
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Dimensional_Eng
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.04
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = fire_damage.4
+				DA_Unique_2 = morale_damage.3
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.04
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Dimensional_Eng_Void_Rifles"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Dimensional_Eng_Void_Rifles
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Dimensional_Eng
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 22
+				DA_RUNE_SLOTS = 2
+				DA_power = 0.02
+				DA_fire = 0.03
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = combat_ability.4
+				DA_Unique_2 = offense.3
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.02
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Dimensional_Eng_Breach_Spears"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Dimensional_Eng_Breach_Spears
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Dimensional_Eng
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.03
+				DA_shock = 0.03
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = assault_fort_cost_modifier.5
+				DA_Unique_2 = offense.5
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.01
+				DA_shock.electric = 0.01
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Dimensional_Eng_Dimensional_Walkers"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Dimensional_Eng_Dimensional_Walkers
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Dimensional_Eng
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 23
+				DA_RUNE_SLOTS = 2
+				DA_power = 0.03
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = Dimensional_Eng_Dimensional_Walkers
+				DA_Unique_2 = assault_fort_cost_modifier.5
+				DA_Electrical = yes
+				DA_power.electric = 0.02
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.00
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Dimensional_Eng_Rift_Cloaks"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Dimensional_Eng_Rift_Cloaks
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Dimensional_Eng
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 25
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.00
+				DA_Fire_rec = -0.02
+				DA_Shock_rec = -0.02
+				DA_Unique = Dimensional_Eng_Rift_Cloaks
+				DA_Unique_2 = combat_ability.3
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Compound_Arcanomech"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Compound_Arcanomech
+			}
+			OR = {
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Mechanization
+				}
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Motorization
+				}
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 22
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.02
+				DA_shock = 0.04
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Compound_Arcanomech
+				DA_Unique_2 = discipline.4
+				DA_Electrical = yes
+				DA_power.electric = 0.01
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Divine_Mecha"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Divine_Mecha
+			}
+			OR = {
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Mechanization
+				}
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Motorization
+				}
+				DA_selected_the_right_punk_for_BP = {
+					DA_unit = ARTIFICER
+					DA_Punk = Divine
+				}
+			}
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 30
+				DA_RUNE_SLOTS = 2
+				DA_power = 0.03
+				DA_fire = 0.02
+				DA_shock = 0.02
+				DA_Fire_rec = -0.02
+				DA_Shock_rec = -0.02
+				DA_Unique = Divine_Mecha
+				DA_Unique_2 = assault_fort_cost_modifier.5
+				DA_Electrical = yes
+				DA_power.electric = 0.02
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.00
+				DA_Fire_rec.electric = -0.01
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Vault_Clockwork_Menace"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Vault_Clockwork_Menace
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Vault
+			}
+			DA_has_Steam_power_or_higher = yes
+			DA_completed.Motorization = yes
+			DA_completed.ClockWork = yes
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 18
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.04
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Vault_Clockwork_Menace
+				DA_Unique_2 = shock_damage.5
+		#		DA_Electrical = none
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Vault_Arc_Lance"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Vault_Arc_Lance
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Vault
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Tesla = yes
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 21
+				DA_RUNE_SLOTS = 2
+				DA_power = 0.02
+				DA_fire = 0.00
+				DA_shock = 0.03
+				DA_Fire_rec = -0.00
+				DA_Shock_rec = -0.00
+				DA_Unique = Vault_Arc_Lance
+				DA_Unique_2 = morale_damage.5
+				DA_Electrical = yes
+				DA_power.electric = 0.02
+				DA_fire.electric = 0.00
+				DA_shock.electric = 0.03
+				DA_Fire_rec.electric = -0.00
+				DA_Shock_rec.electric = -0.01
+		}
+	}
+	option = {
+		name = "DA_Metallurgy_events.50.Vault_Blade_of_Severance"
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_Unlocked_this_Blueprint
+				has_country_flag = DA_Unlocked.Vault_Blade_of_Severance
+			}
+			DA_selected_the_right_punk_for_BP = {
+				DA_unit = ARTIFICER
+				DA_Punk = Vault
+			}
+			DA_has_Energy_power_or_higher = yes
+			DA_completed.Resonance = yes
+			DA_completed.Alchemy_4 = yes
+			DA_completed.Magic_Theory_4 = yes
+			DA_completed.Mechanics_4 = yes
+		}
+		DA_apply_Blueprint = {
+				DA_unit = ARTIFICER
+				DA_Cost = 18
+				DA_RUNE_SLOTS = 1
+				DA_power = 0.03
+				DA_fire = 0.00
+				DA_shock = 0.05
+				DA_Fire_rec = -0.01
+				DA_Shock_rec = -0.01
+				DA_Unique = Vault_Blade_of_Severance
+				DA_Unique_2 = drill_gain_modifier.5
+		#		DA_Electrical = none
+		}
+	}
+	after = {
+		hidden_effect = {
+			set_country_flag = DA_selected_blueprint_ARTIFICER
+			clr_country_flag = DA_UNIT_DESIGN_IN_USE
+		}
+	}
+}

@@ -1233,6 +1233,9 @@ custom_button = {
             tooltip = DA_Warforged_infantry_enabled_tt
 			has_country_flag = DA_enable_metallurgy_System
         }
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_enable_metallurgy_System_artificer }
+        }
 	}
 	effect = {
         add_treasury = -10
@@ -1307,6 +1310,9 @@ custom_button = {
         custom_trigger_tooltip = {
             tooltip = DA_Warforged_infantry_enabled_tt
 			has_country_flag = DA_enable_metallurgy_System
+        }
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_enable_metallurgy_System_artificer }
         }
 	}
 	effect = {
@@ -1879,6 +1885,7 @@ custom_button = {
 	effect = {
         clr_country_flag = DA_metallurgy_show_CAVAL
         clr_country_flag = DA_metallurgy_show_ARTIL
+        clr_country_flag = DA_metallurgy_show_TRANSPORT
         
         if = {
             limit = {
@@ -1889,7 +1896,6 @@ custom_button = {
         else = {
             set_country_flag = DA_metallurgy_show_INFAN
         }
-        set_country_flag = DA_metallurgy_show_INFAN
 	}
 }
 custom_button = {
@@ -1910,7 +1916,9 @@ custom_button = {
 	}
 	effect = {
         clr_country_flag = DA_metallurgy_show_INFAN
+        clr_country_flag = DA_metallurgy_show_ARTIFICER
         clr_country_flag = DA_metallurgy_show_ARTIL
+        clr_country_flag = DA_metallurgy_show_TRANSPORT
 
         set_country_flag = DA_metallurgy_show_CAVAL
 	}
@@ -1934,8 +1942,35 @@ custom_button = {
 	effect = {
         clr_country_flag = DA_metallurgy_show_CAVAL
         clr_country_flag = DA_metallurgy_show_INFAN
+        clr_country_flag = DA_metallurgy_show_ARTIFICER
+        clr_country_flag = DA_metallurgy_show_TRANSPORT
 
         set_country_flag = DA_metallurgy_show_ARTIL
+	}
+}
+custom_button = {
+	name = DA_Metallurgy_transport_design_select_slider
+	tooltip = DA_Metallurgy_transport_design_select_slider_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
+            NOT = { has_country_flag = DA_UNIT_DESIGN_IN_USE }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_Warforged_transport_enabled_tt
+			has_country_flag = DA_enable_metallurgy_System_transport
+        }
+	}
+	effect = {
+        clr_country_flag = DA_metallurgy_show_CAVAL
+        clr_country_flag = DA_metallurgy_show_INFAN
+        clr_country_flag = DA_metallurgy_show_ARTIFICER
+        clr_country_flag = DA_metallurgy_show_ARTIL
+
+        set_country_flag = DA_metallurgy_show_TRANSPORT
 	}
 }
 
@@ -1951,7 +1986,10 @@ custom_button = {
     frame = {
         number = 1
         trigger = {
-            has_country_flag = DA_metallurgy_show_INFAN
+                OR = {
+                has_country_flag = DA_metallurgy_show_INFAN
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
         }
     }
     frame = {
@@ -2093,6 +2131,132 @@ custom_button = {
                 }
                 DA_Apply_cost_fake = {
                     DA_unit = INFAN
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            hidden_effect = {
+                DA_pre_apply_metallurgy_modifiers = {
+                    DA_unit = ARTIFICER
+                }
+            }
+            tooltip = {
+                add_country_modifier = {
+                    name = DA_metallurgy_ARTIFICERtry_modifier_fake
+                    duration = -1
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_fire_TOTAL_ARTIFICER
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_fire.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_fire_TOTAL_ARTIFICER
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_fire.ARTIFICER.tt-
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_shock_TOTAL_ARTIFICER
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_shock.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_shock_TOTAL_ARTIFICER
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_shock.ARTIFICER.tt-
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_power_TOTAL_ARTIFICER_shower
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_power.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_power_TOTAL_ARTIFICER_shower
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_power.ARTIFICER.tt-
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_Fire_rec_TOTAL_ARTIFICER
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_Fire_rec.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_Fire_rec_TOTAL_ARTIFICER
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_Fire_rec.ARTIFICER.tt-
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_Shock_rec_TOTAL_ARTIFICER_shower
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_Shock_rec.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_Shock_rec_TOTAL_ARTIFICER_shower
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_Shock_rec.ARTIFICER.tt-
+                }
+                custom_tooltip = DA_Affect_only_artificer_tt
+                DA_apply_metallurgy_infcav_modifiers_effect = {
+                    DA_unit = ARTIFICER
+                }
+                DA_give_Unique_Metallurgy_modifiers = {
+                    DA_unit = ARTIFICER
+                }
+                DA_Apply_cost_fake = {
+                    DA_unit = ARTIFICER
                 }
             }
         }
@@ -2351,6 +2515,98 @@ custom_button = {
 	}
 }
 custom_button = {
+	name = DA_Metallurgy_designer_punk_button
+	tooltip = DA_Metallurgy_designer_punk_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        hidden_trigger = {
+            OR = {
+                has_country_flag = DA_metallurgy_show_INFAN
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+                has_country_flag = DA_metallurgy_show_CAVAL
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
+            NOT = { has_country_flag = DA_UNIT_DESIGN_IN_USE }
+        }
+        if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_INFAN
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_INFAN }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_ARTIFICER }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_CAVAL }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_ARTIL }
+            }
+        }
+	}
+	effect = {
+        set_country_flag = DA_UNIT_DESIGN_IN_USE
+        if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_INFAN
+            }
+            country_event = {
+                id = DA_Metallurgy_events.49
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.39
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            country_event = {
+                id = DA_Metallurgy_events.59
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            country_event = {
+                id = DA_Metallurgy_events.69
+            }
+        }
+	}
+}
+custom_button = {
 	name = DA_Metallurgy_designer_blueprint_button
 	tooltip = DA_Metallurgy_designer_blueprint_button_tt
 	potential = {
@@ -2359,6 +2615,7 @@ custom_button = {
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2373,13 +2630,34 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
             }
             custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_INFAN
+            }
+            custom_trigger_tooltip = {
                 tooltip = DA_NOT_yet_selected_blueprint_tt
                 NOT = { has_country_flag = DA_selected_blueprint_INFAN }
             }
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_blueprint_tt
+                NOT = { has_country_flag = DA_selected_blueprint_ARTIFICER }
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_CAVAL
             }
             custom_trigger_tooltip = {
                 tooltip = DA_NOT_yet_selected_blueprint_tt
@@ -2389,6 +2667,10 @@ custom_button = {
         else_if = {
             limit = {
                 has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_ARTIL
             }
             custom_trigger_tooltip = {
                 tooltip = DA_NOT_yet_selected_blueprint_tt
@@ -2404,6 +2686,14 @@ custom_button = {
             }
             country_event = {
                 id = DA_Metallurgy_events.50
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.40
             }
         }
         else_if = {
@@ -2433,6 +2723,7 @@ custom_button = {
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2453,6 +2744,19 @@ custom_button = {
             custom_trigger_tooltip = {
                 tooltip = DA_NOT_yet_selected_metal_tt
                 NOT = { has_country_flag = DA_selected_metal_INFAN }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_blueprint_first_tt
+                has_country_flag = DA_selected_blueprint_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_metal_tt
+                NOT = { has_country_flag = DA_selected_metal_ARTIFICER }
             }
         }
         else_if = {
@@ -2494,6 +2798,14 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.41
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             country_event = {
@@ -2519,6 +2831,7 @@ custom_button = {
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2558,6 +2871,36 @@ custom_button = {
                     check_variable = {
                         which = DA_Runes_Slots_occupied_INFAN
                         which = DA_Runes_Slots_STAT_MAX_INFAN
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_at_least_1_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    value = 1
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIFICER
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_1_tt
+                NOT = { has_country_flag = DA_selected_ARTIFICER_rune_1 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIFICER
+                        which = DA_Runes_Slots_STAT_MAX_ARTIFICER
                     }
                 }
             }
@@ -2635,6 +2978,14 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.42
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             country_event = {
@@ -2660,6 +3011,7 @@ custom_button = {
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2699,6 +3051,36 @@ custom_button = {
                     check_variable = {
                         which = DA_Runes_Slots_occupied_INFAN
                         which = DA_Runes_Slots_STAT_MAX_INFAN
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_at_least_2_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    value = 2
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIFICER
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_2_tt
+                NOT = { has_country_flag = DA_selected_ARTIFICER_rune_2 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIFICER
+                        which = DA_Runes_Slots_STAT_MAX_ARTIFICER
                     }
                 }
             }
@@ -2776,6 +3158,14 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.42
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             country_event = {
@@ -2801,6 +3191,7 @@ custom_button = {
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2840,6 +3231,36 @@ custom_button = {
                     check_variable = {
                         which = DA_Runes_Slots_occupied_INFAN
                         which = DA_Runes_Slots_STAT_MAX_INFAN
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_at_least_3_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    value = 3
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIFICER
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_3_tt
+                NOT = { has_country_flag = DA_selected_ARTIFICER_rune_3 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIFICER
+                        which = DA_Runes_Slots_STAT_MAX_ARTIFICER
                     }
                 }
             }
@@ -2917,6 +3338,195 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.42
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            country_event = {
+                id = DA_Metallurgy_events.62
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            country_event = {
+                id = DA_Metallurgy_events.72
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Metallurgy_designer_rune_button_4
+	tooltip = DA_Metallurgy_designer_rune_button_4_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        hidden_trigger = {
+            OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+                has_country_flag = DA_metallurgy_show_INFAN
+                has_country_flag = DA_metallurgy_show_CAVAL
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_runes_enchantments_in_unit_design_enabled_tt
+			has_country_flag = DA_can_apply_runes_to_metallurgy
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
+            NOT = { has_country_flag = DA_UNIT_DESIGN_IN_USE }
+        }
+        if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_INFAN
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_INFAN
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_4_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_INFAN
+                    value = 4
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_INFAN
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_4_tt
+                NOT = { has_country_flag = DA_selected_INFAN_rune_4 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_INFAN
+                        which = DA_Runes_Slots_STAT_MAX_INFAN
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_at_least_4_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    value = 4
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIFICER
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_4_tt
+                NOT = { has_country_flag = DA_selected_ARTIFICER_rune_4 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIFICER
+                        which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_CAVAL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_4_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_CAVAL
+                    value = 4
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_CAVAL
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_4_tt
+                NOT = { has_country_flag = DA_selected_CAVAL_rune_4 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_CAVAL
+                        which = DA_Runes_Slots_STAT_MAX_CAVAL
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_4_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIL
+                    value = 4
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIL
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_4_tt
+                NOT = { has_country_flag = DA_selected_ARTIL_rune_4 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIL
+                        which = DA_Runes_Slots_STAT_MAX_ARTIL
+                    }
+                }
+            }
+        }
+	}
+	effect = {
+        set_country_flag = DA_UNIT_DESIGN_IN_USE
+        if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_INFAN
+            }
+            country_event = {
+                id = DA_Metallurgy_events.52
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.42
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             country_event = {
@@ -2947,6 +3557,7 @@ custom_button = {
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2973,6 +3584,23 @@ custom_button = {
             custom_trigger_tooltip = {
                 tooltip = DA_must_have_already_selected_metal_tt
                 has_country_flag = DA_selected_metal_INFAN
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_you_must_reset_the_unit_designer_first
+                NOT = { has_country_modifier = DA_metallurgy_ARTIFICERtry_modifier_fake }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_blueprint_first_tt
+                has_country_flag = DA_selected_blueprint_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
             }
         }
         else_if = {
@@ -3036,6 +3664,28 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            hidden_effect = {
+                DA_remove_metallurgy_infcav_modifiers_effect = {
+                    DA_unit = ARTIFICER
+                }
+                DA_remove_Unique_Metallurgy_modifiers = {
+                    DA_unit = ARTIFICER
+                }
+            }
+            add_mil_power = -30
+            add_country_modifier = {
+                name = DA_unit_design_in_prgress
+                duration = 365
+            }
+            country_event = {
+                id = DA_Metallurgy_events.43
+                days = 365
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             hidden_effect = {
@@ -3089,6 +3739,7 @@ custom_button = {
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -3112,6 +3763,20 @@ custom_button = {
             }
             hidden_effect = {
 			    remove_country_modifier = DA_metallurgy_infantry_modifier_fake
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            DA_initialize_metallurgy_variables = {
+                DA_unit = ARTIFICER
+            }
+            DA_remove_Unique_Metallurgy_modifiers_flags = {
+                DA_unit = ARTIFICER
+            }
+            hidden_effect = {
+			    remove_country_modifier = DA_metallurgy_ARTIFICERtry_modifier_fake
             }
         }
         else_if = {
