@@ -458,6 +458,26 @@ custom_button = {
 }
 
 custom_button = {
+	name = DA_General_Blueprint_Research_Button
+	tooltip = DA_General_Blueprint_Research_Button_tt
+	potential = {
+		always = yes
+	}
+    trigger = {
+        DA_available_research = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_enabled_metallurgy_System_tt
+            has_country_flag = DA_enable_metallurgy_System
+        }
+    }
+	effect = {
+        country_event = {
+            id = DA_General_Research_events.1
+        }
+	}
+}
+
+custom_button = {
 	name = DA_Runesmith_Research_Button
 	tooltip = DA_Runesmith_Research_Button_tt
 	potential = {
@@ -465,59 +485,21 @@ custom_button = {
 	}
     trigger = {
         DA_available_research = yes
-        if = {
-            limit = {
-				culture_group = dwarven
-				capital_scope = {
-					OR = {
-						continent = serpentspine
-						has_terrain = dwarven_hold
-						has_terrain = dwarven_hold_surface
-					}
-				}
-            }
-            DA_has_RF_3_or_higher = yes
-            custom_trigger_tooltip = {
-                tooltip = DA_unlocked_production_System_tt
-                has_country_flag = DA_unlocked_production_System
-            }
-        }
-        else = {
-            custom_trigger_tooltip = {
-                tooltip = DA_Unlocked_Research_tt
-                has_country_flag = DA_General_MT_part_2_enabled
-            }
+		culture_group = dwarven
+        DA_has_RF_3_or_higher = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_unlocked_production_System_tt
+            has_country_flag = DA_unlocked_production_System
         }
     }
 	effect = {
 		add_adm_power = -10
 		add_dip_power = -10
 		add_mil_power = -10
-        if = {
-            limit = {
-				culture_group = dwarven
-				capital_scope = {
-					OR = {
-						continent = serpentspine
-						has_terrain = dwarven_hold
-						has_terrain = dwarven_hold_surface
-					}
-				}
-            }
-            country_event = {
-                id = DA_Runesmiths_events.1
-            }
-            set_estate_privilege = DA_Runesmith_research_privilege
+        country_event = {
+            id = DA_Runesmiths_events.1
         }
-        else = {
-            country_event = {
-                id = DA_General_Research_events.1
-            }
-            add_country_modifier = {
-                name = DA_General_research_Mod
-                duration = -1
-            }
-        }
+        set_estate_privilege = DA_Runesmith_research_privilege
 	}
 }
 

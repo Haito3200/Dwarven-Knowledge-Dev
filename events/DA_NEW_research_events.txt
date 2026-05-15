@@ -15,38 +15,38 @@ country_event = {
 
 	option = {
 		name = DA_General_Research_events.1.a
-		trigger = {
-			has_country_flag = DA_General_MT_part_2_enabled
-		}
-		DA_start_general_research_t1 = yes
-
+        DA_start_research = {
+            flag = general_arcane_research
+            time = 48
+            steam = yes
+        }
 		ai_chance = { factor = 1 }
 	}
-
 	option = {
 		name = DA_General_Research_events.1.b
 		highlight = yes
 		trigger = {
-			hidden_trigger = {
-				has_country_flag = DA_General_MT_part_2_enabled
-			}
 			DA_has_Steam_power_or_higher = yes
 		}
-		DA_start_general_research_t2 = yes
-		ai_chance = { factor = 5 }
+        DA_start_research = {
+            flag = general_steam_research
+            time = 72
+            steam = yes
+        }
+		ai_chance = { factor = 1 }
 	}
-
 	option = {
 		name = DA_General_Research_events.1.c
 		highlight = yes
 		trigger = {
-			hidden_trigger = {
-				has_country_flag = DA_General_MT_part_2_enabled
-			}
 			DA_has_Energy_power_or_higher = yes
 		}
-		DA_start_general_research_t3 = yes
-		ai_chance = { factor = 10 }
+        DA_start_research = {
+            flag = general_electric_research
+            time = 96
+            steam = yes
+        }
+		ai_chance = { factor = 1 }
 	}
 
 	option = {
@@ -54,9 +54,6 @@ country_event = {
 		highlight = yes
 		ai_chance = { factor = 0.1 }
 		
-		add_adm_power = 10
-		add_dip_power = 10
-		add_mil_power = 10
 		remove_country_modifier = DA_General_research_Mod
 	}
 	after = {

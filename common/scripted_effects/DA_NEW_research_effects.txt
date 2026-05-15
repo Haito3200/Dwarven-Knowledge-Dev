@@ -201,6 +201,10 @@ DA_reset_research = {
 	clr_country_flag = DA_research_flag.mage_leaders_4
 
 	
+	clr_country_flag = DA_research_flag.general_arcane_research
+	clr_country_flag = DA_research_flag.general_steam_research
+	clr_country_flag = DA_research_flag.general_electric_research
+
 	clr_country_flag = DA_research_flag.alchemy
 	clr_country_flag = DA_research_flag.arcane_arts
 	clr_country_flag = DA_research_flag.mechanics
@@ -246,7 +250,18 @@ DA_research_gives_reward = {
 		}
 	}
 
-
+	if = {
+		limit = { has_country_flag = DA_research_flag.general_arcane_research }
+		DA_General_Research_Reward_t1 = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.general_steam_research }
+		DA_General_Research_Reward_t2 = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.general_electric_research }
+		DA_General_Research_Reward_t3 = yes
+	}
 
 	# elemental magic
 	if = {
