@@ -101,20 +101,20 @@
 custom_window = {
     name = DA_Alchemy_Interface
     potential = {
-        has_country_flag = DA_Metallurgy_interface_on_Alchemy
+        has_country_flag = DA_Technology_interface_on_Alchemy
     }
 }
 custom_icon = {
     name = DA_Alchemy_Interface_icon
     potential = {
-        has_country_flag = DA_Metallurgy_interface_on_Alchemy
+        has_country_flag = DA_Technology_interface_on_Alchemy
     }
 }
 custom_button = {
 	name = DA_Increase_alchemy
 	tooltip = DA_Increase_alchemy_tt
 	potential = {
-		has_country_flag = DA_Metallurgy_interface_on_Alchemy
+		has_country_flag = DA_Technology_interface_on_Alchemy
 	}
 	trigger = {
         custom_trigger_tooltip = {
@@ -123,7 +123,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Alchemy_1 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 1000
                     }
                 }
@@ -131,7 +131,7 @@ custom_button = {
                     DA_completed.Alchemy_1 = yes
                     NOT = { DA_completed.Alchemy_2 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 2500
                     }
                 }
@@ -139,7 +139,7 @@ custom_button = {
                     DA_completed.Alchemy_2 = yes
                     NOT = { DA_completed.Alchemy_3 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 5000
                     }
                 }
@@ -147,7 +147,7 @@ custom_button = {
                     DA_completed.Alchemy_3 = yes
                     NOT = { DA_completed.Alchemy_4 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 10000
                     }
                 }
@@ -166,7 +166,7 @@ custom_button = {
                     NOT = { DA_completed.Alchemy_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_alchemy_exp
+                    which = DA_Alchemy_exp
                     value = 1000
                 }
                 country_event = {
@@ -180,7 +180,7 @@ custom_button = {
                     NOT = { DA_completed.Alchemy_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_alchemy_exp
+                    which = DA_Alchemy_exp
                     value = 2500
                 }
                 country_event = {
@@ -194,7 +194,7 @@ custom_button = {
                     NOT = { DA_completed.Alchemy_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_alchemy_exp
+                    which = DA_Alchemy_exp
                     value = 5000
                 }
                 country_event = {
@@ -208,7 +208,7 @@ custom_button = {
                     NOT = { DA_completed.Alchemy_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_alchemy_exp
+                    which = DA_Alchemy_exp
                     value = 10000
                 }
                 country_event = {
@@ -222,7 +222,7 @@ custom_button = {
 
 custom_text_box = {
     name = DA_Tech_Shower.Alchemy #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_Alchemy } #Determines when the text is visible
+    potential = { has_country_flag = DA_Technology_interface_on_Alchemy } #Determines when the text is visible
     tooltip = DA_Tech_Shower.Alchemy.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
@@ -459,10 +459,16 @@ custom_button = {
                 value = 1
             }   
         }
+        DA_alchemy_reagents_total_required = {
+            amount = 5
+        }
 	}
 	effect = {
         hidden_effect = {
             set_country_flag = DA_alchemy_in_use
+        }
+        DA_alchemy_reagents_spend = {
+            amount = 5
         }
         country_event = {
             id = DA_Tech_Alchemy_event.2

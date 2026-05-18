@@ -25,21 +25,6 @@ custom_button = {
 	}
 	trigger = {
 		has_subterranean_race = yes
-		if = {
-			limit = {
-				NOT = {
-					is_capital = yes
-					has_province_modifier = ruined_hold
-					has_province_modifier = partially_ruined_hold
-					has_province_modifier = damaged_hold
-					has_province_modifier = infested_hold
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = has_centralized_hold_operations_tt
-				owner = { has_country_flag = hold_operation }
-			}
-		}
 		owner = {
 			if = {
 				limit = { NOT = { has_country_modifier = dwarven_administration } }
@@ -61,7 +46,8 @@ custom_button = {
 				NOT = { has_disaster = remnant_stagnation_disaster }
 			}
 		}
-		is_state_core = FROM
+		is_core = FROM
+		is_owned_by_trade_company = no
 		controlled_by = FROM
 		custom_trigger_tooltip = {
 			tooltip = diggy_no_building #This includes armies and such
@@ -85,9 +71,21 @@ custom_button = {
 			NOT = { has_province_modifier = incomplete_hold }
 		}
 		if = { limit = { has_province_modifier = F23_flooded_depths }
-			custom_trigger_tooltip = {
-				tooltip = F23_cannot_dig_why
-				always = no
+			if = {
+				limit = { owner = { tag = F23 } }
+				custom_trigger_tooltip = {
+					tooltip = F23_cannot_dig_why
+					always = no
+				}
+			}
+			else = {
+				OR = {
+					owner = {
+						adm_tech = 10
+						treasury = 1000					
+					}
+					NOT = { has_province_modifier = F23_flooded_depths }
+				}
 			}
 		}
 		hidden_trigger = { NOT = { has_province_modifier = incomplete_hold_0 } }
@@ -192,6 +190,22 @@ custom_button = {
 				NOT = { has_province_flag = I98_befuddling_hold_flag }
 			}
 		}
+		if = {
+			limit = { has_province_modifier = gor_vazumbrog_dragons_wound }
+			custom_trigger_tooltip = {
+				tooltip = gor_vazumbrog_digging_blocked_tt
+				OR = {
+					AND = {
+						has_province_modifier = dig_1
+						has_province_flag = gor_vazumbrog_allowed_dig_2
+					}
+					AND = {
+						has_province_modifier = dig_2
+						has_province_flag = gor_vazumbrog_allowed_dig_3
+					}
+				}
+			}
+		}
 	}
 	effect = {
 		owner = {
@@ -200,14 +214,19 @@ custom_button = {
 					limit = { is_capital = yes }
 					setup_digging_deeper_capital = yes
 					start_digging_deeper = yes
+					owner = { set_country_flag = is_digging }
 				}
 				else = {
 					setup_digging_deeper_non_capital = yes
 					start_digging_deeper_non_capital = yes
 				}
 			}
-			set_country_flag = is_digging
 			play_sound = diggy_diggy_pickaxe_sfx
+		}
+		if = {
+			limit = { has_province_modifier = F23_flooded_depths }
+			remove_province_modifier = F23_flooded_depths
+			owner = { add_treasury = -1000 }
 		}
 	}
 	tooltip = dig_hold_go_button_tt
@@ -1346,6 +1365,58 @@ custom_button = { #Button for the UI when targeting enemy provinces
 				has_great_project = {
 					type = DA_Earth_Shatterer
 					tier = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					continent = asia
+					superregion = bulwar_superregion
+					superregion = east_serpentspine_superregion
+					region = middle_dwarovar_region
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_cannon_range_t1_tt
+				always = yes
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					continent = serpentspine
+					continent = europe
+					continent = africa
+					superregion = gerudia_superregion
+					superregion = rahen_superregion
+					superregion = western_cannor_superregion
+					superregion = west_serpentspine_superregion
+					superregion = fangaula_superregion
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_cannon_range_t2_tt
+				from = {
+					any_owned_province = {
+						has_great_project = {
+							type = DA_Earth_Shatterer
+							tier = 2
+						}
+					}
+				}
+			}
+		}
+		else = {
+			custom_trigger_tooltip = {
+				tooltip = DA_cannon_range_t3_tt
+				from = {
+					any_owned_province = {
+						has_great_project = {
+							type = DA_Earth_Shatterer
+							tier = 3
+						}
+					}
 				}
 			}
 		}

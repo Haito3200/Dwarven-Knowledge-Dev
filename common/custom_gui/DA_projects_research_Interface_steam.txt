@@ -1,0 +1,626 @@
+
+
+###################################################################################
+###################################################################################
+############################### Steam #############################################
+###################################################################################
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_button_Steam
+    tooltip = DA_projects_research_button_Steam_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_completed.Steam_Power_Project = yes
+    }
+    effect = {
+        clr_country_flag = DA_projects_research_Interface_on_arcane_1
+        clr_country_flag = DA_projects_research_Interface_on_arcane_2
+        clr_country_flag = DA_projects_research_Interface_on_Steam_1
+        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
+        clr_country_flag = DA_projects_research_Interface_on_Unique_1
+
+        set_country_flag = DA_projects_research_Interface_on_Steam_1
+    }
+}
+
+
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_bio_construct_1
+    tooltip = DA_projects_research_buttons_background_bio_construct_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Alchemy_3 = yes
+		DA_completed.Medicine_2 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Bio_Construct.tt
+			has_country_flag = DA_Project.Allowed.Bio_Construct
+		}
+		DA_yet_to_complete.Bio_Construct = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Bio_Construct = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Bio_Construct = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Bio_Construct
+            time = 96
+            steam = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.232
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_bio_construct_2
+    tooltip = DA_projects_research_buttons_background_bio_construct_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Bio_Construct = yes
+        DA_completed.Steam_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Bio_Construct_2
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_bio_construct_3
+    tooltip = DA_projects_research_buttons_background_bio_construct_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Bio_Construct = yes
+        DA_completed.Electric_Power_Project = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_in_development_tt
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Bio_Construct_3
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_enhancement_1
+    tooltip = DA_projects_research_buttons_background_enhancement_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Medicine_2 = yes
+		DA_completed.Alchemy_2 = yes
+		DA_completed.Magic_Theory_2 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Enhancement.tt
+			has_country_flag = DA_Project.Allowed.Enhancement
+		}
+		DA_yet_to_complete.Enhancement = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Enhancement = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Enhancement = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Enhancement
+            time = 96
+            arcane = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.227
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_enhancement_2
+    tooltip = DA_projects_research_buttons_background_enhancement_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Enhancement = yes
+        DA_completed.Steam_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Enhancement_2
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_enhancement_3
+    tooltip = DA_projects_research_buttons_background_enhancement_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Enhancement = yes
+        DA_completed.Electric_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Enhancement_3
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_mechanization_1
+    tooltip = DA_projects_research_buttons_background_mechanization_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Medicine_2 = yes
+		DA_completed.Alchemy_2 = yes
+		DA_completed.Magic_Theory_2 = yes
+		DA_yet_to_complete.Mechanization = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Mechanization = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Mechanization = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Mechanization
+            time = 96
+            arcane = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.320
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_mechanization_2
+    tooltip = DA_projects_research_buttons_background_mechanization_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Mechanization = yes
+        DA_completed.Steam_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Mechanization_2
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_mechanization_3
+    tooltip = DA_projects_research_buttons_background_mechanization_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Mechanization = yes
+        DA_completed.Electric_Power_Project = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_in_development_tt
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Mechanization_3
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Motorization_1
+    tooltip = DA_projects_research_buttons_background_Motorization_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_completed.Medicine_2 = yes
+		DA_completed.Alchemy_2 = yes
+		DA_completed.Magic_Theory_2 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Project.Allowed.Motorization.tt
+			has_country_flag = DA_Project.Allowed.Motorization
+		}
+		DA_yet_to_complete.Motorization = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Motorization = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Motorization = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Motorization
+            time = 96
+            arcane = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.222
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_Motorization_2
+    tooltip = DA_projects_research_buttons_background_Motorization_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Motorization = yes
+        DA_completed.Steam_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Motorization_2
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_Motorization_3
+    tooltip = DA_projects_research_buttons_background_Motorization_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Motorization = yes
+        DA_completed.Electric_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Motorization_3
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Urbanization_1
+    tooltip = DA_projects_research_buttons_background_Urbanization_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_yet_to_complete.Urbanization = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_in_development_tt
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Urbanization = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Urbanization = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Urbanization
+            time = 96
+            arcane = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.222
+                days = 30
+            }
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_Urbanization_2
+    tooltip = DA_projects_research_buttons_background_Urbanization_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Urbanization = yes
+        DA_completed.Steam_Power_Project = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_in_development_tt
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Urbanization_2
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_Urbanization_3
+    tooltip = DA_projects_research_buttons_background_Urbanization_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Urbanization = yes
+        DA_completed.Electric_Power_Project = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_in_development_tt
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Urbanization_3
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+

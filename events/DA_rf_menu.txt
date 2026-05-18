@@ -93,7 +93,7 @@ country_event = {
 		trigger = {
 			culture_group = dwarven
 			has_country_flag = DA_can_make_mage
-			NOT = {	ruler_has_mage_personality = yes }
+			ruler_is_not_powerful_mage = yes
 			treasury = 1000
 			check_variable = { ancientDwarvenKnowledge = 10 }
 		}
@@ -112,7 +112,7 @@ country_event = {
 			NOT = {
 				AND = {
 					has_country_flag = DA_can_make_mage
-					NOT = {	ruler_has_mage_personality = yes }
+					ruler_is_not_powerful_mage = yes
 					treasury = 1000
 					check_variable = { ancientDwarvenKnowledge = 10 }
 				}
@@ -123,7 +123,7 @@ country_event = {
 			custom_tooltip = DA_Lack_Artificial_mage_creation_tech
 		}
 		if = {
-			limit = { ruler_has_mage_personality = yes }
+			limit = { ruler_is_powerful_mage = yes }
 			custom_tooltip = DA_Lack_not_being_a_mage_already
 		}
 		if = {
@@ -149,8 +149,8 @@ country_event = {
 		trigger = {
 			culture_group = dwarven
 			has_country_flag = DA_can_graft_new_runes
-			ruler_studying_magic = yes
-			ruler_has_mage_personality = yes
+			type_is_studying_magic = { type = ruler }
+			ruler_is_powerful_mage = yes
 			treasury = 100
 			NOT = {	has_country_modifier = DA_Graft_runes_cooldown }
 			check_variable = { ancientDwarvenKnowledge = 5 }
@@ -169,8 +169,8 @@ country_event = {
 			NOT = {
 				AND = {
 					has_country_flag = DA_can_graft_new_runes
-					ruler_studying_magic = yes
-					ruler_has_mage_personality = yes
+					type_is_studying_magic = { type = ruler }
+					ruler_is_powerful_mage = yes
 					treasury = 100
 					NOT = {	has_country_modifier = DA_Graft_runes_cooldown }
 					check_variable = { ancientDwarvenKnowledge = 5 }
@@ -186,11 +186,11 @@ country_event = {
 			custom_tooltip = DA_Lack_cooldown_waiting
 		}
 		if = {
-			limit = { NOT = { ruler_studying_magic = yes } }
+			limit = { NOT = { type_is_studying_magic = { type = ruler } } }
 			custom_tooltip = DA_Lack_studying_magic
 		}
 		if = {
-			limit = { NOT = { ruler_has_mage_personality = yes } }
+			limit = { ruler_is_not_powerful_mage = yes }
 			custom_tooltip = DA_Lack_mage_ruler
 		}
 		if = {
@@ -348,40 +348,6 @@ country_event = {
 	}
 
 
-	option = {
-		name = "DA_Research_facility_menu.1.m1" #Mithril boost economy
-		trigger = {
-			culture_group = dwarven
-			any_core_province = {
-				province_id = 4236
-				has_province_flag = DA_Mithril_workshop_found
-				has_great_project = {
-					type = The_Dwarven_Workshop
-					tier = 1
-				}
-			}
-			any_core_province = {
-				trade_goods = mithril
-				NOT = { has_province_modifier = DA_mithril_production_boost }
-			}
-			check_variable = { ancientDwarvenKnowledge = 5 }
-		}
-		custom_tooltip = DA_Research_facility_menu.1.m1.tooltip
-		hidden_effect = {
-			subtract_variable = { ancientDwarvenKnowledge = 5 }
-			every_core_province = {
-				limit = {
-					NOT = { has_province_modifier = DA_mithril_production_boost }
-					trade_goods = mithril
-				}
-				add_province_triggered_modifier = DA_mithril_production_boost
-			}
-			clr_country_flag = DA_rf_menu_in_use
-		}
-		ai_chance = {
-			factor = 10
-		}
-	}
 
 	option = {
 		name = "DA_Research_facility_menu.1.z" #Open Runic Gate

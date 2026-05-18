@@ -36,8 +36,20 @@ DA_mana_required = {
 	custom_trigger_tooltip = {
 		tooltip = DA_mana_required_$amount$_tt
 		check_variable = {
-			which = DA_Arcane_Arts_mana
+			which = currentMana
 			value = $amount$
+		}
+	}
+}
+
+DA_Earth_Shatterer_power_required = {
+	custom_trigger_tooltip = {
+		tooltip = DA_Earth_Shatterer_power_required_tt
+		4247 = {
+			check_variable = {
+				which = DA_Earth_Shatterer_power
+				which = DA_Earth_Shatterer_power_cost
+			}
 		}
 	}
 }
@@ -173,6 +185,16 @@ DA_has_mechanics_inno_points_4 = {
 		check_variable = {
 			which = DA_mechanics_inno_points
 			value = 4
+		}
+	}
+}
+
+DA_SC_relation_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = DA_$DA_SC$_has_relation_$DA_relation$_tt
+		check_variable = {
+			which = DA_$DA_SC$_relation
+			value = $DA_relation$
 		}
 	}
 }

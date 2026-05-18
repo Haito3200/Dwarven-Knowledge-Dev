@@ -1,0 +1,894 @@
+
+
+#	DA_start_research = {
+#		flag = <specific_research_flag>
+#		time = <amount> # minimum 36
+#		# use only one of these 3:
+#		arcane = yes  # 1x
+#		steam = yes  # 0.5x
+#		electric = yes  # 0.25x
+#		unstoppable = yes # if you want to disable stopping for the current research
+#	}
+
+
+DA_start_research = {
+	custom_tooltip = DA_research_$time$_tt
+	set_country_flag = DA_research_in_progress
+	set_country_flag = DA_research_flag.$flag$
+	hidden_effect = {
+		set_variable = {
+			which = DA_research_progress
+			value = 0
+		}
+		set_variable = {
+			which = DA_research_progress_MAX
+			value = $time$
+		}
+		set_variable = {
+			which = DA_research_progress_MAX_temp
+			value = $time$
+		}
+		divide_variable = {
+			which = DA_research_progress_MAX_temp
+			value = 3
+		}
+		round_variable = {
+			which = DA_research_progress_MAX_temp
+			value = 0
+		}
+		[[arcane]
+			subtract_variable = {
+				which = DA_research_progress_MAX
+				which = DA_research_time_discount_1
+			}
+		]
+		[[steam]
+			subtract_variable = {
+				which = DA_research_progress_MAX
+				which = DA_research_time_discount_2
+			}
+		]
+		[[electric]
+			subtract_variable = {
+				which = DA_research_progress_MAX
+				which = DA_research_time_discount_3
+			}
+		]
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = DA_research_progress_MAX
+						which = DA_research_progress_MAX_temp
+					}
+				}
+			}
+			set_variable = {
+				which = DA_research_progress_MAX
+				which = DA_research_progress_MAX_temp
+			}
+		}
+		country_event = {
+			id = DA_General_Research_events.2
+			days = 30
+		}
+	}
+	if = {
+		limit = {
+			[[arcane]
+				check_variable = {
+					which = DA_research_time_discount_1
+					value = 1
+				}
+			]
+			[[steam]
+				check_variable = {
+					which = DA_research_time_discount_2
+					value = 1
+				}
+			]
+			[[electric]
+				check_variable = {
+					which = DA_research_time_discount_3
+					value = 1
+				}
+			]
+		}
+		[[arcane]
+			custom_tooltip = DA_research_time_discount_1_tt
+		]
+		[[steam]
+			custom_tooltip = DA_research_time_discount_2_tt
+		]
+		[[electric]
+			custom_tooltip = DA_research_time_discount_3_tt
+		]
+	}
+	[[unstoppable]
+		custom_tooltip = DA_research_is_unstoppable_tt
+		set_country_flag = DA_research_is_unstoppable
+	]
+}
+DA_reset_research = {
+	clr_country_flag = DA_research_in_progress
+	clr_country_flag = DA_research_is_unstoppable
+
+	
+	clr_country_flag = DA_research_flag.steam
+	clr_country_flag = DA_research_flag.electric
+	clr_country_flag = DA_research_flag.trascendence
+	clr_country_flag = DA_research_flag.air
+	clr_country_flag = DA_research_flag.air_2
+	clr_country_flag = DA_research_flag.water
+	clr_country_flag = DA_research_flag.water_2
+	clr_country_flag = DA_research_flag.fire
+	clr_country_flag = DA_research_flag.fire_2
+	clr_country_flag = DA_research_flag.earth
+	clr_country_flag = DA_research_flag.earth_2
+	clr_country_flag = DA_research_flag.ClockWork
+	clr_country_flag = DA_research_flag.ClockWork_2
+	clr_country_flag = DA_research_flag.ClockWork_3
+	clr_country_flag = DA_research_flag.ClockWork_4
+	clr_country_flag = DA_research_flag.explosives
+	clr_country_flag = DA_research_flag.explosives_2
+	clr_country_flag = DA_research_flag.Golem
+	clr_country_flag = DA_research_flag.Golem_2
+	clr_country_flag = DA_research_flag.Golem_3
+	clr_country_flag = DA_research_flag.Golem_4
+	clr_country_flag = DA_research_flag.Holy_Magic
+	clr_country_flag = DA_research_flag.Holy_Magic_2
+	clr_country_flag = DA_research_flag.Curse_Magic
+	clr_country_flag = DA_research_flag.Curse_Magic_2
+	clr_country_flag = DA_research_flag.warforged
+	clr_country_flag = DA_research_flag.warforged_2
+	clr_country_flag = DA_research_flag.warforged_3
+	clr_country_flag = DA_research_flag.warforged_to_artificer
+	clr_country_flag = DA_research_flag.Spirits
+	clr_country_flag = DA_research_flag.Spirits_2
+	clr_country_flag = DA_research_flag.Spirits_3
+	clr_country_flag = DA_research_flag.Spirits_4
+	clr_country_flag = DA_research_flag.Bio_Construct
+	clr_country_flag = DA_research_flag.Bio_Construct_2
+	clr_country_flag = DA_research_flag.Enhancement
+	clr_country_flag = DA_research_flag.Enhancement_2
+	clr_country_flag = DA_research_flag.Enhancement_3
+	clr_country_flag = DA_research_flag.Mechanization
+	clr_country_flag = DA_research_flag.Mechanization_2
+	clr_country_flag = DA_research_flag.Motorization
+	clr_country_flag = DA_research_flag.Motorization_2
+	clr_country_flag = DA_research_flag.Motorization_3
+	clr_country_flag = DA_research_flag.Universal_Law_Life
+	clr_country_flag = DA_research_flag.Universal_Law_Life_2
+	clr_country_flag = DA_research_flag.Universal_Law_Death
+	clr_country_flag = DA_research_flag.Universal_Law_Death_2
+	clr_country_flag = DA_research_flag.Universal_Law_Time
+	clr_country_flag = DA_research_flag.Universal_Law_Time_2
+	clr_country_flag = DA_research_flag.Universal_Law_Space
+	clr_country_flag = DA_research_flag.Universal_Law_Space_2
+	clr_country_flag = DA_research_flag.Dimensional_Eng
+	clr_country_flag = DA_research_flag.Dimensional_Eng_2
+	clr_country_flag = DA_research_flag.Airships
+	clr_country_flag = DA_research_flag.Airships_2
+	clr_country_flag = DA_research_flag.Resonance
+	clr_country_flag = DA_research_flag.Resonance_2
+	clr_country_flag = DA_research_flag.Tesla
+	clr_country_flag = DA_research_flag.Tesla_2
+	clr_country_flag = DA_research_flag.Runic_barrier
+	clr_country_flag = DA_research_flag.Runic_barrier_2
+	clr_country_flag = DA_research_flag.Runic_barrier_3
+	clr_country_flag = DA_research_flag.Runic_barrier_4
+	clr_country_flag = DA_research_flag.runes_manufacturing
+	clr_country_flag = DA_research_flag.runes_manufacturing_2
+	clr_country_flag = DA_research_flag.runes_manufacturing_rune
+	clr_country_flag = DA_research_flag.runes_manufacturing_arcane
+	clr_country_flag = DA_research_flag.runes_manufacturing_steam
+	clr_country_flag = DA_research_flag.runes_manufacturing_electric
+	clr_country_flag = DA_research_flag.runes_manufacturing_3
+	clr_country_flag = DA_research_flag.runes_manufacturing_4
+	clr_country_flag = DA_research_flag.runeforged_fort
+	clr_country_flag = DA_research_flag.runeforged_fort_2
+	clr_country_flag = DA_research_flag.runeforged_fort_3
+	clr_country_flag = DA_research_flag.runeforged_fort_4
+	clr_country_flag = DA_research_flag.artificial_mage_creation
+	clr_country_flag = DA_research_flag.artificial_mage_creation_2
+	clr_country_flag = DA_research_flag.artificial_mage_creation_3
+	clr_country_flag = DA_research_flag.artificial_mage_creation_4
+	clr_country_flag = DA_research_flag.runes_heritage
+	clr_country_flag = DA_research_flag.runes_heritage_2
+	clr_country_flag = DA_research_flag.mage_leaders
+	clr_country_flag = DA_research_flag.mage_leaders_2
+	clr_country_flag = DA_research_flag.mage_leaders_3
+	clr_country_flag = DA_research_flag.mage_leaders_4
+
+	
+	clr_country_flag = DA_research_flag.general_arcane_research
+	clr_country_flag = DA_research_flag.general_steam_research
+	clr_country_flag = DA_research_flag.general_electric_research
+
+	clr_country_flag = DA_research_flag.alchemy
+	clr_country_flag = DA_research_flag.arcane_arts
+	clr_country_flag = DA_research_flag.mechanics
+	clr_country_flag = DA_research_flag.medicine
+	clr_country_flag = DA_research_flag.metallurgy
+
+	set_variable = {
+		which = DA_research_progress
+		value = 0
+	}
+	set_variable = {
+		which = DA_research_progress_MAX
+		value = 0
+	}
+}
+
+
+###################################################################################
+###################################################################################
+###################################################################################
+###################################################################################
+###################################################################################
+###################################################################################
+
+
+DA_research_gives_reward = {
+	if = {
+		limit = { has_country_flag = DA_research_flag.steam }
+		country_event = {
+			id = DA_project_event.305
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.electric }
+		country_event = {
+			id = DA_project_event.315
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.trascendence }
+		country_event = {
+			id = DA_project_event.360
+		}
+	}
+
+	if = {
+		limit = { has_country_flag = DA_research_flag.general_arcane_research }
+		DA_General_Research_Reward_t1 = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.general_steam_research }
+		DA_General_Research_Reward_t2 = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.general_electric_research }
+		DA_General_Research_Reward_t3 = yes
+	}
+
+	# elemental magic
+	if = {
+		limit = { has_country_flag = DA_research_flag.air }
+		country_event = {
+			id = DA_project_event.214
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.air_2 }
+		
+		DA_give_random_elemental_magic_air = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.water }
+		country_event = {
+			id = DA_project_event.215
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.water_2 }
+		
+		DA_give_random_elemental_magic_water = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.fire }
+		country_event = {
+			id = DA_project_event.216
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.fire_2 }
+		
+		DA_give_random_elemental_magic_fire = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.earth }
+		country_event = {
+			id = DA_project_event.217
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.earth_2 }
+		
+		DA_give_random_elemental_magic_earth = yes
+	}
+	##################
+
+	# clockwork
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.ClockWork }
+		country_event = {
+			id = DA_project_event.204
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.ClockWork_2 }
+		DA_give_clockwork_blueprint_arcane = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.ClockWork_3 }
+		DA_give_clockwork_blueprint_steam = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.ClockWork_4 }
+		DA_give_clockwork_blueprint_electric = yes
+	}
+
+	##################
+	# explosives
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.explosives }
+		country_event = {
+			id = DA_project_event.208
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.explosives_2 }
+		DA_give_explosives_blueprint_arcane = yes
+	}
+	
+	##################
+	# Golem
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Golem }
+		country_event = {
+			id = DA_project_event.213
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Golem_2 }
+		DA_give_Golem_blueprint_arcane = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Golem_3 }
+		DA_give_Golem_blueprint_steam = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Golem_4 }
+		DA_give_Golem_blueprint_electric = yes
+	}
+	
+	##################
+	# Holy_Magic
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Holy_Magic }
+		country_event = {
+			id = DA_project_event.344
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Holy_Magic_2 }
+		DA_give_Holy_Magic_blueprint_arcane = yes
+	}
+	
+	##################
+
+	##################
+	# Curse_Magic
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Curse_Magic }
+		country_event = {
+			id = DA_project_event.334
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Curse_Magic_2 }
+		DA_give_Curse_Magic_blueprint_arcane = yes
+	}
+	
+	##################
+
+	##################
+	# warforged
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.warforged }
+		country_event = {
+			id = DA_General_Research_events.11
+		}
+		country_event = {
+			id = DA_General_MT_event.5
+			days = 10
+		}
+		
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.warforged_2 }
+		country_event = {
+			id = DA_General_Research_events.12
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.warforged_3 }
+		country_event = {
+			id = DA_General_Research_events.13
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.warforged_to_artificer }
+		country_event = {
+			id = DA_General_Research_events.14
+		}
+	}
+	
+	##################
+
+	
+	##################
+	# Spirits
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Spirits }
+		country_event = {
+			id = DA_project_event.349
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Spirits_2 }
+		DA_give_Spirits_blueprint_arcane = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Spirits_3 }
+		DA_give_Spirits_blueprint_steam = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Spirits_4 }
+		DA_give_Spirits_blueprint_electric = yes
+	}
+	
+	##################
+
+	
+	##################
+	# Bio_Construct
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Bio_Construct }
+		country_event = {
+			id = DA_project_event.235
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Bio_Construct_2 }
+		DA_give_Bio_Construct_blueprint_steam = yes
+	}
+	
+	##################
+
+
+
+	
+	##################
+	# Enhancement
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Enhancement }
+		country_event = {
+			id = DA_project_event.231
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Enhancement_2 }
+		DA_give_Enhancement_blueprint_steam = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Enhancement_3 }
+		DA_give_Enhancement_blueprint_electric = yes
+	}
+	
+	##################
+
+
+
+	
+	##################
+	# Mechanization
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Mechanization }
+		country_event = {
+			id = DA_project_event.324
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Mechanization_2 }
+		DA_give_Mechanization_blueprint_steam = yes
+	}
+	
+	##################
+
+
+
+	##################
+	# Motorization
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Motorization }
+		country_event = {
+			id = DA_project_event.226
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Motorization_2 }
+		DA_give_Motorization_blueprint_steam = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Motorization_3 }
+		DA_give_Motorization_blueprint_electric = yes
+	}
+	
+	##################
+
+
+	##################
+	# conceptual magic
+	if = {
+		limit = { has_country_flag = DA_research_flag.Universal_Law_Life }
+		country_event = {
+			id = DA_project_event.218
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Universal_Law_Life_2 }
+		
+		DA_give_random_Universal_Law_Life = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Universal_Law_Death }
+		country_event = {
+			id = DA_project_event.219
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Universal_Law_Death_2 }
+		
+		DA_give_random_Universal_Law_Death = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Universal_Law_Time }
+		country_event = {
+			id = DA_project_event.221
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Universal_Law_Time_2 }
+		
+		DA_give_random_Universal_Law_Time = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Universal_Law_Space }
+		country_event = {
+			id = DA_project_event.220
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Universal_Law_Space_2 }
+		
+		DA_give_random_Universal_Law_Space = yes
+	}
+	##################
+
+	##################
+	# Dimensional_Eng
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Dimensional_Eng }
+		country_event = {
+			id = DA_project_event.248
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Dimensional_Eng_2 }
+		DA_give_Dimensional_Eng_blueprint_electric = yes
+	}
+	
+	##################
+
+
+	##################
+	# Airships
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Airships }
+		country_event = {
+			id = DA_project_event.355
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Airships_2 }
+		DA_give_Airships_blueprint_electric = yes
+	}
+	
+	##################
+
+	##################
+	# Resonance
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Resonance }
+		country_event = {
+			id = DA_project_event.239
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Resonance_2 }
+		DA_give_Resonance_blueprint_electric = yes
+	}
+	
+	##################
+
+
+	##################
+	# Tesla
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Tesla }
+		country_event = {
+			id = DA_project_event.243
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Tesla_2 }
+		DA_give_Tesla_blueprint_electric = yes
+	}
+	
+	##################
+
+
+	##################
+	##################
+	##################
+	# unique dwarven rewards
+
+	##################
+	# Runic_barrier
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.Runic_barrier }
+		country_event = {
+			id = DA_adk.13
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Runic_barrier_2 }
+		country_event = {
+			id = DA_adk.131
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Runic_barrier_3 }
+		country_event = {
+			id = DA_adk.131
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.Runic_barrier_4 }
+		country_event = {
+			id = DA_adk.132
+		}
+	}
+	
+	##################
+
+	##################
+	# runes_manufacturing
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_manufacturing }
+		country_event = {
+			id = DA_Runesmiths_events.3
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_disaster_event.2
+				days = 365
+				random = 365
+			}
+			country_event = {
+				id = DA_disaster_event.3
+				days = 1825
+				random = 365
+			}
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_manufacturing_rune }
+		DA_Give_random_rune = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_manufacturing_arcane }
+		DA_Research_Reward_t1 = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_manufacturing_steam }
+		DA_Research_Reward_t2 = yes
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_manufacturing_electric }
+		DA_Research_Reward_t3 = yes
+	}
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_manufacturing_3 }
+		country_event = {
+			id = DA_Runesmiths_events.21
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_manufacturing_4 }
+		country_event = {
+			id = DA_project_event.98
+		}
+	}
+	##################
+
+	##################
+	# runeforged_fort
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.runeforged_fort }
+		country_event = {
+			id = DA_adk.11
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runeforged_fort_2 }
+		country_event = {
+			id = DA_adk.110
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runeforged_fort_3 }
+		country_event = {
+			id = DA_adk.111
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runeforged_fort_4 }
+		country_event = {
+			id = DA_adk.112
+		}
+	}
+	##################
+
+
+	##################
+	# artificial_mage_creation
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.artificial_mage_creation }
+		country_event = {
+			id = DA_adk.5
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Runesmiths_events.102
+				days = 120
+				random = 120
+			}
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.artificial_mage_creation_2 }
+		country_event = {
+			id = DA_adk.51
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.artificial_mage_creation_3 }
+		country_event = {
+			id = DA_adk.51
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.artificial_mage_creation_4 }
+		country_event = {
+			id = DA_adk.51
+		}
+	}
+	##################
+
+
+	##################
+	# runes_heritage
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_heritage }
+		country_event = {
+			id = DA_adk.7
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.runes_heritage_2 }
+		country_event = {
+			id = DA_adk.80
+		}
+	}
+	##################
+
+	##################
+	# mage_leaders
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.mage_leaders }
+		country_event = {
+			id = DA_adk.9
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.mage_leaders_2 }
+		country_event = {
+			id = DA_adk.91
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.mage_leaders_3 }
+		country_event = {
+			id = DA_adk.92
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.mage_leaders_4 }
+		country_event = {
+			id = DA_adk.93
+		}
+	}
+	##################
+
+
+	##################
+	# mage_leaders
+	
+	if = {
+		limit = { has_country_flag = DA_research_flag.alchemy }
+		country_event = {
+			id = DA_Tech_Tree_event.90
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.arcane_arts }
+		country_event = {
+			id = DA_Tech_Tree_event.91
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.mechanics }
+		country_event = {
+			id = DA_Tech_Tree_event.92
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.medicine }
+		country_event = {
+			id = DA_Tech_Tree_event.93
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.metallurgy }
+		country_event = {
+			id = DA_Tech_Tree_event.94
+		}
+	}
+	##################
+}

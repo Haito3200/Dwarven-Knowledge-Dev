@@ -1159,9 +1159,23 @@ DA_RS_IND_PROD_Stonecutting_Goggles = {
 	}
 	on_revoked = {
 		DA_remove_production_basic = yes
+		custom_tooltip = DA_can_find_metals_periodically
+		if = {
+			limit = {
+				has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled.Ores_discernment_rune
+			}
+			custom_tooltip = DA_can_find_metals_periodically_rares
+		}
 	}
 	on_invalid = {
 		DA_remove_production_basic = yes
+		custom_tooltip = DA_can_find_metals_periodically
+		if = {
+			limit = {
+				has_country_flag = DA_RS_IND_PROD_Stonecutting_Goggles_enabled.Ores_discernment_rune
+			}
+			custom_tooltip = DA_can_find_metals_periodically_rares
+		}
 	}
 	penalties = {
 	}
@@ -1640,34 +1654,12 @@ DA_RS_SOC_LUX_Lifespan_extension_rituals = {
 	can_revoke = { hidden_trigger = { ai = yes } }
 	on_granted = {
 		DA_grants_production_basic = yes
-		if = {
-			limit = {
-				has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.Magic_Theory_2
-			}
-            custom_tooltip = DA_add_magic_study_modifier_25_tt
-            hidden_effect = { update_magic_study_experience_modifier = { value = 25 }  } 
-			set_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-		}
 	}
 	on_revoked = {
 		DA_remove_production_basic = yes
-		if = {
-			limit = {
-				has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-			}
-            hidden_effect = { update_magic_study_experience_modifier = { value = -25 }  } 
-			clr_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-		}
 	}
 	on_invalid = {
 		DA_remove_production_basic = yes
-		if = {
-			limit = {
-				has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-			}
-            hidden_effect = { update_magic_study_experience_modifier = { value = -25 }  } 
-			clr_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.gave_buff
-		}
 	}
 	penalties = {
 	}
@@ -1675,6 +1667,11 @@ DA_RS_SOC_LUX_Lifespan_extension_rituals = {
 		DA_Runesmiths_privilege_slots = 1
 		monarch_lifespan = 0.25
 		nobles_loyalty_modifier = 0.05
+	}
+	
+	conditional_modifier = {
+		trigger = { has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.Magic_Theory_2 }
+		modifier = { mages_ruler_experience_mod = 0.2 }
 	}
 	conditional_modifier = {
 		trigger = { has_country_flag = DA_RS_SOC_LUX_Lifespan_extension_rituals_enabled.Medicine_2 }
@@ -1924,7 +1921,7 @@ DA_RS_SOC_COURT_Advanced_Runepowered_Filing_System = {
 		modifier = { possible_mil_policy = 1 }
 	}
 	conditional_modifier = {
-		trigger = { has_country_flag = DA_RS_SOC_COURT_Advanced_Runepowered_Filing_System_enabled.Dimensional_eng }
+		trigger = { has_country_flag = DA_RS_SOC_COURT_Advanced_Runepowered_Filing_System_enabled.Dimensional_Eng }
 		modifier = { state_governing_cost = -0.05 }
 	}
 	ai_will_do = { factor = 10 }
@@ -2411,7 +2408,7 @@ DA_RS_MIL_War_Simulation_Chambers = {
 		modifier = { allow_mercenary_drill = yes }
 	}
 	conditional_modifier = {
-		trigger = { has_country_flag = DA_RS_MIL_War_Simulation_Chambers_enabled.Dimensional_eng }
+		trigger = { has_country_flag = DA_RS_MIL_War_Simulation_Chambers_enabled.Dimensional_Eng }
 		modifier = { yearly_army_professionalism = 0.01 }
 	}
 	conditional_modifier = {
@@ -2447,10 +2444,10 @@ DA_RS_MIL_Heavy_Troops_Optimizations = {
 		DA_Runesmiths_privilege_slots = 1
 		cav_to_inf_ratio = 0.25
 		cavalry_cost = -0.25
-		amount_of_hussars = 50
+		DA_fake_warforged_cavalry_force_limit = 50
 	}
 	conditional_modifier = {
-		trigger = { has_country_flag = DA_RS_MIL_Heavy_Troops_Optimizations_enabled.Dimensional_eng }
+		trigger = { has_country_flag = DA_RS_MIL_Heavy_Troops_Optimizations_enabled.Dimensional_Eng }
 		modifier = { movement_speed = 0.1 }
 	}
 	conditional_modifier = {
@@ -2488,7 +2485,7 @@ DA_RS_project_Platinum_exoskeletons = {
 	}
 	on_granted = {
 		add_treasury = -4000
-		custom_tooltip = DA_cost_15_ADK
+		custom_tooltip = DA_Cost_15_ADK
 		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 15 }  } 
 		DA_grants_production_masterwork = yes
 		hidden_effect = {

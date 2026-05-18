@@ -1,0 +1,792 @@
+
+###################################################################################
+###################################################################################
+############################### Unique ############################################
+###################################################################################
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_button_Unique
+    tooltip = DA_projects_research_button_Unique_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        culture_group = dwarven
+    }
+    effect = {
+        clr_country_flag = DA_projects_research_Interface_on_arcane_1
+        clr_country_flag = DA_projects_research_Interface_on_arcane_2
+        clr_country_flag = DA_projects_research_Interface_on_Steam_1
+        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
+        clr_country_flag = DA_projects_research_Interface_on_Unique_1
+
+        set_country_flag = DA_projects_research_Interface_on_Unique_1
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_runic_barriers_1
+    tooltip = DA_projects_research_buttons_background_runic_barriers_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_2_or_higher = yes	
+		DA_yet_to_complete.Runic_barrier = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Runic_barrier = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Runic_barrier = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Runic_barrier
+            time = 36
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runic_barriers_2
+    tooltip = DA_projects_research_buttons_background_runic_barriers_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_4_or_higher = yes	
+        DA_completed.Runic_barrier = yes
+        DA_yet_to_complete.Runic_barrier_t2 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Runic_barrier_t2 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Runic_barrier_t2 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Runic_barrier_2
+            time = 48
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runic_barriers_3
+    tooltip = DA_projects_research_buttons_background_runic_barriers_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_6_or_higher = yes	
+        DA_completed.Runic_barrier_t2 = yes
+        DA_yet_to_complete.Runic_barrier_t3 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.Runic_barrier_t3 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Runic_barrier_t3 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Runic_barrier_3
+            time = 72
+            electric = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runic_barriers_4
+    tooltip = DA_projects_research_buttons_background_runic_barriers_4_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Runic_barrier_t3 = yes
+		calc_true_if = {
+			all_core_province = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = DA_has_dwarven_runic_barrier_t3_tt
+					has_Dwarven_magic_Barrier_t3 = yes
+				}
+			}
+			amount = 6
+		}
+        NOT = { has_country_modifier = DA_impenetrable_dwarovar }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            NOT = { has_country_modifier = DA_impenetrable_dwarovar }
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            has_country_modifier = DA_impenetrable_dwarovar
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = Runic_barrier_4
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_runes_manufacturing_1
+    tooltip = DA_projects_research_buttons_background_runes_manufacturing_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_3_or_higher = yes
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_unlocked_production_System }
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            NOT = { has_country_flag = DA_unlocked_production_System }
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            has_country_flag = DA_unlocked_production_System
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runes_manufacturing
+            time = 96
+            arcane = yes
+            unstoppable = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runes_manufacturing_2
+    tooltip = DA_projects_research_buttons_background_runes_manufacturing_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_3_or_higher = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_unlocked_production_System_tt
+            has_country_flag = DA_unlocked_production_System
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+	effect = {
+		add_adm_power = -10
+		add_dip_power = -10
+		add_mil_power = -10
+        country_event = {
+            id = DA_Runesmiths_events.1
+        }
+        set_estate_privilege = DA_Runesmith_research_privilege
+	}
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runes_manufacturing_3
+    tooltip = DA_projects_research_buttons_background_runes_manufacturing_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_4_or_higher = yes	
+        custom_trigger_tooltip = {
+            tooltip = DA_unlocked_production_System_tt
+            has_country_flag = DA_unlocked_production_System
+        }
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_RS_inventions_unlocked }
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            NOT = { has_country_flag = DA_RS_inventions_unlocked }
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            has_country_flag = DA_RS_inventions_unlocked
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runes_manufacturing_3
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runes_manufacturing_4
+    tooltip = DA_projects_research_buttons_background_runes_manufacturing_4_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_5_or_higher = yes
+        NOT = { has_country_flag =  DA_Disabled_simple_Runes }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            NOT = { has_country_flag =  DA_Disabled_simple_Runes }
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            has_country_flag =  DA_Disabled_simple_Runes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runes_manufacturing_4
+            time = 72
+            steam = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_runic_fortifications_1
+    tooltip = DA_projects_research_buttons_background_runic_fortifications_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_2_or_higher = yes	
+		DA_yet_to_complete.runeforged_fort = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.runeforged_fort = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.runeforged_fort = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runeforged_fort
+            time = 36
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runic_fortifications_2
+    tooltip = DA_projects_research_buttons_background_runic_fortifications_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_4_or_higher = yes	
+        DA_completed.runeforged_fort = yes
+        DA_yet_to_complete.runeforged_fort_t2 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.runeforged_fort_t2 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.runeforged_fort_t2 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runeforged_fort_2
+            time = 48
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runic_fortifications_3
+    tooltip = DA_projects_research_buttons_background_runic_fortifications_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_6_or_higher = yes	
+        DA_completed.runeforged_fort_t2 = yes
+        DA_yet_to_complete.runeforged_fort_t3 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.runeforged_fort_t3 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.runeforged_fort_t3 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runeforged_fort_3
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runic_fortifications_4
+    tooltip = DA_projects_research_buttons_background_runic_fortifications_4_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.runeforged_fort_t3 = yes
+        DA_yet_to_complete.runeforged_fort_t4 = yes
+		any_core_province = {
+			owned_by = root
+			has_province_modifier = DA_Hehogrim_workshop
+		}
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.runeforged_fort_t4 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.runeforged_fort_t4 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runeforged_fort_4
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_artificial_mage_creation_1
+    tooltip = DA_projects_research_buttons_background_artificial_mage_creation_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_2_or_higher = yes	
+		DA_yet_to_complete.artificial_mage_creation = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.artificial_mage_creation = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.artificial_mage_creation = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = artificial_mage_creation
+            time = 36
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_artificial_mage_creation_2
+    tooltip = DA_projects_research_buttons_background_artificial_mage_creation_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_4_or_higher = yes	
+        DA_completed.artificial_mage_creation = yes
+        DA_yet_to_complete.artificial_mage_creation_t1 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.artificial_mage_creation_t1 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.artificial_mage_creation_t1 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = artificial_mage_creation_2
+            time = 48
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_artificial_mage_creation_3
+    tooltip = DA_projects_research_buttons_background_artificial_mage_creation_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_6_or_higher = yes	
+        DA_completed.artificial_mage_creation_t1 = yes
+        DA_yet_to_complete.artificial_mage_creation_t2 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.artificial_mage_creation_t2 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.artificial_mage_creation_t2 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = artificial_mage_creation_3
+            time = 72
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_artificial_mage_creation_4
+    tooltip = DA_projects_research_buttons_background_artificial_mage_creation_4_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_8_or_higher = yes	
+        DA_completed.artificial_mage_creation_t2 = yes
+        DA_yet_to_complete.artificial_mage_creation_t3 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.artificial_mage_creation_t3 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.artificial_mage_creation_t3 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = artificial_mage_creation_4
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_runes_heritage_1
+    tooltip = DA_projects_research_buttons_background_runes_heritage_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_3_or_higher = yes	
+		DA_yet_to_complete.runes_heritage = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.runes_heritage = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.runes_heritage = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runes_heritage
+            time = 48
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_runes_heritage_2
+    tooltip = DA_projects_research_buttons_background_runes_heritage_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_4_or_higher = yes	
+        DA_completed.runes_heritage = yes
+        DA_yet_to_complete.runes_heritage_t2 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.runes_heritage_t2 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.runes_heritage_t2 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = runes_heritage_2
+            time = 72
+            arcane = yes
+        }
+    }
+}
+###################################################################################
+
+###################################################################################
+
+custom_button = {
+    name = DA_projects_research_buttons_background_mage_leaders_1
+    tooltip = DA_projects_research_buttons_background_mage_leaders_1_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_3_or_higher = yes	
+		DA_yet_to_complete.mage_leaders = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.mage_leaders = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.mage_leaders = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = mage_leaders
+            time = 48
+            arcane = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_mage_leaders_2
+    tooltip = DA_projects_research_buttons_background_mage_leaders_2_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_5_or_higher = yes	
+        DA_completed.mage_leaders = yes
+        DA_yet_to_complete.mage_leaders_t2 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.mage_leaders_t2 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.mage_leaders_t2 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = mage_leaders_2
+            time = 60
+            steam = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_mage_leaders_3
+    tooltip = DA_projects_research_buttons_background_mage_leaders_3_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_6_or_higher = yes	
+        DA_completed.mage_leaders_t2 = yes
+        DA_yet_to_complete.mage_leaders_t3 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.mage_leaders_t3 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.mage_leaders_t3 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = mage_leaders_3
+            time = 72
+            electric = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_mage_leaders_4
+    tooltip = DA_projects_research_buttons_background_mage_leaders_4_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+		DA_has_RF_11_or_higher = yes	
+        DA_completed.mage_leaders_t3 = yes
+        DA_yet_to_complete.mage_leaders_t4 = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_yet_to_complete.mage_leaders_t4 = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.mage_leaders_t4 = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = mage_leaders_4
+            time = 96
+            electric = yes
+        }
+    }
+}
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################
+
+###################################################################################

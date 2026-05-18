@@ -1,0 +1,413 @@
+# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
+
+
+
+# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
+#custom_button = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the button is visible
+#    trigger = { } #Determines when the button is clickable
+#    effect = { } #Effect
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_text_box = {
+#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
+#    potential = { } #Determines when the text is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    #To localize it, use the name of the button as a key, can also use customizable localisation
+#}
+
+#custom_icon = {
+#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
+#    potential = { } #Determines when the icon is visible
+#    tooltip = localisation_key #Can use customizable localisation
+#    frame = {  #Can define multiple frame clauses
+#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+#        trigger = { } #First matched frame clause will be used.
+#    }
+#}
+
+#custom_shield = {
+#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
+#    potential = { } #Determines when the shield is visible
+#    trigger = { } #Determines when the shield is clickable
+#    effect = { } #Effect for clicking
+#    tooltip = localisation_key #Can use customizable localisation
+#    global_event_target = <string> # Global event target name
+#    open_country = <bool> #If clicking opens the country view
+#}
+
+##############################  Supported files with scopes ##############################
+#   The Gui objects must be directly inside the specified window Gui element!
+#   FROM is always the country that clicks
+#   provinceview.gui:
+#       province_window         (ROOT: Clicked province)
+#       buildings_window        (ROOT: Clicked province)
+#       state_window            (ROOT: Clicked province)
+#   countrycourtview.gui:
+#       countrycourtview        (ROOT = FROM)
+#   countrygovernmentview.gui:
+#       countrygovernmentview   (ROOT = FROM)
+#   countrydiplomacyview.gui:
+#       countrydiplimacyview    (ROOT: Selected country)
+#   countryeconomyview.gui:
+#       countryeconomyview      (ROOT = FROM)
+#   countrytradeview.gui:
+#       countrytradeview        (ROOT = FROM)
+#   countrytechnologyview.gui:
+#       countrytechnologyview   (ROOT = FROM)
+#   countryideasview.gui:
+#       countryideasview        (ROOT = FROM)
+#   countrymissionsview.gui:
+#       countrymissionsview     (ROOT: Selected country)
+#   countrydecisionview.gui:
+#       countrydecisionsview    (ROOT = FROM)
+#   countrystabilityview.gui:
+#       countrystabilityview    (ROOT = FROM)
+#   countryreligionview.gui:
+#       countryreligionview     (ROOT = FROM)
+#   countrymilitaryview.gui:
+#       countrymilitaryview     (ROOT = FROM)
+#   countrysubjectsview.gui:
+#       countrysubjectview      (ROOT = FROM)
+#   countryestatesview.gui:
+#       countryestatesview      (ROOT = FROM)
+#   ages_view.gui:
+#       ages_view               (ROOT = FROM)
+#   tradeinterface.gui:
+#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
+#   hre.gui:
+#       hre_window              (ROOT = FROM)
+#   papacy.gui:
+#       papacy_window           (ROOT = FROM)
+#   faction.gui:
+#       All faction windows     (ROOT = FROM)
+#   celestialempireview.gui:
+#       celestial_window        (ROOT = FROM)
+#   countrynativesview.gui:
+#       natives_window          (ROOT = FROM)
+#   religiousreforms.gui:
+#       reforms_window          (ROOT = FROM)
+#   parliament.gui:
+#       parliament_window       (ROOT = FROM)
+
+
+
+custom_window = {
+    name = DA_projects_research_Interface
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on
+    }
+}
+custom_icon = {
+    name = DA_projects_research_Interface_Main_icon
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on
+    }
+}
+
+custom_text_box = {
+    name = DA_projects_research_Interface_on_name_shower #Must match a scripted instantTextBoxType in a .gui file
+    potential = { always = yes } #Determines when the text is visible
+    tooltip = DA_projects_research_Interface_on_name_shower #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+    name = DA_projects_research_Interface_on_button_previous
+    tooltip = DA_projects_research_Interface_on_button_previous_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_projects_research_Interface_on_arcane_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Steam_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Electrical_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Unique_1 }
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                has_country_flag = DA_projects_research_Interface_on_arcane_2
+            }
+            clr_country_flag = DA_projects_research_Interface_on_arcane_2
+            set_country_flag = DA_projects_research_Interface_on_arcane_1
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_Interface_on_button_next
+    tooltip = DA_projects_research_Interface_on_button_next_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_projects_research_Interface_on_arcane_2 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Steam_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Electrical_1 }
+            NOT = { has_country_flag = DA_projects_research_Interface_on_Unique_1 }
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                has_country_flag = DA_projects_research_Interface_on_arcane_1
+            }
+            clr_country_flag = DA_projects_research_Interface_on_arcane_1
+            set_country_flag = DA_projects_research_Interface_on_arcane_2
+        }
+    }
+}
+
+custom_window = {
+    name = DA_projects_research_Interface_Arcane_1
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_arcane_1
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Arcane_2
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_arcane_2
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Steam_1
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_Steam_1
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Electrical_1
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_Electrical_1
+    }
+}
+custom_window = {
+    name = DA_projects_research_Interface_Unique_1
+    potential = {
+        has_country_flag = DA_projects_research_Interface_on_Unique_1
+    }
+}
+
+
+custom_button = {
+	name = DA_Miscellaneous_Research_Button
+	tooltip = DA_Miscellaneous_Research_Button_tt
+	potential = {
+		always = yes
+	}
+    trigger = {
+        DA_available_research = yes
+    }
+	effect = {
+        country_event = {
+            id = DA_General_Research_events.100
+        }
+		add_adm_power = -10
+		add_dip_power = -10
+		add_mil_power = -10
+	}
+}
+
+
+
+    # idk what this even is
+	custom_button = { name = DA_research_progress_bar_frame potential = { always = no } tooltip = DA_Fake_Research_progress_button_tt }
+	custom_text_box = { name = DA_research_progress_bar_frame potential = { always = no } tooltip = DA_Fake_Research_progress_button_tt }
+	custom_text_box = { name = DA_research_progress_bar potential = { always = no } }
+	custom_button = {
+		name = DA_research_progress_bar
+		frame_variable = DA_research_progress_percent
+	}
+	custom_icon = {
+		name = DA_research_progress_bar_frame
+		tooltip = DA_Fake_Research_progress_button_tt
+	}
+
+###############################################################
+
+
+custom_button = {
+    name = DA_projects_research_buttons_stop
+    tooltip = DA_projects_research_buttons_stop_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_research_in_progress_tt
+            has_country_flag = DA_research_in_progress
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_research_is_not_unstoppable_tt
+            NOT = { has_country_flag = DA_research_is_unstoppable }
+        }
+    }
+    effect = {
+        custom_tooltip = DA_reset_research_tt
+        hidden_effect = {
+            DA_reset_research = yes
+        }
+    }
+}
+custom_button = {
+    name = DA_projects_research_buttons_background_Advancement_arcane
+    tooltip = DA_projects_research_buttons_background_Advancement_arcane_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        hidden_trigger = {
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = no
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = yes
+        }
+    }
+    effect = {
+    }
+}
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Advancement_steam
+    tooltip = DA_projects_research_buttons_background_Advancement_steam_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Magic_Theory_2 = yes
+        DA_completed.Mechanics_2 = yes
+        DA_completed.Alchemy_2 = yes
+        DA_yet_to_complete.Steam_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_completed.Steam_Power_Project = no
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Steam_Power_Project = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = steam
+            time = 120
+            steam = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.300
+                days = 30
+            }
+        }
+    }
+}
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Advancement_electric
+    tooltip = DA_projects_research_buttons_background_Advancement_electric_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Magic_Theory_3 = yes
+        DA_completed.Mechanics_3 = yes
+        DA_completed.Alchemy_3 = yes
+        DA_completed.Steam_Power_Project = yes
+        DA_yet_to_complete.Electric_Power_Project = yes
+    }
+    frame = {
+        number = 1
+        trigger = {
+            DA_completed.Electric_Power_Project = no
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_completed.Electric_Power_Project = yes
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = electric
+            time = 180
+            electric = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = {
+                id = DA_project_event.310
+                days = 30
+            }
+        }
+    }
+}
+
+custom_button = {
+    name = DA_projects_research_buttons_background_Advancement_tracendence
+    tooltip = DA_projects_research_buttons_background_Advancement_tracendence_tt
+    potential = {
+        always = yes
+    }
+    trigger = {
+        DA_available_research = yes
+        DA_completed.Electric_Power_Project = yes
+        custom_trigger_tooltip = {
+            tooltip = DA_in_development_tt
+            always = no
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            always = yes
+        }
+    }
+    frame = {
+        number = 2
+        trigger = {
+            always = no
+        }
+    }
+    effect = {
+        DA_start_research = {
+            flag = trascendence
+            time = 240
+            electric = yes
+            unstoppable = yes
+        }
+        hidden_effect = {
+            country_event = { #to be done
+                id = DA_project_event.310
+                days = 30
+            }
+        }
+    }
+}
+

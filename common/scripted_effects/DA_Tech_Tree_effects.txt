@@ -14,11 +14,38 @@ DA_new_missions_tech_tree = { # to be used after all other unlocking effects
 
 DA_Tech_prov.Medicine = {
 	custom_tooltip = DA_Medicine.$amount$
+	if = {
+		limit = {
+			owner = {
+				check_variable = {
+					which = DA_Medicine_exp_modifier_var
+					value = 1.01
+				}
+			}
+		}
+		custom_tooltip = DA_Medicine_exp_multiplied_tt
+	}
 	hidden_effect = {
 		owner = {
+			export_to_variable = {
+				value = modifier:DA_fake_Medicine_exp_modifier
+				variable_name = DA_Medicine_exp_modifier_var
+			}
 			change_variable = {
-				which = DA_medicine_exp
+				which = DA_Medicine_exp_modifier_var
+				value = 1
+			}
+			set_variable = {
+				which = DA_Medicine_exp_temp
 				value = $amount$
+			}
+			multiply_variable = {
+				which = DA_Medicine_exp_temp
+				which = DA_Medicine_exp_modifier_var
+			}
+			change_variable = {
+				which = DA_Medicine_exp
+				which = DA_Medicine_exp_temp
 			}
 		}
 	}
@@ -26,44 +53,152 @@ DA_Tech_prov.Medicine = {
 
 DA_Tech_prov.Alchemy = {
 	custom_tooltip = DA_Alchemy.$amount$
+	if = {
+		limit = {
+			owner = {
+				check_variable = {
+					which = DA_Alchemy_exp_modifier_var
+					value = 1.01
+				}
+			}
+		}
+		custom_tooltip = DA_Alchemy_exp_multiplied_tt
+	}
 	hidden_effect = {
 		owner = {
+			export_to_variable = {
+				value = modifier:DA_fake_Alchemy_exp_modifier
+				variable_name = DA_Alchemy_exp_modifier_var
+			}
 			change_variable = {
-				which = DA_alchemy_exp
+				which = DA_Alchemy_exp_modifier_var
+				value = 1
+			}
+			set_variable = {
+				which = DA_Alchemy_exp_temp
 				value = $amount$
+			}
+			multiply_variable = {
+				which = DA_Alchemy_exp_temp
+				which = DA_Alchemy_exp_modifier_var
+			}
+			change_variable = {
+				which = DA_Alchemy_exp
+				which = DA_Alchemy_exp_temp
 			}
 		}
 	}
 }
 DA_Tech_prov.Magic_Theory = {
 	custom_tooltip = DA_Magic_Theory.$amount$
+	if = {
+		limit = {
+			owner = {
+				check_variable = {
+					which = DA_Arcane_Arts_exp_modifier_var
+					value = 1.01
+				}
+			}
+		}
+		custom_tooltip = DA_Arcane_Arts_exp_multiplied_tt
+	}
 	hidden_effect = {
 		owner = {
+			export_to_variable = {
+				value = modifier:DA_fake_Arcane_Arts_exp_modifier
+				variable_name = DA_Arcane_Arts_exp_modifier_var
+			}
 			change_variable = {
-				which = DA_acane_arts_exp
+				which = DA_Arcane_Arts_exp_modifier_var
+				value = 1
+			}
+			set_variable = {
+				which = DA_Arcane_Arts_exp_temp
 				value = $amount$
+			}
+			multiply_variable = {
+				which = DA_Arcane_Arts_exp_temp
+				which = DA_Arcane_Arts_exp_modifier_var
+			}
+			change_variable = {
+				which = DA_Arcane_Arts_exp
+				which = DA_Arcane_Arts_exp_temp
 			}
 		}
 	}
 }
 DA_Tech_prov.Mechanics = {
 	custom_tooltip = DA_Mechanics.$amount$
+	if = {
+		limit = {
+			owner = {
+				check_variable = {
+					which = DA_Mechanics_exp_modifier_var
+					value = 1.01
+				}
+			}
+		}
+		custom_tooltip = DA_Mechanics_exp_multiplied_tt
+	}
 	hidden_effect = {
 		owner = {
+			export_to_variable = {
+				value = modifier:DA_fake_Mechanics_exp_modifier
+				variable_name = DA_Mechanics_exp_modifier_var
+			}
 			change_variable = {
-				which = DA_mechanics_exp
+				which = DA_Mechanics_exp_modifier_var
+				value = 1
+			}
+			set_variable = {
+				which = DA_Mechanics_exp_temp
 				value = $amount$
+			}
+			multiply_variable = {
+				which = DA_Mechanics_exp_temp
+				which = DA_Mechanics_exp_modifier_var
+			}
+			change_variable = {
+				which = DA_Mechanics_exp
+				which = DA_Mechanics_exp_temp
 			}
 		}
 	}
 }
 DA_Tech_prov.Metallurgy = {
 	custom_tooltip = DA_Metallurgy.$amount$
+	if = {
+		limit = {
+			owner = {
+				check_variable = {
+					which = DA_Metallurgy_exp_modifier_var
+					value = 1.01
+				}
+			}
+		}
+		custom_tooltip = DA_Metallurgy_exp_multiplied_tt
+	}
 	hidden_effect = {
 		owner = {
+			export_to_variable = {
+				value = modifier:DA_fake_Metallurgy_exp_modifier
+				variable_name = DA_Metallurgy_exp_modifier_var
+			}
 			change_variable = {
-				which = DA_metallurgy_exp
+				which = DA_Metallurgy_exp_modifier_var
+				value = 1
+			}
+			set_variable = {
+				which = DA_Metallurgy_exp_temp
 				value = $amount$
+			}
+			multiply_variable = {
+				which = DA_Metallurgy_exp_temp
+				which = DA_Metallurgy_exp_modifier_var
+			}
+			change_variable = {
+				which = DA_Metallurgy_exp
+				which = DA_Metallurgy_exp_temp
 			}
 		}
 	}
@@ -227,12 +362,12 @@ DA_Allow_Tech.Soul_Genesis = {
 		}
 	}
 }
-DA_Allow_Tech.Dimensional_eng = {
-	custom_tooltip = DA_Dimensional_eng.tt
+DA_Allow_Tech.Dimensional_Eng = {
+	custom_tooltip = DA_Dimensional_Eng.tt
 	hidden_effect = {
-		set_country_flag = DA_Project.Allowed.Dimensional_eng
+		set_country_flag = DA_Project.Allowed.Dimensional_Eng
 		owner = {
-			set_country_flag = DA_Project.Allowed.Dimensional_eng
+			set_country_flag = DA_Project.Allowed.Dimensional_Eng
 		}
 	}
 }
@@ -270,8 +405,8 @@ DA_Found_Blue_rune_effect = { # this effect is made to be used in province scope
 	[[Soul_Genesis]
 		DA_Allow_Tech.Soul_Genesis = yes
 	]
-	[[Dimensional_eng]
-		DA_Allow_Tech.Dimensional_eng = yes
+	[[Dimensional_Eng]
+		DA_Allow_Tech.Dimensional_Eng = yes
 	]
 	[[Elemental_Magic_Air]
 		DA_Allow_Tech.Elemental_Magic_Air = yes
@@ -447,10 +582,10 @@ DA_Complete.Soul_Genesis = {
 		set_country_flag = DA_Project.completed.Soul_Genesis
 	}
 }
-DA_Complete.Dimensional_eng = {
+DA_Complete.Dimensional_Eng = {
 	custom_tooltip = DA_Following_project_completed
-	custom_tooltip = DA_Dimensional_eng.tt
+	custom_tooltip = DA_Dimensional_Eng.tt
 	hidden_effect = {
-		set_country_flag = DA_Project.completed.Dimensional_eng
+		set_country_flag = DA_Project.completed.Dimensional_Eng
 	}
 }

@@ -98,7 +98,7 @@
 custom_window = {
     name = DA_Metallurgy_interface_Inventions
     potential = {
-        has_country_flag = DA_Metallurgy_interface_on_inventions
+        has_country_flag = DA_Racial_Interface_on_Dwarven_inventions
     }
 }
 # custom_icon = {
@@ -185,11 +185,7 @@ custom_button = {
 		always = yes
 	}
     trigger = {
-        custom_trigger_tooltip = {
-            tooltip = DA_NO_Research_in_progress_tt
-            NOT = { has_estate_privilege = DA_Runesmith_research_privilege }
-            NOT = { has_country_modifier = DA_General_research_Mod }
-        }
+        DA_available_research = yes
         if = {
             limit = {
 				culture_group = dwarven
@@ -1221,6 +1217,132 @@ custom_icon = {
     potential = {
 			has_country_flag = DA_show_inventions_Projects
     }
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_Project_1_1
+	tooltip = DA_PCRM_Project
+	potential = { 
+		has_country_flag = DA_show_inventions_Projects
+	}
+	frame = {
+		number = 1
+		trigger = {
+			has_country_flag = DA_enabled_PCRM
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_PCRM_Project
+			}
+			NOT = {
+				has_country_flag = DA_enabled_PCRM
+			}
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_PCRM_Project
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_Disabled_simple_Runes
+			NOT = { has_country_flag = DA_enabled_PCRM }
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_masterwork = yes
+				NOT = {
+					has_estate_privilege = DA_PCRM_Project
+				}
+			}
+			set_estate_privilege = DA_PCRM_Project
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_masterwork = no
+				NOT = {
+					has_estate_privilege = DA_PCRM_Project
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_PCRM_Project
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = DA_Runesmith_invention_Project_1_2
+	tooltip = DA_PMRM_Project
+	potential = { 
+		has_country_flag = DA_show_inventions_Projects
+	}
+	frame = {
+		number = 1
+		trigger = {
+			has_country_flag = DA_enabled_PMRM
+		}
+	}
+	frame = {
+		number = 2
+		trigger = {
+			NOT = {
+				has_estate_privilege = DA_PMRM_Project
+			}
+			NOT = {
+				has_country_flag = DA_enabled_PMRM
+			}
+		}
+	}
+	frame = {
+		number = 3
+		trigger = {
+			has_estate_privilege = DA_PMRM_Project
+		}
+	}
+	trigger = {
+		hidden_trigger = {
+			has_country_flag = DA_Disabled_simple_Runes
+			NOT = { has_country_flag = DA_enabled_PMRM }
+		}
+	}
+	effect = { 
+		if = {
+			limit = {
+				DA_RS_has_points_for_masterwork = yes
+				NOT = {
+					has_estate_privilege = DA_PMRM_Project
+				}
+			}
+			set_estate_privilege = DA_PMRM_Project
+		}
+		else_if = {
+			limit = {
+				DA_RS_has_points_for_masterwork = no
+				NOT = {
+					has_estate_privilege = DA_PMRM_Project
+				}
+			}
+			custom_tooltip = DA_Runesmith_cannot_afford_invention
+			tooltip = {
+				set_estate_privilege = DA_PMRM_Project
+			}
+		}
+        else_if = {
+			limit = {
+				has_estate_privilege = DA_PMRM_Project
+			}
+			remove_estate_privilege = DA_PMRM_Project
+		}
+	}
 }
 
 

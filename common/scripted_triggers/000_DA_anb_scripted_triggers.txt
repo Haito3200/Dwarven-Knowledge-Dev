@@ -94,6 +94,30 @@
 #	}
 #}
 
+#siege_interface_siege_trigger = { # edi this if you want to make something impervious to magic
+#	sieged_by = FROM
+#	hidden_trigger = { unit_in_battle = no } #Reported cases of simultaneous sieges and battles
+#	unit_has_leader = yes
+#	if = { #AI shouldn't destroy their own side's forts
+#		limit = { FROM = { ai = yes } }
+#		owner = { war_with = FROM }
+#	}
+#	if = {
+#		limit = { has_province_modifier = abjuration_1_ward_mod_3 }
+#		custom_trigger_tooltip = {
+#			tooltip = cannot_siege_magical_fortress
+#			always = no
+#		}
+#	}
+#	if = {
+#		limit = { owner = { has_estate_privilege = estate_artificers_porcelain_shields } }
+#		custom_trigger_tooltip = {
+#			tooltip = cannot_siege_porcelain_ramparts
+#			NOT = { has_building = ramparts }
+#		}
+#	}
+#}
+
 has_adm_advisor = {
 	custom_trigger_tooltip = {
 		tooltip = has_adm_advisor_tooltip

@@ -122,30 +122,151 @@ custom_button = {
             DA_initialise_interface_variables = yes
             if = {
                 limit = {
-                    has_country_flag = DA_Metallurgy_interface_on
+                    DA_has_any_interface_active_trigger = yes
                 }
-                clr_country_flag = DA_Metallurgy_interface_on
-                clr_country_flag = DA_Metallurgy_interface_on_main
-                clr_country_flag = DA_Metallurgy_interface_on_alloy
-                clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-                clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-                clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-                clr_country_flag = DA_Metallurgy_interface_on_Medicine
-
-                clr_country_flag = DA_Metallurgy_interface_on_inventions
-                clr_country_flag = DA_Metallurgy_interface_on_research_facility
-                clr_country_flag = DA_Metallurgy_interface_on_wonders
+                
+                DA_clear_all_interface_flags = yes
             }
             else = {
-                set_country_flag = DA_Metallurgy_interface_on
-                set_country_flag = DA_Metallurgy_interface_on_main
+                set_country_flag = DA_AKT_interface_on
+                set_country_flag = DA_Technology_interface_on_main
             }
         }
 	}
 }
+
+custom_icon = {
+    name = DA_topbar_alert_explore_hold
+    potential = {
+        OR = {
+            culture_group = dwarven
+            culture_group = goblin
+            culture_group = kobold
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_Has_unexplored_dig_level_tooltip
+            NOT = { has_country_flag = DA_ADK_menu_in_use }
+            OR = {
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_1_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_2 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 25
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_2_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_3 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 50
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_3_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_4 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 100
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_4_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_5 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 200
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_5_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_6 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 300
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_6_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_7 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 500
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_7_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_8 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 800
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_8_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_9 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 1200
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_9_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_10 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 2500
+                    }
+                }
+                any_core_province = {
+                    owned_by = root
+                    DA_has_dig_level_10_or_higher = yes
+                    NOT = { has_province_flag = DA_looked_dig_adk_11 }
+                    NOT = { has_province_flag = DA_expedition_in_progress }
+                    owner = {
+                        treasury = 5000
+                    }
+                }
+            }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_ADK_menu_CD_tt
+            NOT = { has_country_flag = DA_ADK_menu_in_use }
+            NOT = { has_country_modifier = DA_ADK_menu_cooldown }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_ADK_menu_Exp_in_progress_tt
+            NOT = {
+                any_owned_province = {
+                    has_province_flag = DA_expedition_in_progress
+                }
+            }
+        }
+    }
+    tooltip = DA_topbar_alert_explore_hold_tt
+}
+
+custom_icon = {
+    name = DA_topbar_alert_research_unused
+    potential = {
+		NOT = { has_country_flag = DA_research_in_progress }
+    }
+    tooltip = DA_topbar_alert_research_unused_tt
+}
+
 custom_button = {
-	name = DA_access_Black_Market_button
-	tooltip = DA_access_Black_Market_button_tt
+	name = DA_access_Projects_research_button
+	tooltip = DA_access_Projects_research_button_tt
 	potential = {
 		always = yes
 	}
@@ -155,22 +276,25 @@ custom_button = {
         }
 	}
 	effect = {      
-        custom_tooltip = DA_in_development
-        # this is just to prevent people opening an half-done thing
-    #    if = {
-    #        limit = {
-    #            has_country_flag = DA_Black_Market_Interface_on
-    #        }
-    #        clr_country_flag = DA_Black_Market_Interface_on
-    #    }
-    #    else = {
-    #        set_country_flag = DA_Black_Market_Interface_on
-    #    }
+        hidden_effect = {
+            DA_initialise_interface_variables = yes
+        }
+        if = {
+            limit = {
+                DA_has_any_interface_active_trigger = yes
+            }
+            
+            DA_clear_all_interface_flags = yes
+        }
+        else = {
+            set_country_flag = DA_AKT_interface_on
+            set_country_flag = DA_projects_research_Interface_on
+        }
 	}
 }
 custom_button = {
 	name = DA_access_Dwarovar_Wonders_button
-	tooltip = DA_access_Dwarovar_Wonders_button_tt
+	tooltip = DA_access_Unique_Racial_Interface_button_tt
 	potential = {
 		always = yes
 	}
@@ -187,41 +311,88 @@ custom_button = {
             hidden_effect = {
                 DA_initialise_interface_variables = yes
             }
-            clr_country_flag = DA_Metallurgy_interface_on_main
-            clr_country_flag = DA_Metallurgy_interface_on_alloy
-            clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-            clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-            clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-            clr_country_flag = DA_Metallurgy_interface_on_Medicine
+            
+            DA_clear_all_interface_flags = yes
 
-            clr_country_flag = DA_Metallurgy_interface_on_inventions
-            clr_country_flag = DA_Metallurgy_interface_on_research_facility
-
-            set_country_flag = DA_Metallurgy_interface_on
-            set_country_flag = DA_Metallurgy_interface_on_wonders
+            set_country_flag = DA_AKT_interface_on
+            set_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
         }
         else = {
             custom_tooltip = DA_custure_group_must_be_dwarven_tt
         }
 	}
 }
+custom_button = {
+	name = DA_access_Secret_Societies_button
+	tooltip = DA_access_Secret_Societies_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+        hidden_trigger = {
+            always = yes
+        }
+	}
+	effect = {  
+        custom_tooltip = DA_in_development_tt
+        #hidden_effect = {
+        #    DA_initialise_interface_variables = yes
+        #}
+        #if = {
+        #    limit = {
+        #        DA_has_any_interface_active_trigger = yes
+        #    }
+        #    DA_clear_all_interface_flags = yes
+        #}
+        #else = {
+        #    set_country_flag = DA_AKT_interface_on
+        #    set_country_flag = DA_Secret_Societies_Interface_on
+        #}
+	}
+}
+custom_button = {
+	name = DA_access_Ascension_Paths_button
+	tooltip = DA_access_Ascension_Paths_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+        hidden_trigger = {
+            always = yes
+        }
+	}
+	effect = {
+        custom_tooltip = DA_in_development_tt
+        # this is just to prevent people opening an half-done thing
+        #if = {
+        #    limit = {
+        #        DA_has_any_interface_active_trigger = yes
+        #    }
+        #    DA_clear_all_interface_flags = yes
+        #}
+        #else = {
+        #    set_country_flag = DA_AKT_interface_on
+        #    set_country_flag = DA_Ascension_Paths_interface_on
+        #}
+	}
+}
 custom_window = {
     name = DA_Metallurgy_interface
     potential = {
-        has_country_flag = DA_Metallurgy_interface_on
+        has_country_flag = DA_AKT_interface_on
+    }
+}
+custom_window = {
+    name = DA_Metallurgy_interface_main_window
+    potential = {
+        has_country_flag = DA_Technology_interface_on_main
     }
 }
 custom_icon = {
     name = DA_Metallurgy_interface_main
     potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
     }
-       # frame = {  #Can define multiple frame clauses
-           # number = 1 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-            #trigger = {
-               # has_country_flag = DA_Metallurgy_interface_on_main
-            #} #First matched frame clause will be used.
-      #  }
 }
 custom_button = {
 	name = DA_close_button_main
@@ -233,27 +404,14 @@ custom_button = {
 		always = yes
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on
-        
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
-
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-        clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-        clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-        clr_country_flag = DA_Metallurgy_interface_on_Medicine
+        DA_clear_all_interface_flags = yes
 	}
 }
 custom_button = {
 	name = DA_switch_button_main
 	tooltip = DA_switch_to_metallurgy_interface_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
 	}
 	trigger = {
 		always = yes
@@ -262,33 +420,23 @@ custom_button = {
         hidden_effect = {
             DA_initialise_interface_variables = yes
         }
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-        clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-        clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-        clr_country_flag = DA_Metallurgy_interface_on_Medicine
+        DA_clear_all_non_essential_interface_flags = yes
         
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
-        
-        set_country_flag = DA_Metallurgy_interface_on_main
+        set_country_flag = DA_Technology_interface_on_main
 	}
 }
 custom_button = {
 	name = DA_metallurgy_level_up_alert
 	tooltip = DA_technology_level_up_alert_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
         custom_trigger_tooltip = {
             tooltip = DA_Increase_metallurgy_trigger_tt
             OR = {
                 AND = {
                     NOT = { DA_completed.Metallurgy_1 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 1000
                     }
                 }
@@ -296,7 +444,7 @@ custom_button = {
                     DA_completed.Metallurgy_1 = yes
                     NOT = { DA_completed.Metallurgy_2 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 2500
                     }
                 }
@@ -304,7 +452,7 @@ custom_button = {
                     DA_completed.Metallurgy_2 = yes
                     NOT = { DA_completed.Metallurgy_3 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 5000
                     }
                 }
@@ -312,7 +460,7 @@ custom_button = {
                     DA_completed.Metallurgy_3 = yes
                     NOT = { DA_completed.Metallurgy_4 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 10000
                     }
                 }
@@ -326,31 +474,82 @@ custom_button = {
         }
 	}
 	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Metallurgy
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Metallurgy_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Metallurgy_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.500
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_1 = yes
+                    NOT = { DA_completed.Metallurgy_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Metallurgy_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.501
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_2 = yes
+                    NOT = { DA_completed.Metallurgy_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Metallurgy_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.503
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Metallurgy_3 = yes
+                    NOT = { DA_completed.Metallurgy_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Metallurgy_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.506
+                    days = 240
+                }
+            }
+        }
 	}
 }
 custom_button = {
 	name = DA_switch_button_alloy
 	tooltip = DA_switch_to_alloy_interface_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
 	}
 	trigger = {
 		always = yes
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-        clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-        clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-        clr_country_flag = DA_Metallurgy_interface_on_Medicine
-        
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
+        DA_clear_all_non_essential_interface_flags = yes
 
-        set_country_flag = DA_Metallurgy_interface_on_alloy
+        set_country_flag = DA_Technology_interface_on_alloy
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -371,25 +570,15 @@ custom_button = {
 	name = DA_switch_button_Arcane_Arts
 	tooltip = DA_switch_button_Arcane_Arts_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
 	}
 	trigger = {
 		always = yes
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-        clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-        clr_country_flag = DA_Metallurgy_interface_on_Medicine
-        
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
+        DA_clear_all_non_essential_interface_flags = yes
 
-        set_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
+        set_country_flag = DA_Technology_interface_on_Arcane_Arts
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -410,16 +599,14 @@ custom_button = {
 	name = DA_Arcane_Arts_level_up_alert
 	tooltip = DA_technology_level_up_alert_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
         custom_trigger_tooltip = {
             tooltip = DA_Increase_magic_theory_trigger_tt
             OR = {
                 AND = {
                     NOT = { DA_completed.Magic_Theory_1 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 1000
                     }
                 }
@@ -427,7 +614,7 @@ custom_button = {
                     DA_completed.Magic_Theory_1 = yes
                     NOT = { DA_completed.Magic_Theory_2 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 2500
                     }
                 }
@@ -439,7 +626,7 @@ custom_button = {
                     DA_completed.Elemental_Magic_Earth = yes
                     NOT = { DA_completed.Magic_Theory_3 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 5000
                     }
                 }
@@ -447,7 +634,7 @@ custom_button = {
                     DA_completed.Magic_Theory_3 = yes
                     NOT = { DA_completed.Magic_Theory_4 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 10000
                     }
                 }
@@ -461,31 +648,82 @@ custom_button = {
         }
 	}
 	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Arcane_Arts
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Magic_Theory_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Arcane_Arts_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.300
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_1 = yes
+                    NOT = { DA_completed.Magic_Theory_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Arcane_Arts_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.301
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_2 = yes
+                    NOT = { DA_completed.Magic_Theory_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Arcane_Arts_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.303
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Magic_Theory_3 = yes
+                    NOT = { DA_completed.Magic_Theory_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Arcane_Arts_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.306
+                    days = 240
+                }
+            }
+        }
 	}
 }
 custom_button = {
 	name = DA_switch_button_Mechanics
 	tooltip = DA_switch_button_Mechanics_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
 	}
 	trigger = {
 		always = yes
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-        clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-        clr_country_flag = DA_Metallurgy_interface_on_Medicine
+        DA_clear_all_non_essential_interface_flags = yes
 
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
-
-        set_country_flag = DA_Metallurgy_interface_on_Mechanics
+        set_country_flag = DA_Technology_interface_on_Mechanics
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -506,16 +744,14 @@ custom_button = {
 	name = DA_Mechanics_level_up_alert
 	tooltip = DA_technology_level_up_alert_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
         custom_trigger_tooltip = {
             tooltip = DA_Increase_mechanics_trigger_tt
             OR = {
                 AND = {
                     NOT = { DA_completed.Mechanics_1 = yes }
                     check_variable = {
-                        which = DA_mechanics_exp
+                        which = DA_Mechanics_exp
                         value = 1000
                     }
                 }
@@ -523,7 +759,7 @@ custom_button = {
                     DA_completed.Mechanics_1 = yes
                     NOT = { DA_completed.Mechanics_2 = yes }
                     check_variable = {
-                        which = DA_mechanics_exp
+                        which = DA_Mechanics_exp
                         value = 2500
                     }
                 }
@@ -531,7 +767,7 @@ custom_button = {
                     DA_completed.Mechanics_2 = yes
                     NOT = { DA_completed.Mechanics_3 = yes }
                     check_variable = {
-                        which = DA_mechanics_exp
+                        which = DA_Mechanics_exp
                         value = 5000
                     }
                 }
@@ -539,7 +775,7 @@ custom_button = {
                     DA_completed.Mechanics_3 = yes
                     NOT = { DA_completed.Mechanics_4 = yes }
                     check_variable = {
-                        which = DA_mechanics_exp
+                        which = DA_Mechanics_exp
                         value = 10000
                     }
                 }
@@ -553,31 +789,82 @@ custom_button = {
         }
 	}
 	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Mechanics
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Mechanics_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Mechanics_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.400
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Mechanics_1 = yes
+                    NOT = { DA_completed.Mechanics_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Mechanics_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.401
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Mechanics_2 = yes
+                    NOT = { DA_completed.Mechanics_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Mechanics_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.403
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Mechanics_3 = yes
+                    NOT = { DA_completed.Mechanics_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Mechanics_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.406
+                    days = 240
+                }
+            }
+        }
 	}
 }
 custom_button = {
 	name = DA_switch_button_Alchemy
 	tooltip = DA_switch_button_Alchemy_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
 	}
 	trigger = {
 		always = yes
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-        clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-        clr_country_flag = DA_Metallurgy_interface_on_Medicine
+        DA_clear_all_non_essential_interface_flags = yes
 
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
-
-        set_country_flag = DA_Metallurgy_interface_on_Alchemy
+        set_country_flag = DA_Technology_interface_on_Alchemy
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -598,16 +885,14 @@ custom_button = {
 	name = DA_Alchemy_level_up_alert
 	tooltip = DA_technology_level_up_alert_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
         custom_trigger_tooltip = {
             tooltip = DA_Increase_alchemy_trigger_tt
             OR = {
                 AND = {
                     NOT = { DA_completed.Alchemy_1 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 1000
                     }
                 }
@@ -615,7 +900,7 @@ custom_button = {
                     DA_completed.Alchemy_1 = yes
                     NOT = { DA_completed.Alchemy_2 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 2500
                     }
                 }
@@ -623,7 +908,7 @@ custom_button = {
                     DA_completed.Alchemy_2 = yes
                     NOT = { DA_completed.Alchemy_3 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 5000
                     }
                 }
@@ -631,7 +916,7 @@ custom_button = {
                     DA_completed.Alchemy_3 = yes
                     NOT = { DA_completed.Alchemy_4 = yes }
                     check_variable = {
-                        which = DA_alchemy_exp
+                        which = DA_Alchemy_exp
                         value = 10000
                     }
                 }
@@ -645,29 +930,80 @@ custom_button = {
         }
 	}
 	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Alchemy
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Alchemy_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Alchemy_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.200
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Alchemy_1 = yes
+                    NOT = { DA_completed.Alchemy_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Alchemy_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.201
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Alchemy_2 = yes
+                    NOT = { DA_completed.Alchemy_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Alchemy_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.203
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Alchemy_3 = yes
+                    NOT = { DA_completed.Alchemy_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Alchemy_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.206
+                    days = 240
+                }
+            }
+        }
 	}
 }
 custom_button = {
 	name = DA_switch_button_Medicine
 	tooltip = DA_switch_button_Medicine_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
 	}
 	trigger = {
 		always = yes
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
-        clr_country_flag = DA_Metallurgy_interface_on_Mechanics
-        clr_country_flag = DA_Metallurgy_interface_on_Alchemy
-
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
+        DA_clear_all_non_essential_interface_flags = yes
 
         if = {
             limit = {
@@ -679,7 +1015,7 @@ custom_button = {
             }
             set_country_flag = DA_Medicine_interface.common_non_magical
         }
-        set_country_flag = DA_Metallurgy_interface_on_Medicine
+        set_country_flag = DA_Technology_interface_on_Medicine
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -700,16 +1036,14 @@ custom_button = {
 	name = DA_Medicine_level_up_alert
 	tooltip = DA_technology_level_up_alert_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_wonders }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_inventions }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_research_facility }
+        DA_has_any_tech_interface_active_trigger = yes
         custom_trigger_tooltip = {
             tooltip = DA_Increase_medicine_trigger_tt
             OR = {
                 AND = {
                     NOT = { DA_completed.Medicine_1 = yes }
                     check_variable = {
-                        which = DA_medicine_exp
+                        which = DA_Medicine_exp
                         value = 1000
                     }
                 }
@@ -717,7 +1051,7 @@ custom_button = {
                     DA_completed.Medicine_1 = yes
                     NOT = { DA_completed.Medicine_2 = yes }
                     check_variable = {
-                        which = DA_medicine_exp
+                        which = DA_Medicine_exp
                         value = 2500
                     }
                 }
@@ -725,7 +1059,7 @@ custom_button = {
                     DA_completed.Medicine_2 = yes
                     NOT = { DA_completed.Medicine_3 = yes }
                     check_variable = {
-                        which = DA_medicine_exp
+                        which = DA_Medicine_exp
                         value = 5000
                     }
                 }
@@ -733,7 +1067,7 @@ custom_button = {
                     DA_completed.Medicine_3 = yes
                     NOT = { DA_completed.Medicine_4 = yes }
                     check_variable = {
-                        which = DA_medicine_exp
+                        which = DA_Medicine_exp
                         value = 10000
                     }
                 }
@@ -747,6 +1081,67 @@ custom_button = {
         }
 	}
 	effect = {
+        add_country_modifier = {
+            name = DA_Tech_Researching_Medicine
+            duration = -1
+        }
+        hidden_effect = {
+            if = {
+                limit = {
+                    NOT = { DA_completed.Medicine_1 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Medicine_exp
+                    value = 1000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.100
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Medicine_1 = yes
+                    NOT = { DA_completed.Medicine_2 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Medicine_exp
+                    value = 2500
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.101
+                    days = 365
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Medicine_2 = yes
+                    NOT = { DA_completed.Medicine_3 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Medicine_exp
+                    value = 5000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.103
+                    days = 240
+                }
+            }
+            else_if = {
+                limit = {
+                    DA_completed.Medicine_3 = yes
+                    NOT = { DA_completed.Medicine_4 = yes }
+                }
+                subtract_variable = {
+                    which = DA_Medicine_exp
+                    value = 10000
+                }
+                country_event = {
+                    id = DA_Tech_Tree_event.106
+                    days = 240
+                }
+            }
+        }
 	}
 }
 
@@ -758,76 +1153,52 @@ custom_button = {
 	name = DA_switch_button_research_facility
 	tooltip = DA_switch_button_research_facility_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_main }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_alloy }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Medicine }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Alchemy }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Mechanics }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Arcane_Arts }
+        DA_has_any_racial_dwarven_interface_active_trigger = yes
 	}
 	trigger = {
 		culture_group = dwarven
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
+        DA_clear_all_non_essential_interface_flags = yes
         
-        set_country_flag = DA_Metallurgy_interface_on_research_facility
+        set_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
 	}
 }
 custom_button = {
 	name = DA_switch_button_wonders
 	tooltip = DA_switch_to_wonders_interface_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_main }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_alloy }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Medicine }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Alchemy }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Mechanics }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Arcane_Arts }
+        DA_has_any_racial_dwarven_interface_active_trigger = yes
 	}
 	trigger = {
 		culture_group = dwarven
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_inventions
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
+        DA_clear_all_non_essential_interface_flags = yes
         
-        set_country_flag = DA_Metallurgy_interface_on_wonders
+        set_country_flag = DA_Racial_Interface_on_Dwarven_wonders
 	}
 }
 custom_button = {
 	name = DA_switch_button_inventions
 	tooltip = DA_switch_button_inventions_tt
 	potential = {
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_main }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_alloy }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Medicine }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Alchemy }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Mechanics }
-        NOT = { has_country_flag = DA_Metallurgy_interface_on_Arcane_Arts }
+        DA_has_any_racial_dwarven_interface_active_trigger = yes
 	}
 	trigger = {
 		culture_group = dwarven
 	}
 	effect = {
-        clr_country_flag = DA_Metallurgy_interface_on_main
-        clr_country_flag = DA_Metallurgy_interface_on_alloy
-        clr_country_flag = DA_Metallurgy_interface_on_wonders
-        clr_country_flag = DA_Metallurgy_interface_on_research_facility
+        DA_clear_all_non_essential_interface_flags = yes
         
-        set_country_flag = DA_Metallurgy_interface_on_inventions
+        set_country_flag = DA_Racial_Interface_on_Dwarven_inventions
 	}
 }
 custom_button = {
 	name = DA_Fake_Info_button
 	tooltip = DA_Fake_Info_button_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		always = yes
@@ -846,7 +1217,7 @@ custom_button = {
 	name = DA_Metallurgy_recruit_x1_button_infantry
 	tooltip = DA_Metallurgy_recruit_x1_button_infantry_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		DA_can_use_infantry = yes
@@ -862,6 +1233,9 @@ custom_button = {
         custom_trigger_tooltip = {
             tooltip = DA_Warforged_infantry_enabled_tt
 			has_country_flag = DA_enable_metallurgy_System
+        }
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_enable_metallurgy_System_artificer }
         }
 	}
 	effect = {
@@ -921,7 +1295,7 @@ custom_button = {
 	name = DA_Metallurgy_recruit_x10_button_infantry
 	tooltip = DA_Metallurgy_recruit_x10_button_infantry_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		DA_can_use_infantry = yes
@@ -937,6 +1311,9 @@ custom_button = {
         custom_trigger_tooltip = {
             tooltip = DA_Warforged_infantry_enabled_tt
 			has_country_flag = DA_enable_metallurgy_System
+        }
+        hidden_trigger = {
+            NOT = { has_country_flag = DA_enable_metallurgy_System_artificer }
         }
 	}
 	effect = {
@@ -1041,7 +1418,7 @@ custom_button = {
 	name = DA_Metallurgy_fake_cost_button_infantry
 	tooltip = DA_Metallurgy_fake_cost_button_infantry_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		always = yes
@@ -1052,7 +1429,7 @@ custom_button = {
 
 custom_text_box = {
     name = DA_Metallurgy_fake_cost_button_infantry.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metallurgy_fake_cost_button_infantry.value #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
@@ -1064,7 +1441,7 @@ custom_button = {
 	name = DA_Metallurgy_recruit_x1_button_cavalry
 	tooltip = DA_Metallurgy_recruit_x1_button_cavalry_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		DA_can_use_cavalry = yes
@@ -1107,7 +1484,7 @@ custom_button = {
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             remove_country_modifier = DA_land_force_limit_temp_reducer_95
@@ -1129,7 +1506,7 @@ custom_button = {
                 which = DA_amount_of_warforged_cavalry_modifier
             }
             export_to_variable = {
-                value = trigger_value:num_of_hussars
+                value = trigger_value:num_of_qizilbash
                 variable_name = DA_current_amount_of_warforged_cavalry
             }
         }
@@ -1139,7 +1516,7 @@ custom_button = {
 	name = DA_Metallurgy_recruit_x10_button_cavalry
 	tooltip = DA_Metallurgy_recruit_x10_button_cavalry_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		DA_can_use_cavalry = yes
@@ -1182,52 +1559,52 @@ custom_button = {
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = cavalry
-                special_unit_category = hussars
+                special_unit_category = qizilbash
                 force_limit_percentage = 0.01
             }
             remove_country_modifier = DA_land_force_limit_temp_reducer_95
@@ -1249,7 +1626,7 @@ custom_button = {
                 which = DA_amount_of_warforged_cavalry_modifier
             }
             export_to_variable = {
-                value = trigger_value:num_of_hussars
+                value = trigger_value:num_of_qizilbash
                 variable_name = DA_current_amount_of_warforged_cavalry
             }
         }
@@ -1259,7 +1636,7 @@ custom_button = {
 	name = DA_Metallurgy_fake_cost_button_cavalry
 	tooltip = DA_Metallurgy_fake_cost_button_cavalry_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		always = yes
@@ -1269,7 +1646,7 @@ custom_button = {
 }
 custom_text_box = {
     name = DA_Metallurgy_fake_cost_button_cavalry.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metallurgy_fake_cost_button_cavalry.value #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
@@ -1280,7 +1657,7 @@ custom_button = {
 	name = DA_Metallurgy_recruit_x1_button_artillery
 	tooltip = DA_Metallurgy_recruit_x1_button_artillery_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		treasury = 35
@@ -1322,7 +1699,7 @@ custom_button = {
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             remove_country_modifier = DA_land_force_limit_temp_reducer_95
@@ -1344,7 +1721,7 @@ custom_button = {
                 which = DA_amount_of_warforged_artillery_modifier
             }
             export_to_variable = {
-                value = trigger_value:num_of_cawa
+                value = trigger_value:num_of_streltsy
                 variable_name = DA_current_amount_of_warforged_artillery
             }
         }
@@ -1354,7 +1731,7 @@ custom_button = {
 	name = DA_Metallurgy_recruit_x10_button_artillery
 	tooltip = DA_Metallurgy_recruit_x10_button_artillery_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		treasury = 350
@@ -1396,52 +1773,52 @@ custom_button = {
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             create_unit_forcelimit_percentage = {
                 type = artillery
-                special_unit_category = cawa
+                special_unit_category = streltsy
                 force_limit_percentage = 0.01
             }
             remove_country_modifier = DA_land_force_limit_temp_reducer_95
@@ -1463,7 +1840,7 @@ custom_button = {
                 which = DA_amount_of_warforged_artillery_modifier
             }
             export_to_variable = {
-                value = trigger_value:num_of_cawa
+                value = trigger_value:num_of_streltsy
                 variable_name = DA_current_amount_of_warforged_artillery
             }
         }
@@ -1473,7 +1850,7 @@ custom_button = {
 	name = DA_Metallurgy_fake_cost_button_artillery
 	tooltip = DA_Metallurgy_fake_cost_button_artillery_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
 		always = yes
@@ -1483,7 +1860,7 @@ custom_button = {
 }
 custom_text_box = {
     name = DA_Metallurgy_fake_cost_button_artillery.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metallurgy_fake_cost_button_artillery.value #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
@@ -1494,7 +1871,7 @@ custom_button = {
 	name = DA_Metallurgy_Infantry_design_select_slider
 	tooltip = DA_Metallurgy_Infantry_design_select_slider_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         custom_trigger_tooltip = {
@@ -1509,15 +1886,24 @@ custom_button = {
 	effect = {
         clr_country_flag = DA_metallurgy_show_CAVAL
         clr_country_flag = DA_metallurgy_show_ARTIL
+        clr_country_flag = DA_metallurgy_show_TRANSPORT
         
-        set_country_flag = DA_metallurgy_show_INFAN
+        if = {
+            limit = {
+			    has_country_flag = DA_enable_metallurgy_System_artificer
+            }
+            set_country_flag = DA_metallurgy_show_ARTIFICER
+        }
+        else = {
+            set_country_flag = DA_metallurgy_show_INFAN
+        }
 	}
 }
 custom_button = {
 	name = DA_Metallurgy_cavalry_design_select_slider
 	tooltip = DA_Metallurgy_cavalry_design_select_slider_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         custom_trigger_tooltip = {
@@ -1531,7 +1917,9 @@ custom_button = {
 	}
 	effect = {
         clr_country_flag = DA_metallurgy_show_INFAN
+        clr_country_flag = DA_metallurgy_show_ARTIFICER
         clr_country_flag = DA_metallurgy_show_ARTIL
+        clr_country_flag = DA_metallurgy_show_TRANSPORT
 
         set_country_flag = DA_metallurgy_show_CAVAL
 	}
@@ -1540,7 +1928,7 @@ custom_button = {
 	name = DA_Metallurgy_artillery_design_select_slider
 	tooltip = DA_Metallurgy_artillery_design_select_slider_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         custom_trigger_tooltip = {
@@ -1555,8 +1943,35 @@ custom_button = {
 	effect = {
         clr_country_flag = DA_metallurgy_show_CAVAL
         clr_country_flag = DA_metallurgy_show_INFAN
+        clr_country_flag = DA_metallurgy_show_ARTIFICER
+        clr_country_flag = DA_metallurgy_show_TRANSPORT
 
         set_country_flag = DA_metallurgy_show_ARTIL
+	}
+}
+custom_button = {
+	name = DA_Metallurgy_transport_design_select_slider
+	tooltip = DA_Metallurgy_transport_design_select_slider_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        custom_trigger_tooltip = {
+            tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
+            NOT = { has_country_flag = DA_UNIT_DESIGN_IN_USE }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_Warforged_transport_enabled_tt
+			has_country_flag = DA_enable_metallurgy_System_transport
+        }
+	}
+	effect = {
+        clr_country_flag = DA_metallurgy_show_CAVAL
+        clr_country_flag = DA_metallurgy_show_INFAN
+        clr_country_flag = DA_metallurgy_show_ARTIFICER
+        clr_country_flag = DA_metallurgy_show_ARTIL
+
+        set_country_flag = DA_metallurgy_show_TRANSPORT
 	}
 }
 
@@ -1567,12 +1982,15 @@ custom_button = {
 	name = DA_Metallurgy_Unit_image_shower
 	tooltip = DA_Metallurgy_Unit_image_shower_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
     frame = {
         number = 1
         trigger = {
-            has_country_flag = DA_metallurgy_show_INFAN
+                OR = {
+                has_country_flag = DA_metallurgy_show_INFAN
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
         }
     }
     frame = {
@@ -1714,6 +2132,132 @@ custom_button = {
                 }
                 DA_Apply_cost_fake = {
                     DA_unit = INFAN
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            hidden_effect = {
+                DA_pre_apply_metallurgy_modifiers = {
+                    DA_unit = ARTIFICER
+                }
+            }
+            tooltip = {
+                add_country_modifier = {
+                    name = DA_metallurgy_ARTIFICERtry_modifier_fake
+                    duration = -1
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_fire_TOTAL_ARTIFICER
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_fire.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_fire_TOTAL_ARTIFICER
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_fire.ARTIFICER.tt-
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_shock_TOTAL_ARTIFICER
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_shock.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_shock_TOTAL_ARTIFICER
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_shock.ARTIFICER.tt-
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_power_TOTAL_ARTIFICER_shower
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_power.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_power_TOTAL_ARTIFICER_shower
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_power.ARTIFICER.tt-
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_Fire_rec_TOTAL_ARTIFICER
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_Fire_rec.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_Fire_rec_TOTAL_ARTIFICER
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_Fire_rec.ARTIFICER.tt-
+                }
+                if = {
+                    limit = {
+                        check_variable = {
+                            which = DA_Shock_rec_TOTAL_ARTIFICER_shower
+                            value = 0.01
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_Shock_rec.ARTIFICER.tt
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            check_variable = {
+                                which = DA_Shock_rec_TOTAL_ARTIFICER_shower
+                                value = 0
+                            }
+                        }
+                    }
+                    custom_tooltip = DA_TOTAL_PREVIEW.DA_Shock_rec.ARTIFICER.tt-
+                }
+                custom_tooltip = DA_Affect_only_artificer_tt
+                DA_apply_metallurgy_infcav_modifiers_effect = {
+                    DA_unit = ARTIFICER
+                }
+                DA_give_Unique_Metallurgy_modifiers = {
+                    DA_unit = ARTIFICER
+                }
+                DA_Apply_cost_fake = {
+                    DA_unit = ARTIFICER
                 }
             }
         }
@@ -1972,14 +2516,107 @@ custom_button = {
 	}
 }
 custom_button = {
-	name = DA_Metallurgy_designer_blueprint_button
-	tooltip = DA_Metallurgy_designer_blueprint_button_tt
+	name = DA_Metallurgy_designer_punk_button
+	tooltip = DA_Metallurgy_designer_punk_button_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_INFAN
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+                has_country_flag = DA_metallurgy_show_CAVAL
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
+            NOT = { has_country_flag = DA_UNIT_DESIGN_IN_USE }
+        }
+        if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_INFAN
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_INFAN }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_ARTIFICER }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_CAVAL }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_ARTIL }
+            }
+        }
+	}
+	effect = {
+        set_country_flag = DA_UNIT_DESIGN_IN_USE
+        if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_INFAN
+            }
+            country_event = {
+                id = DA_Metallurgy_events.49
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.39
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            country_event = {
+                id = DA_Metallurgy_events.59
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            country_event = {
+                id = DA_Metallurgy_events.69
+            }
+        }
+	}
+}
+custom_button = {
+	name = DA_Metallurgy_designer_blueprint_button
+	tooltip = DA_Metallurgy_designer_blueprint_button_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        hidden_trigger = {
+            OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -1994,13 +2631,34 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
             }
             custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_INFAN
+            }
+            custom_trigger_tooltip = {
                 tooltip = DA_NOT_yet_selected_blueprint_tt
                 NOT = { has_country_flag = DA_selected_blueprint_INFAN }
             }
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_blueprint_tt
+                NOT = { has_country_flag = DA_selected_blueprint_ARTIFICER }
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_CAVAL
             }
             custom_trigger_tooltip = {
                 tooltip = DA_NOT_yet_selected_blueprint_tt
@@ -2010,6 +2668,10 @@ custom_button = {
         else_if = {
             limit = {
                 has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_ARTIL
             }
             custom_trigger_tooltip = {
                 tooltip = DA_NOT_yet_selected_blueprint_tt
@@ -2025,6 +2687,14 @@ custom_button = {
             }
             country_event = {
                 id = DA_Metallurgy_events.50
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.40
             }
         }
         else_if = {
@@ -2049,11 +2719,12 @@ custom_button = {
 	name = DA_Metallurgy_designer_metal_button
 	tooltip = DA_Metallurgy_designer_metal_button_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2074,6 +2745,19 @@ custom_button = {
             custom_trigger_tooltip = {
                 tooltip = DA_NOT_yet_selected_metal_tt
                 NOT = { has_country_flag = DA_selected_metal_INFAN }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_blueprint_first_tt
+                has_country_flag = DA_selected_blueprint_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_metal_tt
+                NOT = { has_country_flag = DA_selected_metal_ARTIFICER }
             }
         }
         else_if = {
@@ -2115,6 +2799,14 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.41
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             country_event = {
@@ -2135,11 +2827,12 @@ custom_button = {
 	name = DA_Metallurgy_designer_rune_button_1
 	tooltip = DA_Metallurgy_designer_rune_button_1_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2179,6 +2872,36 @@ custom_button = {
                     check_variable = {
                         which = DA_Runes_Slots_occupied_INFAN
                         which = DA_Runes_Slots_STAT_MAX_INFAN
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_at_least_1_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    value = 1
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIFICER
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_1_tt
+                NOT = { has_country_flag = DA_selected_ARTIFICER_rune_1 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIFICER
+                        which = DA_Runes_Slots_STAT_MAX_ARTIFICER
                     }
                 }
             }
@@ -2256,6 +2979,14 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.42
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             country_event = {
@@ -2276,11 +3007,12 @@ custom_button = {
 	name = DA_Metallurgy_designer_rune_button_2
 	tooltip = DA_Metallurgy_designer_rune_button_2_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2320,6 +3052,36 @@ custom_button = {
                     check_variable = {
                         which = DA_Runes_Slots_occupied_INFAN
                         which = DA_Runes_Slots_STAT_MAX_INFAN
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_at_least_2_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    value = 2
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIFICER
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_2_tt
+                NOT = { has_country_flag = DA_selected_ARTIFICER_rune_2 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIFICER
+                        which = DA_Runes_Slots_STAT_MAX_ARTIFICER
                     }
                 }
             }
@@ -2397,6 +3159,14 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.42
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             country_event = {
@@ -2417,11 +3187,12 @@ custom_button = {
 	name = DA_Metallurgy_designer_rune_button_3
 	tooltip = DA_Metallurgy_designer_rune_button_3_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2461,6 +3232,36 @@ custom_button = {
                     check_variable = {
                         which = DA_Runes_Slots_occupied_INFAN
                         which = DA_Runes_Slots_STAT_MAX_INFAN
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_at_least_3_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    value = 3
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIFICER
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_3_tt
+                NOT = { has_country_flag = DA_selected_ARTIFICER_rune_3 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIFICER
+                        which = DA_Runes_Slots_STAT_MAX_ARTIFICER
                     }
                 }
             }
@@ -2538,6 +3339,195 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.42
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            country_event = {
+                id = DA_Metallurgy_events.62
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            country_event = {
+                id = DA_Metallurgy_events.72
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = DA_Metallurgy_designer_rune_button_4
+	tooltip = DA_Metallurgy_designer_rune_button_4_tt
+	potential = {
+        always = yes
+	}
+	trigger = {
+        hidden_trigger = {
+            OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+                has_country_flag = DA_metallurgy_show_INFAN
+                has_country_flag = DA_metallurgy_show_CAVAL
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_runes_enchantments_in_unit_design_enabled_tt
+			has_country_flag = DA_can_apply_runes_to_metallurgy
+        }
+        custom_trigger_tooltip = {
+            tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
+            NOT = { has_country_flag = DA_UNIT_DESIGN_IN_USE }
+        }
+        if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_INFAN
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_INFAN
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_4_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_INFAN
+                    value = 4
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_INFAN
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_4_tt
+                NOT = { has_country_flag = DA_selected_INFAN_rune_4 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_INFAN
+                        which = DA_Runes_Slots_STAT_MAX_INFAN
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_at_least_4_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    value = 4
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIFICER
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_4_tt
+                NOT = { has_country_flag = DA_selected_ARTIFICER_rune_4 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIFICER
+                        which = DA_Runes_Slots_STAT_MAX_ARTIFICER
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_CAVAL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_CAVAL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_4_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_CAVAL
+                    value = 4
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_CAVAL
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_4_tt
+                NOT = { has_country_flag = DA_selected_CAVAL_rune_4 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_CAVAL
+                        which = DA_Runes_Slots_STAT_MAX_CAVAL
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIL
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_blueprint_has_4_rune_slot_and_1_MC_tt
+                check_variable = {
+                    which = DA_Runes_Slots_STAT_MAX_ARTIL
+                    value = 4
+                }
+                check_variable = {
+                    which = DA_Metal_Magic_Conductivity_STAT_ARTIL
+                    value = 1
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_free_rune_slot_4_tt
+                NOT = { has_country_flag = DA_selected_ARTIL_rune_4 }
+                NOT = {
+                    check_variable = {
+                        which = DA_Runes_Slots_occupied_ARTIL
+                        which = DA_Runes_Slots_STAT_MAX_ARTIL
+                    }
+                }
+            }
+        }
+	}
+	effect = {
+        set_country_flag = DA_UNIT_DESIGN_IN_USE
+        if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_INFAN
+            }
+            country_event = {
+                id = DA_Metallurgy_events.52
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            country_event = {
+                id = DA_Metallurgy_events.42
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             country_event = {
@@ -2563,11 +3553,12 @@ custom_button = {
 	name = DA_Metallurgy_Finale_button
 	tooltip = DA_Metallurgy_Finale_button_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2594,6 +3585,23 @@ custom_button = {
             custom_trigger_tooltip = {
                 tooltip = DA_must_have_already_selected_metal_tt
                 has_country_flag = DA_selected_metal_INFAN
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_you_must_reset_the_unit_designer_first
+                NOT = { has_country_modifier = DA_metallurgy_ARTIFICERtry_modifier_fake }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_blueprint_first_tt
+                has_country_flag = DA_selected_blueprint_ARTIFICER
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_ARTIFICER
             }
         }
         else_if = {
@@ -2657,6 +3665,28 @@ custom_button = {
         }
         else_if = {
             limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            hidden_effect = {
+                DA_remove_metallurgy_infcav_modifiers_effect = {
+                    DA_unit = ARTIFICER
+                }
+                DA_remove_Unique_Metallurgy_modifiers = {
+                    DA_unit = ARTIFICER
+                }
+            }
+            add_mil_power = -30
+            add_country_modifier = {
+                name = DA_unit_design_in_prgress
+                duration = 365
+            }
+            country_event = {
+                id = DA_Metallurgy_events.43
+                days = 365
+            }
+        }
+        else_if = {
+            limit = {
                 has_country_flag = DA_metallurgy_show_CAVAL
             }
             hidden_effect = {
@@ -2705,11 +3735,12 @@ custom_button = {
 	name = DA_Metallurgy_Designer_reset_button
 	tooltip = DA_Metallurgy_Designer_reset_button_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         hidden_trigger = {
             OR = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
@@ -2733,6 +3764,20 @@ custom_button = {
             }
             hidden_effect = {
 			    remove_country_modifier = DA_metallurgy_infantry_modifier_fake
+            }
+        }
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_ARTIFICER
+            }
+            DA_initialize_metallurgy_variables = {
+                DA_unit = ARTIFICER
+            }
+            DA_remove_Unique_Metallurgy_modifiers_flags = {
+                DA_unit = ARTIFICER
+            }
+            hidden_effect = {
+			    remove_country_modifier = DA_metallurgy_ARTIFICERtry_modifier_fake
             }
         }
         else_if = {
@@ -2830,7 +3875,7 @@ custom_button = {
 	name = DA_Increase_metallurgy
 	tooltip = DA_Increase_metallurgy_tt
 	potential = {
-        has_country_flag = DA_Metallurgy_interface_on_main
+        always = yes
 	}
 	trigger = {
         custom_trigger_tooltip = {
@@ -2839,7 +3884,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Metallurgy_1 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 1000
                     }
                 }
@@ -2847,7 +3892,7 @@ custom_button = {
                     DA_completed.Metallurgy_1 = yes
                     NOT = { DA_completed.Metallurgy_2 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 2500
                     }
                 }
@@ -2855,7 +3900,7 @@ custom_button = {
                     DA_completed.Metallurgy_2 = yes
                     NOT = { DA_completed.Metallurgy_3 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 5000
                     }
                 }
@@ -2863,7 +3908,7 @@ custom_button = {
                     DA_completed.Metallurgy_3 = yes
                     NOT = { DA_completed.Metallurgy_4 = yes }
                     check_variable = {
-                        which = DA_metallurgy_exp
+                        which = DA_Metallurgy_exp
                         value = 10000
                     }
                 }
@@ -2882,7 +3927,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 1000
                 }
                 country_event = {
@@ -2896,7 +3941,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 2500
                 }
                 country_event = {
@@ -2910,7 +3955,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 5000
                 }
                 country_event = {
@@ -2924,7 +3969,7 @@ custom_button = {
                     NOT = { DA_completed.Metallurgy_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_metallurgy_exp
+                    which = DA_Metallurgy_exp
                     value = 10000
                 }
                 country_event = {
@@ -2940,7 +3985,7 @@ custom_button = {
 	name = DA_Met_COST_fake_button
 	tooltip = DA_Met_COST_fake_button_tt
 	potential = {
-		has_country_flag = DA_Metallurgy_interface_on_main
+		always = yes
 	}
 	trigger = {
 		always = yes
@@ -2951,13 +3996,13 @@ custom_button = {
 
 custom_text_box = {
     name = DA_Met_COST_Shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Met_COST_Shower.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Tech_Shower.Metallurgy #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Tech_Shower.Metallurgy.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
@@ -2968,74 +4013,74 @@ custom_text_box = {
 
 custom_text_box = {
     name = DA_Metal_Shower.Iron.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Iron.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Copper.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Copper.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Gold.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Gold.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Silver.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Silver.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Tin.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Tin.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Aluminium.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Aluminium.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Titanium.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Titanium.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Chromium.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Chromium.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Castellium.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Castellium.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Zinc.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Zinc.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Lead.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Lead.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
@@ -3044,53 +4089,53 @@ custom_text_box = {
 
 custom_text_box = {
     name = DA_Metal_Shower.Quicksilver.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Quicksilver.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Palladium.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Palladium.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Platinum.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Platinum.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Tantalum.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Tantalum.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
 custom_text_box = {
     name = DA_Metal_Shower.Damestear.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Damestear.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Meteoric_Silver.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Meteoric_Silver.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Cobalt.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Cobalt.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Tungsten.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Tungsten.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
@@ -3100,49 +4145,49 @@ custom_text_box = {
 
 custom_text_box = {
     name = DA_Metal_Shower.Dagrite.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Dagrite.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Rosemetal.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Rosemetal.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Cold_iron.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Cold_iron.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Mithril.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Mithril.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.EbonSteel.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.EbonSteel.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.IronWood.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.IronWood.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Orichalcum.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Orichalcum.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Octiron.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Octiron.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
@@ -3151,67 +4196,67 @@ custom_text_box = {
 
 custom_text_box = {
     name = DA_Metal_Shower.Cindersteel.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Cindersteel.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Magnetite.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Magnetite.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Mistium.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Mistium.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Skyshard.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Skyshard.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Adamantium.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Adamantium.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Unastu_Argazen.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Unastu_Argazen.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Bloth_Dolur.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Bloth_Dolur.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Sylvanite.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Sylvanite.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.VoidSteel.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.VoidSteel.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Unobtainium.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Unobtainium.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 custom_text_box = {
     name = DA_Metal_Shower.Hihiirokane.value #Must match a scripted instantTextBoxType in a .gui file
-    potential = { has_country_flag = DA_Metallurgy_interface_on_main } #Determines when the text is visible
+    potential = { always = yes } #Determines when the text is visible
     tooltip = DA_Metal_Shower.Hihiirokane.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }

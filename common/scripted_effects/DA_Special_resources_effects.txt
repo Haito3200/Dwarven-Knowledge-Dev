@@ -36,14 +36,14 @@ DA_mana_spend = {
 	custom_tooltip = DA_mana_spend_$amount$_tt
 	hidden_effect = {
 		subtract_variable = {
-			which = DA_Arcane_Arts_mana
+			which = currentMana
 			value = $amount$
 		}
 	}
 }
 
 
-DA_mana_cap_increase = {
+DA_mana_cap_increase = { # unused, there is a modifier now
 	custom_tooltip = DA_mana_increase_$amount$_tt
 	hidden_effect = {
 		change_variable = {
@@ -65,13 +65,81 @@ DA_Magma_Level_spend = {
 	}
 }
 
+DA_Earth_Shatterer_power_gain = { # is fired in 4247
+	hidden_effect = {
+			change_variable = {
+				which = DA_Earth_Shatterer_power
+				value = $amount$
+			}
+			if = {
+				limit = {
+					has_great_project = {
+						type = DA_Earth_Shatterer
+						tier = 3
+					}
+					check_variable = {
+						which = DA_Earth_Shatterer_power
+						value = 200
+					}
+				}
+				set_variable = {
+					which = DA_Earth_Shatterer_power
+					value = 200
+				}
+			}
+			else_if = {
+				limit = {
+					has_great_project = {
+						type = DA_Earth_Shatterer
+						tier = 2
+					}
+					NOT = {
+						has_great_project = {
+							type = DA_Earth_Shatterer
+							tier = 3
+						}
+					}
+					check_variable = {
+						which = DA_Earth_Shatterer_power
+						value = 150
+					}
+				}
+				set_variable = {
+					which = DA_Earth_Shatterer_power
+					value = 150
+				}
+			}
+			else_if = {
+				limit = {
+					has_great_project = {
+						type = DA_Earth_Shatterer
+						tier = 1
+					}
+					NOT = {
+						has_great_project = {
+							type = DA_Earth_Shatterer
+							tier = 2
+						}
+					}
+					check_variable = {
+						which = DA_Earth_Shatterer_power
+						value = 100
+					}
+				}
+				set_variable = {
+					which = DA_Earth_Shatterer_power
+					value = 100
+				}
+			}
+	}
+}
 DA_Earth_Shatterer_power_spend = {
-	custom_tooltip = DA_Earth_Shatterer_power_spend_$amount$_tt
+	custom_tooltip = DA_Earth_Shatterer_power_spend_tt
 	hidden_effect = {
 		4247 = {
 			subtract_variable = {
 				which = DA_Earth_Shatterer_power
-				value = $amount$
+				which = DA_Earth_Shatterer_power_cost
 			}
 		}
 	}
@@ -170,6 +238,25 @@ DA_spend_mechanics_inno_points_4 = {
 		subtract_variable = {
 			which = DA_mechanics_inno_points
 			value = 4
+		}
+	}
+}
+
+DA_spend_SC_relation_effect = {
+	custom_tooltip = DA_spend_$DA_relation$_relation_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = DA_$DA_SC$_relation
+			value = $DA_relation$
+		}
+	}
+}
+DA_gain_SC_relation_effect = {
+	custom_tooltip = DA_Gain_$DA_relation$_relation_tt
+	hidden_effect = {
+		change_variable = {
+			which = DA_$DA_SC$_relation
+			value = $DA_relation$
 		}
 	}
 }

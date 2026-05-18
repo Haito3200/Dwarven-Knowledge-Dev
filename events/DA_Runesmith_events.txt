@@ -28,7 +28,12 @@ country_event = {
 				has_country_flag = DA_RS_inventions_unlocked
 			}
 		}
-		DA_start_research_t1 = yes
+		custom_tooltip = DA_start_research_t1_tt
+        DA_start_research = {
+            flag = runes_manufacturing_arcane
+            time = 48
+            arcane = yes
+        }
 
 		ai_chance = { factor = 1 }
 	}
@@ -42,7 +47,12 @@ country_event = {
 			}
 			DA_has_Steam_power_or_higher = yes
 		}
-		DA_start_research_t2 = yes
+		custom_tooltip = DA_start_research_t2_tt
+        DA_start_research = {
+            flag = runes_manufacturing_steam
+            time = 72
+            steam = yes
+        }
 		ai_chance = { factor = 5 }
 	}
 
@@ -55,27 +65,13 @@ country_event = {
 			}
 			DA_has_Energy_power_or_higher = yes
 		}
-		DA_start_research_t3 = yes
+		custom_tooltip = DA_start_research_t3_tt
+        DA_start_research = {
+            flag = runes_manufacturing_electric
+            time = 96
+            electric = yes
+        }
 		ai_chance = { factor = 10 }
-	}
-
-	option = {
-		name = DA_Runesmiths_events.1.e #unused for now
-		highlight = yes
-		trigger = {
-			always = no
-			hidden_trigger = {
-				has_country_flag = DA_RS_inventions_unlocked
-			}
-			DA_has_Energy_power_or_higher = yes
-			DA_completed.Medicine_3 = yes
-			DA_completed.Alchemy_3 = yes
-			DA_completed.Magic_Theory_3 = yes
-			DA_completed.Mechanics_3 = yes
-			DA_completed.Metallurgy_3 = yes
-		}
-		DA_start_research_t4 = yes
-		ai_chance = { factor = 20 }
 	}
 	option = {
 		name = DA_Runesmiths_events.1.runes
@@ -84,7 +80,12 @@ country_event = {
 				DA_has_researched_all_initial_runes = yes
 			}
 		}
-		DA_start_rune_research = yes
+		custom_tooltip = DA_RS_Rune_adaptation_tt
+        DA_start_research = {
+            flag = runes_manufacturing_rune
+            time = 36
+            arcane = yes
+        }
 		ai_chance = { factor = 10 }
 	}
 	option = {
@@ -111,116 +112,27 @@ country_event = {
 }
 
 country_event = {
-	id = DA_Runesmiths_events.2
-	title = DA_Runesmiths_events.2.t
-	desc = DA_Runesmiths_events.2.d
-	picture = INVENTION_eventPicture
-
-	trigger = {
-		OR = {
-			has_country_flag = DA_RS_research_rune
-			has_country_flag = DA_RS_research_t1
-			has_country_flag = DA_RS_research_t2
-			has_country_flag = DA_RS_research_t3
-			has_country_flag = DA_RS_research_t4
-		}
-	}
-
-	is_triggered_only = yes
-
-	hidden = yes
-
-	immediate = {
-	}
-
-	option = {
-		name = DA_Runesmiths_events.2.a
-		change_variable = {
-			which = DA_research_progress
-			value = 1
-		}
-		if = {
-			limit = { check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			} }
-			country_event = {
-				id = DA_Runesmiths_events.21
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-}
-
-country_event = {
 	id = DA_Runesmiths_events.21
-	title = DA_Runesmiths_events.2.t
-	desc = DA_Runesmiths_events.2.d
+	title = DA_Runesmiths_events.21.t
+	desc = DA_Runesmiths_events.21.d
 	picture = INVENTION_eventPicture
 
 	trigger = {
-		OR = {
-			has_country_flag = DA_RS_research_rune
-			has_country_flag = DA_RS_research_t1
-			has_country_flag = DA_RS_research_t2
-			has_country_flag = DA_RS_research_t3
-			has_country_flag = DA_RS_research_t4
-		}
-		check_variable = {
-			which = DA_research_progress
-			which = DA_research_progress_MAX
-		}
+		always = yes
 	}
 
 	is_triggered_only = yes
-
-	hidden = yes
 
 	immediate = {
 	}
 
 	option = {
-		name = DA_Runesmiths_events.2.a
-		remove_estate_privilege = DA_Runesmith_research_privilege
-		if = {
-			limit = { has_country_flag = DA_RS_research_rune }
-			clr_country_flag = DA_RS_research_rune
-			country_event = {
-				id = DA_Runesmiths_events.4
-			}
-		}
-		if = {
-			limit = { has_country_flag = DA_RS_research_t1 }
-			clr_country_flag = DA_RS_research_t1
-			country_event = {
-				id = DA_Runesmiths_events.20
-			}
-		}
-		if = {
-			limit = { has_country_flag = DA_RS_research_t2 }
-			clr_country_flag = DA_RS_research_t2
-			country_event = {
-				id = DA_Runesmiths_events.22
-			}
-		}
-		if = {
-			limit = { has_country_flag = DA_RS_research_t3 }
-			clr_country_flag = DA_RS_research_t3
-			country_event = {
-				id = DA_Runesmiths_events.23
-			}
-		}
-		if = {
-			limit = { has_country_flag = DA_RS_research_t4 }
-			clr_country_flag = DA_RS_research_t4
-			country_event = {
-				id = DA_Runesmiths_events.24
-			}
-		}
+		name = DA_Runesmiths_events.21.a
+		custom_tooltip = DA_Unlocked_inventions_tt
+		set_country_flag = DA_RS_inventions_unlocked
 		ai_chance = { factor = 1 }
 	}
 }
-
 country_event = {
 	id = DA_Runesmiths_events.20
 	title = DA_Runesmiths_events.20.t

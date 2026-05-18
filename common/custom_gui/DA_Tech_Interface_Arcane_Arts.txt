@@ -101,7 +101,7 @@
 custom_window = {
     name = DA_Arcane_Arts_Interface
     potential = {
-        has_country_flag = DA_Metallurgy_interface_on_Arcane_Arts
+        has_country_flag = DA_Technology_interface_on_Arcane_Arts
     }
 }
 custom_icon = {
@@ -123,7 +123,7 @@ custom_button = {
                 AND = {
                     NOT = { DA_completed.Magic_Theory_1 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 1000
                     }
                 }
@@ -131,7 +131,7 @@ custom_button = {
                     DA_completed.Magic_Theory_1 = yes
                     NOT = { DA_completed.Magic_Theory_2 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 2500
                     }
                 }
@@ -143,7 +143,7 @@ custom_button = {
                     DA_completed.Elemental_Magic_Earth = yes
                     NOT = { DA_completed.Magic_Theory_3 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 5000
                     }
                 }
@@ -151,7 +151,7 @@ custom_button = {
                     DA_completed.Magic_Theory_3 = yes
                     NOT = { DA_completed.Magic_Theory_4 = yes }
                     check_variable = {
-                        which = DA_acane_arts_exp
+                        which = DA_Arcane_Arts_exp
                         value = 10000
                     }
                 }
@@ -170,7 +170,7 @@ custom_button = {
                     NOT = { DA_completed.Magic_Theory_1 = yes }
                 }
                 subtract_variable = {
-                    which = DA_acane_arts_exp
+                    which = DA_Arcane_Arts_exp
                     value = 1000
                 }
                 country_event = {
@@ -184,7 +184,7 @@ custom_button = {
                     NOT = { DA_completed.Magic_Theory_2 = yes }
                 }
                 subtract_variable = {
-                    which = DA_acane_arts_exp
+                    which = DA_Arcane_Arts_exp
                     value = 2500
                 }
                 country_event = {
@@ -198,7 +198,7 @@ custom_button = {
                     NOT = { DA_completed.Magic_Theory_3 = yes }
                 }
                 subtract_variable = {
-                    which = DA_acane_arts_exp
+                    which = DA_Arcane_Arts_exp
                     value = 5000
                 }
                 country_event = {
@@ -212,7 +212,7 @@ custom_button = {
                     NOT = { DA_completed.Magic_Theory_4 = yes }
                 }
                 subtract_variable = {
-                    which = DA_acane_arts_exp
+                    which = DA_Arcane_Arts_exp
                     value = 10000
                 }
                 country_event = {
@@ -236,12 +236,6 @@ custom_text_box = {
     tooltip = DA_Arcane_Arts_mana_regen_shower.tt #Can use customizable localisation
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
-custom_text_box = {
-    name = DA_Arcane_Arts_mana_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Arcane_Arts_mana_shower.tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
 custom_button = {
 	name = DA_Arcane_Arts_Magic_Study_button
 	tooltip = DA_Arcane_Arts_Magic_Study_button_tt
@@ -249,8 +243,8 @@ custom_button = {
         always = yes
 	}
 	trigger = {
-        ruler_studying_magic = yes
-        ruler_has_mage_personality = yes
+        type_is_studying_magic = { type = ruler }
+        ruler_is_powerful_mage = yes
 		DA_mana_required = {
             amount = 20
         }
@@ -263,8 +257,8 @@ custom_button = {
         DA_mana_spend = {
             amount = 20
         }
-		increase_study_experience = {
-			experience = 200
+		increase_magic_experience = {
+			amount = 200
 		}
         custom_tooltip = DA_CD_5_tt
         hidden_effect = {
