@@ -97,39 +97,22 @@
 #       parliament_window       (ROOT = FROM)
 
 
-#TODO Jothell delete
-# custom_icon = {
-#     name = DA_topbar_addons_background
-#     potential = {
-#         always = yes
-#     }
-# }
 custom_button = {
 	name = DA_access_metallurgy_menu_button
 	tooltip = DA_open_metallurgy_interface_decision_title
-	potential = {
-		always = yes
-	}
-	trigger = {
-        # custom_trigger_tooltip = {
-            # tooltip = DA_metallurgy_interface_NOT_IN_USE
-        hidden_trigger = {
-            always = yes
-        }
-	}
 	effect = {
         hidden_effect = {
             DA_initialise_interface_variables = yes
             if = {
-                limit = {
-                    DA_has_any_interface_active_trigger = yes
-                }
-                
-                DA_clear_all_interface_flags = yes
+                limit = { DA_has_main_tech_interface_open = yes }
+                DA_close_main_tech_interface = yes
+            }
+            else_if = {
+                limit = { NOT = { DA_has_any_tech_interface_active_trigger = yes } }
+                DA_open_first_open_tech_interface = yes
             }
             else = {
-                set_country_flag = DA_AKT_interface_on
-                set_country_flag = DA_Technology_interface_on_main
+                DA_open_main_tech_interface = yes
             }
         }
 	}
@@ -267,72 +250,46 @@ custom_icon = {
 custom_button = {
 	name = DA_access_Projects_research_button
 	tooltip = DA_access_Projects_research_button_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-        hidden_trigger = {
-            always = yes
-        }
-	}
 	effect = {      
         hidden_effect = {
             DA_initialise_interface_variables = yes
         }
         if = {
-            limit = {
-                DA_has_any_interface_active_trigger = yes
-            }
-            
-            DA_clear_all_interface_flags = yes
+            limit = { DA_has_projects_research_interface_open = yes }
+            DA_close_projects_research_interface = yes
         }
         else = {
-            set_country_flag = DA_AKT_interface_on
-            set_country_flag = DA_projects_research_Interface_on
+            DA_open_projects_research_interface = yes
         }
 	}
 }
 custom_button = {
 	name = DA_access_Dwarovar_Wonders_button
 	tooltip = DA_access_Unique_Racial_Interface_button_tt
-	potential = {
-		always = yes
-	}
 	trigger = {
-        hidden_trigger = {
-            always = yes
-        }
+        culture_group = dwarven
 	}
 	effect = {
-        if = {
-            limit = {
-                culture_group = dwarven
-            }
-            hidden_effect = {
-                DA_initialise_interface_variables = yes
-            }
-            
-            DA_clear_all_interface_flags = yes
+        hidden_effect = {
+            DA_initialise_interface_variables = yes
+        }
 
-            set_country_flag = DA_AKT_interface_on
-            set_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
+        if = {
+            limit = { DA_has_wonders_etc_interface_open = yes }
+            DA_close_wonders_etc_interface = yes
+        }
+        else_if = {
+            limit = { NOT = { DA_has_any_racial_dwarven_interface_active_trigger = yes } }
+            DA_first_open_wonders_etc_interface = yes
         }
         else = {
-            custom_tooltip = DA_custure_group_must_be_dwarven_tt
+            DA_open_wonders_etc_interface = yes
         }
 	}
 }
 custom_button = {
 	name = DA_access_Secret_Societies_button
 	tooltip = DA_access_Secret_Societies_button_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-        hidden_trigger = {
-            always = yes
-        }
-	}
 	effect = {  
         custom_tooltip = DA_in_development_tt
         #hidden_effect = {
@@ -345,7 +302,7 @@ custom_button = {
         #    DA_clear_all_interface_flags = yes
         #}
         #else = {
-        #    set_country_flag = DA_AKT_interface_on
+        #    #set_country_flag = DA_AKT_interface_on
         #    set_country_flag = DA_Secret_Societies_Interface_on
         #}
 	}
@@ -353,14 +310,6 @@ custom_button = {
 custom_button = {
 	name = DA_access_Ascension_Paths_button
 	tooltip = DA_access_Ascension_Paths_button_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-        hidden_trigger = {
-            always = yes
-        }
-	}
 	effect = {
         custom_tooltip = DA_in_development_tt
         # this is just to prevent people opening an half-done thing
@@ -371,21 +320,23 @@ custom_button = {
         #    DA_clear_all_interface_flags = yes
         #}
         #else = {
-        #    set_country_flag = DA_AKT_interface_on
+        #    #set_country_flag = DA_AKT_interface_on
         #    set_country_flag = DA_Ascension_Paths_interface_on
         #}
 	}
 }
 custom_window = {
-    name = DA_Metallurgy_interface
+    name = DA_main_tech_interface
     potential = {
-        has_country_flag = DA_AKT_interface_on
+        DA_has_main_tech_interface_open = yes
+        # has_country_flag = DA_AKT_interface_on
+        # has_country_flag = DA_Technology_interface_on_main
     }
 }
 custom_window = {
     name = DA_Metallurgy_interface_main_window
     potential = {
-        has_country_flag = DA_Technology_interface_on_main
+        DA_has_metallurgy_interface_open = yes
     }
 }
 custom_icon = {
@@ -395,34 +346,21 @@ custom_icon = {
     }
 }
 custom_button = {
-	name = DA_close_button_main
+	name = DA_close_main_tech_interface
 	tooltip = "Close"
-	potential = {
-		always = yes
-	}
-	trigger = {
-		always = yes
-	}
 	effect = {
-        DA_clear_all_interface_flags = yes
+        DA_close_main_tech_interface = yes
 	}
 }
 custom_button = {
 	name = DA_switch_button_main
 	tooltip = DA_switch_to_metallurgy_interface_tt
-	potential = {
-        DA_has_any_tech_interface_active_trigger = yes
-	}
-	trigger = {
-		always = yes
-	}
 	effect = {
         hidden_effect = {
             DA_initialise_interface_variables = yes
         }
-        DA_clear_all_non_essential_interface_flags = yes
-        
-        set_country_flag = DA_Technology_interface_on_main
+        DA_tech_interface_close_tabs_effect = yes
+        DA_open_metallurgy_interface = yes
 	}
 }
 custom_button = {
@@ -540,16 +478,10 @@ custom_button = {
 custom_button = {
 	name = DA_switch_button_alloy
 	tooltip = DA_switch_to_alloy_interface_tt
-	potential = {
-        DA_has_any_tech_interface_active_trigger = yes
-	}
-	trigger = {
-		always = yes
-	}
 	effect = {
-        DA_clear_all_non_essential_interface_flags = yes
+        DA_tech_interface_close_tabs_effect = yes
+        DA_open_alloy_interface = yes
 
-        set_country_flag = DA_Technology_interface_on_alloy
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -569,16 +501,10 @@ custom_button = {
 custom_button = {
 	name = DA_switch_button_Arcane_Arts
 	tooltip = DA_switch_button_Arcane_Arts_tt
-	potential = {
-        DA_has_any_tech_interface_active_trigger = yes
-	}
-	trigger = {
-		always = yes
-	}
 	effect = {
-        DA_clear_all_non_essential_interface_flags = yes
+        DA_tech_interface_close_tabs_effect = yes
+        DA_open_arcane_arts_interface = yes
 
-        set_country_flag = DA_Technology_interface_on_Arcane_Arts
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -714,16 +640,10 @@ custom_button = {
 custom_button = {
 	name = DA_switch_button_Mechanics
 	tooltip = DA_switch_button_Mechanics_tt
-	potential = {
-        DA_has_any_tech_interface_active_trigger = yes
-	}
-	trigger = {
-		always = yes
-	}
 	effect = {
-        DA_clear_all_non_essential_interface_flags = yes
+        DA_tech_interface_close_tabs_effect = yes
+        DA_open_mechanics_interface = yes
 
-        set_country_flag = DA_Technology_interface_on_Mechanics
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -855,16 +775,10 @@ custom_button = {
 custom_button = {
 	name = DA_switch_button_Alchemy
 	tooltip = DA_switch_button_Alchemy_tt
-	potential = {
-        DA_has_any_tech_interface_active_trigger = yes
-	}
-	trigger = {
-		always = yes
-	}
 	effect = {
-        DA_clear_all_non_essential_interface_flags = yes
-
-        set_country_flag = DA_Technology_interface_on_Alchemy
+        DA_tech_interface_close_tabs_effect = yes
+        DA_open_alchemy_interface = yes
+        
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -996,14 +910,9 @@ custom_button = {
 custom_button = {
 	name = DA_switch_button_Medicine
 	tooltip = DA_switch_button_Medicine_tt
-	potential = {
-        DA_has_any_tech_interface_active_trigger = yes
-	}
-	trigger = {
-		always = yes
-	}
 	effect = {
-        DA_clear_all_non_essential_interface_flags = yes
+        DA_tech_interface_close_tabs_effect = yes
+        DA_open_medicine_interface = yes
 
         if = {
             limit = {
@@ -1015,7 +924,6 @@ custom_button = {
             }
             set_country_flag = DA_Medicine_interface.common_non_magical
         }
-        set_country_flag = DA_Technology_interface_on_Medicine
         hidden_effect = {
             export_to_variable = {
                 value = modifier:DA_fake_alloy_common_slot_adder
@@ -1152,57 +1060,39 @@ custom_button = {
 custom_button = {
 	name = DA_switch_button_research_facility
 	tooltip = DA_switch_button_research_facility_tt
-	potential = {
-        DA_has_any_racial_dwarven_interface_active_trigger = yes
-	}
 	trigger = {
 		culture_group = dwarven
 	}
 	effect = {
-        DA_clear_all_non_essential_interface_flags = yes
-        
-        set_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
+        DA_wonders_etc_interface_close_tabs_effect = yes
+        DA_open_Racial_Interface_on_Dwarven_research_facility = yes
 	}
 }
 custom_button = {
 	name = DA_switch_button_wonders
 	tooltip = DA_switch_to_wonders_interface_tt
-	potential = {
-        DA_has_any_racial_dwarven_interface_active_trigger = yes
-	}
 	trigger = {
 		culture_group = dwarven
 	}
 	effect = {
-        DA_clear_all_non_essential_interface_flags = yes
-        
-        set_country_flag = DA_Racial_Interface_on_Dwarven_wonders
+        DA_wonders_etc_interface_close_tabs_effect = yes
+        DA_open_Racial_Interface_on_Dwarven_wonders = yes
 	}
 }
 custom_button = {
 	name = DA_switch_button_inventions
 	tooltip = DA_switch_button_inventions_tt
-	potential = {
-        DA_has_any_racial_dwarven_interface_active_trigger = yes
-	}
 	trigger = {
 		culture_group = dwarven
 	}
 	effect = {
-        DA_clear_all_non_essential_interface_flags = yes
-        
-        set_country_flag = DA_Racial_Interface_on_Dwarven_inventions
+        DA_wonders_etc_interface_close_tabs_effect = yes
+        DA_open_Racial_Interface_on_Dwarven_inventions = yes
 	}
 }
 custom_button = {
 	name = DA_Fake_Info_button
 	tooltip = DA_Fake_Info_button_tt
-	potential = {
-        always = yes
-	}
-	trigger = {
-		always = yes
-	}
 	effect = {
 		custom_tooltip = DA_click_to_update_metals
 		hidden_effect = {
