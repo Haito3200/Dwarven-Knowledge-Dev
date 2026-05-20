@@ -1,44 +1,183 @@
 
 DA_clear_all_interface_flags = {
 	hidden_effect = {
-        clr_country_flag = DA_AKT_interface_on
-        
-        clr_country_flag = DA_Racial_Interface_on_Dwarven_wonders
-        clr_country_flag = DA_Racial_Interface_on_Dwarven_inventions
-        clr_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
+		clr_country_flag = DA_AKT_interface_on
+		
+		clr_country_flag = DA_Racial_Interface_on_Dwarven_wonders
+		clr_country_flag = DA_Racial_Interface_on_Dwarven_inventions
+		clr_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
 
-        clr_country_flag = DA_Technology_interface_on_main
-        clr_country_flag = DA_Technology_interface_on_alloy
-        clr_country_flag = DA_Technology_interface_on_Alchemy
-        clr_country_flag = DA_Technology_interface_on_Arcane_Arts
-        clr_country_flag = DA_Technology_interface_on_Mechanics
-        clr_country_flag = DA_Technology_interface_on_Medicine
+		clr_country_flag = DA_Technology_interface_on_main
+		clr_country_flag = DA_Technology_interface_on_alloy
+		clr_country_flag = DA_Technology_interface_on_Alchemy
+		clr_country_flag = DA_Technology_interface_on_Arcane_Arts
+		clr_country_flag = DA_Technology_interface_on_Mechanics
+		clr_country_flag = DA_Technology_interface_on_Medicine
 
-        clr_country_flag = DA_projects_research_Interface_on
-        
-        clr_country_flag = DA_Secret_Societies_Interface_on
-        
-        clr_country_flag = DA_Ascension_Paths_interface_on
+		clr_country_flag = DA_projects_research_Interface_on
+		
+		clr_country_flag = DA_Secret_Societies_Interface_on
+		
+		clr_country_flag = DA_Ascension_Paths_interface_on
 	}
 }
 
 DA_clear_all_non_essential_interface_flags = {
 	hidden_effect = {
-        clr_country_flag = DA_Racial_Interface_on_Dwarven_wonders
-        clr_country_flag = DA_Racial_Interface_on_Dwarven_inventions
-        clr_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
+		clr_country_flag = DA_Racial_Interface_on_Dwarven_wonders
+		clr_country_flag = DA_Racial_Interface_on_Dwarven_inventions
+		clr_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
 
-        clr_country_flag = DA_Technology_interface_on_main
-        clr_country_flag = DA_Technology_interface_on_alloy
-        clr_country_flag = DA_Technology_interface_on_Alchemy
-        clr_country_flag = DA_Technology_interface_on_Arcane_Arts
-        clr_country_flag = DA_Technology_interface_on_Mechanics
-        clr_country_flag = DA_Technology_interface_on_Medicine
+		# clr_country_flag = DA_Technology_interface_on_main
+		clr_country_flag = DA_Technology_interface_on_alloy
+		clr_country_flag = DA_Technology_interface_on_Alchemy
+		clr_country_flag = DA_Technology_interface_on_Arcane_Arts
+		clr_country_flag = DA_Technology_interface_on_Mechanics
+		clr_country_flag = DA_Technology_interface_on_Medicine
 
-        clr_country_flag = DA_projects_research_Interface_on
-        
-        clr_country_flag = DA_Secret_Societies_Interface_on
+		clr_country_flag = DA_projects_research_Interface_on
+		
+		clr_country_flag = DA_Secret_Societies_Interface_on
 
-        clr_country_flag = DA_Ascension_Paths_interface_on
+		clr_country_flag = DA_Ascension_Paths_interface_on
+	}
+}
+
+#Window 1 - DA_main_tech_interface
+DA_open_first_open_tech_interface = {
+	DA_open_main_tech_interface = yes
+	DA_open_metallurgy_interface = yes
+}
+
+DA_open_main_tech_interface = {
+    set_country_flag = DA_show_tech_interface
+	if = {
+		limit = { DA_has_metallurgy_interface_open = yes }
+		hidden_effect = {
+			# DA_calculate_metal_provinces = yes
+			country_event = { id = DA_Metallurgy_events.0 }
+		}
+	}
+}
+DA_close_main_tech_interface = {
+    clr_country_flag = DA_show_tech_interface
+}
+DA_open_metallurgy_interface = {
+    set_country_flag = DA_Technology_interface_on_main
+	hidden_effect = {
+		# DA_calculate_metal_provinces = yes
+		country_event = { id = DA_Metallurgy_events.0 }
+	}
+}
+DA_close_metallurgy_interface = {
+    clr_country_flag = DA_Technology_interface_on_main
+}
+DA_open_alloy_interface = {
+    set_country_flag = DA_Technology_interface_on_alloy
+}
+DA_close_alloy_interface = {
+    clr_country_flag = DA_Technology_interface_on_alloy
+}
+DA_open_arcane_arts_interface = {
+    set_country_flag = DA_Technology_interface_on_Arcane_Arts
+}
+DA_close_arcane_arts_interface = {
+    clr_country_flag = DA_Technology_interface_on_Arcane_Arts
+}
+DA_open_mechanics_interface = {
+    set_country_flag = DA_Technology_interface_on_Mechanics
+}
+DA_close_mechanics_interface = {
+    clr_country_flag = DA_Technology_interface_on_Mechanics
+}
+DA_open_alchemy_interface = {
+    set_country_flag = DA_Technology_interface_on_Alchemy
+}
+DA_close_alchemy_interface = {
+    clr_country_flag = DA_Technology_interface_on_Alchemy
+}
+DA_open_medicine_interface = {
+    set_country_flag = DA_Technology_interface_on_Medicine
+}
+DA_close_medicine_interface = {
+    clr_country_flag = DA_Technology_interface_on_Medicine
+}
+
+DA_tech_interface_close_tabs_effect = {
+	if = {
+		limit = { DA_has_metallurgy_interface_open = yes }
+		DA_close_metallurgy_interface = yes
+	}
+	else_if = {
+		limit = { DA_has_alloy_interface_open = yes }
+		DA_close_alloy_interface = yes
+	}
+	else_if = {
+		limit = { DA_has_arcane_arts_interface_open = yes }
+		DA_close_arcane_arts_interface = yes
+	}
+	else_if = {
+		limit = { DA_has_mechanics_interface_open = yes }
+		DA_close_mechanics_interface = yes
+	}
+	else_if = {
+		limit = { DA_has_alchemy_interface_open = yes }
+		DA_close_alchemy_interface = yes
+	}
+	else_if = {
+		limit = { DA_has_medicine_interface_open = yes }
+		DA_close_medicine_interface = yes
+	}
+}
+
+#Window 2 - DA_projects_research_Interface
+DA_open_projects_research_interface = {
+    set_country_flag = DA_projects_research_Interface_on
+}
+DA_close_projects_research_interface = {
+    clr_country_flag = DA_projects_research_Interface_on
+}
+
+#Window 3 - DA_wonders_etc_interface
+DA_first_open_wonders_etc_interface = {
+    DA_open_wonders_etc_interface = yes
+	DA_open_Racial_Interface_on_Dwarven_wonders = yes
+}
+DA_open_wonders_etc_interface = {
+    set_country_flag = DA_wonders_etc_interface_on
+}
+DA_close_wonders_etc_interface = {
+    clr_country_flag = DA_wonders_etc_interface_on
+}
+DA_open_Racial_Interface_on_Dwarven_research_facility = {
+    set_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
+}
+DA_close_Racial_Interface_on_Dwarven_research_facility = {
+    clr_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
+}
+DA_open_Racial_Interface_on_Dwarven_inventions = {
+    set_country_flag = DA_Racial_Interface_on_Dwarven_inventions
+}
+DA_close_Racial_Interface_on_Dwarven_inventions = {
+    clr_country_flag = DA_Racial_Interface_on_Dwarven_inventions
+}
+DA_open_Racial_Interface_on_Dwarven_wonders = {
+    set_country_flag = DA_Racial_Interface_on_Dwarven_wonders
+}
+DA_close_Racial_Interface_on_Dwarven_wonders = {
+    clr_country_flag = DA_Racial_Interface_on_Dwarven_wonders
+}
+DA_wonders_etc_interface_close_tabs_effect = {
+	if = {
+		limit = { DA_has_Racial_Interface_on_Dwarven_research_facility_open = yes }
+		DA_close_Racial_Interface_on_Dwarven_research_facility = yes
+	}
+	else_if = {
+		limit = { DA_has_Racial_Interface_on_Dwarven_inventions_open = yes }
+		DA_close_Racial_Interface_on_Dwarven_inventions = yes
+	}
+	else_if = {
+		limit = { DA_has_Racial_Interface_on_Dwarven_wonders_open = yes }
+		DA_close_Racial_Interface_on_Dwarven_wonders = yes
 	}
 }

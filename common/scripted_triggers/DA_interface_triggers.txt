@@ -3,43 +3,84 @@
 
 
 
-DA_has_any_interface_active_trigger = {
-    has_country_flag = DA_AKT_interface_on
-}
+# DA_has_any_interface_active_trigger = {
+#     has_country_flag = DA_AKT_interface_on
+# }
 DA_has_any_tech_interface_active_trigger = {
-    DA_has_any_interface_active_trigger = yes
     OR = {
-        has_country_flag = DA_Technology_interface_on_main
-        has_country_flag = DA_Technology_interface_on_alloy
-        has_country_flag = DA_Technology_interface_on_Alchemy
-        has_country_flag = DA_Technology_interface_on_Arcane_Arts
-        has_country_flag = DA_Technology_interface_on_Mechanics
-        has_country_flag = DA_Technology_interface_on_Medicine
+        DA_has_metallurgy_interface_open = yes
+        DA_has_alloy_interface_open = yes
+        DA_has_arcane_arts_interface_open = yes
+        DA_has_mechanics_interface_open = yes
+        DA_has_alchemy_interface_open = yes
+        DA_has_medicine_interface_open = yes
     }
 }
 DA_has_any_racial_dwarven_interface_active_trigger = {
-    DA_has_any_interface_active_trigger = yes
+    # DA_has_any_interface_active_trigger = yes
     OR = {
-        has_country_flag = DA_Racial_Interface_on_Dwarven_wonders
-        has_country_flag = DA_Racial_Interface_on_Dwarven_inventions
-        has_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
+        DA_has_Racial_Interface_on_Dwarven_research_facility_open = yes
+        DA_has_Racial_Interface_on_Dwarven_inventions_open = yes
+        DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
     }
 }
 DA_has_any_projects_research_interface_active_trigger = {
-    DA_has_any_interface_active_trigger = yes
+    # DA_has_any_interface_active_trigger = yes
     OR = {
-        has_country_flag = DA_projects_research_Interface_on
+        DA_has_projects_research_interface_open = yes
     }
 }
 DA_has_any_Secret_Societies_interface_active_trigger = {
-    DA_has_any_interface_active_trigger = yes
+    # DA_has_any_interface_active_trigger = yes
     OR = {
         has_country_flag = DA_Secret_Societies_Interface_on
     }
 }
 DA_has_any_Ascension_Paths_interface_active_trigger = {
-    DA_has_any_interface_active_trigger = yes
+    # DA_has_any_interface_active_trigger = yes
     OR = {
         has_country_flag = DA_Ascension_Paths_interface_on
     }
+}
+
+#Window 1 - DA_main_tech_interface
+DA_has_main_tech_interface_open = {
+    has_country_flag = DA_show_tech_interface
+}
+DA_has_metallurgy_interface_open = {
+    has_country_flag = DA_Technology_interface_on_main
+}
+DA_has_alloy_interface_open = {
+    has_country_flag = DA_Technology_interface_on_alloy
+}
+DA_has_arcane_arts_interface_open = {
+    has_country_flag = DA_Technology_interface_on_Arcane_Arts
+}
+DA_has_mechanics_interface_open = {
+    has_country_flag = DA_Technology_interface_on_Mechanics
+}
+DA_has_alchemy_interface_open = {
+    has_country_flag = DA_Technology_interface_on_Alchemy
+}
+DA_has_medicine_interface_open = {
+    has_country_flag = DA_Technology_interface_on_Medicine
+}
+
+#Window 2 - DA_projects_research_Interface
+DA_has_projects_research_interface_open = {
+    has_country_flag = DA_projects_research_Interface_on
+}
+
+#Window 3 - DA_wonders_etc_interface
+DA_has_wonders_etc_interface_open = {
+    has_country_flag = DA_wonders_etc_interface_on
+}
+DA_has_Racial_Interface_on_Dwarven_research_facility_open = {
+    has_country_flag = DA_Racial_Interface_on_Dwarven_research_facility
+}
+DA_has_Racial_Interface_on_Dwarven_inventions_open = {
+    has_country_flag = DA_Racial_Interface_on_Dwarven_inventions
+}
+DA_has_Racial_Interface_on_Dwarven_wonders_open = {
+    has_country_flag = DA_Racial_Interface_on_Dwarven_wonders
 }
