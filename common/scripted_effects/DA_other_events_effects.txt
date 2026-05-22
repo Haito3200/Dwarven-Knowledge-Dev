@@ -2286,10 +2286,19 @@ DA_on_yearly_pulse_2_effect = {
 			which = DA_Max_amount_of_warforged_infantry
 			which = DA_amount_of_warforged_infantry_modifier
 		}
-		export_to_variable = {
-			value = trigger_value:num_of_musketeers
-			variable_name = DA_current_amount_of_warforged_infantry
-		}
+        if = {
+            limit = { has_country_flag = DA_enable_metallurgy_System_artificer }
+            export_to_variable = {
+                value = trigger_value:num_of_rajput
+                variable_name = DA_current_amount_of_warforged_infantry
+            }
+        }
+        else = {
+            export_to_variable = {
+                value = trigger_value:num_of_musketeers
+                variable_name = DA_current_amount_of_warforged_infantry
+            }
+        }
 		export_to_variable = {
 			value = modifier:DA_fake_warforged_cavalry_force_limit
 			variable_name = DA_Max_amount_of_warforged_cavalry
