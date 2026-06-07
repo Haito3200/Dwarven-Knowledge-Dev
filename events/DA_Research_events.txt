@@ -133,6 +133,7 @@ country_event = {
 
 	trigger = {
 		ai = no
+		culture_group = dwarven
 		has_country_flag = DA_research_in_progress
 		NOT = {
 			check_variable = {
@@ -194,13 +195,13 @@ country_event = {
 				DA_Research_add = { amount = 6 }
 			}
 			1 = {
+				DA_Research_lose = { amount = 3 }
+			}
+			1 = {
 				DA_Research_lose = { amount = 6 }
 			}
 			1 = {
-				DA_Research_lose = { amount = 12 }
-			}
-			1 = {
-				DA_Research_lose = { amount = 18 }
+				DA_Research_lose = { amount = 9 }
 			}
 		}
 	}
@@ -211,7 +212,7 @@ country_event = {
 			monthly_income = 150
 		}
 		add_treasury = -1000
-		DA_Research_add = { amount = 6 }
+		DA_Research_add = { amount = 12 }
 	}
 	
 	
@@ -356,6 +357,16 @@ country_event = {
 		}
 		DA_Research_add = { amount = 6 }
 	}
+	option = {
+		name = DA_Research_events.9.c
+		highlight = yes
+		trigger = {
+			OR = {
+				innovativeness = 95
+				full_idea_group = innovativeness_ideas
+			}
+		}
+	}
 	
 	
 }
@@ -386,7 +397,7 @@ country_event = {
 		capital_scope = {
 			spawn_rebels = {
 				size = 2
-				type = DA_Deep_goblins_rebels
+				type = leadered_peasant_rebels # from Anbennar
 			}
 		}
 	}
