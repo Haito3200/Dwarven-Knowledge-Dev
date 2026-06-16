@@ -360,8 +360,8 @@ province_event = { #found ancestor tomb
 		custom_tooltip = "???????"
 		hidden_effect = {
 			owner = {
-				DA_create_Low_tier_fire_general = {
-					DA_Trait = Low_Class_Rune_Mage_general_personality
+				country_event = {
+					id = DA_ADK_explore.111
 				}
 			}
 		}
@@ -386,6 +386,93 @@ province_event = { #found ancestor tomb
 			}
 		}
 		clr_province_flag = DA_expedition_in_progress
+	}
+}
+
+country_event = { #created mage general by mistake, not a direct outcome
+	id = DA_ADK_explore.111
+	title = "DA_ADK_explore.111.t"
+	desc = "DA_ADK_explore.111.d"
+	picture = ULMISBAR_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = "DA_ADK_explore.111.a"
+		random_list = {
+			75 = {
+				DA_create_Low_tier_fire_general = {
+					DA_Trait = Low_Class_Rune_Mage_general_personality
+				}
+			}
+			25 = {
+				DA_create_Middle_tier_fire_general = {
+					DA_Trait = Middle_Class_Rune_Mage_general_personality
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.111.b"
+		highlight = yes
+		trigger = {
+			DA_completed.Holy_Magic = yes
+		}
+		random_list = {
+			50 = {
+				DA_create_Low_tier_shock_general = {
+					DA_Trait = Holy_magic_general_personality
+				}
+			}
+			50 = {
+				DA_create_Middle_tier_shock_general = {
+					DA_Trait = Holy_magic_general_personality
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.111.c"
+		highlight = yes
+		trigger = {
+			DA_completed.Curse_Magic = yes
+		}
+		random_list = {
+			50 = {
+				DA_create_Low_tier_shock_general = {
+					DA_Trait = Curse_magic_general_personality
+				}
+			}
+			50 = {
+				DA_create_Middle_tier_shock_general = {
+					DA_Trait = Curse_magic_general_personality
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.111.e"
+		highlight = yes
+		trigger = {
+			DA_completed.Magic_Theory_4 = yes
+		}
+		random_list = {
+			20 = {
+				DA_create_Low_tier_shock_general = {
+					DA_Trait = DA_Arcanist_Evocation
+				}
+			}
+			40 = {
+				DA_create_Middle_tier_shock_general = {
+					DA_Trait = DA_Elementalist_Earth
+				}
+			}
+			40 = {
+				DA_create_High_tier_shock_general = {
+					DA_Trait = DA_ArchMage_General
+				}
+			}
+		}
 	}
 }
 
