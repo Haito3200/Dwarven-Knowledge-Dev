@@ -1356,6 +1356,50 @@ country_event = {
 		add_inflation = 2
 	}
 	option = {
+		name = "DA_Hold_Gor_Vazumbrog.370.b_fake"
+		trigger = {
+			4217 = {
+				NOt = {
+					check_variable = {
+						which = DA_Aetherium_Lingots
+						value = 10
+					}
+				}
+			}
+			NOT = {
+				has_country_modifier = DA_Aetherium_Lingots_researched
+			}
+		}
+		if = {
+			limit = {
+				4217 = {
+					NOt = {
+						check_variable = {
+							which = DA_Aetherium_Lingots
+							value = 10
+						}
+					}
+				}
+			}
+			custom_tooltip = DA_missing_10_aetherium_lingots_tt
+		}
+		tooltip = {
+			4217 = {
+				hidden_effect = {
+					subtract_variable = {
+						which = DA_Aetherium_Lingots
+						value = 10
+					}
+				}
+			}
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.371
+				days = 3650
+			}
+		}
+		
+	}
+	option = {
 		name = "DA_Hold_Gor_Vazumbrog.370.b"
 		trigger = {
 			4217 = {
