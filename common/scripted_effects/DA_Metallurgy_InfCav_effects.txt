@@ -820,6 +820,76 @@ DA_apply_alloy = {
 			which = DA_Shock_rec_TOTAL_$DA_unit$
 			which = DA_Shock_rec_Metal_$DA_unit$
 		}
+
+		
+		# Multiply total Magical x MC
+		multiply_variable = {
+			which = DA_power_Magical_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_fire_Magical_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_shock_Magical_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Fire_rec_Magical_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+		multiply_variable = {
+			which = DA_Shock_rec_Magical_$DA_unit$
+			which = DA_Metal_Magic_Conductivity_STAT_$DA_unit$
+		}
+
+		# calculate total Magical modifiers multiplied, metal multiplier was calculated earlier
+
+		change_variable = {
+			which = DA_fire_TOTAL_$DA_unit$
+			which = DA_fire_Magical_$DA_unit$
+		}
+		change_variable = {
+			which = DA_shock_TOTAL_$DA_unit$
+			which = DA_shock_Magical_$DA_unit$
+		}
+		change_variable = {
+			which = DA_power_TOTAL_$DA_unit$
+			which = DA_power_Magical_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Fire_rec_TOTAL_$DA_unit$
+			which = DA_Fire_rec_Magical_$DA_unit$
+		}
+		change_variable = {
+			which = DA_Shock_rec_TOTAL_$DA_unit$
+			which = DA_Shock_rec_Magical_$DA_unit$
+		}
+		
+		# set the variables back to 0 for the next MC modifier, if any ( probably no )
+		set_variable = {
+			which = DA_power_Magical_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_fire_Magical_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_shock_Magical_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Fire_rec_Magical_$DA_unit$
+			value = 0
+		}
+		set_variable = {
+			which = DA_Shock_rec_Magical_$DA_unit$
+			value = 0
+		}
+
+		
 		# Multiply total electric x EC
 		multiply_variable = {
 			which = DA_power_Electric_$DA_unit$
