@@ -492,3 +492,410 @@ custom_button = {
         DA_reset_Alchemy_Variables = yes
 	}
 }
+
+# The unset page opens Common for new and existing saves.
+custom_window = {
+    name = DA_Alchemy_List.common
+    potential = { NOT = { check_variable = { which = DA_alchemy_inventory_page value = 1 } } }
+}
+custom_window = {
+    name = DA_Alchemy_List.rare_1
+    potential = { is_variable_equal = { which = DA_alchemy_inventory_page value = 1 } }
+}
+custom_window = {
+    name = DA_Alchemy_List.rare_2
+    potential = { is_variable_equal = { which = DA_alchemy_inventory_page value = 2 } }
+}
+custom_window = {
+    name = DA_Alchemy_List.legendary
+    potential = { is_variable_equal = { which = DA_alchemy_inventory_page value = 3 } }
+}
+
+custom_button = {
+    name = DA_Alchemy_List.previous
+    tooltip = DA_Alchemy_List.previous_tt
+    potential = { DA_has_alchemy_interface_open = yes }
+    trigger = { always = yes }
+    effect = {
+        if = {
+            limit = { check_variable = { which = DA_alchemy_inventory_page value = 1 } }
+            subtract_variable = { which = DA_alchemy_inventory_page value = 1 }
+        }
+        else = { set_variable = { which = DA_alchemy_inventory_page value = 3 } }
+    }
+}
+custom_button = {
+    name = DA_Alchemy_List.next
+    tooltip = DA_Alchemy_List.next_tt
+    potential = { DA_has_alchemy_interface_open = yes }
+    trigger = { always = yes }
+    effect = {
+        if = {
+            limit = { check_variable = { which = DA_alchemy_inventory_page value = 3 } }
+            set_variable = { which = DA_alchemy_inventory_page value = 0 }
+        }
+        else = { change_variable = { which = DA_alchemy_inventory_page value = 1 } }
+    }
+}
+
+# Ownership is evaluated by customizable localization for each visible status.
+custom_text_box = {
+    name = DA_Alchemy_List.Ironroot.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Ironroot.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Silverleaf.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Silverleaf.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Sageleaf.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Sageleaf.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Embergrass.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Embergrass.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Glowberry.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Glowberry.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Duskfern.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Duskfern.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Stormvine.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Stormvine.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Honeyroot.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Honeyroot.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Shadowmoss.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Shadowmoss.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Golden_Thistle.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Golden_Thistle.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Bloodflower.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Bloodflower.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Crypt_Shroom.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Crypt_Shroom.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Mandrake_Root.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Mandrake_Root.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Basilisk_Fang.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Basilisk_Fang.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Azure_Lotus.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Azure_Lotus.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Nightshade_Amethyst.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Nightshade_Amethyst.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Crimson_Thistle.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Crimson_Thistle.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Drasil_Bark.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Drasil_Bark.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Fey_Amber.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Fey_Amber.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Manticore_Quill.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Manticore_Quill.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Healing_Slimes.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Healing_Slimes.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Hook_Horrors.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Hook_Horrors.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Living_Crystals.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Living_Crystals.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Ironweave_Skitterers_silk.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Ironweave_Skitterers_silk.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Logrhundr.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Logrhundr.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Purple_Worm_blood.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Purple_Worm_blood.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Griffon_Feathers.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Griffon_Feathers.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Tchoken_scales.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Tchoken_scales.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Almiras.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Almiras.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Basmu.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Basmu.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Chamrus.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Chamrus.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Umu_Dabrutu.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Umu_Dabrutu.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Asigallu.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Asigallu.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Girtablullu.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Girtablullu.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Kusarikku.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Kusarikku.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Sibargal.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Sibargal.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.The_Last_Wish.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.The_Last_Wish.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Hattiatia.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Hattiatia.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Almruk_Spikes.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Almruk_Spikes.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Kircha_Ot_laf.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Kircha_Ot_laf.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Rock_Crab_legs.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Rock_Crab_legs.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Roc_feathers.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Roc_feathers.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Dire_Hyena_tooth.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Dire_Hyena_tooth.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Barzoazh_blood.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Barzoazh_blood.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Bo_hide.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Bo_hide.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Shadhavar_horns.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Shadhavar_horns.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Tlalusk_Tusks.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Tlalusk_Tusks.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.elemental_fire.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.elemental_fire.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.elemental_water.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.elemental_water.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.elemental_air.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.elemental_air.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.elemental_earth.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.elemental_earth.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Guiamala.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Guiamala.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Eloko.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Eloko.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Kadda.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Kadda.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Devouring_Gourd.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Devouring_Gourd.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Asanbosam.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Asanbosam.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Hydras.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Hydras.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Ninki_Nanka.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Ninki_Nanka.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Aziza.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Aziza.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Abada.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Abada.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Were_Leopard.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Were_Leopard.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Rom.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Rom.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Adze.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Adze.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Heart_of_the_World.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Heart_of_the_World.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Black_Sun_Shard.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Black_Sun_Shard.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Leviathan_Scales.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Leviathan_Scales.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Phoenix_Feather.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Phoenix_Feather.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Starheart_Core.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Starheart_Core.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Whispering_Crown.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Whispering_Crown.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Dragon_remains.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Dragon_remains.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Giant_remains.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Giant_remains.tt
+}
+custom_text_box = {
+    name = DA_Alchemy_List.Lich_remains.value
+    potential = { always = yes }
+    tooltip = DA_Alchemy_List.Lich_remains.tt
+}
