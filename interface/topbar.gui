@@ -12812,6 +12812,16 @@ guiTypes = {
 
 		}
 
+		# Magic on Topbar banner; AKT's existing topbar and menus stay in place.
+		iconType = {
+			name = "DA_topbar_mana_background"
+			spriteType = "GFX_DA_magic_topbar_banner_section"
+			position = { x = 275 y = 40 }
+			Orientation = "UPPER_LEFT"
+			scripted = yes
+			alwaystransparent = yes
+		}
+
 		iconType = {
 			name = "government_reforms_button_base"
 			quadTextureSprite ="GFX_government_reforms_button_base"
@@ -13520,11 +13530,46 @@ guiTypes = {
 			font = "vic_22"
 			borderSize = {x = 4 y = 4}
 			text = ""
-			maxWidth = 340
+			maxWidth = 262
 			maxHeight = 32
 			fixedsize = yes
 		}
 
+
+	############### AKT MAGIC ON TOPBAR ###################
+
+		# Read currentMana directly, including decimals. No scripted-effect override
+		# or monthly display cache is needed. Leave room before the ADM icon (x=498).
+		instantTextBoxType = {
+			name = "DA_topbar_mana_value"
+			position = { x = 472 y = 52 }
+			font = "vic_18"
+			borderSize = { x = 4 y = 4 }
+			text = ""
+			maxWidth = 56
+			maxHeight = 32
+			format = left
+			scripted = yes
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "DA_topbar_mana_icon"
+			spriteType = "GFX_DA_topbar_mana_icon"
+			position = { x = 446 y = 47 }
+			scale = 0.6
+			Orientation = "UPPER_LEFT"
+			scripted = yes
+			alwaystransparent = yes
+		}
+		guiButtonType = {
+			name = "DA_topbar_mana_button"
+			spriteType = "GFX_invisible_button_tile"
+			size = { x = 62 y = 34 }
+			position = { x = 446 y = 47 }
+			Orientation = "UPPER_LEFT"
+			scripted = yes
+			clicksound = "tab_stability"
+		}
 
 	############### DATE PANEL ###################
 

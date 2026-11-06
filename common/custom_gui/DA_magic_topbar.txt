@@ -1,0 +1,55 @@
+# Magic on Topbar integration for AKT.
+# Reference: https://steamcommunity.com/sharedfiles/filedetails/?id=3804681037
+# Dummy registrations avoid the topbar.gui mouseover errors seen in Anbennar.
+custom_button = { name = DA_topbar_mana_value potential = { always = no } }
+custom_button = { name = DA_topbar_mana_icon potential = { always = no } }
+custom_button = { name = DA_topbar_mana_background potential = { always = no } }
+custom_text_box = { name = DA_topbar_mana_icon potential = { always = no } }
+custom_text_box = { name = DA_topbar_mana_background potential = { always = no } }
+custom_text_box = { name = DA_topbar_mana_button potential = { always = no } }
+
+custom_text_box = {
+	name = DA_topbar_mana_value
+	potential = { can_use_magic = yes }
+}
+
+custom_icon = {
+	name = DA_topbar_mana_icon
+	potential = { can_use_magic = yes }
+}
+
+custom_icon = {
+	name = DA_topbar_mana_background
+	potential = { can_use_magic = yes }
+}
+
+custom_button = {
+	name = DA_topbar_mana_button
+	potential = { can_use_magic = yes }
+	effect = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = magic_menu_main_flag
+						has_country_flag = magic_menu_advancement_flag
+						has_country_flag = magic_menu_spellbook_flag
+						has_country_flag = magic_menu_study_flag
+						has_country_flag = magic_menu_patron_flag
+					}
+				}
+				close_all_magic_menus = yes
+			}
+			else = {
+				if = {
+					limit = { has_ruler_flag = is_a_vampire }
+					set_country_flag = mage_vampire
+				}
+				update_magic_menu_effect = yes
+				close_all_magic_menus = yes
+				set_country_flag = magic_menu_main_flag
+			}
+		}
+	}
+	tooltip = DA_topbar_mana_tt
+}
