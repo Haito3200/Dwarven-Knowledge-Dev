@@ -1,0 +1,13 @@
+# ROOT: selected province. FROM: viewing country.
+custom_icon = { name = DA_mining_panel_background potential = { is_wasteland = no is_city = yes } }
+custom_button = {
+ name = DA_mining_found_button
+ tooltip = DA_mining_status_tt
+ potential = { is_wasteland = no is_city = yes NOT = { DA_mining_has_any_mine = yes } }
+ trigger = { owned_by = FROM DA_mining_can_found = yes }
+ effect = { if = { limit = { owned_by = FROM DA_mining_can_found = yes } province_event = { id = DA_Mining_events.1 } } }
+}
+custom_icon = { name = DA_mining_existing_icon potential = { is_wasteland = no is_city = yes DA_mining_has_any_mine = yes } tooltip = DA_mining_status_tt }
+custom_text_box = { name = DA_mining_panel_status potential = { is_wasteland = no is_city = yes } tooltip = DA_mining_status_tt }
+custom_text_box = { name = DA_mining_panel_title potential = { is_wasteland = no is_city = yes } tooltip = DA_mining_status_tt }
+custom_text_box = { name = DA_mining_panel_hint potential = { is_wasteland = no is_city = yes } tooltip = DA_mining_status_tt }

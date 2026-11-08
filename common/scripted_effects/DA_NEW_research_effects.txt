@@ -20,6 +20,7 @@ DA_start_research = {
 			which = DA_research_progress
 			value = 0
 		}
+		set_variable = { which = DA_research_progress_percent value = 0 }
 		set_variable = {
 			which = DA_research_progress_MAX
 			value = $time$
@@ -68,10 +69,9 @@ DA_start_research = {
 				which = DA_research_progress_MAX_temp
 			}
 		}
-		country_event = {
-			id = DA_General_Research_events.2
-			days = 30
-		}
+		change_variable = { which = DA_research_generation value = 1 }
+		DA_refresh_research_event_cutoff = yes
+		# Progress is advanced by on_monthly_pulse, without a delayed event chain.
 	}
 	if = {
 		limit = {
@@ -110,6 +110,12 @@ DA_start_research = {
 	]
 }
 DA_reset_research = {
+	clr_country_flag = DA_research_flag.mining_1
+	clr_country_flag = DA_research_flag.mining_2
+	clr_country_flag = DA_research_flag.mining_3
+	clr_country_flag = DA_research_flag.mining_4
+	# Keep event snapshots/pending flags until their popup is answered. A new
+	# research increments the generation so an old popup cannot affect it.
 	clr_country_flag = DA_research_in_progress
 	clr_country_flag = DA_research_is_unstoppable
 
@@ -219,6 +225,66 @@ DA_reset_research = {
 		which = DA_research_progress_MAX
 		value = 0
 	}
+	set_variable = { which = DA_research_progress_percent value = 0 }
+	set_variable = { which = DA_research_event_cutoff value = 0 }
+}
+
+# Country scope. The monthly pulse is the only source of regular progress.
+# Keeping progress on the country makes capital changes and a missing old timer
+# harmless. Existing saves retain their current project, target and progress.
+DA_monthly_research_tick = {
+	if = {
+		limit = {
+			has_country_flag = DA_research_in_progress
+			check_variable = { which = DA_research_progress_MAX value = 0.001 }
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_research_speed_gain
+			which = DA_research_speed_gain_var
+		}
+		export_to_variable = {
+			value = modifier:DA_fake_research_speed_gain_percentage
+			which = DA_research_speed_gain_percentage_var
+		}
+		multiply_variable = {
+			which = DA_research_speed_gain_var
+			which = DA_research_speed_gain_percentage_var
+		}
+		multiply_variable = { which = DA_research_speed_gain_var value = 100 }
+		round_variable = { which = DA_research_speed_gain_var value = 0 }
+		divide_variable = { which = DA_research_speed_gain_var value = 100 }
+		change_variable = {
+			which = DA_research_progress
+			which = DA_research_speed_gain_var
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = DA_research_progress
+					which = DA_research_progress_MAX
+				}
+			}
+			country_event = { id = DA_General_Research_events.3 }
+		}
+		else = {
+			# Only divide while the target is valid and completion has not reset it.
+			set_variable = { which = DA_research_progress_percent which = DA_research_progress }
+			divide_variable = { which = DA_research_progress_percent which = DA_research_progress_MAX }
+			multiply_variable = { which = DA_research_progress_percent value = 100 }
+		}
+	}
+}
+
+# Run on load, not every month. Preserve accumulated progress, the target and
+# project flags while removing old timers and initializing event safety state.
+DA_cleanup_legacy_research_timer = {
+	every_owned_province = {
+		remove_province_triggered_modifier = DA_research_increase_workaround
+	}
+	if = {
+		limit = { has_country_flag = DA_research_in_progress }
+		DA_refresh_research_event_cutoff = yes
+	}
 }
 
 
@@ -231,6 +297,29 @@ DA_reset_research = {
 
 
 DA_research_gives_reward = {
+	if = {
+		limit = { has_country_flag = DA_research_flag.mining_1 NOT = { has_country_flag = DA_mining_technology_1 } }
+		set_country_flag = DA_mining_technology_1
+		country_event = { id = DA_Mining_events.11 }
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.mining_2 NOT = { has_country_flag = DA_mining_technology_2 } }
+		set_country_flag = DA_mining_technology_2
+		country_event = { id = DA_Mining_events.12 }
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.mining_3 NOT = { has_country_flag = DA_mining_technology_3 } }
+		set_country_flag = DA_mining_technology_3
+		country_event = { id = DA_Mining_events.13 }
+	}
+	if = {
+		limit = { has_country_flag = DA_research_flag.mining_4 NOT = { has_country_flag = DA_mining_technology_4 } }
+		set_country_flag = DA_mining_technology_4
+		add_country_modifier = { name = DA_mining_mastery duration = -1 }
+		export_to_variable = { value = modifier:DA_fake_Metallurgy_exp_modifier variable_name = DA_Metallurgy_exp_modifier_var }
+		change_variable = { which = DA_Metallurgy_exp_modifier_var value = 1 }
+		country_event = { id = DA_Mining_events.14 }
+	}
 	if = {
 		limit = { has_country_flag = DA_research_flag.steam }
 		country_event = {

@@ -1,0 +1,8 @@
+# Country-scoped, additive hooks. No startup mine creation or redistribution.
+on_yearly_pulse = { DA_mining_yearly_prospecting = yes }
+on_startup = {
+ every_owned_province = {
+  if = { limit = { has_building = DA_Elemental_building_2 } DA_mining_apply_ventilation = yes }
+  if = { limit = { has_building = DA_Elemental_building_1 has_terrain = titanoflora_grassland_terrain } add_permanent_province_modifier = { name = DA_irrigation_mod_titanoflora_grassland duration = -1 } }
+ }
+}

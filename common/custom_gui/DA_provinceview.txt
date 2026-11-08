@@ -1018,14 +1018,14 @@ custom_button = { #Button for the UI when building UI is closed
 		owner = {
 			tag = FROM
 		}
-		DA_has_disease_in_province = yes
+		OR = { DA_has_disease_in_province = yes has_province_modifier = DA_Medicine.Quarantined_province }
 	}
 	effect = {
 		if = {
 			limit = {
                 NOT = { has_province_modifier = DA_Medicine.Quarantined_province }
 			}
-        	custom_tooltip = DA_medicine_quarantine_every_province_with_this_illness_tt
+			custom_tooltip = DA_medicine_quarantine_this_province_tt
 			add_province_modifier = {
 				name = DA_Medicine.Quarantined_province 
 				duration = -1

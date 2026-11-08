@@ -290,22 +290,11 @@ custom_button = {
 custom_button = {
 	name = DA_access_Secret_Societies_button
 	tooltip = DA_access_Secret_Societies_button_tt
-	effect = {  
-        custom_tooltip = DA_in_development_tt
-        #hidden_effect = {
-        #    DA_initialise_interface_variables = yes
-        #}
-        #if = {
-        #    limit = {
-        #        DA_has_any_interface_active_trigger = yes
-        #    }
-        #    DA_clear_all_interface_flags = yes
-        #}
-        #else = {
-        #    #set_country_flag = DA_AKT_interface_on
-        #    set_country_flag = DA_Secret_Societies_Interface_on
-        #}
-	}
+	effect = { hidden_effect = {
+	DA_SS_initialize = yes
+	if = { limit = { has_country_flag = DA_Secret_Societies_Interface_on } clr_country_flag = DA_Secret_Societies_Interface_on }
+	else = { set_country_flag = DA_Secret_Societies_Interface_on }
+	} }
 }
 custom_button = {
 	name = DA_access_Ascension_Paths_button
@@ -313,16 +302,15 @@ custom_button = {
 	effect = {
         custom_tooltip = DA_in_development_tt
         # this is just to prevent people opening an half-done thing
-        #if = {
-        #    limit = {
-        #        DA_has_any_interface_active_trigger = yes
-        #    }
-        #    DA_clear_all_interface_flags = yes
-        #}
-        #else = {
-        #    #set_country_flag = DA_AKT_interface_on
-        #    set_country_flag = DA_Ascension_Paths_interface_on
-        #}
+        if = {
+            limit = {
+                DA_has_any_interface_active_trigger = yes
+            }
+            DA_clear_all_interface_flags = yes
+        }
+        else = {
+            set_country_flag = DA_Ascension_Paths_interface_on
+        }
 	}
 }
 custom_window = {

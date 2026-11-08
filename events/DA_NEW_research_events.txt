@@ -62,6 +62,8 @@ country_event = {
 
 country_event = {
 	id = DA_General_Research_events.2
+	# Compatibility sink: old saves can still contain queued 30-day ticks.
+	# They must neither advance research nor restart the retired timer chain.
 	title = DA_General_Research_events.2.t
 	desc = DA_General_Research_events.2.d
 	picture = INVENTION_eventPicture
@@ -79,54 +81,6 @@ country_event = {
 
 	option = {
 		name = DA_General_Research_events.2.a
-		export_to_variable = {
-			value = modifier:DA_fake_research_speed_gain
-			which = DA_research_speed_gain_var
-		}
-		export_to_variable = {
-			value = modifier:DA_fake_research_speed_gain_percentage
-			which = DA_research_speed_gain_percentage_var
-		}
-		multiply_variable = {
-			which = DA_research_speed_gain_var
-			which = DA_research_speed_gain_percentage_var
-		}
-		
-		multiply_variable = {
-			which = DA_research_speed_gain_var
-			value = 100
-		}
-		round_variable = {
-			which = DA_research_speed_gain_var
-			value = 0
-		}
-		divide_variable = {
-			which = DA_research_speed_gain_var
-			value = 100
-		}
-		change_variable = {
-			which = DA_research_progress
-			which = DA_research_speed_gain_var
-		}
-		if = {
-			limit = { check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			} }
-			country_event = {
-				id = DA_General_Research_events.3
-			}
-		}
-		else = {
-			capital_scope = {
-				add_province_triggered_modifier = DA_research_increase_workaround
-			}
-		}
-
-		# this is just for showing the bar
-		set_variable = { which = DA_research_progress_percent which = DA_research_progress }
-		divide_variable = { which = DA_research_progress_percent which = DA_research_progress_MAX }
-		multiply_variable = { DA_research_progress_percent = 100 }
 		ai_chance = { factor = 1 }
 	}
 }
@@ -138,7 +92,9 @@ country_event = {
 	picture = INVENTION_eventPicture
 
 	trigger = {
-		always = yes
+		has_country_flag = DA_research_in_progress
+		check_variable = { which = DA_research_progress_MAX value = 0.001 }
+		check_variable = { which = DA_research_progress which = DA_research_progress_MAX }
 	}
 
 	is_triggered_only = yes
@@ -150,9 +106,18 @@ country_event = {
 
 	option = {
 		name = DA_General_Research_events.2.a
-		remove_estate_privilege = DA_Runesmith_research_privilege
-		DA_research_gives_reward = yes
-		DA_reset_research = yes
+		# Check again when applying the option so an obsolete/duplicate completion
+		# cannot reward a cancelled, unfinished or already completed research.
+		if = {
+			limit = {
+				has_country_flag = DA_research_in_progress
+				check_variable = { which = DA_research_progress_MAX value = 0.001 }
+				check_variable = { which = DA_research_progress which = DA_research_progress_MAX }
+			}
+			remove_estate_privilege = DA_Runesmith_research_privilege
+			DA_research_gives_reward = yes
+			DA_reset_research = yes
+		}
 		ai_chance = { factor = 1 }
 	}
 }

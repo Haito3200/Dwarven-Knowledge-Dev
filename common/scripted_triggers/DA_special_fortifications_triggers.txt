@@ -1,0 +1,507 @@
+# Province-scoped rules shared by buildings, province buttons and the five-year AI pulse.
+
+DA_has_runic_fort = {
+	OR = {
+		has_building = DA_Runeforged_fort
+		has_building = DA_Runeforged_fort_t2
+		has_building = DA_Runeforged_fort_t3
+		has_building = DA_Hehogrim_Runeforged_fort
+		has_building = DA_Runeforged_Amldihr_fort
+	}
+}
+
+DA_has_magic_fort = {
+	OR = {
+		has_building = fen_magic_fort_t1
+		has_building = fen_magic_fort_t2
+		has_building = fen_magic_fort_t3
+	}
+}
+
+DA_has_tech_fort = {
+	OR = {
+		has_building = fen_tech_fort_t1
+		has_building = fen_tech_fort_t2
+		has_building = fen_tech_fort_t3
+	}
+}
+
+DA_has_special_fort = {
+	OR = {
+		DA_has_runic_fort = yes
+		DA_has_magic_fort = yes
+		DA_has_tech_fort = yes
+	}
+}
+
+DA_has_standard_fort = {
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_standard_fort_tt
+		OR = {
+			has_building = fort_15th
+			has_building = fort_16th
+			has_building = fort_17th
+			has_building = fort_18th
+		}
+	}
+}
+
+# A lower tier in the same family may be replaced; other families may never coexist.
+DA_special_fort_slot_available = {
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_slot_available_tt
+		OR = {
+			DA_has_special_fort = no
+			DA_has_$family$_fort = yes
+		}
+		NOT = { AND = { DA_has_runic_fort = yes DA_has_magic_fort = yes } }
+		NOT = { AND = { DA_has_runic_fort = yes DA_has_tech_fort = yes } }
+		NOT = { AND = { DA_has_magic_fort = yes DA_has_tech_fort = yes } }
+	}
+}
+
+DA_special_fort_construction_site = {
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_secure_city_tt
+		is_city = yes
+		controlled_by = owner
+		has_siege = no
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_idle_province_tt
+		NOT = { has_construction = any }
+		NOT = { has_colonist = yes }
+		NOT = { has_missionary = yes }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_building_space_tt
+		OR = {
+			num_free_building_slots = 1
+			DA_has_special_fort = yes
+		}
+	}
+}
+
+# Mirrors the engine's additive global/local build-cost modifiers and 10% floor.
+# Arithmetic-trigger variables are temporary; prices and treasury are checked live.
+DA_can_afford_special_fort = {
+	variable_arithmetic_trigger = {
+		custom_tooltip = DA_special_fort_can_afford_$cost$_tt
+		export_to_variable = { which = DA_sf_global_cost value = modifier:build_cost who = owner }
+		export_to_variable = { which = DA_sf_cost value = modifier:local_build_cost }
+		export_to_variable = { which = DA_sf_gold value = treasury who = owner }
+		change_variable = { which = DA_sf_cost which = DA_sf_global_cost }
+		change_variable = { which = DA_sf_cost value = 1 }
+		multiply_variable = { which = DA_sf_cost value = $cost$ }
+		OR = {
+			AND = {
+				check_variable = { which = DA_sf_cost value = $minimum$ }
+				check_variable = { which = DA_sf_gold which = DA_sf_cost }
+			}
+			AND = {
+				NOT = { check_variable = { which = DA_sf_cost value = $minimum$ } }
+				check_variable = { which = DA_sf_gold value = $minimum$ }
+			}
+		}
+	}
+}
+
+DA_requirements_DA_Runeforged_fort = {
+	DA_special_fort_slot_available = { family = runic }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_unlocked_DA_Runeforged_fort_tt
+		owner = { has_country_flag = DA_can_build_runeforged_fort }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_has_1_ADK
+		owner = {
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 1
+			}
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_runic_location_tt
+		OR = {
+			has_terrain = dwarven_hold
+			has_terrain = dwarven_hold_surface
+			has_Dwarven_magic_Barrier = yes
+		}
+	}
+	has_integrated_dwarven_pop_trigger = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_outside_amldihr_tt
+		NOT = { province_id = 4119 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_1_tt
+		owner = { mil_tech = 1 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = DA_Runeforged_fort }
+		NOT = { has_building = DA_Runeforged_fort_t2 }
+		NOT = { has_building = DA_Runeforged_fort_t3 }
+		NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+		NOT = { has_building = DA_Runeforged_Amldihr_fort }
+	}
+}
+
+DA_can_construct_DA_Runeforged_fort = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_DA_Runeforged_fort = yes
+	DA_can_afford_special_fort = { cost = 250 minimum = 25 }
+}
+
+DA_requirements_DA_Runeforged_fort_t2 = {
+	DA_special_fort_slot_available = { family = runic }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_unlocked_DA_Runeforged_fort_t2_tt
+		owner = { has_country_flag = DA_can_build_runeforged_fort_t2 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_has_2_ADK
+		owner = {
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 2
+			}
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_runic_location_tt
+		OR = {
+			has_terrain = dwarven_hold
+			has_terrain = dwarven_hold_surface
+			has_Dwarven_magic_Barrier = yes
+		}
+	}
+	has_integrated_dwarven_pop_trigger = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_outside_amldihr_tt
+		NOT = { province_id = 4119 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_14_tt
+		owner = { mil_tech = 14 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = DA_Runeforged_fort_t2 }
+		NOT = { has_building = DA_Runeforged_fort_t3 }
+		NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+		NOT = { has_building = DA_Runeforged_Amldihr_fort }
+	}
+}
+
+DA_can_construct_DA_Runeforged_fort_t2 = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_DA_Runeforged_fort_t2 = yes
+	DA_can_afford_special_fort = { cost = 750 minimum = 75 }
+}
+
+DA_requirements_DA_Runeforged_fort_t3 = {
+	DA_special_fort_slot_available = { family = runic }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_unlocked_DA_Runeforged_fort_t3_tt
+		owner = { has_country_flag = DA_can_build_runeforged_fort_t3 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_has_3_ADK
+		owner = {
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 3
+			}
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_runic_location_tt
+		OR = {
+			has_terrain = dwarven_hold
+			has_terrain = dwarven_hold_surface
+			has_Dwarven_magic_Barrier = yes
+		}
+	}
+	has_integrated_dwarven_pop_trigger = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_outside_amldihr_tt
+		NOT = { province_id = 4119 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_19_tt
+		owner = { mil_tech = 19 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = DA_Runeforged_fort_t3 }
+		NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+		NOT = { has_building = DA_Runeforged_Amldihr_fort }
+	}
+}
+
+DA_can_construct_DA_Runeforged_fort_t3 = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_DA_Runeforged_fort_t3 = yes
+	DA_can_afford_special_fort = { cost = 1600 minimum = 160 }
+}
+
+DA_requirements_DA_Hehogrim_Runeforged_fort = {
+	DA_special_fort_slot_available = { family = runic }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_unlocked_DA_Hehogrim_Runeforged_fort_tt
+		owner = { has_country_flag = DA_can_build_Hehogrim_Runeforged_fort }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_has_4_ADK
+		owner = {
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 4
+			}
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_runic_location_tt
+		OR = {
+			has_terrain = dwarven_hold
+			has_terrain = dwarven_hold_surface
+			has_Dwarven_magic_Barrier = yes
+		}
+	}
+	has_integrated_dwarven_pop_trigger = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_outside_amldihr_tt
+		NOT = { province_id = 4119 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_24_tt
+		owner = { mil_tech = 24 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = DA_Hehogrim_Runeforged_fort }
+		NOT = { has_building = DA_Runeforged_Amldihr_fort }
+	}
+}
+
+DA_can_construct_DA_Hehogrim_Runeforged_fort = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_DA_Hehogrim_Runeforged_fort = yes
+	DA_can_afford_special_fort = { cost = 3000 minimum = 300 }
+}
+
+DA_requirements_fen_magic_fort_t1 = {
+	DA_special_fort_slot_available = { family = magic }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_magic_project_1_tt
+		owner = { at_least_magic_project_level = { project = magical_fortress level = 1 } }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_8_tt
+		owner = { mil_tech = 8 }
+	}
+	DA_has_standard_fort = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = fen_magic_fort_t2 }
+		NOT = { has_building = fen_magic_fort_t3 }
+		NOT = { has_building = fen_magic_fort_t1 }
+	}
+}
+
+DA_can_construct_fen_magic_fort_t1 = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_fen_magic_fort_t1 = yes
+	DA_can_afford_special_fort = { cost = 200 minimum = 20 }
+}
+
+DA_requirements_fen_magic_fort_t2 = {
+	DA_special_fort_slot_available = { family = magic }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_magic_project_2_tt
+		owner = { at_least_magic_project_level = { project = magical_fortress level = 2 } }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_14_tt
+		owner = { mil_tech = 14 }
+	}
+	DA_has_standard_fort = yes
+
+	has_building = fen_magic_fort_t1
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = fen_magic_fort_t3 }
+		NOT = { has_building = fen_magic_fort_t2 }
+	}
+}
+
+DA_can_construct_fen_magic_fort_t2 = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_fen_magic_fort_t2 = yes
+	DA_can_afford_special_fort = { cost = 500 minimum = 50 }
+}
+
+DA_requirements_fen_magic_fort_t3 = {
+	DA_special_fort_slot_available = { family = magic }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_magic_project_3_tt
+		owner = { at_least_magic_project_level = { project = magical_fortress level = 3 } }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_18_tt
+		owner = { mil_tech = 18 }
+	}
+	DA_has_standard_fort = yes
+	has_building = fen_magic_fort_t2
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = fen_magic_fort_t3 }
+	}
+}
+
+DA_can_construct_fen_magic_fort_t3 = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_fen_magic_fort_t3 = yes
+	DA_can_afford_special_fort = { cost = 1200 minimum = 120 }
+}
+
+DA_requirements_fen_tech_fort_t1 = {
+	DA_special_fort_slot_available = { family = tech }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_artificers_tt
+		owner = { has_estate = estate_artificers }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_8_tt
+		owner = { mil_tech = 8 }
+	}
+	DA_has_standard_fort = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = fen_tech_fort_t2 }
+		NOT = { has_building = fen_tech_fort_t3 }
+		NOT = { has_building = fen_tech_fort_t1 }
+	}
+}
+
+DA_can_construct_fen_tech_fort_t1 = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_fen_tech_fort_t1 = yes
+	DA_can_afford_special_fort = { cost = 200 minimum = 20 }
+}
+
+DA_requirements_fen_tech_fort_t2 = {
+	DA_special_fort_slot_available = { family = tech }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_artificers_tt
+		owner = { has_estate = estate_artificers }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_14_tt
+		owner = { mil_tech = 14 }
+	}
+	DA_has_standard_fort = yes
+
+	has_building = fen_tech_fort_t1
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = fen_tech_fort_t3 }
+		NOT = { has_building = fen_tech_fort_t2 }
+	}
+}
+
+DA_can_construct_fen_tech_fort_t2 = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_fen_tech_fort_t2 = yes
+	DA_can_afford_special_fort = { cost = 500 minimum = 50 }
+}
+
+DA_requirements_fen_tech_fort_t3 = {
+	DA_special_fort_slot_available = { family = tech }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_artificers_tt
+		owner = { has_estate = estate_artificers }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_mil_tech_18_tt
+		owner = { mil_tech = 18 }
+	}
+	DA_has_standard_fort = yes
+	has_building = fen_tech_fort_t2
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = fen_tech_fort_t3 }
+	}
+}
+
+DA_can_construct_fen_tech_fort_t3 = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_fen_tech_fort_t3 = yes
+	DA_can_afford_special_fort = { cost = 1200 minimum = 120 }
+}
+
+DA_requirements_DA_Runeforged_Amldihr_fort = {
+	DA_special_fort_slot_available = { family = runic }
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_amldihr_capital_tt
+		province_id = 4119
+		is_capital = yes
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_unlocked_DA_Runeforged_Amldihr_fort_tt
+		owner = { has_country_flag = DA_can_build_Runeforged_Amldihr_fort }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_adm_tech_16_tt
+		owner = { adm_tech = 16 }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_special_fort_no_equal_or_higher_tt
+		NOT = { has_building = DA_Runeforged_Amldihr_fort }
+	}
+}
+
+DA_can_construct_DA_Runeforged_Amldihr_fort = {
+	DA_special_fort_construction_site = yes
+	DA_requirements_DA_Runeforged_Amldihr_fort = yes
+	DA_can_afford_special_fort = { cost = 15000 minimum = 1500 }
+}
+
+# Only established forts at strategically useful sites; no loans or wartime spending.
+DA_special_fort_ai_site = {
+	DA_special_fort_construction_site = yes
+	DA_has_standard_fort = yes
+	OR = {
+		is_capital = yes
+		has_terrain = dwarven_hold
+		has_terrain = dwarven_hold_surface
+		any_neighbor_province = {
+			has_owner = yes
+			NOT = { owned_by = PREV }
+		}
+	}
+	owner = {
+		ai = yes
+		is_at_war = no
+		NOT = { num_of_loans = 1 }
+	}
+}
+
+DA_special_fort_ai_candidate = {
+	DA_special_fort_ai_site = yes
+	OR = {
+		AND = { DA_can_construct_DA_Runeforged_fort = yes DA_can_afford_special_fort = { cost = 500 minimum = 50 } }
+		AND = { DA_can_construct_DA_Runeforged_fort_t2 = yes DA_can_afford_special_fort = { cost = 1500 minimum = 150 } }
+		AND = { DA_can_construct_DA_Runeforged_fort_t3 = yes DA_can_afford_special_fort = { cost = 3200 minimum = 320 } }
+		AND = { DA_can_construct_DA_Hehogrim_Runeforged_fort = yes DA_can_afford_special_fort = { cost = 6000 minimum = 600 } }
+		AND = { DA_can_construct_fen_magic_fort_t1 = yes DA_can_afford_special_fort = { cost = 400 minimum = 40 } }
+		AND = { DA_can_construct_fen_magic_fort_t2 = yes DA_can_afford_special_fort = { cost = 1000 minimum = 100 } }
+		AND = { DA_can_construct_fen_magic_fort_t3 = yes DA_can_afford_special_fort = { cost = 2400 minimum = 240 } }
+		AND = { DA_can_construct_fen_tech_fort_t1 = yes DA_can_afford_special_fort = { cost = 400 minimum = 40 } }
+		AND = { DA_can_construct_fen_tech_fort_t2 = yes DA_can_afford_special_fort = { cost = 1000 minimum = 100 } }
+		AND = { DA_can_construct_fen_tech_fort_t3 = yes DA_can_afford_special_fort = { cost = 2400 minimum = 240 } }
+		AND = { DA_can_construct_DA_Runeforged_Amldihr_fort = yes DA_can_afford_special_fort = { cost = 30000 minimum = 3000 } }
+	}
+}

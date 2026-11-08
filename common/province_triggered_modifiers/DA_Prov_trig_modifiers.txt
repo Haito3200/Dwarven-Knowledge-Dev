@@ -1,25 +1,15 @@
 
 DA_research_increase_workaround = {
-	# Whether the triggered modifier is visible in the Triggered Modifiers window
+	# Retained as an inert definition for old saves. on_startup removes it;
+	# research now advances directly from the country's monthly pulse.
 	potential = {
 		always = yes
 	}
 	# Whether the triggered modifier is active
 	trigger = {
-		always = yes
+		always = no
 	}
-    
-	# The modifier to apply when the triggered modifier is active
-	local_state_maintenance_modifier = 0.1
-	# Province scope
 	on_activation = {
-		owner = {
-			country_event = {
-				id = DA_General_Research_events.2
-				days = 30
-			}
-		}
-		remove_province_triggered_modifier = DA_research_increase_workaround
 	}
 	
 	on_deactivation = {
@@ -67,7 +57,7 @@ DA_random_tech_exp_workaround = {
 				}
 			}
 		}
-		remove_province_triggered_modifier = DA_research_increase_workaround
+		remove_province_triggered_modifier = DA_random_tech_exp_workaround
 	}
 	
 	on_deactivation = {

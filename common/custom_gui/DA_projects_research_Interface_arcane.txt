@@ -1230,139 +1230,65 @@ custom_button = {
 ###################################################################################
 
 custom_button = {
-    name = DA_projects_research_buttons_background_enviromental_adaptation_1
-    tooltip = DA_projects_research_buttons_background_enviromental_adaptation_1_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = enviromental_adaptation
-            time = 96
-            arcane = yes
-            unstoppable = yes
-        }
-    }
+ name = DA_projects_research_buttons_background_enviromental_adaptation_1
+ tooltip = DA_projects_research_buttons_background_enviromental_adaptation_1_tt
+ potential = { always = yes }
+ trigger = {
+  DA_available_research = yes
+  DA_completed.Metallurgy_1 = yes
+  NOT = { has_country_flag = DA_mining_technology_1 }
+ }
+ frame = { number = 2 trigger = { has_country_flag = DA_mining_technology_1 } }
+ frame = { number = 1 trigger = { always = yes } }
+ effect = {
+  DA_start_research = { flag = mining_1 time = 48 arcane = yes }
+ }
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_enviromental_adaptation_2
-    tooltip = DA_projects_research_buttons_background_enviromental_adaptation_2_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = enviromental_adaptation_2
-            time = 48
-            arcane = yes
-        }
-    }
+ name = DA_projects_research_buttons_background_enviromental_adaptation_2
+ tooltip = DA_projects_research_buttons_background_enviromental_adaptation_2_tt
+ potential = { always = yes }
+ trigger = {
+  DA_available_research = yes
+  has_country_flag = DA_mining_technology_1
+  NOT = { has_country_flag = DA_mining_technology_2 }
+ }
+ frame = { number = 2 trigger = { has_country_flag = DA_mining_technology_2 } }
+ frame = { number = 1 trigger = { always = yes } }
+ effect = {
+  DA_start_research = { flag = mining_2 time = 60 arcane = yes }
+ }
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_enviromental_adaptation_3
-    tooltip = DA_projects_research_buttons_background_enviromental_adaptation_3_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Steam_Power_Project = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = enviromental_adaptation_3
-            time = 72
-            steam = yes
-        }
-    }
+ name = DA_projects_research_buttons_background_enviromental_adaptation_3
+ tooltip = DA_projects_research_buttons_background_enviromental_adaptation_3_tt
+ potential = { always = yes }
+ trigger = {
+  DA_available_research = yes
+  has_country_flag = DA_mining_technology_2
+  NOT = { has_country_flag = DA_mining_technology_3 }
+ }
+ frame = { number = 2 trigger = { has_country_flag = DA_mining_technology_3 } }
+ frame = { number = 1 trigger = { always = yes } }
+ effect = {
+  DA_start_research = { flag = mining_3 time = 72 arcane = yes }
+ }
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_enviromental_adaptation_4
-    tooltip = DA_projects_research_buttons_background_enviromental_adaptation_4_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Electric_Power_Project = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = enviromental_adaptation_4
-            time = 96
-            electric = yes
-        }
-    }
+ name = DA_projects_research_buttons_background_enviromental_adaptation_4
+ tooltip = DA_projects_research_buttons_background_enviromental_adaptation_4_tt
+ potential = { always = yes }
+ trigger = {
+  DA_available_research = yes
+  has_country_flag = DA_mining_technology_3
+  DA_completed.Steam_Power_Project = yes
+  NOT = { has_country_flag = DA_mining_technology_4 }
+ }
+ frame = { number = 2 trigger = { has_country_flag = DA_mining_technology_4 } }
+ frame = { number = 1 trigger = { always = yes } }
+ effect = {
+  DA_start_research = { flag = mining_4 time = 96 steam = yes }
+ }
 }
 
 ###################################################################################

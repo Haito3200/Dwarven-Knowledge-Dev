@@ -1,0 +1,220 @@
+# Mining Technology: province-scoped site rules, country-scoped research flags.
+DA_mining_has_ordinary_mine = {
+ NOT = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_hold_surface has_province_modifier = DA_Hold_Mine } }
+ OR = {
+  has_province_modifier = DA_Mine_1
+  has_province_modifier = DA_Mine_2
+  has_province_modifier = DA_Mine_3
+  has_province_modifier = DA_Mine_4
+  has_province_modifier = DA_Mine_5
+  has_province_modifier = DA_Mine_6
+  has_province_modifier = DA_Mine_7
+  has_province_modifier = DA_Mine_8
+ }
+}
+DA_mining_has_any_mine = { 
+	custom_trigger_tooltip = {
+		tooltip = DA_mining_has_any_mine_tt
+		OR = { 
+			has_province_modifier = DA_Hold_Mine 
+			has_province_modifier = DA_Mine_1 
+			has_province_modifier = DA_Mine_2 
+			has_province_modifier = DA_Mine_3 
+			has_province_modifier = DA_Mine_4 
+			has_province_modifier = DA_Mine_5 
+			has_province_modifier = DA_Mine_6 
+			has_province_modifier = DA_Mine_7 
+			has_province_modifier = DA_Mine_8 
+		} 
+	}
+}
+DA_mining_site_hills = { OR = { has_terrain = hills } }
+DA_mining_site_open = { OR = { has_terrain = drylands has_terrain = steppe has_terrain = savannah } }
+DA_mining_site_lowlands = { OR = { has_terrain = grasslands has_terrain = farmlands has_terrain = desert has_terrain = coastal_desert } }
+DA_mining_site_wooded = { OR = { has_terrain = woods has_terrain = forest has_terrain = titanoflora_grassland_terrain } }
+DA_mining_site_road = { OR = { has_terrain = dwarven_road } }
+DA_mining_site_dense = { OR = { has_terrain = jungle has_terrain = ancient_forest has_terrain = bloodgroves has_terrain = mushroom_forest_terrain has_terrain = titanoflora_forest_terrain has_terrain = titanoflora_jungle_terrain } }
+DA_mining_site_extreme = { OR = { has_terrain = marsh has_terrain = shadow_swamp_terrain has_terrain = titanoflora_wetland_terrain has_terrain = glacier } }
+DA_mining_supported_site = { OR = { DA_mining_site_hills = yes DA_mining_site_open = yes DA_mining_site_lowlands = yes DA_mining_site_wooded = yes DA_mining_site_road = yes DA_mining_site_dense = yes DA_mining_site_extreme = yes } }
+DA_mining_terrain_unlocked = {
+ OR = {
+  AND = { DA_mining_site_hills = yes owner = { has_country_flag = DA_mining_technology_1 } }
+  AND = { DA_mining_site_open = yes owner = { has_country_flag = DA_mining_technology_1 } }
+  AND = { DA_mining_site_lowlands = yes owner = { has_country_flag = DA_mining_technology_2 } }
+  AND = { DA_mining_site_wooded = yes owner = { has_country_flag = DA_mining_technology_2 } }
+  AND = { DA_mining_site_road = yes owner = { has_country_flag = DA_mining_technology_3 } }
+  AND = { DA_mining_site_dense = yes owner = { has_country_flag = DA_mining_technology_3 } }
+  AND = { DA_mining_site_extreme = yes owner = { has_country_flag = DA_mining_technology_4 } }
+ }
+}
+DA_mining_can_afford = {
+ if = { limit = { DA_mining_site_hills = yes }
+  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 300 } }
+  else = { owner = { treasury = 400 } }
+ }
+ if = { limit = { DA_mining_site_open = yes }
+  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 300 } }
+  else = { owner = { treasury = 400 } }
+ }
+ if = { limit = { DA_mining_site_lowlands = yes }
+  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 300 } }
+  else = { owner = { treasury = 400 } }
+ }
+ if = { limit = { DA_mining_site_wooded = yes }
+  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 450 } }
+  else = { owner = { treasury = 600 } }
+ }
+ if = { limit = { DA_mining_site_road = yes }
+  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 450 } }
+  else = { owner = { treasury = 600 } }
+ }
+ if = { limit = { DA_mining_site_dense = yes }
+  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 450 } }
+  else = { owner = { treasury = 600 } }
+ }
+ if = { limit = { DA_mining_site_extreme = yes }
+  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 600 } }
+  else = { owner = { treasury = 800 } }
+ }
+}
+DA_mining_can_found = {
+ is_wasteland = no
+ is_city = yes
+ is_core = owner
+ controlled_by = owner 
+	custom_trigger_tooltip = {
+		tooltip = DA_mining_has_NO_mine_tt
+		NOT = { has_province_modifier = DA_Hold_Mine  }
+		NOT = { has_province_modifier = DA_Mine_1  }
+		NOT = { has_province_modifier = DA_Mine_2  }
+		NOT = { has_province_modifier = DA_Mine_3  }
+		NOT = { has_province_modifier = DA_Mine_4  }
+		NOT = { has_province_modifier = DA_Mine_5  }
+		NOT = { has_province_modifier = DA_Mine_6  }
+		NOT = { has_province_modifier = DA_Mine_7  }
+		NOT = { has_province_modifier = DA_Mine_8  }
+	}
+ custom_trigger_tooltip = { tooltip = DA_mining_terrain_unlocked_tt DA_mining_terrain_unlocked = yes }
+ custom_trigger_tooltip = { tooltip = DA_mining_funds_tt DA_mining_can_afford = yes }
+}
+DA_mining_undiscovered_common = { OR = {
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Aluminium }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Chromium }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Silver }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Tin }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Titanium }
+				}
+ AND = {
+					NOT = { trade_goods = iron }
+					NOT = { has_province_flag = DA_Mine_Iron }
+				}
+ AND = {
+					NOT = { trade_goods = copper }
+					NOT = { has_province_flag = DA_Mine_Copper }
+				}
+ AND = {
+					NOT = { trade_goods = gold }
+					NOT = { has_province_flag = DA_Mine_Gold }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Castellium }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Zinc }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Lead }
+				}
+} }
+DA_mining_undiscovered_rare = { OR = {
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Palladium }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Platinum }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Tantalum }
+				}
+ AND = {
+					continent = serpentspine
+					NOT = { has_province_flag = DA_Mine_Dagrite }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Rosemetal }
+					OR = {
+						province_id = 62
+						province_id = 64
+						province_id = 65
+						province_id = 71
+						province_id = 4343
+						province_id = 4232
+						province_id = 4241
+					}
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Quicksilver }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Cold_iron }
+					superregion = eordand_superregion
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Cobalt }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Tungsten }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Orichalcum }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Octiron }
+				}
+ AND = {
+					NOT = { trade_goods = mithril }
+					continent = serpentspine
+					NOT = { has_province_flag = DA_Mine_Mithril }
+				}
+} }
+DA_mining_undiscovered_legendary = { OR = {
+ AND = {
+					continent = serpentspine
+					NOT = { has_province_flag = DA_Mine_Adamantium }
+				}
+ AND = {
+					continent = serpentspine
+					NOT = { has_province_flag = DA_Mine_Bloth_Dolur }
+				}
+ AND = {
+					continent = serpentspine
+					NOT = { has_province_flag = DA_Mine_Unastu_Argazen }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Magnetite }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Mistium }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Skyshard }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Cindersteel }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Unobtainium }
+				}
+ AND = {
+					NOT = { has_province_flag = DA_Mine_Hihiirokane }
+				}
+} }

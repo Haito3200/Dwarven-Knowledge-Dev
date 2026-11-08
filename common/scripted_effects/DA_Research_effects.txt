@@ -2,6 +2,27 @@
 
 # effects used in periodical research events adding/substracting progress
 
+# Target changes only at research start/reset. Refresh on load for existing saves.
+DA_refresh_research_event_cutoff = {
+	# Existing saves can have active research without a generation counter yet.
+	if = {
+		limit = { NOT = { check_variable = { which = DA_research_generation value = 1 } } }
+		set_variable = { which = DA_research_generation value = 1 }
+	}
+	set_variable = { which = DA_research_event_cutoff which = DA_research_progress_MAX }
+	subtract_variable = { which = DA_research_event_cutoff value = 5 }
+}
+
+DA_capture_research_event = {
+	hidden_effect = {
+		set_country_flag = DA_research_event_pending.$id$
+		set_variable = {
+			which = DA_research_event_generation.$id$
+			which = DA_research_generation
+		}
+	}
+}
+
 DA_Research_add = {
 	custom_tooltip = DA_Research_add.$amount$
 	hidden_effect = {

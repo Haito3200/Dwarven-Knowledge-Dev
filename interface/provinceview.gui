@@ -3081,17 +3081,17 @@ guiTypes = {
 					position = { x = 67 y = 131 }
 					scripted = yes
 				}
-				#Row  2 Slot 4 - quarantine
+				#Row  2 Slot 4 - medicine panel
 				guiButtonType = { #Generic
-					name = "DA_province_button_quarantine"
+					name = "DA_province_button_medicine"
 					quadTextureSprite = "GFX_DA_Medicine_quarantine_locked_strip_Province_Button"
 					position = { x = 67 y = 178 }
 					scripted = yes
 				}
-				#Row  2 Slot 5 - burn
+				#Row  2 Slot 5 - fortifications panel
 				guiButtonType = { #Generic
-					name = "DA_province_button_burn"
-					quadTextureSprite = "GFX_DA_Medicine_Burn_Province_Button"
+					name = "DA_province_button_fortifications"
+					quadTextureSprite = "small_fortify_button"
 					position = { x = 67 y = 221 }
 					scripted = yes
 				}
@@ -3150,7 +3150,345 @@ guiTypes = {
 				position = { x = 42 y = -68 }
 				scripted = yes
 			}
-		}
+
+			# AKT province services: duplicated in buildings_window for correct overlay order.
+			windowType = {
+				name = "DA_province_fortifications_panel"
+				position = { x = 490 y = 95 }
+				size = { x = 370 y = 370 }
+				scripted = yes
+				moveable = 0
+				iconType = {
+					name = "DA_fortifications_background"
+					spriteType = "GFX_DA_province_fortifications_panel_bg"
+					position = { x = 0 y = 0 }
+				}
+				instantTextBoxType = {
+					name = "DA_fortifications_title"
+					position = { x = 16 y = 13 }
+					font = "vic_22"
+					text = "DA_fortifications_title"
+					maxWidth = 320
+					maxHeight = 25
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_province_fortifications_close"
+					quadTextureSprite = "GFX_closebutton2"
+					position = { x = 340 y = 10 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_province_fort_status"
+					position = { x = 16 y = 43 }
+					font = "vic_18"
+					text = "DA_province_fort_status"
+					maxWidth = 338
+					maxHeight = 38
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_family_runic"
+					position = { x = 16 y = 79 }
+					font = "vic_18"
+					text = "DA_fort_family_runic"
+					maxWidth = 330
+					maxHeight = 20
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Runeforged_fort"
+					quadTextureSprite = "GFX_DA_Runeforged_fort"
+					position = { x = 19 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Runeforged_fort"
+					position = { x = 17 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Runeforged_fort"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Runeforged_fort_t2"
+					quadTextureSprite = "GFX_DA_Runeforged_fort_t2"
+					position = { x = 87 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Runeforged_fort_t2"
+					position = { x = 85 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Runeforged_fort_t2"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Runeforged_fort_t3"
+					quadTextureSprite = "GFX_DA_Runeforged_fort_t3"
+					position = { x = 155 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Runeforged_fort_t3"
+					position = { x = 153 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Runeforged_fort_t3"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Hehogrim_Runeforged_fort"
+					quadTextureSprite = "GFX_DA_Hehogrim_Runeforged_fort"
+					position = { x = 223 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Hehogrim_Runeforged_fort"
+					position = { x = 221 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Hehogrim_Runeforged_fort"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Runeforged_Amldihr_fort"
+					quadTextureSprite = "GFX_DA_Runeforged_Amldihr_fort"
+					position = { x = 291 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Runeforged_Amldihr_fort"
+					position = { x = 289 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Runeforged_Amldihr_fort"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_family_magic"
+					position = { x = 16 y = 167 }
+					font = "vic_18"
+					text = "DA_fort_family_magic"
+					maxWidth = 330
+					maxHeight = 20
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_magic_fort_t1"
+					quadTextureSprite = "GFX_fen_magic_fort_t1"
+					position = { x = 19 y = 187 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_magic_fort_t1"
+					position = { x = 17 y = 236 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_magic_fort_t1"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_magic_fort_t2"
+					quadTextureSprite = "GFX_fen_magic_fort_t2"
+					position = { x = 87 y = 187 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_magic_fort_t2"
+					position = { x = 85 y = 236 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_magic_fort_t2"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_magic_fort_t3"
+					quadTextureSprite = "GFX_fen_magic_fort_t3"
+					position = { x = 155 y = 187 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_magic_fort_t3"
+					position = { x = 153 y = 236 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_magic_fort_t3"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				instantTextBoxType = {
+					name = "DA_fort_family_tech"
+					position = { x = 16 y = 255 }
+					font = "vic_18"
+					text = "DA_fort_family_tech"
+					maxWidth = 330
+					maxHeight = 20
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_tech_fort_t1"
+					quadTextureSprite = "GFX_fen_tech_fort_t1"
+					position = { x = 19 y = 275 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_tech_fort_t1"
+					position = { x = 17 y = 324 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_tech_fort_t1"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_tech_fort_t2"
+					quadTextureSprite = "GFX_fen_tech_fort_t2"
+					position = { x = 87 y = 275 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_tech_fort_t2"
+					position = { x = 85 y = 324 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_tech_fort_t2"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_tech_fort_t3"
+					quadTextureSprite = "GFX_fen_tech_fort_t3"
+					position = { x = 155 y = 275 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_tech_fort_t3"
+					position = { x = 153 y = 324 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_tech_fort_t3"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_note"
+					position = { x = 16 y = 348 }
+					font = "vic_18"
+					text = "DA_fort_price_note"
+					maxWidth = 338
+					maxHeight = 18
+					format = left
+				}
+			}
+			windowType = {
+				name = "DA_province_medicine_panel"
+				position = { x = 490 y = 95 }
+				size = { x = 370 y = 190 }
+				scripted = yes
+				moveable = 0
+				iconType = {
+					name = "DA_medicine_background"
+					spriteType = "GFX_DA_province_medicine_panel_bg"
+					position = { x = 0 y = 0 }
+				}
+				instantTextBoxType = {
+					name = "DA_medicine_title"
+					position = { x = 16 y = 13 }
+					font = "vic_22"
+					text = "DA_medicine_title"
+					maxWidth = 320
+					maxHeight = 25
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_province_medicine_close"
+					quadTextureSprite = "GFX_closebutton2"
+					position = { x = 340 y = 10 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_province_medicine_status"
+					position = { x = 16 y = 48 }
+					font = "vic_18"
+					text = "DA_province_medicine_status"
+					maxWidth = 335
+					maxHeight = 40
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_province_button_quarantine"
+					quadTextureSprite = "GFX_DA_Medicine_quarantine_locked_strip_Province_Button"
+					position = { x = 62 y = 103 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_province_button_burn"
+					quadTextureSprite = "GFX_DA_Medicine_Burn_Province_Button"
+					position = { x = 239 y = 103 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_medicine_quarantine_label"
+					position = { x = 24 y = 147 }
+					font = "vic_18"
+					text = "DA_medicine_quarantine_label"
+					maxWidth = 158
+					maxHeight = 20
+					format = left
+				}
+				instantTextBoxType = {
+					name = "DA_medicine_burn_label"
+					position = { x = 205 y = 147 }
+					font = "vic_18"
+					text = "DA_medicine_burn_label"
+					maxWidth = 150
+					maxHeight = 20
+					format = left
+				}
+			}
+		# BEGIN DA_SS_PROVINCE_TARGET
+iconType = {
+	name = "DA_SS_province_target_panel" position = { x = 50 y = -26 } spriteType = "GFX_DA_SS_target_panel" scripted = yes alwaystransparent = yes
+}
+
+instantTextBoxType = {
+	name = "DA_SS_province_target_title" position = { x = 60 y = -22 } text = "DA_SS_province_target_title" font = "garamond_12" maxWidth = 370 maxHeight = 20 format = centre scripted = yes alwaystransparent = yes
+}
+
+instantTextBoxType = {
+	name = "DA_SS_province_target_province" position = { x = 60 y = -1 } text = "DA_SS_province_target_province" font = "garamond_12" maxWidth = 370 maxHeight = 20 format = centre scripted = yes alwaystransparent = yes
+}
+
+guiButtonType = {
+	name = "DA_SS_province_target" position = { x = 60 y = 25 } quadTextureSprite = "GFX_DA_SS_target_button" scripted = yes clicksound = back_click
+}
+
+instantTextBoxType = {
+	name = "DA_SS_province_target_text" position = { x = 64 y = 29 } text = "DA_SS_province_target_text" font = "garamond_12" maxWidth = 242 maxHeight = 20 format = centre scripted = yes alwaystransparent = yes
+}
+
+guiButtonType = {
+	name = "DA_SS_province_target_cancel" position = { x = 330 y = 25 } quadTextureSprite = "GFX_DA_SS_page" scripted = yes clicksound = close_window
+}
+
+instantTextBoxType = {
+	name = "DA_SS_province_target_cancel_text" position = { x = 334 y = 29 } text = "DA_SS_province_target_cancel_text" font = "garamond_12" maxWidth = 92 maxHeight = 20 format = centre scripted = yes alwaystransparent = yes
+}
+
+# END DA_SS_PROVINCE_TARGET
+}
 		
 
 		## State Window
@@ -3751,17 +4089,17 @@ guiTypes = {
 					position = { x = 124 y = 75 }
 					scripted = yes
 				}
-				#Row  2 Slot 4 - quarantine
+				#Row  2 Slot 4 - medicine panel
 				guiButtonType = { #Generic
-					name = "DA_province_button_quarantine"
+					name = "DA_province_button_medicine"
 					quadTextureSprite = "GFX_DA_Medicine_quarantine_locked_strip_Province_Button"
 					position = { x = 169 y = 75 }
 					scripted = yes
 				}
-				#Row  2 Slot 5 - burn
+				#Row  2 Slot 5 - fortifications panel
 				guiButtonType = { #Generic
-					name = "DA_province_button_burn"
-					quadTextureSprite = "GFX_DA_Medicine_Burn_Province_Button"
+					name = "DA_province_button_fortifications"
+					quadTextureSprite = "small_fortify_button"
 					position = { x = 214 y = 75 }
 					scripted = yes
 				}
@@ -4126,17 +4464,17 @@ guiTypes = {
 						position = { x = 124 y = 75 }
 						scripted = yes
 					}
-					#Row  2 Slot 4 - quarantine
+					#Row  2 Slot 4 - medicine panel
 					guiButtonType = { #Generic
-						name = "DA_province_button_quarantine"
+						name = "DA_province_button_medicine"
 						quadTextureSprite = "GFX_DA_Medicine_quarantine_locked_strip_Province_Button"
 						position = { x = 169 y = 75 }
 						scripted = yes
 					}
-					#Row  2 Slot 5 - burn
+					#Row  2 Slot 5 - fortifications panel
 					guiButtonType = { #Generic
-						name = "DA_province_button_burn"
-						quadTextureSprite = "GFX_DA_Medicine_Burn_Province_Button"
+						name = "DA_province_button_fortifications"
+						quadTextureSprite = "small_fortify_button"
 						position = { x = 214 y = 75 }
 						scripted = yes
 					}
@@ -4516,6 +4854,59 @@ guiTypes = {
 					maxHeight = 20
 					format = right
 				}
+			}
+
+			# Mining stays in province scope, in the open space right of Province Values.
+			# Keep every mining control BEFORE both building selectors so their backgrounds
+			# and building buttons cover it when the construction catalogue is open.
+			iconType = {
+				name = "DA_mining_panel_background"
+				spriteType = "GFX_DA_mining_panel_bg"
+				position = { x = 334 y = 450 }
+				scripted = yes
+				alwaystransparent = yes
+			}
+			instantTextBoxType = {
+				name = "DA_mining_panel_title"
+				position = { x = 345 y = 464 }
+				font = "vic_22"
+				text = "DA_mining_panel_title"
+				maxWidth = 166
+				maxHeight = 26
+				format = centre
+				scripted = yes
+			}
+			guiButtonType = {
+				name = "DA_mining_found_button"
+				quadTextureSprite = "GFX_DA_mining_pickaxe"
+				position = { x = 402 y = 500 }
+				scripted = yes
+			}
+			iconType = {
+				name = "DA_mining_existing_icon"
+				spriteType = "GFX_DA_mining_pickaxe"
+				position = { x = 402 y = 500 }
+				scripted = yes
+			}
+			instantTextBoxType = {
+				name = "DA_mining_panel_status"
+				position = { x = 345 y = 564 }
+				font = "vic_22"
+				text = "DA_mining_panel_status"
+				maxWidth = 166
+				maxHeight = 40
+				format = centre
+				scripted = yes
+			}
+			instantTextBoxType = {
+				name = "DA_mining_panel_hint"
+				position = { x = 345 y = 609 }
+				font = "vic_18"
+				text = "DA_mining_panel_hint"
+				maxWidth = 166
+				maxHeight = 20
+				format = centre
+				scripted = yes
 			}
 
 			windowType = {
@@ -7165,6 +7556,314 @@ guiTypes = {
 							}
 						}
 					}
+				}
+			}
+
+			# AKT province services: duplicated in buildings_window for correct overlay order.
+			windowType = {
+				name = "DA_province_fortifications_panel"
+				position = { x = 10 y = 142 }
+				size = { x = 370 y = 370 }
+				scripted = yes
+				moveable = 0
+				iconType = {
+					name = "DA_fortifications_background"
+					spriteType = "GFX_DA_province_fortifications_panel_bg"
+					position = { x = 0 y = 0 }
+				}
+				instantTextBoxType = {
+					name = "DA_fortifications_title"
+					position = { x = 16 y = 13 }
+					font = "vic_22"
+					text = "DA_fortifications_title"
+					maxWidth = 320
+					maxHeight = 25
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_province_fortifications_close"
+					quadTextureSprite = "GFX_closebutton2"
+					position = { x = 340 y = 10 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_province_fort_status"
+					position = { x = 16 y = 43 }
+					font = "vic_18"
+					text = "DA_province_fort_status"
+					maxWidth = 338
+					maxHeight = 38
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_family_runic"
+					position = { x = 16 y = 79 }
+					font = "vic_18"
+					text = "DA_fort_family_runic"
+					maxWidth = 330
+					maxHeight = 20
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Runeforged_fort"
+					quadTextureSprite = "GFX_DA_Runeforged_fort"
+					position = { x = 19 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Runeforged_fort"
+					position = { x = 17 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Runeforged_fort"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Runeforged_fort_t2"
+					quadTextureSprite = "GFX_DA_Runeforged_fort_t2"
+					position = { x = 87 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Runeforged_fort_t2"
+					position = { x = 85 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Runeforged_fort_t2"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Runeforged_fort_t3"
+					quadTextureSprite = "GFX_DA_Runeforged_fort_t3"
+					position = { x = 155 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Runeforged_fort_t3"
+					position = { x = 153 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Runeforged_fort_t3"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Hehogrim_Runeforged_fort"
+					quadTextureSprite = "GFX_DA_Hehogrim_Runeforged_fort"
+					position = { x = 223 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Hehogrim_Runeforged_fort"
+					position = { x = 221 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Hehogrim_Runeforged_fort"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_DA_Runeforged_Amldihr_fort"
+					quadTextureSprite = "GFX_DA_Runeforged_Amldihr_fort"
+					position = { x = 291 y = 99 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_DA_Runeforged_Amldihr_fort"
+					position = { x = 289 y = 148 }
+					font = "vic_18"
+					text = "DA_fort_price_DA_Runeforged_Amldihr_fort"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_family_magic"
+					position = { x = 16 y = 167 }
+					font = "vic_18"
+					text = "DA_fort_family_magic"
+					maxWidth = 330
+					maxHeight = 20
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_magic_fort_t1"
+					quadTextureSprite = "GFX_fen_magic_fort_t1"
+					position = { x = 19 y = 187 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_magic_fort_t1"
+					position = { x = 17 y = 236 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_magic_fort_t1"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_magic_fort_t2"
+					quadTextureSprite = "GFX_fen_magic_fort_t2"
+					position = { x = 87 y = 187 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_magic_fort_t2"
+					position = { x = 85 y = 236 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_magic_fort_t2"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_magic_fort_t3"
+					quadTextureSprite = "GFX_fen_magic_fort_t3"
+					position = { x = 155 y = 187 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_magic_fort_t3"
+					position = { x = 153 y = 236 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_magic_fort_t3"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				instantTextBoxType = {
+					name = "DA_fort_family_tech"
+					position = { x = 16 y = 255 }
+					font = "vic_18"
+					text = "DA_fort_family_tech"
+					maxWidth = 330
+					maxHeight = 20
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_tech_fort_t1"
+					quadTextureSprite = "GFX_fen_tech_fort_t1"
+					position = { x = 19 y = 275 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_tech_fort_t1"
+					position = { x = 17 y = 324 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_tech_fort_t1"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_tech_fort_t2"
+					quadTextureSprite = "GFX_fen_tech_fort_t2"
+					position = { x = 87 y = 275 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_tech_fort_t2"
+					position = { x = 85 y = 324 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_tech_fort_t2"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_fort_build_fen_tech_fort_t3"
+					quadTextureSprite = "GFX_fen_tech_fort_t3"
+					position = { x = 155 y = 275 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_fen_tech_fort_t3"
+					position = { x = 153 y = 324 }
+					font = "vic_18"
+					text = "DA_fort_price_fen_tech_fort_t3"
+					maxWidth = 66
+					maxHeight = 18
+					format = left
+				}
+				instantTextBoxType = {
+					name = "DA_fort_price_note"
+					position = { x = 16 y = 348 }
+					font = "vic_18"
+					text = "DA_fort_price_note"
+					maxWidth = 338
+					maxHeight = 18
+					format = left
+				}
+			}
+			windowType = {
+				name = "DA_province_medicine_panel"
+				position = { x = 10 y = 142 }
+				size = { x = 370 y = 190 }
+				scripted = yes
+				moveable = 0
+				iconType = {
+					name = "DA_medicine_background"
+					spriteType = "GFX_DA_province_medicine_panel_bg"
+					position = { x = 0 y = 0 }
+				}
+				instantTextBoxType = {
+					name = "DA_medicine_title"
+					position = { x = 16 y = 13 }
+					font = "vic_22"
+					text = "DA_medicine_title"
+					maxWidth = 320
+					maxHeight = 25
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_province_medicine_close"
+					quadTextureSprite = "GFX_closebutton2"
+					position = { x = 340 y = 10 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_province_medicine_status"
+					position = { x = 16 y = 48 }
+					font = "vic_18"
+					text = "DA_province_medicine_status"
+					maxWidth = 335
+					maxHeight = 40
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_province_button_quarantine"
+					quadTextureSprite = "GFX_DA_Medicine_quarantine_locked_strip_Province_Button"
+					position = { x = 62 y = 103 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_province_button_burn"
+					quadTextureSprite = "GFX_DA_Medicine_Burn_Province_Button"
+					position = { x = 239 y = 103 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_medicine_quarantine_label"
+					position = { x = 24 y = 147 }
+					font = "vic_18"
+					text = "DA_medicine_quarantine_label"
+					maxWidth = 158
+					maxHeight = 20
+					format = left
+				}
+				instantTextBoxType = {
+					name = "DA_medicine_burn_label"
+					position = { x = 205 y = 147 }
+					font = "vic_18"
+					text = "DA_medicine_burn_label"
+					maxWidth = 150
+					maxHeight = 20
+					format = left
 				}
 			}
 		}
@@ -11807,121 +12506,17 @@ guiTypes = {
 		}
 		
 		
+		# DK's infrastructure
+
 		iconType = {
-			name = "DA_Arcane_Defenses_banner"
+			name = "DA_infrastructure_banner"
 			position = { x = 549 y = 500 }
 			spriteType = "GFX_banner_left_4"
 		}
 
 		instantTextBoxType={
-			name = "DA_title_Tech_Forts"
-			position = {x = 589 y = 510 }
-			font = "vic_18"
-			borderSize = {x = 0 y = 0}	
-			maxWidth = 200
-			maxHeight = 18
-			text = "Arcane Defenses"	
-		}
-
-		iconType ={
-			name ="defense_icon_2"
-			spriteType = "GFX_macro_buildings_category_strip"
-			position = { x = 560 y = 503}
-			frame = 7
-		}
-
-		checkboxType = {
-			name = "build_DA_Runeforged_fort"
-			position = { x = 554 y = 535 }
-			quadTextureSprite = "GFX_DA_Runeforged_fort"
-		}
-
-		instantTextBoxType={
-			name = "DA_Runeforged_fort_cost"
-			position = {x = 554 y = 585 }
-			font = "vic_18"
-			borderSize = {x = 0 y = 0}
-			maxWidth = 128
-			maxHeight = 18
-			text = "2000¤"
-		}
-
-
-		checkboxType = {
-			name = "build_DA_Runeforged_fort_t2"
-			position = { x = 606 y = 535 }
-			quadTextureSprite = "GFX_DA_Runeforged_fort_t2"
-		}
-
-		instantTextBoxType={
-			name = "DA_Runeforged_fort_t2_cost"
-			position = {x = 606 y = 585 }
-			font = "vic_18"
-			borderSize = {x = 0 y = 0}
-			maxWidth = 128
-			maxHeight = 18
-			text = "2000¤"
-		}
-		iconType = {
-			name = "DA_Runeforged_fort1_2_arrow"
-			position = { x = 598 y = 544 }
-			spriteType = "GFX_building_upgrade_icon"
-		}
-
-
-		checkboxType = {
-			name = "build_DA_Runeforged_fort_t3"
-			position = { x = 658 y = 535 }
-			quadTextureSprite = "GFX_DA_Runeforged_fort_t3"
-		}
-
-		instantTextBoxType={
-			name = "DA_Runeforged_fort_t3_cost"
-			position = {x = 658 y = 585 }
-			font = "vic_18"
-			borderSize = {x = 0 y = 0}
-			maxWidth = 128
-			maxHeight = 18
-			text = "2000¤"
-		}
-		iconType = {
-			name = "DA_Runeforged_fort2_3_arrow"
-			position = { x = 650 y = 544 }
-			spriteType = "GFX_building_upgrade_icon"
-		}
-
-		checkboxType = {
-			name = "build_DA_Hehogrim_Runeforged_fort"
-			position = { x = 710 y = 535 }
-			quadTextureSprite = "GFX_DA_Hehogrim_Runeforged_fort"
-		}
-
-		instantTextBoxType={
-			name = "DA_Hehogrim_Runeforged_fort_cost"
-			position = {x = 710 y = 585 }
-			font = "vic_18"
-			borderSize = {x = 0 y = 0}
-			maxWidth = 128
-			maxHeight = 18
-			text = "2000¤"
-		}
-		iconType = {
-			name = "DA_Runeforged_fort3_4_arrow"
-			position = { x = 702 y = 544 }
-			spriteType = "GFX_building_upgrade_icon"
-		}
-
-		# DK's infrastructure 
-
-		iconType = {
-			name = "DA_infrastructure_banner"
-			position = { x = 549 y = 600 }
-			spriteType = "GFX_banner_left_4"
-		}
-
-		instantTextBoxType={
 			name = "DA_title_Infrastructure"
-			position = {x = 589 y = 610 }
+			position = {x = 589 y = 510 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}	
 			maxWidth = 200
@@ -11932,19 +12527,19 @@ guiTypes = {
 		iconType ={
 			name ="DA_trade_icon"
 			spriteType = "GFX_macro_buildings_category_strip"
-			position = { x = 560 y = 603}
+			position = { x = 560 y = 503}
 			frame = 1
 		}
 
 		checkboxType = {
 			name = "build_DA_railway_Restoration"
-			position = { x = 554 y = 635 }
+			position = { x = 554 y = 535 }
 			quadTextureSprite = "GFX_courthouse_muslimgfx" #Placeholder, real sprite is decided by game (based on button name).
 		}
 
 		instantTextBoxType={
 			name = "DA_railway_Restoration_cost"
-			position = {x = 554 y = 685 }
+			position = {x = 554 y = 585 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}
 			maxWidth = 128
@@ -11954,13 +12549,13 @@ guiTypes = {
 
 		checkboxType = {
 			name = "build_DA_railway_Advancement"
-			position = { x = 606 y = 635 }
+			position = { x = 606 y = 535 }
 			quadTextureSprite = "GFX_courthouse_muslimgfx" #Placeholder, real sprite is decided by game (based on button name).
 		}
 
 		instantTextBoxType={
 			name = "DA_railway_Advancement_cost"
-			position = {x = 606 y = 685 }
+			position = {x = 606 y = 585 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}
 			maxWidth = 128
@@ -11970,7 +12565,7 @@ guiTypes = {
 
 		iconType = {
 			name = "DA_Rail_Repair_to_upgrade_arrow"
-			position = { x = 600 y = 644 }
+			position = { x = 600 y = 544 }
 			spriteType = "GFX_building_upgrade_icon"
 		}
 
@@ -11978,13 +12573,13 @@ guiTypes = {
 
 		checkboxType = {
 			name = "build_DA_steam_pipes"
-			position = { x = 710 y = 635 }
+			position = { x = 710 y = 535 }
 			quadTextureSprite = "GFX_courthouse_muslimgfx" #Placeholder, real sprite is decided by game (based on button name).
 		}
 
 		instantTextBoxType={
 			name = "DA_steam_pipes_cost"
-			position = {x = 710 y = 685 }
+			position = {x = 710 y = 585 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}
 			maxWidth = 128
@@ -11994,13 +12589,13 @@ guiTypes = {
 
 		checkboxType = {
 			name = "build_DA_electricity_cables"
-			position = { x = 762 y = 635 }
+			position = { x = 762 y = 535 }
 			quadTextureSprite = "GFX_courthouse_muslimgfx" #Placeholder, real sprite is decided by game (based on button name).
 		}
 
 		instantTextBoxType={
 			name = "DA_electricity_cables_cost"
-			position = {x = 762 y = 685 }
+			position = {x = 762 y = 585 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}
 			maxWidth = 128
@@ -12010,7 +12605,7 @@ guiTypes = {
 
 		iconType = {
 			name = "DA_inf_pipes_to_cables_arrow"
-			position = { x = 756 y = 644 }
+			position = { x = 756 y = 544 }
 			spriteType = "GFX_building_upgrade_icon"
 		}
 
@@ -12020,13 +12615,13 @@ guiTypes = {
 
 		checkboxType = {
 			name = "build_DA_deposit_building_1"
-			position = { x = 554 y = 705 }
+			position = { x = 554 y = 605 }
 			quadTextureSprite = "GFX_courthouse_muslimgfx" #Placeholder, real sprite is decided by game (based on button name).
 		}
 
 		instantTextBoxType={
 			name = "DA_deposit_building_1_cost"
-			position = {x = 554 y = 755 }
+			position = {x = 554 y = 655 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}
 			maxWidth = 128
@@ -12036,13 +12631,13 @@ guiTypes = {
 
 		checkboxType = {
 			name = "build_DA_deposit_building_2"
-			position = { x = 606 y = 705 }
+			position = { x = 606 y = 605 }
 			quadTextureSprite = "GFX_courthouse_muslimgfx" #Placeholder, real sprite is decided by game (based on button name).
 		}
 
 		instantTextBoxType={
 			name = "DA_deposit_building_2_cost"
-			position = {x = 606 y = 755 }
+			position = {x = 606 y = 655 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}
 			maxWidth = 128
@@ -12052,19 +12647,19 @@ guiTypes = {
 
 		iconType = {
 			name = "DA_deposit_arrow_1"
-			position = { x = 600 y = 714 }
+			position = { x = 600 y = 614 }
 			spriteType = "GFX_building_upgrade_icon"
 		}
 
 		checkboxType = {
 			name = "build_DA_deposit_building_3"
-			position = { x = 658 y = 705 }
+			position = { x = 658 y = 605 }
 			quadTextureSprite = "GFX_courthouse_muslimgfx" #Placeholder, real sprite is decided by game (based on button name).
 		}
 
 		instantTextBoxType={
 			name = "DA_deposit_building_3_cost"
-			position = {x = 658 y = 755 }
+			position = {x = 658 y = 655 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}
 			maxWidth = 128
@@ -12074,19 +12669,19 @@ guiTypes = {
 
 		iconType = {
 			name = "DA_deposit_arrow_2"
-			position = { x = 652 y = 714 }
+			position = { x = 652 y = 614 }
 			spriteType = "GFX_building_upgrade_icon"
 		}
 
 		checkboxType = {
 			name = "build_DA_deposit_building_4"
-			position = { x = 710 y = 705 }
+			position = { x = 710 y = 605 }
 			quadTextureSprite = "GFX_courthouse_muslimgfx" #Placeholder, real sprite is decided by game (based on button name).
 		}
 
 		instantTextBoxType={
 			name = "DA_deposit_building_4_cost"
-			position = {x = 710 y = 755 }
+			position = {x = 710 y = 655 }
 			font = "vic_18"
 			borderSize = {x = 0 y = 0}
 			maxWidth = 128
@@ -12096,7 +12691,7 @@ guiTypes = {
 
 		iconType = {
 			name = "DA_deposit_arrow_3"
-			position = { x = 704 y = 714 }
+			position = { x = 704 y = 614 }
 			spriteType = "GFX_building_upgrade_icon"
 		}
 

@@ -1,0 +1,12 @@
+# Additive hooks keep unrelated AKT on-actions untouched.
+on_five_year_pulse = {
+	DA_ai_special_fortifications = yes
+}
+
+on_startup = {
+	# Also attaches the artificer-only modifier to forts imported from existing saves.
+	every_owned_province = {
+		limit = { DA_has_special_fort = yes }
+		DA_normalize_special_forts = yes
+	}
+}

@@ -1,0 +1,30 @@
+# The cutoff is target - 5, calculated at research start and when loading a save.
+# This is only checked when selecting an event, not by the monthly research tick.
+DA_can_receive_random_research_event = {
+	has_country_flag = DA_research_in_progress
+	check_variable = { which = DA_research_progress_MAX value = 0.001 }
+	NOT = {
+		check_variable = {
+			which = DA_research_progress
+			which = DA_research_event_cutoff
+		}
+	}
+}
+
+# An open popup belongs to one research run, even if the same project is restarted.
+# Each event ID has its own snapshot and cannot open twice before being answered.
+DA_research_event_is_current = {
+	has_country_flag = DA_research_in_progress
+	has_country_flag = DA_research_event_pending.$id$
+	check_variable = { which = DA_research_progress_MAX value = 0.001 }
+	is_variable_equal = {
+		which = DA_research_generation
+		which = DA_research_event_generation.$id$
+	}
+	NOT = {
+		check_variable = {
+			which = DA_research_progress
+			which = DA_research_progress_MAX
+		}
+	}
+}

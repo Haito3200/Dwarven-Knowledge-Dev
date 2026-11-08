@@ -4,42 +4,26 @@ DA_Runeforged_fort = {
 	time = 30
 
 	build_trigger = {
-		owner = {
-			has_country_flag = DA_can_build_runeforged_fort
-			custom_trigger_tooltip = {
-				tooltip = DA_has_1_ADK
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 1
-				}
-			}
-		}
-		OR = {
-			has_terrain = dwarven_hold
-			has_terrain = dwarven_hold_surface
-			has_Dwarven_magic_Barrier = yes
-		}
-		has_integrated_dwarven_pop_trigger = yes
-		NOT = { province_id = 4119 }
+		DA_requirements_DA_Runeforged_fort = yes
 	}
 
 
 	modifier = {
 		fort_level = 1
 		local_hostile_attrition = 1
+		local_garrison_size = 0.10
 	}
 	onmap = no
 	show_separate = yes # Means as a manufactory it will be shown according to the old way
 	influencing_fort = yes
 
 	ai_will_do = {
-		factor = 100
+		factor = 0
 	}
 	on_built = {
-		#Anbennar
 		anbennar_building_effect = yes
-
 		gronstunad_building_authority_effect = { value = 5 }
+		DA_finish_DA_Runeforged_fort = yes
 	}
 	on_destroyed = {
 	}
@@ -52,23 +36,7 @@ DA_Runeforged_fort_t2 = {
 	time = 30
 
 	build_trigger = {
-		owner = {
-			has_country_flag = DA_can_build_runeforged_fort_t2
-			custom_trigger_tooltip = {
-				tooltip = DA_has_2_ADK
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 2
-				}
-			}
-		}
-		OR = {
-			has_terrain = dwarven_hold
-			has_terrain = dwarven_hold_surface
-			has_Dwarven_magic_Barrier = yes
-		}
-		has_integrated_dwarven_pop_trigger = yes
-		NOT = { province_id = 4119 }
+		DA_requirements_DA_Runeforged_fort_t2 = yes
 	}
 
 	make_obsolete = DA_Runeforged_fort
@@ -77,23 +45,19 @@ DA_Runeforged_fort_t2 = {
 	modifier = {
 		fort_level = 2
 		local_hostile_attrition = 1.5
+		local_garrison_size = 0.20
 	}
 	onmap = no
 	show_separate = yes # Means as a manufactory it will be shown according to the old way
 	influencing_fort = yes
 
 	ai_will_do = {
-		factor = 100
+		factor = 0
 	}
 	on_built = {
-		#Anbennar
 		anbennar_building_effect = yes
-
 		gronstunad_building_authority_effect = { value = 5 }
-		if = {
-			limit = { has_building = DA_Runeforged_fort }
-			remove_building = DA_Runeforged_fort
-		}
+		DA_finish_DA_Runeforged_fort_t2 = yes
 	}
 	on_destroyed = {
 	}
@@ -106,23 +70,7 @@ DA_Runeforged_fort_t3 = {
 	time = 30
 
 	build_trigger = {
-		owner = {
-			has_country_flag = DA_can_build_runeforged_fort_t3
-			custom_trigger_tooltip = {
-				tooltip = DA_has_3_ADK
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 3
-				}
-			}
-		}
-		OR = {
-			has_terrain = dwarven_hold
-			has_terrain = dwarven_hold_surface
-			has_Dwarven_magic_Barrier = yes
-		}
-		has_integrated_dwarven_pop_trigger = yes
-		NOT = { province_id = 4119 }
+		DA_requirements_DA_Runeforged_fort_t3 = yes
 	}
 
 	make_obsolete = DA_Runeforged_fort_t2
@@ -131,27 +79,19 @@ DA_Runeforged_fort_t3 = {
 	modifier = {
 		fort_level = 3
 		local_hostile_attrition = 2
+		local_garrison_size = 0.30
 	}
 	onmap = no
 	show_separate = yes # Means as a manufactory it will be shown according to the old way
 	influencing_fort = yes
 
 	ai_will_do = {
-		factor = 100
+		factor = 0
 	}
 	on_built = {
-		#Anbennar
 		anbennar_building_effect = yes
-
 		gronstunad_building_authority_effect = { value = 5 }
-		if = {
-			limit = { has_building = DA_Runeforged_fort }
-			remove_building = DA_Runeforged_fort
-		}
-		if = {
-			limit = { has_building = DA_Runeforged_fort_t2 }
-			remove_building = DA_Runeforged_fort_t2
-		}
+		DA_finish_DA_Runeforged_fort_t3 = yes
 	}
 	on_destroyed = {
 	}
@@ -164,23 +104,7 @@ DA_Hehogrim_Runeforged_fort = {
 	time = 45
 
 	build_trigger = {
-		owner = {
-			has_country_flag = DA_can_build_Hehogrim_Runeforged_fort
-			custom_trigger_tooltip = {
-				tooltip = DA_has_4_ADK
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 4
-				}
-			}
-		}
-		OR = {
-			has_terrain = dwarven_hold
-			has_terrain = dwarven_hold_surface
-			has_Dwarven_magic_Barrier = yes
-		}
-		has_integrated_dwarven_pop_trigger = yes
-		NOT = { province_id = 4119 }
+		DA_requirements_DA_Hehogrim_Runeforged_fort = yes
 	}
 
 	make_obsolete = DA_Runeforged_fort_t3
@@ -191,32 +115,20 @@ DA_Hehogrim_Runeforged_fort = {
 		local_hostile_attrition = 3
 		local_defensiveness = 0.15
 		local_defender_dice_roll_bonus = 1
+		local_garrison_size = 0.40
 	}
 	onmap = no
 	show_separate = yes # Means as a manufactory it will be shown according to the old way
 	influencing_fort = yes
 
 	ai_will_do = {
-		factor = 100
+		factor = 0
 	}
-	
-	on_built = {
-		#Anbennar
-		anbennar_building_effect = yes
 
+	on_built = {
+		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 5 }
-		if = {
-			limit = { has_building = DA_Runeforged_fort }
-			remove_building = DA_Runeforged_fort
-		}
-		if = {
-			limit = { has_building = DA_Runeforged_fort_t2 }
-			remove_building = DA_Runeforged_fort_t2
-		}
-		if = {
-			limit = { has_building = DA_Runeforged_fort_t3 }
-			remove_building = DA_Runeforged_fort_t3
-		}
+		DA_finish_DA_Hehogrim_Runeforged_fort = yes
 	}
 	on_destroyed = {
 	}
@@ -229,6 +141,7 @@ DA_Runeforged_Amldihr_fort = {
 	time = 60
 
 	build_trigger = {
+		DA_requirements_DA_Runeforged_Amldihr_fort = yes
 	}
 
 	bonus_manufactory = { # Will apply an extra modifier if these goods
@@ -256,10 +169,9 @@ DA_Runeforged_Amldihr_fort = {
 		factor = 0
 	}
 	on_built = {
-		#Anbennar
 		anbennar_building_effect = yes
-
 		gronstunad_building_authority_effect = { value = 5 }
+		DA_finish_DA_Runeforged_Amldihr_fort = yes
 	}
 	on_destroyed = {
 	}
@@ -823,6 +735,7 @@ DA_Elemental_building_1 = {
 			DA_completed.Elemental_Magic_Water = yes
 		}
 		OR = {
+			has_terrain = titanoflora_grassland_terrain
 			has_terrain = grasslands
 			has_terrain = farmlands
 			has_terrain = coastal_desert
@@ -914,12 +827,14 @@ DA_Elemental_building_1 = {
 			}
 		}
 		
-    }
+		if = { limit = { has_terrain = titanoflora_grassland_terrain } add_permanent_province_modifier = { name = DA_irrigation_mod_titanoflora_grassland duration = -1 } }
+	}
 
 	keep_trigger = {
 		
 	}
 	on_destroyed = {
+		remove_province_modifier = DA_irrigation_mod_titanoflora_grassland
 		remove_province_modifier = DA_irrigation_mod_desert
 		remove_province_modifier = DA_irrigation_mod_coastal_desert
 		remove_province_modifier = DA_irrigation_mod_grasslands
@@ -943,11 +858,7 @@ DA_Elemental_building_2 = {
 		owner = {
 			DA_completed.Elemental_Magic_Air = yes
 		}
-		OR = {
-			has_terrain = highlands
-			has_terrain = mountain
-			has_terrain = cavern
-		}
+		DA_mining_has_any_mine = yes
 	}
 
 	modifier = {
@@ -957,85 +868,12 @@ DA_Elemental_building_2 = {
 	}
 
 	on_built = {
-		#Anbennar
 		anbennar_building_effect = yes
-
 		gronstunad_building_authority_effect = { value = 5 }
-		if = {
-			limit = {
-				has_terrain = highlands
-			}
-			add_permanent_province_modifier = {
-				name = DA_ventilation_mod_highlands
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				has_terrain = mountain
-			}
-			add_permanent_province_modifier = {
-				name = DA_ventilation_mod_mountain
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				has_terrain = cavern
-			}
-			add_permanent_province_modifier = {
-				name = DA_ventilation_mod_cavern
-				duration = -1
-			}
-		}
-
-		if = {
-			limit = {
-				has_province_modifier = DA_Mine_2
-			}
-			add_permanent_province_modifier = {
-				name = DA_ventilation_mod_Mine_2
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				has_province_modifier = DA_Mine_3
-			}
-			add_permanent_province_modifier = {
-				name = DA_ventilation_mod_Mine_3
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				has_province_modifier = DA_Mine_4
-			}
-			add_permanent_province_modifier = {
-				name = DA_ventilation_mod_Mine_4
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				has_province_modifier = DA_Mine_5
-			}
-			add_permanent_province_modifier = {
-				name = DA_ventilation_mod_Mine_5
-				duration = -1
-			}
-		}
-    }
-
-	on_destroyed = {
-		remove_province_modifier = DA_ventilation_mod_highlands
-		remove_province_modifier = DA_ventilation_mod_mountain
-		remove_province_modifier = DA_ventilation_mod_cavern
-		remove_province_modifier = DA_ventilation_mod_Mine_2
-		remove_province_modifier = DA_ventilation_mod_Mine_3
-		remove_province_modifier = DA_ventilation_mod_Mine_4
-		remove_province_modifier = DA_ventilation_mod_Mine_5
+		DA_mining_apply_ventilation = yes
 	}
+
+	on_destroyed = { DA_mining_clear_ventilation = yes }
 	keep_trigger = {
 		
 	}
@@ -1056,6 +894,7 @@ DA_Elemental_building_3 = {
 			DA_completed.Elemental_Magic_Fire = yes
 		}
 		OR = {
+			has_terrain = city_terrain
 			has_terrain = dwarven_hold
 			has_terrain = dwarven_hold_surface
 			has_terrain = mountain

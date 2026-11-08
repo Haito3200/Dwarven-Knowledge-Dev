@@ -1,0 +1,51 @@
+namespace = DA_Mining_events
+province_event = {
+ id = DA_Mining_events.1
+ title = DA_Mining_events.1.t
+ desc = DA_Mining_events.1.d
+ picture = DWARVEN_RAIL_eventPicture
+ is_triggered_only = yes
+ trigger = { DA_mining_can_found = yes }
+ immediate = { owner = { save_event_target_as = DA_mining_sponsor } }
+ option = {
+  name = DA_Mining_events.1.a
+  trigger = { owned_by = event_target:DA_mining_sponsor DA_mining_can_found = yes }
+  if = {
+   limit = { owned_by = event_target:DA_mining_sponsor }
+   DA_mining_found = yes
+  }
+ }
+ option = { name = DA_Mining_events.1.b }
+}
+country_event = {
+ id = DA_Mining_events.11
+ title = DA_Mining_events.11.t
+ desc = DA_Mining_events.11.d
+ picture = DWARVEN_RAIL_eventPicture
+ is_triggered_only = yes
+ option = { name = DA_mining_research_completed }
+}
+country_event = {
+ id = DA_Mining_events.12
+ title = DA_Mining_events.12.t
+ desc = DA_Mining_events.12.d
+ picture = DWARVEN_RAIL_eventPicture
+ is_triggered_only = yes
+ option = { name = DA_mining_research_completed }
+}
+country_event = {
+ id = DA_Mining_events.13
+ title = DA_Mining_events.13.t
+ desc = DA_Mining_events.13.d
+ picture = DWARVEN_RAIL_eventPicture
+ is_triggered_only = yes
+ option = { name = DA_mining_research_completed }
+}
+country_event = {
+ id = DA_Mining_events.14
+ title = DA_Mining_events.14.t
+ desc = DA_Mining_events.14.d
+ picture = DWARVEN_RAIL_eventPicture
+ is_triggered_only = yes
+ option = { name = DA_mining_research_completed }
+}

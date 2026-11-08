@@ -12,13 +12,8 @@ country_event = {
 
 	trigger = {
 		ai = no
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.1 }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -26,17 +21,34 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DA_capture_research_event = { id = 1 }
+	}
+
 	option = {
 		name = DA_Research_events.1.a
-		add_treasury = -250
-		DA_Research_add = { amount = 6 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 1 } }
+			add_treasury = -250
+			DA_Research_add = { amount = 6 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
 	option = {
 		name = DA_Research_events.1.b
-		DA_Research_lose = { amount = 3 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 1 } }
+			DA_Research_lose = { amount = 3 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.1
+	}
 }
 
 country_event = {
@@ -47,13 +59,8 @@ country_event = {
 
 	trigger = {
 		ai = no
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.2 }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -61,10 +68,20 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DA_capture_research_event = { id = 2 }
+	}
+
 	option = {
 		name = DA_Research_events.2.a
-		add_prestige = 10
-		DA_Research_add = { amount = 24 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 2 } }
+			add_prestige = 10
+			DA_Research_add = { amount = 24 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
 	option = {
 		name = DA_Research_events.2.b
@@ -75,10 +92,17 @@ country_event = {
 				NOT = { DA_unstoppable_research_in_progress = yes }
 			}
 		}
-		DA_Research_complete = yes
+		if = {
+			limit = { DA_research_event_is_current = { id = 2 } }
+			DA_Research_complete = yes
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.2
+	}
 }
 
 country_event = {
@@ -89,13 +113,8 @@ country_event = {
 
 	trigger = {
 		ai = no
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.3 }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -103,12 +122,22 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DA_capture_research_event = { id = 3 }
+	}
+
 	option = {
 		name = DA_Research_events.3.a
-		add_prestige = -10
-		add_corruption = 1
-		add_years_of_income = 0.15
-		DA_Research_lose = { amount = 18 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 3 } }
+			add_prestige = -10
+			add_corruption = 1
+			add_years_of_income = 0.15
+			DA_Research_lose = { amount = 18 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
 	option = {
 		name = DA_Research_events.3.b
@@ -116,13 +145,20 @@ country_event = {
 		trigger = {
 			corruption = 5
 		}
-		add_prestige = -15
-		add_corruption = 2
-		add_years_of_income = 0.3
-		DA_Research_reset = yes
+		if = {
+			limit = { DA_research_event_is_current = { id = 3 } }
+			add_prestige = -15
+			add_corruption = 2
+			add_years_of_income = 0.3
+			DA_Research_reset = yes
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.3
+	}
 }
 
 country_event = {
@@ -134,13 +170,8 @@ country_event = {
 	trigger = {
 		ai = no
 		culture_group = dwarven
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.4 }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -148,22 +179,39 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DA_capture_research_event = { id = 4 }
+	}
+
 	option = {
 		name = DA_Research_events.4.a
-		add_prestige = 5
-		define_advisor = {
-			type = DA_runesmith
-			skill = 2
-			discount = yes
+		if = {
+			limit = { DA_research_event_is_current = { id = 4 } }
+			add_prestige = 5
+			define_advisor = {
+				type = DA_runesmith
+				skill = 2
+				discount = yes
+			}
+			DA_Research_lose = { amount = 12 }
 		}
-		DA_Research_lose = { amount = 12 }
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
 	option = {
 		name = DA_Research_events.4.b
-		DA_Research_add = { amount = 12 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 4 } }
+			DA_Research_add = { amount = 12 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.4
+	}
 }
 
 country_event = {
@@ -174,13 +222,8 @@ country_event = {
 
 	trigger = {
 		ai = no
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.6 }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -188,21 +231,31 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DA_capture_research_event = { id = 6 }
+	}
+
 	option = {
 		name = DA_Research_events.6.a
-		random_list = {
-			1 = {
-				DA_Research_add = { amount = 6 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 6 } }
+			random_list = {
+				1 = {
+					DA_Research_add = { amount = 6 }
+				}
+				1 = {
+					DA_Research_lose = { amount = 3 }
+				}
+				1 = {
+					DA_Research_lose = { amount = 6 }
+				}
+				1 = {
+					DA_Research_lose = { amount = 9 }
+				}
 			}
-			1 = {
-				DA_Research_lose = { amount = 3 }
-			}
-			1 = {
-				DA_Research_lose = { amount = 6 }
-			}
-			1 = {
-				DA_Research_lose = { amount = 9 }
-			}
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
 		}
 	}
 	option = {
@@ -211,11 +264,18 @@ country_event = {
 		trigger = {
 			monthly_income = 150
 		}
-		add_treasury = -1000
-		DA_Research_add = { amount = 12 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 6 } }
+			add_treasury = -1000
+			DA_Research_add = { amount = 12 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.6
+	}
 }
 
 country_event = {
@@ -226,13 +286,8 @@ country_event = {
 
 	trigger = {
 		ai = no
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.7 }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -240,12 +295,23 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DA_capture_research_event = { id = 7 }
+	}
+
 	option = {
 		name = DA_Research_events.7.a
-		DA_Research_add = { amount = 12 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 7 } }
+			DA_Research_add = { amount = 12 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.7
+	}
 }
 
 country_event = {
@@ -256,13 +322,8 @@ country_event = {
 
 	trigger = {
 		ai = no
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.8 }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -270,41 +331,58 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DA_capture_research_event = { id = 8 }
+	}
+
 	option = {
 		name = DA_Research_events.8.a
-		DA_Research_add = { amount = 6 }
-		hidden_effect = {
-			set_variable = {
-				which = DA_RS_Fake_progress
-				which = DA_research_progress
-			}
-			change_variable = {
-				which = DA_RS_Fake_progress
-				value = 12
-			}
-			if = {
-				limit = {
-					NOT = {
-						check_variable = {
-							which = DA_RS_Fake_progress
-							which = DA_research_progress_MAX
+		if = {
+			limit = { DA_research_event_is_current = { id = 8 } }
+			DA_Research_add = { amount = 6 }
+			hidden_effect = {
+				set_variable = {
+					which = DA_RS_Fake_progress
+					which = DA_research_progress
+				}
+				change_variable = {
+					which = DA_RS_Fake_progress
+					value = 12
+				}
+				if = {
+					limit = {
+						NOT = {
+							check_variable = {
+								which = DA_RS_Fake_progress
+								which = DA_research_progress_MAX
+							}
 						}
 					}
-				}
-				country_event = {
-					id = DA_Research_events.9
-					days = 240
-					random = 100
+					country_event = {
+						id = DA_Research_events.9
+						days = 240
+						random = 100
+					}
 				}
 			}
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
 		}
 	}
 	option = {
 		name = DA_Research_events.8.b
-		DA_Research_lose = { amount = 6 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 8 } }
+			DA_Research_lose = { amount = 6 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.8
+	}
 }
 
 country_event = {
@@ -315,15 +393,10 @@ country_event = {
 
 	trigger = {
 		ai = no
-		has_country_flag = DA_research_in_progress
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.9 }
 		hidden_trigger = {
 			NOT = { DA_unstoppable_research_in_progress = yes }
-		}
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
 		}
 	}
 	mean_time_to_happen = {
@@ -332,9 +405,19 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		DA_capture_research_event = { id = 9 }
+	}
+
 	option = {
 		name = DA_Research_events.9.a
-		DA_Research_reset = yes
+		if = {
+			limit = { DA_research_event_is_current = { id = 9 } }
+			DA_Research_reset = yes
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
 	option = {
 		name = DA_Research_events.9.b
@@ -348,14 +431,20 @@ country_event = {
 				}
 			}
 		}
-		custom_tooltip = DA_Cost_10_ADK
-		hidden_effect = {
-			subtract_variable = {
-				which = ancientDwarvenKnowledge
-				value = 10
+		if = {
+			limit = { DA_research_event_is_current = { id = 9 } }
+			custom_tooltip = DA_Cost_10_ADK
+			hidden_effect = {
+				subtract_variable = {
+					which = ancientDwarvenKnowledge
+					value = 10
+				}
 			}
+			DA_Research_add = { amount = 6 }
 		}
-		DA_Research_add = { amount = 6 }
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
 	option = {
 		name = DA_Research_events.9.c
@@ -367,8 +456,9 @@ country_event = {
 			}
 		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.9
+	}
 }
 
 country_event = {
@@ -380,13 +470,8 @@ country_event = {
 	trigger = {
 		ai = no
 		NOT = { stability = 3 }
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.10 }
 	}
 	mean_time_to_happen = {
 		days = 1
@@ -394,6 +479,7 @@ country_event = {
 
 	is_triggered_only = yes
 	immediate = {
+		DA_capture_research_event = { id = 10 }
 		capital_scope = {
 			spawn_rebels = {
 				size = 2
@@ -403,10 +489,17 @@ country_event = {
 	}
 	option = {
 		name = DA_Research_events.10.a
-		DA_Research_lose = { amount = 12 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 10 } }
+			DA_Research_lose = { amount = 12 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.10
+	}
 }
 
 country_event = {
@@ -418,23 +511,29 @@ country_event = {
 	trigger = {
 		ai = no
 		stability = 3
-		has_country_flag = DA_research_in_progress
-		NOT = {
-			check_variable = {
-				which = DA_research_progress
-				which = DA_research_progress_MAX
-			}
-		}
+		DA_can_receive_random_research_event = yes
+		NOT = { has_country_flag = DA_research_event_pending.11 }
 	}
 	mean_time_to_happen = {
 		days = 1
 	}
 
 	is_triggered_only = yes
+	immediate = {
+		DA_capture_research_event = { id = 11 }
+	}
+
 	option = {
 		name = DA_Research_events.11.a
-		DA_Research_add = { amount = 8 }
+		if = {
+			limit = { DA_research_event_is_current = { id = 11 } }
+			DA_Research_add = { amount = 8 }
+		}
+		else = {
+			custom_tooltip = DA_research_event_expired_tt
+		}
 	}
-	
-	
+	after = {
+		clr_country_flag = DA_research_event_pending.11
+	}
 }

@@ -1,0 +1,205 @@
+# ROOT is the selected province; FROM is the viewing country.
+
+custom_button = {
+	name = DA_province_button_medicine
+	tooltip = DA_province_button_medicine_tt
+	potential = { always = yes }
+	trigger = { owned_by = FROM }
+	effect = {
+		FROM = {
+			clr_country_flag = DA_province_fortifications_open
+			if = {
+				limit = { has_country_flag = DA_province_medicine_open }
+				clr_country_flag = DA_province_medicine_open
+			}
+			else = { set_country_flag = DA_province_medicine_open }
+		}
+	}
+	frame = { number = 1 trigger = { has_province_modifier = DA_Medicine.Quarantined_province } }
+	frame = { number = 3 trigger = { DA_has_disease_in_province = yes } }
+	frame = { number = 4 trigger = { always = yes } }
+}
+
+custom_window = {
+	name = DA_province_medicine_panel
+	potential = {
+		owned_by = FROM
+		FROM = { has_country_flag = DA_province_medicine_open }
+	}
+}
+
+custom_button = {
+	name = DA_province_medicine_close
+	tooltip = DA_province_panel_close_tt
+	potential = { always = yes }
+	trigger = { owned_by = FROM }
+	effect = { FROM = { clr_country_flag = DA_province_medicine_open } }
+}
+
+custom_button = {
+	name = DA_province_button_fortifications
+	tooltip = DA_province_button_fortifications_tt
+	potential = { always = yes }
+	trigger = { owned_by = FROM }
+	effect = {
+		FROM = {
+			clr_country_flag = DA_province_medicine_open
+			if = {
+				limit = { has_country_flag = DA_province_fortifications_open }
+				clr_country_flag = DA_province_fortifications_open
+			}
+			else = { set_country_flag = DA_province_fortifications_open }
+		}
+	}
+}
+
+custom_window = {
+	name = DA_province_fortifications_panel
+	potential = {
+		owned_by = FROM
+		FROM = { has_country_flag = DA_province_fortifications_open }
+	}
+}
+
+custom_button = {
+	name = DA_province_fortifications_close
+	tooltip = DA_province_panel_close_tt
+	potential = { always = yes }
+	trigger = { owned_by = FROM }
+	effect = { FROM = { clr_country_flag = DA_province_fortifications_open } }
+}
+
+custom_button = {
+	name = DA_fort_build_DA_Runeforged_fort
+	tooltip = DA_fort_build_DA_Runeforged_fort_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_DA_Runeforged_fort = yes
+	}
+	effect = { hidden_effect = { DA_start_DA_Runeforged_fort = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_DA_Runeforged_fort_t2
+	tooltip = DA_fort_build_DA_Runeforged_fort_t2_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_DA_Runeforged_fort_t2 = yes
+	}
+	effect = { hidden_effect = { DA_start_DA_Runeforged_fort_t2 = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_DA_Runeforged_fort_t3
+	tooltip = DA_fort_build_DA_Runeforged_fort_t3_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_DA_Runeforged_fort_t3 = yes
+	}
+	effect = { hidden_effect = { DA_start_DA_Runeforged_fort_t3 = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_DA_Hehogrim_Runeforged_fort
+	tooltip = DA_fort_build_DA_Hehogrim_Runeforged_fort_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_DA_Hehogrim_Runeforged_fort = yes
+	}
+	effect = { hidden_effect = { DA_start_DA_Hehogrim_Runeforged_fort = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_fen_magic_fort_t1
+	tooltip = DA_fort_build_fen_magic_fort_t1_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_fen_magic_fort_t1 = yes
+	}
+	effect = { hidden_effect = { DA_start_fen_magic_fort_t1 = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_fen_magic_fort_t2
+	tooltip = DA_fort_build_fen_magic_fort_t2_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_fen_magic_fort_t2 = yes
+	}
+	effect = { hidden_effect = { DA_start_fen_magic_fort_t2 = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_fen_magic_fort_t3
+	tooltip = DA_fort_build_fen_magic_fort_t3_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_fen_magic_fort_t3 = yes
+	}
+	effect = { hidden_effect = { DA_start_fen_magic_fort_t3 = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_fen_tech_fort_t1
+	tooltip = DA_fort_build_fen_tech_fort_t1_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_fen_tech_fort_t1 = yes
+	}
+	effect = { hidden_effect = { DA_start_fen_tech_fort_t1 = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_fen_tech_fort_t2
+	tooltip = DA_fort_build_fen_tech_fort_t2_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_fen_tech_fort_t2 = yes
+	}
+	effect = { hidden_effect = { DA_start_fen_tech_fort_t2 = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_fen_tech_fort_t3
+	tooltip = DA_fort_build_fen_tech_fort_t3_tt
+	potential = { always = yes }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_fen_tech_fort_t3 = yes
+	}
+	effect = { hidden_effect = { DA_start_fen_tech_fort_t3 = yes } }
+}
+
+custom_button = {
+	name = DA_fort_build_DA_Runeforged_Amldihr_fort
+	tooltip = DA_fort_build_DA_Runeforged_Amldihr_fort_tt
+	potential = { province_id = 4119 }
+	trigger = {
+		owned_by = FROM
+		DA_can_construct_DA_Runeforged_Amldihr_fort = yes
+	}
+	effect = { hidden_effect = { DA_start_DA_Runeforged_Amldihr_fort = yes } }
+}
+
+custom_text_box = {
+	name = DA_province_fort_status
+	potential = { always = yes }
+	tooltip = DA_province_fort_status_tt
+}
+
+custom_text_box = {
+	name = DA_province_medicine_status
+	potential = { always = yes }
+	tooltip = DA_province_medicine_status_tt
+}
+
+custom_text_box = { name = DA_fort_price_DA_Runeforged_Amldihr_fort potential = { province_id = 4119 } }

@@ -1,0 +1,90 @@
+# Founding is guarded again at execution time to prevent duplicate payments/mines.
+DA_mining_found = {
+ if = { limit = { DA_mining_can_found = yes }
+  if = { limit = { DA_mining_site_hills = yes }
+   owner = { if = { limit = { has_country_flag = DA_mining_technology_2 } add_treasury = -300 } else = { add_treasury = -400 } }
+   add_permanent_province_modifier = { name = DA_mining_difficulty_hills duration = -1 }
+  }
+  if = { limit = { DA_mining_site_open = yes }
+   owner = { if = { limit = { has_country_flag = DA_mining_technology_2 } add_treasury = -300 } else = { add_treasury = -400 } }
+   add_permanent_province_modifier = { name = DA_mining_difficulty_open duration = -1 }
+  }
+  if = { limit = { DA_mining_site_lowlands = yes }
+   owner = { if = { limit = { has_country_flag = DA_mining_technology_2 } add_treasury = -300 } else = { add_treasury = -400 } }
+   add_permanent_province_modifier = { name = DA_mining_difficulty_lowlands duration = -1 }
+  }
+  if = { limit = { DA_mining_site_wooded = yes }
+   owner = { if = { limit = { has_country_flag = DA_mining_technology_2 } add_treasury = -450 } else = { add_treasury = -600 } }
+   add_permanent_province_modifier = { name = DA_mining_difficulty_wooded duration = -1 }
+  }
+  if = { limit = { DA_mining_site_road = yes }
+   owner = { if = { limit = { has_country_flag = DA_mining_technology_2 } add_treasury = -450 } else = { add_treasury = -600 } }
+   add_permanent_province_modifier = { name = DA_mining_difficulty_road duration = -1 }
+  }
+  if = { limit = { DA_mining_site_dense = yes }
+   owner = { if = { limit = { has_country_flag = DA_mining_technology_2 } add_treasury = -450 } else = { add_treasury = -600 } }
+   add_permanent_province_modifier = { name = DA_mining_difficulty_dense duration = -1 }
+  }
+  if = { limit = { DA_mining_site_extreme = yes }
+   owner = { if = { limit = { has_country_flag = DA_mining_technology_2 } add_treasury = -600 } else = { add_treasury = -800 } }
+   add_permanent_province_modifier = { name = DA_mining_difficulty_extreme duration = -1 }
+  }
+  add_permanent_province_modifier = { name = DA_Mine_1 duration = -1 }
+  DA_give_normal_starting_metals = yes
+  # Existing development can already meet the next level; offer the normal upgrade.
+  if = { limit = { base_production = 7 } province_event = { id = DA_Metallurgy_events.1 } }
+ }
+}
+DA_mining_prospect = {
+ random_list = {
+  70 = { trigger = { DA_mining_undiscovered_common = yes } DA_add_Metal_Common = yes }
+  25 = { trigger = { DA_mining_undiscovered_rare = yes } DA_add_Metal_Rare = yes }
+  5 = { trigger = { DA_mining_undiscovered_legendary = yes } DA_add_Metal_Legendary = yes }
+ }
+}
+DA_mining_yearly_prospecting = {
+ if = { limit = { has_country_flag = DA_mining_technology_3 }
+  every_owned_province = {
+   limit = { DA_mining_has_ordinary_mine = yes OR = { DA_mining_undiscovered_common = yes DA_mining_undiscovered_rare = yes DA_mining_undiscovered_legendary = yes } }
+   if = { limit = { owner = { has_country_flag = DA_mining_technology_4 } } random = { chance = 4 DA_mining_prospect = yes } }
+   else = { random = { chance = 2 DA_mining_prospect = yes } }
+  }
+ }
+}
+DA_mining_clear_ventilation = {
+ remove_province_modifier = DA_ventilation_mod_cavern
+ remove_province_modifier = DA_ventilation_mod_mountain
+ remove_province_modifier = DA_ventilation_mod_highlands
+ remove_province_modifier = DA_ventilation_mod_holds
+ remove_province_modifier = DA_ventilation_mod_road
+ remove_province_modifier = DA_ventilation_mod_dense
+ remove_province_modifier = DA_ventilation_mod_extreme
+ remove_province_modifier = DA_ventilation_mod_wooded
+ remove_province_modifier = DA_ventilation_mod_hills
+ remove_province_modifier = DA_ventilation_mod_open
+ remove_province_modifier = DA_ventilation_mod_lowlands
+ remove_province_modifier = DA_ventilation_mod_other
+ remove_province_modifier = DA_ventilation_mod_Mine_2
+ remove_province_modifier = DA_ventilation_mod_Mine_3
+ remove_province_modifier = DA_ventilation_mod_Mine_4
+ remove_province_modifier = DA_ventilation_mod_Mine_5
+}
+DA_mining_apply_ventilation = {
+ DA_mining_clear_ventilation = yes
+ if = { limit = { OR = { has_terrain = cavern } } add_permanent_province_modifier = { name = DA_ventilation_mod_cavern duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = mountain } } add_permanent_province_modifier = { name = DA_ventilation_mod_mountain duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = highlands } } add_permanent_province_modifier = { name = DA_ventilation_mod_highlands duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_hold_surface } } add_permanent_province_modifier = { name = DA_ventilation_mod_holds duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = dwarven_road } } add_permanent_province_modifier = { name = DA_ventilation_mod_road duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = jungle has_terrain = ancient_forest has_terrain = bloodgroves has_terrain = mushroom_forest_terrain has_terrain = titanoflora_forest_terrain has_terrain = titanoflora_jungle_terrain } } add_permanent_province_modifier = { name = DA_ventilation_mod_dense duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = marsh has_terrain = shadow_swamp_terrain has_terrain = titanoflora_wetland_terrain has_terrain = glacier } } add_permanent_province_modifier = { name = DA_ventilation_mod_extreme duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = woods has_terrain = forest has_terrain = coastline has_terrain = titanoflora_grassland_terrain } } add_permanent_province_modifier = { name = DA_ventilation_mod_wooded duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = hills } } add_permanent_province_modifier = { name = DA_ventilation_mod_hills duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = drylands has_terrain = steppe has_terrain = savannah has_terrain = desert has_terrain = coastal_desert } } add_permanent_province_modifier = { name = DA_ventilation_mod_open duration = -1 } }
+ else_if = { limit = { OR = { has_terrain = grasslands has_terrain = farmlands has_terrain = city_terrain has_terrain = gladeway has_terrain = fey_gladeway } } add_permanent_province_modifier = { name = DA_ventilation_mod_lowlands duration = -1 } }
+ else = { add_permanent_province_modifier = { name = DA_ventilation_mod_other duration = -1 } }
+ if = { limit = { OR = { has_province_modifier = DA_Mine_5 has_province_modifier = DA_Mine_6 has_province_modifier = DA_Mine_7 has_province_modifier = DA_Mine_8 } } add_permanent_province_modifier = { name = DA_ventilation_mod_Mine_5 duration = -1 } }
+ else_if = { limit = { has_province_modifier = DA_Mine_4 } add_permanent_province_modifier = { name = DA_ventilation_mod_Mine_4 duration = -1 } }
+ else_if = { limit = { has_province_modifier = DA_Mine_3 } add_permanent_province_modifier = { name = DA_ventilation_mod_Mine_3 duration = -1 } }
+ else_if = { limit = { has_province_modifier = DA_Mine_2 } add_permanent_province_modifier = { name = DA_ventilation_mod_Mine_2 duration = -1 } }
+}

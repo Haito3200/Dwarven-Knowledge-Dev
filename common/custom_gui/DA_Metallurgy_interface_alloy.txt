@@ -312,21 +312,12 @@ custom_text_box = {
 
 custom_button = {
 	name = DA_Alloy_technique_select_button
-	tooltip = DA_Alloy_technique_select_button_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-		always = no
-		DA_completed.Metallurgy_2 = yes
-		custom_trigger_tooltip = {
-			tooltip = DA_alloy_unfinished_tt
-			NOT = { has_country_flag = DA_alloy_unfinished }
-		}
-	}
-	effect = {
-	}
+	potential = { always = yes }
+	trigger = { DA_SS_can_apply_technique = yes }
+	effect = { country_event = { id = DA_Secret_Societies_event.200 } }
+	tooltip = DA_SS_forging_selector_tt
 }
+
 custom_button = {
 	name = DA_Alloy_unique_mod_select_button_1
 	tooltip = DA_Alloy_unique_mod_select_button_1_tt
@@ -856,6 +847,7 @@ custom_button = {
 		custom_trigger_tooltip = {
 			tooltip = DA_alloy_unfinished_tt
 			NOT = { has_country_flag = DA_alloy_unfinished }
+			NOT = { has_country_modifier = DA_Alloy_in_production_mod }
 		}
 	}
 	effect = {
@@ -875,6 +867,9 @@ custom_button = {
 			trigger_switch = {
 				on_trigger = has_country_flag
 				DA_C1_showed = {
+# BEGIN DA_SS_RESET_C1
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = C1 }
+# END DA_SS_RESET_C1
 					set_variable = {
 						which = DA_Cost_C1
 						value = 0
@@ -955,6 +950,9 @@ custom_button = {
 					set_country_flag = DA_Alloy_unique_mod_2_C1.empty
 				}
 				DA_C2_showed = {
+# BEGIN DA_SS_RESET_C2
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = C2 }
+# END DA_SS_RESET_C2
 					set_variable = {
 						which = DA_Cost_C2
 						value = 0
@@ -999,7 +997,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_C2
 					clr_country_flag = DA_selected_secondary_metal_1_C2
-					clr_country_flag = DA_selected_secondary_metal_1_C2
+					clr_country_flag = DA_selected_secondary_metal_2_C2
 
 					clr_country_flag = DA_Alloy_unique_mod_1_C2.empty
 					clr_country_flag = DA_Alloy_unique_mod_2_C2.empty
@@ -1035,6 +1033,9 @@ custom_button = {
 					set_country_flag = DA_Alloy_unique_mod_2_C2.empty
 				}
 				DA_C3_showed = {
+# BEGIN DA_SS_RESET_C3
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = C3 }
+# END DA_SS_RESET_C3
 					set_variable = {
 						which = DA_Cost_C3
 						value = 0
@@ -1079,7 +1080,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_C3
 					clr_country_flag = DA_selected_secondary_metal_1_C3
-					clr_country_flag = DA_selected_secondary_metal_1_C3
+					clr_country_flag = DA_selected_secondary_metal_2_C3
 
                     clr_country_flag = DA_Alloy_unique_mod_1_C3.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_C3.empty
@@ -1115,6 +1116,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_C3.empty
 				}
 				DA_C4_showed = {
+# BEGIN DA_SS_RESET_C4
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = C4 }
+# END DA_SS_RESET_C4
 					set_variable = {
 						which = DA_Cost_C4
 						value = 0
@@ -1159,7 +1163,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_C4
 					clr_country_flag = DA_selected_secondary_metal_1_C4
-					clr_country_flag = DA_selected_secondary_metal_1_C4
+					clr_country_flag = DA_selected_secondary_metal_2_C4
 
                     clr_country_flag = DA_Alloy_unique_mod_1_C4.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_C4.empty
@@ -1195,6 +1199,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_C4.empty
 				}
 				DA_C5_showed = {
+# BEGIN DA_SS_RESET_C5
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = C5 }
+# END DA_SS_RESET_C5
 					set_variable = {
 						which = DA_Cost_C5
 						value = 0
@@ -1239,7 +1246,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_C5
 					clr_country_flag = DA_selected_secondary_metal_1_C5
-					clr_country_flag = DA_selected_secondary_metal_1_C5
+					clr_country_flag = DA_selected_secondary_metal_2_C5
 
                     clr_country_flag = DA_Alloy_unique_mod_1_C5.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_C5.empty
@@ -1275,6 +1282,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_C5.empty
 				}
 				DA_C6_showed = {
+# BEGIN DA_SS_RESET_C6
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = C6 }
+# END DA_SS_RESET_C6
 					set_variable = {
 						which = DA_Cost_C6
 						value = 0
@@ -1319,7 +1329,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_C6
 					clr_country_flag = DA_selected_secondary_metal_1_C6
-					clr_country_flag = DA_selected_secondary_metal_1_C6
+					clr_country_flag = DA_selected_secondary_metal_2_C6
 
                     clr_country_flag = DA_Alloy_unique_mod_1_C6.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_C6.empty
@@ -1355,6 +1365,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_C6.empty
 				}
 				DA_R1_showed = {
+# BEGIN DA_SS_RESET_R1
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = R1 }
+# END DA_SS_RESET_R1
 					set_variable = {
 						which = DA_Cost_R1
 						value = 0
@@ -1399,7 +1412,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_R1
 					clr_country_flag = DA_selected_secondary_metal_1_R1
-					clr_country_flag = DA_selected_secondary_metal_1_R1
+					clr_country_flag = DA_selected_secondary_metal_2_R1
 
                     clr_country_flag = DA_Alloy_unique_mod_1_R1.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_R1.empty
@@ -1435,6 +1448,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_R1.empty
 				}
 				DA_R2_showed = {
+# BEGIN DA_SS_RESET_R2
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = R2 }
+# END DA_SS_RESET_R2
 					set_variable = {
 						which = DA_Cost_R2
 						value = 0
@@ -1479,7 +1495,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_R2
 					clr_country_flag = DA_selected_secondary_metal_1_R2
-					clr_country_flag = DA_selected_secondary_metal_1_R2
+					clr_country_flag = DA_selected_secondary_metal_2_R2
 
                     clr_country_flag = DA_Alloy_unique_mod_1_R2.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_R2.empty
@@ -1515,6 +1531,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_R2.empty
 				}
 				DA_R3_showed = {
+# BEGIN DA_SS_RESET_R3
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = R3 }
+# END DA_SS_RESET_R3
 					set_variable = {
 						which = DA_Cost_R3
 						value = 0
@@ -1559,7 +1578,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_R3
 					clr_country_flag = DA_selected_secondary_metal_1_R3
-					clr_country_flag = DA_selected_secondary_metal_1_R3
+					clr_country_flag = DA_selected_secondary_metal_2_R3
 
                     clr_country_flag = DA_Alloy_unique_mod_1_R3.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_R3.empty
@@ -1595,6 +1614,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_R3.empty
 				}
 				DA_R4_showed = {
+# BEGIN DA_SS_RESET_R4
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = R4 }
+# END DA_SS_RESET_R4
 					set_variable = {
 						which = DA_Cost_R4
 						value = 0
@@ -1639,7 +1661,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_R4
 					clr_country_flag = DA_selected_secondary_metal_1_R4
-					clr_country_flag = DA_selected_secondary_metal_1_R4
+					clr_country_flag = DA_selected_secondary_metal_2_R4
 
                     clr_country_flag = DA_Alloy_unique_mod_1_R4.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_R4.empty
@@ -1675,6 +1697,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_R4.empty
 				}
 				DA_L1_showed = {
+# BEGIN DA_SS_RESET_L1
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = L1 }
+# END DA_SS_RESET_L1
 					set_variable = {
 						which = DA_Cost_L1
 						value = 0
@@ -1719,7 +1744,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_L1
 					clr_country_flag = DA_selected_secondary_metal_1_L1
-					clr_country_flag = DA_selected_secondary_metal_1_L1
+					clr_country_flag = DA_selected_secondary_metal_2_L1
 
                     clr_country_flag = DA_Alloy_unique_mod_1_L1.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_L1.empty
@@ -1755,6 +1780,9 @@ custom_button = {
                     set_country_flag = DA_Alloy_unique_mod_2_L1.empty
 				}
 				DA_L2_showed = {
+# BEGIN DA_SS_RESET_L2
+					DA_SS_reset_alloy_technique = { DA_alloy_slot = L2 }
+# END DA_SS_RESET_L2
 					set_variable = {
 						which = DA_Cost_L2
 						value = 0
@@ -1799,7 +1827,7 @@ custom_button = {
 					
 					clr_country_flag = DA_selected_primary_metal_L2
 					clr_country_flag = DA_selected_secondary_metal_1_L2
-					clr_country_flag = DA_selected_secondary_metal_1_L2
+					clr_country_flag = DA_selected_secondary_metal_2_L2
 
                     clr_country_flag = DA_Alloy_unique_mod_1_L2.empty
                     clr_country_flag = DA_Alloy_unique_mod_2_L2.empty
@@ -1842,138 +1870,8 @@ custom_button = {
 }
 custom_button = {
 	name = DA_Alloy_Finale_button
-	tooltip = DA_Alloy_Finale_button_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = DA_alloy_unfinished_tt
-			NOT = { has_country_flag = DA_alloy_unfinished }
-		}
-		
-		custom_trigger_tooltip = {
-			tooltip = DA_Alloy_already_produced_tt
-			OR = {
-				AND = {
-					has_country_flag = DA_C1_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.C1 }
-				}
-				AND = {
-					has_country_flag = DA_C2_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.C2 }
-				}
-				AND = {
-					has_country_flag = DA_C3_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.C3 }
-				}
-				AND = {
-					has_country_flag = DA_C4_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.C4 }
-				}
-				AND = {
-					has_country_flag = DA_C5_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.C5 }
-				}
-				AND = {
-					has_country_flag = DA_C6_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.C6 }
-				}
-				AND = {
-					has_country_flag = DA_R1_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.R1 }
-				}
-				AND = {
-					has_country_flag = DA_R2_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.R2 }
-				}
-				AND = {
-					has_country_flag = DA_R3_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.R3 }
-				}
-				AND = {
-					has_country_flag = DA_R4_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.R4 }
-				}
-				AND = {
-					has_country_flag = DA_L1_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.L1 }
-				}
-				AND = {
-					has_country_flag = DA_L2_showed
-					NOT = { has_country_flag = DA_Alloy_Enabled.L2 }
-				}
-			}
-		}
-		if = {
-			limit = {
-				DA_making_legendary_alloy = yes
-			}
-			treasury = 200
-			adm_power = 60
-			mil_power = 120
-		}
-		else_if = {
-			limit = {
-				DA_making_rare_plus_alloy = yes
-			}
-			treasury = 100
-			adm_power = 30
-			mil_power = 60
-		}
-		else = {
-			treasury = 50
-			adm_power = 15
-			mil_power = 30
-		}
-	}
-	effect = {
-		set_country_flag = DA_alloy_unfinished
-
-		if = {
-			limit = {
-				DA_making_legendary_alloy = yes
-			}
-			add_treasury = -200
-			add_adm_power = -60
-			add_mil_power = -120
-			add_country_modifier = {
-				name = DA_Alloy_in_production_mod
-				duration = -1
-			}
-			country_event = {
-				id = DA_alloys_events.10
-				days = 730
-			}
-		}
-		else_if = {
-			limit = {
-				DA_making_rare_plus_alloy = yes
-			}
-			add_treasury = -100
-			add_adm_power = -30
-			add_mil_power = -60
-			add_country_modifier = {
-				name = DA_Alloy_in_production_mod
-				duration = -1
-			}
-			country_event = {
-				id = DA_alloys_events.10
-				days = 365
-			}
-		}
-		else = {
-			add_treasury = -50
-			add_adm_power = -15
-			add_mil_power = -30
-			add_country_modifier = {
-				name = DA_Alloy_in_production_mod
-				duration = -1
-			}
-			country_event = {
-				id = DA_alloys_events.10
-				days = 180
-			}
-		}
-	}
+	potential = { always = yes }
+	trigger = { DA_SS_alloy_production_can = yes }
+	effect = { DA_SS_start_alloy_production = yes }
+	tooltip = DA_SS_alloy_production_button_tt
 }
