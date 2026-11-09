@@ -36,45 +36,25 @@ DA_mining_site_road = { OR = { has_terrain = dwarven_road } }
 DA_mining_site_dense = { OR = { has_terrain = jungle has_terrain = ancient_forest has_terrain = bloodgroves has_terrain = mushroom_forest_terrain has_terrain = titanoflora_forest_terrain has_terrain = titanoflora_jungle_terrain } }
 DA_mining_site_extreme = { OR = { has_terrain = marsh has_terrain = shadow_swamp_terrain has_terrain = titanoflora_wetland_terrain has_terrain = glacier } }
 DA_mining_supported_site = { OR = { DA_mining_site_hills = yes DA_mining_site_open = yes DA_mining_site_lowlands = yes DA_mining_site_wooded = yes DA_mining_site_road = yes DA_mining_site_dense = yes DA_mining_site_extreme = yes } }
+# Founding costs follow the site's minimum technology, not the owner's highest tier.
+DA_mining_site_tier_1 = { OR = { DA_mining_site_hills = yes DA_mining_site_open = yes } }
+DA_mining_site_tier_2 = { OR = { DA_mining_site_lowlands = yes DA_mining_site_wooded = yes } }
+DA_mining_site_tier_3 = { OR = { DA_mining_site_road = yes DA_mining_site_dense = yes } }
+DA_mining_site_tier_4 = { DA_mining_site_extreme = yes }
 DA_mining_terrain_unlocked = {
  OR = {
-  AND = { DA_mining_site_hills = yes owner = { has_country_flag = DA_mining_technology_1 } }
-  AND = { DA_mining_site_open = yes owner = { has_country_flag = DA_mining_technology_1 } }
-  AND = { DA_mining_site_lowlands = yes owner = { has_country_flag = DA_mining_technology_2 } }
-  AND = { DA_mining_site_wooded = yes owner = { has_country_flag = DA_mining_technology_2 } }
-  AND = { DA_mining_site_road = yes owner = { has_country_flag = DA_mining_technology_3 } }
-  AND = { DA_mining_site_dense = yes owner = { has_country_flag = DA_mining_technology_3 } }
-  AND = { DA_mining_site_extreme = yes owner = { has_country_flag = DA_mining_technology_4 } }
+  AND = { DA_mining_site_tier_1 = yes owner = { has_country_flag = DA_mining_technology_1 } }
+  AND = { DA_mining_site_tier_2 = yes owner = { has_country_flag = DA_mining_technology_2 } }
+  AND = { DA_mining_site_tier_3 = yes owner = { has_country_flag = DA_mining_technology_3 } }
+  AND = { DA_mining_site_tier_4 = yes owner = { has_country_flag = DA_mining_technology_4 } }
  }
 }
 DA_mining_can_afford = {
- if = { limit = { DA_mining_site_hills = yes }
-  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 300 } }
-  else = { owner = { treasury = 400 } }
- }
- if = { limit = { DA_mining_site_open = yes }
-  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 300 } }
-  else = { owner = { treasury = 400 } }
- }
- if = { limit = { DA_mining_site_lowlands = yes }
-  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 300 } }
-  else = { owner = { treasury = 400 } }
- }
- if = { limit = { DA_mining_site_wooded = yes }
-  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 450 } }
-  else = { owner = { treasury = 600 } }
- }
- if = { limit = { DA_mining_site_road = yes }
-  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 450 } }
-  else = { owner = { treasury = 600 } }
- }
- if = { limit = { DA_mining_site_dense = yes }
-  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 450 } }
-  else = { owner = { treasury = 600 } }
- }
- if = { limit = { DA_mining_site_extreme = yes }
-  if = { limit = { owner = { has_country_flag = DA_mining_technology_2 } } owner = { treasury = 600 } }
-  else = { owner = { treasury = 800 } }
+ OR = {
+  AND = { DA_mining_site_tier_1 = yes owner = { adm_power = 15 dip_power = 15 mil_power = 15 treasury = 25 } }
+  AND = { DA_mining_site_tier_2 = yes owner = { adm_power = 25 dip_power = 25 mil_power = 25 treasury = 50 } }
+  AND = { DA_mining_site_tier_3 = yes owner = { adm_power = 35 dip_power = 35 mil_power = 35 treasury = 75 } }
+  AND = { DA_mining_site_tier_4 = yes owner = { adm_power = 50 dip_power = 50 mil_power = 50 treasury = 100 } }
  }
 }
 DA_mining_can_found = {
