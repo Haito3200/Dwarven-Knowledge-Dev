@@ -990,65 +990,6 @@ country_event = {
 	}	
 }
 
-country_event = {
-	id = DA_adk.103 #unlocks Opening runic gate
-	title = "DA_adk.103.t"
-	desc = "DA_adk.103.d"
-	picture = BIG_BOOK_eventPicture
-
-	is_triggered_only = yes
-	trigger = {
-		culture_group = dwarven
-		NOT = {	has_country_flag = DA_can_open_Runic_gate }
-		DA_has_RF_8_or_higher = yes
-		4119 = {
-			has_province_flag = DA_Runic_gate_closed_p
-			owned_by = root
-		}
-	}
-	
-	option = {
-		name = "DA_adk.103.a"
-		custom_tooltip = DA_adk.103.tooltip
-		hidden_effect = { set_country_flag = DA_can_open_Runic_gate }
-	}	
-}
-
-country_event = {
-	id = DA_adk.104 #Open Runic Gate
-	title = "DA_adk.104.t"
-	desc = "DA_adk.104.d"
-	picture = BIG_STAR_IN_SKY_eventPicture
-
-	is_triggered_only = yes
-
-	option = {
-		name = "DA_adk.104.a"
-		add_treasury = -20000
-		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 30 } }
-		custom_tooltip = DA_adk.104.tooltip
-		add_country_modifier = {
-			name = DA_Halanna_heart
-			duration = -1
-		}
-	}
-	after = {
-		hidden_effect = {
-			clr_country_flag = DA_rf_menu_in_use
-			clr_country_flag = DA_can_open_Runic_gate
-			4119 = {
-				clr_province_flag = DA_Runic_gate_closed_p
-				set_province_flag = DA_Halanna_heart_found
-				add_great_project = {
-					type = DA_Ancient_Research_facility1
-					instant = no
-				}
-			}
-		}
-	}	
-}
-
-
 province_event = {
 	id = DA_adk.109 # Hehogrim Home restored
 	title = "DA_adk.109.t"

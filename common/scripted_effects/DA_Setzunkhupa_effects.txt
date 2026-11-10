@@ -1,0 +1,327 @@
+# The Setzunkhupa of Dur-Vazhatun (4020) and Agradent. Written on 10 November 2026. Country scope.
+
+# Called only from events: dice thrown from a button always fall the same way.
+DA_SZ_roll_first_pod = {
+	clr_country_flag = DA_SZ_roll_lost
+	if = {
+		limit = { has_country_flag = DA_SZ_pod_lost_2 }
+	}
+	else_if = {
+		limit = { DA_SZ_first_pod_precautions_5 = yes }
+		random = { chance = 4 set_country_flag = DA_SZ_roll_lost }
+	}
+	else_if = {
+		limit = { DA_SZ_first_pod_precautions_4 = yes }
+		random = { chance = 8 set_country_flag = DA_SZ_roll_lost }
+	}
+	else_if = {
+		limit = { DA_SZ_first_pod_precautions_3 = yes }
+		random = { chance = 16 set_country_flag = DA_SZ_roll_lost }
+	}
+	else_if = {
+		limit = { DA_SZ_first_pod_precautions_2 = yes }
+		random = { chance = 24 set_country_flag = DA_SZ_roll_lost }
+	}
+	else_if = {
+		limit = { DA_SZ_first_pod_precautions_1 = yes }
+		random = { chance = 32 set_country_flag = DA_SZ_roll_lost }
+	}
+	else = {
+		random = { chance = 40 set_country_flag = DA_SZ_roll_lost }
+	}
+}
+
+DA_AG_roll_pod = {
+	clr_country_flag = DA_AG_roll_lost
+	if = {
+		limit = { DA_AG_pod_precautions_5 = yes }
+		random = { chance = 5 set_country_flag = DA_AG_roll_lost }
+	}
+	else_if = {
+		limit = { DA_AG_pod_precautions_4 = yes }
+		random = { chance = 10 set_country_flag = DA_AG_roll_lost }
+	}
+	else_if = {
+		limit = { DA_AG_pod_precautions_3 = yes }
+		random = { chance = 16 set_country_flag = DA_AG_roll_lost }
+	}
+	else_if = {
+		limit = { DA_AG_pod_precautions_2 = yes }
+		random = { chance = 24 set_country_flag = DA_AG_roll_lost }
+	}
+	else_if = {
+		limit = { DA_AG_pod_precautions_1 = yes }
+		random = { chance = 32 set_country_flag = DA_AG_roll_lost }
+	}
+	else = {
+		random = { chance = 40 set_country_flag = DA_AG_roll_lost }
+	}
+}
+
+# The one way to open Agradent to a country. Anything may call it: it asks for nothing else.
+# Without the Ambassador the first landing still has to be made, from the Agradent window.
+DA_AG_unlock_travel = {
+	custom_tooltip = DA_AG_unlock_travel_tt
+	hidden_effect = {
+		if = {
+			limit = { NOT = { has_country_flag = DA_Agradent_travel_unlocked } }
+			set_country_flag = DA_Agradent_travel_unlocked
+			set_variable = { which = DA_AG_goodwill value = 50 }
+			if = {
+				limit = { NOT = { has_country_flag = DA_SZ_homecoming } }
+				country_event = { id = DA_Agradent_event.1 days = 1 }
+			}
+		}
+	}
+}
+
+DA_AG_clear_selection = {
+	clr_country_flag = DA_AG_sel_canal
+	clr_country_flag = DA_AG_sel_sea
+	clr_country_flag = DA_AG_sel_uplands
+	clr_country_flag = DA_AG_sel_locks
+	clr_country_flag = DA_AG_sel_ice
+	clr_country_flag = DA_AG_sel_ringfall
+	clr_country_flag = DA_AG_sel_watch
+}
+
+# Opens the Agradent window in the Dwarovar Wonders screen (which must be open already).
+DA_AG_open_window = {
+	DA_WS_close_wonder_windows = yes
+	set_country_flag = DA_show_wonder_Agradent
+}
+
+# Goodwill of the canal folk: 0 to 100. The two events fire once each time the line is crossed.
+DA_AG_goodwill_up = {
+	custom_tooltip = DA_AG_goodwill_up_$amount$_tt
+	hidden_effect = {
+		change_variable = { which = DA_AG_goodwill value = $amount$ }
+		DA_AG_check_goodwill = yes
+	}
+}
+
+DA_AG_goodwill_down = {
+	custom_tooltip = DA_AG_goodwill_down_$amount$_tt
+	hidden_effect = {
+		subtract_variable = { which = DA_AG_goodwill value = $amount$ }
+		DA_AG_check_goodwill = yes
+	}
+}
+
+DA_AG_check_goodwill = {
+	if = {
+		limit = { check_variable = { which = DA_AG_goodwill value = 100 } }
+		set_variable = { which = DA_AG_goodwill value = 100 }
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = DA_AG_goodwill value = 0 } } }
+		set_variable = { which = DA_AG_goodwill value = 0 }
+	}
+	if = {
+		limit = {
+			check_variable = { which = DA_AG_goodwill value = 85 }
+			DA_AG_outposts_4 = yes
+			NOT = { has_country_flag = DA_AG_waters_returned }
+		}
+		set_country_flag = DA_AG_waters_returned
+		country_event = { id = DA_Agradent_event.40 days = 30 }
+	}
+	if = {
+		limit = {
+			NOT = { check_variable = { which = DA_AG_goodwill value = 15 } }
+			NOT = { has_country_flag = DA_AG_locks_closed }
+			DA_AG_any_outpost = yes
+		}
+		set_country_flag = DA_AG_locks_closed
+		country_event = { id = DA_Agradent_event.41 days = 30 }
+	}
+	if = {
+		limit = { has_country_flag = DA_AG_locks_closed DA_AG_resented = no }
+		clr_country_flag = DA_AG_locks_closed
+	}
+}
+
+# Materials brought back through the gate.
+DA_AG_gain_reagents = {
+	custom_tooltip = DA_AG_gain_reagents_$amount$_tt
+	hidden_effect = { change_variable = { which = DA_alchemy_reagents_total value = $amount$ } }
+}
+
+DA_AG_gain_ebm = {
+	custom_tooltip = DA_AG_gain_ebm_$amount$_tt
+	hidden_effect = { change_variable = { which = DA_enchanted_building_material_total value = $amount$ } }
+}
+
+DA_AG_gain_metal = {
+	custom_tooltip = DA_AG_gain_metal_$amount$_tt
+	hidden_effect = { change_variable = { which = DA_arcane_metal_total value = $amount$ } }
+}
+
+# A pod has landed: the anchor holds. Flags only; the landing events show DA_AG_anchor_holds_<site>_tt.
+DA_AG_land_canal = {
+	set_country_flag = DA_AG_anchored_canal
+	clr_country_flag = DA_AG_pod_canal
+	clr_country_flag = DA_AG_pod_in_flight
+}
+
+DA_AG_land_sea = {
+	set_country_flag = DA_AG_anchored_sea
+	clr_country_flag = DA_AG_pod_sea
+	clr_country_flag = DA_AG_pod_in_flight
+}
+
+DA_AG_land_uplands = {
+	set_country_flag = DA_AG_anchored_uplands
+	clr_country_flag = DA_AG_pod_uplands
+	clr_country_flag = DA_AG_pod_in_flight
+}
+
+DA_AG_land_locks = {
+	set_country_flag = DA_AG_anchored_locks
+	clr_country_flag = DA_AG_pod_locks
+	clr_country_flag = DA_AG_pod_in_flight
+}
+
+DA_AG_land_ice = {
+	set_country_flag = DA_AG_anchored_ice
+	clr_country_flag = DA_AG_pod_ice
+	clr_country_flag = DA_AG_pod_in_flight
+}
+
+DA_AG_land_ringfall = {
+	set_country_flag = DA_AG_anchored_ringfall
+	clr_country_flag = DA_AG_pod_ringfall
+	clr_country_flag = DA_AG_pod_in_flight
+}
+
+DA_AG_land_watch = {
+	set_country_flag = DA_AG_anchored_watch
+	clr_country_flag = DA_AG_pod_watch
+	clr_country_flag = DA_AG_pod_in_flight
+}
+
+# Once a year (on_yearly_pulse): what the outposts send home. Silent; the window shows the numbers.
+DA_AG_yearly_yield = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_canal_3 }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { ancientDwarvenKnowledge = 6 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { ancientDwarvenKnowledge = 3 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_canal_2 NOT = { has_country_flag = DA_AG_outpost_canal_3 } }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { ancientDwarvenKnowledge = 4 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { ancientDwarvenKnowledge = 2 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_canal_1 NOT = { has_country_flag = DA_AG_outpost_canal_2 } }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { ancientDwarvenKnowledge = 2 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { ancientDwarvenKnowledge = 1 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_sea_3 }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_alchemy_reagents_total value = 9 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_alchemy_reagents_total value = 6 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_alchemy_reagents_total value = 3 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_sea_2 NOT = { has_country_flag = DA_AG_outpost_sea_3 } }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_alchemy_reagents_total value = 6 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_alchemy_reagents_total value = 4 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_alchemy_reagents_total value = 2 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_sea_1 NOT = { has_country_flag = DA_AG_outpost_sea_2 } }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_alchemy_reagents_total value = 3 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_alchemy_reagents_total value = 2 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_alchemy_reagents_total value = 1 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_uplands_3 }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_arcane_metal_total value = 9 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_arcane_metal_total value = 6 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_arcane_metal_total value = 3 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_uplands_2 NOT = { has_country_flag = DA_AG_outpost_uplands_3 } }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_arcane_metal_total value = 6 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_arcane_metal_total value = 4 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_arcane_metal_total value = 2 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_uplands_1 NOT = { has_country_flag = DA_AG_outpost_uplands_2 } }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_arcane_metal_total value = 3 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_arcane_metal_total value = 2 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_arcane_metal_total value = 1 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_locks_3 }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_enchanted_building_material_total value = 9 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_enchanted_building_material_total value = 6 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_enchanted_building_material_total value = 3 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_locks_2 NOT = { has_country_flag = DA_AG_outpost_locks_3 } }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_enchanted_building_material_total value = 6 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_enchanted_building_material_total value = 4 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_enchanted_building_material_total value = 2 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_locks_1 NOT = { has_country_flag = DA_AG_outpost_locks_2 } }
+			if = { limit = { DA_AG_welcome = yes } change_variable = { which = DA_enchanted_building_material_total value = 3 } }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } change_variable = { which = DA_enchanted_building_material_total value = 2 } }
+			if = { limit = { DA_AG_resented = yes } change_variable = { which = DA_enchanted_building_material_total value = 1 } }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_ice_3 }
+			change_variable = { which = DA_AG_goodwill value = 3 }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_ice_2 NOT = { has_country_flag = DA_AG_outpost_ice_3 } }
+			change_variable = { which = DA_AG_goodwill value = 2 }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_ice_1 NOT = { has_country_flag = DA_AG_outpost_ice_2 } }
+			change_variable = { which = DA_AG_goodwill value = 1 }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_ringfall_3 }
+			if = { limit = { DA_AG_welcome = yes } add_treasury = 675 }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } add_treasury = 450 }
+			if = { limit = { DA_AG_resented = yes } add_treasury = 225 }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_ringfall_2 NOT = { has_country_flag = DA_AG_outpost_ringfall_3 } }
+			if = { limit = { DA_AG_welcome = yes } add_treasury = 450 }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } add_treasury = 300 }
+			if = { limit = { DA_AG_resented = yes } add_treasury = 150 }
+		}
+		if = {
+			limit = { has_country_flag = DA_AG_outpost_ringfall_1 NOT = { has_country_flag = DA_AG_outpost_ringfall_2 } }
+			if = { limit = { DA_AG_welcome = yes } add_treasury = 225 }
+			if = { limit = { DA_AG_welcome = no DA_AG_resented = no } add_treasury = 150 }
+			if = { limit = { DA_AG_resented = yes } add_treasury = 75 }
+		}
+		DA_AG_check_goodwill = yes
+	}
+}
+
+# The Far Watch gives no goods: its outpost is a country modifier.
+DA_AG_set_watch_modifier = {
+	remove_country_modifier = DA_AG_far_watch_1
+	remove_country_modifier = DA_AG_far_watch_2
+	remove_country_modifier = DA_AG_far_watch_3
+	if = {
+		limit = { has_country_flag = DA_AG_outpost_watch_3 }
+		add_country_modifier = { name = DA_AG_far_watch_3 duration = -1 }
+	}
+	else_if = {
+		limit = { has_country_flag = DA_AG_outpost_watch_2 }
+		add_country_modifier = { name = DA_AG_far_watch_2 duration = -1 }
+	}
+	else_if = {
+		limit = { has_country_flag = DA_AG_outpost_watch_1 }
+		add_country_modifier = { name = DA_AG_far_watch_1 duration = -1 }
+	}
+}
+

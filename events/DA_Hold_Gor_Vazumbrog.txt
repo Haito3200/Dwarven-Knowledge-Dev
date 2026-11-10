@@ -95,7 +95,7 @@ country_event = {
 		name = "DA_Hold_Gor_Vazumbrog.2.e"
 		trigger = {
 			DA_alchemy_reagents_total_required = {
-				amount = 5
+				amount = 20
 			}
 			treasury = 1000
 			manpower = 20
@@ -261,15 +261,103 @@ country_event = {
 
 
 
+# BEGIN DA_TV_2026_11_10
+# Titanium Vault: Wonder follow-up events and relic chains, revised 10 November 2026.
+# This block is written by "Claude files/tools/apply_titanium_vault_2026-11-10.py";
+# after that first run it is ordinary hand-owned script.
+
+
+#########################################################
+# Wonder follow-up events
+# Queued by the upgrade button in common/custom_gui/DA_Wonder_Titanium_Vault.txt:
+# .11 one year after tier I, .12 three years after tier I, .14 ten years after tier III.
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.11 				# The Wardens' Ledger
+	title = "DA_Hold_Gor_Vazumbrog.11.t"
+	desc = "DA_Hold_Gor_Vazumbrog.11.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4217
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.11.a"
+		tooltip = { add_adk_effect = { add = 4 } }
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.11.b"
+		add_prestige = 10
+		add_army_tradition = 5
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.12 				# Jadebrow's Harvest
+	title = "DA_Hold_Gor_Vazumbrog.12.t"
+	desc = "DA_Hold_Gor_Vazumbrog.12.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4217
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.12.a"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.12.a.tt
+		hidden_effect = {
+			change_variable = {
+				which = DA_alchemy_reagents_total
+				value = 10
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.12.b"
+		add_treasury = 250
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.14 				# The Watch Resumed
+	title = "DA_Hold_Gor_Vazumbrog.14.t"
+	desc = "DA_Hold_Gor_Vazumbrog.14.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4217
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.14.a"
+		add_stability = 1
+		add_prestige = 20
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.14.b"
+		tooltip = { add_adk_effect = { add = 10 } }
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
+	}
+}
+
+
+#########################################################
+# Relics: discovery (.30 to .38) and the chain of each relic (.300 to .381)
+
+
+##### The Eternity Clock
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.30 				# The Eternity Clock
+	id = DA_Hold_Gor_Vazumbrog.30 				# The Eternity Clock, found
 	title = "DA_Hold_Gor_Vazumbrog.30.t"
 	desc = "DA_Hold_Gor_Vazumbrog.30.d"
 	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
+		name = "DA_Hold_Gor_Vazumbrog.30.a"
 		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.Eternity_Clock
@@ -280,7 +368,7 @@ province_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.300 				# The Eternity Clock
+	id = DA_Hold_Gor_Vazumbrog.300 				# The Eternity Clock, activation
 	title = "DA_Hold_Gor_Vazumbrog.300.t"
 	desc = "DA_Hold_Gor_Vazumbrog.300.d"
 	picture = INVENTION_eventPicture
@@ -301,6 +389,7 @@ country_event = {
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.300.a"
 		goto = DA_buildable_province1
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.300.a.tt
 		event_target:DA_buildable_province1 = {
 			add_permanent_province_modifier = {
 				name = DA_Eternity_Clock_province
@@ -315,14 +404,21 @@ country_event = {
 			}
 		}
 	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.300.b"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.300.b.tt
+	}
 }
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.301 				# The Eternity Clock
+	id = DA_Hold_Gor_Vazumbrog.301 				# The Eternity Clock, prosperity
 	title = "DA_Hold_Gor_Vazumbrog.301.t"
 	desc = "DA_Hold_Gor_Vazumbrog.301.d"
-	picture = INVENTION_eventPicture
+	picture = CITY_VIEW_eventPicture
 
 	is_triggered_only = yes
+	trigger = {
+		has_province_modifier = DA_Eternity_Clock_province
+	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.301.a"
 		add_base_tax = 2
@@ -338,14 +434,18 @@ province_event = {
 	}
 }
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.302 				# The Eternity Clock
+	id = DA_Hold_Gor_Vazumbrog.302 				# The Eternity Clock, accidents: last chance to seal it
 	title = "DA_Hold_Gor_Vazumbrog.302.t"
 	desc = "DA_Hold_Gor_Vazumbrog.302.d"
 	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
+	trigger = {
+		has_province_modifier = DA_Eternity_Clock_province
+	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.302.a"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.302.a.tt
 		add_unrest = 5
 		hidden_effect = {
 			province_event = {
@@ -357,6 +457,7 @@ province_event = {
 	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.302.b"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.302.b.tt
 		remove_province_modifier = DA_Eternity_Clock_province
 		hidden_effect = {
 			4217 = {
@@ -366,14 +467,17 @@ province_event = {
 	}
 }
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.303 				# The Eternity Clock rampaging
+	id = DA_Hold_Gor_Vazumbrog.303 				# The Eternity Clock, out of control
 	title = "DA_Hold_Gor_Vazumbrog.303.t"
 	desc = "DA_Hold_Gor_Vazumbrog.303.d"
-	picture = INVENTION_eventPicture
+	picture = COUNTRY_COLLAPSE_eventPicture
 
 	is_triggered_only = yes
+	trigger = {
+		has_province_modifier = DA_Eternity_Clock_province
+	}
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.303.a"
+		name = "DA_Hold_Gor_Vazumbrog.303.a"		# a volunteer goes in
 		custom_tooltip = DA_Eternity_Clock_finale_tt
 		hidden_effect = {
 			random_list = {
@@ -399,7 +503,12 @@ province_event = {
 		}
 	}
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.303.b"
+		name = "DA_Hold_Gor_Vazumbrog.303.b"		# the ruler goes in
+		trigger = {
+			owner = {
+				has_regency = no
+			}
+		}
 		custom_tooltip = DA_Eternity_Clock_finale_tt
 		custom_tooltip = DA_Eternity_Clock_finale_ruler_tt
 		hidden_effect = {
@@ -484,7 +593,7 @@ province_event = {
 	}
 }
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.304 				# The Eternity Clock repaired time
+	id = DA_Hold_Gor_Vazumbrog.304 				# The Eternity Clock, broken: time restored
 	title = "DA_Hold_Gor_Vazumbrog.304.t"
 	desc = "DA_Hold_Gor_Vazumbrog.304.d"
 	picture = INVENTION_eventPicture
@@ -498,6 +607,10 @@ province_event = {
 			}
 		}
 		remove_province_modifier = DA_Eternity_Clock_province
+		add_permanent_province_modifier = {
+			name = DA_Eternity_Clock_repaired
+			duration = -1
+		}
 		add_base_tax = -1
 		add_base_production = -1
 		add_base_manpower = -1
@@ -517,22 +630,33 @@ province_event = {
 		owner = {
 			kill_ruler = yes
 		}
+		remove_province_modifier = DA_Eternity_Clock_province
+		add_permanent_province_modifier = {
+			name = DA_Eternity_Clock_repaired
+			duration = -1
+		}
 		add_base_tax = -1
 		add_base_production = -1
 		add_base_manpower = -1
-		remove_province_modifier = DA_Eternity_Clock_province
 		hidden_effect = {
 			4217 = {
 				set_province_flag = DA_Titanium_Vault_Relic.Eternity_Clock_sealed
 			}
 		}
 	}
+	after = {
+		hidden_effect = {
+			owner = {
+				clr_country_flag = DA_Eternity_Clock_ruler_goes
+			}
+		}
+	}
 }
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.305 				# The Eternity Clock collapse
+	id = DA_Hold_Gor_Vazumbrog.305 				# The Eternity Clock, collapse
 	title = "DA_Hold_Gor_Vazumbrog.305.t"
 	desc = "DA_Hold_Gor_Vazumbrog.305.d"
-	picture = INVENTION_eventPicture
+	picture = COUNTRY_COLLAPSE_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -580,12 +704,19 @@ province_event = {
 			}
 		}
 	}
+	after = {
+		hidden_effect = {
+			owner = {
+				clr_country_flag = DA_Eternity_Clock_ruler_goes
+			}
+		}
+	}
 }
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.306 				# The Eternity Clock mastered time
+	id = DA_Hold_Gor_Vazumbrog.306 				# The Eternity Clock, mastered
 	title = "DA_Hold_Gor_Vazumbrog.306.t"
 	desc = "DA_Hold_Gor_Vazumbrog.306.d"
-	picture = INVENTION_eventPicture
+	picture = GOOD_WITH_MONARCH_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -595,6 +726,7 @@ province_event = {
 				NOT = { has_country_flag = DA_Eternity_Clock_ruler_goes }
 			}
 		}
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.306.a.tt
 		remove_province_modifier = DA_Eternity_Clock_province
 		hidden_effect = {
 			4217 = {
@@ -609,6 +741,7 @@ province_event = {
 				has_country_flag = DA_Eternity_Clock_ruler_goes
 			}
 		}
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.306.b.tt
 		owner = {
 			define_ruler = {
 				name = "The Watchmaker"
@@ -618,9 +751,9 @@ province_event = {
 				age = 26
 				claim = 100
 			}
+			set_ruler_flag = DA_Time_Master_given
 			add_ruler_personality = mage_personality
 			add_ruler_personality = DA_Time_Master
-			set_ruler_flag = DA_Time_Master_given
 			set_ruler_flag = divination_1
 			set_ruler_flag = divination_2
 			set_ruler_flag = divination_3
@@ -641,28 +774,75 @@ province_event = {
 			}
 		}
 	}
+	after = {
+		hidden_effect = {
+			owner = {
+				clr_country_flag = DA_Eternity_Clock_ruler_goes
+			}
+		}
+	}
 }
+
+
+##### The Earthshaper Sphere
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.31 				# The Earthshaper Sphere
+	id = DA_Hold_Gor_Vazumbrog.31 				# The Earthshaper Sphere, found
 	title = "DA_Hold_Gor_Vazumbrog.31.t"
 	desc = "DA_Hold_Gor_Vazumbrog.31.d"
-	picture = INVENTION_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
+		name = "DA_Hold_Gor_Vazumbrog.31.a"
 		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.Earthshaper_Sphere
 		}
 	}
 }
-# roulette between these on activation
+# Hidden roll for the Reliquary button. A random_list inside a button effect gives the
+# same result every time, so the button fires this event and the event rolls.
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.310 				# The Earthshaper Sphere
+	id = DA_Hold_Gor_Vazumbrog.309 				# The Earthshaper Sphere, hidden roll
 	title = "DA_Hold_Gor_Vazumbrog.310.t"
 	desc = "DA_Hold_Gor_Vazumbrog.310.d"
-	picture = INVENTION_eventPicture
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		random_list = {
+			3 = {
+				country_event = {
+					id = DA_Hold_Gor_Vazumbrog.310
+				}
+			}
+			5 = {
+				country_event = {
+					id = DA_Hold_Gor_Vazumbrog.311
+				}
+			}
+			3 = {
+				country_event = {
+					id = DA_Hold_Gor_Vazumbrog.312
+				}
+			}
+			1 = {
+				country_event = {
+					id = DA_Hold_Gor_Vazumbrog.313
+				}
+			}
+		}
+	}
+}
+# The four outcomes. The cooldown is applied by the Reliquary button.
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.310 				# The Earthshaper Sphere, great success
+	title = "DA_Hold_Gor_Vazumbrog.310.t"
+	desc = "DA_Hold_Gor_Vazumbrog.310.d"
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	immediate = {
@@ -684,20 +864,13 @@ country_event = {
 			add_base_production = 4
 			add_base_manpower = 1
 		}
-		custom_tooltip = DA_CD_4_tt
-		hidden_effect = {
-			add_country_modifier = {
-				name = DA_Titanium_Vault_Earthshaper_Sphere_CD
-				duration = 1460
-			}
-		}
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.311 				# The Earthshaper Sphere
+	id = DA_Hold_Gor_Vazumbrog.311 				# The Earthshaper Sphere, success
 	title = "DA_Hold_Gor_Vazumbrog.311.t"
 	desc = "DA_Hold_Gor_Vazumbrog.311.d"
-	picture = INVENTION_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	immediate = {
@@ -719,20 +892,13 @@ country_event = {
 			add_base_production = 2
 			add_devastation = 5
 		}
-		custom_tooltip = DA_CD_4_tt
-		hidden_effect = {
-			add_country_modifier = {
-				name = DA_Titanium_Vault_Earthshaper_Sphere_CD
-				duration = 1460
-			}
-		}
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.312 				# The Earthshaper Sphere
+	id = DA_Hold_Gor_Vazumbrog.312 				# The Earthshaper Sphere, failure
 	title = "DA_Hold_Gor_Vazumbrog.312.t"
 	desc = "DA_Hold_Gor_Vazumbrog.312.d"
-	picture = INVENTION_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	immediate = {
@@ -755,20 +921,13 @@ country_event = {
 			add_base_manpower = -2
 			add_devastation = 25
 		}
-		custom_tooltip = DA_CD_4_tt
-		hidden_effect = {
-			add_country_modifier = {
-				name = DA_Titanium_Vault_Earthshaper_Sphere_CD
-				duration = 1460
-			}
-		}
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.313 				# The Earthshaper Sphere
+	id = DA_Hold_Gor_Vazumbrog.313 				# The Earthshaper Sphere, broken earth: the Sphere is lost
 	title = "DA_Hold_Gor_Vazumbrog.313.t"
 	desc = "DA_Hold_Gor_Vazumbrog.313.d"
-	picture = INVENTION_eventPicture
+	picture = COUNTRY_COLLAPSE_eventPicture
 
 	is_triggered_only = yes
 	immediate = {
@@ -785,10 +944,11 @@ country_event = {
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.313.a"
 		goto = DA_buildable_province1
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.313.a.tt
 		event_target:DA_buildable_province1 = {
-			add_base_tax = -100
-			add_base_production = -100
-			add_base_manpower = -100
+			set_base_tax = 1
+			set_base_production = 1
+			set_base_manpower = 1
 			add_devastation = 100
 			add_permanent_province_modifier = {
 				name = DA_Collapsed_cavern
@@ -799,18 +959,24 @@ country_event = {
 			4217 = {
 				set_province_flag = DA_Titanium_Vault_Relic.Earthshaper_Sphere_sealed
 			}
+			remove_country_modifier = DA_Titanium_Vault_Earthshaper_Sphere_CD
 		}
 	}
 }
+
+
+##### Codex of Infinite Tactics
+# .320 and .321 are rolled on on_four_year_pulse_4 while the Codex is open.
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.32 				# Codex_of_Infinite_Tactics
+	id = DA_Hold_Gor_Vazumbrog.32 				# Codex of Infinite Tactics, found
 	title = "DA_Hold_Gor_Vazumbrog.32.t"
 	desc = "DA_Hold_Gor_Vazumbrog.32.d"
-	picture = INVENTION_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
+		name = "DA_Hold_Gor_Vazumbrog.32.a"
 		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.Codex_of_Infinite_Tactics
@@ -818,10 +984,10 @@ province_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.320 				# Codex_of_Infinite_Tactics
+	id = DA_Hold_Gor_Vazumbrog.320 				# Codex of Infinite Tactics, a general is trained
 	title = "DA_Hold_Gor_Vazumbrog.320.t"
 	desc = "DA_Hold_Gor_Vazumbrog.320.d"
-	picture = INVENTION_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 	trigger = {
@@ -839,10 +1005,10 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.321 				# Codex_of_Infinite_Tactics
+	id = DA_Hold_Gor_Vazumbrog.321 				# Codex of Infinite Tactics, betrayal
 	title = "DA_Hold_Gor_Vazumbrog.321.t"
 	desc = "DA_Hold_Gor_Vazumbrog.321.d"
-	picture = INVENTION_eventPicture
+	picture = BATTLE_eventPicture
 
 	is_triggered_only = yes
 	trigger = {
@@ -858,15 +1024,20 @@ country_event = {
 		}
 	}
 }
+
+
+##### Crown of Dominion
+# .330 and .331 are rolled on on_four_year_pulse_4 while the Crown is worn.
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.33 				# Crown of Dominion
+	id = DA_Hold_Gor_Vazumbrog.33 				# Crown of Dominion, found
 	title = "DA_Hold_Gor_Vazumbrog.33.t"
 	desc = "DA_Hold_Gor_Vazumbrog.33.d"
-	picture = INVENTION_eventPicture
+	picture = GOOD_WITH_MONARCH_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
+		name = "DA_Hold_Gor_Vazumbrog.33.a"
 		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.Crown_of_Dominion
@@ -874,10 +1045,10 @@ province_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.330 				# Crown of Dominion
+	id = DA_Hold_Gor_Vazumbrog.330 				# Crown of Dominion, authority
 	title = "DA_Hold_Gor_Vazumbrog.330.t"
 	desc = "DA_Hold_Gor_Vazumbrog.330.d"
-	picture = INVENTION_eventPicture
+	picture = GOOD_WITH_MONARCH_eventPicture
 
 	is_triggered_only = yes
 	trigger = {
@@ -890,10 +1061,10 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.331 				# Crown of Dominion
+	id = DA_Hold_Gor_Vazumbrog.331 				# Crown of Dominion, betrayal
 	title = "DA_Hold_Gor_Vazumbrog.331.t"
 	desc = "DA_Hold_Gor_Vazumbrog.331.d"
-	picture = INVENTION_eventPicture
+	picture = WAR_OF_THE_ROSES_eventPicture
 
 	is_triggered_only = yes
 	trigger = {
@@ -909,15 +1080,19 @@ country_event = {
 		}
 	}
 }
+
+
+##### RuneGold Cache
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.34 				# RuneGold_Cache
+	id = DA_Hold_Gor_Vazumbrog.34 				# RuneGold Cache, found
 	title = "DA_Hold_Gor_Vazumbrog.34.t"
 	desc = "DA_Hold_Gor_Vazumbrog.34.d"
 	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
+		name = "DA_Hold_Gor_Vazumbrog.34.a"
 		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.RuneGold_Cache
@@ -925,7 +1100,7 @@ province_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.340 				# RuneGold_Cache
+	id = DA_Hold_Gor_Vazumbrog.340 				# RuneGold Cache, sell it or keep it
 	title = "DA_Hold_Gor_Vazumbrog.340.t"
 	desc = "DA_Hold_Gor_Vazumbrog.340.d"
 	picture = INVENTION_eventPicture
@@ -933,9 +1108,13 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.340.a"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.340.a.tt
 		add_years_of_income = 5
 		add_inflation = 10
 		hidden_effect = {
+			4217 = {
+				set_province_flag = DA_Titanium_Vault_Relic.RuneGold_Cache_sealed
+			}
 			country_event = {
 				id = DA_Hold_Gor_Vazumbrog.341
 				days = 7300
@@ -944,14 +1123,15 @@ country_event = {
 		}
 	}
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.2.go_back"
+		name = "DA_Hold_Gor_Vazumbrog.340.b"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.340.b.tt
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.341 				# RuneGold_Cache
+	id = DA_Hold_Gor_Vazumbrog.341 				# RuneGold Cache, the curse
 	title = "DA_Hold_Gor_Vazumbrog.341.t"
 	desc = "DA_Hold_Gor_Vazumbrog.341.d"
-	picture = INVENTION_eventPicture
+	picture = COUNTRY_COLLAPSE_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -962,16 +1142,20 @@ country_event = {
 		}
 	}
 }
+
+
+##### Algorithm of Eternity
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.35 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.35 				# Algorithm of Eternity, found: let Vordin study it or seal it
 	title = "DA_Hold_Gor_Vazumbrog.35.t"
 	desc = "DA_Hold_Gor_Vazumbrog.35.d"
-	picture = INVENTION_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
-		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
+		name = "DA_Hold_Gor_Vazumbrog.35.a"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.35.a.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.Algorithm_of_Eternity
 			owner = {
@@ -984,6 +1168,7 @@ province_event = {
 	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.35.b"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.35.b.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.Algorithm_of_Eternity
 			set_province_flag = DA_Titanium_Vault_Relic.Algorithm_of_Eternity_sealed
@@ -991,10 +1176,10 @@ province_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.350 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.350 				# Algorithm of Eternity, voices
 	title = "DA_Hold_Gor_Vazumbrog.350.t"
 	desc = "DA_Hold_Gor_Vazumbrog.350.d"
-	picture = INVENTION_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -1009,10 +1194,10 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.351 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.351 				# Algorithm of Eternity, two minds
 	title = "DA_Hold_Gor_Vazumbrog.351.t"
 	desc = "DA_Hold_Gor_Vazumbrog.351.d"
-	picture = INVENTION_eventPicture
+	picture = ADVISOR_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -1027,15 +1212,17 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.352 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.352 				# Algorithm of Eternity, results
 	title = "DA_Hold_Gor_Vazumbrog.352.t"
 	desc = "DA_Hold_Gor_Vazumbrog.352.d"
-	picture = INVENTION_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.352.a"
+		tooltip = { add_adk_effect = { add = 5 } }
 		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
 			country_event = {
 				id = DA_Hold_Gor_Vazumbrog.353
 				days = 240
@@ -1045,10 +1232,10 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.353 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.353 				# Algorithm of Eternity, the last step
 	title = "DA_Hold_Gor_Vazumbrog.353.t"
 	desc = "DA_Hold_Gor_Vazumbrog.353.d"
-	picture = INVENTION_eventPicture
+	picture = ADVISOR_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -1063,25 +1250,27 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.354 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.354 				# Algorithm of Eternity, solved
 	title = "DA_Hold_Gor_Vazumbrog.354.t"
 	desc = "DA_Hold_Gor_Vazumbrog.354.d"
-	picture = INVENTION_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.354.a"
-		country_event = {
-			id = DA_Hold_Gor_Vazumbrog.355
-			days = 5
+		hidden_effect = {
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.355
+				days = 5
+			}
 		}
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.355 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.355 				# Algorithm of Eternity, the price
 	title = "DA_Hold_Gor_Vazumbrog.355.t"
 	desc = "DA_Hold_Gor_Vazumbrog.355.d"
-	picture = INVENTION_eventPicture
+	picture = ADVISOR_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -1096,10 +1285,10 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.356 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.356 				# Algorithm of Eternity, sealed
 	title = "DA_Hold_Gor_Vazumbrog.356.t"
 	desc = "DA_Hold_Gor_Vazumbrog.356.d"
-	picture = INVENTION_eventPicture
+	picture = GREAT_BUILDING_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -1113,10 +1302,10 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.357 				# Algorithm_of_Eternity
+	id = DA_Hold_Gor_Vazumbrog.357 				# Algorithm of Eternity, a hundred years later
 	title = "DA_Hold_Gor_Vazumbrog.357.t"
 	desc = "DA_Hold_Gor_Vazumbrog.357.d"
-	picture = INVENTION_eventPicture
+	picture = ADVISOR_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -1128,17 +1317,22 @@ country_event = {
 	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.357.b"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.357.b.tt
 	}
 }
+
+
+##### Half-Burned Journal
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.36 				# Half_Burned_Journal
+	id = DA_Hold_Gor_Vazumbrog.36 				# Half-Burned Journal, found
 	title = "DA_Hold_Gor_Vazumbrog.36.t"
 	desc = "DA_Hold_Gor_Vazumbrog.36.d"
-	picture = INVENTION_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
+		name = "DA_Hold_Gor_Vazumbrog.36.a"
 		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.Half_Burned_Journal
@@ -1146,22 +1340,31 @@ province_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.360 				# Half_Burned_Journal
+	id = DA_Hold_Gor_Vazumbrog.360 				# Half-Burned Journal, send the expedition
 	title = "DA_Hold_Gor_Vazumbrog.360.t"
 	desc = "DA_Hold_Gor_Vazumbrog.360.d"
-	picture = INVENTION_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_capital = no
+					OR = {
+						has_terrain = dwarven_hold
+						has_terrain = dwarven_hold_surface
+					}
+				}
+				save_event_target_as = DA_buildable_province1
+			}
+		}
+	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.360.a"
-		random_owned_province = {
-			limit = {
-				is_capital = no
-				OR = {
-					has_terrain = dwarven_hold
-					has_terrain = dwarven_hold_surface
-				}
-			}
+		goto = DA_buildable_province1
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.360.a.tt
+		event_target:DA_buildable_province1 = {
 			add_permanent_province_modifier = {
 				name = DA_Half_Burned_Journal_Expedition
 				duration = -1
@@ -1171,66 +1374,84 @@ country_event = {
 					id = DA_Hold_Gor_Vazumbrog.361
 					days = 90
 				}
-				4217 = {
-					set_province_flag = DA_Titanium_Vault_Relic.Half_Burned_Journal_sealed
-				}
+			}
+		}
+		hidden_effect = {
+			4217 = {
+				set_province_flag = DA_Titanium_Vault_Relic.Half_Burned_Journal_sealed
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.360.b"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.360.b.tt
+	}
+}
+province_event = {
+	id = DA_Hold_Gor_Vazumbrog.361 				# Half-Burned Journal, the City of Shifting Stone
+	title = "DA_Hold_Gor_Vazumbrog.361.t"
+	desc = "DA_Hold_Gor_Vazumbrog.361.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.361.a"
+		hidden_effect = {
+			province_event = {
+				id = DA_Hold_Gor_Vazumbrog.362
+				days = 90
 			}
 		}
 	}
 }
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.361 				# Half_Burned_Journal
-	title = "DA_Hold_Gor_Vazumbrog.361.t"
-	desc = "DA_Hold_Gor_Vazumbrog.361.d"
-	picture = INVENTION_eventPicture
-
-	is_triggered_only = yes
-	option = {
-		name = "DA_Hold_Gor_Vazumbrog.361.a"
-			hidden_effect = {
-				province_event = {
-					id = DA_Hold_Gor_Vazumbrog.362
-					days = 90
-				}
-			}
-	}
-}
-province_event = {
-	id = DA_Hold_Gor_Vazumbrog.362 				# Half_Burned_Journal
+	id = DA_Hold_Gor_Vazumbrog.362 				# Half-Burned Journal, the gate
 	title = "DA_Hold_Gor_Vazumbrog.362.t"
 	desc = "DA_Hold_Gor_Vazumbrog.362.d"
-	picture = INVENTION_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.362.a"
-		owner = {
-			country_event = {
-				id = DA_Hold_Gor_Vazumbrog.363
+		hidden_effect = {
+			owner = {
+				country_event = {
+					id = DA_Hold_Gor_Vazumbrog.363
+				}
 			}
 		}
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.363 				# Half_Burned_Journal
+	id = DA_Hold_Gor_Vazumbrog.363 				# Half-Burned Journal, the decision
 	title = "DA_Hold_Gor_Vazumbrog.363.t"
 	desc = "DA_Hold_Gor_Vazumbrog.363.d"
-	picture = INVENTION_eventPicture
+	picture = DIET_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.363.a"
-	}
-	option = {
-		name = "DA_Hold_Gor_Vazumbrog.363.b"
-		country_event = {
-			id = DA_Hold_Gor_Vazumbrog.364
-			days = 30
+		name = "DA_Hold_Gor_Vazumbrog.363.a"		# leave it sealed
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.363.a.tt
+		random_owned_province = {
+			limit = {
+				has_province_modifier = DA_Half_Burned_Journal_Expedition
+			}
+			remove_province_modifier = DA_Half_Burned_Journal_Expedition
 		}
 	}
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.363.c"
-		random_core_province = {
+		name = "DA_Hold_Gor_Vazumbrog.363.b"		# open the gate
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.363.b.tt
+		hidden_effect = {
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.364
+				days = 30
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.363.c"		# study it without opening it
+		random_owned_province = {
 			limit = {
 				has_province_modifier = DA_Half_Burned_Journal_Expedition
 			}
@@ -1243,30 +1464,32 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.364 				# Half_Burned_Journal
+	id = DA_Hold_Gor_Vazumbrog.364 				# Half-Burned Journal, the opening
 	title = "DA_Hold_Gor_Vazumbrog.364.t"
 	desc = "DA_Hold_Gor_Vazumbrog.364.d"
-	picture = INVENTION_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.364.a"
-		country_event = {
-			id = DA_Hold_Gor_Vazumbrog.365
-			days = 30
+		hidden_effect = {
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.365
+				days = 30
+			}
 		}
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.365 				# Half_Burned_Journal
+	id = DA_Hold_Gor_Vazumbrog.365 				# Half-Burned Journal, the Primeval Serpentspine
 	title = "DA_Hold_Gor_Vazumbrog.365.t"
 	desc = "DA_Hold_Gor_Vazumbrog.365.d"
-	picture = INVENTION_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.365.a"
-		random_core_province = {
+		random_owned_province = {
 			limit = {
 				has_province_modifier = DA_Half_Burned_Journal_Expedition
 			}
@@ -1286,17 +1509,17 @@ country_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.366 				# Half_Burned_Journal
+	id = DA_Hold_Gor_Vazumbrog.366 				# Half-Burned Journal, a road both ways
 	title = "DA_Hold_Gor_Vazumbrog.366.t"
 	desc = "DA_Hold_Gor_Vazumbrog.366.d"
-	picture = INVENTION_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.366.a"
 		hidden_effect = { set_global_flag = onyx_hall_start }
 		set_country_flag = fallen_invasion_ready
-		random_core_province = {
+		random_owned_province = {
 			limit = {
 				has_province_modifier = DA_Gate_primeval_serpentspine
 			}
@@ -1307,15 +1530,20 @@ country_event = {
 		}
 	}
 }
+
+
+##### Aetherium Ingots
+# The ingots are counted in the province variable DA_Aetherium_Lingots of 4217.
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.37 				# Aetherium Lingots
+	id = DA_Hold_Gor_Vazumbrog.37 				# Aetherium Ingots, found (can be found again)
 	title = "DA_Hold_Gor_Vazumbrog.37.t"
 	desc = "DA_Hold_Gor_Vazumbrog.37.d"
-	picture = INVENTION_eventPicture
+	picture = FORGE_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
+		name = "DA_Hold_Gor_Vazumbrog.37.a"
 		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
 		custom_tooltip = DA_Titanium_Vault_Relic.Aetherium_Lingots_2.tt
 		hidden_effect = {
@@ -1328,10 +1556,10 @@ province_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.370 				# Aetherium Lingots interactions
+	id = DA_Hold_Gor_Vazumbrog.370 				# Aetherium Ingots, sell one or study ten
 	title = "DA_Hold_Gor_Vazumbrog.370.t"
 	desc = "DA_Hold_Gor_Vazumbrog.370.d"
-	picture = INVENTION_eventPicture
+	picture = FORGE_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -1356,48 +1584,21 @@ country_event = {
 		add_inflation = 2
 	}
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.370.b_fake"
+		name = "DA_Hold_Gor_Vazumbrog.370.b_fake"	# shown instead of .b while we have fewer than 10 ingots; it does nothing
 		trigger = {
 			4217 = {
-				NOt = {
+				NOT = {
 					check_variable = {
 						which = DA_Aetherium_Lingots
 						value = 10
 					}
 				}
 			}
-			NOT = {
-				has_country_modifier = DA_Aetherium_Lingots_researched
-			}
+			NOT = { has_country_modifier = DA_Aetherium_Lingots_researched }
+			NOT = { has_country_flag = DA_Aetherium_study_in_progress }
 		}
-		if = {
-			limit = {
-				4217 = {
-					NOt = {
-						check_variable = {
-							which = DA_Aetherium_Lingots
-							value = 10
-						}
-					}
-				}
-			}
-			custom_tooltip = DA_missing_10_aetherium_lingots_tt
-		}
-		tooltip = {
-			4217 = {
-				hidden_effect = {
-					subtract_variable = {
-						which = DA_Aetherium_Lingots
-						value = 10
-					}
-				}
-			}
-			country_event = {
-				id = DA_Hold_Gor_Vazumbrog.371
-				days = 3650
-			}
-		}
-		
+		custom_tooltip = DA_missing_10_aetherium_lingots_tt
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.370.b.tt
 	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.370.b"
@@ -1408,33 +1609,33 @@ country_event = {
 					value = 10
 				}
 			}
-			NOT = {
-				has_country_modifier = DA_Aetherium_Lingots_researched
-			}
+			NOT = { has_country_modifier = DA_Aetherium_Lingots_researched }
+			NOT = { has_country_flag = DA_Aetherium_study_in_progress }
 		}
-		4217 = {
-			hidden_effect = {
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.370.b.tt
+		hidden_effect = {
+			4217 = {
 				subtract_variable = {
 					which = DA_Aetherium_Lingots
 					value = 10
 				}
 			}
+			set_country_flag = DA_Aetherium_study_in_progress
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.371
+				days = 3650
+			}
 		}
-		country_event = {
-			id = DA_Hold_Gor_Vazumbrog.371
-			days = 3650
-		}
-		
 	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.370.Go_Back"
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.371 				# Aetherium Lingots interactions
+	id = DA_Hold_Gor_Vazumbrog.371 				# Aetherium Ingots, the study ends
 	title = "DA_Hold_Gor_Vazumbrog.371.t"
 	desc = "DA_Hold_Gor_Vazumbrog.371.d"
-	picture = INVENTION_eventPicture
+	picture = FORGE_eventPicture
 
 	is_triggered_only = yes
 	option = {
@@ -1443,17 +1644,27 @@ country_event = {
 			name = DA_Aetherium_Lingots_researched
 			duration = -1
 		}
+		hidden_effect = {
+			clr_country_flag = DA_Aetherium_study_in_progress
+		}
 	}
 }
+
+
+##### The Runic Heart
+# The Heart's traits are in common/ruler_personalities/DA_ruler_personalities.txt.
+# .380 schedules .381 twice (after one month and after five years); each .381 gives one trait.
+# The engine can still pick these traits too when the ruler gains a personality (their ruler_allow).
+
 province_event = {
-	id = DA_Hold_Gor_Vazumbrog.38 				# The Runic Heart
+	id = DA_Hold_Gor_Vazumbrog.38 				# The Runic Heart, found
 	title = "DA_Hold_Gor_Vazumbrog.38.t"
 	desc = "DA_Hold_Gor_Vazumbrog.38.d"
 	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
 	option = {
-		name = "DA_Hold_Gor_Vazumbrog.102.a"
+		name = "DA_Hold_Gor_Vazumbrog.38.a"
 		custom_tooltip = DA_Titanium_Vault_Relic.New_relic.tt
 		hidden_effect = {
 			set_province_flag = DA_Titanium_Vault_Relic.Runic_Heart
@@ -1461,7 +1672,7 @@ province_event = {
 	}
 }
 country_event = {
-	id = DA_Hold_Gor_Vazumbrog.380 				# The Runic Heart, ruler transformation
+	id = DA_Hold_Gor_Vazumbrog.380 				# The Runic Heart, the operation
 	title = "DA_Hold_Gor_Vazumbrog.380.t"
 	desc = "DA_Hold_Gor_Vazumbrog.380.d"
 	picture = INVENTION_eventPicture
@@ -1469,6 +1680,9 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.380.a"
+		trigger = {
+			has_regency = no
+		}
 		set_ruler_flag = DA_Titanium_Vault_Relic.Runic_Heart_in_use
 		custom_tooltip = DA_Titanium_Vault_Relic.Runic_Heart_fusion_tt
 		hidden_effect = {
@@ -1478,12 +1692,194 @@ country_event = {
 			recalculate_ruler_mana_regen = yes
 			update_mana_regen_vars = yes
 			calc_schools_total_level = yes
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.381
+				days = 30
+			}
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.381
+				days = 1825
+			}
 		}
 	}
 	option = {
 		name = "DA_Hold_Gor_Vazumbrog.380.b"
 	}
 }
+# One trait from the Heart. The weights follow the "chance" blocks of the traits: every trait
+# is equally likely, the three weaknesses are ten times as likely for an Incompatible Host,
+# and the two BioMechanical follow-ups need the BioMechanical Body.
+# It does nothing if the ruler who carries the Heart is no longer on the throne.
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.381 				# The Runic Heart gives and takes
+	title = "DA_Hold_Gor_Vazumbrog.381.t"
+	desc = "DA_Hold_Gor_Vazumbrog.381.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_ruler_flag = DA_Titanium_Vault_Relic.Runic_Heart_in_use
+	}
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Arcane_Sight } }
+					set_country_flag = DA_Runic_Heart_gives.Arcane_Sight
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Supernatural_Charisma } }
+					set_country_flag = DA_Runic_Heart_gives.Supernatural_Charisma
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Iron_Will } }
+					set_country_flag = DA_Runic_Heart_gives.Iron_Will
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Strategic_Knowledge } }
+					set_country_flag = DA_Runic_Heart_gives.Strategic_Knowledge
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Architectural_Knowledge } }
+					set_country_flag = DA_Runic_Heart_gives.Architectural_Knowledge
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_ArcaneTech_Knowledge } }
+					set_country_flag = DA_Runic_Heart_gives.ArcaneTech_Knowledge
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Eternal_Vigilance } }
+					set_country_flag = DA_Runic_Heart_gives.Eternal_Vigilance
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_BioMechanical_Body } }
+					set_country_flag = DA_Runic_Heart_gives.BioMechanical_Body
+				}
+				10 = {
+					trigger = {
+						ruler_has_personality = DA_Runic_Heart_Trait_BioMechanical_Body
+						NOT = { ruler_has_personality = DA_Runic_Heart_Trait_BioMechanical_Compatibility }
+					}
+					set_country_flag = DA_Runic_Heart_gives.BioMechanical_Compatibility
+				}
+				10 = {
+					trigger = {
+						ruler_has_personality = DA_Runic_Heart_Trait_BioMechanical_Body
+						NOT = { ruler_has_personality = DA_Runic_Heart_Trait_BioMechanical_Living_Calculator }
+					}
+					set_country_flag = DA_Runic_Heart_gives.BioMechanical_Living_Calculator
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Incompatible_Host } }
+					set_country_flag = DA_Runic_Heart_gives.Incompatible_Host
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Frail_bones } }
+					modifier = {
+						factor = 10
+						ruler_has_personality = DA_Runic_Heart_Trait_Incompatible_Host
+					}
+					set_country_flag = DA_Runic_Heart_gives.Frail_bones
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Chronic_Pain } }
+					modifier = {
+						factor = 10
+						ruler_has_personality = DA_Runic_Heart_Trait_Incompatible_Host
+					}
+					set_country_flag = DA_Runic_Heart_gives.Chronic_Pain
+				}
+				10 = {
+					trigger = { NOT = { ruler_has_personality = DA_Runic_Heart_Trait_Vegetative_State } }
+					modifier = {
+						factor = 10
+						ruler_has_personality = DA_Runic_Heart_Trait_Incompatible_Host
+					}
+					set_country_flag = DA_Runic_Heart_gives.Vegetative_State
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.381.a"
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Arcane_Sight }
+			add_ruler_personality = DA_Runic_Heart_Trait_Arcane_Sight
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Supernatural_Charisma }
+			add_ruler_personality = DA_Runic_Heart_Trait_Supernatural_Charisma
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Iron_Will }
+			add_ruler_personality = DA_Runic_Heart_Trait_Iron_Will
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Strategic_Knowledge }
+			add_ruler_personality = DA_Runic_Heart_Trait_Strategic_Knowledge
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Architectural_Knowledge }
+			add_ruler_personality = DA_Runic_Heart_Trait_Architectural_Knowledge
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.ArcaneTech_Knowledge }
+			add_ruler_personality = DA_Runic_Heart_Trait_ArcaneTech_Knowledge
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Eternal_Vigilance }
+			add_ruler_personality = DA_Runic_Heart_Trait_Eternal_Vigilance
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.BioMechanical_Body }
+			add_ruler_personality = DA_Runic_Heart_Trait_BioMechanical_Body
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.BioMechanical_Compatibility }
+			add_ruler_personality = DA_Runic_Heart_Trait_BioMechanical_Compatibility
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.BioMechanical_Living_Calculator }
+			add_ruler_personality = DA_Runic_Heart_Trait_BioMechanical_Living_Calculator
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Incompatible_Host }
+			add_ruler_personality = DA_Runic_Heart_Trait_Incompatible_Host
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Frail_bones }
+			add_ruler_personality = DA_Runic_Heart_Trait_Frail_bones
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Chronic_Pain }
+			add_ruler_personality = DA_Runic_Heart_Trait_Chronic_Pain
+		}
+		if = {
+			limit = { has_country_flag = DA_Runic_Heart_gives.Vegetative_State }
+			add_ruler_personality = DA_Runic_Heart_Trait_Vegetative_State
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = DA_Runic_Heart_gives.Arcane_Sight
+			clr_country_flag = DA_Runic_Heart_gives.Supernatural_Charisma
+			clr_country_flag = DA_Runic_Heart_gives.Iron_Will
+			clr_country_flag = DA_Runic_Heart_gives.Strategic_Knowledge
+			clr_country_flag = DA_Runic_Heart_gives.Architectural_Knowledge
+			clr_country_flag = DA_Runic_Heart_gives.ArcaneTech_Knowledge
+			clr_country_flag = DA_Runic_Heart_gives.Eternal_Vigilance
+			clr_country_flag = DA_Runic_Heart_gives.BioMechanical_Body
+			clr_country_flag = DA_Runic_Heart_gives.BioMechanical_Compatibility
+			clr_country_flag = DA_Runic_Heart_gives.BioMechanical_Living_Calculator
+			clr_country_flag = DA_Runic_Heart_gives.Incompatible_Host
+			clr_country_flag = DA_Runic_Heart_gives.Frail_bones
+			clr_country_flag = DA_Runic_Heart_gives.Chronic_Pain
+			clr_country_flag = DA_Runic_Heart_gives.Vegetative_State
+		}
+	}
+}
+
+# END DA_TV_2026_11_10
 
 
 
@@ -1879,3 +2275,651 @@ province_event = {
 		}
 	}
 }
+
+
+# BEGIN DA_HUNTER_2026_11_10
+# The Hunter of the Deeps and the three Wardens' Instruments of the Nadir, 10 November 2026.
+# This block is written by "Claude files/tools/apply_hunter_2026-11-10.py";
+# after that first run it is ordinary hand-owned script.
+#
+# The dragon found by DA_ADK_explore.224 lies in the lowest vault (the Nadir) among three broken
+# Instruments that hurt and madden it. Three ways to deal with it:
+#   help    repair the three Instruments from the Reliquary (.610, .620, .630) while it is there;
+#           when the third is whole it has its mind back (.56): 50% reward, 25% leaves, 25% attacks and leaves
+#   kill    Legendary Encounter window of Gor Vazumbrog ("hunter" in le_rules.py); one fight only.
+#           Victory is .52; a rout or a withdrawal is DA_legendary_encounter.302 / .303.
+#           Either way .53 decides a week later whether the Instruments survived (50%)
+#   ignore  nothing happens, and the Instruments stay out of reach
+# State: province flags and one variable on 4217, listed in
+# common/scripted_triggers/DA_Hunter_of_the_Deeps_triggers.txt.
+
+
+#########################################################
+# The Hunter of the Deeps
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.50 				# The council on the Hunter: the three choices
+	title = "DA_Hold_Gor_Vazumbrog.50.t"
+	desc = {
+		trigger = {
+			4217 = { NOT = { check_variable = { which = DA_Nadir_repaired_n value = 1 } } }
+		}
+		desc = "DA_Hold_Gor_Vazumbrog.50.d"
+	}
+	desc = {
+		trigger = {
+			4217 = {
+				check_variable = { which = DA_Nadir_repaired_n value = 1 }
+				NOT = { check_variable = { which = DA_Nadir_repaired_n value = 2 } }
+			}
+		}
+		desc = "DA_Hold_Gor_Vazumbrog.50.d1"
+	}
+	desc = {
+		trigger = {
+			4217 = { check_variable = { which = DA_Nadir_repaired_n value = 2 } }
+		}
+		desc = "DA_Hold_Gor_Vazumbrog.50.d2"
+	}
+	picture = DRAGON_FLY_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		DA_Hunter_in_the_Nadir = yes
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_Wonder_Titanium_Vault_in_use
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.50.a"		# help
+		custom_tooltip = DA_Hunter_council_mend_tt
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.50.b"		# kill
+		goto = 4217
+		custom_tooltip = DA_Hunter_council_kill_tt
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.50.c"		# ignore
+		custom_tooltip = DA_Hunter_council_ignore_tt
+	}
+	after = {
+		clr_country_flag = DA_Wonder_Titanium_Vault_in_use
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.51 				# The watch on the Nadir: what is wrong with the dragon (30 days after DA_ADK_explore.224)
+	title = "DA_Hold_Gor_Vazumbrog.51.t"
+	desc = "DA_Hold_Gor_Vazumbrog.51.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4217
+		DA_Hunter_in_the_Nadir = yes
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.51.a"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.51.a.tt
+		hidden_effect = {
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.50
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.51.b"
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.51.b.tt
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.52 				# The Hunter is dead (victory in the Legendary Encounter window)
+	title = "DA_Hold_Gor_Vazumbrog.52.t"
+	desc = "DA_Hold_Gor_Vazumbrog.52.d"
+	picture = DRAGON_ATTACK_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			4217 = {
+				set_province_flag = DA_Hunter_gone
+				set_province_flag = DA_Hunter_dead
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.52.a"
+		goto = 4217
+		custom_tooltip = DA_Hold_Gor_Vazumbrog.52.a.tt
+		custom_tooltip = DA_Hunter_nadir_fate_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					province_id = 4217
+				}
+				province_event = {
+					id = DA_Tech_Alchemy_Material_Event.306		# Legendary Alchemy Material: Dragon Remains
+				}
+			}
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.53
+				days = 7
+			}
+		}
+	}
+}
+
+# Hidden roll: did the Instruments survive the fight? Fired a week after any fight with the Hunter,
+# won or lost. The roll is made here because it must not be made from a button.
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.53 				# The fate of the Nadir, hidden roll
+	title = "DA_Hold_Gor_Vazumbrog.54.t"
+	desc = "DA_Hold_Gor_Vazumbrog.54.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		4217 = {
+			has_province_flag = DA_Hunter_gone
+			NOT = { has_province_flag = DA_Nadir_open }
+			NOT = { has_province_flag = DA_Nadir_lost }
+		}
+	}
+
+	immediate = {
+		random_list = {
+			50 = {
+				4217 = {
+					set_province_flag = DA_Nadir_open
+				}
+				country_event = {
+					id = DA_Hold_Gor_Vazumbrog.54
+				}
+			}
+			50 = {
+				4217 = {
+					set_province_flag = DA_Nadir_lost
+					clr_province_flag = DA_Nadir_repair_in_progress
+					clr_province_flag = DA_Nadir_repairing.Dreaming_Bell
+					clr_province_flag = DA_Nadir_repairing.Stormcage
+					clr_province_flag = DA_Nadir_repairing.Wardens_Tether
+				}
+				country_event = {
+					id = DA_Hold_Gor_Vazumbrog.55
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.54.a"
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.54 				# The Nadir stands: the Instruments survived the fight
+	title = "DA_Hold_Gor_Vazumbrog.54.t"
+	desc = "DA_Hold_Gor_Vazumbrog.54.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.54.a"
+		custom_tooltip = DA_Nadir_open_tt
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.55 				# The Nadir is lost: the Instruments were destroyed in the fight
+	title = "DA_Hold_Gor_Vazumbrog.55.t"
+	desc = "DA_Hold_Gor_Vazumbrog.55.d"
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.55.a"
+		custom_tooltip = DA_Nadir_lost_tt
+	}
+}
+
+# Hidden roll: the third Instrument is whole while the Hunter still lies among them. It has its mind
+# back, the Tether is opened, and it leaves. Queued by the repair events (.611, .621, .631).
+# If a fight is under way it waits for the fight to end.
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.56 				# The Hunter has its mind back, hidden roll
+	title = "DA_Hold_Gor_Vazumbrog.57.t"
+	desc = "DA_Hold_Gor_Vazumbrog.57.d"
+	picture = DRAGON_FLY_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		DA_Hunter_in_the_Nadir = yes
+		4217 = {
+			check_variable = { which = DA_Nadir_repaired_n value = 3 }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				4217 = { has_province_flag = DA_LE_engaged }
+			}
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.56
+				days = 15
+			}
+		}
+		else = {
+			4217 = {
+				set_province_flag = DA_Hunter_gone
+				set_province_flag = DA_Hunter_sane
+				set_province_flag = DA_Nadir_open
+				# the Legendary Encounter window forgets it
+				clr_province_flag = DA_LE_hp_init
+				clr_province_flag = DA_LE_scouting
+				clr_province_flag = DA_LE_ruler_leads
+				clr_province_flag = DA_LE_seen
+				clr_province_flag = DA_LE_open
+			}
+			random_list = {
+				50 = {
+					country_event = {
+						id = DA_Hold_Gor_Vazumbrog.57
+					}
+				}
+				25 = {
+					country_event = {
+						id = DA_Hold_Gor_Vazumbrog.58
+					}
+				}
+				25 = {
+					country_event = {
+						id = DA_Hold_Gor_Vazumbrog.59
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.57.a"
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.57 				# The Hunter rewards us and leaves (50%)
+	title = "DA_Hold_Gor_Vazumbrog.57.t"
+	desc = "DA_Hold_Gor_Vazumbrog.57.d"
+	picture = DRAGON_FLY_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.57.a"
+		add_treasury = 1500
+		tooltip = { add_adk_effect = { add = 15 } }
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 15 } }
+		add_prestige = 20
+		custom_tooltip = DA_Nadir_open_tt
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.58 				# The Hunter leaves without a word (25%)
+	title = "DA_Hold_Gor_Vazumbrog.58.t"
+	desc = "DA_Hold_Gor_Vazumbrog.58.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.58.a"
+		custom_tooltip = DA_Nadir_open_tt
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.59 				# The Hunter attacks the hold and leaves (25%)
+	title = "DA_Hold_Gor_Vazumbrog.59.t"
+	desc = "DA_Hold_Gor_Vazumbrog.59.d"
+	picture = DRAGON_ATTACK_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.59.a"
+		goto = 4217
+		4217 = {
+			add_devastation = 15
+			add_province_modifier = {
+				name = DA_Hunter_rampage
+				duration = 1825
+			}
+		}
+		custom_tooltip = DA_Nadir_open_tt
+	}
+}
+
+
+#########################################################
+# The Wardens' Instruments: repair (.6x0), repaired (.6x1), use (.6x2)
+# Opened by the Reliquary buttons 22 to 24 in common/custom_gui/DA_Wonder_Titanium_Vault.txt,
+# which also check the price. .6x1 is a province event of 4217, queued for a year later.
+
+##### The Dreaming Bell
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.610 				# The Dreaming Bell, repair it
+	title = "DA_Hold_Gor_Vazumbrog.610.t"
+	desc = "DA_Hold_Gor_Vazumbrog.610.d"
+	picture = FORGE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.610.a"
+		trigger = {
+			DA_Nadir_instrument_can_be_repaired = yes
+			4217 = { NOT = { has_province_flag = DA_Nadir_repaired.Dreaming_Bell } }
+			DA_arcane_metal_total_required = {
+				amount = 15
+			}
+			treasury = 500
+		}
+		DA_arcane_metal_spend = {
+			amount = 15
+		}
+		add_treasury = -500
+		DA_Nadir_start_repair = {
+			instrument = Dreaming_Bell
+		}
+		hidden_effect = {
+			4217 = {
+				province_event = {
+					id = DA_Hold_Gor_Vazumbrog.611
+					days = 365
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.610.b"
+	}
+}
+
+province_event = {
+	id = DA_Hold_Gor_Vazumbrog.611 				# The Dreaming Bell is whole
+	title = "DA_Hold_Gor_Vazumbrog.611.t"
+	desc = "DA_Hold_Gor_Vazumbrog.611.d"
+	picture = FORGE_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_province_flag = DA_Nadir_repairing.Dreaming_Bell
+		NOT = { has_province_flag = DA_Nadir_lost }
+	}
+	immediate = {
+		hidden_effect = {
+			DA_Nadir_finish_repair = {
+				instrument = Dreaming_Bell
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.611.a"
+		DA_Nadir_report_repair = yes
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.612 				# The Dreaming Bell, ring it
+	title = "DA_Hold_Gor_Vazumbrog.612.t"
+	desc = "DA_Hold_Gor_Vazumbrog.612.d"
+	picture = FORGE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.612.a"
+		trigger = {
+			DA_Nadir_is_ours = yes
+			NOT = { has_country_modifier = DA_Dreaming_Bell_CD }
+		}
+		add_country_modifier = {
+			name = DA_Dreaming_Bell_Quiet
+			duration = 3650
+		}
+		custom_tooltip = DA_Dreaming_Bell_ring_tt
+		hidden_effect = {
+			add_country_modifier = {
+				name = DA_Dreaming_Bell_CD
+				duration = 7300
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.612.b"
+	}
+}
+
+##### The Stormcage
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.620 				# The Stormcage, repair it
+	title = "DA_Hold_Gor_Vazumbrog.620.t"
+	desc = "DA_Hold_Gor_Vazumbrog.620.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.620.a"
+		trigger = {
+			DA_Nadir_instrument_can_be_repaired = yes
+			4217 = { NOT = { has_province_flag = DA_Nadir_repaired.Stormcage } }
+			DA_enchanted_building_material_total_required = {
+				amount = 15
+			}
+			treasury = 500
+		}
+		DA_enchanted_building_material_spend = {
+			amount = 15
+		}
+		add_treasury = -500
+		DA_Nadir_start_repair = {
+			instrument = Stormcage
+		}
+		hidden_effect = {
+			4217 = {
+				province_event = {
+					id = DA_Hold_Gor_Vazumbrog.621
+					days = 365
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.620.b"
+	}
+}
+
+province_event = {
+	id = DA_Hold_Gor_Vazumbrog.621 				# The Stormcage is whole
+	title = "DA_Hold_Gor_Vazumbrog.621.t"
+	desc = "DA_Hold_Gor_Vazumbrog.621.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_province_flag = DA_Nadir_repairing.Stormcage
+		NOT = { has_province_flag = DA_Nadir_lost }
+	}
+	immediate = {
+		hidden_effect = {
+			DA_Nadir_finish_repair = {
+				instrument = Stormcage
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.621.a"
+		DA_Nadir_report_repair = yes
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.622 				# The Stormcage, put it to work (once)
+	title = "DA_Hold_Gor_Vazumbrog.622.t"
+	desc = "DA_Hold_Gor_Vazumbrog.622.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.622.a"		# the forges of Gor Vazumbrog
+		trigger = {
+			DA_Nadir_is_ours = yes
+			owns = 4217
+			4217 = { NOT = { has_province_flag = DA_Stormcage_seated } }
+		}
+		4217 = {
+			add_permanent_province_modifier = {
+				name = DA_Stormcage_Forge
+				duration = -1
+			}
+			hidden_effect = {
+				set_province_flag = DA_Stormcage_seated
+			}
+		}
+		custom_tooltip = DA_Stormcage_seat_tt
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.622.b"		# the artillery
+		trigger = {
+			DA_Nadir_is_ours = yes
+			4217 = { NOT = { has_province_flag = DA_Stormcage_seated } }
+		}
+		add_country_modifier = {
+			name = DA_Stormcage_Batteries
+			duration = -1
+		}
+		hidden_effect = {
+			4217 = {
+				set_province_flag = DA_Stormcage_seated
+			}
+		}
+		custom_tooltip = DA_Stormcage_seat_tt
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.622.c"
+	}
+}
+
+##### The Wardens' Tether
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.630 				# The Wardens' Tether, repair it
+	title = "DA_Hold_Gor_Vazumbrog.630.t"
+	desc = "DA_Hold_Gor_Vazumbrog.630.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.630.a"
+		trigger = {
+			DA_Nadir_instrument_can_be_repaired = yes
+			4217 = { NOT = { has_province_flag = DA_Nadir_repaired.Wardens_Tether } }
+			DA_alchemy_reagents_total_required = {
+				amount = 15
+			}
+			treasury = 500
+		}
+		DA_alchemy_reagents_spend = {
+			amount = 15
+		}
+		add_treasury = -500
+		DA_Nadir_start_repair = {
+			instrument = Wardens_Tether
+		}
+		hidden_effect = {
+			4217 = {
+				province_event = {
+					id = DA_Hold_Gor_Vazumbrog.631
+					days = 365
+				}
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.630.b"
+	}
+}
+
+province_event = {
+	id = DA_Hold_Gor_Vazumbrog.631 				# The Wardens' Tether is whole
+	title = "DA_Hold_Gor_Vazumbrog.631.t"
+	desc = "DA_Hold_Gor_Vazumbrog.631.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_province_flag = DA_Nadir_repairing.Wardens_Tether
+		NOT = { has_province_flag = DA_Nadir_lost }
+	}
+	immediate = {
+		hidden_effect = {
+			DA_Nadir_finish_repair = {
+				instrument = Wardens_Tether
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.631.a"
+		DA_Nadir_report_repair = yes
+	}
+}
+
+country_event = {
+	id = DA_Hold_Gor_Vazumbrog.632 				# The Wardens' Tether, cast it over the realm or lift it
+	title = "DA_Hold_Gor_Vazumbrog.632.t"
+	desc = "DA_Hold_Gor_Vazumbrog.632.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.632.a"		# cast it
+		trigger = {
+			DA_Nadir_is_ours = yes
+			NOT = { has_country_modifier = DA_Wardens_Tether_Held }
+			NOT = { has_country_modifier = DA_Wardens_Tether_CD }
+		}
+		add_country_modifier = {
+			name = DA_Wardens_Tether_Held
+			duration = -1
+		}
+		custom_tooltip = DA_CD_10_tt
+		hidden_effect = {
+			add_country_modifier = {
+				name = DA_Wardens_Tether_CD
+				duration = 3650
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.632.b"		# lift it
+		trigger = {
+			has_country_modifier = DA_Wardens_Tether_Held
+			NOT = { has_country_modifier = DA_Wardens_Tether_CD }
+		}
+		remove_country_modifier = DA_Wardens_Tether_Held
+		custom_tooltip = DA_CD_10_tt
+		hidden_effect = {
+			add_country_modifier = {
+				name = DA_Wardens_Tether_CD
+				duration = 3650
+			}
+		}
+	}
+	option = {
+		name = "DA_Hold_Gor_Vazumbrog.632.c"
+	}
+}
+
+# END DA_HUNTER_2026_11_10

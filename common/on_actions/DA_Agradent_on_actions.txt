@@ -1,0 +1,20 @@
+# Agradent (10 November 2026). Additive hooks: they merge with the other files' on-actions.
+
+on_yearly_pulse = {
+	if = {
+		limit = {
+			has_country_flag = DA_Agradent_travel_unlocked
+			DA_AG_any_outpost = yes
+		}
+		DA_AG_yearly_yield = yes
+	}
+}
+
+on_five_year_pulse = {
+	random_events = { # the canal folk; each event asks for travel to Agradent and an outpost
+		100 = 0
+		100 = DA_Agradent_event.50
+		100 = DA_Agradent_event.51
+		100 = DA_Agradent_event.52
+	}
+}

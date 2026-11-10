@@ -1,0 +1,145 @@
+# Ancient Research Facility of Amldihr (4119): the Abyssal Invasion and Halanna's recovery.
+# Country scope. Written on 10 November 2026. No else/else_if here: they misbehave inside scripted effects.
+
+# One wave of the Abyssal Invasion. Only called from events (random_owned_province must roll).
+#   wave 1: Amldihr 3, two deep holds 2      wave 3: Amldihr 5, three deep holds 3
+#   wave 2: Amldihr 4, three deep holds 2    wave 4 and later: Amldihr 6, four deep holds 4
+DA_abyss_spawn_wave = {
+	hidden_effect = {
+		change_variable = { which = DA_abyss_wave value = 1 }
+		clr_country_flag = DA_abyss_wave_clock
+		set_country_flag = DA_abyss_wave_clock
+		if = {
+			limit = { check_variable = { which = DA_abyss_wave value = 4 } }
+			DA_abyss_surface_in_amldihr = { size = 6 }
+			DA_abyss_surface_in_a_hold = { size = 4 }
+			DA_abyss_surface_in_a_hold = { size = 4 }
+			DA_abyss_surface_in_a_hold = { size = 4 }
+			DA_abyss_surface_in_a_hold = { size = 4 }
+		}
+		if = {
+			limit = {
+				check_variable = { which = DA_abyss_wave value = 3 }
+				NOT = { check_variable = { which = DA_abyss_wave value = 4 } }
+			}
+			DA_abyss_surface_in_amldihr = { size = 5 }
+			DA_abyss_surface_in_a_hold = { size = 3 }
+			DA_abyss_surface_in_a_hold = { size = 3 }
+			DA_abyss_surface_in_a_hold = { size = 3 }
+		}
+		if = {
+			limit = {
+				check_variable = { which = DA_abyss_wave value = 2 }
+				NOT = { check_variable = { which = DA_abyss_wave value = 3 } }
+			}
+			DA_abyss_surface_in_amldihr = { size = 4 }
+			DA_abyss_surface_in_a_hold = { size = 2 }
+			DA_abyss_surface_in_a_hold = { size = 2 }
+			DA_abyss_surface_in_a_hold = { size = 2 }
+		}
+		if = {
+			limit = { NOT = { check_variable = { which = DA_abyss_wave value = 2 } } }
+			DA_abyss_surface_in_amldihr = { size = 3 }
+			DA_abyss_surface_in_a_hold = { size = 2 }
+			DA_abyss_surface_in_a_hold = { size = 2 }
+		}
+		every_owned_province = {
+			limit = { has_province_flag = DA_abyss_struck }
+			clr_province_flag = DA_abyss_struck
+		}
+	}
+}
+
+DA_abyss_surface_in_amldihr = {
+	if = {
+		limit = { owns = 4119 }
+		4119 = {
+			spawn_rebels = {
+				type = Primordial_goblins_rebels
+				size = $size$
+			}
+		}
+	}
+}
+
+DA_abyss_surface_in_a_hold = {
+	random_owned_province = {
+		limit = { DA_abyss_can_surface_here = yes }
+		set_province_flag = DA_abyss_struck
+		spawn_rebels = {
+			type = Primordial_goblins_rebels
+			size = $size$
+		}
+	}
+}
+
+# Halanna's recovery (DA_Halanna_favor, 0 to 250). amount: 10, 15, 20, 25, 30 or 35 (one tooltip key each).
+DA_Halanna_add_favor = {
+	custom_tooltip = DA_Halanna_favor_gain_$amount$_tt
+	hidden_effect = {
+		change_variable = { which = DA_Halanna_favor value = $amount$ }
+		DA_Halanna_check_recovery = yes
+	}
+}
+
+# Caps the recovery at 250 and fires each milestone event once
+DA_Halanna_check_recovery = {
+	if = {
+		limit = { check_variable = { which = DA_Halanna_favor value = 250 } }
+		set_variable = { which = DA_Halanna_favor value = 250 }
+	}
+	if = {
+		limit = {
+			check_variable = { which = DA_Halanna_favor value = 100 }
+			NOT = { has_country_flag = DA_Halanna_milestone_100 }
+		}
+		set_country_flag = DA_Halanna_milestone_100
+		country_event = { id = DA_Halanna_heart.70 days = 1 }
+	}
+	if = {
+		limit = {
+			check_variable = { which = DA_Halanna_favor value = 150 }
+			NOT = { has_country_flag = DA_Halanna_milestone_150 }
+		}
+		set_country_flag = DA_Halanna_milestone_150
+		country_event = { id = DA_Halanna_heart.71 days = 3 }
+	}
+	if = {
+		limit = {
+			check_variable = { which = DA_Halanna_favor value = 200 }
+			NOT = { has_country_flag = DA_Halanna_milestone_200 }
+		}
+		set_country_flag = DA_Halanna_milestone_200
+		country_event = { id = DA_Halanna_heart.72 days = 5 }
+	}
+	if = {
+		limit = {
+			check_variable = { which = DA_Halanna_favor value = 250 }
+			NOT = { has_country_flag = DA_Halanna_milestone_250 }
+		}
+		set_country_flag = DA_Halanna_milestone_250
+		country_event = { id = DA_Halanna_heart.73 days = 7 }
+	}
+}
+
+# She has been tended: the Offering button rests for a year
+DA_Halanna_tended = {
+	custom_tooltip = DA_Halanna_tended_tt
+	hidden_effect = {
+		add_country_modifier = {
+			name = DA_Halanna_tended
+			duration = 365
+			hidden = yes
+		}
+	}
+}
+
+# Her next request comes in 600 days (the hidden event .69 picks it)
+DA_Halanna_next_request = {
+	hidden_effect = {
+		country_event = {
+			id = DA_Halanna_heart.69
+			days = 600
+		}
+	}
+}

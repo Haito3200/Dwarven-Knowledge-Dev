@@ -1,0 +1,407 @@
+# The Setzunkhupa of Dur-Vazhatun (4020) and Agradent. Written on 10 November 2026.
+# Country scope unless the name says otherwise.
+#
+# Province flags on 4020:
+#   DA_dur_vaz_blueprints_found     the blueprints are found: the wonder can be raised (DA_ADK_explore.105)
+#   DA_Setzunkhupa_guest_found      the Ambassador of the Ninth Canal is found in the Low Dome (DA_ADK_explore.107)
+#   DA_Setzunkhupa_guest_gone       he has gone home
+# Country flags of the observatory and the crossing (DA_SZ_...):
+#   observing, observing_<target>, observed_<target>      the observation programme (moon, wanderers, agradent, dark)
+#   dark_charted                    the watch on the Dark Between was kept: pods are safer
+#   alliance, refused, briefed      his offer accepted / put off / the three works explained (DA_Dur_Vazhatun_event.42)
+#   <work>_started, <work>_done, work_in_progress         anchor, thrower, aim
+#   heavy_anchor, proof_shot        precautions bought when a work was finished
+#   pod_in_flight, pod_lost_1, pod_lost_2, anchor_lost    the first pod
+#   homecoming                      he went home through our gate (DA_Dur_Vazhatun_event.67)
+# Agradent (DA_AG_...), all on the country:
+#   DA_Agradent_travel_unlocked     the only thing the Agradent window asks for; set it with DA_AG_unlock_travel
+#   anchored_<site>, pod_<site>, pod_in_flight, outpost_<site>_<1-3>, sel_<site>
+#   variable DA_AG_goodwill (0-100): 70 and more is welcome, less than 30 is resented
+
+DA_SZ_observatory_at_tier_1 = {
+	owns = 4020
+	4020 = { has_great_project = { type = The_Sky_Hold tier = 1 } }
+}
+
+DA_SZ_observatory_at_tier_2 = {
+	owns = 4020
+	4020 = { has_great_project = { type = The_Sky_Hold tier = 2 } }
+}
+
+DA_SZ_observatory_at_tier_3 = {
+	owns = 4020
+	4020 = { has_great_project = { type = The_Sky_Hold tier = 3 } }
+}
+
+DA_SZ_guest_present = {
+	4020 = {
+		has_province_flag = DA_Setzunkhupa_guest_found
+		NOT = { has_province_flag = DA_Setzunkhupa_guest_gone }
+	}
+}
+
+# He is in a hold of ours: we can speak to him and work with him.
+DA_SZ_guest_is_ours = {
+	owns = 4020
+	DA_SZ_guest_present = yes
+}
+
+DA_SZ_all_works_done = {
+	has_country_flag = DA_SZ_anchor_done
+	has_country_flag = DA_SZ_thrower_done
+	has_country_flag = DA_SZ_aim_done
+}
+
+# The first pod: how many precautions have been taken (see FIRST_RISK in gen.py).
+DA_SZ_first_pod_precautions_1 = {
+	calc_true_if = {
+		amount = 1
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_SZ_heavy_anchor
+		has_country_flag = DA_SZ_proof_shot
+		has_country_flag = DA_SZ_pod_lost_1
+	}
+}
+
+DA_SZ_first_pod_precautions_2 = {
+	calc_true_if = {
+		amount = 2
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_SZ_heavy_anchor
+		has_country_flag = DA_SZ_proof_shot
+		has_country_flag = DA_SZ_pod_lost_1
+	}
+}
+
+DA_SZ_first_pod_precautions_3 = {
+	calc_true_if = {
+		amount = 3
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_SZ_heavy_anchor
+		has_country_flag = DA_SZ_proof_shot
+		has_country_flag = DA_SZ_pod_lost_1
+	}
+}
+
+DA_SZ_first_pod_precautions_4 = {
+	calc_true_if = {
+		amount = 4
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_SZ_heavy_anchor
+		has_country_flag = DA_SZ_proof_shot
+		has_country_flag = DA_SZ_pod_lost_1
+	}
+}
+
+DA_SZ_first_pod_precautions_5 = {
+	calc_true_if = {
+		amount = 5
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_SZ_heavy_anchor
+		has_country_flag = DA_SZ_proof_shot
+		has_country_flag = DA_SZ_pod_lost_1
+	}
+}
+
+
+# ---------------- Agradent
+
+DA_AG_welcome = {
+	check_variable = { which = DA_AG_goodwill value = 70 }
+}
+
+DA_AG_resented = {
+	NOT = { check_variable = { which = DA_AG_goodwill value = 30 } }
+}
+
+DA_AG_anchors_1 = {
+	calc_true_if = {
+		amount = 1
+		has_country_flag = DA_AG_anchored_canal
+		has_country_flag = DA_AG_anchored_sea
+		has_country_flag = DA_AG_anchored_uplands
+		has_country_flag = DA_AG_anchored_locks
+		has_country_flag = DA_AG_anchored_ice
+		has_country_flag = DA_AG_anchored_ringfall
+		has_country_flag = DA_AG_anchored_watch
+	}
+}
+
+DA_AG_anchors_2 = {
+	calc_true_if = {
+		amount = 2
+		has_country_flag = DA_AG_anchored_canal
+		has_country_flag = DA_AG_anchored_sea
+		has_country_flag = DA_AG_anchored_uplands
+		has_country_flag = DA_AG_anchored_locks
+		has_country_flag = DA_AG_anchored_ice
+		has_country_flag = DA_AG_anchored_ringfall
+		has_country_flag = DA_AG_anchored_watch
+	}
+}
+
+DA_AG_anchors_3 = {
+	calc_true_if = {
+		amount = 3
+		has_country_flag = DA_AG_anchored_canal
+		has_country_flag = DA_AG_anchored_sea
+		has_country_flag = DA_AG_anchored_uplands
+		has_country_flag = DA_AG_anchored_locks
+		has_country_flag = DA_AG_anchored_ice
+		has_country_flag = DA_AG_anchored_ringfall
+		has_country_flag = DA_AG_anchored_watch
+	}
+}
+
+DA_AG_anchors_4 = {
+	calc_true_if = {
+		amount = 4
+		has_country_flag = DA_AG_anchored_canal
+		has_country_flag = DA_AG_anchored_sea
+		has_country_flag = DA_AG_anchored_uplands
+		has_country_flag = DA_AG_anchored_locks
+		has_country_flag = DA_AG_anchored_ice
+		has_country_flag = DA_AG_anchored_ringfall
+		has_country_flag = DA_AG_anchored_watch
+	}
+}
+
+DA_AG_anchors_5 = {
+	calc_true_if = {
+		amount = 5
+		has_country_flag = DA_AG_anchored_canal
+		has_country_flag = DA_AG_anchored_sea
+		has_country_flag = DA_AG_anchored_uplands
+		has_country_flag = DA_AG_anchored_locks
+		has_country_flag = DA_AG_anchored_ice
+		has_country_flag = DA_AG_anchored_ringfall
+		has_country_flag = DA_AG_anchored_watch
+	}
+}
+
+DA_AG_anchors_6 = {
+	calc_true_if = {
+		amount = 6
+		has_country_flag = DA_AG_anchored_canal
+		has_country_flag = DA_AG_anchored_sea
+		has_country_flag = DA_AG_anchored_uplands
+		has_country_flag = DA_AG_anchored_locks
+		has_country_flag = DA_AG_anchored_ice
+		has_country_flag = DA_AG_anchored_ringfall
+		has_country_flag = DA_AG_anchored_watch
+	}
+}
+
+DA_AG_anchors_7 = {
+	calc_true_if = {
+		amount = 7
+		has_country_flag = DA_AG_anchored_canal
+		has_country_flag = DA_AG_anchored_sea
+		has_country_flag = DA_AG_anchored_uplands
+		has_country_flag = DA_AG_anchored_locks
+		has_country_flag = DA_AG_anchored_ice
+		has_country_flag = DA_AG_anchored_ringfall
+		has_country_flag = DA_AG_anchored_watch
+	}
+}
+
+# A site we know of: the Ninth Canal from the start, the second ring once the Ninth Canal is anchored,
+# the third once 3 anchors hold.
+DA_AG_known_canal = {
+	has_country_flag = DA_Agradent_travel_unlocked
+	always = yes
+}
+
+DA_AG_known_sea = {
+	has_country_flag = DA_Agradent_travel_unlocked
+	has_country_flag = DA_AG_anchored_canal
+}
+
+DA_AG_known_uplands = {
+	has_country_flag = DA_Agradent_travel_unlocked
+	has_country_flag = DA_AG_anchored_canal
+}
+
+DA_AG_known_locks = {
+	has_country_flag = DA_Agradent_travel_unlocked
+	has_country_flag = DA_AG_anchored_canal
+}
+
+DA_AG_known_ice = {
+	has_country_flag = DA_Agradent_travel_unlocked
+	DA_AG_anchors_3 = yes
+}
+
+DA_AG_known_ringfall = {
+	has_country_flag = DA_Agradent_travel_unlocked
+	DA_AG_anchors_3 = yes
+}
+
+DA_AG_known_watch = {
+	has_country_flag = DA_Agradent_travel_unlocked
+	DA_AG_anchors_3 = yes
+}
+
+DA_AG_any_selected = {
+	OR = {
+		has_country_flag = DA_AG_sel_canal
+		has_country_flag = DA_AG_sel_sea
+		has_country_flag = DA_AG_sel_uplands
+		has_country_flag = DA_AG_sel_locks
+		has_country_flag = DA_AG_sel_ice
+		has_country_flag = DA_AG_sel_ringfall
+		has_country_flag = DA_AG_sel_watch
+	}
+}
+
+DA_AG_selected_anchored = {
+	OR = {
+		AND = { has_country_flag = DA_AG_sel_canal has_country_flag = DA_AG_anchored_canal }
+		AND = { has_country_flag = DA_AG_sel_sea has_country_flag = DA_AG_anchored_sea }
+		AND = { has_country_flag = DA_AG_sel_uplands has_country_flag = DA_AG_anchored_uplands }
+		AND = { has_country_flag = DA_AG_sel_locks has_country_flag = DA_AG_anchored_locks }
+		AND = { has_country_flag = DA_AG_sel_ice has_country_flag = DA_AG_anchored_ice }
+		AND = { has_country_flag = DA_AG_sel_ringfall has_country_flag = DA_AG_anchored_ringfall }
+		AND = { has_country_flag = DA_AG_sel_watch has_country_flag = DA_AG_anchored_watch }
+	}
+}
+
+DA_AG_selected_pod_flying = {
+	OR = {
+		AND = { has_country_flag = DA_AG_sel_canal has_country_flag = DA_AG_pod_canal }
+		AND = { has_country_flag = DA_AG_sel_sea has_country_flag = DA_AG_pod_sea }
+		AND = { has_country_flag = DA_AG_sel_uplands has_country_flag = DA_AG_pod_uplands }
+		AND = { has_country_flag = DA_AG_sel_locks has_country_flag = DA_AG_pod_locks }
+		AND = { has_country_flag = DA_AG_sel_ice has_country_flag = DA_AG_pod_ice }
+		AND = { has_country_flag = DA_AG_sel_ringfall has_country_flag = DA_AG_pod_ringfall }
+		AND = { has_country_flag = DA_AG_sel_watch has_country_flag = DA_AG_pod_watch }
+	}
+}
+
+DA_AG_selected_outpost_1 = {
+	OR = {
+		AND = { has_country_flag = DA_AG_sel_canal has_country_flag = DA_AG_outpost_canal_1 }
+		AND = { has_country_flag = DA_AG_sel_sea has_country_flag = DA_AG_outpost_sea_1 }
+		AND = { has_country_flag = DA_AG_sel_uplands has_country_flag = DA_AG_outpost_uplands_1 }
+		AND = { has_country_flag = DA_AG_sel_locks has_country_flag = DA_AG_outpost_locks_1 }
+		AND = { has_country_flag = DA_AG_sel_ice has_country_flag = DA_AG_outpost_ice_1 }
+		AND = { has_country_flag = DA_AG_sel_ringfall has_country_flag = DA_AG_outpost_ringfall_1 }
+		AND = { has_country_flag = DA_AG_sel_watch has_country_flag = DA_AG_outpost_watch_1 }
+	}
+}
+
+DA_AG_selected_outpost_2 = {
+	OR = {
+		AND = { has_country_flag = DA_AG_sel_canal has_country_flag = DA_AG_outpost_canal_2 }
+		AND = { has_country_flag = DA_AG_sel_sea has_country_flag = DA_AG_outpost_sea_2 }
+		AND = { has_country_flag = DA_AG_sel_uplands has_country_flag = DA_AG_outpost_uplands_2 }
+		AND = { has_country_flag = DA_AG_sel_locks has_country_flag = DA_AG_outpost_locks_2 }
+		AND = { has_country_flag = DA_AG_sel_ice has_country_flag = DA_AG_outpost_ice_2 }
+		AND = { has_country_flag = DA_AG_sel_ringfall has_country_flag = DA_AG_outpost_ringfall_2 }
+		AND = { has_country_flag = DA_AG_sel_watch has_country_flag = DA_AG_outpost_watch_2 }
+	}
+}
+
+DA_AG_selected_outpost_3 = {
+	OR = {
+		AND = { has_country_flag = DA_AG_sel_canal has_country_flag = DA_AG_outpost_canal_3 }
+		AND = { has_country_flag = DA_AG_sel_sea has_country_flag = DA_AG_outpost_sea_3 }
+		AND = { has_country_flag = DA_AG_sel_uplands has_country_flag = DA_AG_outpost_uplands_3 }
+		AND = { has_country_flag = DA_AG_sel_locks has_country_flag = DA_AG_outpost_locks_3 }
+		AND = { has_country_flag = DA_AG_sel_ice has_country_flag = DA_AG_outpost_ice_3 }
+		AND = { has_country_flag = DA_AG_sel_ringfall has_country_flag = DA_AG_outpost_ringfall_3 }
+		AND = { has_country_flag = DA_AG_sel_watch has_country_flag = DA_AG_outpost_watch_3 }
+	}
+}
+
+DA_AG_any_outpost = {
+	OR = {
+		has_country_flag = DA_AG_outpost_canal_1
+		has_country_flag = DA_AG_outpost_sea_1
+		has_country_flag = DA_AG_outpost_uplands_1
+		has_country_flag = DA_AG_outpost_locks_1
+		has_country_flag = DA_AG_outpost_ice_1
+		has_country_flag = DA_AG_outpost_ringfall_1
+		has_country_flag = DA_AG_outpost_watch_1
+	}
+}
+
+DA_AG_outposts_4 = {
+	calc_true_if = {
+		amount = 4
+		has_country_flag = DA_AG_outpost_canal_1
+		has_country_flag = DA_AG_outpost_sea_1
+		has_country_flag = DA_AG_outpost_uplands_1
+		has_country_flag = DA_AG_outpost_locks_1
+		has_country_flag = DA_AG_outpost_ice_1
+		has_country_flag = DA_AG_outpost_ringfall_1
+		has_country_flag = DA_AG_outpost_watch_1
+	}
+}
+
+# A pod thrown from Halann: how many precautions have been taken (see POD_RISK in gen.py).
+DA_AG_pod_precautions_1 = {
+	calc_true_if = {
+		amount = 1
+		DA_SZ_observatory_at_tier_3 = yes
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_AG_outpost_watch_1
+		DA_AG_anchors_3 = yes
+	}
+}
+
+DA_AG_pod_precautions_2 = {
+	calc_true_if = {
+		amount = 2
+		DA_SZ_observatory_at_tier_3 = yes
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_AG_outpost_watch_1
+		DA_AG_anchors_3 = yes
+	}
+}
+
+DA_AG_pod_precautions_3 = {
+	calc_true_if = {
+		amount = 3
+		DA_SZ_observatory_at_tier_3 = yes
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_AG_outpost_watch_1
+		DA_AG_anchors_3 = yes
+	}
+}
+
+DA_AG_pod_precautions_4 = {
+	calc_true_if = {
+		amount = 4
+		DA_SZ_observatory_at_tier_3 = yes
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_AG_outpost_watch_1
+		DA_AG_anchors_3 = yes
+	}
+}
+
+DA_AG_pod_precautions_5 = {
+	calc_true_if = {
+		amount = 5
+		DA_SZ_observatory_at_tier_3 = yes
+		has_country_flag = DA_SZ_observed_agradent
+		has_country_flag = DA_SZ_dark_charted
+		has_country_flag = DA_AG_outpost_watch_1
+		DA_AG_anchors_3 = yes
+	}
+}
+
+# The windows
+DA_has_wonder_agradent_open = {
+	has_country_flag = DA_show_wonder_Agradent
+}
+

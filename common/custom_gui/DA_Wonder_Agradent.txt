@@ -1,0 +1,638 @@
+# Agradent: landing sites, pods and outposts. Written on 10 November 2026.
+# The .gui side is the window "DA_Agradent_Window" in interface/topbar.gui; it opens in the Dwarovar Wonders screen
+# (selector button 23, or the Agradent button of the Setzunkhupa window).
+# ROOT and FROM are the country that looks at the window. It asks only for DA_Agradent_travel_unlocked.
+#
+# Click a site on the map to select it. Launch a Pod throws an anchor at the selected site (the dice are rolled
+# in DA_Agradent_event.11 to .17, 540 days later). On an anchored site the second button raises and enlarges the outpost.
+# Outposts send their yield once a year (DA_AG_yearly_yield). Events are in events/DA_Agradent_events.txt.
+
+custom_window = {
+	name = DA_Agradent_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_Agradent
+	}
+}
+
+custom_button = {
+	name = DA_close_button_Agradent
+	tooltip = DA_Wonder_close_button_tt
+	potential = {
+		always = yes
+	}
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_show_wonder_Agradent
+	}
+}
+
+custom_icon = {
+	name = DA_Agradent_map
+	potential = {
+		always = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Agradent_site_name
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Agradent_site_name_tt
+}
+
+custom_text_box = {
+	name = DA_Agradent_goodwill_value
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Agradent_goodwill_value_tt
+}
+
+custom_text_box = {
+	name = DA_Agradent_anchors_value
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Agradent_anchors_value_tt
+}
+
+custom_text_box = {
+	name = DA_Agradent_pod_status
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Agradent_pod_status_tt
+}
+
+custom_text_box = {
+	name = DA_Agradent_risk_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Agradent_risk_text_tt
+}
+
+custom_text_box = {
+	name = DA_Agradent_info_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Agradent_info_text_tt
+}
+
+#######################################################
+# The sites on the map
+#######################################################
+
+custom_button = { # The Ninth Canal
+	name = DA_Agradent_site_canal
+	tooltip = DA_AG_site_canal_tt
+	potential = {
+		DA_AG_known_canal = yes
+	}
+	frame = { number = 6 trigger = { has_country_flag = DA_AG_outpost_canal_3 } }
+	frame = { number = 5 trigger = { has_country_flag = DA_AG_outpost_canal_2 } }
+	frame = { number = 4 trigger = { has_country_flag = DA_AG_outpost_canal_1 } }
+	frame = { number = 3 trigger = { has_country_flag = DA_AG_anchored_canal } }
+	frame = { number = 2 trigger = { has_country_flag = DA_AG_pod_canal } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			DA_AG_clear_selection = yes
+			set_country_flag = DA_AG_sel_canal
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Agradent_sel_canal
+	potential = {
+		DA_AG_known_canal = yes
+		has_country_flag = DA_AG_sel_canal
+	}
+}
+
+custom_button = { # The Receding Sea
+	name = DA_Agradent_site_sea
+	tooltip = DA_AG_site_sea_tt
+	potential = {
+		DA_AG_known_sea = yes
+	}
+	frame = { number = 6 trigger = { has_country_flag = DA_AG_outpost_sea_3 } }
+	frame = { number = 5 trigger = { has_country_flag = DA_AG_outpost_sea_2 } }
+	frame = { number = 4 trigger = { has_country_flag = DA_AG_outpost_sea_1 } }
+	frame = { number = 3 trigger = { has_country_flag = DA_AG_anchored_sea } }
+	frame = { number = 2 trigger = { has_country_flag = DA_AG_pod_sea } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			DA_AG_clear_selection = yes
+			set_country_flag = DA_AG_sel_sea
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Agradent_sel_sea
+	potential = {
+		DA_AG_known_sea = yes
+		has_country_flag = DA_AG_sel_sea
+	}
+}
+
+custom_button = { # The Rust Uplands
+	name = DA_Agradent_site_uplands
+	tooltip = DA_AG_site_uplands_tt
+	potential = {
+		DA_AG_known_uplands = yes
+	}
+	frame = { number = 6 trigger = { has_country_flag = DA_AG_outpost_uplands_3 } }
+	frame = { number = 5 trigger = { has_country_flag = DA_AG_outpost_uplands_2 } }
+	frame = { number = 4 trigger = { has_country_flag = DA_AG_outpost_uplands_1 } }
+	frame = { number = 3 trigger = { has_country_flag = DA_AG_anchored_uplands } }
+	frame = { number = 2 trigger = { has_country_flag = DA_AG_pod_uplands } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			DA_AG_clear_selection = yes
+			set_country_flag = DA_AG_sel_uplands
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Agradent_sel_uplands
+	potential = {
+		DA_AG_known_uplands = yes
+		has_country_flag = DA_AG_sel_uplands
+	}
+}
+
+custom_button = { # The Dry Locks
+	name = DA_Agradent_site_locks
+	tooltip = DA_AG_site_locks_tt
+	potential = {
+		DA_AG_known_locks = yes
+	}
+	frame = { number = 6 trigger = { has_country_flag = DA_AG_outpost_locks_3 } }
+	frame = { number = 5 trigger = { has_country_flag = DA_AG_outpost_locks_2 } }
+	frame = { number = 4 trigger = { has_country_flag = DA_AG_outpost_locks_1 } }
+	frame = { number = 3 trigger = { has_country_flag = DA_AG_anchored_locks } }
+	frame = { number = 2 trigger = { has_country_flag = DA_AG_pod_locks } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			DA_AG_clear_selection = yes
+			set_country_flag = DA_AG_sel_locks
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Agradent_sel_locks
+	potential = {
+		DA_AG_known_locks = yes
+		has_country_flag = DA_AG_sel_locks
+	}
+}
+
+custom_button = { # The Southern Ice
+	name = DA_Agradent_site_ice
+	tooltip = DA_AG_site_ice_tt
+	potential = {
+		DA_AG_known_ice = yes
+	}
+	frame = { number = 6 trigger = { has_country_flag = DA_AG_outpost_ice_3 } }
+	frame = { number = 5 trigger = { has_country_flag = DA_AG_outpost_ice_2 } }
+	frame = { number = 4 trigger = { has_country_flag = DA_AG_outpost_ice_1 } }
+	frame = { number = 3 trigger = { has_country_flag = DA_AG_anchored_ice } }
+	frame = { number = 2 trigger = { has_country_flag = DA_AG_pod_ice } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			DA_AG_clear_selection = yes
+			set_country_flag = DA_AG_sel_ice
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Agradent_sel_ice
+	potential = {
+		DA_AG_known_ice = yes
+		has_country_flag = DA_AG_sel_ice
+	}
+}
+
+custom_button = { # The Ringfall Plain
+	name = DA_Agradent_site_ringfall
+	tooltip = DA_AG_site_ringfall_tt
+	potential = {
+		DA_AG_known_ringfall = yes
+	}
+	frame = { number = 6 trigger = { has_country_flag = DA_AG_outpost_ringfall_3 } }
+	frame = { number = 5 trigger = { has_country_flag = DA_AG_outpost_ringfall_2 } }
+	frame = { number = 4 trigger = { has_country_flag = DA_AG_outpost_ringfall_1 } }
+	frame = { number = 3 trigger = { has_country_flag = DA_AG_anchored_ringfall } }
+	frame = { number = 2 trigger = { has_country_flag = DA_AG_pod_ringfall } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			DA_AG_clear_selection = yes
+			set_country_flag = DA_AG_sel_ringfall
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Agradent_sel_ringfall
+	potential = {
+		DA_AG_known_ringfall = yes
+		has_country_flag = DA_AG_sel_ringfall
+	}
+}
+
+custom_button = { # The Far Watch
+	name = DA_Agradent_site_watch
+	tooltip = DA_AG_site_watch_tt
+	potential = {
+		DA_AG_known_watch = yes
+	}
+	frame = { number = 6 trigger = { has_country_flag = DA_AG_outpost_watch_3 } }
+	frame = { number = 5 trigger = { has_country_flag = DA_AG_outpost_watch_2 } }
+	frame = { number = 4 trigger = { has_country_flag = DA_AG_outpost_watch_1 } }
+	frame = { number = 3 trigger = { has_country_flag = DA_AG_anchored_watch } }
+	frame = { number = 2 trigger = { has_country_flag = DA_AG_pod_watch } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = {
+			DA_AG_clear_selection = yes
+			set_country_flag = DA_AG_sel_watch
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Agradent_sel_watch
+	potential = {
+		DA_AG_known_watch = yes
+		has_country_flag = DA_AG_sel_watch
+	}
+}
+
+#######################################################
+# Pods, outposts, aid
+#######################################################
+
+custom_button = { # throws an anchor at the selected site
+	name = DA_Agradent_button_pod
+	tooltip = DA_AG_button_pod_tt
+	potential = {
+		always = yes
+	}
+	frame = { number = 2 trigger = { DA_AG_selected_pod_flying = yes } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_AG_any_selected = yes } DA_AG_selected_anchored = yes has_country_flag = DA_AG_pod_in_flight } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AG_site_selected_tt
+			DA_AG_any_selected = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AG_no_anchor_there_tt
+			NOT = { DA_AG_selected_anchored = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AG_no_pod_flying_tt
+			NOT = { has_country_flag = DA_AG_pod_in_flight }
+		}
+		DA_alchemy_reagents_total_required = {
+			amount = 10
+		}
+		DA_enchanted_building_material_total_required = {
+			amount = 15
+		}
+		DA_arcane_metal_total_required = {
+			amount = 15
+		}
+		treasury = 1500
+	}
+	effect = {
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = {
+			amount = 10
+		}
+		DA_enchanted_building_material_spend = {
+			amount = 15
+		}
+		DA_arcane_metal_spend = {
+			amount = 15
+		}
+		custom_tooltip = DA_AG_pod_launched_tt
+		hidden_effect = {
+			set_country_flag = DA_AG_pod_in_flight
+			if = {
+				limit = { has_country_flag = DA_AG_sel_canal }
+				set_country_flag = DA_AG_pod_canal
+				country_event = { id = DA_Agradent_event.11 days = 540 }
+			}
+			else_if = {
+				limit = { has_country_flag = DA_AG_sel_sea }
+				set_country_flag = DA_AG_pod_sea
+				country_event = { id = DA_Agradent_event.12 days = 540 }
+			}
+			else_if = {
+				limit = { has_country_flag = DA_AG_sel_uplands }
+				set_country_flag = DA_AG_pod_uplands
+				country_event = { id = DA_Agradent_event.13 days = 540 }
+			}
+			else_if = {
+				limit = { has_country_flag = DA_AG_sel_locks }
+				set_country_flag = DA_AG_pod_locks
+				country_event = { id = DA_Agradent_event.14 days = 540 }
+			}
+			else_if = {
+				limit = { has_country_flag = DA_AG_sel_ice }
+				set_country_flag = DA_AG_pod_ice
+				country_event = { id = DA_Agradent_event.15 days = 540 }
+			}
+			else_if = {
+				limit = { has_country_flag = DA_AG_sel_ringfall }
+				set_country_flag = DA_AG_pod_ringfall
+				country_event = { id = DA_Agradent_event.16 days = 540 }
+			}
+			else_if = {
+				limit = { has_country_flag = DA_AG_sel_watch }
+				set_country_flag = DA_AG_pod_watch
+				country_event = { id = DA_Agradent_event.17 days = 540 }
+			}
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Agradent_button_pod_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_AG_button_pod_tt
+}
+
+custom_button = { # raises or enlarges the outpost of the selected site
+	name = DA_Agradent_button_outpost
+	tooltip = DA_AG_button_outpost_tt
+	potential = {
+		always = yes
+	}
+	frame = { number = 3 trigger = { OR = { NOT = { DA_AG_selected_anchored = yes } DA_AG_selected_outpost_3 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AG_site_selected_tt
+			DA_AG_any_selected = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AG_anchor_there_tt
+			DA_AG_selected_anchored = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AG_outpost_not_complete_tt
+			NOT = { DA_AG_selected_outpost_3 = yes }
+		}
+		if = {
+			limit = { NOT = { DA_AG_selected_outpost_1 = yes } }
+			DA_enchanted_building_material_total_required = {
+				amount = 10
+			}
+			treasury = 1000
+		}
+		if = {
+			limit = { NOT = { DA_AG_selected_outpost_2 = yes } DA_AG_selected_outpost_1 = yes }
+			DA_enchanted_building_material_total_required = {
+				amount = 20
+			}
+			DA_arcane_metal_total_required = {
+				amount = 10
+			}
+			treasury = 2000
+		}
+		if = {
+			limit = { NOT = { DA_AG_selected_outpost_3 = yes } DA_AG_selected_outpost_2 = yes }
+			DA_enchanted_building_material_total_required = {
+				amount = 30
+			}
+			DA_arcane_metal_total_required = {
+				amount = 20
+			}
+			treasury = 4000
+		}
+	}
+	effect = {
+		if = {
+			limit = { NOT = { DA_AG_selected_outpost_3 = yes } DA_AG_selected_outpost_2 = yes }
+			add_treasury = -4000
+			DA_enchanted_building_material_spend = {
+				amount = 30
+			}
+			DA_arcane_metal_spend = {
+				amount = 20
+			}
+			custom_tooltip = DA_AG_outpost_built_3_tt
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = DA_AG_sel_canal }
+					set_country_flag = DA_AG_outpost_canal_3
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_sea }
+					set_country_flag = DA_AG_outpost_sea_3
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_uplands }
+					set_country_flag = DA_AG_outpost_uplands_3
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_locks }
+					set_country_flag = DA_AG_outpost_locks_3
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_ice }
+					set_country_flag = DA_AG_outpost_ice_3
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_ringfall }
+					set_country_flag = DA_AG_outpost_ringfall_3
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_watch }
+					set_country_flag = DA_AG_outpost_watch_3
+				}
+				DA_AG_set_watch_modifier = yes
+			}
+		}
+		else_if = {
+			limit = { NOT = { DA_AG_selected_outpost_2 = yes } DA_AG_selected_outpost_1 = yes }
+			add_treasury = -2000
+			DA_enchanted_building_material_spend = {
+				amount = 20
+			}
+			DA_arcane_metal_spend = {
+				amount = 10
+			}
+			custom_tooltip = DA_AG_outpost_built_2_tt
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = DA_AG_sel_canal }
+					set_country_flag = DA_AG_outpost_canal_2
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_sea }
+					set_country_flag = DA_AG_outpost_sea_2
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_uplands }
+					set_country_flag = DA_AG_outpost_uplands_2
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_locks }
+					set_country_flag = DA_AG_outpost_locks_2
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_ice }
+					set_country_flag = DA_AG_outpost_ice_2
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_ringfall }
+					set_country_flag = DA_AG_outpost_ringfall_2
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_watch }
+					set_country_flag = DA_AG_outpost_watch_2
+				}
+				DA_AG_set_watch_modifier = yes
+			}
+		}
+		else_if = {
+			limit = { NOT = { DA_AG_selected_outpost_1 = yes } }
+			add_treasury = -1000
+			DA_enchanted_building_material_spend = {
+				amount = 10
+			}
+			custom_tooltip = DA_AG_outpost_built_1_tt
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = DA_AG_sel_canal }
+					set_country_flag = DA_AG_outpost_canal_1
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_sea }
+					set_country_flag = DA_AG_outpost_sea_1
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_uplands }
+					set_country_flag = DA_AG_outpost_uplands_1
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_locks }
+					set_country_flag = DA_AG_outpost_locks_1
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_ice }
+					set_country_flag = DA_AG_outpost_ice_1
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_ringfall }
+					set_country_flag = DA_AG_outpost_ringfall_1
+				}
+				else_if = {
+					limit = { has_country_flag = DA_AG_sel_watch }
+					set_country_flag = DA_AG_outpost_watch_1
+				}
+				DA_AG_set_watch_modifier = yes
+			}
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Agradent_button_outpost_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_AG_button_outpost_tt
+}
+
+custom_button = { # water pumps and seed for the canal folk
+	name = DA_Agradent_button_aid
+	tooltip = DA_AG_button_aid_tt
+	potential = {
+		always = yes
+	}
+	frame = { number = 3 trigger = { OR = { NOT = { DA_AG_anchors_1 = yes } has_country_modifier = DA_AG_aid_CD } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AG_one_anchor_tt
+			DA_AG_anchors_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AG_aid_not_recent_tt
+			NOT = { has_country_modifier = DA_AG_aid_CD }
+		}
+		DA_alchemy_reagents_total_required = {
+			amount = 10
+		}
+		treasury = 400
+	}
+	effect = {
+		add_treasury = -400
+		DA_alchemy_reagents_spend = {
+			amount = 10
+		}
+		DA_AG_goodwill_up = {
+			amount = 5
+		}
+		hidden_effect = { add_country_modifier = { name = DA_AG_aid_CD duration = 730 hidden = yes } }
+	}
+}
+
+custom_text_box = {
+	name = DA_Agradent_button_aid_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_AG_button_aid_tt
+}
+
+custom_icon = {
+	name = DA_Agradent_info_panel
+	potential = {
+		always = yes
+	}
+}
+

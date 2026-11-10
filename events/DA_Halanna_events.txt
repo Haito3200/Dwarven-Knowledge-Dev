@@ -1,7 +1,437 @@
 
 namespace = DA_Halanna_heart
 
-country_event = {
+# The Ancient Research Facility of Amldihr (4119), reworked on 10 November 2026.
+#
+#   Floor 11 of Amldihr (DA_ADK_explore.100, events/DA_Exploration_Outcomes.txt)
+#     -> disaster DA_Abyssal_Invasion                .10 start, .11 waves, .20-.25 monthly, .30/.31 the column, .40 end
+#     -> the Runic Gate                               .50 survey, .51 the gate opens, .52 the Ancestor
+#     -> Halanna's Heart, three experiments           .1 Feeding, .2 Resonance, .3 Awakening
+#     -> Halanna's recovery (DA_Halanna_favor, 0-250) .60 tending, .61-.66 her requests, .69 scheduler, .70-.73 milestones
+#     -> the throne                                   .80 offer, .81 coronation
+#
+# The buttons are in common/custom_gui/DA_Wonder_Ancient_Research_facility1.txt.
+# Every number of the chain is in this file, in that file, in the disaster, the decision and the modifiers.
+
+
+#######################################################
+# The Abyssal Invasion
+#######################################################
+
+country_event = { # disaster on_start: the first wave
+	id = DA_Halanna_heart.10
+	title = "DA_Halanna_heart.10.t"
+	desc = "DA_Halanna_heart.10.d"
+	picture = BATTLE_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Halanna_heart.10.a"
+		custom_tooltip = DA_abyss_wave_tt
+		custom_tooltip = DA_abyss_objectives_tt
+		DA_abyss_spawn_wave = yes
+	}
+}
+
+country_event = { # disaster on_monthly: a new wave every 240 days
+	id = DA_Halanna_heart.11
+	title = "DA_Halanna_heart.11.t"
+	desc = "DA_Halanna_heart.11.d"
+	picture = BATTLE_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_disaster = DA_Abyssal_Invasion
+		had_country_flag = { flag = DA_abyss_wave_clock days = 240 }
+	}
+
+	option = {
+		name = "DA_Halanna_heart.11.a"
+		custom_tooltip = DA_abyss_wave_tt
+		DA_abyss_spawn_wave = yes
+	}
+}
+
+country_event = { # a deep hold stops answering
+	id = DA_Halanna_heart.20
+	title = "DA_Halanna_heart.20.t"
+	desc = "DA_Halanna_heart.20.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_disaster = DA_Abyssal_Invasion
+		any_owned_province = { DA_abyss_can_surface_here = yes }
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = { DA_abyss_can_surface_here = yes }
+				save_event_target_as = DA_abyss_dark_hold
+			}
+		}
+	}
+
+	option = { # seal it
+		name = "DA_Halanna_heart.20.a"
+		custom_tooltip = DA_Halanna_heart.20.a.tt
+		event_target:DA_abyss_dark_hold = {
+			add_province_modifier = {
+				name = DA_abyss_sealed_levels
+				duration = 1825
+			}
+		}
+	}
+	option = { # fight for it
+		name = "DA_Halanna_heart.20.b"
+		event_target:DA_abyss_dark_hold = {
+			spawn_rebels = {
+				type = Primordial_goblins_rebels
+				size = 3
+			}
+		}
+		add_army_tradition = 5
+		custom_tooltip = DA_ARF_gain_2_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 2 } }
+	}
+}
+
+country_event = { # tremors
+	id = DA_Halanna_heart.21
+	title = "DA_Halanna_heart.21.t"
+	desc = "DA_Halanna_heart.21.d"
+	picture = COUNTRY_COLLAPSE_eventPicture
+	goto = 4119
+
+	is_triggered_only = yes
+	trigger = {
+		has_disaster = DA_Abyssal_Invasion
+		owns = 4119
+	}
+
+	option = { # shore up the halls
+		name = "DA_Halanna_heart.21.a"
+		add_years_of_income = -0.25
+	}
+	option = { # let it fall
+		name = "DA_Halanna_heart.21.b"
+		4119 = {
+			area = {
+				limit = { owned_by = ROOT }
+				add_devastation = 15
+			}
+		}
+	}
+}
+
+country_event = { # refugees
+	id = DA_Halanna_heart.22
+	title = "DA_Halanna_heart.22.t"
+	desc = "DA_Halanna_heart.22.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_disaster = DA_Abyssal_Invasion
+		owns = 4119
+		NOT = { has_country_flag = DA_abyss_refugees_done }
+	}
+
+	option = { # take them in
+		name = "DA_Halanna_heart.22.a"
+		add_years_of_income = -0.15
+		4119 = { add_base_manpower = 1 }
+		hidden_effect = { set_country_flag = DA_abyss_refugees_done }
+	}
+	option = { # the gates stay shut
+		name = "DA_Halanna_heart.22.b"
+		add_prestige = -10
+		hidden_effect = { set_country_flag = DA_abyss_refugees_done }
+	}
+}
+
+country_event = { # first hint: they do not loot
+	id = DA_Halanna_heart.23
+	title = "DA_Halanna_heart.23.t"
+	desc = "DA_Halanna_heart.23.d"
+	picture = DARK_EXPEDITION_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_disaster = DA_Abyssal_Invasion
+		NOT = { has_country_flag = DA_abyss_hint_scouts }
+		NOT = { has_country_flag = DA_abyss_source_found }
+	}
+
+	option = {
+		name = "DA_Halanna_heart.23.a"
+		custom_tooltip = DA_abyss_hint_tt
+		hidden_effect = { set_country_flag = DA_abyss_hint_scouts }
+	}
+}
+
+country_event = { # second hint: the Ancestor of the Hall of Myths
+	id = DA_Halanna_heart.24
+	title = "DA_Halanna_heart.24.t"
+	desc = "DA_Halanna_heart.24.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_disaster = DA_Abyssal_Invasion
+		DA_has_runic_ancestor = yes
+		NOT = { has_country_flag = DA_abyss_hint_ghost }
+		NOT = { has_country_flag = DA_abyss_source_found }
+	}
+
+	option = {
+		name = "DA_Halanna_heart.24.a"
+		custom_tooltip = DA_abyss_hint_tt
+		custom_tooltip = DA_ARF_gain_3_ADK
+		hidden_effect = {
+			set_country_flag = DA_abyss_hint_ghost
+			change_variable = { ancientDwarvenKnowledge = 3 }
+		}
+	}
+}
+
+country_event = { # veterans of two waves
+	id = DA_Halanna_heart.25
+	title = "DA_Halanna_heart.25.t"
+	desc = "DA_Halanna_heart.25.d"
+	picture = BATTLE_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_disaster = DA_Abyssal_Invasion
+		check_variable = { which = DA_abyss_wave value = 2 }
+		NOT = { has_country_flag = DA_abyss_veterans_done }
+	}
+
+	option = { # a standing guard
+		name = "DA_Halanna_heart.25.a"
+		add_army_tradition = 10
+		hidden_effect = { set_country_flag = DA_abyss_veterans_done }
+	}
+	option = { # send them home
+		name = "DA_Halanna_heart.25.b"
+		add_manpower = 5
+		add_prestige = 10
+		hidden_effect = { set_country_flag = DA_abyss_veterans_done }
+	}
+}
+
+country_event = { # the column, halfway down (decision DA_send_column_to_the_deep)
+	id = DA_Halanna_heart.30
+	title = "DA_Halanna_heart.30.t"
+	desc = "DA_Halanna_heart.30.d"
+	picture = DARK_EXPEDITION_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # press on
+		name = "DA_Halanna_heart.30.a"
+		add_manpower = -5
+		custom_tooltip = DA_Halanna_heart.30.a.tt
+		hidden_effect = {
+			country_event = {
+				id = DA_Halanna_heart.31
+				days = 60
+			}
+		}
+	}
+	option = { # go carefully
+		name = "DA_Halanna_heart.30.b"
+		custom_tooltip = DA_Halanna_heart.30.b.tt
+		hidden_effect = {
+			country_event = {
+				id = DA_Halanna_heart.31
+				days = 150
+			}
+		}
+	}
+}
+
+country_event = { # the column reaches the bottom
+	id = DA_Halanna_heart.31
+	title = "DA_Halanna_heart.31.t"
+	desc = "DA_Halanna_heart.31.d"
+	picture = CAVE_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Halanna_heart.31.a"
+		custom_tooltip = DA_Halanna_heart.31.a.tt
+		hidden_effect = { set_country_flag = DA_abyss_source_found }
+	}
+}
+
+country_event = { # disaster on_end
+	id = DA_Halanna_heart.40
+	title = "DA_Halanna_heart.40.t"
+	desc = {
+		trigger = { owns = 4119 }
+		desc = "DA_Halanna_heart.40.d"
+	}
+	desc = {
+		trigger = { NOT = { owns = 4119 } }
+		desc = "DA_Halanna_heart.40.d.lost"
+	}
+	picture = MAGIC_STUDY_AND_RELAX_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_abyssal_invasion_begun
+			clr_country_flag = DA_abyss_wave_clock
+			clr_country_flag = DA_abyss_column_sent
+			clr_country_flag = DA_abyss_source_found
+			clr_country_flag = DA_abyss_hint_scouts
+			clr_country_flag = DA_abyss_hint_ghost
+			clr_country_flag = DA_abyss_refugees_done
+			clr_country_flag = DA_abyss_veterans_done
+		}
+	}
+
+	option = { # the invasion is beaten and the gate is found
+		name = "DA_Halanna_heart.40.a"
+		trigger = { owns = 4119 }
+		add_prestige = 25
+		add_army_tradition = 10
+		custom_tooltip = DA_ARF_gain_5_ADK
+		custom_tooltip = DA_Halanna_heart.40.a.tt
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			4119 = {
+				DA_pre_setting_Dig_level_as_explored = yes
+				DA_Set_level_as_explored = yes
+				clr_province_flag = DA_expedition_in_progress
+				set_province_flag = DA_Runic_gate_closed_p
+			}
+			set_global_flag = DA_Runic_Gate_started
+			country_event = {
+				id = DA_Halanna_heart.50
+				days = 180
+			}
+		}
+	}
+	option = { # Amldihr was lost: the chain can start again for whoever explores floor 11
+		name = "DA_Halanna_heart.40.b"
+		trigger = { NOT = { owns = 4119 } }
+		add_prestige = -25
+		hidden_effect = {
+			4119 = {
+				clr_province_flag = DA_already_spawned_invasion
+				clr_province_flag = DA_expedition_in_progress
+			}
+		}
+	}
+}
+
+
+#######################################################
+# The Runic Gate
+#######################################################
+
+country_event = { # the Research Facility has read the gate
+	id = DA_Halanna_heart.50
+	title = "DA_Halanna_heart.50.t"
+	desc = "DA_Halanna_heart.50.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		4119 = {
+			owned_by = ROOT
+			has_province_flag = DA_Runic_gate_closed_p
+		}
+	}
+
+	option = {
+		name = "DA_Halanna_heart.50.a"
+		custom_tooltip = DA_Halanna_heart.50.a.tt
+	}
+}
+
+country_event = { # the gate opens, 30 days after the button
+	id = DA_Halanna_heart.51
+	title = "DA_Halanna_heart.51.t"
+	desc = "DA_Halanna_heart.51.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_Runic_gate_opening
+			set_variable = { which = DA_Halanna_care value = 0 }
+			4119 = {
+				clr_province_flag = DA_Runic_gate_closed_p
+				set_province_flag = DA_Halanna_heart_found
+				add_great_project = {
+					type = DA_Ancient_Research_facility1
+					instant = yes
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "DA_Halanna_heart.51.a"
+		add_country_modifier = {
+			name = DA_Halanna_heart
+			duration = -1
+		}
+		custom_tooltip = DA_Halanna_heart.51.a.tt
+		hidden_effect = {
+			if = {
+				limit = { DA_has_runic_ancestor = yes }
+				country_event = {
+					id = DA_Halanna_heart.52
+					days = 365
+				}
+			}
+		}
+	}
+}
+
+country_event = { # what the Ancestor would not say
+	id = DA_Halanna_heart.52
+	title = "DA_Halanna_heart.52.t"
+	desc = "DA_Halanna_heart.52.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		DA_has_runic_ancestor = yes
+		NOT = { has_country_flag = DA_Halanna_awake }
+	}
+
+	option = {
+		name = "DA_Halanna_heart.52.a"
+		custom_tooltip = DA_ARF_gain_5_ADK
+		custom_tooltip = DA_Halanna_care_tt
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			change_variable = { which = DA_Halanna_care value = 1 }
+		}
+	}
+}
+
+
+#######################################################
+# Halanna's Heart: the three experiments
+#######################################################
+
+country_event = { # Experiment I, the Feeding: white -> blue
 	id = DA_Halanna_heart.1
 	title = "DA_Halanna_heart.1.t"
 	desc = "DA_Halanna_heart.1.d"
@@ -9,30 +439,66 @@ country_event = {
 
 	major = yes
 	is_triggered_only = yes
-	
-	option = {
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_Halanna_exp_running
+			clr_country_flag = DA_Wonder_DA_Ancient_Research_facility1_in_use
+			set_country_flag = DA_Halanna_exp_1_done
+		}
+	}
+
+	option = { # give it all it will take
 		name = "DA_Halanna_heart.1.a"
+		add_years_of_income = -0.25
+		custom_tooltip = DA_Halanna_care_2_tt
+		hidden_effect = { change_variable = { which = DA_Halanna_care value = 2 } }
+	}
+	option = { # measure every core
+		name = "DA_Halanna_heart.1.b"
+		custom_tooltip = DA_ARF_gain_5_ADK
+		custom_tooltip = DA_Halanna_care_tt
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			change_variable = { which = DA_Halanna_care value = 1 }
+		}
 	}
 }
 
-
-
-
-country_event = {
+country_event = { # Experiment II, the Resonance: blue -> orange
 	id = DA_Halanna_heart.2
 	title = "DA_Halanna_heart.2.t"
 	desc = "DA_Halanna_heart.2.d"
-	picture = INVENTION_eventPicture
+	picture = MAGIC_STUDY_AND_RELAX_eventPicture
 
 	major = yes
 	is_triggered_only = yes
-	
-	option = {
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_Halanna_exp_running
+			clr_country_flag = DA_Wonder_DA_Ancient_Research_facility1_in_use
+			set_country_flag = DA_Halanna_exp_2_done
+		}
+	}
+
+	option = { # let the runesmiths answer
 		name = "DA_Halanna_heart.2.a"
-	}	
+		custom_tooltip = DA_Halanna_care_2_tt
+		hidden_effect = { change_variable = { which = DA_Halanna_care value = 2 } }
+	}
+	option = { # write it down and touch nothing
+		name = "DA_Halanna_heart.2.b"
+		custom_tooltip = DA_ARF_gain_8_ADK
+		custom_tooltip = DA_Halanna_care_tt
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 8 }
+			change_variable = { which = DA_Halanna_care value = 1 }
+		}
+	}
 }
 
-country_event = {
+country_event = { # Experiment III, the Awakening: Halanna steps out, in the likeness of her children, and falls
 	id = DA_Halanna_heart.3
 	title = "DA_Halanna_heart.3.t"
 	desc = "DA_Halanna_heart.3.d"
@@ -40,7 +506,19 @@ country_event = {
 
 	major = yes
 	is_triggered_only = yes
-	
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_Halanna_exp_running
+			clr_country_flag = DA_Wonder_DA_Ancient_Research_facility1_in_use
+			set_country_flag = DA_Halanna_exp_3_done
+			set_country_flag = DA_Halanna_awake
+			# her recovery starts at ten times the care the Heart was shown (20 to 50)
+			set_variable = { which = DA_Halanna_favor which = DA_Halanna_care }
+			multiply_variable = { which = DA_Halanna_favor value = 10 }
+		}
+	}
+
 	option = {
 		name = "DA_Halanna_heart.3.a"
 		remove_country_modifier = DA_Halanna_heart
@@ -48,9 +526,489 @@ country_event = {
 			name = DA_Halanna_heart_empty
 			duration = -1
 		}
-		add_country_modifier = {
-			name = DA_Halanna_Blessing
-			duration = -1
+		4119 = {
+			change_trade_goods = damestear
+			custom_tooltip = DA_permanent_Damestear
+			hidden_effect = {
+				set_province_flag = permanent_damestear
+				province_event = {
+					id = DA_Amldihr_Authority_event.2
+					days = 30
+				}
+			}
 		}
-	}	
+		custom_tooltip = DA_Halanna_heart.3.a.tt
+		hidden_effect = {
+			country_event = {
+				id = DA_Halanna_heart.69
+				days = 400
+			}
+		}
+	}
+}
+
+
+#######################################################
+# Halanna's recovery
+#######################################################
+
+country_event = { # the Offering button: tend to her (one year between two tendings)
+	id = DA_Halanna_heart.60
+	title = "DA_Halanna_heart.60.t"
+	desc = "DA_Halanna_heart.60.d"
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # essence
+		name = "DA_Halanna_heart.60.a"
+		trigger = {
+			DA_alchemy_reagents_total_required = { amount = 15 }
+		}
+		DA_alchemy_reagents_spend = { amount = 15 }
+		DA_Halanna_add_favor = { amount = 15 }
+		DA_Halanna_tended = yes
+	}
+	option = { # stone and metal
+		name = "DA_Halanna_heart.60.b"
+		trigger = {
+			DA_arcane_metal_total_required = { amount = 15 }
+			DA_enchanted_building_material_total_required = { amount = 15 }
+		}
+		DA_arcane_metal_spend = { amount = 15 }
+		DA_enchanted_building_material_spend = { amount = 15 }
+		DA_Halanna_add_favor = { amount = 20 }
+		DA_Halanna_tended = yes
+	}
+	option = { # the memory of the holds
+		name = "DA_Halanna_heart.60.c"
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_has_10_ADK
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 10
+				}
+			}
+		}
+		custom_tooltip = DA_Cost_10_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 10 } }
+		DA_Halanna_add_favor = { amount = 20 }
+		DA_Halanna_tended = yes
+	}
+	option = { # gold for the sanctuary
+		name = "DA_Halanna_heart.60.g"
+		trigger = { treasury = 1500 }
+		add_treasury = -1500
+		DA_Halanna_add_favor = { amount = 10 }
+		DA_Halanna_tended = yes
+	}
+	option = { # not now
+		name = "DA_Halanna_heart.60.z"
+	}
+}
+
+country_event = { # request: earth from Earthseed (4269)
+	id = DA_Halanna_heart.61
+	title = "DA_Halanna_heart.61.t"
+	desc = "DA_Halanna_heart.61.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # Earthseed is ours
+		name = "DA_Halanna_heart.61.a"
+		trigger = { owns = 4269 }
+		DA_Halanna_add_favor = { amount = 30 }
+	}
+	option = { # send a caravan
+		name = "DA_Halanna_heart.61.b"
+		trigger = {
+			NOT = { owns = 4269 }
+			treasury = 1000
+		}
+		add_treasury = -1000
+		DA_Halanna_add_favor = { amount = 20 }
+	}
+	option = { # stone is stone
+		name = "DA_Halanna_heart.61.c"
+		custom_tooltip = DA_Halanna_request_refused_tt
+	}
+	after = { DA_Halanna_next_request = yes }
+}
+
+country_event = { # request: quiet the deep
+	id = DA_Halanna_heart.62
+	title = "DA_Halanna_heart.62.t"
+	desc = "DA_Halanna_heart.62.d"
+	picture = DARK_EXPEDITION_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # a garrison on the eleventh floor
+		name = "DA_Halanna_heart.62.a"
+		trigger = { manpower = 10 }
+		add_manpower = -10
+		DA_Halanna_add_favor = { amount = 25 }
+	}
+	option = { # wards of arcane metal
+		name = "DA_Halanna_heart.62.b"
+		trigger = {
+			DA_arcane_metal_total_required = { amount = 10 }
+		}
+		DA_arcane_metal_spend = { amount = 10 }
+		DA_Halanna_add_favor = { amount = 20 }
+	}
+	option = {
+		name = "DA_Halanna_heart.62.c"
+		custom_tooltip = DA_Halanna_request_refused_tt
+	}
+	after = { DA_Halanna_next_request = yes }
+}
+
+country_event = { # request: a body of stone
+	id = DA_Halanna_heart.63
+	title = "DA_Halanna_heart.63.t"
+	desc = "DA_Halanna_heart.63.d"
+	picture = FORGE_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # the runesmiths
+		name = "DA_Halanna_heart.63.a"
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_has_10_ADK
+				check_variable = {
+					which = ancientDwarvenKnowledge
+					value = 10
+				}
+			}
+		}
+		custom_tooltip = DA_Cost_10_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 10 } }
+		DA_Halanna_add_favor = { amount = 30 }
+	}
+	option = { # the alchemists
+		name = "DA_Halanna_heart.63.b"
+		trigger = {
+			DA_alchemy_reagents_total_required = { amount = 15 }
+		}
+		DA_alchemy_reagents_spend = { amount = 15 }
+		DA_Halanna_add_favor = { amount = 20 }
+	}
+	option = {
+		name = "DA_Halanna_heart.63.c"
+		custom_tooltip = DA_Halanna_request_refused_tt
+	}
+	after = { DA_Halanna_next_request = yes }
+}
+
+country_event = { # request: the voices of her children
+	id = DA_Halanna_heart.64
+	title = "DA_Halanna_heart.64.t"
+	desc = "DA_Halanna_heart.64.d"
+	picture = PRAYING_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # open the sanctuary to pilgrims
+		name = "DA_Halanna_heart.64.a"
+		add_prestige = 10
+		4119 = {
+			add_province_modifier = {
+				name = DA_Halanna_pilgrims
+				duration = 1825
+			}
+		}
+		DA_Halanna_add_favor = { amount = 25 }
+	}
+	option = { # the elders only
+		name = "DA_Halanna_heart.64.b"
+		DA_Halanna_add_favor = { amount = 15 }
+	}
+	after = { DA_Halanna_next_request = yes }
+}
+
+country_event = { # request: the hunger of the Heart
+	id = DA_Halanna_heart.65
+	title = "DA_Halanna_heart.65.t"
+	desc = "DA_Halanna_heart.65.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # Amldihr's damestear, for ten years
+		name = "DA_Halanna_heart.65.a"
+		trigger = { owns = 4119 }
+		4119 = {
+			add_province_modifier = {
+				name = DA_Halanna_damestear_tithe
+				duration = 3650
+			}
+		}
+		DA_Halanna_add_favor = { amount = 35 }
+	}
+	option = { # buy damestear abroad
+		name = "DA_Halanna_heart.65.b"
+		trigger = { treasury = 2500 }
+		add_treasury = -2500
+		DA_Halanna_add_favor = { amount = 20 }
+	}
+	option = {
+		name = "DA_Halanna_heart.65.c"
+		custom_tooltip = DA_Halanna_request_refused_tt
+	}
+	after = { DA_Halanna_next_request = yes }
+}
+
+country_event = { # request: what became of the world
+	id = DA_Halanna_heart.66
+	title = "DA_Halanna_heart.66.t"
+	desc = "DA_Halanna_heart.66.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # tell her everything
+		name = "DA_Halanna_heart.66.a"
+		trigger = { dip_power = 50 }
+		add_dip_power = -50
+		DA_Halanna_add_favor = { amount = 25 }
+	}
+	option = { # tell her that her children endure
+		name = "DA_Halanna_heart.66.b"
+		DA_Halanna_add_favor = { amount = 10 }
+	}
+	after = { DA_Halanna_next_request = yes }
+}
+
+country_event = { # hidden: picks her next request among those she has not made yet
+	id = DA_Halanna_heart.69
+	title = "DA_Halanna_heart.69.t"
+	desc = "DA_Halanna_heart.69.t"
+	picture = INVENTION_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_Halanna_awake
+		NOT = { has_country_flag = DA_Halanna_recovered }
+	}
+
+	immediate = {
+		random_list = {
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_Halanna_request_1 } }
+				set_country_flag = DA_Halanna_request_1
+				country_event = { id = DA_Halanna_heart.61 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_Halanna_request_2 } }
+				set_country_flag = DA_Halanna_request_2
+				country_event = { id = DA_Halanna_heart.62 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_Halanna_request_3 } }
+				set_country_flag = DA_Halanna_request_3
+				country_event = { id = DA_Halanna_heart.63 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_Halanna_request_4 } }
+				set_country_flag = DA_Halanna_request_4
+				country_event = { id = DA_Halanna_heart.64 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_Halanna_request_5 } }
+				set_country_flag = DA_Halanna_request_5
+				country_event = { id = DA_Halanna_heart.65 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_Halanna_request_6 } }
+				set_country_flag = DA_Halanna_request_6
+				country_event = { id = DA_Halanna_heart.66 }
+			}
+		}
+	}
+
+	option = {
+		name = "DA_Halanna_heart.69.t"
+	}
+}
+
+country_event = { # recovery 100: she stands
+	id = DA_Halanna_heart.70
+	title = "DA_Halanna_heart.70.t"
+	desc = "DA_Halanna_heart.70.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Halanna_heart.70.a"
+		custom_tooltip = DA_Halanna_heart.70.a.tt
+	}
+}
+
+country_event = { # recovery 150: she walks the holds
+	id = DA_Halanna_heart.71
+	title = "DA_Halanna_heart.71.t"
+	desc = "DA_Halanna_heart.71.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Halanna_heart.71.a"
+		custom_tooltip = DA_Halanna_heart.71.a.tt
+	}
+}
+
+country_event = { # recovery 200: the stone answers her
+	id = DA_Halanna_heart.72
+	title = "DA_Halanna_heart.72.t"
+	desc = "DA_Halanna_heart.72.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Halanna_heart.72.a"
+		custom_tooltip = DA_Halanna_heart.72.a.tt
+	}
+}
+
+country_event = { # recovery 250: whole again
+	id = DA_Halanna_heart.73
+	title = "DA_Halanna_heart.73.t"
+	desc = "DA_Halanna_heart.73.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { set_country_flag = DA_Halanna_recovered }
+	}
+
+	option = {
+		name = "DA_Halanna_heart.73.a"
+		add_prestige = 25
+		custom_tooltip = DA_Halanna_heart.73.a.tt
+	}
+}
+
+country_event = { # hidden: the Blessed Generals button rolls here, because a button cannot roll
+	id = DA_Halanna_heart.75
+	title = "DA_Halanna_heart.69.t"
+	desc = "DA_Halanna_heart.69.t"
+	picture = INVENTION_eventPicture
+
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { has_country_flag = DA_Halanna_recovered }
+			DA_create_High_tier_balanced_general = { DA_Trait = DA_Halanna_Blessed_general_personality }
+		}
+		if = {
+			limit = { NOT = { has_country_flag = DA_Halanna_recovered } }
+			DA_create_High_tier_fire_general = { DA_Trait = Halanna_Chosen_Rune_Mage_general_personality }
+		}
+	}
+
+	option = {
+		name = "DA_Halanna_heart.69.t"
+	}
+}
+
+
+#######################################################
+# The throne
+#######################################################
+
+country_event = { # the Offer the Throne button
+	id = DA_Halanna_heart.80
+	title = "DA_Halanna_heart.80.t"
+	desc = "DA_Halanna_heart.80.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+
+	option = { # the throne is hers
+		name = "DA_Halanna_heart.80.a"
+		if = {
+			limit = { NOT = { government = monarchy } }
+			custom_tooltip = DA_Halanna_becomes_monarchy_tt
+			change_government = monarchy
+		}
+		custom_tooltip = DA_Halanna_ruler_tt
+		define_ruler = {
+			name = "Halanna"
+			dynasty = "Earthmother"
+			adm = 6
+			dip = 6
+			mil = 6
+			age = 30
+			female = yes
+			claim = 100
+			fixed = yes
+		}
+		hidden_effect = {
+			clear_ruler_personalities = yes
+			set_ruler_flag = DA_Halanna_ruler
+			set_country_flag = DA_Halanna_rules
+		}
+		add_ruler_personality = DA_Halanna_primordial_personality
+		add_ruler_personality = DA_Halanna_mother_personality
+		add_ruler_personality = DA_Halanna_shaper_personality
+		hidden_effect = { make_ruler_immortal = yes }
+		define_powerful_mage = {
+			type = ruler
+			transmutation = 3
+			abjuration = 3
+			conjuration = 2
+			divination = 2
+			enchantment = 2
+			evocation = 2
+			illusion = 2
+			necromancy = 2
+		}
+		add_legitimacy = 100
+		add_stability = 1
+		add_prestige = 50
+		hidden_effect = {
+			country_event = {
+				id = DA_Halanna_heart.81
+				days = 30
+			}
+		}
+	}
+	option = { # not yet
+		name = "DA_Halanna_heart.80.b"
+		custom_tooltip = DA_Halanna_heart.80.b.tt
+	}
+}
+
+country_event = { # the coronation
+	id = DA_Halanna_heart.81
+	title = "DA_Halanna_heart.81.t"
+	desc = "DA_Halanna_heart.81.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Halanna_heart.81.a"
+		every_owned_province = {
+			limit = { culture_group = dwarven }
+			add_province_modifier = {
+				name = DA_Halanna_coronation
+				duration = 3650
+			}
+		}
+	}
 }

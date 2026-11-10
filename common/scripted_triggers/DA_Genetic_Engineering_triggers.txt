@@ -2354,55 +2354,229 @@ DA_DL_lab_tier_3 = {
 		}
 	}
 }
-DA_DL_stage_1_left = {
-	OR = {
-		NOT = { has_country_flag = DA_can_add_DA_Minor_Enhanced_brain_personality }
-		NOT = { has_country_flag = DA_can_add_DA_Minor_Warrior_mentality_personality }
-		NOT = { has_country_flag = DA_can_add_DA_Minor_Pheromones_personality }
-		NOT = { has_country_flag = DA_can_add_DA_Minor_Living_calculator_personality }
-		NOT = { has_country_flag = DA_can_add_DA_Minor_Perceptive_personality }
-	}
-}
-DA_DL_stage_2_left = {
-	OR = {
-		NOT = { has_country_flag = DA_can_add_DA_Enhanced_brain_personality }
-		NOT = { has_country_flag = DA_can_add_DA_Warrior_mentality_personality }
-		NOT = { has_country_flag = DA_can_add_DA_Pheromones_personality }
-		NOT = { has_country_flag = DA_can_add_DA_Living_calculator_personality }
-		NOT = { has_country_flag = DA_can_add_DA_Perceptive_personality }
-	}
-}
-DA_DL_stage_3_left = {
-	NOT = { has_country_flag = DA_can_add_DA_Damestear_dwarf_personality }
-}
-DA_DL_research_stage_1 = {
-	DA_DL_stage_1_left = yes
-}
-DA_DL_research_stage_2 = {
-	DA_DL_stage_1_left = no
-	DA_DL_stage_2_left = yes
-}
-DA_DL_research_stage_3 = {
-	DA_DL_stage_1_left = no
-	DA_DL_stage_2_left = no
-	DA_DL_stage_3_left = yes
-}
-DA_DL_trait_available = {
+DA_DL_idle = {
 	custom_trigger_tooltip = {
-		tooltip = DA_DL_trait_available_tt
-		OR = {
-			AND = {
-				DA_DL_research_stage_1 = yes
-				DA_DL_lab_tier_2 = yes
-			}
-			AND = {
-				DA_DL_research_stage_2 = yes
-				DA_DL_lab_tier_3 = yes
-			}
-			AND = {
-				DA_DL_research_stage_3 = yes
-				DA_DL_lab_tier_3 = yes
-			}
+		tooltip = DA_DL_idle_tt
+		NOT = { has_country_flag = DA_DL_research_on }
+	}
+}
+DA_DL_can_research_Brain = {
+	DA_DL_idle = yes
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.1 } }
+		DA_DL_lab_tier_1 = yes
+		treasury = 500
+		DA_alchemy_reagents_total_required = { amount = 10 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.2 } }
+		DA_DL_lab_tier_2 = yes
+		treasury = 1000
+		DA_alchemy_reagents_total_required = { amount = 20 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.3 } }
+		DA_DL_lab_tier_3 = yes
+		treasury = 1500
+		DA_alchemy_reagents_total_required = { amount = 30 }
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = DA_DL_line_complete_tt
+			always = no
 		}
+	}
+}
+DA_DL_can_research_Warrior = {
+	DA_DL_idle = yes
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.1 } }
+		DA_DL_lab_tier_1 = yes
+		treasury = 500
+		DA_alchemy_reagents_total_required = { amount = 10 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.2 } }
+		DA_DL_lab_tier_2 = yes
+		treasury = 1000
+		DA_alchemy_reagents_total_required = { amount = 20 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.3 } }
+		DA_DL_lab_tier_3 = yes
+		treasury = 1500
+		DA_alchemy_reagents_total_required = { amount = 30 }
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = DA_DL_line_complete_tt
+			always = no
+		}
+	}
+}
+DA_DL_can_research_Pheromones = {
+	DA_DL_idle = yes
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.1 } }
+		DA_DL_lab_tier_1 = yes
+		treasury = 500
+		DA_alchemy_reagents_total_required = { amount = 10 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.2 } }
+		DA_DL_lab_tier_2 = yes
+		treasury = 1000
+		DA_alchemy_reagents_total_required = { amount = 20 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.3 } }
+		DA_DL_lab_tier_3 = yes
+		treasury = 1500
+		DA_alchemy_reagents_total_required = { amount = 30 }
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = DA_DL_line_complete_tt
+			always = no
+		}
+	}
+}
+DA_DL_can_research_Calculator = {
+	DA_DL_idle = yes
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.1 } }
+		DA_DL_lab_tier_1 = yes
+		treasury = 500
+		DA_alchemy_reagents_total_required = { amount = 10 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.2 } }
+		DA_DL_lab_tier_2 = yes
+		treasury = 1000
+		DA_alchemy_reagents_total_required = { amount = 20 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.3 } }
+		DA_DL_lab_tier_3 = yes
+		treasury = 1500
+		DA_alchemy_reagents_total_required = { amount = 30 }
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = DA_DL_line_complete_tt
+			always = no
+		}
+	}
+}
+DA_DL_can_research_Perception = {
+	DA_DL_idle = yes
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.1 } }
+		DA_DL_lab_tier_1 = yes
+		treasury = 500
+		DA_alchemy_reagents_total_required = { amount = 10 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.2 } }
+		DA_DL_lab_tier_2 = yes
+		treasury = 1000
+		DA_alchemy_reagents_total_required = { amount = 20 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.3 } }
+		DA_DL_lab_tier_3 = yes
+		treasury = 1500
+		DA_alchemy_reagents_total_required = { amount = 30 }
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = DA_DL_line_complete_tt
+			always = no
+		}
+	}
+}
+DA_DL_can_research_Stone = {
+	DA_DL_idle = yes
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.1 } }
+		DA_DL_lab_tier_1 = yes
+		treasury = 500
+		DA_alchemy_reagents_total_required = { amount = 10 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.2 } }
+		DA_DL_lab_tier_2 = yes
+		treasury = 1000
+		DA_alchemy_reagents_total_required = { amount = 20 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.3 } }
+		DA_DL_lab_tier_3 = yes
+		treasury = 1500
+		DA_alchemy_reagents_total_required = { amount = 30 }
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = DA_DL_line_complete_tt
+			always = no
+		}
+	}
+}
+DA_DL_can_research_Voice = {
+	DA_DL_idle = yes
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.1 } }
+		DA_DL_lab_tier_1 = yes
+		treasury = 500
+		DA_alchemy_reagents_total_required = { amount = 10 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.2 } }
+		DA_DL_lab_tier_2 = yes
+		treasury = 1000
+		DA_alchemy_reagents_total_required = { amount = 20 }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.3 } }
+		DA_DL_lab_tier_3 = yes
+		treasury = 1500
+		DA_alchemy_reagents_total_required = { amount = 30 }
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = DA_DL_line_complete_tt
+			always = no
+		}
+	}
+}
+DA_DL_capstone_ready = {
+	custom_trigger_tooltip = {
+		tooltip = DA_DL_capstone_ready_tt
+		calc_true_if = {
+			amount = 4
+			has_country_flag = DA_DL_unlocked.Brain.3
+			has_country_flag = DA_DL_unlocked.Warrior.3
+			has_country_flag = DA_DL_unlocked.Pheromones.3
+			has_country_flag = DA_DL_unlocked.Calculator.3
+			has_country_flag = DA_DL_unlocked.Perception.3
+			has_country_flag = DA_DL_unlocked.Stone.3
+			has_country_flag = DA_DL_unlocked.Voice.3
+		}
+	}
+}
+DA_DL_can_research_Damestear = {
+	DA_DL_idle = yes
+	if = {
+		limit = { has_country_flag = DA_DL_unlocked.Damestear }
+		custom_trigger_tooltip = {
+			tooltip = DA_DL_line_complete_tt
+			always = no
+		}
+	}
+	else = {
+		DA_DL_lab_tier_3 = yes
+		DA_DL_capstone_ready = yes
+		treasury = 3000
+		DA_alchemy_reagents_total_required = { amount = 50 }
 	}
 }

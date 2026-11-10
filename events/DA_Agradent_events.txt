@@ -1,0 +1,531 @@
+namespace = DA_Agradent_event
+
+# Agradent: landing sites, pods and outposts. Written on 10 November 2026.
+# The window is common/custom_gui/DA_Wonder_Agradent.txt; the numbers are in
+# "Claude files/tools/setzunkhupa_2026-11-10/gen.py". Everything here needs DA_Agradent_travel_unlocked,
+# which DA_AG_unlock_travel sets (the Ambassador's homecoming, DA_Dur_Vazhatun_event.67, or anything else).
+#
+#   .1          the road to Agradent: shown when travel is unlocked without the Ambassador
+#   .11 - .17   hidden: a pod thrown from the window reaches its site, or does not (the dice)
+#   .21 - .27   the landing at each site, with the first dealings there
+#   .30         a pod is lost
+#   .40 .41     the canal folk open the sealed archive (goodwill 85 with four outposts) / close the locks (below 15)
+#   .50 - .52   every five years, with at least one outpost: a request for water, salvage rights, ring-fall
+# Goodwill: variable DA_AG_goodwill on the country, changed only by DA_AG_goodwill_up / _down and the Southern Ice.
+
+
+#########################################################
+# The road
+
+country_event = {
+	id = DA_Agradent_event.1 				# travel unlocked without the Ambassador
+	title = "DA_Agradent_event.1.t"
+	desc = "DA_Agradent_event.1.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.1.a"
+		custom_tooltip = DA_AG_first_landing_tt
+	}
+}
+
+
+#########################################################
+# Pods: the dice (a roll made from a button always falls the same way)
+
+country_event = {
+	id = DA_Agradent_event.11 				# hidden: the pod thrown at the Ninth Canal
+	title = "DA_Agradent_event.30.t"
+	desc = "DA_Agradent_event.30.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DA_AG_roll_pod = yes
+		if = {
+			limit = { has_country_flag = DA_AG_roll_lost }
+			clr_country_flag = DA_AG_pod_canal
+			clr_country_flag = DA_AG_pod_in_flight
+			country_event = { id = DA_Agradent_event.30 }
+		}
+		else = {
+			DA_AG_land_canal = yes
+			country_event = { id = DA_Agradent_event.21 }
+		}
+	}
+	option = {
+		name = "DA_Agradent_event.30.a"
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.12 				# hidden: the pod thrown at the Receding Sea
+	title = "DA_Agradent_event.30.t"
+	desc = "DA_Agradent_event.30.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DA_AG_roll_pod = yes
+		if = {
+			limit = { has_country_flag = DA_AG_roll_lost }
+			clr_country_flag = DA_AG_pod_sea
+			clr_country_flag = DA_AG_pod_in_flight
+			country_event = { id = DA_Agradent_event.30 }
+		}
+		else = {
+			DA_AG_land_sea = yes
+			country_event = { id = DA_Agradent_event.22 }
+		}
+	}
+	option = {
+		name = "DA_Agradent_event.30.a"
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.13 				# hidden: the pod thrown at the Rust Uplands
+	title = "DA_Agradent_event.30.t"
+	desc = "DA_Agradent_event.30.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DA_AG_roll_pod = yes
+		if = {
+			limit = { has_country_flag = DA_AG_roll_lost }
+			clr_country_flag = DA_AG_pod_uplands
+			clr_country_flag = DA_AG_pod_in_flight
+			country_event = { id = DA_Agradent_event.30 }
+		}
+		else = {
+			DA_AG_land_uplands = yes
+			country_event = { id = DA_Agradent_event.23 }
+		}
+	}
+	option = {
+		name = "DA_Agradent_event.30.a"
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.14 				# hidden: the pod thrown at the Dry Locks
+	title = "DA_Agradent_event.30.t"
+	desc = "DA_Agradent_event.30.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DA_AG_roll_pod = yes
+		if = {
+			limit = { has_country_flag = DA_AG_roll_lost }
+			clr_country_flag = DA_AG_pod_locks
+			clr_country_flag = DA_AG_pod_in_flight
+			country_event = { id = DA_Agradent_event.30 }
+		}
+		else = {
+			DA_AG_land_locks = yes
+			country_event = { id = DA_Agradent_event.24 }
+		}
+	}
+	option = {
+		name = "DA_Agradent_event.30.a"
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.15 				# hidden: the pod thrown at the Southern Ice
+	title = "DA_Agradent_event.30.t"
+	desc = "DA_Agradent_event.30.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DA_AG_roll_pod = yes
+		if = {
+			limit = { has_country_flag = DA_AG_roll_lost }
+			clr_country_flag = DA_AG_pod_ice
+			clr_country_flag = DA_AG_pod_in_flight
+			country_event = { id = DA_Agradent_event.30 }
+		}
+		else = {
+			DA_AG_land_ice = yes
+			country_event = { id = DA_Agradent_event.25 }
+		}
+	}
+	option = {
+		name = "DA_Agradent_event.30.a"
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.16 				# hidden: the pod thrown at the Ringfall Plain
+	title = "DA_Agradent_event.30.t"
+	desc = "DA_Agradent_event.30.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DA_AG_roll_pod = yes
+		if = {
+			limit = { has_country_flag = DA_AG_roll_lost }
+			clr_country_flag = DA_AG_pod_ringfall
+			clr_country_flag = DA_AG_pod_in_flight
+			country_event = { id = DA_Agradent_event.30 }
+		}
+		else = {
+			DA_AG_land_ringfall = yes
+			country_event = { id = DA_Agradent_event.26 }
+		}
+	}
+	option = {
+		name = "DA_Agradent_event.30.a"
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.17 				# hidden: the pod thrown at the Far Watch
+	title = "DA_Agradent_event.30.t"
+	desc = "DA_Agradent_event.30.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DA_AG_roll_pod = yes
+		if = {
+			limit = { has_country_flag = DA_AG_roll_lost }
+			clr_country_flag = DA_AG_pod_watch
+			clr_country_flag = DA_AG_pod_in_flight
+			country_event = { id = DA_Agradent_event.30 }
+		}
+		else = {
+			DA_AG_land_watch = yes
+			country_event = { id = DA_Agradent_event.27 }
+		}
+	}
+	option = {
+		name = "DA_Agradent_event.30.a"
+	}
+}
+
+
+#########################################################
+# Landings
+
+country_event = {
+	id = DA_Agradent_event.21 				# the Ninth Canal, reached without the Ambassador's pod
+	title = "DA_Agradent_event.21.t"
+	desc = "DA_Agradent_event.21.d"
+	picture = DESERT_CARAVAN_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { DA_SZ_guest_is_ours = yes }
+				country_event = { id = DA_Dur_Vazhatun_event.68 days = 10 }
+			}
+		}
+	}
+	option = {
+		name = "DA_Agradent_event.21.a"		# guests
+		custom_tooltip = DA_AG_anchor_holds_canal_tt
+		DA_AG_goodwill_up = { amount = 10 }
+	}
+	option = {
+		name = "DA_Agradent_event.21.b"		# buyers
+		trigger = { treasury = 300 }
+		custom_tooltip = DA_AG_anchor_holds_canal_tt
+		add_treasury = -300
+		add_adk_effect = { add = 5 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.22 				# the Receding Sea
+	title = "DA_Agradent_event.22.t"
+	desc = "DA_Agradent_event.22.d"
+	picture = DESERT_CARAVAN_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.22.a"		# trade
+		trigger = { treasury = 300 }
+		custom_tooltip = DA_AG_anchor_holds_sea_tt
+		add_treasury = -300
+		DA_AG_gain_reagents = { amount = 10 }
+		DA_AG_goodwill_up = { amount = 5 }
+	}
+	option = {
+		name = "DA_Agradent_event.22.b"		# help
+		trigger = { DA_enchanted_building_material_total_required = { amount = 10 } }
+		custom_tooltip = DA_AG_anchor_holds_sea_tt
+		DA_enchanted_building_material_spend = { amount = 10 }
+		DA_AG_goodwill_up = { amount = 15 }
+	}
+	option = {
+		name = "DA_Agradent_event.22.c"		# take
+		custom_tooltip = DA_AG_anchor_holds_sea_tt
+		DA_AG_gain_reagents = { amount = 25 }
+		DA_AG_goodwill_down = { amount = 15 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.23 				# the Rust Uplands
+	title = "DA_Agradent_event.23.t"
+	desc = "DA_Agradent_event.23.d"
+	picture = TRADE_GOODS_METALS_AND_MINING_EQUIPENT_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.23.a"		# trade
+		trigger = { treasury = 300 }
+		custom_tooltip = DA_AG_anchor_holds_uplands_tt
+		add_treasury = -300
+		DA_AG_gain_metal = { amount = 10 }
+		DA_AG_goodwill_up = { amount = 5 }
+	}
+	option = {
+		name = "DA_Agradent_event.23.b"		# help
+		trigger = { treasury = 500 }
+		custom_tooltip = DA_AG_anchor_holds_uplands_tt
+		add_treasury = -500
+		DA_AG_goodwill_up = { amount = 15 }
+	}
+	option = {
+		name = "DA_Agradent_event.23.c"		# take
+		custom_tooltip = DA_AG_anchor_holds_uplands_tt
+		DA_AG_gain_metal = { amount = 25 }
+		DA_AG_goodwill_down = { amount = 15 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.24 				# the Dry Locks
+	title = "DA_Agradent_event.24.t"
+	desc = "DA_Agradent_event.24.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.24.a"		# ask leave
+		custom_tooltip = DA_AG_anchor_holds_locks_tt
+		DA_AG_gain_ebm = { amount = 10 }
+		DA_AG_goodwill_up = { amount = 10 }
+	}
+	option = {
+		name = "DA_Agradent_event.24.b"		# strip it
+		custom_tooltip = DA_AG_anchor_holds_locks_tt
+		DA_AG_gain_ebm = { amount = 30 }
+		add_adk_effect = { add = 5 }
+		DA_AG_goodwill_down = { amount = 20 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.25 				# the Southern Ice
+	title = "DA_Agradent_event.25.t"
+	desc = "DA_Agradent_event.25.d"
+	picture = EXPLORERS_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.25.a"		# help: cut ice for the canals
+		trigger = { treasury = 500 }
+		custom_tooltip = DA_AG_anchor_holds_ice_tt
+		add_treasury = -500
+		DA_AG_goodwill_up = { amount = 15 }
+	}
+	option = {
+		name = "DA_Agradent_event.25.b"		# take: the meltwater is ours
+		custom_tooltip = DA_AG_anchor_holds_ice_tt
+		DA_AG_gain_reagents = { amount = 15 }
+		DA_AG_goodwill_down = { amount = 10 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.26 				# the Ringfall Plain
+	title = "DA_Agradent_event.26.t"
+	desc = "DA_Agradent_event.26.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.26.a"		# share what has fallen
+		custom_tooltip = DA_AG_anchor_holds_ringfall_tt
+		add_treasury = 200
+		DA_AG_goodwill_up = { amount = 10 }
+	}
+	option = {
+		name = "DA_Agradent_event.26.b"		# gather it all
+		custom_tooltip = DA_AG_anchor_holds_ringfall_tt
+		add_treasury = 400
+		DA_AG_goodwill_down = { amount = 5 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.27 				# the Far Watch
+	title = "DA_Agradent_event.27.t"
+	desc = "DA_Agradent_event.27.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.27.a"		# help: new glass for the old watchers
+		trigger = { DA_arcane_metal_total_required = { amount = 10 } }
+		custom_tooltip = DA_AG_anchor_holds_watch_tt
+		DA_arcane_metal_spend = { amount = 10 }
+		add_adk_effect = { add = 5 }
+		DA_AG_goodwill_up = { amount = 10 }
+	}
+	option = {
+		name = "DA_Agradent_event.27.b"		# copy the records and go
+		custom_tooltip = DA_AG_anchor_holds_watch_tt
+		add_adk_effect = { add = 8 }
+		DA_AG_goodwill_down = { amount = 5 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.30 				# a pod is lost
+	title = "DA_Agradent_event.30.t"
+	desc = "DA_Agradent_event.30.d"
+	picture = LOOMING_DEATH_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.30.a"
+		custom_tooltip = DA_AG_pod_lost_tt
+	}
+}
+
+
+#########################################################
+# The canal folk
+
+country_event = {
+	id = DA_Agradent_event.40 				# goodwill 85 and four outposts: the sealed archive
+	title = "DA_Agradent_event.40.t"
+	desc = "DA_Agradent_event.40.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.40.a"
+		add_adk_effect = { add = 10 }
+		add_prestige = 25
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.41 				# goodwill below 15: the locks close
+	title = "DA_Agradent_event.41.t"
+	desc = "DA_Agradent_event.41.d"
+	picture = DESERT_CARAVAN_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Agradent_event.41.a"		# make amends
+		trigger = { treasury = 800 }
+		add_treasury = -800
+		DA_AG_goodwill_up = { amount = 20 }
+	}
+	option = {
+		name = "DA_Agradent_event.41.b"		# we do not need their leave
+		custom_tooltip = DA_AG_locks_closed_tt
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.50 				# a request for water
+	title = "DA_Agradent_event.50.t"
+	desc = "DA_Agradent_event.50.d"
+	picture = DESERT_CARAVAN_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		has_country_flag = DA_Agradent_travel_unlocked
+		DA_AG_any_outpost = yes
+	}
+	option = {
+		name = "DA_Agradent_event.50.a"		# give
+		trigger = { treasury = 300 }
+		add_treasury = -300
+		DA_AG_goodwill_up = { amount = 10 }
+	}
+	option = {
+		name = "DA_Agradent_event.50.b"		# sell
+		add_treasury = 200
+		DA_AG_goodwill_down = { amount = 5 }
+	}
+	option = {
+		name = "DA_Agradent_event.50.c"		# refuse
+		DA_AG_goodwill_down = { amount = 10 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.51 				# salvage rights
+	title = "DA_Agradent_event.51.t"
+	desc = "DA_Agradent_event.51.d"
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		has_country_flag = DA_Agradent_travel_unlocked
+		DA_AG_any_outpost = yes
+	}
+	option = {
+		name = "DA_Agradent_event.51.a"		# hand it over
+		DA_AG_goodwill_up = { amount = 10 }
+	}
+	option = {
+		name = "DA_Agradent_event.51.b"		# take it apart
+		add_adk_effect = { add = 6 }
+		DA_AG_goodwill_down = { amount = 10 }
+	}
+}
+
+country_event = {
+	id = DA_Agradent_event.52 				# ring-fall near an outpost
+	title = "DA_Agradent_event.52.t"
+	desc = "DA_Agradent_event.52.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		has_country_flag = DA_Agradent_travel_unlocked
+		DA_AG_any_outpost = yes
+	}
+	option = {
+		name = "DA_Agradent_event.52.a"		# share
+		add_treasury = 150
+		DA_AG_goodwill_up = { amount = 5 }
+	}
+	option = {
+		name = "DA_Agradent_event.52.b"		# keep
+		add_treasury = 400
+		DA_AG_goodwill_down = { amount = 5 }
+	}
+}

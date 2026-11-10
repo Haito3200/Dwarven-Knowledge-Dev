@@ -1,116 +1,20 @@
-# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
-
-
-
-# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
-#custom_button = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the button is visible
-#    trigger = { } #Determines when the button is clickable
-#    effect = { } #Effect
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_text_box = {
-#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
-#    potential = { } #Determines when the text is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    #To localize it, use the name of the button as a key, can also use customizable localisation
-#}
-
-#custom_icon = {
-#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
-#    potential = { } #Determines when the icon is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_shield = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the shield is visible
-#    trigger = { } #Determines when the shield is clickable
-#    effect = { } #Effect for clicking
-#    tooltip = localisation_key #Can use customizable localisation
-#    global_event_target = <string> # Global event target name
-#    open_country = <bool> #If clicking opens the country view
-#}
-
-##############################  Supported files with scopes ##############################
-#   The Gui objects must be directly inside the specified window Gui element!
-#   FROM is always the country that clicks
-#   provinceview.gui:
-#       province_window         (ROOT: Clicked province)
-#       buildings_window        (ROOT: Clicked province)
-#       state_window            (ROOT: Clicked province)
-#   countrycourtview.gui:
-#       countrycourtview        (ROOT = FROM)
-#   countrygovernmentview.gui:
-#       countrygovernmentview   (ROOT = FROM)
-#   countrydiplomacyview.gui:
-#       countrydiplimacyview    (ROOT: Selected country)
-#   countryeconomyview.gui:
-#       countryeconomyview      (ROOT = FROM)
-#   countrytradeview.gui:
-#       countrytradeview        (ROOT = FROM)
-#   countrytechnologyview.gui:
-#       countrytechnologyview   (ROOT = FROM)
-#   countryideasview.gui:
-#       countryideasview        (ROOT = FROM)
-#   countrymissionsview.gui:
-#       countrymissionsview     (ROOT: Selected country)
-#   countrydecisionview.gui:
-#       countrydecisionsview    (ROOT = FROM)
-#   countrystabilityview.gui:
-#       countrystabilityview    (ROOT = FROM)
-#   countryreligionview.gui:
-#       countryreligionview     (ROOT = FROM)
-#   countrymilitaryview.gui:
-#       countrymilitaryview     (ROOT = FROM)
-#   countrysubjectsview.gui:
-#       countrysubjectview      (ROOT = FROM)
-#   countryestatesview.gui:
-#       countryestatesview      (ROOT = FROM)
-#   ages_view.gui:
-#       ages_view               (ROOT = FROM)
-#   tradeinterface.gui:
-#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
-#   hre.gui:
-#       hre_window              (ROOT = FROM)
-#   papacy.gui:
-#       papacy_window           (ROOT = FROM)
-#   faction.gui:
-#       All faction windows     (ROOT = FROM)
-#   celestialempireview.gui:
-#       celestial_window        (ROOT = FROM)
-#   countrynativesview.gui:
-#       natives_window          (ROOT = FROM)
-#   religiousreforms.gui:
-#       reforms_window          (ROOT = FROM)
-#   parliament.gui:
-#       parliament_window       (ROOT = FROM)
-
-
-
-
-
-
-
-# magma forge
-
+# Warsuit Foundry, Haraz Orldhum (2868): the wonder window. Rewritten on 10 November 2026.
+# The .gui side is the window "DA_Exoskeletons_Workshop_Window" in interface/topbar.gui.
+# ROOT and FROM are the country that looks at the window.
+#
+# The upgrade button restores the foundry (tiers I to III). Each tier allows one more warsuit doctrine
+# and one more tier of the Turrets of Orldhum (the turret button is in DA_provinceview.txt).
+# The first doctrine is chosen in DA_Haraz_Orldhum_event.3, at the end of the Runesmith project
+# DA_RS_project_Platinum_exoskeletons; after that the three doctrine buttons change it
+# (1500 ducats, 5 Ancient Dwarven Knowledge, once every 10 years).
+# The story is in events/DA_Hold_Haraz_Orldhum.txt.
 
 custom_window = {
-    name = DA_Exoskeletons_Workshop_Window
-    potential = {
-        DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
-        has_country_flag = DA_show_wonder_Exoskeletons_Workshop
-    }
+	name = DA_Exoskeletons_Workshop_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_Exoskeletons_Workshop
+	}
 }
 
 custom_button = {
@@ -127,30 +31,52 @@ custom_button = {
 	}
 }
 
-custom_icon = {
-    name = DA_Exoskeletons_Workshop_Wonder_image
-    potential = {
+custom_icon = { # frames: 1 the cold foundry, 2 tier I, 3 tier II, 4 tier III (make_haraz_orldhum_art.py)
+	name = DA_Exoskeletons_Workshop_Wonder_image
+	potential = {
 		always = yes
-    }
+	}
+	frame = { number = 4 trigger = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } } } }
+	frame = { number = 3 trigger = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } } } }
+	frame = { number = 2 trigger = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
 }
 
 custom_text_box = {
-    name = DA_Exoskeletons_Workshop_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Exoskeletons_Workshop_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_Exoskeletons_Workshop_name_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Exoskeletons_Workshop_name_shower_tt
 }
 
 custom_text_box = {
-    name = DA_Exoskeletons_Workshop_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Exoskeletons_Workshop_dwarven_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_Exoskeletons_Workshop_dwarven_name_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Exoskeletons_Workshop_dwarven_name_shower_tt
 }
 
-custom_button = {
+custom_text_box = {
+	name = DA_Exoskeletons_Workshop_Wonder_level_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Exoskeletons_Workshop_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Exoskeletons_Workshop_Wonder_location_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Exoskeletons_Workshop_Wonder_location_shower_tt
+}
+
+custom_button = { # restores the foundry, tier by tier; each tier unlocks a doctrine and a tier of the turrets
 	name = DA_Exoskeletons_Workshop_upgrade_button
-	tooltip = DA_Wonder_upgrade_button_tt
+	tooltip = DA_HO_upgrade_button_tt
 	potential = {
 		always = yes
 	}
@@ -169,13 +95,11 @@ custom_button = {
 		if = {
 			limit = {
 				2868 = {
-					AND = {
-						has_great_project = {
-							type = DA_Exoskeletons_Workshop
-							tier = 0
-						}
-						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } }
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 0
 					}
+					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } }
 				}
 			}
 			2868 = {
@@ -198,13 +122,11 @@ custom_button = {
 		if = {
 			limit = {
 				2868 = {
-					AND = {
-						has_great_project = {
-							type = DA_Exoskeletons_Workshop
-							tier = 1
-						}
-						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } }
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 1
 					}
+					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } }
 				}
 			}
 			2868 = {
@@ -227,13 +149,11 @@ custom_button = {
 		if = {
 			limit = {
 				2868 = {
-					AND = {
-						has_great_project = {
-							type = DA_Exoskeletons_Workshop
-							tier = 2
-						}
-						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } }
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 2
 					}
+					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } }
 				}
 			}
 			2868 = {
@@ -272,13 +192,11 @@ custom_button = {
 		if = {
 			limit = {
 				2868 = {
-					AND = {
-						has_great_project = {
-							type = DA_Exoskeletons_Workshop
-							tier = 0
-						}
-						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } }
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 0
 					}
+					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } }
 				}
 			}
 			DA_alchemy_reagents_spend = {
@@ -297,23 +215,22 @@ custom_button = {
 					tier = 1
 				}
 			}
+			custom_tooltip = DA_HO_tier_1_unlock_tt
 			hidden_effect = {
-				# TODO: DA_Exoskeletons_Workshop_event.11 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Exoskeletons_Workshop_event.11 days = 365 }
-				# TODO: DA_Exoskeletons_Workshop_event.12 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Exoskeletons_Workshop_event.12 days = 1095 }
+				set_country_flag = DA_can_implement_platinum_exoskeletons # the Runesmith project Platinum Warsuits
+				country_event = { id = DA_Haraz_Orldhum_event.2 days = 30 }
+				country_event = { id = DA_Haraz_Orldhum_event.21 days = 365 }
+				country_event = { id = DA_Haraz_Orldhum_event.22 days = 1095 }
 			}
 		}
 		else_if = {
 			limit = {
 				2868 = {
-					AND = {
-						has_great_project = {
-							type = DA_Exoskeletons_Workshop
-							tier = 1
-						}
-						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } }
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 1
 					}
+					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } }
 				}
 			}
 			DA_alchemy_reagents_spend = {
@@ -332,17 +249,19 @@ custom_button = {
 					tier = 1
 				}
 			}
+			custom_tooltip = DA_HO_tier_2_unlock_tt
+			hidden_effect = {
+				country_event = { id = DA_Haraz_Orldhum_event.4 days = 30 }
+			}
 		}
 		else_if = {
 			limit = {
 				2868 = {
-					AND = {
-						has_great_project = {
-							type = DA_Exoskeletons_Workshop
-							tier = 2
-						}
-						NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } }
+					has_great_project = {
+						type = DA_Exoskeletons_Workshop
+						tier = 2
 					}
+					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } }
 				}
 			}
 			DA_alchemy_reagents_spend = {
@@ -361,24 +280,259 @@ custom_button = {
 					tier = 1
 				}
 			}
+			custom_tooltip = DA_HO_tier_3_unlock_tt
 			hidden_effect = {
-				# TODO: DA_Exoskeletons_Workshop_event.14 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Exoskeletons_Workshop_event.14 days = 3650 }
+				country_event = { id = DA_Haraz_Orldhum_event.5 days = 30 }
+				country_event = { id = DA_Haraz_Orldhum_event.24 days = 3650 }
+			}
+		}
+	}
+}
+
+
+#######################################################
+# Warsuit doctrines
+#######################################################
+
+custom_button = { # doctrine 1: frame 2 while it is in force, frame 3 while it cannot be adopted
+	name = DA_Exoskeletons_Workshop_button_doctrine_1
+	tooltip = DA_HO_button_doctrine_1_tt
+	potential = {
+		always = yes
+	}
+	frame = {
+		number = 2
+		trigger = { has_country_modifier = DA_HO_exoskeletons_as_reward }
+	}
+	frame = {
+		number = 3
+		trigger = {
+			OR = {
+				NOT = { has_country_flag = DA_HO_warsuits_in_production }
+				NOT = { DA_HO_foundry_at_tier_1 = yes }
+			}
+		}
+	}
+	frame = {
+		number = 1
+		trigger = { always = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_production_started_tt
+			has_country_flag = DA_HO_warsuits_in_production
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_needs_tier_1_tt
+			DA_HO_foundry_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_not_this_doctrine_tt
+			NOT = { has_country_modifier = DA_HO_exoskeletons_as_reward }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_doctrine_not_changed_tt
+			NOT = { has_country_modifier = DA_HO_doctrine_CD }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_has_5_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 5
+			}
+		}
+		treasury = 1500
+	}
+	effect = {
+		add_treasury = -1500
+		custom_tooltip = DA_Cost_5_ADK
+		DA_HO_end_doctrines = yes
+		add_country_modifier = {
+			name = DA_HO_exoskeletons_as_reward
+			duration = -1
+		}
+		custom_tooltip = DA_HO_doctrine_changed_tt
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 5 }
+			add_country_modifier = {
+				name = DA_HO_doctrine_CD
+				duration = 3650
 			}
 		}
 	}
 }
 
 custom_text_box = {
-    name = DA_Exoskeletons_Workshop_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Exoskeletons_Workshop_Wonder_level_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_Exoskeletons_Workshop_button_doctrine_1_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_HO_button_doctrine_1_tt
+}
+
+custom_button = { # doctrine 2: frame 2 while it is in force, frame 3 while it cannot be adopted
+	name = DA_Exoskeletons_Workshop_button_doctrine_2
+	tooltip = DA_HO_button_doctrine_2_tt
+	potential = {
+		always = yes
+	}
+	frame = {
+		number = 2
+		trigger = { has_country_modifier = DA_HO_exoskeletons_in_pratical_military }
+	}
+	frame = {
+		number = 3
+		trigger = {
+			OR = {
+				NOT = { has_country_flag = DA_HO_warsuits_in_production }
+				NOT = { DA_HO_foundry_at_tier_2 = yes }
+			}
+		}
+	}
+	frame = {
+		number = 1
+		trigger = { always = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_production_started_tt
+			has_country_flag = DA_HO_warsuits_in_production
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_needs_tier_2_tt
+			DA_HO_foundry_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_not_this_doctrine_tt
+			NOT = { has_country_modifier = DA_HO_exoskeletons_in_pratical_military }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_doctrine_not_changed_tt
+			NOT = { has_country_modifier = DA_HO_doctrine_CD }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_has_5_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 5
+			}
+		}
+		treasury = 1500
+	}
+	effect = {
+		add_treasury = -1500
+		custom_tooltip = DA_Cost_5_ADK
+		DA_HO_end_doctrines = yes
+		add_country_modifier = {
+			name = DA_HO_exoskeletons_in_pratical_military
+			duration = -1
+		}
+		custom_tooltip = DA_HO_doctrine_changed_tt
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 5 }
+			add_country_modifier = {
+				name = DA_HO_doctrine_CD
+				duration = 3650
+			}
+		}
+	}
 }
 
 custom_text_box = {
-    name = DA_Exoskeletons_Workshop_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Exoskeletons_Workshop_Wonder_location_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_Exoskeletons_Workshop_button_doctrine_2_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_HO_button_doctrine_2_tt
+}
+
+custom_button = { # doctrine 3: frame 2 while it is in force, frame 3 while it cannot be adopted
+	name = DA_Exoskeletons_Workshop_button_doctrine_3
+	tooltip = DA_HO_button_doctrine_3_tt
+	potential = {
+		always = yes
+	}
+	frame = {
+		number = 2
+		trigger = { has_country_modifier = DA_HO_exoskeletons_for_all_infantry }
+	}
+	frame = {
+		number = 3
+		trigger = {
+			OR = {
+				NOT = { has_country_flag = DA_HO_warsuits_in_production }
+				NOT = { DA_HO_foundry_at_tier_3 = yes }
+			}
+		}
+	}
+	frame = {
+		number = 1
+		trigger = { always = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_production_started_tt
+			has_country_flag = DA_HO_warsuits_in_production
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_needs_tier_3_tt
+			DA_HO_foundry_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_not_this_doctrine_tt
+			NOT = { has_country_modifier = DA_HO_exoskeletons_for_all_infantry }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_HO_doctrine_not_changed_tt
+			NOT = { has_country_modifier = DA_HO_doctrine_CD }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_has_5_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 5
+			}
+		}
+		treasury = 1500
+	}
+	effect = {
+		add_treasury = -1500
+		custom_tooltip = DA_Cost_5_ADK
+		DA_HO_end_doctrines = yes
+		add_country_modifier = {
+			name = DA_HO_exoskeletons_for_all_infantry
+			duration = -1
+		}
+		custom_tooltip = DA_HO_doctrine_changed_tt
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 5 }
+			add_country_modifier = {
+				name = DA_HO_doctrine_CD
+				duration = 3650
+			}
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Exoskeletons_Workshop_button_doctrine_3_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_HO_button_doctrine_3_tt
+}
+
+custom_icon = {
+	name = DA_Exoskeletons_Workshop_info_panel
+	potential = {
+		always = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Exoskeletons_Workshop_info_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Exoskeletons_Workshop_info_text_tt
 }

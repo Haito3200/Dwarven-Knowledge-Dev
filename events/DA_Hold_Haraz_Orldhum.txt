@@ -1,19 +1,43 @@
 namespace = DA_Haraz_Orldhum_event
 
-country_event = {
-	id = DA_Haraz_Orldhum_event.1 				# can build turrets in nearby caves
+# Haraz Orldhum (2868), the Platinum Hold: the Turrets of Orldhum and the Warsuit Foundry. Reworked on 10 November 2026.
+#
+#   Hold exploration (DA_ADK_explore.210-213, events/DA_Exploration_Outcomes.txt)
+#     .210 the turrets in the caverns   -> .1 a year later: Turrets of Orldhum I can be built (province window)
+#     .211 the Highlords' halls and the pens under them, a ruined trophy warsuit
+#     .212 the Silent Guard comes up the stair (rebels)
+#     .213 the foundry they guarded     -> the monument DA_Exoskeletons_Workshop can be raised
+#   The Warsuit Foundry (common/custom_gui/DA_Wonder_Exoskeletons_Workshop.txt, the upgrade button queues the events)
+#     monument raised                   -> .10 the first inventory
+#     tier I                            -> .2  what the golems were; the Runesmith project Platinum Warsuits
+#     the project ends (2 years)        -> .3  the first doctrine
+#     tier II                           -> .4  the last year of the ledger
+#     tier III                          -> .5  until relieved: strike the debts or keep the ledger
+#     follow-ups                        -> .21 one year and .22 three years after tier I, .24 ten years after tier III
+#
+# Every number of the chain is in this file, in the wonder window's file, in the Runesmith project
+# (DA_RS_project_Platinum_exoskeletons, common/estate_privileges/DA_estate_privileges.txt) and in the modifiers.
+
+
+#######################################################
+# The Turrets of Orldhum
+#######################################################
+
+country_event = { # the Research Facility has copied the turrets. Queued by .210 (one year); the three-yearly pulse retries it
+	id = DA_Haraz_Orldhum_event.1
 	title = "DA_Haraz_Orldhum_event.1.t"
 	desc = "DA_Haraz_Orldhum_event.1.d"
-	picture = DA_research_facility_eventPicture
+	picture = ULMISBAR_eventPicture
 
 	is_triggered_only = yes
 	trigger = {
 		DA_has_RF_2_or_higher = yes
-		any_core_province = {
+		any_owned_province = { # owned, not core: the hold may be ours without a core
 			has_province_flag = DA_Haraz_Orldhum_exp1
 		}
 		NOT = { has_country_flag = DA_can_build_HO_turrets }
 	}
+
 	option = {
 		name = "DA_Haraz_Orldhum_event.1.a"
 		custom_tooltip = DA_can_build_HO_turrets_tt
@@ -23,102 +47,205 @@ country_event = {
 	}
 }
 
-province_event = {
-	id = DA_Haraz_Orldhum_event.11 				#  turrets built
-	title = "DA_Haraz_Orldhum_event.11.t"
-	desc = "DA_Haraz_Orldhum_event.11.d"
-	picture = ULMISBAR_eventPicture
 
-	trigger = {
-		NOT = {
-			owner = {
-				has_country_flag = DA_HO_turrets_event_in_progress
-			}
-		}
-		had_province_flag = {
-			flag = DA_HO_turrets_construction
-			days = 730
-		}
-	}
-	mean_time_to_happen = {
-		days = 30
-	}
-	immediate = {
-		hidden_effect = {
-			clr_province_flag = DA_HO_turrets_construction
-			owner = {
-				set_country_flag = DA_HO_turrets_event_in_progress
-			}
-		}
-	}
+#######################################################
+# The Warsuit Foundry
+#######################################################
+
+province_event = { # the monument is raised (on_built of DA_Exoskeletons_Workshop, 5 days later)
+	id = DA_Haraz_Orldhum_event.10
+	title = "DA_Haraz_Orldhum_event.10.t"
+	desc = "DA_Haraz_Orldhum_event.10.d"
+	picture = FORGE_eventPicture
+
+	is_triggered_only = yes
 
 	option = {
-		name = "DA_Haraz_Orldhum_event.11.a"
-		add_permanent_province_modifier = {
-			name = DA_HO_Turrets
-			duration = -1
-		}
-	}
-	after = {
-		hidden_effect = {
-			owner = {
-				clr_country_flag = DA_HO_turrets_event_in_progress
-			}
-		}
+		name = "DA_Haraz_Orldhum_event.10.a"
+		custom_tooltip = DA_Haraz_Orldhum_event.10.tt
 	}
 }
 
-country_event = {
-	id = DA_Haraz_Orldhum_event.2 				# can implement platinum exoskeletons
+country_event = { # tier I, 30 days later: the golems were warsuits, and their wearers are still inside
+	id = DA_Haraz_Orldhum_event.2
 	title = "DA_Haraz_Orldhum_event.2.t"
 	desc = "DA_Haraz_Orldhum_event.2.d"
-	picture = DA_research_facility_eventPicture
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		DA_has_RF_7_or_higher = yes
-		any_core_province = {
-			has_province_flag = DA_Haraz_Orldhum_exp4
-		}
-		NOT = { has_country_flag = DA_can_implement_platinum_exoskeletons }
-	}
-	
+
 	option = {
 		name = "DA_Haraz_Orldhum_event.2.a"
 		custom_tooltip = DA_Haraz_Orldhum_event.2.a.tt
-		set_country_flag = DA_can_implement_platinum_exoskeletons
 	}
-	
 }
 
-
-country_event = {
-	id = DA_Haraz_Orldhum_event.3 				# choose how to implement platinum exoskeletons
+country_event = { # the Runesmith project ends: the first doctrine. Later changes are made in the wonder window
+	id = DA_Haraz_Orldhum_event.3
 	title = "DA_Haraz_Orldhum_event.3.t"
 	desc = "DA_Haraz_Orldhum_event.3.d"
 	picture = ULMISBAR_eventPicture
 
 	is_triggered_only = yes
 
-	option = {
+	option = { # Suits of Honour
 		name = "DA_Haraz_Orldhum_event.3.a"
+		DA_HO_end_doctrines = yes
 		add_country_modifier = {
 			name = DA_HO_exoskeletons_as_reward
 			duration = -1
 		}
+		custom_tooltip = DA_Haraz_Orldhum_event.3.tt
 	}
-	option = {
+	option = { # The Platinum Vanguard
 		name = "DA_Haraz_Orldhum_event.3.b"
+		trigger = {
+			DA_HO_foundry_at_tier_2 = yes
+		}
+		DA_HO_end_doctrines = yes
 		add_country_modifier = {
 			name = DA_HO_exoskeletons_in_pratical_military
 			duration = -1
 		}
+		custom_tooltip = DA_Haraz_Orldhum_event.3.tt
 	}
-	option = {
+	option = { # The Platinum Host
 		name = "DA_Haraz_Orldhum_event.3.c"
+		trigger = {
+			DA_HO_foundry_at_tier_3 = yes
+		}
+		DA_HO_end_doctrines = yes
 		add_country_modifier = {
 			name = DA_HO_exoskeletons_for_all_infantry
 			duration = -1
 		}
+		custom_tooltip = DA_Haraz_Orldhum_event.3.tt
+	}
+}
+
+country_event = { # tier II, 30 days later: who wore the suits of the last year
+	id = DA_Haraz_Orldhum_event.4
+	title = "DA_Haraz_Orldhum_event.4.t"
+	desc = "DA_Haraz_Orldhum_event.4.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Haraz_Orldhum_event.4.a"
+		custom_tooltip = DA_Haraz_Orldhum_event.4.a.tt
+	}
+}
+
+country_event = { # tier III, 30 days later: the last sheet of the ledger
+	id = DA_Haraz_Orldhum_event.5
+	title = "DA_Haraz_Orldhum_event.5.t"
+	desc = "DA_Haraz_Orldhum_event.5.d"
+	picture = CAVE_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # strike the debts
+		name = "DA_Haraz_Orldhum_event.5.a"
+		add_stability = 1
+		add_prestige = 20
+		custom_tooltip = DA_Haraz_Orldhum_event.5.tt
+		hidden_effect = {
+			set_country_flag = DA_HO_debts_struck
+		}
+	}
+	option = { # keep the ledger as it was written
+		name = "DA_Haraz_Orldhum_event.5.b"
+		custom_tooltip = DA_Haraz_Orldhum_event.5.b.tt
+		custom_tooltip = DA_Haraz_Orldhum_event.5.tt
+		hidden_effect = {
+			change_variable = {
+				which = DA_arcane_metal_total
+				value = 20
+			}
+			set_country_flag = DA_HO_ledger_kept
+		}
+	}
+}
+
+
+#######################################################
+# Wonder follow-up events
+# Queued by the upgrade button of the wonder window:
+# .21 one year after tier I, .22 three years after tier I, .24 ten years after tier III.
+#######################################################
+
+country_event = { # The Nineteen: the finished suits of the old make
+	id = DA_Haraz_Orldhum_event.21
+	title = "DA_Haraz_Orldhum_event.21.t"
+	desc = "DA_Haraz_Orldhum_event.21.d"
+	picture = FORGE_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 2868
+	}
+
+	option = {
+		name = "DA_Haraz_Orldhum_event.21.a"
+		custom_tooltip = DA_HO_gain_4_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+	}
+	option = {
+		name = "DA_Haraz_Orldhum_event.21.b"
+		add_prestige = 10
+		add_army_tradition = 5
+	}
+}
+
+country_event = { # A Line Forty Generations Long: a descendant asks for the trophy suit
+	id = DA_Haraz_Orldhum_event.22
+	title = "DA_Haraz_Orldhum_event.22.t"
+	desc = "DA_Haraz_Orldhum_event.22.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 2868
+	}
+
+	option = {
+		name = "DA_Haraz_Orldhum_event.22.a"
+		add_prestige = 15
+	}
+	option = {
+		name = "DA_Haraz_Orldhum_event.22.b"
+		custom_tooltip = DA_HO_gain_4_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+	}
+}
+
+country_event = { # The Watch at the Lower Gate
+	id = DA_Haraz_Orldhum_event.24
+	title = "DA_Haraz_Orldhum_event.24.t"
+	desc = {
+		trigger = { has_country_flag = DA_HO_debts_struck }
+		desc = "DA_Haraz_Orldhum_event.24.d"
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_HO_debts_struck } }
+		desc = "DA_Haraz_Orldhum_event.24.d.kept"
+	}
+	picture = GREAT_BUILDING_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 2868
+	}
+
+	option = {
+		name = "DA_Haraz_Orldhum_event.24.a"
+		add_prestige = 10
+		add_army_tradition = 10
+	}
+	option = {
+		name = "DA_Haraz_Orldhum_event.24.b"
+		custom_tooltip = DA_HO_gain_10_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
 	}
 }

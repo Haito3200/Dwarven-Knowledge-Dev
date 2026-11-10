@@ -1,0 +1,52 @@
+# Legendary Encounter tester. In the console: run DA_Legendary_Encounter_tester.txt
+# It runs as the player's country. Own Verkal Kozenad (4056), Khugdihr (2863) and Gor Vazumbrog (4217) first,
+# and put regiments in them. Remove the "#" in front of the lines of a block, save, and run the file.
+
+# --- A. Both legends are awake and we know the way to them (active by default)
+4056 = { set_province_flag = DA_Verkal_koz_warning3 add_permanent_province_modifier = { name = DA_continous_Undeads duration = -1 } }
+set_country_flag = DA_can_duel_lich
+2863 = { add_permanent_province_modifier = { name = DA_Dragon_raids duration = -1 } }
+set_country_flag = DA_can_duel_Dragon
+
+# --- A2. The Hunter of the Deeps is found in Gor Vazumbrog and the Titanium Vault stands at tier III (active by default)
+4217 = { set_province_flag = DA_Titanium_Vault_found set_province_flag = DA_Titanium_Vault_found_deep set_province_flag = DA_Titanium_Vault_found_abyss set_province_flag = DA_Titanium_Vault_found_Hunter_of_the_deeps }
+4217 = { add_great_project = { type = DA_Titanium_Vault instant = yes } add_great_project_tier = { type = DA_Titanium_Vault tier = 3 } }
+set_country_flag = DA_Titanium_Vault_completed_Antidote
+
+# --- A3. Materials for the three Instruments (15 of one material and 500 ducats each)
+# set_variable = { which = DA_arcane_metal_total value = 100 }
+# set_variable = { which = DA_enchanted_building_material_total value = 100 }
+# set_variable = { which = DA_alchemy_reagents_total value = 100 }
+# add_treasury = 3000
+
+# --- A4. The Hunter's story from the start: it is back in the Nadir, mad, and the three Instruments are broken again
+# 4217 = { clr_province_flag = DA_Hunter_gone clr_province_flag = DA_Hunter_dead clr_province_flag = DA_Hunter_sane clr_province_flag = DA_Nadir_lost clr_province_flag = DA_Nadir_open clr_province_flag = DA_Nadir_repair_in_progress clr_province_flag = DA_Nadir_repaired.Dreaming_Bell clr_province_flag = DA_Nadir_repaired.Stormcage clr_province_flag = DA_Nadir_repaired.Wardens_Tether clr_province_flag = DA_Nadir_repairing.Dreaming_Bell clr_province_flag = DA_Nadir_repairing.Stormcage clr_province_flag = DA_Nadir_repairing.Wardens_Tether clr_province_flag = DA_Stormcage_seated DA_LE_stop_fight = yes clr_province_flag = DA_LE_hp_init clr_province_flag = DA_LE_scouting clr_province_flag = DA_LE_seen remove_province_modifier = DA_Hunter_rampage remove_province_modifier = DA_Stormcage_Forge }
+# remove_country_modifier = DA_Dreaming_Bell_Quiet
+# remove_country_modifier = DA_Dreaming_Bell_CD
+# remove_country_modifier = DA_Stormcage_Batteries
+# remove_country_modifier = DA_Wardens_Tether_Held
+# remove_country_modifier = DA_Wardens_Tether_CD
+
+# --- A5. Skip a wait: the repair in progress ends now (each line does nothing unless that Instrument is being repaired)
+# 4217 = { province_event = { id = DA_Hold_Gor_Vazumbrog.611 } }
+# 4217 = { province_event = { id = DA_Hold_Gor_Vazumbrog.621 } }
+# 4217 = { province_event = { id = DA_Hold_Gor_Vazumbrog.631 } }
+
+# --- A6. Open the council on the Hunter / decide the fate of the Nadir after a fight now
+# country_event = { id = DA_Hold_Gor_Vazumbrog.50 }
+# country_event = { id = DA_Hold_Gor_Vazumbrog.53 }
+
+# --- B. Money and mana for scouting, containing and the battle mages
+# add_treasury = 3000
+# change_mana = { amount = 200 }
+
+# --- C. The regrouping after a lost fight ends now
+# 4056 = { remove_province_modifier = DA_LE_regroup }
+# 2863 = { remove_province_modifier = DA_LE_regroup }
+
+# --- D. A dragon raid, now
+# country_event = { id = DA_Khugdihr_event.4 }
+
+# --- E. Start again from nothing: fights stopped, wounds healed, scouts and containment forgotten
+# 4056 = { DA_LE_stop_fight = yes clr_province_flag = DA_LE_hp_init clr_province_flag = DA_LE_scouting clr_province_flag = DA_LE_seen remove_province_modifier = DA_LE_contained_lich remove_province_modifier = DA_LE_regroup set_variable = { which = DA_LE_contain_n value = 0 } }
+# 2863 = { DA_LE_stop_fight = yes clr_province_flag = DA_LE_hp_init clr_province_flag = DA_LE_scouting clr_province_flag = DA_LE_seen remove_province_modifier = DA_LE_contained_dragon remove_province_modifier = DA_LE_regroup set_variable = { which = DA_LE_contain_n value = 0 } }

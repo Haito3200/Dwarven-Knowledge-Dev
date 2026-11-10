@@ -998,24 +998,22 @@ province_event = { #Amldihr level 5-6 map
 	}
 }
 
-province_event = { #Amldihr level 11 waiting abyssal invasion
+province_event = { # Amldihr floor 11: the expedition is lost and the Abyssal Invasion begins (events/DA_Halanna_events.txt)
 	id = DA_ADK_explore.100
 	title = "DA_ADK_explore.100.t"
 	desc = "DA_ADK_explore.100.d"
-	picture = NATIVES_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "DA_ADK_explore.100.a"
 		custom_tooltip = DA_Amldihr_level_11_horde_incoming
 		hidden_effect = {
 			set_province_flag = DA_already_spawned_invasion
 			owner = {
-				country_event = {
-					id = DA_ADK_explore.101
-					days = 60
-				}
+				set_variable = { which = DA_abyss_wave value = 0 }
+				set_country_flag = DA_abyssal_invasion_begun # starts the disaster DA_Abyssal_Invasion
 			}
 		}
 	}
@@ -1032,72 +1030,7 @@ province_event = { #Amldihr level 11 waiting abyssal invasion
 	}
 }
 
-country_event = {
-	id = DA_ADK_explore.101 #Amldihr level 11 Abyssal invasion, this is not a direct outcome
-	title = "DA_ADK_explore.101.t"
-	desc = "DA_ADK_explore.101.d"
-	picture = NATIVES_eventPicture
-
-	is_triggered_only = yes
-
-	option = {
-		name = "DA_ADK_explore.101.a"
-		custom_tooltip = DA_Amldihr_level_11_horde_arrived
-		hidden_effect = {
-			every_core_province = {
-				limit = {
-					DA_has_dig_level_2_or_higher = yes
-				}
-				spawn_rebels = {
-					type = Primordial_goblins_rebels
-					size = 5
-				}
-			}
-			capital_scope = {
-				spawn_rebels = {
-					type = Primordial_goblins_rebels
-					size = 6
-				}
-			}
-		}
-	}	
-	after = {
-		hidden_effect = { set_country_flag = DA_Survived_amldihr_horde }
-	}
-}
-
-country_event = {
-	id = DA_ADK_explore.102 # Find gate closed after abyssal invasion, this is not a direct outcome
-	title = "DA_ADK_explore.102.t"
-	desc = "DA_ADK_explore.102.d"
-	picture = MAGIC_STUDY_AND_RELAX_eventPicture
-
-	immediate = { DA_pre_setting_Dig_level_as_explored = yes }
-	trigger = {
-		NOT = { num_of_rebel_armies = 1 }
-		NOT = { num_of_rebel_controlled_provinces = 1 }
-		culture_group = dwarven
-		has_country_flag = DA_Survived_amldihr_horde
-	}	
-	
-	mean_time_to_happen = {
-		months = 1
-	}
-
-	option = {
-		name = "DA_ADK_explore.102.a"
-		custom_tooltip = DA_Survived_amldihr_horde.tooltip
-		hidden_effect = {
-			4119 = {
-				DA_Set_level_as_explored = yes
-				set_province_flag = DA_Runic_gate_closed_p
-				clr_province_flag = DA_expedition_in_progress
-			}
-			clr_country_flag = DA_Survived_amldihr_horde
-			set_global_flag = DA_Runic_Gate_started
-		}
-	}	
-}
+# The floor is marked as explored, and the Runic Gate found, by DA_Halanna_heart.40 when the disaster ends.
 
 ##########
 #Er-Natvir
@@ -1183,11 +1116,11 @@ province_event = {
 }
 
 ##########
-# Dûr-Vazhatun
+# Dur-Vazhatun
 
 
 province_event = {
-	id = DA_ADK_explore.105		# Found Setzunkhupa blueprints
+	id = DA_ADK_explore.105		# Found the blueprints of the Setzunkhupa
 	title = "DA_ADK_explore.105.t"
 	desc = "DA_ADK_explore.105.d"
 	picture = BIG_BOOK_eventPicture
@@ -1224,6 +1157,42 @@ province_event = {
 	}
 }
 
+province_event = {
+	id = DA_ADK_explore.107		# Found the Low Dome and the Ambassador of the Ninth Canal
+	title = "DA_ADK_explore.107.t"
+	desc = "DA_ADK_explore.107.d"
+	picture = MAGE_MOON_eventPicture
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Setzunkhupa_guest_found
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.107.a"
+		custom_tooltip = DA_ADK_explore.107.tooltip
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+			owner = { country_event = { id = DA_Dur_Vazhatun_event.40 days = 5 } }		# the first audience
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
 
 ##########
 # Hehodovar
@@ -1392,7 +1361,6 @@ province_event = {
 	}
 	option = {
 		name = "DA_ADK_explore.202.a"
-		custom_tooltip = DA_Dwarovar_Wonder_found_tt
 		custom_tooltip = DA_ADK_explore.202.tooltip
 		owner = {
 			tooltip = { add_adk_effect = { add = 10 } }
@@ -1568,11 +1536,12 @@ province_event = {
 }
 
 ##########
-# Haraz Orldhum
-
+# Haraz Orldhum (2868): four finds, in order. The story continues in events/DA_Hold_Haraz_Orldhum.txt.
+# The rolls are in common/scripted_effects/DA_Hold_exploration_effects.txt:
+# .210 on floors 2-10, .211 on floors 4-10, .212 and .213 on floors 6-10.
 
 province_event = {
-	id = DA_ADK_explore.210 	# found turrets nearby
+	id = DA_ADK_explore.210 	# the turrets in the approach caverns
 	title = "DA_ADK_explore.210.t"
 	desc = "DA_ADK_explore.210.d"
 	picture = EKLUZAGNU_eventPicture
@@ -1590,6 +1559,12 @@ province_event = {
 		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
+			owner = {
+				country_event = { # the Research Facility reports back; the three-yearly pulse retries it
+					id = DA_Haraz_Orldhum_event.1
+					days = 365
+				}
+			}
 		}
 	}
 	after = {
@@ -1607,7 +1582,7 @@ province_event = {
 }
 
 province_event = {
-	id = DA_ADK_explore.211 	# tradition of slavery, find cages, chained bones, one damaged platinum exoskeleton in a noble's residence
+	id = DA_ADK_explore.211 	# the Highlords' halls, the pens under them, one ruined trophy warsuit
 	title = "DA_ADK_explore.211.t"
 	desc = "DA_ADK_explore.211.d"
 	picture = ULMISBAR_eventPicture
@@ -1643,7 +1618,7 @@ province_event = {
 }
 
 province_event = {
-	id = DA_ADK_explore.212 	# found Platinum golems
+	id = DA_ADK_explore.212 	# the Silent Guard comes up the stair; the floor has to be explored again
 	title = "DA_ADK_explore.212.t"
 	desc = "DA_ADK_explore.212.d"
 	picture = DARK_EXPEDITION_eventPicture
@@ -1678,7 +1653,7 @@ province_event = {
 }
 
 province_event = {
-	id = DA_ADK_explore.213 	# Platinum exoskeleton workshop
+	id = DA_ADK_explore.213 	# the Warsuit Foundry
 	title = "DA_ADK_explore.213.t"
 	desc = "DA_ADK_explore.213.d"
 	picture = INVENTION_eventPicture
@@ -1692,6 +1667,7 @@ province_event = {
 	}
 	option = {
 		name = "DA_ADK_explore.213.a"
+		custom_tooltip = DA_ADK_explore.213.tooltip
 		custom_tooltip = DA_Dwarovar_Wonder_found_tt
 		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {
@@ -2108,7 +2084,7 @@ province_event = {
 	id = DA_ADK_explore.224		# Found Titanium Vault, hunter of the deeps
 	title = "DA_ADK_explore.224.t"
 	desc = "DA_ADK_explore.224.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DRAGON_FLY_eventPicture
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2125,6 +2101,7 @@ province_event = {
 		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
+			owner = { country_event = { id = DA_Hold_Gor_Vazumbrog.51 days = 30 } }		# the watch on the Nadir
 		}
 	}
 	after = {

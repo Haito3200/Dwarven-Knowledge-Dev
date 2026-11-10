@@ -1,0 +1,104 @@
+# Warsuit Foundry window: texts that change with the state of the foundry (10 November 2026)
+
+defined_text = { # the line under the wonder's name
+	name = DA_get_HO_subtitle
+	random = no
+	text = {
+		localisation_key = DA_HO_subtitle_3
+		trigger = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } } }
+	}
+	text = {
+		localisation_key = DA_HO_subtitle_2
+		trigger = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } } }
+	}
+	text = {
+		localisation_key = DA_HO_subtitle_1
+		trigger = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } } }
+	}
+	text = {
+		localisation_key = DA_HO_subtitle_0
+		trigger = { always = yes }
+	}
+}
+
+defined_text = { # the doctrine in force
+	name = DA_get_HO_doctrine
+	random = no
+	text = {
+		localisation_key = DA_HO_doctrine_name_1
+		trigger = { has_country_modifier = DA_HO_exoskeletons_as_reward }
+	}
+	text = {
+		localisation_key = DA_HO_doctrine_name_2
+		trigger = { has_country_modifier = DA_HO_exoskeletons_in_pratical_military }
+	}
+	text = {
+		localisation_key = DA_HO_doctrine_name_3
+		trigger = { has_country_modifier = DA_HO_exoskeletons_for_all_infantry }
+	}
+	text = {
+		localisation_key = DA_HO_doctrine_name_none
+		trigger = { always = yes }
+	}
+}
+
+defined_text = { # the highest tier of the Turrets of Orldhum we can build
+	name = DA_get_HO_turret_tier
+	random = no
+	text = {
+		localisation_key = DA_HO_turret_tier_none
+		trigger = { NOT = { has_country_flag = DA_can_build_HO_turrets } }
+	}
+	text = {
+		localisation_key = DA_HO_turret_tier_4
+		trigger = { DA_HO_foundry_at_tier_3 = yes }
+	}
+	text = {
+		localisation_key = DA_HO_turret_tier_3
+		trigger = { DA_HO_foundry_at_tier_2 = yes }
+	}
+	text = {
+		localisation_key = DA_HO_turret_tier_2
+		trigger = { DA_HO_foundry_at_tier_1 = yes }
+	}
+	text = {
+		localisation_key = DA_HO_turret_tier_1
+		trigger = { always = yes }
+	}
+}
+
+defined_text = { # what to do next
+	name = DA_get_HO_next_step
+	random = no
+	text = {
+		localisation_key = DA_HO_next_restore
+		trigger = { NOT = { DA_HO_foundry_at_tier_1 = yes } }
+	}
+	text = {
+		localisation_key = DA_HO_next_building
+		trigger = {
+			NOT = { has_country_flag = DA_HO_warsuits_in_production }
+			has_estate_privilege = DA_RS_project_Platinum_exoskeletons
+		}
+	}
+	text = {
+		localisation_key = DA_HO_next_project
+		trigger = { NOT = { has_country_flag = DA_HO_warsuits_in_production } }
+	}
+	text = {
+		localisation_key = DA_HO_next_tier_2
+		trigger = { NOT = { DA_HO_foundry_at_tier_2 = yes } }
+	}
+	text = {
+		localisation_key = DA_HO_next_tier_3
+		trigger = { NOT = { DA_HO_foundry_at_tier_3 = yes } }
+	}
+	text = {
+		localisation_key = DA_HO_next_wait
+		trigger = { has_country_modifier = DA_HO_doctrine_CD }
+	}
+	text = {
+		localisation_key = DA_HO_next_change
+		trigger = { always = yes }
+	}
+}

@@ -2995,54 +2995,9 @@ DA_GE_select_tab_clear = {
 	clr_country_flag = DA_GE_tab.Races
 }
 
-######## Ducaniel's Laboratory: ruler trait research (country scope) ########
+######## Ducaniel's Laboratory: ruler pattern research (country scope) ########
 
 DA_DL_recount = {
-	set_variable = { which = DA_DL_traits_unlocked value = 0 }
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Minor_Enhanced_brain_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Minor_Warrior_mentality_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Minor_Pheromones_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Minor_Living_calculator_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Minor_Perceptive_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Enhanced_brain_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Warrior_mentality_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Pheromones_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Living_calculator_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Perceptive_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
-	if = {
-		limit = { has_country_flag = DA_can_add_DA_Damestear_dwarf_personality }
-		change_variable = { which = DA_DL_traits_unlocked value = 1 }
-	}
 	set_variable = { which = DA_DL_pct value = 0 }
 	if = {
 		limit = { check_variable = { which = DA_DL_needed value = 0.001 } }
@@ -3052,41 +3007,204 @@ DA_DL_recount = {
 		round_variable = { which = DA_DL_pct value = 0 }
 	}
 }
-DA_DL_toggle_research = {
+# The cell buttons of the laboratory panel: pay for the next tier of the pattern and start it.
+DA_DL_start_research_Brain = {
 	if = {
-		limit = { has_country_flag = DA_DL_research_on }
-		clr_country_flag = DA_DL_research_on
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.1 } }
+		add_treasury = -500
+		DA_alchemy_reagents_spend = { amount = 10 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 12 } }
 	}
-	else = {
-		if = {
-			limit = { NOT = { has_country_flag = DA_DL_paid } }
-			add_treasury = -500
-			DA_alchemy_reagents_spend = { amount = 10 }
-			hidden_effect = {
-				set_country_flag = DA_DL_paid
-				set_variable = { which = DA_DL_progress value = 0 }
-				if = {
-					limit = { DA_DL_research_stage_1 = yes }
-					set_variable = { which = DA_DL_needed value = 12 }
-				}
-				else_if = {
-					limit = { DA_DL_research_stage_2 = yes }
-					set_variable = { which = DA_DL_needed value = 24 }
-				}
-				else_if = {
-					limit = { DA_DL_research_stage_3 = yes }
-					set_variable = { which = DA_DL_needed value = 48 }
-				}
-			}
-		}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.2 } }
+		add_treasury = -1000
+		DA_alchemy_reagents_spend = { amount = 20 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 24 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.3 } }
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = { amount = 30 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 36 } }
+	}
+	hidden_effect = {
 		set_country_flag = DA_DL_research_on
+		set_country_flag = DA_DL_researching.Brain
+		set_variable = { which = DA_DL_progress value = 0 }
+		DA_DL_recount = yes
 	}
-	hidden_effect = { DA_DL_recount = yes }
 }
-# on_monthly_pulse while the research runs. The trait is rolled in DA_Hul_Jorkad_event.9.
+DA_DL_start_research_Warrior = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.1 } }
+		add_treasury = -500
+		DA_alchemy_reagents_spend = { amount = 10 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 12 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.2 } }
+		add_treasury = -1000
+		DA_alchemy_reagents_spend = { amount = 20 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 24 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.3 } }
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = { amount = 30 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 36 } }
+	}
+	hidden_effect = {
+		set_country_flag = DA_DL_research_on
+		set_country_flag = DA_DL_researching.Warrior
+		set_variable = { which = DA_DL_progress value = 0 }
+		DA_DL_recount = yes
+	}
+}
+DA_DL_start_research_Pheromones = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.1 } }
+		add_treasury = -500
+		DA_alchemy_reagents_spend = { amount = 10 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 12 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.2 } }
+		add_treasury = -1000
+		DA_alchemy_reagents_spend = { amount = 20 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 24 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.3 } }
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = { amount = 30 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 36 } }
+	}
+	hidden_effect = {
+		set_country_flag = DA_DL_research_on
+		set_country_flag = DA_DL_researching.Pheromones
+		set_variable = { which = DA_DL_progress value = 0 }
+		DA_DL_recount = yes
+	}
+}
+DA_DL_start_research_Calculator = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.1 } }
+		add_treasury = -500
+		DA_alchemy_reagents_spend = { amount = 10 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 12 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.2 } }
+		add_treasury = -1000
+		DA_alchemy_reagents_spend = { amount = 20 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 24 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.3 } }
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = { amount = 30 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 36 } }
+	}
+	hidden_effect = {
+		set_country_flag = DA_DL_research_on
+		set_country_flag = DA_DL_researching.Calculator
+		set_variable = { which = DA_DL_progress value = 0 }
+		DA_DL_recount = yes
+	}
+}
+DA_DL_start_research_Perception = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.1 } }
+		add_treasury = -500
+		DA_alchemy_reagents_spend = { amount = 10 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 12 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.2 } }
+		add_treasury = -1000
+		DA_alchemy_reagents_spend = { amount = 20 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 24 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.3 } }
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = { amount = 30 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 36 } }
+	}
+	hidden_effect = {
+		set_country_flag = DA_DL_research_on
+		set_country_flag = DA_DL_researching.Perception
+		set_variable = { which = DA_DL_progress value = 0 }
+		DA_DL_recount = yes
+	}
+}
+DA_DL_start_research_Stone = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.1 } }
+		add_treasury = -500
+		DA_alchemy_reagents_spend = { amount = 10 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 12 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.2 } }
+		add_treasury = -1000
+		DA_alchemy_reagents_spend = { amount = 20 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 24 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.3 } }
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = { amount = 30 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 36 } }
+	}
+	hidden_effect = {
+		set_country_flag = DA_DL_research_on
+		set_country_flag = DA_DL_researching.Stone
+		set_variable = { which = DA_DL_progress value = 0 }
+		DA_DL_recount = yes
+	}
+}
+DA_DL_start_research_Voice = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.1 } }
+		add_treasury = -500
+		DA_alchemy_reagents_spend = { amount = 10 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 12 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.2 } }
+		add_treasury = -1000
+		DA_alchemy_reagents_spend = { amount = 20 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 24 } }
+	}
+	else_if = {
+		limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.3 } }
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = { amount = 30 }
+		hidden_effect = { set_variable = { which = DA_DL_needed value = 36 } }
+	}
+	hidden_effect = {
+		set_country_flag = DA_DL_research_on
+		set_country_flag = DA_DL_researching.Voice
+		set_variable = { which = DA_DL_progress value = 0 }
+		DA_DL_recount = yes
+	}
+}
+DA_DL_start_research_Damestear = {
+	add_treasury = -3000
+	DA_alchemy_reagents_spend = { amount = 50 }
+	hidden_effect = { set_variable = { which = DA_DL_needed value = 48 } }
+	hidden_effect = {
+		set_country_flag = DA_DL_research_on
+		set_country_flag = DA_DL_researching.Damestear
+		set_variable = { which = DA_DL_progress value = 0 }
+		DA_DL_recount = yes
+	}
+}
+# on_monthly_pulse while a research runs. It waits while the laboratory is in foreign hands.
 DA_DL_monthly = {
 	if = {
-		limit = { DA_DL_trait_available = yes }
+		limit = { DA_DL_lab_tier_1 = yes }
 		change_variable = { which = DA_DL_progress value = 1 }
 		if = {
 			limit = { DA_DL_lab_tier_3 = yes }
@@ -3094,17 +3212,378 @@ DA_DL_monthly = {
 		}
 		if = {
 			limit = { check_variable = { which = DA_DL_progress which = DA_DL_needed } }
-			clr_country_flag = DA_DL_research_on
-			clr_country_flag = DA_DL_paid
-			set_variable = { which = DA_DL_progress value = 0 }
-			set_variable = { which = DA_DL_needed value = 0 }
-			country_event = { id = DA_Hul_Jorkad_event.9 }
+			DA_DL_finish_research = yes
 		}
 	}
-	else = {
-		clr_country_flag = DA_DL_research_on
-	}
 	DA_DL_recount = yes
+}
+DA_DL_finish_research = {
+	clr_country_flag = DA_DL_research_on
+	set_variable = { which = DA_DL_progress value = 0 }
+	set_variable = { which = DA_DL_needed value = 0 }
+	if = {
+		limit = { has_country_flag = DA_DL_researching.Brain }
+		clr_country_flag = DA_DL_researching.Brain
+		if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.1 } }
+			set_country_flag = DA_DL_unlocked.Brain.1
+			set_country_flag = DA_DL_just.Brain.1
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.2 } }
+			set_country_flag = DA_DL_unlocked.Brain.2
+			set_country_flag = DA_DL_just.Brain.2
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Brain.3 } }
+			set_country_flag = DA_DL_unlocked.Brain.3
+			set_country_flag = DA_DL_just.Brain.3
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_DL_researching.Warrior }
+		clr_country_flag = DA_DL_researching.Warrior
+		if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.1 } }
+			set_country_flag = DA_DL_unlocked.Warrior.1
+			set_country_flag = DA_DL_just.Warrior.1
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.2 } }
+			set_country_flag = DA_DL_unlocked.Warrior.2
+			set_country_flag = DA_DL_just.Warrior.2
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Warrior.3 } }
+			set_country_flag = DA_DL_unlocked.Warrior.3
+			set_country_flag = DA_DL_just.Warrior.3
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_DL_researching.Pheromones }
+		clr_country_flag = DA_DL_researching.Pheromones
+		if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.1 } }
+			set_country_flag = DA_DL_unlocked.Pheromones.1
+			set_country_flag = DA_DL_just.Pheromones.1
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.2 } }
+			set_country_flag = DA_DL_unlocked.Pheromones.2
+			set_country_flag = DA_DL_just.Pheromones.2
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Pheromones.3 } }
+			set_country_flag = DA_DL_unlocked.Pheromones.3
+			set_country_flag = DA_DL_just.Pheromones.3
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_DL_researching.Calculator }
+		clr_country_flag = DA_DL_researching.Calculator
+		if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.1 } }
+			set_country_flag = DA_DL_unlocked.Calculator.1
+			set_country_flag = DA_DL_just.Calculator.1
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.2 } }
+			set_country_flag = DA_DL_unlocked.Calculator.2
+			set_country_flag = DA_DL_just.Calculator.2
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Calculator.3 } }
+			set_country_flag = DA_DL_unlocked.Calculator.3
+			set_country_flag = DA_DL_just.Calculator.3
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_DL_researching.Perception }
+		clr_country_flag = DA_DL_researching.Perception
+		if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.1 } }
+			set_country_flag = DA_DL_unlocked.Perception.1
+			set_country_flag = DA_DL_just.Perception.1
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.2 } }
+			set_country_flag = DA_DL_unlocked.Perception.2
+			set_country_flag = DA_DL_just.Perception.2
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Perception.3 } }
+			set_country_flag = DA_DL_unlocked.Perception.3
+			set_country_flag = DA_DL_just.Perception.3
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_DL_researching.Stone }
+		clr_country_flag = DA_DL_researching.Stone
+		if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.1 } }
+			set_country_flag = DA_DL_unlocked.Stone.1
+			set_country_flag = DA_DL_just.Stone.1
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.2 } }
+			set_country_flag = DA_DL_unlocked.Stone.2
+			set_country_flag = DA_DL_just.Stone.2
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Stone.3 } }
+			set_country_flag = DA_DL_unlocked.Stone.3
+			set_country_flag = DA_DL_just.Stone.3
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_DL_researching.Voice }
+		clr_country_flag = DA_DL_researching.Voice
+		if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.1 } }
+			set_country_flag = DA_DL_unlocked.Voice.1
+			set_country_flag = DA_DL_just.Voice.1
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.2 } }
+			set_country_flag = DA_DL_unlocked.Voice.2
+			set_country_flag = DA_DL_just.Voice.2
+		}
+		else_if = {
+			limit = { NOT = { has_country_flag = DA_DL_unlocked.Voice.3 } }
+			set_country_flag = DA_DL_unlocked.Voice.3
+			set_country_flag = DA_DL_just.Voice.3
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_DL_researching.Damestear }
+		clr_country_flag = DA_DL_researching.Damestear
+		set_country_flag = DA_DL_unlocked.Damestear
+		set_country_flag = DA_DL_just.Damestear
+	}
+	country_event = { id = DA_Hul_Jorkad_event.9 }
+}
+# Called by the ruler modification effects in DA_other_events_effects.txt (patched by the builder).
+DA_DL_remove_lab_traits = {
+	remove_ruler_personality = DA_DL_Brain_1_personality
+	remove_ruler_personality = DA_DL_Brain_2_personality
+	remove_ruler_personality = DA_DL_Brain_3_personality
+	remove_ruler_personality = DA_DL_Warrior_1_personality
+	remove_ruler_personality = DA_DL_Warrior_2_personality
+	remove_ruler_personality = DA_DL_Warrior_3_personality
+	remove_ruler_personality = DA_DL_Pheromones_1_personality
+	remove_ruler_personality = DA_DL_Pheromones_2_personality
+	remove_ruler_personality = DA_DL_Pheromones_3_personality
+	remove_ruler_personality = DA_DL_Calculator_1_personality
+	remove_ruler_personality = DA_DL_Calculator_2_personality
+	remove_ruler_personality = DA_DL_Calculator_3_personality
+	remove_ruler_personality = DA_DL_Perception_1_personality
+	remove_ruler_personality = DA_DL_Perception_2_personality
+	remove_ruler_personality = DA_DL_Perception_3_personality
+	remove_ruler_personality = DA_DL_Stone_1_personality
+	remove_ruler_personality = DA_DL_Stone_2_personality
+	remove_ruler_personality = DA_DL_Stone_3_personality
+	remove_ruler_personality = DA_DL_Voice_1_personality
+	remove_ruler_personality = DA_DL_Voice_2_personality
+	remove_ruler_personality = DA_DL_Voice_3_personality
+	remove_ruler_personality = DA_DL_Damestear_personality
+}
+DA_DL_apply_lab_traits = {
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Brain_1_personality }
+		add_ruler_personality = DA_DL_Brain_1_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Brain_2_personality }
+		add_ruler_personality = DA_DL_Brain_2_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Brain_3_personality }
+		add_ruler_personality = DA_DL_Brain_3_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Warrior_1_personality }
+		add_ruler_personality = DA_DL_Warrior_1_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Warrior_2_personality }
+		add_ruler_personality = DA_DL_Warrior_2_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Warrior_3_personality }
+		add_ruler_personality = DA_DL_Warrior_3_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Pheromones_1_personality }
+		add_ruler_personality = DA_DL_Pheromones_1_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Pheromones_2_personality }
+		add_ruler_personality = DA_DL_Pheromones_2_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Pheromones_3_personality }
+		add_ruler_personality = DA_DL_Pheromones_3_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Calculator_1_personality }
+		add_ruler_personality = DA_DL_Calculator_1_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Calculator_2_personality }
+		add_ruler_personality = DA_DL_Calculator_2_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Calculator_3_personality }
+		add_ruler_personality = DA_DL_Calculator_3_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Perception_1_personality }
+		add_ruler_personality = DA_DL_Perception_1_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Perception_2_personality }
+		add_ruler_personality = DA_DL_Perception_2_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Perception_3_personality }
+		add_ruler_personality = DA_DL_Perception_3_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Stone_1_personality }
+		add_ruler_personality = DA_DL_Stone_1_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Stone_2_personality }
+		add_ruler_personality = DA_DL_Stone_2_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Stone_3_personality }
+		add_ruler_personality = DA_DL_Stone_3_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Voice_1_personality }
+		add_ruler_personality = DA_DL_Voice_1_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Voice_2_personality }
+		add_ruler_personality = DA_DL_Voice_2_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Voice_3_personality }
+		add_ruler_personality = DA_DL_Voice_3_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_ruler_wants_DA_DL_Damestear_personality }
+		add_ruler_personality = DA_DL_Damestear_personality
+	}
+}
+DA_DL_clear_lab_wants = {
+	clr_country_flag = DA_ruler_wants_DA_DL_Brain_1_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Brain_2_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Brain_3_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Warrior_1_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Warrior_2_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Warrior_3_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Pheromones_1_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Pheromones_2_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Pheromones_3_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Calculator_1_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Calculator_2_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Calculator_3_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Perception_1_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Perception_2_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Perception_3_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Stone_1_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Stone_2_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Stone_3_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Voice_1_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Voice_2_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Voice_3_personality
+	clr_country_flag = DA_ruler_wants_DA_DL_Damestear_personality
+}
+# Saves made before the patterns had three tiers: the old unlocks become tiers of the new patterns.
+DA_DL_migrate = {
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Minor_Enhanced_brain_personality }
+		clr_country_flag = DA_can_add_DA_Minor_Enhanced_brain_personality
+		set_country_flag = DA_DL_unlocked.Brain.1
+		set_country_flag = DA_DL_unlocked.Brain.2
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Minor_Warrior_mentality_personality }
+		clr_country_flag = DA_can_add_DA_Minor_Warrior_mentality_personality
+		set_country_flag = DA_DL_unlocked.Warrior.1
+		set_country_flag = DA_DL_unlocked.Warrior.2
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Minor_Pheromones_personality }
+		clr_country_flag = DA_can_add_DA_Minor_Pheromones_personality
+		set_country_flag = DA_DL_unlocked.Pheromones.1
+		set_country_flag = DA_DL_unlocked.Pheromones.2
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Minor_Living_calculator_personality }
+		clr_country_flag = DA_can_add_DA_Minor_Living_calculator_personality
+		set_country_flag = DA_DL_unlocked.Calculator.1
+		set_country_flag = DA_DL_unlocked.Calculator.2
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Minor_Perceptive_personality }
+		clr_country_flag = DA_can_add_DA_Minor_Perceptive_personality
+		set_country_flag = DA_DL_unlocked.Perception.1
+		set_country_flag = DA_DL_unlocked.Perception.2
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Enhanced_brain_personality }
+		clr_country_flag = DA_can_add_DA_Enhanced_brain_personality
+		set_country_flag = DA_DL_unlocked.Brain.1
+		set_country_flag = DA_DL_unlocked.Brain.2
+		set_country_flag = DA_DL_unlocked.Brain.3
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Warrior_mentality_personality }
+		clr_country_flag = DA_can_add_DA_Warrior_mentality_personality
+		set_country_flag = DA_DL_unlocked.Warrior.1
+		set_country_flag = DA_DL_unlocked.Warrior.2
+		set_country_flag = DA_DL_unlocked.Warrior.3
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Pheromones_personality }
+		clr_country_flag = DA_can_add_DA_Pheromones_personality
+		set_country_flag = DA_DL_unlocked.Pheromones.1
+		set_country_flag = DA_DL_unlocked.Pheromones.2
+		set_country_flag = DA_DL_unlocked.Pheromones.3
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Living_calculator_personality }
+		clr_country_flag = DA_can_add_DA_Living_calculator_personality
+		set_country_flag = DA_DL_unlocked.Calculator.1
+		set_country_flag = DA_DL_unlocked.Calculator.2
+		set_country_flag = DA_DL_unlocked.Calculator.3
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Perceptive_personality }
+		clr_country_flag = DA_can_add_DA_Perceptive_personality
+		set_country_flag = DA_DL_unlocked.Perception.1
+		set_country_flag = DA_DL_unlocked.Perception.2
+		set_country_flag = DA_DL_unlocked.Perception.3
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Damestear_dwarf_personality }
+		clr_country_flag = DA_can_add_DA_Damestear_dwarf_personality
+		set_country_flag = DA_DL_unlocked.Damestear
+	}
+	if = {
+		limit = { has_country_flag = DA_can_add_DA_Dwarven_Divinity_personality }
+		clr_country_flag = DA_can_add_DA_Dwarven_Divinity_personality
+	}
+	if = {
+		limit = { has_country_flag = DA_DL_paid }
+		clr_country_flag = DA_DL_paid
+		clr_country_flag = DA_DL_research_on
+		set_variable = { which = DA_DL_progress value = 0 }
+		set_variable = { which = DA_DL_needed value = 0 }
+	}
 }
 DA_DL_open_ruler_modification = {
 	DA_save_current_personalties = yes

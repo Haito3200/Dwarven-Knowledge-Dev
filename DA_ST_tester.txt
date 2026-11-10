@@ -770,3 +770,298 @@ change_variable = {
 		value = 100
 	}
 }
+
+# BEGIN DA_TRANSCENDENT_TESTER (written by "Claude files/tools/build_tester.py"; edit that script, not this section)
+# Transcendent Technologies test setup. Native commands only, like the rest of this file.
+#
+# First run:
+#  - unlocks Mega Engineering and Genetic Engineering (the Genetic Engineering introduction event follows a day later);
+#  - marks all 8 Mega Structures as researched;
+#  - sequences every Major and Apex augment, so the stability bands can be reached with a few applications;
+#    Minor augments and races are left to sequence by hand, with one source for each Minor augment in the capital;
+#  - tops the treasury up to 100000 and sets reagents, building materials and arcane metal to 1000, mana to at least 500;
+#  - prepares one owned province per structure with requirements and renames it, so it is easy to find:
+#      "Core Driller test site"  Mine V, base production 49 (not the capital: its metal pools are already full)
+#      "Mega Hold test site"     a hold dug to level X (the capital if it is a hold; the capital keeps its name)
+#      "Megalopolis test site"   a city-terrain province raised to 45 development (only if you own one)
+#      "Mega-Port test site"     a coastal province raised to 40 development (only if you own one)
+#  - marks Ducaniel's Laboratory as found and read by the archaeologist if you own Hul-Jorkad (2963); raise the monument, then upgrade it from its own window.
+#
+# Run it again at any time to refill, and to fast-forward: the augment being sequenced, the augment being
+# distributed, the ruler trait being researched and the current Projects & Research project all finish on the
+# next monthly tick. The counters in the windows update on that tick too.
+#
+# Not covered here:
+#  - construction of the Mega Structures still takes its normal time (36 to 72 months before modifiers);
+#  - the Transcendence choice itself: console "event DA_project_event.360" on a save where the paths are still locked;
+#  - a mutation roll without waiting: console "event DA_Genetic_Engineering_events.20";
+#  - race samples need an owned province with pops of another race.
+# Structures: Mana Reserve, Mana Collector, Anti-Magic, Floating Fort, Core Driller, Mega Hold, Megalopolis, Mega-Port.
+
+# ---- Paths ----
+if = {
+	limit = { NOT = { has_country_flag = DA_unlocked.genetic_engineering } }
+	set_variable = { which = DA_GE_stable_mutations value = 0 }
+	country_event = { id = DA_Genetic_Engineering_events.3 days = 1 }
+}
+set_country_flag = DA_unlocked.mega_engineering
+set_country_flag = DA_ME_tracks_structures
+set_country_flag = DA_unlocked.genetic_engineering
+set_country_flag = DA_GE_active
+set_country_flag = DA_GE_sequenced.Dense_Muscle
+set_country_flag = DA_GE_sequenced.Dense_Bones
+set_country_flag = DA_GE_sequenced.Enhanced_Instinct
+set_country_flag = DA_GE_sequenced.Common_Magic
+set_country_flag = DA_GE_sequenced.Enhanced_Fertility
+
+# ---- Mega Engineering: every structure researched ----
+set_country_flag = DA_Project.completed.ME_Hyper_Conductive_Mana_Reserve
+set_country_flag = DA_Project.completed.ME_ambient_mana_collector
+set_country_flag = DA_Project.completed.ME_Anti_Magic_Barrier
+set_country_flag = DA_Project.completed.ME_Floating_Fortress
+set_country_flag = DA_Project.completed.ME_Core_Driller
+set_country_flag = DA_Project.completed.ME_Mega_Hold
+set_country_flag = DA_Project.completed.ME_Megalopolis
+set_country_flag = DA_Project.completed.ME_Mega_Port
+
+# ---- Genetic Engineering: Major and Apex augments sequenced ----
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Giants_Power } }
+	set_country_flag = DA_GE_sequenced.Giants_Power
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Worm_Heart } }
+	set_country_flag = DA_GE_sequenced.Worm_Heart
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Hydra_Regeneration } }
+	set_country_flag = DA_GE_sequenced.Hydra_Regeneration
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Basilisk_Hide } }
+	set_country_flag = DA_GE_sequenced.Basilisk_Hide
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Earthbone_Lattice } }
+	set_country_flag = DA_GE_sequenced.Earthbone_Lattice
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Eidetic_Memory } }
+	set_country_flag = DA_GE_sequenced.Eidetic_Memory
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Draconic_Senses } }
+	set_country_flag = DA_GE_sequenced.Draconic_Senses
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Whispering_Mind } }
+	set_country_flag = DA_GE_sequenced.Whispering_Mind
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Spellblood } }
+	set_country_flag = DA_GE_sequenced.Spellblood
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Warded_Blood } }
+	set_country_flag = DA_GE_sequenced.Warded_Blood
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Phoenix_Spark } }
+	set_country_flag = DA_GE_sequenced.Phoenix_Spark
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Longevity_Genes } }
+	set_country_flag = DA_GE_sequenced.Longevity_Genes
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Genomic_Stabilizer } }
+	set_country_flag = DA_GE_sequenced.Genomic_Stabilizer
+}
+if = {
+	limit = { NOT = { has_country_flag = DA_GE_sequencing.Primordial_Vitality } }
+	set_country_flag = DA_GE_sequenced.Primordial_Vitality
+}
+
+# ---- Resources ----
+if = {
+	limit = { NOT = { treasury = 100000 } }
+	add_treasury = 100000
+}
+set_variable = { which = DA_alchemy_reagents_total value = 1000 }
+set_variable = { which = DA_enchanted_building_material_total value = 1000 }
+set_variable = { which = DA_arcane_metal_total value = 1000 }
+if = {
+	limit = { NOT = { check_variable = { which = currentMana value = 500 } } }
+	set_variable = { which = currentMana value = 500 }
+}
+
+# ---- One source in the capital for each Minor augment that is not a starter ----
+capital_scope = {
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Bo_hide } } add_permanent_province_modifier = { name = DA_Alchemy_material.Bo_hide duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Dire_Hyena_tooth } } add_permanent_province_modifier = { name = DA_Alchemy_material.Dire_Hyena_tooth duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Rock_Crab_legs } } add_permanent_province_modifier = { name = DA_Alchemy_material.Rock_Crab_legs duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Roc_feathers } } add_permanent_province_modifier = { name = DA_Alchemy_material.Roc_feathers duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Ironroot } } add_permanent_province_modifier = { name = DA_Alchemy_material.Ironroot duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Sageleaf } } add_permanent_province_modifier = { name = DA_Alchemy_material.Sageleaf duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Duskfern } } add_permanent_province_modifier = { name = DA_Alchemy_material.Duskfern duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Glowberry } } add_permanent_province_modifier = { name = DA_Alchemy_material.Glowberry duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Mandrake_Root } } add_permanent_province_modifier = { name = DA_Alchemy_material.Mandrake_Root duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Kircha_Ot_laf } } add_permanent_province_modifier = { name = DA_Alchemy_material.Kircha_Ot_laf duration = -1 } }
+	if = { limit = { NOT = { has_province_modifier = DA_Alchemy_material.Shadowmoss } } add_permanent_province_modifier = { name = DA_Alchemy_material.Shadowmoss duration = -1 } }
+}
+
+# ---- Test sites (picked once, then kept) ----
+if = {
+	limit = { NOT = { any_owned_province = { has_province_flag = DA_ST_site.Mega_Hold } } }
+	if = {
+		limit = { capital_scope = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_hold_surface } NOT = { has_province_flag = DA_ST_site } } }
+		capital_scope = { set_province_flag = DA_ST_site set_province_flag = DA_ST_site.Mega_Hold }
+	}
+	else = {
+		random_owned_province = {
+			limit = {
+				NOT = { has_province_flag = DA_ST_site }
+				OR = { has_terrain = dwarven_hold has_terrain = dwarven_hold_surface }
+				is_city = yes
+			}
+			set_province_flag = DA_ST_site
+			set_province_flag = DA_ST_site.Mega_Hold
+			change_province_name = "Mega Hold test site"
+		}
+	}
+}
+every_owned_province = {
+	limit = {
+		has_province_flag = DA_ST_site.Mega_Hold
+		NOT = { OR = { has_province_modifier = dig_10 has_province_modifier = dig_11 } }
+	}
+	remove_province_modifier = dig_1
+	remove_province_modifier = dig_2
+	remove_province_modifier = dig_3
+	remove_province_modifier = dig_4
+	remove_province_modifier = dig_5
+	remove_province_modifier = dig_6
+	remove_province_modifier = dig_7
+	remove_province_modifier = dig_8
+	remove_province_modifier = dig_9
+	add_permanent_province_modifier = { name = dig_10 duration = -1 }
+}
+if = {
+	limit = { NOT = { any_owned_province = { has_province_flag = DA_ST_site.Megalopolis } } }
+	random_owned_province = {
+		limit = {
+			NOT = { has_province_flag = DA_ST_site }
+			has_terrain = city_terrain
+			is_city = yes
+		}
+		set_province_flag = DA_ST_site
+		set_province_flag = DA_ST_site.Megalopolis
+		change_province_name = "Megalopolis test site"
+	}
+}
+every_owned_province = {
+	limit = { has_province_flag = DA_ST_site.Megalopolis }
+	if = { limit = { NOT = { development = 45 } } add_base_tax = 5 add_base_production = 5 add_base_manpower = 5 }
+	if = { limit = { NOT = { development = 45 } } add_base_tax = 5 add_base_production = 5 add_base_manpower = 5 }
+	if = { limit = { NOT = { development = 45 } } add_base_tax = 5 add_base_production = 5 add_base_manpower = 5 }
+}
+if = {
+	limit = { NOT = { any_owned_province = { has_province_flag = DA_ST_site.Mega_Port } } }
+	random_owned_province = {
+		limit = {
+			NOT = { has_province_flag = DA_ST_site }
+			has_port = yes
+			is_city = yes
+		}
+		set_province_flag = DA_ST_site
+		set_province_flag = DA_ST_site.Mega_Port
+		change_province_name = "Mega-Port test site"
+	}
+}
+every_owned_province = {
+	limit = { has_province_flag = DA_ST_site.Mega_Port }
+	if = { limit = { NOT = { development = 40 } } add_base_tax = 5 add_base_production = 5 add_base_manpower = 5 }
+	if = { limit = { NOT = { development = 40 } } add_base_tax = 5 add_base_production = 5 add_base_manpower = 5 }
+	if = { limit = { NOT = { development = 40 } } add_base_tax = 5 add_base_production = 5 add_base_manpower = 5 }
+}
+if = {
+	limit = { NOT = { any_owned_province = { has_province_flag = DA_ST_site.Core_Driller } } }
+	if = {
+		limit = {
+			any_owned_province = {
+				NOT = { has_province_flag = DA_ST_site }
+				is_capital = no
+				is_city = yes
+				OR = { has_province_modifier = DA_Mine_1 has_province_modifier = DA_Mine_2 has_province_modifier = DA_Mine_3 has_province_modifier = DA_Mine_4 has_province_modifier = DA_Mine_5 }
+			}
+		}
+		random_owned_province = {
+			limit = {
+				NOT = { has_province_flag = DA_ST_site }
+				is_capital = no
+				is_city = yes
+				OR = { has_province_modifier = DA_Mine_1 has_province_modifier = DA_Mine_2 has_province_modifier = DA_Mine_3 has_province_modifier = DA_Mine_4 has_province_modifier = DA_Mine_5 }
+			}
+			set_province_flag = DA_ST_site
+			set_province_flag = DA_ST_site.Core_Driller
+			change_province_name = "Core Driller test site"
+		}
+	}
+	else = {
+		random_owned_province = {
+			limit = {
+				NOT = { has_province_flag = DA_ST_site }
+				is_capital = no
+				is_city = yes
+			}
+			set_province_flag = DA_ST_site
+			set_province_flag = DA_ST_site.Core_Driller
+			change_province_name = "Core Driller test site"
+		}
+	}
+}
+every_owned_province = {
+	limit = { has_province_flag = DA_ST_site.Core_Driller }
+	if = {
+		limit = { NOT = { OR = { has_province_modifier = DA_Mine_5 has_province_modifier = DA_Mine_6 has_province_modifier = DA_Mine_7 has_province_modifier = DA_Mine_8 } } }
+		remove_province_modifier = DA_Mine_1
+		remove_province_modifier = DA_Mine_2
+		remove_province_modifier = DA_Mine_3
+		remove_province_modifier = DA_Mine_4
+		add_permanent_province_modifier = { name = DA_Mine_5 duration = -1 }
+	}
+	if = { limit = { NOT = { base_production = 49 } } add_base_production = 10 }
+	if = { limit = { NOT = { base_production = 49 } } add_base_production = 10 }
+	if = { limit = { NOT = { base_production = 49 } } add_base_production = 10 }
+	if = { limit = { NOT = { base_production = 49 } } add_base_production = 10 }
+	if = { limit = { NOT = { base_production = 49 } } add_base_production = 10 }
+}
+
+# ---- Ducaniel's Laboratory found (Hul-Jorkad) ----
+if = {
+	limit = { owns = 2963 }
+	2963 = { set_province_flag = DA_Ducaniel_lab_found }
+	set_country_flag = DA_translator_found
+}
+
+# ---- Fast-forward: whatever is in progress finishes on the next monthly tick ----
+if = {
+	limit = { has_country_flag = DA_GE_seq_active }
+	set_variable = { which = DA_GE_seq_progress value = 999 }
+}
+if = {
+	limit = { has_country_flag = DA_GE_dist_active }
+	set_variable = { which = DA_GE_dist_left value = 0 }
+}
+if = {
+	limit = { has_country_flag = DA_DL_research_on }
+	set_variable = { which = DA_DL_progress value = 999 }
+}
+if = {
+	limit = {
+		has_country_flag = DA_research_in_progress
+		check_variable = { which = DA_research_progress_MAX value = 0.001 }
+	}
+	set_variable = { which = DA_research_progress which = DA_research_progress_MAX }
+}
+# END DA_TRANSCENDENT_TESTER

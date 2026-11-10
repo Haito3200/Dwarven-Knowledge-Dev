@@ -1,0 +1,80 @@
+# The Hunter of the Deeps and the Nadir of the Titanium Vault (Gor Vazumbrog, 4217).
+# Installed by "Claude files/tools/apply_hunter_2026-11-10.py"; hand-owned afterwards.
+#
+# Country scope. The whole state is kept on the province 4217, as flags and one variable:
+#   DA_Titanium_Vault_found_Hunter_of_the_deeps   the Hunter has been found (set by DA_ADK_explore.224)
+#   DA_Hunter_gone                                 it no longer lies in the Nadir (killed, broken free, or freed)
+#   DA_Hunter_dead / DA_Hunter_sane                how it went: killed / given back its mind
+#   DA_Nadir_open                                  the Nadir is ours: its Instruments can be used
+#   DA_Nadir_lost                                  the Instruments were destroyed in a fight
+#   DA_Nadir_repair_in_progress                    an Instrument is being repaired (one at a time)
+#   DA_Nadir_repairing.<Instrument>                which one
+#   DA_Nadir_repaired.<Instrument>                 it is whole
+#   DA_Nadir_repaired_n (variable)                 how many are whole
+#   DA_Stormcage_seated                            the Stormcage has been put to work (final)
+# Instruments: Dreaming_Bell, Stormcage, Wardens_Tether.
+
+DA_Hunter_found = {
+	4217 = {
+		has_province_flag = DA_Titanium_Vault_found_Hunter_of_the_deeps
+	}
+}
+
+DA_Hunter_in_the_Nadir = {
+	4217 = {
+		has_province_flag = DA_Titanium_Vault_found_Hunter_of_the_deeps
+		NOT = { has_province_flag = DA_Hunter_gone }
+	}
+}
+
+# Our crews can go down: the Instruments still exist, and either the Hunter still lies among them
+# (we mend them around it) or the Nadir is ours. False for the few days between a fight and the
+# survey of what it left (DA_Hold_Gor_Vazumbrog.53).
+DA_Nadir_can_be_entered = {
+	owns = 4217
+	4217 = {
+		has_province_flag = DA_Titanium_Vault_found_Hunter_of_the_deeps
+		NOT = { has_province_flag = DA_Nadir_lost }
+		OR = {
+			NOT = { has_province_flag = DA_Hunter_gone }
+			has_province_flag = DA_Nadir_open
+		}
+	}
+}
+
+DA_Nadir_is_ours = {
+	owns = 4217
+	4217 = {
+		has_province_flag = DA_Nadir_open
+		NOT = { has_province_flag = DA_Nadir_lost }
+	}
+}
+
+# What the repair of any Instrument asks for, apart from its price.
+DA_Nadir_instrument_can_be_repaired = {
+	custom_trigger_tooltip = {
+		tooltip = DA_Nadir_can_be_entered_tt
+		DA_Nadir_can_be_entered = yes
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_Nadir_tier_3_tt
+		4217 = {
+			has_great_project = {
+				type = DA_Titanium_Vault
+				tier = 3
+			}
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_Nadir_no_repair_tt
+		4217 = {
+			NOT = { has_province_flag = DA_Nadir_repair_in_progress }
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_Nadir_no_fight_tt
+		4217 = {
+			NOT = { has_province_flag = DA_LE_engaged }
+		}
+	}
+}

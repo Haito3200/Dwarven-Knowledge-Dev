@@ -1,0 +1,997 @@
+# The Setzunkhupa window and the Agradent window: texts that change with the state (10 November 2026).
+# Country scope: ROOT is the country that looks at the window.
+
+defined_text = { # the plate above the picture
+	name = DA_get_SZ_subtitle
+	random = no
+	text = {
+		localisation_key = DA_SZ_subtitle_3
+		trigger = {
+			4020 = { has_great_project = { type = The_Sky_Hold tier = 3 } }
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_subtitle_2
+		trigger = {
+			4020 = { has_great_project = { type = The_Sky_Hold tier = 2 } }
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_subtitle_1
+		trigger = {
+			4020 = { has_great_project = { type = The_Sky_Hold tier = 1 } }
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_subtitle_0
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # first line of the status text: what the dome is doing
+	name = DA_get_SZ_obs_line
+	random = no
+	text = {
+		localisation_key = DA_SZ_obs_line_moon
+		trigger = {
+			has_country_flag = DA_SZ_observing_moon
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_obs_line_wanderers
+		trigger = {
+			has_country_flag = DA_SZ_observing_wanderers
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_obs_line_agradent
+		trigger = {
+			has_country_flag = DA_SZ_observing_agradent
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_obs_line_dark
+		trigger = {
+			has_country_flag = DA_SZ_observing_dark
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_obs_line_all
+		trigger = {
+			has_country_flag = DA_SZ_observed_moon
+			has_country_flag = DA_SZ_observed_wanderers
+			has_country_flag = DA_SZ_observed_agradent
+			has_country_flag = DA_SZ_observed_dark
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_obs_line_closed
+		trigger = {
+			NOT = { DA_SZ_observatory_at_tier_1 = yes }
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_obs_line_idle
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # second line of the status text: the Low Dome and the crossing
+	name = DA_get_SZ_prog_line
+	random = no
+	text = {
+		localisation_key = DA_SZ_prog_gate
+		trigger = {
+			has_country_flag = DA_Agradent_travel_unlocked
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_flight
+		trigger = {
+			has_country_flag = DA_SZ_pod_in_flight
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_lost
+		trigger = {
+			has_country_flag = DA_SZ_anchor_lost
+			NOT = { has_country_flag = DA_SZ_recast_started }
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_recast
+		trigger = {
+			has_country_flag = DA_SZ_recast_started
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_ready
+		trigger = {
+			DA_SZ_all_works_done = yes
+			DA_SZ_guest_is_ours = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_working
+		trigger = {
+			has_country_flag = DA_SZ_work_in_progress
+			DA_SZ_guest_is_ours = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_works
+		trigger = {
+			has_country_flag = DA_SZ_briefed
+			DA_SZ_guest_is_ours = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_allied
+		trigger = {
+			has_country_flag = DA_SZ_alliance
+			DA_SZ_guest_is_ours = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_waiting
+		trigger = {
+			DA_SZ_guest_is_ours = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_hint
+		trigger = {
+			DA_SZ_observatory_at_tier_3 = yes
+			4020 = { NOT = { has_province_flag = DA_Setzunkhupa_guest_found } }
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_prog_none
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # chance to lose the first pod, in the Launch tooltip
+	name = DA_get_SZ_first_risk
+	random = no
+	text = {
+		localisation_key = DA_SZ_first_risk_none
+		trigger = {
+			has_country_flag = DA_SZ_pod_lost_2
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_first_risk_5
+		trigger = {
+			DA_SZ_first_pod_precautions_5 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_first_risk_4
+		trigger = {
+			DA_SZ_first_pod_precautions_4 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_first_risk_3
+		trigger = {
+			DA_SZ_first_pod_precautions_3 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_first_risk_2
+		trigger = {
+			DA_SZ_first_pod_precautions_2 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_first_risk_1
+		trigger = {
+			DA_SZ_first_pod_precautions_1 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_SZ_first_risk_0
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # the selected site
+	name = DA_get_AG_site_name
+	random = no
+	text = {
+		localisation_key = DA_AG_name_canal
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+		}
+	}
+	text = {
+		localisation_key = DA_AG_name_sea
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+		}
+	}
+	text = {
+		localisation_key = DA_AG_name_uplands
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+		}
+	}
+	text = {
+		localisation_key = DA_AG_name_locks
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+		}
+	}
+	text = {
+		localisation_key = DA_AG_name_ice
+		trigger = {
+			has_country_flag = DA_AG_sel_ice
+		}
+	}
+	text = {
+		localisation_key = DA_AG_name_ringfall
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+		}
+	}
+	text = {
+		localisation_key = DA_AG_name_watch
+		trigger = {
+			has_country_flag = DA_AG_sel_watch
+		}
+	}
+	text = {
+		localisation_key = DA_AG_name_none
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # how the canal folk see us
+	name = DA_get_AG_band
+	random = no
+	text = {
+		localisation_key = DA_AG_band_welcome
+		trigger = {
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_band_resented
+		trigger = {
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_band_tolerated
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # anchors that hold
+	name = DA_get_AG_anchors
+	random = no
+	text = {
+		localisation_key = DA_AG_anchors_text_7
+		trigger = {
+			DA_AG_anchors_7 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_anchors_text_6
+		trigger = {
+			DA_AG_anchors_6 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_anchors_text_5
+		trigger = {
+			DA_AG_anchors_5 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_anchors_text_4
+		trigger = {
+			DA_AG_anchors_4 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_anchors_text_3
+		trigger = {
+			DA_AG_anchors_3 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_anchors_text_2
+		trigger = {
+			DA_AG_anchors_2 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_anchors_text_1
+		trigger = {
+			DA_AG_anchors_1 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_anchors_text_0
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # the plate above the map
+	name = DA_get_AG_pod_status
+	random = no
+	text = {
+		localisation_key = DA_AG_pod_status_canal
+		trigger = {
+			has_country_flag = DA_AG_pod_canal
+		}
+	}
+	text = {
+		localisation_key = DA_AG_pod_status_sea
+		trigger = {
+			has_country_flag = DA_AG_pod_sea
+		}
+	}
+	text = {
+		localisation_key = DA_AG_pod_status_uplands
+		trigger = {
+			has_country_flag = DA_AG_pod_uplands
+		}
+	}
+	text = {
+		localisation_key = DA_AG_pod_status_locks
+		trigger = {
+			has_country_flag = DA_AG_pod_locks
+		}
+	}
+	text = {
+		localisation_key = DA_AG_pod_status_ice
+		trigger = {
+			has_country_flag = DA_AG_pod_ice
+		}
+	}
+	text = {
+		localisation_key = DA_AG_pod_status_ringfall
+		trigger = {
+			has_country_flag = DA_AG_pod_ringfall
+		}
+	}
+	text = {
+		localisation_key = DA_AG_pod_status_watch
+		trigger = {
+			has_country_flag = DA_AG_pod_watch
+		}
+	}
+	text = {
+		localisation_key = DA_AG_pod_status_none
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # chance to lose a pod
+	name = DA_get_AG_risk
+	random = no
+	text = {
+		localisation_key = DA_AG_risk_5
+		trigger = {
+			DA_AG_pod_precautions_5 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_risk_4
+		trigger = {
+			DA_AG_pod_precautions_4 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_risk_3
+		trigger = {
+			DA_AG_pod_precautions_3 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_risk_2
+		trigger = {
+			DA_AG_pod_precautions_2 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_risk_1
+		trigger = {
+			DA_AG_pod_precautions_1 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_risk_0
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # info panel, first line: the state of the selected site
+	name = DA_get_AG_status
+	random = no
+	text = {
+		localisation_key = DA_AG_status_none
+		trigger = {
+			NOT = { DA_AG_any_selected = yes }
+		}
+	}
+	text = {
+		localisation_key = DA_AG_status_3
+		trigger = {
+			DA_AG_selected_outpost_3 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_status_2
+		trigger = {
+			DA_AG_selected_outpost_2 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_status_1
+		trigger = {
+			DA_AG_selected_outpost_1 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_status_anchor
+		trigger = {
+			DA_AG_selected_anchored = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_status_pod
+		trigger = {
+			DA_AG_selected_pod_flying = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_status_far
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # info panel, second line: what the outpost of the selected site sends home
+	name = DA_get_AG_yield
+	random = no
+	text = {
+		localisation_key = DA_AG_yield_canal_3_2
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_3
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_3_0
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_3
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_2_2
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_2
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_2_0
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_2
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_1_2
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_1
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_1_0
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_1
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_3_2
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_3
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_3_0
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_3
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_2_2
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_2
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_2_0
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_2
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_1_2
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_1
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_1_0
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_1
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_3_2
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_3
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_3_0
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_3
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_2_2
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_2
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_2_0
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_2
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_1_2
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_1
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_1_0
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_1
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_3_2
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_3
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_3_0
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_3
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_2_2
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_2
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_2_0
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_2
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_1_2
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_1
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_1_0
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_1
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_3_2
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_3
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_3_0
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_3
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_2_2
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_2
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_2_0
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_2
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_1_2
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_1
+			DA_AG_welcome = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_1_0
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_1
+			DA_AG_resented = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_3_1
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_3
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_2_1
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_2
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_1_1
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+			has_country_flag = DA_AG_outpost_canal_1
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_3_1
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_3
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_2_1
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_2
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_1_1
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+			has_country_flag = DA_AG_outpost_sea_1
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_3_1
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_3
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_2_1
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_2
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_1_1
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+			has_country_flag = DA_AG_outpost_uplands_1
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_3_1
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_3
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_2_1
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_2
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_1_1
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+			has_country_flag = DA_AG_outpost_locks_1
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ice_3_1
+		trigger = {
+			has_country_flag = DA_AG_sel_ice
+			has_country_flag = DA_AG_outpost_ice_3
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ice_2_1
+		trigger = {
+			has_country_flag = DA_AG_sel_ice
+			has_country_flag = DA_AG_outpost_ice_2
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ice_1_1
+		trigger = {
+			has_country_flag = DA_AG_sel_ice
+			has_country_flag = DA_AG_outpost_ice_1
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_3_1
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_3
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_2_1
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_2
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_1_1
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+			has_country_flag = DA_AG_outpost_ringfall_1
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_watch_3_1
+		trigger = {
+			has_country_flag = DA_AG_sel_watch
+			has_country_flag = DA_AG_outpost_watch_3
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_watch_2_1
+		trigger = {
+			has_country_flag = DA_AG_sel_watch
+			has_country_flag = DA_AG_outpost_watch_2
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_watch_1_1
+		trigger = {
+			has_country_flag = DA_AG_sel_watch
+			has_country_flag = DA_AG_outpost_watch_1
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_canal_0
+		trigger = {
+			has_country_flag = DA_AG_sel_canal
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_sea_0
+		trigger = {
+			has_country_flag = DA_AG_sel_sea
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_uplands_0
+		trigger = {
+			has_country_flag = DA_AG_sel_uplands
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_locks_0
+		trigger = {
+			has_country_flag = DA_AG_sel_locks
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ice_0
+		trigger = {
+			has_country_flag = DA_AG_sel_ice
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_ringfall_0
+		trigger = {
+			has_country_flag = DA_AG_sel_ringfall
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_watch_0
+		trigger = {
+			has_country_flag = DA_AG_sel_watch
+		}
+	}
+	text = {
+		localisation_key = DA_AG_yield_none
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # info panel, last lines: what can be done next
+	name = DA_get_AG_next
+	random = no
+	text = {
+		localisation_key = DA_AG_next_none
+		trigger = {
+			NOT = { DA_AG_any_selected = yes }
+		}
+	}
+	text = {
+		localisation_key = DA_AG_next_done
+		trigger = {
+			DA_AG_selected_outpost_3 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_next_3
+		trigger = {
+			DA_AG_selected_outpost_2 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_next_2
+		trigger = {
+			DA_AG_selected_outpost_1 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_next_1
+		trigger = {
+			DA_AG_selected_anchored = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_next_wait
+		trigger = {
+			DA_AG_selected_pod_flying = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_next_pod
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # label of the outpost button
+	name = DA_get_AG_outpost_label
+	random = no
+	text = {
+		localisation_key = DA_AG_outpost_label_grow
+		trigger = {
+			DA_AG_selected_outpost_1 = yes
+		}
+	}
+	text = {
+		localisation_key = DA_AG_outpost_label_raise
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+defined_text = { # selector button 23
+	name = DA_get_AG_selector
+	random = no
+	text = {
+		localisation_key = DA_Agradent_title
+		trigger = {
+			has_country_flag = DA_Agradent_travel_unlocked
+		}
+	}
+	text = {
+		localisation_key = DA_Wonder_Unknown
+		trigger = {
+			always = yes
+		}
+	}
+}
+

@@ -1,3 +1,13 @@
+# BEGIN DA_BLOCK merge_notes
+# Dwarven Knowledge: this is Anbennar's topbar.gui plus the mod's additions.
+# Every addition is between "# BEGIN DA_BLOCK <name>" and "# END DA_BLOCK <name>"; a changed Anbennar line
+# ends with "# DA_PATCH <name> (Anbennar: <original>)"; "ANB_AHEAD" blocks come from a newer Anbennar.
+# Without the blocks and patches the file is Anbennar's, byte for byte. Keep it that way:
+#   - new Dwarven Knowledge windows go inside the block "windows";
+#   - do not edit Anbennar's lines; if you must, mark the line with DA_PATCH;
+#   - do not move blocks: element order is drawing order.
+# To update Anbennar: python3 "Claude files/tools/merge_topbar.py" merge . <new anbennar folder>
+# END DA_BLOCK merge_notes
 #####################################################################
 # To avoid errors, avoid allowing scripted instantTextBoxType and	#
 # iconType elements interact with the mouse. topbar.gui is bugged	#
@@ -51,6 +61,7 @@ guiTypes = {
 		hide_position = { x = 0 y = -165 }
 		animation_type = "decelerated"
 		animation_time = 600
+		# BEGIN DA_BLOCK windows - topbar alerts and every Dwarven Knowledge window (Buttons 1-5); the builders rewrite windows inside it
 		
 		############# dwarven knowledge ###########
 		
@@ -9896,15 +9907,15 @@ guiTypes = {
 
 			################# dwarovar wonders ##################
 			
-			windowType = {  # DA_Ancient_Research_facility1
+			windowType = {  # DA_Ancient_Research_facility1: three states, see common/custom_gui/DA_Wonder_Ancient_Research_facility1.txt
 				name = "DA_Ancient_Research_facility1_Window"
 				position = { x = 12 y = 10 }
 				scripted = yes
 
 				iconType = {
-					name ="DA_Dwarven_Wonder_Basic_Interface"
+					name = "DA_Dwarven_Wonder_Basic_Interface"
+					position = { x = -12 y = -10 }
 					spriteType = "GFX_DA_Dwarven_Wonder_Basic_Interface"
-					position = { x= -12 y = -10 }
 					Orientation = "UPPER_LEFT"
 					alwaystransparent = yes
 					scripted = yes
@@ -9912,14 +9923,14 @@ guiTypes = {
 				guiButtonType = {
 					name = "DA_close_button_Ancient_Research_facility1"
 					position = { x = 596 y = 11 }
-					quadTextureSprite ="GFX_closebutton2"
+					quadTextureSprite = "GFX_closebutton2"
 					Orientation = "UPPER_RIGHT"
 					scripted = yes
 					clicksound = close_window
 				}
 				guiButtonType = {
-					name ="DA_Ancient_Research_facility1_upgrade_button"
-					position = { x= 190 y = 130 }
+					name = "DA_Ancient_Research_facility1_upgrade_button"
+					position = { x = 190 y = 130 }
 					quadTextureSprite = "GFX_DA_Dwarovar_Wonder_upgrade_button"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
@@ -9930,7 +9941,7 @@ guiTypes = {
 					position = { x = 160 y = 86 }
 					textureFile = ""
 					font = "vic_29"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 300
 					maxHeight = 32
@@ -9943,7 +9954,7 @@ guiTypes = {
 					position = { x = 210 y = 195 }
 					textureFile = ""
 					font = "vic_22s"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 200
 					maxHeight = 32
@@ -9952,9 +9963,9 @@ guiTypes = {
 					alwaystransparent = yes
 				}
 				iconType = {
-					name ="DA_Ancient_Research_facility1_Wonder_image"
+					name = "DA_Ancient_Research_facility1_Wonder_image"
+					position = { x = 57 y = 253 }
 					spriteType = "GFX_DA_Ancient_Research_facility1_Wonder"
-					position = { x= 57 y = 253 }
 					Orientation = "UPPER_LEFT"
 					alwaystransparent = no
 					scripted = yes
@@ -9964,7 +9975,7 @@ guiTypes = {
 					position = { x = 64 y = 150 }
 					textureFile = ""
 					font = "vic_18"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 80
 					maxHeight = 32
@@ -9977,7 +9988,7 @@ guiTypes = {
 					position = { x = 409 y = 150 }
 					textureFile = ""
 					font = "vic_18"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 80
 					maxHeight = 32
@@ -9986,89 +9997,144 @@ guiTypes = {
 					alwaystransparent = no
 				}
 
-				
+				# state 1: the Runic Gate is sealed
+				instantTextBoxType = {
+					name = "DA_Ancient_Research_facility1_sealed_text"
+					position = { x = 73 y = 548 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 480
+					maxHeight = 80
+					format = center
+					scripted = yes
+					alwaystransparent = no
+				}
 				guiButtonType = {
 					name = "DA_Ancient_Research_facility1_button_opening"
-					position = { x = 200 y = 630 }
-					quadTextureSprite ="GFX_DA_Ancient_Research_facility1_button_opening"	
+					position = { x = 197 y = 648 }
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_opening"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
-					clicksound = close_window
+					clicksound = back_click
 				}
 
-				
+				# state 2: Halanna's Heart
 				guiButtonType = {
-					name = "GFX_DA_Ancient_Research_facility1_button_exp_1"
-					position = { x = 150 y = 570 }
-					quadTextureSprite ="GFX_DA_Ancient_Research_facility1_button_exp_1"	
+					name = "DA_Ancient_Research_facility1_button_exp_1"
+					position = { x = 70 y = 575 }
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_exp_1"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
-					clicksound = close_window
+					clicksound = back_click
 				}
 				guiButtonType = {
-					name = "GFX_DA_Ancient_Research_facility1_button_exp_2"
-					position = { x = 150 y = 610 }
-					quadTextureSprite ="GFX_DA_Ancient_Research_facility1_button_exp_2"	
+					name = "DA_Ancient_Research_facility1_button_exp_2"
+					position = { x = 70 y = 620 }
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_exp_2"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
-					clicksound = close_window
+					clicksound = back_click
 				}
 				guiButtonType = {
-					name = "GFX_DA_Ancient_Research_facility1_button_exp_3"
-					position = { x = 150 y = 650 }
-					quadTextureSprite ="GFX_DA_Ancient_Research_facility1_button_exp_3"	
+					name = "DA_Ancient_Research_facility1_button_exp_3"
+					position = { x = 70 y = 665 }
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_exp_3"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
-					clicksound = close_window
+					clicksound = back_click
+				}
+				iconType = {
+					name = "DA_Ancient_Research_facility1_Heart_panel"
+					position = { x = 274 y = 550 }
+					spriteType = "GFX_DA_panel_empty"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_Ancient_Research_facility1_Heart_text"
+					position = { x = 296 y = 572 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 283
+					maxHeight = 140
+					format = left
+					scripted = yes
+					alwaystransparent = no
 				}
 
-				
+				# state 3: Halanna is awake (the throne button takes the place of Offering at recovery 250)
 				guiButtonType = {
 					name = "DA_Ancient_Research_facility1_button_offering"
 					position = { x = 70 y = 570 }
-					quadTextureSprite ="GFX_DA_Ancient_Research_facility1_button_offering"	
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_offering"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
-					clicksound = close_window
+					clicksound = back_click
+				}
+				guiButtonType = {
+					name = "DA_Ancient_Research_facility1_button_throne"
+					position = { x = 70 y = 570 }
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_Ancient_Research_facility1_button_throne_text"
+					position = { x = 80 y = 574 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
 				}
 				guiButtonType = {
 					name = "DA_Ancient_Research_facility1_button_prosperity"
 					position = { x = 70 y = 610 }
-					quadTextureSprite ="GFX_DA_Ancient_Research_facility1_button_prosperity"	
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_prosperity"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
-					clicksound = close_window
+					clicksound = back_click
 				}
 				guiButtonType = {
 					name = "DA_Ancient_Research_facility1_button_general"
 					position = { x = 70 y = 650 }
-					quadTextureSprite ="GFX_DA_Ancient_Research_facility1_button_general"	
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_general"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
-					clicksound = close_window
+					clicksound = back_click
 				}
 				guiButtonType = {
 					name = "DA_Ancient_Research_facility1_button_earth_shaping"
 					position = { x = 70 y = 690 }
-					quadTextureSprite ="GFX_DA_Ancient_Research_facility1_button_earth_shaping"	
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_earth_shaping"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
-					clicksound = close_window
+					clicksound = back_click
 				}
 				iconType = {
-					name ="DA_Ancient_Research_facility1_Halanna_favor_panel"
+					name = "DA_Ancient_Research_facility1_Halanna_favor_panel"
+					position = { x = 274 y = 550 }
 					spriteType = "GFX_DA_Ancient_Research_facility1_Halanna_favor_panel"
-					position = { x= 274 y = 550 }
 					Orientation = "UPPER_LEFT"
-					scripted = yes
 					alwaystransparent = no
+					scripted = yes
 				}
 				instantTextBoxType = {
 					name = "DA_Ancient_Research_facility1_Halanna_favor_shower"
 					position = { x = 498 y = 633 }
 					textureFile = ""
 					font = "vic_22"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 80
 					maxHeight = 32
@@ -10220,15 +10286,15 @@ guiTypes = {
 					alwaystransparent = no
 				}
 			}
-			windowType = {  # The_Sky_Hold
+			windowType = {  # The_Sky_Hold: the Setzunkhupa, see common/custom_gui/DA_Wonder_The_Sky_Hold.txt
 				name = "DA_The_Sky_Hold_Window"
 				position = { x = 12 y = 10 }
 				scripted = yes
 
 				iconType = {
-					name ="DA_Dwarven_Wonder_Basic_Interface"
+					name = "DA_Dwarven_Wonder_Basic_Interface"
+					position = { x = -12 y = -10 }
 					spriteType = "GFX_DA_Dwarven_Wonder_Basic_Interface"
-					position = { x= -12 y = -10 }
 					Orientation = "UPPER_LEFT"
 					alwaystransparent = yes
 					scripted = yes
@@ -10236,14 +10302,14 @@ guiTypes = {
 				guiButtonType = {
 					name = "DA_close_button_The_Sky_Hold"
 					position = { x = 596 y = 11 }
-					quadTextureSprite ="GFX_closebutton2"
+					quadTextureSprite = "GFX_closebutton2"
 					Orientation = "UPPER_RIGHT"
 					scripted = yes
 					clicksound = close_window
 				}
 				guiButtonType = {
-					name ="DA_The_Sky_Hold_upgrade_button"
-					position = { x= 190 y = 130 }
+					name = "DA_The_Sky_Hold_upgrade_button"
+					position = { x = 190 y = 130 }
 					quadTextureSprite = "GFX_DA_Dwarovar_Wonder_upgrade_button"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
@@ -10251,12 +10317,12 @@ guiTypes = {
 				}
 				instantTextBoxType = {
 					name = "DA_The_Sky_Hold_name_shower"
-					position = { x = 210 y = 86 }
+					position = { x = 135 y = 86 }
 					textureFile = ""
 					font = "vic_29"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
-					maxWidth = 200
+					maxWidth = 350
 					maxHeight = 32
 					format = center
 					scripted = yes
@@ -10267,7 +10333,7 @@ guiTypes = {
 					position = { x = 210 y = 195 }
 					textureFile = ""
 					font = "vic_22s"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 200
 					maxHeight = 32
@@ -10276,9 +10342,9 @@ guiTypes = {
 					alwaystransparent = yes
 				}
 				iconType = {
-					name ="DA_The_Sky_Hold_Wonder_image"
+					name = "DA_The_Sky_Hold_Wonder_image"
+					position = { x = 57 y = 253 }
 					spriteType = "GFX_DA_The_Sky_Hold_Wonder"
-					position = { x= 57 y = 253 }
 					Orientation = "UPPER_LEFT"
 					alwaystransparent = no
 					scripted = yes
@@ -10288,7 +10354,7 @@ guiTypes = {
 					position = { x = 64 y = 150 }
 					textureFile = ""
 					font = "vic_18"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 80
 					maxHeight = 32
@@ -10298,14 +10364,633 @@ guiTypes = {
 				}
 				instantTextBoxType = {
 					name = "DA_The_Sky_Hold_Wonder_location_shower"
-					position = { x = 409 y = 150 }
+					position = { x = 355 y = 150 }
 					textureFile = ""
 					font = "vic_18"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
-					maxWidth = 80
+					maxWidth = 200
 					maxHeight = 32
 					format = center
+					scripted = yes
+					alwaystransparent = no
+				}
+
+				# first column: the observation programme
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_header_observation"
+					position = { x = 38 y = 548 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 170
+					maxHeight = 22
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_observe_moon"
+					position = { x = 38 y = 572 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_observe_moon_text"
+					position = { x = 48 y = 576 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_observe_wanderers"
+					position = { x = 38 y = 608 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_observe_wanderers_text"
+					position = { x = 48 y = 612 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_observe_agradent"
+					position = { x = 38 y = 644 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_observe_agradent_text"
+					position = { x = 48 y = 648 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_observe_dark"
+					position = { x = 38 y = 680 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_observe_dark_text"
+					position = { x = 48 y = 684 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+
+				# second column: the crossing (the recast button takes the place of the Anchor after a lost pod)
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_header_crossing"
+					position = { x = 222 y = 548 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 170
+					maxHeight = 22
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_work_anchor"
+					position = { x = 222 y = 572 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_work_anchor_text"
+					position = { x = 232 y = 576 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_work_thrower"
+					position = { x = 222 y = 608 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_work_thrower_text"
+					position = { x = 232 y = 612 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_work_aim"
+					position = { x = 222 y = 644 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_work_aim_text"
+					position = { x = 232 y = 648 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_recast"
+					position = { x = 222 y = 572 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_recast_text"
+					position = { x = 232 y = 576 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_launch"
+					position = { x = 222 y = 680 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_launch_text"
+					position = { x = 232 y = 684 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+
+				# third column: the Low Dome and the gate
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_header_dome"
+					position = { x = 406 y = 548 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 170
+					maxHeight = 22
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_speak"
+					position = { x = 406 y = 572 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_speak_text"
+					position = { x = 416 y = 576 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_The_Sky_Hold_button_agradent"
+					position = { x = 406 y = 608 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_button_agradent_text"
+					position = { x = 416 y = 612 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_The_Sky_Hold_info_text"
+					position = { x = 38 y = 718 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 540
+					maxHeight = 44
+					format = left
+					scripted = yes
+					alwaystransparent = no
+				}
+			}
+			windowType = {  # Agradent: landing sites, pods and outposts, see common/custom_gui/DA_Wonder_Agradent.txt
+				name = "DA_Agradent_Window"
+				position = { x = 12 y = 10 }
+				scripted = yes
+
+				iconType = {
+					name = "DA_Agradent_background"
+					position = { x = -12 y = -10 }
+					spriteType = "GFX_DA_Agradent_Interface"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_close_button_Agradent"
+					position = { x = 596 y = 11 }
+					quadTextureSprite = "GFX_closebutton2"
+					Orientation = "UPPER_RIGHT"
+					scripted = yes
+					clicksound = close_window
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_title"
+					position = { x = 163 y = 41 }
+					textureFile = ""
+					font = "vic_22"
+					borderSize = { x = 4 y = 4 }
+					text = "DA_Agradent_title"
+					maxWidth = 300
+					maxHeight = 28
+					format = center
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_site_name"
+					position = { x = 135 y = 86 }
+					textureFile = ""
+					font = "vic_29"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 350
+					maxHeight = 32
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_goodwill_label"
+					position = { x = 39 y = 127 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = "DA_Agradent_goodwill_label"
+					maxWidth = 130
+					maxHeight = 24
+					format = center
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_goodwill_value"
+					position = { x = 39 y = 150 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 130
+					maxHeight = 32
+					format = center
+					scripted = yes
+					alwaystransparent = no
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_anchors_label"
+					position = { x = 353 y = 125 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = "DA_Agradent_anchors_label"
+					maxWidth = 200
+					maxHeight = 24
+					format = center
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_anchors_value"
+					position = { x = 355 y = 150 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 200
+					maxHeight = 32
+					format = center
+					scripted = yes
+					alwaystransparent = no
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_pod_status"
+					position = { x = 210 y = 195 }
+					textureFile = ""
+					font = "vic_22s"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 200
+					maxHeight = 32
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				iconType = {
+					name = "DA_Agradent_map"
+					position = { x = 57 y = 253 }
+					spriteType = "GFX_DA_Agradent_map"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+
+				# the sites: a marker to click, and a ring around the selected one
+				iconType = {
+					name = "DA_Agradent_sel_canal"
+					position = { x = 274 y = 352 }
+					spriteType = "GFX_DA_Agradent_site_selected"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_site_canal"
+					position = { x = 280 y = 358 }
+					quadTextureSprite = "GFX_DA_Agradent_site_marker"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				iconType = {
+					name = "DA_Agradent_sel_sea"
+					position = { x = 234 y = 326 }
+					spriteType = "GFX_DA_Agradent_site_selected"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_site_sea"
+					position = { x = 240 y = 332 }
+					quadTextureSprite = "GFX_DA_Agradent_site_marker"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				iconType = {
+					name = "DA_Agradent_sel_uplands"
+					position = { x = 324 y = 318 }
+					spriteType = "GFX_DA_Agradent_site_selected"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_site_uplands"
+					position = { x = 330 y = 324 }
+					quadTextureSprite = "GFX_DA_Agradent_site_marker"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				iconType = {
+					name = "DA_Agradent_sel_locks"
+					position = { x = 312 y = 380 }
+					spriteType = "GFX_DA_Agradent_site_selected"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_site_locks"
+					position = { x = 318 y = 386 }
+					quadTextureSprite = "GFX_DA_Agradent_site_marker"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				iconType = {
+					name = "DA_Agradent_sel_ice"
+					position = { x = 284 y = 438 }
+					spriteType = "GFX_DA_Agradent_site_selected"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_site_ice"
+					position = { x = 290 y = 444 }
+					quadTextureSprite = "GFX_DA_Agradent_site_marker"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				iconType = {
+					name = "DA_Agradent_sel_ringfall"
+					position = { x = 222 y = 384 }
+					spriteType = "GFX_DA_Agradent_site_selected"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_site_ringfall"
+					position = { x = 228 y = 390 }
+					quadTextureSprite = "GFX_DA_Agradent_site_marker"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				iconType = {
+					name = "DA_Agradent_sel_watch"
+					position = { x = 360 y = 356 }
+					spriteType = "GFX_DA_Agradent_site_selected"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_site_watch"
+					position = { x = 366 y = 362 }
+					quadTextureSprite = "GFX_DA_Agradent_site_marker"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+
+				# pods, outposts, aid: the label of each button is drawn over it
+				guiButtonType = {
+					name = "DA_Agradent_button_pod"
+					position = { x = 70 y = 575 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_button_pod_text"
+					position = { x = 80 y = 579 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_button_outpost"
+					position = { x = 70 y = 620 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_button_outpost_text"
+					position = { x = 80 y = 624 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_Agradent_button_aid"
+					position = { x = 70 y = 665 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_button_aid_text"
+					position = { x = 80 y = 669 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_risk_text"
+					position = { x = 45 y = 708 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 220
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = no
+				}
+				iconType = {
+					name = "DA_Agradent_info_panel"
+					position = { x = 274 y = 550 }
+					spriteType = "GFX_DA_panel_empty"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_Agradent_info_text"
+					position = { x = 296 y = 572 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 283
+					maxHeight = 140
+					format = left
 					scripted = yes
 					alwaystransparent = no
 				}
@@ -10406,54 +11091,16 @@ guiTypes = {
 				
 				guiButtonType = { # 
 					name = "DA_The_Dwarven_Laboratory_button_ruler"
-					position = { x = 60 y = 580 }
+					position = { x = 66 y = 560 }
 					quadTextureSprite ="GFX_DA_The_Dwarven_Laboratory_button_ruler"
-					Orientation = "UPPER_LEFT"
-					scripted = yes
-					clicksound = back_click
-				}
-				iconType = {
-					name ="DA_The_Dwarven_Laboratory_Ruler_Traits_Panel"
-					spriteType = "GFX_DA_The_Dwarven_Laboratory_Ruler_Traits_Panel"
-					position = { x= 257 y = 580 }
-					Orientation = "UPPER_LEFT"
-					alwaystransparent = no
-					scripted = yes
-				}
-				guiButtonType = { # 
-					name = "DA_The_Dwarven_Laboratory_button_ruler_trait_research"
-					position = { x = 257 y = 660 }
-					quadTextureSprite ="GFX_DA_The_Dwarven_Laboratory_button_ruler_trait_research"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
 					clicksound = back_click
 				}
 				# BEGIN DA_GE_LAB_TEXTS
 				instantTextBoxType = {
-					name = "DA_DL_traits_count"
-					position = { x = 422 y = 618 }
-					font = "vic_22"
-					text = "DA_DL_traits_count"
-					maxWidth = 116
-					maxHeight = 26
-					format = centre
-					scripted = yes
-					alwaystransparent = yes
-				}
-				instantTextBoxType = {
-					name = "DA_DL_research_status"
-					position = { x = 257 y = 716 }
-					font = "vic_18"
-					text = "DA_DL_research_status"
-					maxWidth = 340
-					maxHeight = 22
-					format = left
-					scripted = yes
-					alwaystransparent = yes
-				}
-				instantTextBoxType = {
 					name = "DA_DL_ruler_status"
-					position = { x = 60 y = 660 }
+					position = { x = 426 y = 566 }
 					font = "vic_18"
 					text = "DA_DL_ruler_status"
 					maxWidth = 180
@@ -10462,10 +11109,330 @@ guiTypes = {
 					scripted = yes
 					alwaystransparent = yes
 				}
+				guiButtonType = {
+					name = "DA_DL_cell_Brain"
+					position = { x = 66 y = 598 }
+					quadTextureSprite = "GFX_DA_Wonder_interaction_button"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_tier_Brain"
+					position = { x = 79 y = 607 }
+					font = "vic_18"
+					text = "DA_DL_cell_tier_Brain"
+					maxWidth = 31
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_name_Brain"
+					position = { x = 113 y = 607 }
+					font = "vic_18"
+					text = "DA_DL_cell_name_Brain"
+					maxWidth = 118
+					maxHeight = 20
+					format = left
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_status_Brain"
+					position = { x = 231 y = 607 }
+					font = "vic_18"
+					text = "DA_DL_cell_status_Brain"
+					maxWidth = 72
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_DL_cell_Warrior"
+					position = { x = 321 y = 598 }
+					quadTextureSprite = "GFX_DA_Wonder_interaction_button"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_tier_Warrior"
+					position = { x = 334 y = 607 }
+					font = "vic_18"
+					text = "DA_DL_cell_tier_Warrior"
+					maxWidth = 31
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_name_Warrior"
+					position = { x = 368 y = 607 }
+					font = "vic_18"
+					text = "DA_DL_cell_name_Warrior"
+					maxWidth = 118
+					maxHeight = 20
+					format = left
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_status_Warrior"
+					position = { x = 486 y = 607 }
+					font = "vic_18"
+					text = "DA_DL_cell_status_Warrior"
+					maxWidth = 72
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_DL_cell_Pheromones"
+					position = { x = 66 y = 636 }
+					quadTextureSprite = "GFX_DA_Wonder_interaction_button"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_tier_Pheromones"
+					position = { x = 79 y = 645 }
+					font = "vic_18"
+					text = "DA_DL_cell_tier_Pheromones"
+					maxWidth = 31
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_name_Pheromones"
+					position = { x = 113 y = 645 }
+					font = "vic_18"
+					text = "DA_DL_cell_name_Pheromones"
+					maxWidth = 118
+					maxHeight = 20
+					format = left
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_status_Pheromones"
+					position = { x = 231 y = 645 }
+					font = "vic_18"
+					text = "DA_DL_cell_status_Pheromones"
+					maxWidth = 72
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_DL_cell_Calculator"
+					position = { x = 321 y = 636 }
+					quadTextureSprite = "GFX_DA_Wonder_interaction_button"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_tier_Calculator"
+					position = { x = 334 y = 645 }
+					font = "vic_18"
+					text = "DA_DL_cell_tier_Calculator"
+					maxWidth = 31
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_name_Calculator"
+					position = { x = 368 y = 645 }
+					font = "vic_18"
+					text = "DA_DL_cell_name_Calculator"
+					maxWidth = 118
+					maxHeight = 20
+					format = left
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_status_Calculator"
+					position = { x = 486 y = 645 }
+					font = "vic_18"
+					text = "DA_DL_cell_status_Calculator"
+					maxWidth = 72
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_DL_cell_Perception"
+					position = { x = 66 y = 674 }
+					quadTextureSprite = "GFX_DA_Wonder_interaction_button"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_tier_Perception"
+					position = { x = 79 y = 683 }
+					font = "vic_18"
+					text = "DA_DL_cell_tier_Perception"
+					maxWidth = 31
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_name_Perception"
+					position = { x = 113 y = 683 }
+					font = "vic_18"
+					text = "DA_DL_cell_name_Perception"
+					maxWidth = 118
+					maxHeight = 20
+					format = left
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_status_Perception"
+					position = { x = 231 y = 683 }
+					font = "vic_18"
+					text = "DA_DL_cell_status_Perception"
+					maxWidth = 72
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_DL_cell_Stone"
+					position = { x = 321 y = 674 }
+					quadTextureSprite = "GFX_DA_Wonder_interaction_button"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_tier_Stone"
+					position = { x = 334 y = 683 }
+					font = "vic_18"
+					text = "DA_DL_cell_tier_Stone"
+					maxWidth = 31
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_name_Stone"
+					position = { x = 368 y = 683 }
+					font = "vic_18"
+					text = "DA_DL_cell_name_Stone"
+					maxWidth = 118
+					maxHeight = 20
+					format = left
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_status_Stone"
+					position = { x = 486 y = 683 }
+					font = "vic_18"
+					text = "DA_DL_cell_status_Stone"
+					maxWidth = 72
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_DL_cell_Voice"
+					position = { x = 66 y = 712 }
+					quadTextureSprite = "GFX_DA_Wonder_interaction_button"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_tier_Voice"
+					position = { x = 79 y = 721 }
+					font = "vic_18"
+					text = "DA_DL_cell_tier_Voice"
+					maxWidth = 31
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_name_Voice"
+					position = { x = 113 y = 721 }
+					font = "vic_18"
+					text = "DA_DL_cell_name_Voice"
+					maxWidth = 118
+					maxHeight = 20
+					format = left
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_status_Voice"
+					position = { x = 231 y = 721 }
+					font = "vic_18"
+					text = "DA_DL_cell_status_Voice"
+					maxWidth = 72
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_DL_cell_Damestear"
+					position = { x = 321 y = 712 }
+					quadTextureSprite = "GFX_DA_Wonder_interaction_button"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_tier_Damestear"
+					position = { x = 334 y = 721 }
+					font = "vic_18"
+					text = "DA_DL_cell_tier_Damestear"
+					maxWidth = 31
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_name_Damestear"
+					position = { x = 368 y = 721 }
+					font = "vic_18"
+					text = "DA_DL_cell_name_Damestear"
+					maxWidth = 118
+					maxHeight = 20
+					format = left
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_DL_cell_status_Damestear"
+					position = { x = 486 y = 721 }
+					font = "vic_18"
+					text = "DA_DL_cell_status_Damestear"
+					maxWidth = 72
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
 				# END DA_GE_LAB_TEXTS
 				guiButtonType = { # 
 					name = "DA_The_Dwarven_Laboratory_button_race"
-					position = { x = 60 y = 620 }
+					position = { x = 246 y = 560 }
 					quadTextureSprite ="GFX_DA_The_Dwarven_Laboratory_button_race"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
@@ -11122,15 +12089,15 @@ guiTypes = {
 					clicksound = back_click
 				}
 			}
-			windowType = {  # DA_Exoskeletons_Workshop
+			windowType = {  # DA_Exoskeletons_Workshop: the Warsuit Foundry, see common/custom_gui/DA_Wonder_Exoskeletons_Workshop.txt
 				name = "DA_Exoskeletons_Workshop_Window"
 				position = { x = 12 y = 10 }
 				scripted = yes
-				
+
 				iconType = {
-					name ="DA_Dwarven_Wonder_Basic_Interface"
+					name = "DA_Dwarven_Wonder_Basic_Interface"
+					position = { x = -12 y = -10 }
 					spriteType = "GFX_DA_Dwarven_Wonder_Basic_Interface"
-					position = { x= -12 y = -10 }
 					Orientation = "UPPER_LEFT"
 					alwaystransparent = yes
 					scripted = yes
@@ -11138,14 +12105,14 @@ guiTypes = {
 				guiButtonType = {
 					name = "DA_close_button_Exoskeletons_Workshop"
 					position = { x = 596 y = 11 }
-					quadTextureSprite ="GFX_closebutton2"
+					quadTextureSprite = "GFX_closebutton2"
 					Orientation = "UPPER_RIGHT"
 					scripted = yes
 					clicksound = close_window
 				}
 				guiButtonType = {
-					name ="DA_Exoskeletons_Workshop_upgrade_button"
-					position = { x= 190 y = 130 }
+					name = "DA_Exoskeletons_Workshop_upgrade_button"
+					position = { x = 190 y = 130 }
 					quadTextureSprite = "GFX_DA_Dwarovar_Wonder_upgrade_button"
 					Orientation = "UPPER_LEFT"
 					scripted = yes
@@ -11156,7 +12123,7 @@ guiTypes = {
 					position = { x = 135 y = 86 }
 					textureFile = ""
 					font = "vic_29"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 350
 					maxHeight = 32
@@ -11169,7 +12136,7 @@ guiTypes = {
 					position = { x = 210 y = 195 }
 					textureFile = ""
 					font = "vic_22s"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 200
 					maxHeight = 32
@@ -11178,9 +12145,9 @@ guiTypes = {
 					alwaystransparent = yes
 				}
 				iconType = {
-					name ="DA_Exoskeletons_Workshop_Wonder_image"
+					name = "DA_Exoskeletons_Workshop_Wonder_image"
+					position = { x = 57 y = 253 }
 					spriteType = "GFX_DA_Exoskeletons_Workshop_Wonder"
-					position = { x= 57 y = 253 }
 					Orientation = "UPPER_LEFT"
 					alwaystransparent = no
 					scripted = yes
@@ -11190,7 +12157,7 @@ guiTypes = {
 					position = { x = 64 y = 150 }
 					textureFile = ""
 					font = "vic_18"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 80
 					maxHeight = 32
@@ -11203,11 +12170,97 @@ guiTypes = {
 					position = { x = 355 y = 150 }
 					textureFile = ""
 					font = "vic_18"
-					borderSize = {x = 4 y = 4}	
+					borderSize = { x = 4 y = 4 }
 					text = ""
 					maxWidth = 200
 					maxHeight = 32
 					format = center
+					scripted = yes
+					alwaystransparent = no
+				}
+
+				# warsuit doctrines: the name of each doctrine is drawn over its button
+				guiButtonType = {
+					name = "DA_Exoskeletons_Workshop_button_doctrine_1"
+					position = { x = 70 y = 575 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_Exoskeletons_Workshop_button_doctrine_1_text"
+					position = { x = 80 y = 579 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_Exoskeletons_Workshop_button_doctrine_2"
+					position = { x = 70 y = 620 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_Exoskeletons_Workshop_button_doctrine_2_text"
+					position = { x = 80 y = 624 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_Exoskeletons_Workshop_button_doctrine_3"
+					position = { x = 70 y = 665 }
+					quadTextureSprite = "GFX_DA_Exoskeletons_Workshop_button_doctrine"
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+					clicksound = back_click
+				}
+				instantTextBoxType = {
+					name = "DA_Exoskeletons_Workshop_button_doctrine_3_text"
+					position = { x = 80 y = 669 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 150
+					maxHeight = 24
+					format = center
+					scripted = yes
+					alwaystransparent = yes
+				}
+				iconType = {
+					name = "DA_Exoskeletons_Workshop_info_panel"
+					position = { x = 274 y = 550 }
+					spriteType = "GFX_DA_panel_empty"
+					Orientation = "UPPER_LEFT"
+					alwaystransparent = yes
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_Exoskeletons_Workshop_info_text"
+					position = { x = 296 y = 572 }
+					textureFile = ""
+					font = "vic_18"
+					borderSize = { x = 4 y = 4 }
+					text = ""
+					maxWidth = 283
+					maxHeight = 140
+					format = left
 					scripted = yes
 					alwaystransparent = no
 				}
@@ -13051,47 +14104,51 @@ guiTypes = {
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_labour_button" position = { x = 440 y = 240 } quadTextureSprite = "GFX_DA_SS3_card_inv_labour" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_clerks_button" position = { x = 440 y = 240 } quadTextureSprite = "GFX_DA_SS3_card_inv_society" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_labour_title" position = { x = 401 y = 306 } font = "garamond_12" text = "DA_SS_inv_labour_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_clerks_title" position = { x = 401 y = 306 } font = "garamond_12" text = "DA_SS_inv_clerks_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_labour_status" position = { x = 401 y = 322 } font = "garamond_12" text = "DA_SS_inv_labour_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_clerks_status" position = { x = 401 y = 322 } font = "garamond_12" text = "DA_SS_inv_clerks_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_compliance_button" position = { x = 587 y = 240 } quadTextureSprite = "GFX_DA_SS3_card_inv_compliance" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_labour_button" position = { x = 587 y = 240 } quadTextureSprite = "GFX_DA_SS3_card_inv_society" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_compliance_title" position = { x = 548 y = 306 } font = "garamond_12" text = "DA_SS_inv_compliance_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_labour_title" position = { x = 548 y = 306 } font = "garamond_12" text = "DA_SS_inv_labour_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_compliance_status" position = { x = 548 y = 322 } font = "garamond_12" text = "DA_SS_inv_compliance_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_labour_status" position = { x = 548 y = 322 } font = "garamond_12" text = "DA_SS_inv_labour_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_clerks_button" position = { x = 734 y = 240 } quadTextureSprite = "GFX_DA_SS3_card_inv_clerks" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_compliance_button" position = { x = 734 y = 240 } quadTextureSprite = "GFX_DA_SS3_card_inv_society" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_clerks_title" position = { x = 695 y = 306 } font = "garamond_12" text = "DA_SS_inv_clerks_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_compliance_title" position = { x = 695 y = 306 } font = "garamond_12" text = "DA_SS_inv_compliance_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_clerks_status" position = { x = 695 y = 322 } font = "garamond_12" text = "DA_SS_inv_clerks_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_compliance_status" position = { x = 695 y = 322 } font = "garamond_12" text = "DA_SS_inv_compliance_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
-			iconType = {
-				name = "DA_SS_workbench_3" position = { x = 881 y = 240 } spriteType = "GFX_DA_SS3_card_empty_pioneer" scale = 1 alwaystransparent = yes scripted = yes
+			guiButtonType = {
+				name = "DA_SS_inv_engine_button" position = { x = 881 y = 240 } quadTextureSprite = "GFX_DA_SS3_card_inv_society" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_workbench_3_label" position = { x = 842 y = 306 } font = "garamond_12" text = "DA_SS_workbench_3_label" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_engine_title" position = { x = 842 y = 306 } font = "garamond_12" text = "DA_SS_inv_engine_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+			}
+
+			instantTextBoxType = {
+				name = "DA_SS_inv_engine_status" position = { x = 842 y = 322 } font = "garamond_12" text = "DA_SS_inv_engine_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
@@ -13099,7 +14156,7 @@ guiTypes = {
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_precision_button" position = { x = 440 y = 354 } quadTextureSprite = "GFX_DA_SS3_card_inv_precision" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_precision_button" position = { x = 440 y = 354 } quadTextureSprite = "GFX_DA_SS3_card_inv_economic" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
@@ -13111,7 +14168,7 @@ guiTypes = {
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_logistics_button" position = { x = 587 y = 354 } quadTextureSprite = "GFX_DA_SS3_card_inv_logistics" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_logistics_button" position = { x = 587 y = 354 } quadTextureSprite = "GFX_DA_SS3_card_inv_economic" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
@@ -13123,23 +14180,27 @@ guiTypes = {
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_foundries_button" position = { x = 734 y = 354 } quadTextureSprite = "GFX_DA_SS3_card_inv_foundries" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_exchange_button" position = { x = 734 y = 354 } quadTextureSprite = "GFX_DA_SS3_card_inv_economic" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_foundries_title" position = { x = 695 y = 420 } font = "garamond_12" text = "DA_SS_inv_foundries_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_exchange_title" position = { x = 695 y = 420 } font = "garamond_12" text = "DA_SS_inv_exchange_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_foundries_status" position = { x = 695 y = 436 } font = "garamond_12" text = "DA_SS_inv_foundries_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_exchange_status" position = { x = 695 y = 436 } font = "garamond_12" text = "DA_SS_inv_exchange_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
-			iconType = {
-				name = "DA_SS_workbench_7" position = { x = 881 y = 354 } spriteType = "GFX_DA_SS3_card_empty_pioneer" scale = 1 alwaystransparent = yes scripted = yes
+			guiButtonType = {
+				name = "DA_SS_inv_foundries_button" position = { x = 881 y = 354 } quadTextureSprite = "GFX_DA_SS3_card_inv_economic" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_workbench_7_label" position = { x = 842 y = 420 } font = "garamond_12" text = "DA_SS_workbench_7_label" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_foundries_title" position = { x = 842 y = 420 } font = "garamond_12" text = "DA_SS_inv_foundries_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+			}
+
+			instantTextBoxType = {
+				name = "DA_SS_inv_foundries_status" position = { x = 842 y = 436 } font = "garamond_12" text = "DA_SS_inv_foundries_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
@@ -13147,47 +14208,51 @@ guiTypes = {
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_harness_button" position = { x = 440 y = 468 } quadTextureSprite = "GFX_DA_SS3_card_inv_harness" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_presses_button" position = { x = 440 y = 468 } quadTextureSprite = "GFX_DA_SS3_card_inv_military" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_harness_title" position = { x = 401 y = 534 } font = "garamond_12" text = "DA_SS_inv_harness_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_presses_title" position = { x = 401 y = 534 } font = "garamond_12" text = "DA_SS_inv_presses_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_harness_status" position = { x = 401 y = 550 } font = "garamond_12" text = "DA_SS_inv_harness_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_presses_status" position = { x = 401 y = 550 } font = "garamond_12" text = "DA_SS_inv_presses_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_siege_button" position = { x = 587 y = 468 } quadTextureSprite = "GFX_DA_SS3_card_inv_siege" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_harness_button" position = { x = 587 y = 468 } quadTextureSprite = "GFX_DA_SS3_card_inv_military" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_siege_title" position = { x = 548 y = 534 } font = "garamond_12" text = "DA_SS_inv_siege_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_harness_title" position = { x = 548 y = 534 } font = "garamond_12" text = "DA_SS_inv_harness_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_siege_status" position = { x = 548 y = 550 } font = "garamond_12" text = "DA_SS_inv_siege_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_harness_status" position = { x = 548 y = 550 } font = "garamond_12" text = "DA_SS_inv_harness_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			guiButtonType = {
-				name = "DA_SS_inv_behemoth_button" position = { x = 734 y = 468 } quadTextureSprite = "GFX_DA_SS3_card_inv_behemoth" scale = 1 scripted = yes clicksound = back_click
+				name = "DA_SS_inv_siege_button" position = { x = 734 y = 468 } quadTextureSprite = "GFX_DA_SS3_card_inv_military" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_behemoth_title" position = { x = 695 y = 534 } font = "garamond_12" text = "DA_SS_inv_behemoth_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_siege_title" position = { x = 695 y = 534 } font = "garamond_12" text = "DA_SS_inv_siege_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_inv_behemoth_status" position = { x = 695 y = 550 } font = "garamond_12" text = "DA_SS_inv_behemoth_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_siege_status" position = { x = 695 y = 550 } font = "garamond_12" text = "DA_SS_inv_siege_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
-			iconType = {
-				name = "DA_SS_workbench_11" position = { x = 881 y = 468 } spriteType = "GFX_DA_SS3_card_empty_pioneer" scale = 1 alwaystransparent = yes scripted = yes
+			guiButtonType = {
+				name = "DA_SS_inv_behemoth_button" position = { x = 881 y = 468 } quadTextureSprite = "GFX_DA_SS3_card_inv_military" scale = 1 scripted = yes clicksound = back_click
 			}
 
 			instantTextBoxType = {
-				name = "DA_SS_workbench_11_label" position = { x = 842 y = 534 } font = "garamond_12" text = "DA_SS_workbench_11_label" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+				name = "DA_SS_inv_behemoth_title" position = { x = 842 y = 534 } font = "garamond_12" text = "DA_SS_inv_behemoth_title" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
+			}
+
+			instantTextBoxType = {
+				name = "DA_SS_inv_behemoth_status" position = { x = 842 y = 550 } font = "garamond_12" text = "DA_SS_inv_behemoth_status" maxWidth = 141 maxHeight = 16 format = centre alwaystransparent = yes scripted = yes
 			}
 
 			instantTextBoxType = {
@@ -18082,6 +19147,9 @@ guiTypes = {
 			}
 		}
 		
+		# END DA_BLOCK windows
+
+
 		iconType = {
 			name = "brown_bg"
 			spriteType ="GFX_brown_bg"
@@ -18135,6 +19203,7 @@ guiTypes = {
 
 		}
 
+		# BEGIN DA_BLOCK mana_banner - background of the mana display on the banner
 		# Magic on Topbar banner; AKT's existing topbar and menus stay in place.
 		iconType = {
 			name = "DA_topbar_mana_background"
@@ -18145,6 +19214,7 @@ guiTypes = {
 			alwaystransparent = yes
 		}
 
+		# END DA_BLOCK mana_banner
 		iconType = {
 			name = "government_reforms_button_base"
 			quadTextureSprite ="GFX_government_reforms_button_base"
@@ -18219,6 +19289,7 @@ guiTypes = {
 			buttonFont = "Main_14_black"
 			clicksound = macro_build
 		}
+		# BEGIN DA_BLOCK access_buttons - the Dwarven Knowledge buttons and counters on the top bar
 		######### DK button access ########### 
 		iconType = {
 			name ="DA_topbar_addons_background"
@@ -18309,6 +19380,7 @@ guiTypes = {
 		}
 		
 		######################################
+		# END DA_BLOCK access_buttons
 
 	######### top bar portraits ###########
 
@@ -18853,12 +19925,13 @@ guiTypes = {
 			font = "vic_22"
 			borderSize = {x = 4 y = 4}
 			text = ""
-			maxWidth = 262
+			maxWidth = 262 # DA_PATCH player_name_width (Anbennar: maxWidth = 340)
 			maxHeight = 32
 			fixedsize = yes
 		}
 
 
+	# BEGIN DA_BLOCK mana_display - mana value, icon and button on the banner
 	############### AKT MAGIC ON TOPBAR ###################
 
 		# Read currentMana directly, including decimals. No scripted-effect override
@@ -18894,6 +19967,7 @@ guiTypes = {
 			clicksound = "tab_stability"
 		}
 
+	# END DA_BLOCK mana_display
 	############### DATE PANEL ###################
 
 
@@ -27291,6 +28365,7 @@ guiTypes = {
 							scripted = yes
 						}
 					}
+					# BEGIN ANB_AHEAD spell_level_frames - from a newer Anbennar than the local copy; not a Dwarven Knowledge addition
 					# Spell level frames
 					# These don't need to be scripted unless one of the spells in a slot changes level
 					iconType = {
@@ -27341,6 +28416,7 @@ guiTypes = {
 						alwaystransparent = yes
 						frame = 4
 					}
+					# END ANB_AHEAD spell_level_frames
 					#Spell names - custom loc
 					instantTextBoxType = {
 						name = "magic_menu_cast_spell_slot_1"

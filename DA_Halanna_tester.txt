@@ -1,0 +1,38 @@
+# Ancient Research Facility chain tester. In the console: run DA_Halanna_tester.txt
+# It runs as the player's country. Own Amldihr (4119) first. Each block jumps to one point of the chain:
+# remove the "#" in front of the lines of ONE block, save, and run the file.
+
+# --- A. The expedition is lost: the Abyssal Invasion starts within three months (active by default)
+4119 = { set_province_flag = DA_already_spawned_invasion }
+set_variable = { which = DA_abyss_wave value = 0 }
+set_country_flag = DA_abyssal_invasion_begun
+
+# --- B. Inside the disaster: three waves done and the source found (clear the rebels to end it)
+# set_variable = { which = DA_abyss_wave value = 3 }
+# set_country_flag = DA_abyss_source_found
+
+# --- C. The Runic Gate is found, sealed; also gives what the gate costs
+# 4119 = { set_province_flag = DA_Runic_gate_closed_p }
+# add_treasury = 20000
+# change_variable = { ancientDwarvenKnowledge = 30 }
+
+# --- D. The gate opens now
+# country_event = { id = DA_Halanna_heart.51 }
+
+# --- E. The Heart, facility at tier III, Experiments I and II done (materials for III included)
+# 4119 = { set_province_flag = DA_Halanna_heart_found add_great_project = { type = DA_Ancient_Research_facility1 instant = yes } add_great_project_tier = { type = DA_Ancient_Research_facility1 tier = 3 } }
+# set_country_flag = DA_Halanna_exp_1_done
+# set_country_flag = DA_Halanna_exp_2_done
+# set_variable = { which = DA_Halanna_care value = 4 }
+# add_treasury = 6000
+# change_variable = { ancientDwarvenKnowledge = 15 }
+# change_variable = { which = DA_arcane_metal_total value = 40 }
+
+# --- F. Halanna wakes now
+# country_event = { id = DA_Halanna_heart.3 }
+
+# --- G. Her recovery jumps to 240: one more offering completes it
+# set_variable = { which = DA_Halanna_favor value = 240 }
+
+# --- H. Her next request arrives now
+# country_event = { id = DA_Halanna_heart.69 }

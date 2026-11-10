@@ -1,0 +1,59 @@
+# The Abyssal Invasion: finding where it comes from (events DA_Halanna_heart.30 and .31)
+country_decisions = {
+	DA_send_column_to_the_deep = {
+		major = yes
+		color = { 161 43 32 }
+		potential = {
+			ai = no
+			has_disaster = DA_Abyssal_Invasion
+			NOT = { has_country_flag = DA_abyss_column_sent }
+			NOT = { has_country_flag = DA_abyss_source_found }
+		}
+
+		provinces_to_highlight = {
+			province_id = 4119
+		}
+
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = DA_abyss_two_waves_tt
+				check_variable = { which = DA_abyss_wave value = 2 }
+			}
+			controls = 4119
+			treasury = 2500
+			manpower = 10
+		}
+
+		effect = {
+			add_treasury = -2500
+			add_manpower = -10
+			custom_tooltip = DA_send_column_to_the_deep_tt
+			hidden_effect = {
+				set_country_flag = DA_abyss_column_sent
+				if = {
+					limit = {
+						has_country_flag = DA_abyss_hint_scouts
+						has_country_flag = DA_abyss_hint_ghost
+					}
+					country_event = { id = DA_Halanna_heart.30 days = 90 }
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_country_flag = DA_abyss_hint_scouts
+							has_country_flag = DA_abyss_hint_ghost
+						}
+					}
+					country_event = { id = DA_Halanna_heart.30 days = 135 }
+				}
+				else = {
+					country_event = { id = DA_Halanna_heart.30 days = 180 }
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

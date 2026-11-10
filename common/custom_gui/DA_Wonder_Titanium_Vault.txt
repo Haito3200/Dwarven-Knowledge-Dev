@@ -303,10 +303,8 @@ custom_button = {
 				}
 			}
 			hidden_effect = {
-				# TODO: DA_Titanium_Vault_event.11 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Titanium_Vault_event.11 days = 365 }
-				# TODO: DA_Titanium_Vault_event.12 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Titanium_Vault_event.12 days = 1095 }
+				country_event = { id = DA_Hold_Gor_Vazumbrog.11 days = 365 }
+				country_event = { id = DA_Hold_Gor_Vazumbrog.12 days = 1095 }
 			}
 		}
 		else_if = {
@@ -367,8 +365,7 @@ custom_button = {
 				}
 			}
 			hidden_effect = {
-				# TODO: DA_Titanium_Vault_event.14 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Titanium_Vault_event.14 days = 3650 }
+				country_event = { id = DA_Hold_Gor_Vazumbrog.14 days = 3650 }
 			}
 		}
 	}
@@ -587,7 +584,7 @@ custom_button = {
 }
 
 custom_button = {
-	name = DA_Titanium_Vault_button_5
+	name = DA_Titanium_Vault_button_5		# the council on the Hunter of the Deeps (DA_Hold_Gor_Vazumbrog.50)
 	tooltip = DA_Titanium_Vault_button_5_tt
 	potential = {
 		has_country_flag = DA_Titanium_Vault_completed_Antidote
@@ -607,14 +604,14 @@ custom_button = {
 			}
 		}
 		custom_trigger_tooltip = {
-			tooltip = DA_Titanium_Vault_found_Hunter_of_the_deeps_tt
-			4217 = {
-				has_province_flag = DA_Titanium_Vault_found_Hunter_of_the_deeps
-			}
+			tooltip = DA_Hunter_still_there_tt
+			DA_Hunter_in_the_Nadir = yes
 		}
-		always = no
 	}
 	effect = {
+		country_event = {
+			id = DA_Hold_Gor_Vazumbrog.50
+		}
 	}
 }
 
@@ -741,28 +738,14 @@ custom_button = {
 				}
 			}
 			custom_tooltip = DA_Titanium_Vault_Relic.Earthshaper_Sphere_activation_tt
+			custom_tooltip = DA_CD_4_tt
 			hidden_effect = {
-				random_list = {
-					3 = {
-						country_event = {
-							id = DA_Hold_Gor_Vazumbrog.310
-						}
-					}
-					5 = {
-						country_event = {
-							id = DA_Hold_Gor_Vazumbrog.311
-						}
-					}
-					3 = {
-						country_event = {
-							id = DA_Hold_Gor_Vazumbrog.312
-						}
-					}
-					1 = {
-						country_event = {
-							id = DA_Hold_Gor_Vazumbrog.313
-						}
-					}
+				add_country_modifier = {
+					name = DA_Titanium_Vault_Earthshaper_Sphere_CD
+					duration = 1460
+				}
+				country_event = {
+					id = DA_Hold_Gor_Vazumbrog.309
 				}
 			}
 		}
@@ -808,6 +791,7 @@ custom_button = {
 				limit = {
 					NOT = { has_country_modifier = DA_Codex_of_Infinite_Tactics_Modifier }
 				}
+				custom_tooltip = DA_Codex_of_Infinite_Tactics_open_tt
 				add_country_modifier = {
 					name = DA_Codex_of_Infinite_Tactics_Modifier
 					duration = -1
@@ -821,6 +805,7 @@ custom_button = {
 				}
 			}
 			else = {
+				custom_tooltip = DA_Codex_of_Infinite_Tactics_close_tt
 				remove_country_modifier = DA_Codex_of_Infinite_Tactics_Modifier
 				custom_tooltip = DA_CD_10_tt
 				hidden_effect = {
@@ -874,6 +859,7 @@ custom_button = {
 				limit = {
 					NOT = { has_country_modifier = DA_Crown_of_Dominion_Modifier }
 				}
+				custom_tooltip = DA_Crown_of_Dominion_open_tt
 				add_country_modifier = {
 					name = DA_Crown_of_Dominion_Modifier
 					duration = -1
@@ -887,6 +873,7 @@ custom_button = {
 				}
 			}
 			else = {
+				custom_tooltip = DA_Crown_of_Dominion_close_tt
 				remove_country_modifier = DA_Crown_of_Dominion_Modifier
 				custom_tooltip = DA_CD_10_tt
 				hidden_effect = {
@@ -948,9 +935,6 @@ custom_button = {
 			}
 			country_event = {
 				id = DA_Hold_Gor_Vazumbrog.340
-			}
-			4217 = {
-				set_province_flag = DA_Titanium_Vault_Relic.RuneGold_Cache_sealed
 			}
 		}
 	}
@@ -1168,18 +1152,72 @@ custom_text_box = {
 }
 
 custom_button = {
-	name = DA_Titanium_Vault_Reliquary_button_22
+	name = DA_Titanium_Vault_Reliquary_button_22		# The Dreaming Bell, one of the Wardens' Instruments of the Nadir
 	tooltip = DA_Titanium_Vault_Reliquary_button_22_tt
 	potential = {
 		always = yes
 	}
 	trigger = {
 		custom_trigger_tooltip = {
-			tooltip = DA_Relic_found_tt
-			always = no
+			tooltip = DA_Nadir_found_tt
+			DA_Hunter_found = yes
+		}
+		if = {
+			limit = {
+				DA_Hunter_found = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Nadir_not_lost_tt
+				4217 = { NOT = { has_province_flag = DA_Nadir_lost } }
+			}
+		}
+		# broken: what a repair asks for
+		if = {
+			limit = {
+				DA_Hunter_found = yes
+				4217 = {
+					NOT = { has_province_flag = DA_Nadir_lost }
+					NOT = { has_province_flag = DA_Nadir_repaired.Dreaming_Bell }
+				}
+			}
+			DA_Nadir_instrument_can_be_repaired = yes
+			DA_arcane_metal_total_required = {
+				amount = 15
+			}
+			treasury = 500
+		}
+		# whole: what using it asks for
+		if = {
+			limit = {
+				4217 = {
+					NOT = { has_province_flag = DA_Nadir_lost }
+					has_province_flag = DA_Nadir_repaired.Dreaming_Bell
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Nadir_is_ours_tt
+				DA_Nadir_is_ours = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Dreaming_Bell_rested_tt
+				NOT = { has_country_modifier = DA_Dreaming_Bell_CD }
+			}
 		}
 	}
 	effect = {
+		if = {
+			limit = {
+				4217 = { has_province_flag = DA_Nadir_repaired.Dreaming_Bell }
+			}
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.612
+			}
+		}
+		else = {
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.610
+			}
+		}
 	}
 }
 custom_text_box = {
@@ -1190,18 +1228,72 @@ custom_text_box = {
 }
 
 custom_button = {
-	name = DA_Titanium_Vault_Reliquary_button_23
+	name = DA_Titanium_Vault_Reliquary_button_23		# The Stormcage, one of the Wardens' Instruments of the Nadir
 	tooltip = DA_Titanium_Vault_Reliquary_button_23_tt
 	potential = {
 		always = yes
 	}
 	trigger = {
 		custom_trigger_tooltip = {
-			tooltip = DA_Relic_found_tt
-			always = no
+			tooltip = DA_Nadir_found_tt
+			DA_Hunter_found = yes
+		}
+		if = {
+			limit = {
+				DA_Hunter_found = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Nadir_not_lost_tt
+				4217 = { NOT = { has_province_flag = DA_Nadir_lost } }
+			}
+		}
+		# broken: what a repair asks for
+		if = {
+			limit = {
+				DA_Hunter_found = yes
+				4217 = {
+					NOT = { has_province_flag = DA_Nadir_lost }
+					NOT = { has_province_flag = DA_Nadir_repaired.Stormcage }
+				}
+			}
+			DA_Nadir_instrument_can_be_repaired = yes
+			DA_enchanted_building_material_total_required = {
+				amount = 15
+			}
+			treasury = 500
+		}
+		# whole: what using it asks for
+		if = {
+			limit = {
+				4217 = {
+					NOT = { has_province_flag = DA_Nadir_lost }
+					has_province_flag = DA_Nadir_repaired.Stormcage
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Nadir_is_ours_tt
+				DA_Nadir_is_ours = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Stormcage_not_seated_tt
+				4217 = { NOT = { has_province_flag = DA_Stormcage_seated } }
+			}
 		}
 	}
 	effect = {
+		if = {
+			limit = {
+				4217 = { has_province_flag = DA_Nadir_repaired.Stormcage }
+			}
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.622
+			}
+		}
+		else = {
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.620
+			}
+		}
 	}
 }
 custom_text_box = {
@@ -1212,18 +1304,72 @@ custom_text_box = {
 }
 
 custom_button = {
-	name = DA_Titanium_Vault_Reliquary_button_24
+	name = DA_Titanium_Vault_Reliquary_button_24		# The Wardens' Tether, one of the Wardens' Instruments of the Nadir
 	tooltip = DA_Titanium_Vault_Reliquary_button_24_tt
 	potential = {
 		always = yes
 	}
 	trigger = {
 		custom_trigger_tooltip = {
-			tooltip = DA_Relic_found_tt
-			always = no
+			tooltip = DA_Nadir_found_tt
+			DA_Hunter_found = yes
+		}
+		if = {
+			limit = {
+				DA_Hunter_found = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Nadir_not_lost_tt
+				4217 = { NOT = { has_province_flag = DA_Nadir_lost } }
+			}
+		}
+		# broken: what a repair asks for
+		if = {
+			limit = {
+				DA_Hunter_found = yes
+				4217 = {
+					NOT = { has_province_flag = DA_Nadir_lost }
+					NOT = { has_province_flag = DA_Nadir_repaired.Wardens_Tether }
+				}
+			}
+			DA_Nadir_instrument_can_be_repaired = yes
+			DA_alchemy_reagents_total_required = {
+				amount = 15
+			}
+			treasury = 500
+		}
+		# whole: what using it asks for
+		if = {
+			limit = {
+				4217 = {
+					NOT = { has_province_flag = DA_Nadir_lost }
+					has_province_flag = DA_Nadir_repaired.Wardens_Tether
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Nadir_is_ours_tt
+				DA_Nadir_is_ours = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_Wardens_Tether_rested_tt
+				NOT = { has_country_modifier = DA_Wardens_Tether_CD }
+			}
 		}
 	}
 	effect = {
+		if = {
+			limit = {
+				4217 = { has_province_flag = DA_Nadir_repaired.Wardens_Tether }
+			}
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.632
+			}
+		}
+		else = {
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.630
+			}
+		}
 	}
 }
 custom_text_box = {

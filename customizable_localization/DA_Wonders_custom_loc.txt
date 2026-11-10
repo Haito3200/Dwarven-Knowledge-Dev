@@ -325,25 +325,33 @@ defined_text = {
 	random = no
 	
 	text = {
-        localisation_key = DA_Wonder_Unknown
+        localisation_key = DA_Ancient_Research_facility1_name_shower
         trigger = {
-            4119 = {
-                NOT = {
-                    has_great_project = {
-                        type = DA_Ancient_Research_facility1
+            OR = {
+                has_country_flag = DA_Halanna_awake
+                4119 = {
+                    OR = {
+                        has_province_flag = DA_Halanna_heart_found
+                        has_great_project = {
+                            type = DA_Ancient_Research_facility1
+                        }
                     }
                 }
             }
         }
     }
 	text = {
-        localisation_key = DA_Ancient_Research_facility1_name_shower
+        localisation_key = DA_ARF_selector_sealed
         trigger = {
             4119 = {
-                has_great_project = {
-                    type = DA_Ancient_Research_facility1
-                }
+                has_province_flag = DA_Runic_gate_closed_p
             }
+        }
+    }
+	text = {
+        localisation_key = DA_Wonder_Unknown
+        trigger = {
+            always = yes
         }
     }
 }

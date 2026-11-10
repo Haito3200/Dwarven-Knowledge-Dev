@@ -1,58 +1,86 @@
 namespace = DA_Dur_Vazhatun_event
 
+# The Setzunkhupa of Dur-Vazhatun (4020). Rewritten on 10 November 2026.
+#
+# The observatory
+#   .1          first light: the wonder is raised at tier 0 (on_built of The_Sky_Hold)
+#   .2 .3 .4    tier I, II, III: queued by the upgrade button of the wonder window, 30 days later
+#   .11 - .14   reports of the observation programme (buttons of the wonder window): the Moon, the Far Wanderers,
+#               Agradent, the Dark Between
+#   .3 .30 .5 .6  damestear meteorites: the Chief Researcher's idea (tier II), the first fall (three-yearly pulse),
+#               calling one (Research Facility menu), its arrival
+# The Ambassador of the Ninth Canal (found by DA_ADK_explore.107; a Legendary Encounter that can only be spoken to)
+#   .40         the first audience and his offer
+#   .50         speaking with him: Parley in the Legendary Encounter window, or the button of the wonder window
+#   .51 .52     two questions
+#   .42         the crossing explained: the three works appear in the wonder window
+#   .60 .61 .62 the Anchor, the Thrower, the Aim are finished;  .69 a new Anchor after a lost pod
+#   .63         the launch;  .64 hidden, the dice;  .65 the pod is lost;  .66 the Anchor holds
+#   .67         homecoming: he goes home and gives us the crossing (DA_AG_unlock_travel)
+#   .68         he goes home through a gate we opened without him
+# State: see common/scripted_triggers/DA_Setzunkhupa_triggers.txt. Agradent itself is events/DA_Agradent_events.txt.
+
+
+#########################################################
+# The observatory
+
 province_event = {
-	id = DA_Dur_Vazhatun_event.1 # tier 0, just a bit of flavor, watch the stars once again
+	id = DA_Dur_Vazhatun_event.1 				# tier 0: first light
 	title = "DA_Dur_Vazhatun_event.1.t"
 	desc = "DA_Dur_Vazhatun_event.1.d"
 	picture = BIG_STAR_IN_SKY_eventPicture
+
 	is_triggered_only = yes
-	trigger = {
-		owner = {
-			NOT = { has_country_flag = vazhatun_astronomy_unlocked }
-		}
-	}
 	option = {
 		name = "DA_Dur_Vazhatun_event.1.a"
-	}	
+		custom_tooltip = DA_SZ_first_light_tt
+	}
 }
 
 province_event = {
-	id = DA_Dur_Vazhatun_event.2 # tier 1, damestear meteorites on the moon's surface, flavor
+	id = DA_Dur_Vazhatun_event.2 				# tier I: the dome opens
 	title = "DA_Dur_Vazhatun_event.2.t"
 	desc = "DA_Dur_Vazhatun_event.2.d"
-	picture = muslimgfx_GREAT_BUILDING_eventPicture
+	picture = GREAT_BUILDING_eventPicture
+
 	is_triggered_only = yes
 	option = {
 		name = "DA_Dur_Vazhatun_event.2.a"
+		custom_tooltip = DA_SZ_tier_1_unlock_tt
 		owner = {
 			change_innovativeness = 1
 		}
-	}	
+	}
 }
 
 province_event = {
-	id = DA_Dur_Vazhatun_event.3 # tier 2, unlockable meteorites, theory of damestear attraction
+	id = DA_Dur_Vazhatun_event.3 				# tier II: the Chief Researcher's idea
 	title = "DA_Dur_Vazhatun_event.3.t"
 	desc = "DA_Dur_Vazhatun_event.3.d"
-	picture = PRAYING_eventPicture
+	picture = INVENTION_eventPicture
+
 	is_triggered_only = yes
 	option = {
 		name = "DA_Dur_Vazhatun_event.3.a"
+		custom_tooltip = DA_SZ_tier_2_unlock_tt
+		custom_tooltip = DA_yes_meteorites_tt
 		hidden_effect = {
 			set_province_flag = DA_unlockable_meteorites
 		}
-	}	
+	}
 	option = {
 		name = "DA_Dur_Vazhatun_event.3.b"
+		custom_tooltip = DA_SZ_tier_2_unlock_tt
 		custom_tooltip = DA_no_meteorites_tt
-	}	
+	}
 }
 
 country_event = {
-	id = DA_Dur_Vazhatun_event.30 # tier 2, unlocked meteorites
+	id = DA_Dur_Vazhatun_event.30 				# the first meteorite, which nobody was warned of
 	title = "DA_Dur_Vazhatun_event.30.t"
 	desc = "DA_Dur_Vazhatun_event.30.d"
-	picture = BIG_STAR_IN_SKY_eventPicture
+	picture = COMET_SIGHTED_eventPicture
+
 	is_triggered_only = yes
 	trigger = {
 		DA_has_RF_4_or_higher = yes
@@ -62,6 +90,17 @@ country_event = {
 		}
 		NOT = {
 			has_country_flag = DA_can_meteorites_attract
+		}
+		any_core_province = {
+			owned_by = root
+			NOT = {
+				OR = {
+					has_terrain = dwarven_hold
+					has_terrain = dwarven_hold_surface
+					has_terrain = cavern
+					has_terrain = dwarven_road
+				}
+			}
 		}
 	}
 	immediate = {
@@ -125,31 +164,24 @@ country_event = {
 }
 
 province_event = {
-	id = DA_Dur_Vazhatun_event.4 # tier 3, completely restored Setzunkhupa
+	id = DA_Dur_Vazhatun_event.4 				# tier III: the great lens is whole
 	title = "DA_Dur_Vazhatun_event.4.t"
 	desc = "DA_Dur_Vazhatun_event.4.d"
-	picture = GREAT_BUILDING_eventPicture
+	picture = BIG_STAR_IN_SKY_eventPicture
+
 	is_triggered_only = yes
-	trigger = {
-		owner = {
-			NOT = { has_country_flag = vazhatun_astronomy_unlocked }
-		}
-	}
 	option = {
 		name = "DA_Dur_Vazhatun_event.4.a"
-		custom_tooltip = DA_Dur_Vazhatun_start_observation
-	}
-	option = {
-		name = "DA_Dur_Vazhatun_event.4.b"
-		custom_tooltip = DA_Dur_Vazhatun_no_observation
+		custom_tooltip = DA_SZ_tier_3_unlock_tt
 	}
 }
 
 country_event = {
-	id = DA_Dur_Vazhatun_event.5 # select target for meteorite
+	id = DA_Dur_Vazhatun_event.5 				# calling a meteorite: choose where (Research Facility menu)
 	title = "DA_Dur_Vazhatun_event.5.t"
 	desc = "DA_Dur_Vazhatun_event.5.d"
 	picture = BIG_STAR_IN_SKY_eventPicture
+
 	is_triggered_only = yes
 	immediate = {
 		random_core_province = {
@@ -350,7 +382,7 @@ country_event = {
 }
 
 province_event = {
-	id = DA_Dur_Vazhatun_event.6 # 
+	id = DA_Dur_Vazhatun_event.6 				# the meteorite we called lands
 	title = "DA_Dur_Vazhatun_event.6.t"
 	desc = "DA_Dur_Vazhatun_event.6.d"
 	picture = COMET_SIGHTED_eventPicture
@@ -394,5 +426,502 @@ province_event = {
 			}
 			clr_province_flag = DA_approaching_meteorite
 		}
+	}
+}
+
+
+#########################################################
+# The observation programme: one report for each watch
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.11 				# the Moon
+	title = "DA_Dur_Vazhatun_event.11.t"
+	desc = "DA_Dur_Vazhatun_event.11.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_SZ_observing
+			clr_country_flag = DA_SZ_observing_moon
+			set_country_flag = DA_SZ_observed_moon
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.11.a"
+		add_adk_effect = { add = 3 }
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.11.b"
+		add_prestige = 10
+		change_innovativeness = 1
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.12 				# the Far Wanderers: Darolsten, its seven moons, Hizlana
+	title = "DA_Dur_Vazhatun_event.12.t"
+	desc = "DA_Dur_Vazhatun_event.12.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_SZ_observing
+			clr_country_flag = DA_SZ_observing_wanderers
+			set_country_flag = DA_SZ_observed_wanderers
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.12.a"
+		add_prestige = 15
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.12.b"
+		add_adk_effect = { add = 4 }
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.13 				# Agradent
+	title = "DA_Dur_Vazhatun_event.13.t"
+	desc = "DA_Dur_Vazhatun_event.13.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_SZ_observing
+			clr_country_flag = DA_SZ_observing_agradent
+			set_country_flag = DA_SZ_observed_agradent
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.13.a"
+		add_adk_effect = { add = 4 }
+		custom_tooltip = DA_SZ_agradent_charted_tt
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.13.b"
+		add_dip_power = 50
+		custom_tooltip = DA_SZ_agradent_charted_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.14 				# the Dark Between: what was called the Astral Terror
+	title = "DA_Dur_Vazhatun_event.14.t"
+	desc = "DA_Dur_Vazhatun_event.14.d"
+	picture = LOOMING_DEATH_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_SZ_observing
+			clr_country_flag = DA_SZ_observing_dark
+			set_country_flag = DA_SZ_observed_dark
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.14.a"		# keep the watch
+		add_adk_effect = { add = 5 }
+		add_stability = -1
+		custom_tooltip = DA_SZ_dark_charted_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_dark_charted
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.14.b"		# close that part of the sky
+		add_adk_effect = { add = 2 }
+		custom_tooltip = DA_SZ_dark_closed_tt
+	}
+}
+
+
+#########################################################
+# The Ambassador of the Ninth Canal
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.40 				# the first audience: his offer (5 days after DA_ADK_explore.107)
+	title = "DA_Dur_Vazhatun_event.40.t"
+	desc = "DA_Dur_Vazhatun_event.40.d"
+	picture = MAGE_MOON_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		DA_SZ_guest_is_ours = yes
+		NOT = { has_country_flag = DA_SZ_alliance }
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.40.a"		# accept
+		custom_tooltip = DA_SZ_accept_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_alliance
+			country_event = { id = DA_Dur_Vazhatun_event.42 days = 10 }
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.40.b"		# not yet
+		custom_tooltip = DA_SZ_refuse_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_refused
+		}
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.50 				# speaking with him (Parley, or the button of the wonder window)
+	title = "DA_Dur_Vazhatun_event.50.t"
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_SZ_alliance } }
+		desc = "DA_Dur_Vazhatun_event.50.d_offer"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_SZ_pod_in_flight }
+		desc = "DA_Dur_Vazhatun_event.50.d_flight"
+	}
+	desc = {
+		trigger = {
+			has_country_flag = DA_SZ_anchor_lost
+			NOT = { has_country_flag = DA_SZ_pod_in_flight }
+		}
+		desc = "DA_Dur_Vazhatun_event.50.d_lost"
+	}
+	desc = {
+		trigger = {
+			has_country_flag = DA_SZ_alliance
+			NOT = { has_country_flag = DA_SZ_pod_in_flight }
+			NOT = { has_country_flag = DA_SZ_anchor_lost }
+		}
+		desc = "DA_Dur_Vazhatun_event.50.d_work"
+	}
+	picture = MAGE_MOON_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		DA_SZ_guest_is_ours = yes
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.40.a"		# accept, if we have not yet
+		trigger = { NOT = { has_country_flag = DA_SZ_alliance } }
+		custom_tooltip = DA_SZ_accept_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_alliance
+			country_event = { id = DA_Dur_Vazhatun_event.42 days = 10 }
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.50.b"		# who are you
+		trigger = { NOT = { has_country_flag = DA_SZ_asked_who } }
+		hidden_effect = {
+			set_country_flag = DA_SZ_asked_who
+			country_event = { id = DA_Dur_Vazhatun_event.51 }
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.50.c"		# what did you see of Aul-Dwarov
+		trigger = {
+			has_country_flag = DA_SZ_alliance
+			NOT = { has_country_flag = DA_SZ_asked_aul }
+		}
+		hidden_effect = {
+			set_country_flag = DA_SZ_asked_aul
+			country_event = { id = DA_Dur_Vazhatun_event.52 }
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.50.d"		# leave
+		trigger = { has_country_flag = DA_SZ_alliance }
+		custom_tooltip = DA_SZ_leave_tt
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.40.b"		# not yet
+		trigger = { NOT = { has_country_flag = DA_SZ_alliance } }
+		custom_tooltip = DA_SZ_refuse_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_refused
+		}
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.51 				# who he is
+	title = "DA_Dur_Vazhatun_event.51.t"
+	desc = "DA_Dur_Vazhatun_event.51.d"
+	picture = MAGE_MOON_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Dur_Vazhatun_event.51.a"
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.52 				# what he saw of Aul-Dwarov
+	title = "DA_Dur_Vazhatun_event.52.t"
+	desc = "DA_Dur_Vazhatun_event.52.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Dur_Vazhatun_event.52.a"
+		add_adk_effect = { add = 2 }
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.42 				# the crossing explained: why nothing flies, and the three works
+	title = "DA_Dur_Vazhatun_event.42.t"
+	desc = "DA_Dur_Vazhatun_event.42.d"
+	picture = LOOMING_DEATH_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_SZ_briefed
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.42.a"
+		custom_tooltip = DA_SZ_briefed_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.60 				# the Anchor is finished
+	title = "DA_Dur_Vazhatun_event.60.t"
+	desc = "DA_Dur_Vazhatun_event.60.d"
+	picture = DAMESTEAR_CORE_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_SZ_work_in_progress
+			set_country_flag = DA_SZ_anchor_done
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.60.a"		# cast the cage twice as heavy
+		trigger = { treasury = 500 }
+		add_treasury = -500
+		custom_tooltip = DA_SZ_precaution_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_heavy_anchor
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.60.b"		# as he drew it
+		custom_tooltip = DA_SZ_work_done_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.61 				# the Thrower is finished
+	title = "DA_Dur_Vazhatun_event.61.t"
+	desc = "DA_Dur_Vazhatun_event.61.d"
+	picture = FORGE_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_SZ_work_in_progress
+			set_country_flag = DA_SZ_thrower_done
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.61.a"		# a proof shot with a dead weight
+		trigger = { treasury = 300 }
+		add_treasury = -300
+		custom_tooltip = DA_SZ_precaution_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_proof_shot
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.61.b"		# trust the numbers
+		custom_tooltip = DA_SZ_work_done_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.62 				# the Aim is finished
+	title = "DA_Dur_Vazhatun_event.62.t"
+	desc = "DA_Dur_Vazhatun_event.62.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_SZ_work_in_progress
+			set_country_flag = DA_SZ_aim_done
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.62.a"
+		add_adk_effect = { add = 3 }
+		custom_tooltip = DA_SZ_work_done_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.69 				# a new Anchor after a lost pod
+	title = "DA_Dur_Vazhatun_event.69.t"
+	desc = "DA_Dur_Vazhatun_event.69.d"
+	picture = DAMESTEAR_CORE_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_SZ_work_in_progress
+			clr_country_flag = DA_SZ_recast_started
+			clr_country_flag = DA_SZ_anchor_lost
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.69.a"
+		custom_tooltip = DA_SZ_work_done_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.63 				# the launch (the Launch button has paid and set DA_SZ_pod_in_flight)
+	title = "DA_Dur_Vazhatun_event.63.t"
+	desc = "DA_Dur_Vazhatun_event.63.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = { id = DA_Dur_Vazhatun_event.64 days = 600 }
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.63.a"
+		custom_tooltip = DA_SZ_launched_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.64 				# hidden: does the pod arrive
+	title = "DA_Dur_Vazhatun_event.63.t"
+	desc = "DA_Dur_Vazhatun_event.63.d"
+	picture = COMET_SIGHTED_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		clr_country_flag = DA_SZ_pod_in_flight
+		if = {
+			limit = { NOT = { DA_SZ_guest_is_ours = yes } }		# the hold was lost meanwhile: nobody is at the gate
+			set_country_flag = DA_SZ_anchor_lost
+		}
+		else = {
+			DA_SZ_roll_first_pod = yes
+			if = {
+				limit = { has_country_flag = DA_SZ_roll_lost }
+				set_country_flag = DA_SZ_anchor_lost
+				if = {
+					limit = { has_country_flag = DA_SZ_pod_lost_1 }
+					set_country_flag = DA_SZ_pod_lost_2
+				}
+				set_country_flag = DA_SZ_pod_lost_1
+				country_event = { id = DA_Dur_Vazhatun_event.65 }
+			}
+			else = {
+				country_event = { id = DA_Dur_Vazhatun_event.66 }
+			}
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.63.a"
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.65 				# the pod is lost
+	title = "DA_Dur_Vazhatun_event.65.t"
+	desc = "DA_Dur_Vazhatun_event.65.d"
+	picture = LOOMING_DEATH_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Dur_Vazhatun_event.65.a"
+		custom_tooltip = DA_SZ_pod_lost_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.66 				# the Anchor holds
+	title = "DA_Dur_Vazhatun_event.66.t"
+	desc = "DA_Dur_Vazhatun_event.66.d"
+	picture = BIG_STAR_IN_SKY_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			DA_AG_land_canal = yes
+			country_event = { id = DA_Dur_Vazhatun_event.67 days = 30 }
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.66.a"
+		custom_tooltip = DA_SZ_anchor_holds_tt
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.67 				# homecoming: he keeps his word
+	title = "DA_Dur_Vazhatun_event.67.t"
+	desc = "DA_Dur_Vazhatun_event.67.d"
+	picture = DESERT_CARAVAN_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_SZ_homecoming
+			4020 = {
+				set_province_flag = DA_Setzunkhupa_guest_gone
+				clr_province_flag = DA_LE_open
+			}
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.67.a"		# speak for us
+		DA_AG_unlock_travel = yes
+		custom_tooltip = DA_AG_anchor_holds_canal_tt
+		DA_AG_goodwill_up = { amount = 10 }
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.67.b"		# the star-lore of his people
+		DA_AG_unlock_travel = yes
+		custom_tooltip = DA_AG_anchor_holds_canal_tt
+		add_adk_effect = { add = 10 }
+	}
+}
+
+country_event = {
+	id = DA_Dur_Vazhatun_event.68 				# he goes home through a gate we opened without him (from DA_Agradent_event.21)
+	title = "DA_Dur_Vazhatun_event.68.t"
+	desc = "DA_Dur_Vazhatun_event.68.d"
+	picture = MAGE_MOON_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		DA_SZ_guest_is_ours = yes
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_SZ_homecoming
+			4020 = {
+				set_province_flag = DA_Setzunkhupa_guest_gone
+				clr_province_flag = DA_LE_open
+			}
+		}
+	}
+	option = {
+		name = "DA_Dur_Vazhatun_event.68.a"
+		DA_AG_goodwill_up = { amount = 10 }
 	}
 }

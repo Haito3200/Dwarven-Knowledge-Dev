@@ -1,116 +1,19 @@
-# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
-
-
-
-# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
-#custom_button = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the button is visible
-#    trigger = { } #Determines when the button is clickable
-#    effect = { } #Effect
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_text_box = {
-#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
-#    potential = { } #Determines when the text is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    #To localize it, use the name of the button as a key, can also use customizable localisation
-#}
-
-#custom_icon = {
-#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
-#    potential = { } #Determines when the icon is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_shield = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the shield is visible
-#    trigger = { } #Determines when the shield is clickable
-#    effect = { } #Effect for clicking
-#    tooltip = localisation_key #Can use customizable localisation
-#    global_event_target = <string> # Global event target name
-#    open_country = <bool> #If clicking opens the country view
-#}
-
-##############################  Supported files with scopes ##############################
-#   The Gui objects must be directly inside the specified window Gui element!
-#   FROM is always the country that clicks
-#   provinceview.gui:
-#       province_window         (ROOT: Clicked province)
-#       buildings_window        (ROOT: Clicked province)
-#       state_window            (ROOT: Clicked province)
-#   countrycourtview.gui:
-#       countrycourtview        (ROOT = FROM)
-#   countrygovernmentview.gui:
-#       countrygovernmentview   (ROOT = FROM)
-#   countrydiplomacyview.gui:
-#       countrydiplimacyview    (ROOT: Selected country)
-#   countryeconomyview.gui:
-#       countryeconomyview      (ROOT = FROM)
-#   countrytradeview.gui:
-#       countrytradeview        (ROOT = FROM)
-#   countrytechnologyview.gui:
-#       countrytechnologyview   (ROOT = FROM)
-#   countryideasview.gui:
-#       countryideasview        (ROOT = FROM)
-#   countrymissionsview.gui:
-#       countrymissionsview     (ROOT: Selected country)
-#   countrydecisionview.gui:
-#       countrydecisionsview    (ROOT = FROM)
-#   countrystabilityview.gui:
-#       countrystabilityview    (ROOT = FROM)
-#   countryreligionview.gui:
-#       countryreligionview     (ROOT = FROM)
-#   countrymilitaryview.gui:
-#       countrymilitaryview     (ROOT = FROM)
-#   countrysubjectsview.gui:
-#       countrysubjectview      (ROOT = FROM)
-#   countryestatesview.gui:
-#       countryestatesview      (ROOT = FROM)
-#   ages_view.gui:
-#       ages_view               (ROOT = FROM)
-#   tradeinterface.gui:
-#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
-#   hre.gui:
-#       hre_window              (ROOT = FROM)
-#   papacy.gui:
-#       papacy_window           (ROOT = FROM)
-#   faction.gui:
-#       All faction windows     (ROOT = FROM)
-#   celestialempireview.gui:
-#       celestial_window        (ROOT = FROM)
-#   countrynativesview.gui:
-#       natives_window          (ROOT = FROM)
-#   religiousreforms.gui:
-#       reforms_window          (ROOT = FROM)
-#   parliament.gui:
-#       parliament_window       (ROOT = FROM)
-
-
-
-
-
-
-
-# magma forge
-
+# The Setzunkhupa, Dur-Vazhatun (4020): the wonder window. Rewritten on 10 November 2026.
+# The .gui side is the window "DA_The_Sky_Hold_Window" in interface/topbar.gui.
+# ROOT and FROM are the country that looks at the window.
+#
+# Upgrade button: tiers I to III (dig level 3, 5, 7). Each tier opens more of the observation programme.
+# First column: the four observations, one at a time, each once; the report is an event (DA_Dur_Vazhatun_event.11 to .14).
+# Second column, once the Ambassador has explained the crossing (DA_Dur_Vazhatun_event.42): the three works and the launch.
+# Third column: speak with the Ambassador (DA_Dur_Vazhatun_event.50); the Agradent window once travel is unlocked.
+# The story is in events/DA_Hold_Dur_Vazhatun.txt.
 
 custom_window = {
-    name = DA_The_Sky_Hold_Window
-    potential = {
-        DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
-        has_country_flag = DA_show_wonder_The_Sky_Hold
-    }
+	name = DA_The_Sky_Hold_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_The_Sky_Hold
+	}
 }
 
 custom_button = {
@@ -127,30 +30,52 @@ custom_button = {
 	}
 }
 
-custom_icon = {
-    name = DA_The_Sky_Hold_Wonder_image
-    potential = {
+custom_icon = { # frames: 1 the dome under dust, 2 tier I, 3 tier II, 4 tier III (make_setzunkhupa_art.py)
+	name = DA_The_Sky_Hold_Wonder_image
+	potential = {
 		always = yes
-    }
+	}
+	frame = { number = 4 trigger = { 4020 = { has_great_project = { type = The_Sky_Hold tier = 3 } } } }
+	frame = { number = 3 trigger = { 4020 = { has_great_project = { type = The_Sky_Hold tier = 2 } } } }
+	frame = { number = 2 trigger = { 4020 = { has_great_project = { type = The_Sky_Hold tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
 }
 
 custom_text_box = {
-    name = DA_The_Sky_Hold_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Sky_Hold_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_The_Sky_Hold_name_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_The_Sky_Hold_name_shower_tt
 }
 
 custom_text_box = {
-    name = DA_The_Sky_Hold_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Sky_Hold_dwarven_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_The_Sky_Hold_dwarven_name_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_The_Sky_Hold_dwarven_name_shower_tt
 }
 
-custom_button = {
+custom_text_box = {
+	name = DA_The_Sky_Hold_Wonder_level_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_The_Sky_Hold_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_Wonder_location_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_The_Sky_Hold_Wonder_location_shower_tt
+}
+
+custom_button = { # restores the observatory, tier by tier
 	name = DA_The_Sky_Hold_upgrade_button
-	tooltip = DA_Wonder_upgrade_button_tt
+	tooltip = DA_SZ_upgrade_button_tt
 	potential = {
 		always = yes
 	}
@@ -169,19 +94,14 @@ custom_button = {
 		if = {
 			limit = {
 				4020 = {
-					AND = {
-						has_great_project = {
-							type = The_Sky_Hold
-							tier = 0
-						}
-						NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } }
-					}
+					has_great_project = { type = The_Sky_Hold tier = 0 }
+					NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } }
 				}
 			}
 			4020 = {
 				custom_trigger_tooltip = {
-					tooltip = DA_tooltip_has_dig_level_4_or_higher
-					DA_has_dig_level_4_or_higher = yes
+					tooltip = DA_tooltip_has_dig_level_3_or_higher
+					DA_has_dig_level_3_or_higher = yes
 				}
 			}
 			DA_alchemy_reagents_total_required = {
@@ -198,19 +118,14 @@ custom_button = {
 		if = {
 			limit = {
 				4020 = {
-					AND = {
-						has_great_project = {
-							type = The_Sky_Hold
-							tier = 1
-						}
-						NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } }
-					}
+					has_great_project = { type = The_Sky_Hold tier = 1 }
+					NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } }
 				}
 			}
 			4020 = {
 				custom_trigger_tooltip = {
-					tooltip = DA_tooltip_has_dig_level_6_or_higher
-					DA_has_dig_level_6_or_higher = yes
+					tooltip = DA_tooltip_has_dig_level_5_or_higher
+					DA_has_dig_level_5_or_higher = yes
 				}
 			}
 			DA_alchemy_reagents_total_required = {
@@ -227,19 +142,14 @@ custom_button = {
 		if = {
 			limit = {
 				4020 = {
-					AND = {
-						has_great_project = {
-							type = The_Sky_Hold
-							tier = 2
-						}
-						NOT = { has_great_project = { type = The_Sky_Hold tier = 3 } }
-					}
+					has_great_project = { type = The_Sky_Hold tier = 2 }
+					NOT = { has_great_project = { type = The_Sky_Hold tier = 3 } }
 				}
 			}
 			4020 = {
 				custom_trigger_tooltip = {
-					tooltip = DA_tooltip_has_dig_level_8_or_higher
-					DA_has_dig_level_8_or_higher = yes
+					tooltip = DA_tooltip_has_dig_level_7_or_higher
+					DA_has_dig_level_7_or_higher = yes
 				}
 			}
 			DA_alchemy_reagents_total_required = {
@@ -256,10 +166,7 @@ custom_button = {
 		if = {
 			limit = {
 				4020 = {
-					has_great_project = {
-						type = The_Sky_Hold
-						tier = 3
-					}
+					has_great_project = { type = The_Sky_Hold tier = 3 }
 				}
 			}
 			custom_trigger_tooltip = {
@@ -272,79 +179,63 @@ custom_button = {
 		if = {
 			limit = {
 				4020 = {
-					AND = {
-						has_great_project = {
-							type = The_Sky_Hold
-							tier = 0
-						}
-						NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } }
-					}
+					has_great_project = { type = The_Sky_Hold tier = 0 }
+					NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } }
 				}
-			}
-			DA_alchemy_reagents_spend = {
-				amount = 10
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 10
-			}
-			DA_arcane_metal_spend = {
-				amount = 10
 			}
 			add_treasury = -1600
+			DA_alchemy_reagents_spend = {
+				amount = 10
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 10
+			}
+			DA_arcane_metal_spend = {
+				amount = 10
+			}
 			4020 = {
 				add_great_project_tier = {
 					type = The_Sky_Hold
 					tier = 1
 				}
 			}
-			hidden_effect = {
-				# TODO: DA_The_Sky_Hold_event.11 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_The_Sky_Hold_event.11 days = 365 }
-				# TODO: DA_The_Sky_Hold_event.12 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_The_Sky_Hold_event.12 days = 1095 }
-			}
+			custom_tooltip = DA_SZ_tier_1_unlock_tt
+			hidden_effect = { 4020 = { province_event = { id = DA_Dur_Vazhatun_event.2 days = 30 } } }
 		}
 		else_if = {
 			limit = {
 				4020 = {
-					AND = {
-						has_great_project = {
-							type = The_Sky_Hold
-							tier = 1
-						}
-						NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } }
-					}
+					has_great_project = { type = The_Sky_Hold tier = 1 }
+					NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } }
 				}
-			}
-			DA_alchemy_reagents_spend = {
-				amount = 20
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 20
-			}
-			DA_arcane_metal_spend = {
-				amount = 20
 			}
 			add_treasury = -3750
+			DA_alchemy_reagents_spend = {
+				amount = 20
+			}
+			DA_enchanted_building_material_spend = {
+				amount = 20
+			}
+			DA_arcane_metal_spend = {
+				amount = 20
+			}
 			4020 = {
 				add_great_project_tier = {
 					type = The_Sky_Hold
 					tier = 1
 				}
 			}
+			custom_tooltip = DA_SZ_tier_2_unlock_tt
+			hidden_effect = { 4020 = { province_event = { id = DA_Dur_Vazhatun_event.3 days = 30 } } }
 		}
 		else_if = {
 			limit = {
 				4020 = {
-					AND = {
-						has_great_project = {
-							type = The_Sky_Hold
-							tier = 2
-						}
-						NOT = { has_great_project = { type = The_Sky_Hold tier = 3 } }
-					}
+					has_great_project = { type = The_Sky_Hold tier = 2 }
+					NOT = { has_great_project = { type = The_Sky_Hold tier = 3 } }
 				}
 			}
+			add_treasury = -7500
 			DA_alchemy_reagents_spend = {
 				amount = 40
 			}
@@ -354,31 +245,588 @@ custom_button = {
 			DA_arcane_metal_spend = {
 				amount = 40
 			}
-			add_treasury = -7500
 			4020 = {
 				add_great_project_tier = {
 					type = The_Sky_Hold
 					tier = 1
 				}
 			}
-			hidden_effect = {
-				# TODO: DA_The_Sky_Hold_event.14 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_The_Sky_Hold_event.14 days = 3650 }
+			custom_tooltip = DA_SZ_tier_3_unlock_tt
+			hidden_effect = { 4020 = { province_event = { id = DA_Dur_Vazhatun_event.4 days = 30 } } }
+		}
+	}
+}
+
+#######################################################
+# The observation programme
+#######################################################
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_header_observation
+	potential = {
+		always = yes
+	}
+	tooltip = DA_SZ_header_observation_tt
+}
+
+custom_button = { # The Moon
+	name = DA_The_Sky_Hold_button_observe_moon
+	tooltip = DA_SZ_observe_moon_tt
+	potential = {
+		always = yes
+	}
+	frame = { number = 2 trigger = { has_country_flag = DA_SZ_observing_moon } }
+	frame = { number = 3 trigger = { OR = { has_country_flag = DA_SZ_observed_moon NOT = { DA_SZ_observatory_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_needs_tier_1_tt
+			DA_SZ_observatory_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_not_observed_tt
+			NOT = { has_country_flag = DA_SZ_observed_moon }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_dome_idle_tt
+			NOT = { has_country_flag = DA_SZ_observing }
+		}
+		treasury = 150
+	}
+	effect = {
+		add_treasury = -150
+		custom_tooltip = DA_SZ_observe_moon_started_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_observing
+			set_country_flag = DA_SZ_observing_moon
+			country_event = { id = DA_Dur_Vazhatun_event.11 days = 365 }
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_observe_moon_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_SZ_observe_moon_tt
+}
+
+custom_button = { # The Far Wanderers
+	name = DA_The_Sky_Hold_button_observe_wanderers
+	tooltip = DA_SZ_observe_wanderers_tt
+	potential = {
+		always = yes
+	}
+	frame = { number = 2 trigger = { has_country_flag = DA_SZ_observing_wanderers } }
+	frame = { number = 3 trigger = { OR = { has_country_flag = DA_SZ_observed_wanderers NOT = { DA_SZ_observatory_at_tier_2 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_needs_tier_2_tt
+			DA_SZ_observatory_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_not_observed_tt
+			NOT = { has_country_flag = DA_SZ_observed_wanderers }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_dome_idle_tt
+			NOT = { has_country_flag = DA_SZ_observing }
+		}
+		treasury = 250
+	}
+	effect = {
+		add_treasury = -250
+		custom_tooltip = DA_SZ_observe_wanderers_started_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_observing
+			set_country_flag = DA_SZ_observing_wanderers
+			country_event = { id = DA_Dur_Vazhatun_event.12 days = 545 }
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_observe_wanderers_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_SZ_observe_wanderers_tt
+}
+
+custom_button = { # Agradent
+	name = DA_The_Sky_Hold_button_observe_agradent
+	tooltip = DA_SZ_observe_agradent_tt
+	potential = {
+		always = yes
+	}
+	frame = { number = 2 trigger = { has_country_flag = DA_SZ_observing_agradent } }
+	frame = { number = 3 trigger = { OR = { has_country_flag = DA_SZ_observed_agradent NOT = { DA_SZ_observatory_at_tier_2 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_needs_tier_2_tt
+			DA_SZ_observatory_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_not_observed_tt
+			NOT = { has_country_flag = DA_SZ_observed_agradent }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_dome_idle_tt
+			NOT = { has_country_flag = DA_SZ_observing }
+		}
+		treasury = 250
+	}
+	effect = {
+		add_treasury = -250
+		custom_tooltip = DA_SZ_observe_agradent_started_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_observing
+			set_country_flag = DA_SZ_observing_agradent
+			country_event = { id = DA_Dur_Vazhatun_event.13 days = 545 }
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_observe_agradent_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_SZ_observe_agradent_tt
+}
+
+custom_button = { # The Dark Between
+	name = DA_The_Sky_Hold_button_observe_dark
+	tooltip = DA_SZ_observe_dark_tt
+	potential = {
+		always = yes
+	}
+	frame = { number = 2 trigger = { has_country_flag = DA_SZ_observing_dark } }
+	frame = { number = 3 trigger = { OR = { has_country_flag = DA_SZ_observed_dark NOT = { DA_SZ_observatory_at_tier_3 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_needs_tier_3_tt
+			DA_SZ_observatory_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_not_observed_tt
+			NOT = { has_country_flag = DA_SZ_observed_dark }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_dome_idle_tt
+			NOT = { has_country_flag = DA_SZ_observing }
+		}
+		treasury = 400
+	}
+	effect = {
+		add_treasury = -400
+		custom_tooltip = DA_SZ_observe_dark_started_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_observing
+			set_country_flag = DA_SZ_observing_dark
+			country_event = { id = DA_Dur_Vazhatun_event.14 days = 730 }
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_observe_dark_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_SZ_observe_dark_tt
+}
+
+#######################################################
+# The crossing: three works and the launch
+#######################################################
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_header_crossing
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+	}
+	tooltip = DA_SZ_header_crossing_tt
+}
+
+custom_button = { # The Anchor
+	name = DA_The_Sky_Hold_button_work_anchor
+	tooltip = DA_SZ_work_anchor_tt
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+		NOT = { has_country_flag = DA_SZ_anchor_lost }
+	}
+	frame = { number = 2 trigger = { AND = { has_country_flag = DA_SZ_anchor_started NOT = { has_country_flag = DA_SZ_anchor_done } } } }
+	frame = { number = 3 trigger = { OR = { has_country_flag = DA_SZ_anchor_done has_country_flag = DA_SZ_work_in_progress NOT = { DA_SZ_guest_is_ours = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_work_not_begun_tt
+			NOT = { has_country_flag = DA_SZ_anchor_started }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_guest_is_ours_tt
+			DA_SZ_guest_is_ours = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_work_tt
+			NOT = { has_country_flag = DA_SZ_work_in_progress }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_pod_tt
+			NOT = { has_country_flag = DA_SZ_pod_in_flight }
+		}
+		DA_enchanted_building_material_total_required = {
+			amount = 20
+		}
+		DA_arcane_metal_total_required = {
+			amount = 20
+		}
+		treasury = 1500
+	}
+	effect = {
+		add_treasury = -1500
+		DA_enchanted_building_material_spend = {
+			amount = 20
+		}
+		DA_arcane_metal_spend = {
+			amount = 20
+		}
+		custom_tooltip = DA_SZ_work_anchor_started_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_work_in_progress
+			set_country_flag = DA_SZ_anchor_started
+			country_event = { id = DA_Dur_Vazhatun_event.60 days = 1095 }
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_work_anchor_text
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+		NOT = { has_country_flag = DA_SZ_anchor_lost }
+	}
+	tooltip = DA_SZ_work_anchor_tt
+}
+
+custom_button = { # The Thrower
+	name = DA_The_Sky_Hold_button_work_thrower
+	tooltip = DA_SZ_work_thrower_tt
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+	}
+	frame = { number = 2 trigger = { AND = { has_country_flag = DA_SZ_thrower_started NOT = { has_country_flag = DA_SZ_thrower_done } } } }
+	frame = { number = 3 trigger = { OR = { has_country_flag = DA_SZ_thrower_done has_country_flag = DA_SZ_work_in_progress NOT = { DA_SZ_guest_is_ours = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_work_not_begun_tt
+			NOT = { has_country_flag = DA_SZ_thrower_started }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_guest_is_ours_tt
+			DA_SZ_guest_is_ours = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_work_tt
+			NOT = { has_country_flag = DA_SZ_work_in_progress }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_pod_tt
+			NOT = { has_country_flag = DA_SZ_pod_in_flight }
+		}
+		DA_enchanted_building_material_total_required = {
+			amount = 20
+		}
+		DA_arcane_metal_total_required = {
+			amount = 30
+		}
+		treasury = 2500
+	}
+	effect = {
+		add_treasury = -2500
+		DA_enchanted_building_material_spend = {
+			amount = 20
+		}
+		DA_arcane_metal_spend = {
+			amount = 30
+		}
+		custom_tooltip = DA_SZ_work_thrower_started_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_work_in_progress
+			set_country_flag = DA_SZ_thrower_started
+			country_event = { id = DA_Dur_Vazhatun_event.61 days = 1460 }
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_work_thrower_text
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+	}
+	tooltip = DA_SZ_work_thrower_tt
+}
+
+custom_button = { # The Aim
+	name = DA_The_Sky_Hold_button_work_aim
+	tooltip = DA_SZ_work_aim_tt
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+	}
+	frame = { number = 2 trigger = { AND = { has_country_flag = DA_SZ_aim_started NOT = { has_country_flag = DA_SZ_aim_done } } } }
+	frame = { number = 3 trigger = { OR = { has_country_flag = DA_SZ_aim_done has_country_flag = DA_SZ_work_in_progress NOT = { DA_SZ_guest_is_ours = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_work_not_begun_tt
+			NOT = { has_country_flag = DA_SZ_aim_started }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_guest_is_ours_tt
+			DA_SZ_guest_is_ours = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_work_tt
+			NOT = { has_country_flag = DA_SZ_work_in_progress }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_pod_tt
+			NOT = { has_country_flag = DA_SZ_pod_in_flight }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_has_5_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 5
+			}
+		}
+		treasury = 800
+	}
+	effect = {
+		add_treasury = -800
+		custom_tooltip = DA_Cost_5_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_SZ_work_aim_started_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_work_in_progress
+			set_country_flag = DA_SZ_aim_started
+			if = {
+				limit = { has_country_flag = DA_SZ_observed_agradent }
+				country_event = { id = DA_Dur_Vazhatun_event.62 days = 730 }
+			}
+			else = {
+				country_event = { id = DA_Dur_Vazhatun_event.62 days = 1095 }
 			}
 		}
 	}
 }
 
 custom_text_box = {
-    name = DA_The_Sky_Hold_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Sky_Hold_Wonder_level_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_The_Sky_Hold_button_work_aim_text
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+	}
+	tooltip = DA_SZ_work_aim_tt
+}
+
+custom_button = { # a new anchor after a lost pod
+	name = DA_The_Sky_Hold_button_recast
+	tooltip = DA_SZ_recast_tt
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+		has_country_flag = DA_SZ_anchor_lost
+	}
+	frame = { number = 2 trigger = { has_country_flag = DA_SZ_recast_started } }
+	frame = { number = 3 trigger = { OR = { has_country_flag = DA_SZ_work_in_progress NOT = { DA_SZ_guest_is_ours = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_recast_not_begun_tt
+			NOT = { has_country_flag = DA_SZ_recast_started }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_guest_is_ours_tt
+			DA_SZ_guest_is_ours = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_work_tt
+			NOT = { has_country_flag = DA_SZ_work_in_progress }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_pod_tt
+			NOT = { has_country_flag = DA_SZ_pod_in_flight }
+		}
+		DA_enchanted_building_material_total_required = {
+			amount = 10
+		}
+		DA_arcane_metal_total_required = {
+			amount = 10
+		}
+		treasury = 800
+	}
+	effect = {
+		add_treasury = -800
+		DA_enchanted_building_material_spend = {
+			amount = 10
+		}
+		DA_arcane_metal_spend = {
+			amount = 10
+		}
+		custom_tooltip = DA_SZ_recast_started_tt
+		hidden_effect = {
+			set_country_flag = DA_SZ_work_in_progress
+			set_country_flag = DA_SZ_recast_started
+			country_event = { id = DA_Dur_Vazhatun_event.69 days = 365 }
+		}
+	}
 }
 
 custom_text_box = {
-    name = DA_The_Sky_Hold_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Sky_Hold_Wonder_location_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_The_Sky_Hold_button_recast_text
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+		has_country_flag = DA_SZ_anchor_lost
+	}
+	tooltip = DA_SZ_recast_tt
 }
+
+custom_button = { # the first pod
+	name = DA_The_Sky_Hold_button_launch
+	tooltip = DA_SZ_launch_tt
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+	}
+	frame = { number = 2 trigger = { has_country_flag = DA_SZ_pod_in_flight } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_SZ_all_works_done = yes } has_country_flag = DA_SZ_anchor_lost has_country_flag = DA_SZ_work_in_progress has_country_flag = DA_SZ_homecoming NOT = { DA_SZ_guest_is_ours = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_all_works_done_tt
+			DA_SZ_all_works_done = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_anchor_whole_tt
+			NOT = { has_country_flag = DA_SZ_anchor_lost }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_guest_is_ours_tt
+			DA_SZ_guest_is_ours = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_work_tt
+			NOT = { has_country_flag = DA_SZ_work_in_progress }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_no_pod_tt
+			NOT = { has_country_flag = DA_SZ_pod_in_flight }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_SZ_not_gone_yet_tt
+			NOT = { has_country_flag = DA_SZ_homecoming }
+		}
+		DA_alchemy_reagents_total_required = {
+			amount = 20
+		}
+		treasury = 1000
+	}
+	effect = {
+		add_treasury = -1000
+		DA_alchemy_reagents_spend = {
+			amount = 20
+		}
+		custom_tooltip = DA_SZ_launch_effect_tt
+		hidden_effect = { set_country_flag = DA_SZ_pod_in_flight country_event = { id = DA_Dur_Vazhatun_event.63 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_launch_text
+	potential = {
+		has_country_flag = DA_SZ_briefed
+		NOT = { has_country_flag = DA_SZ_homecoming }
+	}
+	tooltip = DA_SZ_launch_tt
+}
+
+#######################################################
+# The Low Dome and the gate
+#######################################################
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_header_dome
+	potential = {
+		4020 = { has_province_flag = DA_Setzunkhupa_guest_found }
+	}
+	tooltip = DA_SZ_header_dome_tt
+}
+
+custom_button = { # the same as Parley in his Legendary Encounter window
+	name = DA_The_Sky_Hold_button_speak
+	tooltip = DA_SZ_speak_tt
+	potential = {
+		DA_SZ_guest_is_ours = yes
+	}
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = { country_event = { id = DA_Dur_Vazhatun_event.50 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_speak_text
+	potential = {
+		DA_SZ_guest_is_ours = yes
+	}
+	tooltip = DA_SZ_speak_tt
+}
+
+custom_button = { # opens the Agradent window
+	name = DA_The_Sky_Hold_button_agradent
+	tooltip = DA_SZ_agradent_tt
+	potential = {
+		has_country_flag = DA_Agradent_travel_unlocked
+	}
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		hidden_effect = { DA_AG_open_window = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_button_agradent_text
+	potential = {
+		has_country_flag = DA_Agradent_travel_unlocked
+	}
+	tooltip = DA_SZ_agradent_tt
+}
+
+custom_text_box = {
+	name = DA_The_Sky_Hold_info_text
+	potential = {
+		always = yes
+	}
+	tooltip = DA_SZ_info_text_tt
+}
+

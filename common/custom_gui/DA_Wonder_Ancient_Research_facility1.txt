@@ -1,116 +1,19 @@
-# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
-
-
-
-# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
-#custom_button = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the button is visible
-#    trigger = { } #Determines when the button is clickable
-#    effect = { } #Effect
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_text_box = {
-#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
-#    potential = { } #Determines when the text is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    #To localize it, use the name of the button as a key, can also use customizable localisation
-#}
-
-#custom_icon = {
-#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
-#    potential = { } #Determines when the icon is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_shield = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the shield is visible
-#    trigger = { } #Determines when the shield is clickable
-#    effect = { } #Effect for clicking
-#    tooltip = localisation_key #Can use customizable localisation
-#    global_event_target = <string> # Global event target name
-#    open_country = <bool> #If clicking opens the country view
-#}
-
-##############################  Supported files with scopes ##############################
-#   The Gui objects must be directly inside the specified window Gui element!
-#   FROM is always the country that clicks
-#   provinceview.gui:
-#       province_window         (ROOT: Clicked province)
-#       buildings_window        (ROOT: Clicked province)
-#       state_window            (ROOT: Clicked province)
-#   countrycourtview.gui:
-#       countrycourtview        (ROOT = FROM)
-#   countrygovernmentview.gui:
-#       countrygovernmentview   (ROOT = FROM)
-#   countrydiplomacyview.gui:
-#       countrydiplimacyview    (ROOT: Selected country)
-#   countryeconomyview.gui:
-#       countryeconomyview      (ROOT = FROM)
-#   countrytradeview.gui:
-#       countrytradeview        (ROOT = FROM)
-#   countrytechnologyview.gui:
-#       countrytechnologyview   (ROOT = FROM)
-#   countryideasview.gui:
-#       countryideasview        (ROOT = FROM)
-#   countrymissionsview.gui:
-#       countrymissionsview     (ROOT: Selected country)
-#   countrydecisionview.gui:
-#       countrydecisionsview    (ROOT = FROM)
-#   countrystabilityview.gui:
-#       countrystabilityview    (ROOT = FROM)
-#   countryreligionview.gui:
-#       countryreligionview     (ROOT = FROM)
-#   countrymilitaryview.gui:
-#       countrymilitaryview     (ROOT = FROM)
-#   countrysubjectsview.gui:
-#       countrysubjectview      (ROOT = FROM)
-#   countryestatesview.gui:
-#       countryestatesview      (ROOT = FROM)
-#   ages_view.gui:
-#       ages_view               (ROOT = FROM)
-#   tradeinterface.gui:
-#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
-#   hre.gui:
-#       hre_window              (ROOT = FROM)
-#   papacy.gui:
-#       papacy_window           (ROOT = FROM)
-#   faction.gui:
-#       All faction windows     (ROOT = FROM)
-#   celestialempireview.gui:
-#       celestial_window        (ROOT = FROM)
-#   countrynativesview.gui:
-#       natives_window          (ROOT = FROM)
-#   religiousreforms.gui:
-#       reforms_window          (ROOT = FROM)
-#   parliament.gui:
-#       parliament_window       (ROOT = FROM)
-
-
-
-
-
-
-
-# magma forge
-
+# Ancient Research Facility, Amldihr (4119): the wonder window. Rewritten on 10 November 2026.
+# The .gui side is the window "DA_Ancient_Research_facility1_Window" in interface/topbar.gui.
+# ROOT and FROM are the country that looks at the window.
+#
+# The window has three states (scripted triggers in DA_Halanna_triggers.txt):
+#   DA_ARF_state_sealed   the Runic Gate is closed: the Open the Runic Gate button
+#   DA_ARF_state_heart    Halanna's Heart: the upgrade button and Experiments I to III
+#   DA_ARF_state_mother   Halanna is awake: Offering, the three blessings, her recovery, the throne
+# The story is in events/DA_Halanna_events.txt.
 
 custom_window = {
-    name = DA_Ancient_Research_facility1_Window
-    potential = {
-        DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
-        has_country_flag = DA_show_wonder_DA_Ancient_Research_facility1
-    }
+	name = DA_Ancient_Research_facility1_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_DA_Ancient_Research_facility1
+	}
 }
 
 custom_button = {
@@ -127,32 +30,55 @@ custom_button = {
 	}
 }
 
-custom_icon = {
-    name = DA_Ancient_Research_facility1_Wonder_image
-    potential = {
-		always = yes
-    }
-}
-
-custom_text_box = {
-    name = DA_Ancient_Research_facility1_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Ancient_Research_facility1_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-
-custom_text_box = {
-    name = DA_Ancient_Research_facility1_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Ancient_Research_facility1_dwarven_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-
-custom_button = {
-	name = DA_Ancient_Research_facility1_upgrade_button
-	tooltip = DA_Wonder_upgrade_button_tt
+custom_icon = { # frames: 1 sealed gate, 2 white Heart, 3 blue, 4 orange, 5 the empty Heart
+	name = DA_Ancient_Research_facility1_Wonder_image
 	potential = {
 		always = yes
+	}
+	frame = { number = 5 trigger = { DA_ARF_state_mother = yes } }
+	frame = { number = 4 trigger = { DA_ARF_state_heart = yes has_country_flag = DA_Halanna_exp_2_done } }
+	frame = { number = 3 trigger = { DA_ARF_state_heart = yes has_country_flag = DA_Halanna_exp_1_done } }
+	frame = { number = 2 trigger = { DA_ARF_state_heart = yes } }
+	frame = { number = 1 trigger = { always = yes } }
+}
+
+custom_text_box = {
+	name = DA_Ancient_Research_facility1_name_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Ancient_Research_facility1_name_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Ancient_Research_facility1_dwarven_name_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Ancient_Research_facility1_dwarven_name_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Ancient_Research_facility1_Wonder_level_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Ancient_Research_facility1_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Ancient_Research_facility1_Wonder_location_shower
+	potential = {
+		always = yes
+	}
+	tooltip = DA_Ancient_Research_facility1_Wonder_location_shower_tt
+}
+
+custom_button = { # restores the facility, tier by tier; each tier unlocks one experiment
+	name = DA_Ancient_Research_facility1_upgrade_button
+	tooltip = DA_ARF_upgrade_button_tt
+	potential = {
+		DA_ARF_state_sealed = no
 	}
 	trigger = {
 		custom_trigger_tooltip = {
@@ -169,13 +95,11 @@ custom_button = {
 		if = {
 			limit = {
 				4119 = {
-					AND = {
-						has_great_project = {
-							type = DA_Ancient_Research_facility1
-							tier = 0
-						}
-						NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } }
+					has_great_project = {
+						type = DA_Ancient_Research_facility1
+						tier = 0
 					}
+					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } }
 				}
 			}
 			DA_alchemy_reagents_total_required = {
@@ -192,13 +116,11 @@ custom_button = {
 		if = {
 			limit = {
 				4119 = {
-					AND = {
-						has_great_project = {
-							type = DA_Ancient_Research_facility1
-							tier = 1
-						}
-						NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } }
+					has_great_project = {
+						type = DA_Ancient_Research_facility1
+						tier = 1
 					}
+					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } }
 				}
 			}
 			DA_alchemy_reagents_total_required = {
@@ -215,13 +137,11 @@ custom_button = {
 		if = {
 			limit = {
 				4119 = {
-					AND = {
-						has_great_project = {
-							type = DA_Ancient_Research_facility1
-							tier = 2
-						}
-						NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } }
+					has_great_project = {
+						type = DA_Ancient_Research_facility1
+						tier = 2
 					}
+					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } }
 				}
 			}
 			DA_alchemy_reagents_total_required = {
@@ -254,13 +174,11 @@ custom_button = {
 		if = {
 			limit = {
 				4119 = {
-					AND = {
-						has_great_project = {
-							type = DA_Ancient_Research_facility1
-							tier = 0
-						}
-						NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } }
+					has_great_project = {
+						type = DA_Ancient_Research_facility1
+						tier = 0
 					}
+					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } }
 				}
 			}
 			DA_alchemy_reagents_spend = {
@@ -279,23 +197,15 @@ custom_button = {
 					tier = 1
 				}
 			}
-			hidden_effect = {
-				# TODO: DA_Ancient_Research_facility1_event.11 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Ancient_Research_facility1_event.11 days = 365 }
-				# TODO: DA_Ancient_Research_facility1_event.12 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Ancient_Research_facility1_event.12 days = 1095 }
-			}
 		}
 		else_if = {
 			limit = {
 				4119 = {
-					AND = {
-						has_great_project = {
-							type = DA_Ancient_Research_facility1
-							tier = 1
-						}
-						NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } }
+					has_great_project = {
+						type = DA_Ancient_Research_facility1
+						tier = 1
 					}
+					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } }
 				}
 			}
 			DA_alchemy_reagents_spend = {
@@ -318,13 +228,11 @@ custom_button = {
 		else_if = {
 			limit = {
 				4119 = {
-					AND = {
-						has_great_project = {
-							type = DA_Ancient_Research_facility1
-							tier = 2
-						}
-						NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } }
+					has_great_project = {
+						type = DA_Ancient_Research_facility1
+						tier = 2
 					}
+					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } }
 				}
 			}
 			DA_alchemy_reagents_spend = {
@@ -343,44 +251,407 @@ custom_button = {
 					tier = 1
 				}
 			}
-			hidden_effect = {
-				# TODO: DA_Ancient_Research_facility1_event.14 has not been written yet; restore this call when it exists.
-				# country_event = { id = DA_Ancient_Research_facility1_event.14 days = 3650 }
-			}
 		}
 	}
 }
 
-custom_text_box = {
-    name = DA_Ancient_Research_facility1_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Ancient_Research_facility1_Wonder_level_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
+
+#######################################################
+# State 1: the Runic Gate is sealed
+#######################################################
 
 custom_text_box = {
-    name = DA_Ancient_Research_facility1_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Ancient_Research_facility1_Wonder_location_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-
-custom_button = {
-	name = DA_Ancient_Research_facility1_button_opening
-	tooltip = DA_Ancient_Research_facility1_button_opening
+	name = DA_Ancient_Research_facility1_sealed_text
 	potential = {
-		4119 = {
-			has_great_project = {
-				type = DA_Ancient_Research_facility1
-				tier = 0
-			}
-			has_province_flag = DA_Runic_gate_closed_p
-		}
+		DA_ARF_state_sealed = yes
+	}
+	tooltip = DA_Ancient_Research_facility1_sealed_text_tt
+}
+
+custom_button = { # 30 ADK and 20,000 ducats; the gate opens 30 days later (DA_Halanna_heart.51)
+	name = DA_Ancient_Research_facility1_button_opening
+	tooltip = DA_Ancient_Research_facility1_button_opening_tt
+	potential = {
+		DA_ARF_state_sealed = yes
 	}
 	trigger = {
-		always = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_gate_not_opening_tt
+			NOT = { has_country_flag = DA_Runic_gate_opening }
+		}
+		4119 = {
+			owned_by = prev
+		}
+		DA_has_RF_8_or_higher = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_has_30_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 30
+			}
+		}
+		treasury = 20000
 	}
 	effect = {
-		clr_country_flag = DA_show_wonder_DA_Ancient_Research_facility1
+		custom_tooltip = DA_ARF_cost_30_ADK
+		add_treasury = -20000
+		custom_tooltip = DA_ARF_gate_opening_tt
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 30 }
+			set_country_flag = DA_Runic_gate_opening
+			country_event = {
+				id = DA_Halanna_heart.51
+				days = 30
+			}
+		}
 	}
+}
+
+
+#######################################################
+# State 2: Halanna's Heart
+#######################################################
+
+custom_button = { # Experiment I: event DA_Halanna_heart.1 after 365 days
+	name = DA_Ancient_Research_facility1_button_exp_1
+	tooltip = DA_ARF_button_exp_1_tt
+	potential = {
+		DA_ARF_state_heart = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_exp_1_not_done_tt
+			NOT = { has_country_flag = DA_Halanna_exp_1_done }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_needs_tier_1_tt
+			4119 = {
+				owned_by = prev
+				has_great_project = {
+					type = DA_Ancient_Research_facility1
+					tier = 1
+				}
+			}
+		}
+		DA_ARF_no_experiment_running = yes
+		DA_alchemy_reagents_total_required = {
+			amount = 15
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_has_5_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 5
+			}
+		}
+		treasury = 1500
+	}
+	effect = {
+		DA_alchemy_reagents_spend = {
+			amount = 15
+		}
+		custom_tooltip = DA_Cost_5_ADK
+		add_treasury = -1500
+		custom_tooltip = DA_ARF_exp_1_started_tt
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 5 }
+			set_country_flag = DA_Halanna_exp_running
+			set_country_flag = DA_Wonder_DA_Ancient_Research_facility1_in_use
+			country_event = {
+				id = DA_Halanna_heart.1
+				days = 365
+			}
+		}
+	}
+}
+
+custom_button = { # Experiment II: event DA_Halanna_heart.2 after 730 days
+	name = DA_Ancient_Research_facility1_button_exp_2
+	tooltip = DA_ARF_button_exp_2_tt
+	potential = {
+		DA_ARF_state_heart = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_exp_2_not_done_tt
+			NOT = { has_country_flag = DA_Halanna_exp_2_done }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_exp_1_done_tt
+			has_country_flag = DA_Halanna_exp_1_done
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_needs_tier_2_tt
+			4119 = {
+				owned_by = prev
+				has_great_project = {
+					type = DA_Ancient_Research_facility1
+					tier = 2
+				}
+			}
+		}
+		DA_ARF_no_experiment_running = yes
+		DA_enchanted_building_material_total_required = {
+			amount = 20
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_has_10_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 10
+			}
+		}
+		treasury = 3000
+	}
+	effect = {
+		DA_enchanted_building_material_spend = {
+			amount = 20
+		}
+		custom_tooltip = DA_Cost_10_ADK
+		add_treasury = -3000
+		custom_tooltip = DA_ARF_exp_2_started_tt
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 10 }
+			set_country_flag = DA_Halanna_exp_running
+			set_country_flag = DA_Wonder_DA_Ancient_Research_facility1_in_use
+			country_event = {
+				id = DA_Halanna_heart.2
+				days = 730
+			}
+		}
+	}
+}
+
+custom_button = { # Experiment III: event DA_Halanna_heart.3 after 1095 days
+	name = DA_Ancient_Research_facility1_button_exp_3
+	tooltip = DA_ARF_button_exp_3_tt
+	potential = {
+		DA_ARF_state_heart = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_exp_3_not_done_tt
+			NOT = { has_country_flag = DA_Halanna_exp_3_done }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_exp_2_done_tt
+			has_country_flag = DA_Halanna_exp_2_done
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_ARF_needs_tier_3_tt
+			4119 = {
+				owned_by = prev
+				has_great_project = {
+					type = DA_Ancient_Research_facility1
+					tier = 3
+				}
+			}
+		}
+		DA_ARF_no_experiment_running = yes
+		DA_arcane_metal_total_required = {
+			amount = 40
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_has_15_ADK
+			check_variable = {
+				which = ancientDwarvenKnowledge
+				value = 15
+			}
+		}
+		treasury = 6000
+	}
+	effect = {
+		DA_arcane_metal_spend = {
+			amount = 40
+		}
+		custom_tooltip = DA_Cost_15_ADK
+		add_treasury = -6000
+		custom_tooltip = DA_ARF_exp_3_started_tt
+		hidden_effect = {
+			subtract_variable = { ancientDwarvenKnowledge = 15 }
+			set_country_flag = DA_Halanna_exp_running
+			set_country_flag = DA_Wonder_DA_Ancient_Research_facility1_in_use
+			country_event = {
+				id = DA_Halanna_heart.3
+				days = 1095
+			}
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Ancient_Research_facility1_Heart_panel
+	potential = {
+		DA_ARF_state_heart = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Ancient_Research_facility1_Heart_text
+	potential = {
+		DA_ARF_state_heart = yes
+	}
+	tooltip = DA_Ancient_Research_facility1_Heart_text_tt
+}
+
+
+#######################################################
+# State 3: Halanna is awake
+#######################################################
+
+custom_button = { # tend to her: event DA_Halanna_heart.60, once a year. Gives way to the throne button at 250.
+	name = DA_Ancient_Research_facility1_button_offering
+	tooltip = DA_Ancient_Research_facility1_button_offering_tt
+	potential = {
+		DA_ARF_state_mother = yes
+		NOT = { has_country_flag = DA_Halanna_recovered }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Halanna_not_tended_tt
+			NOT = { has_country_modifier = DA_Halanna_tended }
+		}
+	}
+	effect = {
+		country_event = {
+			id = DA_Halanna_heart.60
+		}
+	}
+}
+
+custom_button = { # recovery 250: offer her the throne (event DA_Halanna_heart.80)
+	name = DA_Ancient_Research_facility1_button_throne
+	tooltip = DA_Ancient_Research_facility1_button_throne_tt
+	potential = {
+		DA_ARF_state_mother = yes
+		has_country_flag = DA_Halanna_recovered
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Halanna_does_not_rule_tt
+			NOT = { has_country_flag = DA_Halanna_rules }
+		}
+		DA_Halanna_recovery_250 = yes
+		4119 = {
+			owned_by = prev
+		}
+		is_subject = no
+	}
+	effect = {
+		country_event = {
+			id = DA_Halanna_heart.80
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Ancient_Research_facility1_button_throne_text
+	potential = {
+		DA_ARF_state_mother = yes
+		has_country_flag = DA_Halanna_recovered
+	}
+	tooltip = DA_Ancient_Research_facility1_button_throne_tt
+}
+
+custom_button = { # recovery 100: the permanent Blessing of Prosperity, once
+	name = DA_Ancient_Research_facility1_button_prosperity
+	tooltip = DA_Ancient_Research_facility1_button_prosperity_tt
+	potential = {
+		DA_ARF_state_mother = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Halanna_blessing_not_given_tt
+			NOT = { has_country_modifier = DA_Halanna_Blessing }
+		}
+		DA_Halanna_recovery_100 = yes
+	}
+	effect = {
+		add_country_modifier = {
+			name = DA_Halanna_Blessing
+			duration = -1
+		}
+	}
+}
+
+custom_button = { # recovery 150: a blessed general every ten years, every five once she has recovered
+	name = DA_Ancient_Research_facility1_button_general
+	tooltip = DA_Ancient_Research_facility1_button_general_tt
+	potential = {
+		DA_ARF_state_mother = yes
+	}
+	trigger = {
+		DA_Halanna_recovery_150 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_Halanna_general_ready_tt
+			NOT = { has_country_modifier = DA_Halanna_general_CD }
+		}
+		treasury = 500
+		mil_power = 50
+	}
+	effect = {
+		add_treasury = -500
+		add_mil_power = -50
+		if = {
+			limit = { has_country_flag = DA_Halanna_recovered }
+			custom_tooltip = DA_Halanna_general_better_tt
+			hidden_effect = {
+				add_country_modifier = {
+					name = DA_Halanna_general_CD
+					duration = 1825
+				}
+			}
+		}
+		else = {
+			custom_tooltip = DA_Halanna_general_tt
+			hidden_effect = {
+				add_country_modifier = {
+					name = DA_Halanna_general_CD
+					duration = 3650
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_Halanna_heart.75
+			}
+		}
+	}
+}
+
+custom_button = { # recovery 200: the permanent Earth Shaping, once
+	name = DA_Ancient_Research_facility1_button_earth_shaping
+	tooltip = DA_Ancient_Research_facility1_button_earth_shaping_tt
+	potential = {
+		DA_ARF_state_mother = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Halanna_earth_shaping_not_given_tt
+			NOT = { has_country_modifier = DA_Halanna_Earth_Shaping }
+		}
+		DA_Halanna_recovery_200 = yes
+	}
+	effect = {
+		add_country_modifier = {
+			name = DA_Halanna_Earth_Shaping
+			duration = -1
+		}
+	}
+}
+
+custom_icon = {
+	name = DA_Ancient_Research_facility1_Halanna_favor_panel
+	potential = {
+		DA_ARF_state_mother = yes
+	}
+	tooltip = DA_Ancient_Research_facility1_Halanna_favor_panel_tt
+}
+
+custom_text_box = {
+	name = DA_Ancient_Research_facility1_Halanna_favor_shower
+	potential = {
+		DA_ARF_state_mother = yes
+	}
+	tooltip = DA_Ancient_Research_facility1_Halanna_favor_panel_tt
 }

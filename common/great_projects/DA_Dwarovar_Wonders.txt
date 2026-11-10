@@ -351,7 +351,7 @@ DA_Argrastun_Cathedral = {
 
 #new / reworked
 
-DA_Ancient_Research_facility1 = {
+DA_Ancient_Research_facility1 = { # Amldihr. Tiers are bought in the wonder window; each one unlocks an experiment on Halanna's Heart
 	start = 4119
 	date = 2023.03.31
 	time = {
@@ -370,7 +370,7 @@ DA_Ancient_Research_facility1 = {
 	}
 	on_built = {
 	}
-	on_destroyed = {		
+	on_destroyed = {
 	}
 	can_use_modifiers_trigger = {
 	}
@@ -394,7 +394,6 @@ DA_Ancient_Research_facility1 = {
 		area_modifier = {
 		}
 		country_modifiers = {
-			
 		}
 		on_upgraded = {
 		}
@@ -406,7 +405,7 @@ DA_Ancient_Research_facility1 = {
 		cost_to_upgrade = {
 			factor = 10000
 		}
-		province_modifiers = {	
+		province_modifiers = {
 			local_state_maintenance_modifier = 0.50
 			local_great_project_upgrade_cost = 0.10
 		}
@@ -417,14 +416,7 @@ DA_Ancient_Research_facility1 = {
 			idea_cost = -0.025
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
-			hidden_effect = {
-				owner = {
-					country_event = { 
-						id = DA_Halanna_heart.1
-					}
-				}
-			}
+			custom_tooltip = DA_ARF_tier_1_unlock_tt
 		}
 	}
 	tier_2 = {
@@ -434,7 +426,7 @@ DA_Ancient_Research_facility1 = {
 		cost_to_upgrade = {
 			factor = 25000
 		}
-		province_modifiers = {	
+		province_modifiers = {
 			local_state_maintenance_modifier = 1.00
 			local_great_project_upgrade_cost = 0.15
 		}
@@ -445,14 +437,7 @@ DA_Ancient_Research_facility1 = {
 			idea_cost = -0.05
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
-			hidden_effect = {
-				owner = {
-					country_event = { 
-						id = DA_Halanna_heart.2
-					}
-				}
-			}
+			custom_tooltip = DA_ARF_tier_2_unlock_tt
 		}
 	}
 	tier_3 = {
@@ -462,35 +447,18 @@ DA_Ancient_Research_facility1 = {
 		cost_to_upgrade = {
 			factor = 50000
 		}
-		province_modifiers = {	
+		province_modifiers = {
 			local_state_maintenance_modifier = 2.00
 			local_great_project_upgrade_cost = 0.20
 		}
 		area_modifier = {
-			
 		}
 		country_modifiers = {
 			technology_cost = -0.1
 			idea_cost = -0.1
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
-			hidden_effect = {
-				owner = {
-					country_event = { 
-						id = DA_Halanna_heart.3
-					}
-				}
-			}
-			change_trade_goods = damestear
-			custom_tooltip = DA_permanent_Damestear
-			hidden_effect = {
-				set_province_flag = permanent_damestear
-				province_event = {
-					id = DA_Amldihr_Authority_event.2
-					days = 30
-				}
-			}
+			custom_tooltip = DA_ARF_tier_3_unlock_tt
 		}
 	}
 }
@@ -614,7 +582,7 @@ The_Dwarven_Workshop = {
 }
 
 #The observatory
-The_Sky_Hold = {
+The_Sky_Hold = { # Dur-Vazhatun: the Setzunkhupa. Tiers are bought in the wonder window (dig level 3, 5, 7); each one opens more of the observation programme
 	start = 4020
 	date = 1700.01.01
 	time = {
@@ -625,15 +593,16 @@ The_Sky_Hold = {
 	move_days_per_unit_distance = 1
 	starting_tier = 0
 	type = monument
-	build_trigger = {	
+	build_trigger = {
 		custom_trigger_tooltip = {
 			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
 			has_province_flag = DA_dur_vaz_blueprints_found
 		}
 	}
-	on_built = {		
+	on_built = {
+		province_event = { id = DA_Dur_Vazhatun_event.1 days = 5 } # first light
 	}
-	on_destroyed = {		
+	on_destroyed = {
 	}
 	can_use_modifiers_trigger = {
 	}
@@ -657,14 +626,8 @@ The_Sky_Hold = {
 		area_modifier = {
 		}
 		country_modifiers = {
-			
 		}
 		on_upgraded = {
-			hidden_effect = {
-				province_event = {
-					id = DA_Dur_Vazhatun_event.1
-				}
-			}
 		}
 	}
 	tier_1 = {
@@ -674,7 +637,7 @@ The_Sky_Hold = {
 		cost_to_upgrade = {
 			factor = 3000
 		}
-		province_modifiers = {	
+		province_modifiers = {
 			local_development_cost = -0.10
 			local_unrest = 2
 		}
@@ -685,12 +648,7 @@ The_Sky_Hold = {
 			technology_cost = -0.025
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
-			hidden_effect = {
-				province_event = {
-					id = DA_Dur_Vazhatun_event.2
-				}
-			}
+			custom_tooltip = DA_SZ_tier_1_unlock_tt
 		}
 	}
 	tier_2 = {
@@ -700,7 +658,7 @@ The_Sky_Hold = {
 		cost_to_upgrade = {
 			factor = 8000
 		}
-		province_modifiers = {	
+		province_modifiers = {
 			local_development_cost = -0.20
 			local_unrest = 4
 		}
@@ -712,12 +670,7 @@ The_Sky_Hold = {
 			monthly_splendor = 1
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
-			hidden_effect = {
-				province_event = {
-					id = DA_Dur_Vazhatun_event.3
-				}
-			}
+			custom_tooltip = DA_SZ_tier_2_unlock_tt
 		}
 	}
 	tier_3 = {
@@ -727,7 +680,7 @@ The_Sky_Hold = {
 		cost_to_upgrade = {
 			factor = 15000
 		}
-		province_modifiers = {	
+		province_modifiers = {
 			local_development_cost = -0.30
 			local_unrest = 6
 		}
@@ -739,12 +692,7 @@ The_Sky_Hold = {
 			monthly_splendor = 2
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
-			hidden_effect = {
-				province_event = {
-					id = DA_Dur_Vazhatun_event.4
-				}
-			}
+			custom_tooltip = DA_SZ_tier_3_unlock_tt
 		}
 	}
 }
@@ -765,8 +713,13 @@ The_Dwarven_Laboratory = {
 			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
 			has_province_flag = DA_Ducaniel_lab_found
 		}
+		custom_trigger_tooltip = {
+			tooltip = DA_Ducaniel_lab_translated_tt
+			owner = { has_country_flag = DA_translator_found }
+		}
 	}
 	on_built = {
+		province_event = { id = DA_Hul_Jorkad_event.1 days = 5 } # the archaeologist's concerns
 	}
 	on_destroyed = {		
 	}
@@ -971,8 +924,8 @@ DA_Railway_HQ = {
 }
 
 
-DA_Exoskeletons_Workshop = {
-	start = 2868 
+DA_Exoskeletons_Workshop = { # Haraz Orldhum: the Warsuit Foundry. Tiers are bought in the wonder window; each one allows a doctrine and a turret tier
+	start = 2868
 	date = 2023.01.01
 	time = {
 		months = 1
@@ -989,8 +942,9 @@ DA_Exoskeletons_Workshop = {
 		}
 	}
 	on_built = {
+		province_event = { id = DA_Haraz_Orldhum_event.10 days = 5 } # the first inventory
 	}
-	on_destroyed = {		
+	on_destroyed = {
 	}
 	can_use_modifiers_trigger = {
 	}
@@ -1034,7 +988,7 @@ DA_Exoskeletons_Workshop = {
 		country_modifiers = {
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			custom_tooltip = DA_HO_tier_1_unlock_tt
 		}
 	}
 	tier_2 = {
@@ -1053,7 +1007,7 @@ DA_Exoskeletons_Workshop = {
 		country_modifiers = {
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			custom_tooltip = DA_HO_tier_2_unlock_tt
 		}
 	}
 	tier_3 = {
@@ -1072,7 +1026,7 @@ DA_Exoskeletons_Workshop = {
 		country_modifiers = {
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			custom_tooltip = DA_HO_tier_3_unlock_tt
 		}
 	}
 }

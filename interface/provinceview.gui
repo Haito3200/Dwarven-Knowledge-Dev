@@ -3124,6 +3124,14 @@ guiTypes = {
 					scripted = yes
 				}
 				#Row  3 Slot 3 - region specific interactions
+				# BEGIN DA_LEGENDARY_ENCOUNTER_BUTTON
+				guiButtonType = {
+					name = "DA_Legendary_Encounter_Province_Button"
+					quadTextureSprite = "GFX_DA_Legendary_Encounter_Province_Button"
+					position = { x = 112 y = 131 }
+					scripted = yes
+				}
+				# END DA_LEGENDARY_ENCOUNTER_BUTTON
 				#Row  3 Slot 4 - region specific interactions
 				#Row  3 Slot 5 - Mega Engineering
 				guiButtonType = { #Generic
@@ -3674,6 +3682,474 @@ guiTypes = {
 				}
 			}
 			# END DA_MEGA_ENGINEERING_PANEL
+			# BEGIN DA_LEGENDARY_ENCOUNTER_PANEL
+			windowType = {
+				name = "DA_province_legendary_encounter_panel"
+				position = { x = 490 y = 95 }
+				size = { x = 460 y = 480 }
+				scripted = yes
+				moveable = 0
+				iconType = {
+					name = "DA_LE_background"
+					spriteType = "GFX_DA_LE_panel_bg"
+					position = { x = 0 y = 0 }
+				}
+				instantTextBoxType = {
+					name = "DA_LE_title"
+					position = { x = 18 y = 13 }
+					font = "vic_22"
+					text = "DA_LE_title"
+					maxWidth = 320
+					maxHeight = 25
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_LE_close"
+					quadTextureSprite = "GFX_closebutton2"
+					position = { x = 430 y = 10 }
+					scripted = yes
+				}
+				iconType = {
+					name = "DA_LE_banner"
+					spriteType = "GFX_DA_LE_banner"
+					position = { x = 18 y = 40 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_name"
+					position = { x = 28 y = 112 }
+					font = "vic_22"
+					text = "DA_LE_name"
+					maxWidth = 270
+					maxHeight = 25
+					format = left
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_round"
+					position = { x = 300 y = 116 }
+					font = "vic_18"
+					text = "DA_LE_round"
+					maxWidth = 134
+					maxHeight = 20
+					format = right
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_subtitle"
+					position = { x = 18 y = 146 }
+					font = "garamond_12"
+					text = "DA_LE_subtitle"
+					maxWidth = 424
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_hp_label"
+					position = { x = 18 y = 166 }
+					font = "garamond_12"
+					text = "DA_LE_hp_label"
+					maxWidth = 76
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				iconType = {
+					name = "DA_LE_bar_hp"
+					spriteType = "GFX_DA_LE_bar_red"
+					position = { x = 96 y = 168 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_hp_value"
+					position = { x = 304 y = 166 }
+					font = "garamond_12"
+					text = "DA_LE_hp_value"
+					maxWidth = 138
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_ward_label"
+					position = { x = 18 y = 184 }
+					font = "garamond_12"
+					text = "DA_LE_ward_label"
+					maxWidth = 76
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				iconType = {
+					name = "DA_LE_bar_ward"
+					spriteType = "GFX_DA_LE_bar_blue"
+					position = { x = 96 y = 186 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_ward_value"
+					position = { x = 304 y = 184 }
+					font = "garamond_12"
+					text = "DA_LE_ward_value"
+					maxWidth = 138
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_traits"
+					position = { x = 18 y = 204 }
+					font = "garamond_12"
+					text = "DA_LE_traits"
+					maxWidth = 424
+					maxHeight = 30
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_guest_traits"
+					position = { x = 18 y = 166 }
+					font = "garamond_12"
+					text = "DA_LE_guest_traits"
+					maxWidth = 424
+					maxHeight = 18
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_guest_a"
+					position = { x = 18 y = 188 }
+					font = "garamond_12"
+					text = "DA_LE_guest_a"
+					maxWidth = 424
+					maxHeight = 46
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_guest_b"
+					position = { x = 18 y = 246 }
+					font = "garamond_12"
+					text = "DA_LE_guest_b"
+					maxWidth = 424
+					maxHeight = 74
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_army"
+					position = { x = 18 y = 244 }
+					font = "garamond_12"
+					text = "DA_LE_army"
+					maxWidth = 400
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_recount"
+					quadTextureSprite = "GFX_DA_LE_recount"
+					position = { x = 424 y = 243 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_resolve_label"
+					position = { x = 18 y = 262 }
+					font = "garamond_12"
+					text = "DA_LE_resolve_label"
+					maxWidth = 76
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				iconType = {
+					name = "DA_LE_bar_resolve"
+					spriteType = "GFX_DA_LE_bar_green"
+					position = { x = 96 y = 264 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_resolve_value"
+					position = { x = 304 y = 262 }
+					font = "garamond_12"
+					text = "DA_LE_resolve_value"
+					maxWidth = 138
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_magic"
+					position = { x = 18 y = 280 }
+					font = "garamond_12"
+					text = "DA_LE_magic"
+					maxWidth = 424
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_ruler_toggle"
+					quadTextureSprite = "GFX_DA_LE_checkbox"
+					position = { x = 18 y = 298 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_ruler_label"
+					position = { x = 42 y = 300 }
+					font = "garamond_12"
+					text = "DA_LE_ruler_label"
+					maxWidth = 400
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_status"
+					position = { x = 18 y = 328 }
+					font = "garamond_12"
+					text = "DA_LE_status"
+					maxWidth = 424
+					maxHeight = 62
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_scout"
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					position = { x = 52 y = 396 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_scout_text"
+					position = { x = 52 y = 402 }
+					font = "vic_18"
+					text = "DA_LE_scout_text"
+					maxWidth = 170
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_contain"
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					position = { x = 238 y = 396 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_contain_text"
+					position = { x = 238 y = 402 }
+					font = "vic_18"
+					text = "DA_LE_contain_text"
+					maxWidth = 170
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_parley"
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					position = { x = 52 y = 434 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_parley_text"
+					position = { x = 52 y = 440 }
+					font = "vic_18"
+					text = "DA_LE_parley_text"
+					maxWidth = 170
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_engage"
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					position = { x = 238 y = 434 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_engage_text"
+					position = { x = 238 y = 440 }
+					font = "vic_18"
+					text = "DA_LE_engage_text"
+					maxWidth = 170
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_next"
+					position = { x = 18 y = 328 }
+					font = "vic_18"
+					text = "DA_LE_next"
+					maxWidth = 424
+					maxHeight = 20
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_report"
+					position = { x = 18 y = 350 }
+					font = "garamond_12"
+					text = "DA_LE_report"
+					maxWidth = 424
+					maxHeight = 46
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_abjuration"
+					quadTextureSprite = "GFX_DA_LE_spell_abjuration"
+					position = { x = 18 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_conjuration"
+					quadTextureSprite = "GFX_DA_LE_spell_conjuration"
+					position = { x = 56 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_divination"
+					quadTextureSprite = "GFX_DA_LE_spell_divination"
+					position = { x = 94 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_enchantment"
+					quadTextureSprite = "GFX_DA_LE_spell_enchantment"
+					position = { x = 132 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_evocation"
+					quadTextureSprite = "GFX_DA_LE_spell_evocation"
+					position = { x = 170 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_illusion"
+					quadTextureSprite = "GFX_DA_LE_spell_illusion"
+					position = { x = 208 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_necromancy"
+					quadTextureSprite = "GFX_DA_LE_spell_necromancy"
+					position = { x = 246 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_transmutation"
+					quadTextureSprite = "GFX_DA_LE_spell_transmutation"
+					position = { x = 284 y = 400 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_spell_label"
+					position = { x = 326 y = 402 }
+					font = "garamond_12"
+					text = "DA_LE_spell_label"
+					maxWidth = 116
+					maxHeight = 32
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_order_assault"
+					quadTextureSprite = "GFX_DA_LE_order_button"
+					position = { x = 18 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_assault_text"
+					position = { x = 18 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_assault_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_order_shield"
+					quadTextureSprite = "GFX_DA_LE_order_button"
+					position = { x = 103 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_shield_text"
+					position = { x = 103 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_shield_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_order_volley"
+					quadTextureSprite = "GFX_DA_LE_order_button"
+					position = { x = 188 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_volley_text"
+					position = { x = 188 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_volley_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_order_loose"
+					quadTextureSprite = "GFX_DA_LE_order_button"
+					position = { x = 273 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_loose_text"
+					position = { x = 273 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_loose_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_withdraw"
+					quadTextureSprite = "GFX_DA_LE_withdraw_button"
+					position = { x = 358 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_withdraw_text"
+					position = { x = 358 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_withdraw_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+			}
+			# END DA_LEGENDARY_ENCOUNTER_PANEL
 			windowType = {
 				name = "DA_province_medicine_panel"
 				position = { x = 490 y = 95 }
@@ -4415,6 +4891,14 @@ instantTextBoxType = {
 					scripted = yes
 				}
 				#Row  3 Slot 3 - region specific interactions
+				# BEGIN DA_LEGENDARY_ENCOUNTER_BUTTON
+				guiButtonType = {
+					name = "DA_Legendary_Encounter_Province_Button"
+					quadTextureSprite = "GFX_DA_Legendary_Encounter_Province_Button"
+					position = { x = 124 y = 124 }
+					scripted = yes
+				}
+				# END DA_LEGENDARY_ENCOUNTER_BUTTON
 				#Row  3 Slot 4 - region specific interactions
 				#Row  3 Slot 5 - Mega Engineering
 				guiButtonType = { #Generic
@@ -4790,6 +5274,14 @@ instantTextBoxType = {
 						scripted = yes
 					}
 					#Row  3 Slot 3 - region specific interactions
+					# BEGIN DA_LEGENDARY_ENCOUNTER_BUTTON
+					guiButtonType = {
+						name = "DA_Legendary_Encounter_Province_Button"
+						quadTextureSprite = "GFX_DA_Legendary_Encounter_Province_Button"
+						position = { x = 124 y = 124 }
+						scripted = yes
+					}
+					# END DA_LEGENDARY_ENCOUNTER_BUTTON
 					#Row  3 Slot 4 - region specific interactions
 					#Row  3 Slot 5 - Mega Engineering
 					guiButtonType = { #Generic
@@ -4830,6 +5322,87 @@ instantTextBoxType = {
 					scrollbartype = "standardlistbox_slider"
 					borderSize = { x = 0 y = 0 }
 				}
+				# BEGIN DA_WONDER_SHORTCUT
+				# Written by "Claude files/tools/build_wonder_shortcut.py": opens the Dwarovar Wonder of this province.
+				windowType = {
+					name = "DA_wonder_shortcut_window"
+					position = { x = 273 y = 119 }
+					size = { x = 32 y = 32 }
+					Orientation = "UPPER_LEFT"
+					scripted = yes
+
+					guiButtonType = { # Magma Forge
+						name = "DA_wonder_shortcut_button_DA_Magma_Forge"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # Titanium Vault
+						name = "DA_wonder_shortcut_button_DA_Titanium_Vault"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # Argr.stun Cathedral
+						name = "DA_wonder_shortcut_button_DA_Argrastun_Cathedral"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # Ancient Research Facility
+						name = "DA_wonder_shortcut_button_DA_Ancient_Research_facility1"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # Amldavhad Training Facility
+						name = "DA_wonder_shortcut_button_The_Dwarven_Workshop"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # The Setzunkhupa
+						name = "DA_wonder_shortcut_button_The_Sky_Hold"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # Ducaniel's Laboratory
+						name = "DA_wonder_shortcut_button_The_Dwarven_Laboratory"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # Railway Control Center
+						name = "DA_wonder_shortcut_button_DA_Railway_HQ"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # Warsuit Foundry
+						name = "DA_wonder_shortcut_button_DA_Exoskeletons_Workshop"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+					guiButtonType = { # Halanna's Wrath
+						name = "DA_wonder_shortcut_button_DA_Earth_Shatterer"
+						quadTextureSprite = "GFX_DA_access_Dwarovar_Wonders_button"
+						position = { x = 0 y = 0 }
+						scripted = yes
+						clicksound = back_click
+					}
+				}
+				# END DA_WONDER_SHORTCUT
 			}
 
 			windowType = {
@@ -8375,6 +8948,474 @@ instantTextBoxType = {
 				}
 			}
 			# END DA_MEGA_ENGINEERING_PANEL
+			# BEGIN DA_LEGENDARY_ENCOUNTER_PANEL
+			windowType = {
+				name = "DA_province_legendary_encounter_panel"
+				position = { x = 10 y = 142 }
+				size = { x = 460 y = 480 }
+				scripted = yes
+				moveable = 0
+				iconType = {
+					name = "DA_LE_background"
+					spriteType = "GFX_DA_LE_panel_bg"
+					position = { x = 0 y = 0 }
+				}
+				instantTextBoxType = {
+					name = "DA_LE_title"
+					position = { x = 18 y = 13 }
+					font = "vic_22"
+					text = "DA_LE_title"
+					maxWidth = 320
+					maxHeight = 25
+					format = left
+				}
+				guiButtonType = {
+					name = "DA_LE_close"
+					quadTextureSprite = "GFX_closebutton2"
+					position = { x = 430 y = 10 }
+					scripted = yes
+				}
+				iconType = {
+					name = "DA_LE_banner"
+					spriteType = "GFX_DA_LE_banner"
+					position = { x = 18 y = 40 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_name"
+					position = { x = 28 y = 112 }
+					font = "vic_22"
+					text = "DA_LE_name"
+					maxWidth = 270
+					maxHeight = 25
+					format = left
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_round"
+					position = { x = 300 y = 116 }
+					font = "vic_18"
+					text = "DA_LE_round"
+					maxWidth = 134
+					maxHeight = 20
+					format = right
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_subtitle"
+					position = { x = 18 y = 146 }
+					font = "garamond_12"
+					text = "DA_LE_subtitle"
+					maxWidth = 424
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_hp_label"
+					position = { x = 18 y = 166 }
+					font = "garamond_12"
+					text = "DA_LE_hp_label"
+					maxWidth = 76
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				iconType = {
+					name = "DA_LE_bar_hp"
+					spriteType = "GFX_DA_LE_bar_red"
+					position = { x = 96 y = 168 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_hp_value"
+					position = { x = 304 y = 166 }
+					font = "garamond_12"
+					text = "DA_LE_hp_value"
+					maxWidth = 138
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_ward_label"
+					position = { x = 18 y = 184 }
+					font = "garamond_12"
+					text = "DA_LE_ward_label"
+					maxWidth = 76
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				iconType = {
+					name = "DA_LE_bar_ward"
+					spriteType = "GFX_DA_LE_bar_blue"
+					position = { x = 96 y = 186 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_ward_value"
+					position = { x = 304 y = 184 }
+					font = "garamond_12"
+					text = "DA_LE_ward_value"
+					maxWidth = 138
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_traits"
+					position = { x = 18 y = 204 }
+					font = "garamond_12"
+					text = "DA_LE_traits"
+					maxWidth = 424
+					maxHeight = 30
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_guest_traits"
+					position = { x = 18 y = 166 }
+					font = "garamond_12"
+					text = "DA_LE_guest_traits"
+					maxWidth = 424
+					maxHeight = 18
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_guest_a"
+					position = { x = 18 y = 188 }
+					font = "garamond_12"
+					text = "DA_LE_guest_a"
+					maxWidth = 424
+					maxHeight = 46
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_guest_b"
+					position = { x = 18 y = 246 }
+					font = "garamond_12"
+					text = "DA_LE_guest_b"
+					maxWidth = 424
+					maxHeight = 74
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_army"
+					position = { x = 18 y = 244 }
+					font = "garamond_12"
+					text = "DA_LE_army"
+					maxWidth = 400
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_recount"
+					quadTextureSprite = "GFX_DA_LE_recount"
+					position = { x = 424 y = 243 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_resolve_label"
+					position = { x = 18 y = 262 }
+					font = "garamond_12"
+					text = "DA_LE_resolve_label"
+					maxWidth = 76
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				iconType = {
+					name = "DA_LE_bar_resolve"
+					spriteType = "GFX_DA_LE_bar_green"
+					position = { x = 96 y = 264 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_resolve_value"
+					position = { x = 304 y = 262 }
+					font = "garamond_12"
+					text = "DA_LE_resolve_value"
+					maxWidth = 138
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_magic"
+					position = { x = 18 y = 280 }
+					font = "garamond_12"
+					text = "DA_LE_magic"
+					maxWidth = 424
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_ruler_toggle"
+					quadTextureSprite = "GFX_DA_LE_checkbox"
+					position = { x = 18 y = 298 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_ruler_label"
+					position = { x = 42 y = 300 }
+					font = "garamond_12"
+					text = "DA_LE_ruler_label"
+					maxWidth = 400
+					maxHeight = 16
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_status"
+					position = { x = 18 y = 328 }
+					font = "garamond_12"
+					text = "DA_LE_status"
+					maxWidth = 424
+					maxHeight = 62
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_scout"
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					position = { x = 52 y = 396 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_scout_text"
+					position = { x = 52 y = 402 }
+					font = "vic_18"
+					text = "DA_LE_scout_text"
+					maxWidth = 170
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_contain"
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					position = { x = 238 y = 396 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_contain_text"
+					position = { x = 238 y = 402 }
+					font = "vic_18"
+					text = "DA_LE_contain_text"
+					maxWidth = 170
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_parley"
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					position = { x = 52 y = 434 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_parley_text"
+					position = { x = 52 y = 440 }
+					font = "vic_18"
+					text = "DA_LE_parley_text"
+					maxWidth = 170
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_engage"
+					quadTextureSprite = "GFX_DA_Ancient_Research_facility1_button_empty"
+					position = { x = 238 y = 434 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_engage_text"
+					position = { x = 238 y = 440 }
+					font = "vic_18"
+					text = "DA_LE_engage_text"
+					maxWidth = 170
+					maxHeight = 20
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_next"
+					position = { x = 18 y = 328 }
+					font = "vic_18"
+					text = "DA_LE_next"
+					maxWidth = 424
+					maxHeight = 20
+					format = left
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_report"
+					position = { x = 18 y = 350 }
+					font = "garamond_12"
+					text = "DA_LE_report"
+					maxWidth = 424
+					maxHeight = 46
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_abjuration"
+					quadTextureSprite = "GFX_DA_LE_spell_abjuration"
+					position = { x = 18 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_conjuration"
+					quadTextureSprite = "GFX_DA_LE_spell_conjuration"
+					position = { x = 56 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_divination"
+					quadTextureSprite = "GFX_DA_LE_spell_divination"
+					position = { x = 94 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_enchantment"
+					quadTextureSprite = "GFX_DA_LE_spell_enchantment"
+					position = { x = 132 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_evocation"
+					quadTextureSprite = "GFX_DA_LE_spell_evocation"
+					position = { x = 170 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_illusion"
+					quadTextureSprite = "GFX_DA_LE_spell_illusion"
+					position = { x = 208 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_necromancy"
+					quadTextureSprite = "GFX_DA_LE_spell_necromancy"
+					position = { x = 246 y = 400 }
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_spell_transmutation"
+					quadTextureSprite = "GFX_DA_LE_spell_transmutation"
+					position = { x = 284 y = 400 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_spell_label"
+					position = { x = 326 y = 402 }
+					font = "garamond_12"
+					text = "DA_LE_spell_label"
+					maxWidth = 116
+					maxHeight = 32
+					format = left
+					scripted = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_order_assault"
+					quadTextureSprite = "GFX_DA_LE_order_button"
+					position = { x = 18 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_assault_text"
+					position = { x = 18 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_assault_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_order_shield"
+					quadTextureSprite = "GFX_DA_LE_order_button"
+					position = { x = 103 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_shield_text"
+					position = { x = 103 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_shield_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_order_volley"
+					quadTextureSprite = "GFX_DA_LE_order_button"
+					position = { x = 188 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_volley_text"
+					position = { x = 188 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_volley_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_order_loose"
+					quadTextureSprite = "GFX_DA_LE_order_button"
+					position = { x = 273 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_loose_text"
+					position = { x = 273 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_loose_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+				guiButtonType = {
+					name = "DA_LE_withdraw"
+					quadTextureSprite = "GFX_DA_LE_withdraw_button"
+					position = { x = 358 y = 442 }
+					scripted = yes
+				}
+				instantTextBoxType = {
+					name = "DA_LE_withdraw_text"
+					position = { x = 358 y = 448 }
+					font = "garamond_12"
+					text = "DA_LE_withdraw_text"
+					maxWidth = 84
+					maxHeight = 18
+					format = centre
+					scripted = yes
+					alwaystransparent = yes
+				}
+			}
+			# END DA_LEGENDARY_ENCOUNTER_PANEL
 			windowType = {
 				name = "DA_province_medicine_panel"
 				position = { x = 10 y = 142 }

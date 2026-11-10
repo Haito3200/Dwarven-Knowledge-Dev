@@ -96,7 +96,6 @@ Da_explore_dig_2_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -227,7 +226,6 @@ Da_explore_dig_3_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.105		#found dur vaz blueprints
@@ -298,7 +296,6 @@ Da_explore_dig_3_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -467,7 +464,6 @@ Da_explore_dig_4_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.105		#found dur vaz blueprints
@@ -568,7 +564,6 @@ Da_explore_dig_4_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -584,7 +579,6 @@ Da_explore_dig_4_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.211		#found Turrets of Orldhûm
@@ -809,7 +803,6 @@ Da_explore_dig_5_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.105		#found dur vaz blueprints
@@ -955,7 +948,6 @@ Da_explore_dig_5_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -971,7 +963,6 @@ Da_explore_dig_5_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.211		#found Turrets of Orldhûm
@@ -1246,7 +1237,6 @@ Da_explore_dig_6_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.105		#found dur vaz blueprints
@@ -1378,7 +1368,6 @@ Da_explore_dig_6_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -1394,7 +1383,6 @@ Da_explore_dig_6_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.211		#found cages, exoskeleton
@@ -1411,7 +1399,6 @@ Da_explore_dig_6_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.212		#found golems
@@ -1429,7 +1416,6 @@ Da_explore_dig_6_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.213		#found exoskeleton workshop
@@ -1777,7 +1763,6 @@ Da_explore_dig_7_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.105		#found dur vaz blueprints
@@ -1911,7 +1896,6 @@ Da_explore_dig_7_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -1927,7 +1911,6 @@ Da_explore_dig_7_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.211		#found cages, exoskeleton
@@ -1944,7 +1927,6 @@ Da_explore_dig_7_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.212		#found golems
@@ -1962,7 +1944,6 @@ Da_explore_dig_7_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.213		#found exoskeleton workshop
@@ -2147,6 +2128,22 @@ Da_explore_dig_7_effect = {
 }
 Da_explore_dig_8_effect = {
 	random_list = {
+		1000 = {
+			trigger = {
+				province_id = 4020
+				has_province_flag = DA_dur_vaz_blueprints_found
+				has_great_project = { type = The_Sky_Hold tier = 3 }
+				NOT = { has_province_flag = DA_Setzunkhupa_guest_found }
+				owner = {
+					ai = no
+					culture_group = dwarven
+				}
+			}
+			province_event = {
+				id = DA_ADK_explore.107		# found the Low Dome under the Setzunkhupa (it needs the wonder at tier III)
+				days = 10
+			}
+		}
 		3 = {
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
@@ -2326,7 +2323,6 @@ Da_explore_dig_8_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.105		#found dur vaz blueprints
@@ -2460,7 +2456,6 @@ Da_explore_dig_8_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -2476,7 +2471,6 @@ Da_explore_dig_8_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.211		#found cages, exoskeleton
@@ -2493,7 +2487,6 @@ Da_explore_dig_8_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.212		#found golems
@@ -2511,7 +2504,6 @@ Da_explore_dig_8_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.213		#found exoskeleton workshop
@@ -2725,6 +2717,22 @@ Da_explore_dig_8_effect = {
 }
 Da_explore_dig_9_effect = {
 	random_list = {
+		1000 = {
+			trigger = {
+				province_id = 4020
+				has_province_flag = DA_dur_vaz_blueprints_found
+				has_great_project = { type = The_Sky_Hold tier = 3 }
+				NOT = { has_province_flag = DA_Setzunkhupa_guest_found }
+				owner = {
+					ai = no
+					culture_group = dwarven
+				}
+			}
+			province_event = {
+				id = DA_ADK_explore.107		# found the Low Dome under the Setzunkhupa (it needs the wonder at tier III)
+				days = 10
+			}
+		}
 		3 = {
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
@@ -2904,7 +2912,6 @@ Da_explore_dig_9_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.105		#found dur vaz blueprints
@@ -3038,7 +3045,6 @@ Da_explore_dig_9_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -3054,7 +3060,6 @@ Da_explore_dig_9_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.211		#found cages, exoskeleton
@@ -3071,7 +3076,6 @@ Da_explore_dig_9_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.212		#found golems
@@ -3089,7 +3093,6 @@ Da_explore_dig_9_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.213		#found exoskeleton workshop
@@ -3304,6 +3307,22 @@ Da_explore_dig_9_effect = {
 
 Da_explore_dig_10_effect = {
 	random_list = {
+		1000 = {
+			trigger = {
+				province_id = 4020
+				has_province_flag = DA_dur_vaz_blueprints_found
+				has_great_project = { type = The_Sky_Hold tier = 3 }
+				NOT = { has_province_flag = DA_Setzunkhupa_guest_found }
+				owner = {
+					ai = no
+					culture_group = dwarven
+				}
+			}
+			province_event = {
+				id = DA_ADK_explore.107		# found the Low Dome under the Setzunkhupa (it needs the wonder at tier III)
+				days = 10
+			}
+		}
 		2 = {
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
@@ -3477,7 +3496,6 @@ Da_explore_dig_10_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.105		#found dur vaz blueprints
@@ -3629,7 +3647,6 @@ Da_explore_dig_10_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of Orldhûm
@@ -3645,7 +3662,6 @@ Da_explore_dig_10_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.211		#found cages, exoskeleton
@@ -3662,7 +3678,6 @@ Da_explore_dig_10_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.212		#found golems
@@ -3680,7 +3695,6 @@ Da_explore_dig_10_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = { 
 				id = DA_ADK_explore.213		#found exoskeleton workshop
@@ -3824,6 +3838,22 @@ Da_explore_dig_10_effect = {
 }
 Da_explore_dig_11_effect = {
 	random_list = {
+		1000 = {
+			trigger = {
+				province_id = 4020
+				has_province_flag = DA_dur_vaz_blueprints_found
+				has_great_project = { type = The_Sky_Hold tier = 3 }
+				NOT = { has_province_flag = DA_Setzunkhupa_guest_found }
+				owner = {
+					ai = no
+					culture_group = dwarven
+				}
+			}
+			province_event = {
+				id = DA_ADK_explore.107		# found the Low Dome under the Setzunkhupa (it needs the wonder at tier III)
+				days = 10
+			}
+		}
 		4 = {
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
@@ -3958,7 +3988,6 @@ Da_explore_dig_11_effect = {
 					ai = no
 					culture_group = dwarven
 				}
-				always = no # to be reworked
 			}
 			province_event = {
 				id = DA_ADK_explore.100

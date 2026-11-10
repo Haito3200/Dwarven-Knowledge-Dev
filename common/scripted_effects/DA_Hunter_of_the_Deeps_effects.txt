@@ -1,0 +1,81 @@
+# The Wardens' Instruments of the Nadir (Titanium Vault, Gor Vazumbrog, 4217): repairs.
+# Installed by "Claude files/tools/apply_hunter_2026-11-10.py"; hand-owned afterwards.
+# The flags are listed in common/scripted_triggers/DA_Hunter_of_the_Deeps_triggers.txt.
+
+# Country scope. Called by the "repair it" option of an Instrument once the price is paid;
+# the option itself queues the "repaired" event of that Instrument for a year later.
+#   instrument = Dreaming_Bell / Stormcage / Wardens_Tether
+DA_Nadir_start_repair = {
+	custom_tooltip = DA_Nadir_repair_tt
+	if = {
+		limit = {
+			DA_Hunter_in_the_Nadir = yes
+		}
+		custom_tooltip = DA_Nadir_repair_hunter_tt
+	}
+	hidden_effect = {
+		4217 = {
+			set_province_flag = DA_Nadir_repair_in_progress
+			set_province_flag = DA_Nadir_repairing.$instrument$
+		}
+	}
+}
+
+# Province scope (4217). The repair of an Instrument ends. If it was the third and the Hunter still
+# lies among them, the Hunter has its mind back: DA_Hold_Gor_Vazumbrog.56 decides what it does.
+DA_Nadir_finish_repair = {
+	clr_province_flag = DA_Nadir_repair_in_progress
+	clr_province_flag = DA_Nadir_repairing.$instrument$
+	set_province_flag = DA_Nadir_repaired.$instrument$
+	if = {
+		limit = {
+			NOT = { check_variable = { which = DA_Nadir_repaired_n value = 1 } }
+		}
+		set_variable = { which = DA_Nadir_repaired_n value = 0 }
+	}
+	change_variable = { which = DA_Nadir_repaired_n value = 1 }
+	if = {
+		limit = {
+			NOT = { has_province_flag = DA_Hunter_gone }
+			check_variable = { which = DA_Nadir_repaired_n value = 3 }
+		}
+		owner = {
+			country_event = {
+				id = DA_Hold_Gor_Vazumbrog.56
+				days = 3
+			}
+		}
+	}
+}
+
+# Province scope (4217). What the "repaired" event of an Instrument tells the player.
+DA_Nadir_report_repair = {
+	if = {
+		limit = {
+			has_province_flag = DA_Hunter_gone
+		}
+		custom_tooltip = DA_Nadir_repaired_ours_tt
+	}
+	if = {
+		limit = {
+			NOT = { has_province_flag = DA_Hunter_gone }
+			NOT = { check_variable = { which = DA_Nadir_repaired_n value = 2 } }
+		}
+		custom_tooltip = DA_Nadir_repaired_hunter_1_tt
+	}
+	if = {
+		limit = {
+			NOT = { has_province_flag = DA_Hunter_gone }
+			check_variable = { which = DA_Nadir_repaired_n value = 2 }
+			NOT = { check_variable = { which = DA_Nadir_repaired_n value = 3 } }
+		}
+		custom_tooltip = DA_Nadir_repaired_hunter_2_tt
+	}
+	if = {
+		limit = {
+			NOT = { has_province_flag = DA_Hunter_gone }
+			check_variable = { which = DA_Nadir_repaired_n value = 3 }
+		}
+		custom_tooltip = DA_Nadir_repaired_hunter_3_tt
+	}
+}

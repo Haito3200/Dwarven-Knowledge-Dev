@@ -71,6 +71,7 @@ province_event = {
 	trigger = {
 		has_province_modifier = DA_continous_Undeads
 		NOT = { has_province_modifier = DA_undeads_spawn_CD }
+		NOT = { has_province_modifier = DA_LE_contained_lich }	# the palace is sealed (Legendary Encounter window)
 	}
 	mean_time_to_happen = {
 		months = 48
@@ -120,34 +121,3 @@ country_event = {
 	}
 }
 
-country_event = {
-	id = DA_Verkal_Kozenad_event.5				# lose in duel
-	title = "DA_Verkal_Kozenad_event.5.t"
-	desc = "DA_Verkal_Kozenad_event.5.d"
-	picture = NATIVES_eventPicture
-
-	is_triggered_only = yes
-	option = {
-		name = "DA_Verkal_Kozenad_event.5.a"
-		ai_chance = { factor = 40 }
-		random = {
-			chance = 50
-			change_mil = -1
-			random = { chance = 25 change_mil = -1 }
-		}
-		random = {
-			chance = 50
-			change_dip = -1
-			random = { chance = 25 change_dip = -1 }
-		}
-		random = {
-			chance = 50
-			change_adm = -1
-			random = { chance = 25 change_adm = -1 }
-		}
-		add_ruler_modifier = {
-			name = bd_wounded_ruler
-			duration = 365
-		}
-	}
-}

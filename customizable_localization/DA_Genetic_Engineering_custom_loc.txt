@@ -4694,57 +4694,769 @@ defined_text = {
 }
 
 defined_text = {
-	name = DA_DL_GetResearchStatus
+	name = DA_DL_GetTier_Brain
 	random = no
 	text = {
-		localisation_key = DA_DL_status_no_lab
+		localisation_key = DA_DL_tier_3
 		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_1
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.1
+		}
+	}
+	text = { localisation_key = DA_DL_tier_0 }
+}
+
+defined_text = {
+	name = DA_DL_GetStatus_Brain
+	random = no
+	text = {
+		localisation_key = DA_DL_cell_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Brain
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.2
+			DA_DL_lab_tier_3 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.1
+			NOT = { has_country_flag = DA_DL_unlocked.Brain.2 }
 			DA_DL_lab_tier_2 = no
 		}
 	}
 	text = {
-		localisation_key = DA_DL_status_running
+		localisation_key = DA_DL_cell_lab_1
+		trigger = {
+			NOT = { has_country_flag = DA_DL_unlocked.Brain.1 }
+			DA_DL_lab_tier_1 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_waiting
 		trigger = {
 			has_country_flag = DA_DL_research_on
 		}
 	}
-	text = {
-		localisation_key = DA_DL_status_paused
-		trigger = {
-			has_country_flag = DA_DL_paid
-		}
-	}
-	text = {
-		localisation_key = DA_DL_status_ready
-		trigger = {
-			DA_DL_trait_available = yes
-		}
-	}
-	text = {
-		localisation_key = DA_DL_status_need_t3
-		trigger = {
-			DA_DL_stage_3_left = yes
-		}
-	}
-	text = { localisation_key = DA_DL_status_done }
+	text = { localisation_key = DA_DL_cell_ready }
 }
 
 defined_text = {
-	name = DA_DL_GetResearchAction
+	name = DA_DL_GetAction_Brain
 	random = no
 	text = {
-		localisation_key = DA_DL_action_stop
+		localisation_key = DA_DL_action_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Brain
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Brain.1
+		}
+	}
+	text = { localisation_key = DA_DL_action_tier_1 }
+}
+
+defined_text = {
+	name = DA_DL_GetTier_Warrior
+	random = no
+	text = {
+		localisation_key = DA_DL_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_1
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.1
+		}
+	}
+	text = { localisation_key = DA_DL_tier_0 }
+}
+
+defined_text = {
+	name = DA_DL_GetStatus_Warrior
+	random = no
+	text = {
+		localisation_key = DA_DL_cell_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Warrior
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.2
+			DA_DL_lab_tier_3 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.1
+			NOT = { has_country_flag = DA_DL_unlocked.Warrior.2 }
+			DA_DL_lab_tier_2 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_1
+		trigger = {
+			NOT = { has_country_flag = DA_DL_unlocked.Warrior.1 }
+			DA_DL_lab_tier_1 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_waiting
 		trigger = {
 			has_country_flag = DA_DL_research_on
 		}
 	}
+	text = { localisation_key = DA_DL_cell_ready }
+}
+
+defined_text = {
+	name = DA_DL_GetAction_Warrior
+	random = no
 	text = {
-		localisation_key = DA_DL_action_resume
+		localisation_key = DA_DL_action_running
 		trigger = {
-			has_country_flag = DA_DL_paid
+			has_country_flag = DA_DL_researching.Warrior
 		}
 	}
-	text = { localisation_key = DA_DL_action_start }
+	text = {
+		localisation_key = DA_DL_action_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Warrior.1
+		}
+	}
+	text = { localisation_key = DA_DL_action_tier_1 }
+}
+
+defined_text = {
+	name = DA_DL_GetTier_Pheromones
+	random = no
+	text = {
+		localisation_key = DA_DL_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_1
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.1
+		}
+	}
+	text = { localisation_key = DA_DL_tier_0 }
+}
+
+defined_text = {
+	name = DA_DL_GetStatus_Pheromones
+	random = no
+	text = {
+		localisation_key = DA_DL_cell_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Pheromones
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.2
+			DA_DL_lab_tier_3 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.1
+			NOT = { has_country_flag = DA_DL_unlocked.Pheromones.2 }
+			DA_DL_lab_tier_2 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_1
+		trigger = {
+			NOT = { has_country_flag = DA_DL_unlocked.Pheromones.1 }
+			DA_DL_lab_tier_1 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_waiting
+		trigger = {
+			has_country_flag = DA_DL_research_on
+		}
+	}
+	text = { localisation_key = DA_DL_cell_ready }
+}
+
+defined_text = {
+	name = DA_DL_GetAction_Pheromones
+	random = no
+	text = {
+		localisation_key = DA_DL_action_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Pheromones
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Pheromones.1
+		}
+	}
+	text = { localisation_key = DA_DL_action_tier_1 }
+}
+
+defined_text = {
+	name = DA_DL_GetTier_Calculator
+	random = no
+	text = {
+		localisation_key = DA_DL_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_1
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.1
+		}
+	}
+	text = { localisation_key = DA_DL_tier_0 }
+}
+
+defined_text = {
+	name = DA_DL_GetStatus_Calculator
+	random = no
+	text = {
+		localisation_key = DA_DL_cell_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Calculator
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.2
+			DA_DL_lab_tier_3 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.1
+			NOT = { has_country_flag = DA_DL_unlocked.Calculator.2 }
+			DA_DL_lab_tier_2 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_1
+		trigger = {
+			NOT = { has_country_flag = DA_DL_unlocked.Calculator.1 }
+			DA_DL_lab_tier_1 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_waiting
+		trigger = {
+			has_country_flag = DA_DL_research_on
+		}
+	}
+	text = { localisation_key = DA_DL_cell_ready }
+}
+
+defined_text = {
+	name = DA_DL_GetAction_Calculator
+	random = no
+	text = {
+		localisation_key = DA_DL_action_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Calculator
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Calculator.1
+		}
+	}
+	text = { localisation_key = DA_DL_action_tier_1 }
+}
+
+defined_text = {
+	name = DA_DL_GetTier_Perception
+	random = no
+	text = {
+		localisation_key = DA_DL_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_1
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.1
+		}
+	}
+	text = { localisation_key = DA_DL_tier_0 }
+}
+
+defined_text = {
+	name = DA_DL_GetStatus_Perception
+	random = no
+	text = {
+		localisation_key = DA_DL_cell_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Perception
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.2
+			DA_DL_lab_tier_3 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.1
+			NOT = { has_country_flag = DA_DL_unlocked.Perception.2 }
+			DA_DL_lab_tier_2 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_1
+		trigger = {
+			NOT = { has_country_flag = DA_DL_unlocked.Perception.1 }
+			DA_DL_lab_tier_1 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_waiting
+		trigger = {
+			has_country_flag = DA_DL_research_on
+		}
+	}
+	text = { localisation_key = DA_DL_cell_ready }
+}
+
+defined_text = {
+	name = DA_DL_GetAction_Perception
+	random = no
+	text = {
+		localisation_key = DA_DL_action_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Perception
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Perception.1
+		}
+	}
+	text = { localisation_key = DA_DL_action_tier_1 }
+}
+
+defined_text = {
+	name = DA_DL_GetTier_Stone
+	random = no
+	text = {
+		localisation_key = DA_DL_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_1
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.1
+		}
+	}
+	text = { localisation_key = DA_DL_tier_0 }
+}
+
+defined_text = {
+	name = DA_DL_GetStatus_Stone
+	random = no
+	text = {
+		localisation_key = DA_DL_cell_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Stone
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.2
+			DA_DL_lab_tier_3 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.1
+			NOT = { has_country_flag = DA_DL_unlocked.Stone.2 }
+			DA_DL_lab_tier_2 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_1
+		trigger = {
+			NOT = { has_country_flag = DA_DL_unlocked.Stone.1 }
+			DA_DL_lab_tier_1 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_waiting
+		trigger = {
+			has_country_flag = DA_DL_research_on
+		}
+	}
+	text = { localisation_key = DA_DL_cell_ready }
+}
+
+defined_text = {
+	name = DA_DL_GetAction_Stone
+	random = no
+	text = {
+		localisation_key = DA_DL_action_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Stone
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Stone.1
+		}
+	}
+	text = { localisation_key = DA_DL_action_tier_1 }
+}
+
+defined_text = {
+	name = DA_DL_GetTier_Voice
+	random = no
+	text = {
+		localisation_key = DA_DL_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_tier_1
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.1
+		}
+	}
+	text = { localisation_key = DA_DL_tier_0 }
+}
+
+defined_text = {
+	name = DA_DL_GetStatus_Voice
+	random = no
+	text = {
+		localisation_key = DA_DL_cell_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Voice
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.2
+			DA_DL_lab_tier_3 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.1
+			NOT = { has_country_flag = DA_DL_unlocked.Voice.2 }
+			DA_DL_lab_tier_2 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_1
+		trigger = {
+			NOT = { has_country_flag = DA_DL_unlocked.Voice.1 }
+			DA_DL_lab_tier_1 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_waiting
+		trigger = {
+			has_country_flag = DA_DL_research_on
+		}
+	}
+	text = { localisation_key = DA_DL_cell_ready }
+}
+
+defined_text = {
+	name = DA_DL_GetAction_Voice
+	random = no
+	text = {
+		localisation_key = DA_DL_action_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Voice
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.3
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_3
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.2
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_tier_2
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Voice.1
+		}
+	}
+	text = { localisation_key = DA_DL_action_tier_1 }
+}
+
+defined_text = {
+	name = DA_DL_GetTier_Damestear
+	random = no
+	text = {
+		localisation_key = DA_DL_tier_cap_on
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Damestear
+		}
+	}
+	text = { localisation_key = DA_DL_tier_cap_off }
+}
+
+defined_text = {
+	name = DA_DL_GetStatus_Damestear
+	random = no
+	text = {
+		localisation_key = DA_DL_cell_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Damestear
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_complete
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Damestear
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_lab_3
+		trigger = {
+			DA_DL_lab_tier_3 = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_need_mastery
+		trigger = {
+			DA_DL_capstone_ready = no
+		}
+	}
+	text = {
+		localisation_key = DA_DL_cell_waiting
+		trigger = {
+			has_country_flag = DA_DL_research_on
+		}
+	}
+	text = { localisation_key = DA_DL_cell_ready }
+}
+
+defined_text = {
+	name = DA_DL_GetAction_Damestear
+	random = no
+	text = {
+		localisation_key = DA_DL_action_running
+		trigger = {
+			has_country_flag = DA_DL_researching.Damestear
+		}
+	}
+	text = {
+		localisation_key = DA_DL_action_capstone_done
+		trigger = {
+			has_country_flag = DA_DL_unlocked.Damestear
+		}
+	}
+	text = { localisation_key = DA_DL_action_capstone }
 }
 
 defined_text = {

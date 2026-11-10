@@ -1,0 +1,45 @@
+# Haraz Orldhum chain tester. In the console: run DA_Haraz_Orldhum_tester.txt
+# It runs as the player's country. Own Haraz Orldhum (2868) first. Each block jumps to one point of the chain:
+# remove the "#" in front of the lines of ONE block, save, and run the file.
+# The tiers of the foundry also need dig level 4, 6 and 8 in Haraz Orldhum; the tester does not dig.
+
+# --- A. The four finds are made: turrets can be built, the foundry can be raised (active by default)
+2868 = { set_province_flag = DA_Haraz_Orldhum_exp1 set_province_flag = DA_Haraz_Orldhum_exp2 set_province_flag = DA_Haraz_Orldhum_exp3 set_province_flag = DA_Haraz_Orldhum_exp4 set_province_flag = DA_Exoskeletons_Workshop_found }
+set_country_flag = DA_can_build_HO_turrets
+
+# --- B. The Silent Guard comes up the stair now (the third find)
+# 2868 = { province_event = { id = DA_ADK_explore.212 } }
+
+# --- C. The foundry is raised at tier 0, with what tier I costs
+# 2868 = { set_province_flag = DA_Exoskeletons_Workshop_found add_great_project = { type = DA_Exoskeletons_Workshop instant = yes } }
+# add_treasury = 1600
+# change_variable = { which = DA_alchemy_reagents_total value = 10 }
+# change_variable = { which = DA_enchanted_building_material_total value = 10 }
+# change_variable = { which = DA_arcane_metal_total value = 10 }
+
+# --- D. The foundry at tier I: the project Platinum Warsuits is open, with what it costs (it still needs Research Facility level 7)
+# 2868 = { set_province_flag = DA_Exoskeletons_Workshop_found add_great_project = { type = DA_Exoskeletons_Workshop instant = yes } add_great_project_tier = { type = DA_Exoskeletons_Workshop tier = 1 } }
+# set_country_flag = DA_can_implement_platinum_exoskeletons
+# add_treasury = 4000
+# change_variable = { ancientDwarvenKnowledge = 15 }
+
+# --- E. The project ends now: the first doctrine
+# country_event = { id = DA_Haraz_Orldhum_event.3 }
+
+# --- F. The foundry at tier III with a doctrine in force, and what one change of doctrine costs
+# 2868 = { set_province_flag = DA_Exoskeletons_Workshop_found add_great_project = { type = DA_Exoskeletons_Workshop instant = yes } add_great_project_tier = { type = DA_Exoskeletons_Workshop tier = 3 } }
+# set_country_flag = DA_can_implement_platinum_exoskeletons
+# DA_HO_end_doctrines = yes
+# add_country_modifier = { name = DA_HO_exoskeletons_as_reward duration = -1 }
+# add_treasury = 1500
+# change_variable = { ancientDwarvenKnowledge = 5 }
+
+# --- G. The three tier reports, one after the other
+# country_event = { id = DA_Haraz_Orldhum_event.2 }
+# country_event = { id = DA_Haraz_Orldhum_event.4 days = 1 }
+# country_event = { id = DA_Haraz_Orldhum_event.5 days = 2 }
+
+# --- H. The three follow-up events, one after the other
+# country_event = { id = DA_Haraz_Orldhum_event.21 }
+# country_event = { id = DA_Haraz_Orldhum_event.22 days = 1 }
+# country_event = { id = DA_Haraz_Orldhum_event.24 days = 2 }

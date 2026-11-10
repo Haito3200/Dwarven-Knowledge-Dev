@@ -1,0 +1,116 @@
+# Ancient Research Facility window: texts that change with the state of the chain (10 November 2026)
+
+defined_text = { # the line under the wonder's name
+	name = DA_get_ARF_subtitle
+	random = no
+	text = {
+		localisation_key = DA_ARF_subtitle_mother
+		trigger = { DA_ARF_state_mother = yes }
+	}
+	text = {
+		localisation_key = DA_ARF_subtitle_heart
+		trigger = { DA_ARF_state_heart = yes }
+	}
+	text = {
+		localisation_key = DA_ARF_subtitle_sealed
+		trigger = { always = yes }
+	}
+}
+
+defined_text = { # the colour of Halanna's Heart
+	name = DA_get_ARF_heart_colour
+	random = no
+	text = {
+		localisation_key = DA_ARF_heart_colour_orange
+		trigger = { has_country_flag = DA_Halanna_exp_2_done }
+	}
+	text = {
+		localisation_key = DA_ARF_heart_colour_blue
+		trigger = { has_country_flag = DA_Halanna_exp_1_done }
+	}
+	text = {
+		localisation_key = DA_ARF_heart_colour_white
+		trigger = { always = yes }
+	}
+}
+
+defined_text = { # what the researchers are doing
+	name = DA_get_ARF_heart_work
+	random = no
+	text = {
+		localisation_key = DA_ARF_heart_work_running_3
+		trigger = {
+			has_country_flag = DA_Halanna_exp_running
+			has_country_flag = DA_Halanna_exp_2_done
+		}
+	}
+	text = {
+		localisation_key = DA_ARF_heart_work_running_2
+		trigger = {
+			has_country_flag = DA_Halanna_exp_running
+			has_country_flag = DA_Halanna_exp_1_done
+		}
+	}
+	text = {
+		localisation_key = DA_ARF_heart_work_running_1
+		trigger = { has_country_flag = DA_Halanna_exp_running }
+	}
+	text = {
+		localisation_key = DA_ARF_heart_work_next_3
+		trigger = {
+			has_country_flag = DA_Halanna_exp_2_done
+			4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } }
+		}
+	}
+	text = {
+		localisation_key = DA_ARF_heart_work_tier_3
+		trigger = { has_country_flag = DA_Halanna_exp_2_done }
+	}
+	text = {
+		localisation_key = DA_ARF_heart_work_next_2
+		trigger = {
+			has_country_flag = DA_Halanna_exp_1_done
+			4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } }
+		}
+	}
+	text = {
+		localisation_key = DA_ARF_heart_work_tier_2
+		trigger = { has_country_flag = DA_Halanna_exp_1_done }
+	}
+	text = {
+		localisation_key = DA_ARF_heart_work_next_1
+		trigger = {
+			4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } }
+		}
+	}
+	text = {
+		localisation_key = DA_ARF_heart_work_tier_1
+		trigger = { always = yes }
+	}
+}
+
+defined_text = { # Halanna's recovery as a number (an unset variable prints nothing)
+	name = DA_get_Halanna_favor
+	random = no
+	text = {
+		localisation_key = DA_Halanna_favor_value
+		trigger = { check_variable = { which = DA_Halanna_favor value = 1 } }
+	}
+	text = {
+		localisation_key = DA_Halanna_favor_zero
+		trigger = { always = yes }
+	}
+}
+
+defined_text = { # the button that takes the place of Offering once she has recovered
+	name = DA_get_ARF_throne_text
+	random = no
+	text = {
+		localisation_key = DA_ARF_throne_text_reigns
+		trigger = { has_country_flag = DA_Halanna_rules }
+	}
+	text = {
+		localisation_key = DA_ARF_throne_text_offer
+		trigger = { always = yes }
+	}
+}

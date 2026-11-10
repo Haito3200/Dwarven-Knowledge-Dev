@@ -1,0 +1,78 @@
+
+# The Abyssal Invasion (10 November 2026). Starts about three months after the expedition to
+# floor 11 of Amldihr is lost (DA_ADK_explore.100 sets the flag). Events: DA_Halanna_heart.10 to .40.
+
+DA_Abyssal_Invasion = {
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		ai = no
+		has_country_flag = DA_abyssal_invasion_begun
+	}
+
+	can_start = {
+		always = yes
+	}
+
+	can_stop = {
+		always = no
+	}
+
+	progress = {
+		modifier = {
+			factor = 34
+			always = yes
+		}
+	}
+
+	can_end = {
+		OR = {
+			custom_trigger_tooltip = {
+				tooltip = DA_abyss_end_lost_tt
+				NOT = { owns = 4119 }
+			}
+			AND = {
+				custom_trigger_tooltip = {
+					tooltip = DA_abyss_end_waves_tt
+					check_variable = { which = DA_abyss_wave value = 3 }
+				}
+				custom_trigger_tooltip = {
+					tooltip = DA_abyss_end_rebels_tt
+					NOT = { num_of_rebel_controlled_provinces = 1 }
+				}
+				custom_trigger_tooltip = {
+					tooltip = DA_abyss_end_amldihr_tt
+					controls = 4119
+				}
+				custom_trigger_tooltip = {
+					tooltip = DA_abyss_end_source_tt
+					has_country_flag = DA_abyss_source_found
+				}
+			}
+		}
+	}
+
+	modifier = {
+		global_trade_goods_size_modifier = -0.15
+		development_cost = 0.25
+		stability_cost_modifier = 0.25
+		manpower_recovery_speed = 0.15
+	}
+
+	on_start = DA_Halanna_heart.10
+	on_end = DA_Halanna_heart.40
+
+	on_monthly = {
+		events = {
+			DA_Halanna_heart.11
+		}
+		random_events = {
+			1000 = 0
+			60 = DA_Halanna_heart.20
+			60 = DA_Halanna_heart.21
+			50 = DA_Halanna_heart.22
+			80 = DA_Halanna_heart.23
+			80 = DA_Halanna_heart.24
+			50 = DA_Halanna_heart.25
+		}
+	}
+}

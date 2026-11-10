@@ -1,0 +1,86 @@
+# Setzunkhupa and Agradent tester. In the console: run DA_Setzunkhupa_tester.txt
+# It runs as the player's country. Own Dur-Vazhatun (4020) first. Each block jumps to one point of the chain:
+# remove the "#" in front of the lines of ONE block, save, and run the file.
+# The tiers of the observatory also need dig level 3, 5 and 7 in Dur-Vazhatun; the tester does not dig.
+
+# --- A. The blueprints are found: the wonder can be raised from the province's Great Projects panel (active by default)
+4020 = { set_province_flag = DA_dur_vaz_blueprints_found }
+
+# --- B. The observatory at tier III, with money for the whole observation programme
+# 4020 = { set_province_flag = DA_dur_vaz_blueprints_found add_great_project = { type = The_Sky_Hold instant = yes } add_great_project_tier = { type = The_Sky_Hold tier = 3 } }
+# add_treasury = 2000
+
+# --- C. A report now (11 the Moon, 12 the Far Wanderers, 13 Agradent, 14 the Dark Between)
+# country_event = { id = DA_Dur_Vazhatun_event.13 }
+
+# --- D. The Low Dome is found: the Legendary Encounter button appears in Dur-Vazhatun, and the first audience opens
+# 4020 = { set_province_flag = DA_Setzunkhupa_guest_found }
+# country_event = { id = DA_Dur_Vazhatun_event.40 }
+
+# --- E. The alliance is made and the crossing explained, with what the three works cost
+# 4020 = { set_province_flag = DA_Setzunkhupa_guest_found }
+# set_country_flag = DA_SZ_alliance
+# set_country_flag = DA_SZ_briefed
+# add_treasury = 6000
+# change_variable = { which = DA_enchanted_building_material_total value = 40 }
+# change_variable = { which = DA_arcane_metal_total value = 50 }
+# change_variable = { which = DA_alchemy_reagents_total value = 20 }
+# change_variable = { ancientDwarvenKnowledge = 5 }
+
+# --- F. The three works are finished: the pod can be launched
+# 4020 = { set_province_flag = DA_Setzunkhupa_guest_found }
+# set_country_flag = DA_SZ_alliance
+# set_country_flag = DA_SZ_briefed
+# set_country_flag = DA_SZ_anchor_started
+# set_country_flag = DA_SZ_anchor_done
+# set_country_flag = DA_SZ_thrower_started
+# set_country_flag = DA_SZ_thrower_done
+# set_country_flag = DA_SZ_aim_started
+# set_country_flag = DA_SZ_aim_done
+# clr_country_flag = DA_SZ_work_in_progress
+# add_treasury = 1000
+# change_variable = { which = DA_alchemy_reagents_total value = 20 }
+
+# --- G. The pod arrives, or does not, now (after pressing Launch the Pod)
+# country_event = { id = DA_Dur_Vazhatun_event.64 }
+
+# --- H. Agradent without the Ambassador: travel is unlocked, the first landing is still to be made
+# DA_AG_unlock_travel = yes
+# add_treasury = 5000
+# change_variable = { which = DA_enchanted_building_material_total value = 60 }
+# change_variable = { which = DA_arcane_metal_total value = 60 }
+# change_variable = { which = DA_alchemy_reagents_total value = 40 }
+
+# --- I. Agradent with every anchor in place, and stores for the outposts
+# set_country_flag = DA_SZ_homecoming
+# DA_AG_unlock_travel = yes
+# set_country_flag = DA_AG_anchored_canal
+# set_country_flag = DA_AG_anchored_sea
+# set_country_flag = DA_AG_anchored_uplands
+# set_country_flag = DA_AG_anchored_locks
+# set_country_flag = DA_AG_anchored_ice
+# set_country_flag = DA_AG_anchored_ringfall
+# set_country_flag = DA_AG_anchored_watch
+# add_treasury = 20000
+# change_variable = { which = DA_enchanted_building_material_total value = 200 }
+# change_variable = { which = DA_arcane_metal_total value = 100 }
+
+# --- J. One year of what the outposts send home, now
+# DA_AG_yearly_yield = yes
+
+# --- K. Start again: the observation programme, the Ambassador, the crossing and Agradent are forgotten (the wonder stays)
+# 4020 = { clr_province_flag = DA_Setzunkhupa_guest_found clr_province_flag = DA_Setzunkhupa_guest_gone clr_province_flag = DA_LE_open }
+# clr_country_flag = DA_SZ_observing clr_country_flag = DA_SZ_observing_moon clr_country_flag = DA_SZ_observing_wanderers clr_country_flag = DA_SZ_observing_agradent clr_country_flag = DA_SZ_observing_dark
+# clr_country_flag = DA_SZ_observed_moon clr_country_flag = DA_SZ_observed_wanderers clr_country_flag = DA_SZ_observed_agradent clr_country_flag = DA_SZ_observed_dark clr_country_flag = DA_SZ_dark_charted
+# clr_country_flag = DA_SZ_alliance clr_country_flag = DA_SZ_refused clr_country_flag = DA_SZ_briefed clr_country_flag = DA_SZ_asked_who clr_country_flag = DA_SZ_asked_aul
+# clr_country_flag = DA_SZ_work_in_progress clr_country_flag = DA_SZ_anchor_started clr_country_flag = DA_SZ_anchor_done clr_country_flag = DA_SZ_thrower_started clr_country_flag = DA_SZ_thrower_done clr_country_flag = DA_SZ_aim_started clr_country_flag = DA_SZ_aim_done
+# clr_country_flag = DA_SZ_heavy_anchor clr_country_flag = DA_SZ_proof_shot clr_country_flag = DA_SZ_pod_in_flight clr_country_flag = DA_SZ_pod_lost_1 clr_country_flag = DA_SZ_pod_lost_2 clr_country_flag = DA_SZ_anchor_lost clr_country_flag = DA_SZ_recast_started clr_country_flag = DA_SZ_homecoming
+# clr_country_flag = DA_Agradent_travel_unlocked clr_country_flag = DA_AG_pod_in_flight clr_country_flag = DA_AG_waters_returned clr_country_flag = DA_AG_locks_closed clr_country_flag = DA_show_wonder_Agradent
+# DA_AG_clear_selection = yes
+# clr_country_flag = DA_AG_anchored_canal clr_country_flag = DA_AG_anchored_sea clr_country_flag = DA_AG_anchored_uplands clr_country_flag = DA_AG_anchored_locks clr_country_flag = DA_AG_anchored_ice clr_country_flag = DA_AG_anchored_ringfall clr_country_flag = DA_AG_anchored_watch
+# clr_country_flag = DA_AG_pod_canal clr_country_flag = DA_AG_pod_sea clr_country_flag = DA_AG_pod_uplands clr_country_flag = DA_AG_pod_locks clr_country_flag = DA_AG_pod_ice clr_country_flag = DA_AG_pod_ringfall clr_country_flag = DA_AG_pod_watch
+# clr_country_flag = DA_AG_outpost_canal_1 clr_country_flag = DA_AG_outpost_canal_2 clr_country_flag = DA_AG_outpost_canal_3 clr_country_flag = DA_AG_outpost_sea_1 clr_country_flag = DA_AG_outpost_sea_2 clr_country_flag = DA_AG_outpost_sea_3
+# clr_country_flag = DA_AG_outpost_uplands_1 clr_country_flag = DA_AG_outpost_uplands_2 clr_country_flag = DA_AG_outpost_uplands_3 clr_country_flag = DA_AG_outpost_locks_1 clr_country_flag = DA_AG_outpost_locks_2 clr_country_flag = DA_AG_outpost_locks_3
+# clr_country_flag = DA_AG_outpost_ice_1 clr_country_flag = DA_AG_outpost_ice_2 clr_country_flag = DA_AG_outpost_ice_3 clr_country_flag = DA_AG_outpost_ringfall_1 clr_country_flag = DA_AG_outpost_ringfall_2 clr_country_flag = DA_AG_outpost_ringfall_3
+# clr_country_flag = DA_AG_outpost_watch_1 clr_country_flag = DA_AG_outpost_watch_2 clr_country_flag = DA_AG_outpost_watch_3
+# DA_AG_set_watch_modifier = yes
