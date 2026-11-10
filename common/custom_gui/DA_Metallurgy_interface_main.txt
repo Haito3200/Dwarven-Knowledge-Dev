@@ -300,16 +300,15 @@ custom_button = {
 	name = DA_access_Ascension_Paths_button
 	tooltip = DA_access_Ascension_Paths_button_tt
 	effect = {
-        custom_tooltip = DA_in_development_tt
-        # this is just to prevent people opening an half-done thing
-        if = {
-            limit = {
-                DA_has_any_interface_active_trigger = yes
+        # Opens or closes the Transcendent Technologies screen (toggle, like Secret Societies).
+        hidden_effect = {
+            if = {
+                limit = { has_country_flag = DA_Ascension_Paths_interface_on }
+                DA_ME_close_interface = yes
             }
-            DA_clear_all_interface_flags = yes
-        }
-        else = {
-            set_country_flag = DA_Ascension_Paths_interface_on
+            else = {
+                DA_ME_open_interface = yes
+            }
         }
 	}
 }
@@ -3172,7 +3171,7 @@ custom_button = {
                 has_country_flag = DA_selected_metal_ARTIFICER
             }
             custom_trigger_tooltip = {
-                tooltip = DA_blueprint_has_at_least_3_rune_slot_and_1_MC_tt
+                tooltip = DA_blueprint_has_3_rune_slot_and_1_MC_tt
                 check_variable = {
                     which = DA_Runes_Slots_STAT_MAX_ARTIFICER
                     value = 3
@@ -3353,7 +3352,7 @@ custom_button = {
                 has_country_flag = DA_selected_metal_ARTIFICER
             }
             custom_trigger_tooltip = {
-                tooltip = DA_blueprint_has_at_least_4_rune_slot_and_1_MC_tt
+                tooltip = DA_blueprint_has_4_rune_slot_and_1_MC_tt
                 check_variable = {
                     which = DA_Runes_Slots_STAT_MAX_ARTIFICER
                     value = 4

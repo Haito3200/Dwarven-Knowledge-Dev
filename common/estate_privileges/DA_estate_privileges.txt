@@ -1430,7 +1430,7 @@ DA_RS_IND_PROD_Steam_Trains = {
 		modifier = { state_maintenance_modifier = -0.20 }
 	}
 	conditional_modifier = {
-		trigger = { has_country_flag = DA_RS_IND_PROD_Steam_Trains_enabled.Resonance_drill }
+		trigger = { has_country_flag = DA_RS_IND_PROD_Steam_Trains_enabled.Resonance }
 		modifier = { production_efficiency = 0.10 }
 	}
 	conditional_modifier = {
@@ -2892,44 +2892,3 @@ DA_ENERGY_POWER_Project = {
 	}
 }
 
-DA_Hul_Jorkad_genetic_engineering_project = {
-	icon = DA_RS_Unique3
-	loyalty = 0.10
-	is_valid = {
-		NOT = {
-			has_country_flag = DA_HJ_genetic_project_done
-		}
-		has_country_flag = DA_HJ_enable_genetic_project
-	}
-	can_select = {
-		DA_RS_has_points_for_masterwork = yes
-		DA_has_NO_Project_active = yes
-	}
-	on_granted = {
-		DA_grants_production_masterwork = yes
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.125
-				days = 30
-			}
-		}
-	}
-	on_revoked = {
-		DA_remove_production_masterwork = yes
-	}
-	on_invalid = {
-		DA_remove_production_masterwork = yes
-	}
-	penalties = {
-		global_tax_modifier = -0.10
-		global_unrest = 3
-	}
-	benefits = {
-	}
-	can_revoke = {
-		always = no
-	}
-	ai_will_do = {
-		factor = 1000
-	}
-}

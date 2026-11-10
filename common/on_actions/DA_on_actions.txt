@@ -14,88 +14,13 @@ on_trade_good_changed = {
 		}
 	}
 }
-on_adm_development = {
-	if = {
-		limit = {
-			OR = {
-				has_terrain = dwarven_hold
-				has_terrain = dwarven_hold_surface
-			}
-			owner = {
-				has_country_flag = DA_Disabled_ADK_on_Click
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 1
-				}
-			}
-		}
-		add_base_tax = -1
-		owner = {
-			change_variable = {
-				which = ancientDwarvenKnowledge
-				value = 1
-			}
-		}
-		add_next_institution_embracement_scaled = -5
-	}
-}
 on_dip_development = {
-	if = {
-		limit = {
-			OR = {
-				has_terrain = dwarven_hold
-				has_terrain = dwarven_hold_surface
-			}
-			owner = {
-				has_country_flag = DA_Disabled_ADK_on_Click
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 1
-				}
-			}
-		}
-		add_base_production = -1
-		owner = {
-			change_variable = {
-				which = ancientDwarvenKnowledge
-				value = 1
-			}
-		}
-		add_next_institution_embracement_scaled = -5
-	}
 	events = {
 		DA_Metallurgy_events.1
 		DA_Metallurgy_events.2
 		DA_Metallurgy_events.3
 		DA_Metallurgy_events.4
 	}
-	
-}
-on_mil_development = {
-	if = {
-		limit = {
-			OR = {
-				has_terrain = dwarven_hold
-				has_terrain = dwarven_hold_surface
-			}
-			owner = {
-				has_country_flag = DA_Disabled_ADK_on_Click
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 1
-				}
-			}
-		}
-		add_base_manpower = -1
-		owner = {
-			change_variable = {
-				which = ancientDwarvenKnowledge
-				value = 1
-			}
-		}
-		add_next_institution_embracement_scaled = -5
-	}
-	
 }
 on_monthly_pulse = {
 	DA_monthly_research_tick = yes
@@ -147,6 +72,9 @@ on_conquest = { # reset exploration level on conquest, unique events can't happe
 					has_province_modifier = DA_Mine_3
 					has_province_modifier = DA_Mine_4
 					has_province_modifier = DA_Mine_5
+					has_province_modifier = DA_Mine_6
+					has_province_modifier = DA_Mine_7
+					has_province_modifier = DA_Mine_8
 				}
 				owner = { has_country_modifier = harpy_administration }
 			}

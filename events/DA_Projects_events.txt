@@ -966,202 +966,14 @@ country_event = {
 	}
 }
 
-country_event = { #these are to be deleted before next update
-	id = DA_project_event.125
-	title = DA_project_event.125.t
-	desc = DA_project_event.125.d
-	picture = DA_research_facility_eventPicture
 
-	is_triggered_only = yes
-
-	option = {
-		name = DA_project_event.125.a
-		country_event = {
-			id = DA_project_event.126
-			days = 120
-		}
-		ai_chance = { factor = 1 }
-	}
-}
-
-country_event = {
-	id = DA_project_event.126
-	title = DA_project_event.126.t
-	desc = DA_project_event.126.d
-	picture = DA_research_facility_eventPicture
-
-	is_triggered_only = yes
-
-	option = {
-		name = DA_project_event.126.a
-		highlight = yes
-		trigger = {
-			any_core_province = {
-				has_province_modifier = DA_Alchemy_material.Giant_remains
-			}
-		}
-		custom_tooltip = DA_common_battlemages_tt
-		set_country_flag = battlemage_common
-		add_country_modifier = {
-			name = DA_HU_giant_muscle_density
-			duration = -1
-		}
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.127
-				days = 120
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-	option = {
-		name = DA_project_event.126.b
-		
-		add_country_modifier = {
-			name = DA_HU_increased_muscle_density
-			duration = -1
-		}
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.127
-				days = 120
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-	option = {
-		name = DA_project_event.126.c
-		
-		custom_tooltip = DA_common_battlemages_tt
-		set_country_flag = battlemage_common
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.127
-				days = 120
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-}
 
 # Fertility vs leader pips
 
-country_event = {
-	id = DA_project_event.127
-	title = DA_project_event.127.t
-	desc = DA_project_event.127.d
-	picture = DA_research_facility_eventPicture
-
-	is_triggered_only = yes
-
-	option = {
-		name = DA_project_event.127.a
-		add_country_modifier = {
-			name = DA_HU_enhanced_fertilty
-			duration = -1
-		}
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.128
-				days = 120
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-	option = {
-		name = DA_project_event.127.b
-		
-		add_country_modifier = {
-			name = DA_HU_common_magic_capabilities
-			duration = -1
-		}
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.128
-				days = 120
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-}
 
 # Instinct vs Logic
 
-country_event = {
-	id = DA_project_event.128
-	title = DA_project_event.128.t
-	desc = DA_project_event.128.d
-	picture = DA_research_facility_eventPicture
 
-	is_triggered_only = yes
-
-	option = {
-		name = DA_project_event.128.a
-		highlight = yes
-		trigger = {
-			any_core_province = {
-				has_province_modifier = DA_Alchemy_material.Dragon_remains
-			}
-		}
-		add_country_modifier = {
-			name = DA_HU_draconic_senses
-			duration = -1
-		}
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.129
-				days = 120
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-	option = {
-		name = DA_project_event.128.b
-		
-		add_country_modifier = {
-			name = DA_HU_enhanced_instinct
-			duration = -1
-		}
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.129
-				days = 120
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-	option = {
-		name = DA_project_event.128.c
-		
-		add_country_modifier = {
-			name = DA_HU_enhanced_magic
-			duration = -1
-		}
-		hidden_effect = {
-			country_event = {
-				id = DA_project_event.129
-				days = 120
-			}
-		}
-		ai_chance = { factor = 1 }
-	}
-}
-
-country_event = {
-	id = DA_project_event.129
-	title = DA_project_event.129.t
-	desc = DA_project_event.129.d
-	picture = DA_research_facility_eventPicture
-
-	is_triggered_only = yes
-
-	option = {
-		name = DA_project_event.129.a
-		set_country_flag = DA_HJ_genetic_project_done
-		remove_estate_privilege = DA_Hul_Jorkad_genetic_engineering_project
-		ai_chance = { factor = 1 }
-	}
-}
 
 country_event = {
 	id = DA_project_event.130
@@ -3419,7 +3231,7 @@ country_event = {
 			NOT = { has_country_flag = DA_unlocked.genetic_engineering }
 		}
 		custom_tooltip = DA_unlocked.genetic_engineering.tt
-		set_country_flag = DA_unlocked.genetic_engineering
+		hidden_effect = { DA_GE_unlock_path = yes } # build_genetic_engineering.py
 		ai_chance = { factor = 1 }
 	}
 	option = {
@@ -3428,16 +3240,25 @@ country_event = {
 			NOT = { has_country_flag = DA_unlocked.mega_engineering }
 		}
 		custom_tooltip = DA_unlocked.mega_engineering.tt
-		set_country_flag = DA_unlocked.mega_engineering
+		hidden_effect = { DA_ME_unlock_path = yes }
 		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = DA_project_event.360.c
 		trigger = {
+			always = no # Mana Core is in development: remove this line when the path is playable.
 			NOT = { has_country_flag = DA_unlocked.mana_core }
 		}
 		custom_tooltip = DA_unlocked.mana_core.tt
 		set_country_flag = DA_unlocked.mana_core
+		ai_chance = { factor = 1 }
+	}
+	option = { # Fallback so the event always has an option.
+		name = DA_project_event.360.z
+		trigger = {
+			has_country_flag = DA_unlocked.mega_engineering
+			has_country_flag = DA_unlocked.genetic_engineering
+		}
 		ai_chance = { factor = 1 }
 	}
 }

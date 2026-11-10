@@ -383,9 +383,12 @@ custom_button = {
     trigger = {
         DA_available_research = yes
         DA_completed.Electric_Power_Project = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
+        DA_has_transcendent_path_to_unlock = yes
+    }
+    frame = {
+        number = 2
+        trigger = {
+            DA_has_transcendent_path_to_unlock = no
         }
     }
     frame = {
@@ -394,24 +397,13 @@ custom_button = {
             always = yes
         }
     }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
     effect = {
+        # Mega Engineering: see "Claude files/tools/build_mega_engineering.py"
         DA_start_research = {
             flag = trascendence
             time = 240
             electric = yes
             unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = { #to be done
-                id = DA_project_event.310
-                days = 30
-            }
         }
     }
 }

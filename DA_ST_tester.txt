@@ -1,4 +1,4 @@
-# Secret society contacts and favor balances for interaction testing.
+# Secret society contacts, rank IV membership and full favor balances for interaction testing.
 # Seals, inventions and society research remain available to unlock normally.
 # Inlined DA_SS_initialize (console run files use native commands).
 if = {
@@ -338,33 +338,59 @@ if = {
 	}
 	set_country_flag = DA_Secret_Societies_interface_on_Seekers_of_Perfection
 }
-set_variable = {
-	which = DA_SS_page_display
-	value = 1
-}
-change_variable = {
-	which = DA_SS_page_display
-	which = DA_SS_page
-}
 set_country_flag = DA_SC_unlocked.Seekers_of_Perfection
 set_country_flag = DA_SC_unlocked.Pioneer_Society
 set_country_flag = DA_SC_unlocked.Hammers_of_Halanna
 set_country_flag = DA_SC_unlocked.Hermetic_order
 set_country_flag = DA_SC_unlocked.Brotherhood_of_the_Skull
-set_variable = { which = DA_Seekers_of_Perfection_relation value = 100 }
-set_variable = { which = DA_Pioneer_Society_relation value = 100 }
-set_variable = { which = DA_Hammers_of_Halanna_relation value = 100 }
-set_variable = { which = DA_Hermetic_order_relation value = 100 }
-set_variable = { which = DA_Brotherhood_of_the_Skull_relation value = 100 }
-# Inlined DA_SS_refresh_status (console run files use native commands).
-set_variable = {
-	which = DA_SS_page_display
-	value = 1
-}
-change_variable = {
-	which = DA_SS_page_display
-	which = DA_SS_page
-}
+set_variable = { which = DA_Seekers_of_Perfection_relation value = 300 }
+set_variable = { which = DA_Pioneer_Society_relation value = 300 }
+set_variable = { which = DA_Hammers_of_Halanna_relation value = 300 }
+set_variable = { which = DA_Hermetic_order_relation value = 300 }
+set_variable = { which = DA_Brotherhood_of_the_Skull_relation value = 300 }
+# Membership rank IV (Keeper, Magus, Hearthkin...) in every society, with its favor limit and perk.
+set_variable = { which = DA_SS_seekers_rank value = 4 }
+set_variable = { which = DA_SS_seekers_cap value = 300 }
+set_variable = { which = DA_SS_seekers_standing value = 15 }
+set_variable = { which = DA_SS_seekers_count value = 5 }
+remove_country_modifier = DA_SS_seekers_rank_2
+remove_country_modifier = DA_SS_seekers_rank_3
+remove_country_modifier = DA_SS_seekers_rank_4
+add_country_modifier = { name = DA_SS_seekers_rank_4 duration = -1 }
+set_variable = { which = DA_SS_pioneer_rank value = 4 }
+set_variable = { which = DA_SS_pioneer_cap value = 300 }
+set_variable = { which = DA_SS_pioneer_standing value = 15 }
+set_variable = { which = DA_SS_pioneer_count value = 5 }
+remove_country_modifier = DA_SS_pioneer_rank_2
+remove_country_modifier = DA_SS_pioneer_rank_3
+remove_country_modifier = DA_SS_pioneer_rank_4
+add_country_modifier = { name = DA_SS_pioneer_rank_4 duration = -1 }
+set_variable = { which = DA_SS_hammers_rank value = 4 }
+set_variable = { which = DA_SS_hammers_cap value = 300 }
+set_variable = { which = DA_SS_hammers_standing value = 15 }
+set_variable = { which = DA_SS_hammers_count value = 5 }
+remove_country_modifier = DA_SS_hammers_rank_2
+remove_country_modifier = DA_SS_hammers_rank_3
+remove_country_modifier = DA_SS_hammers_rank_4
+add_country_modifier = { name = DA_SS_hammers_rank_4 duration = -1 }
+set_variable = { which = DA_SS_hermetic_rank value = 4 }
+set_variable = { which = DA_SS_hermetic_cap value = 300 }
+set_variable = { which = DA_SS_hermetic_standing value = 15 }
+set_variable = { which = DA_SS_hermetic_count value = 5 }
+remove_country_modifier = DA_SS_hermetic_rank_2
+remove_country_modifier = DA_SS_hermetic_rank_3
+remove_country_modifier = DA_SS_hermetic_rank_4
+add_country_modifier = { name = DA_SS_hermetic_rank_4 duration = -1 }
+set_variable = { which = DA_SS_concord_rank value = 4 }
+set_variable = { which = DA_SS_concord_cap value = 300 }
+set_variable = { which = DA_SS_concord_standing value = 15 }
+set_variable = { which = DA_SS_concord_count value = 5 }
+remove_country_modifier = DA_SS_concord_rank_2
+remove_country_modifier = DA_SS_concord_rank_3
+remove_country_modifier = DA_SS_concord_rank_4
+add_country_modifier = { name = DA_SS_concord_rank_4 duration = -1 }
+set_country_flag = DA_SS_version_3
+set_variable = { which = DA_SS_category value = 1 }
 
 set_country_flag = DA_Project.completed.Metallurgy_1
 set_country_flag = DA_Project.completed.Metallurgy_2
