@@ -1,0 +1,280 @@
+# Strâmolgiv, Hul-az-Krakazol (4266): the page of the wonder. Written on 12 November 2026 by "Claude files/tools/remaining_wonders_2026-11-12/gen.py".
+# The .gui side is the window "DA_Stramolgiv_Window" in interface/topbar.gui (a page of the Dwarven Hall). ROOT and FROM are the country that looks at the page.
+# Effects and triggers: common/scripted_effects/DA_Remaining_Wonders_effects.txt, common/scripted_triggers/DA_Remaining_Wonders_triggers.txt.
+# The story is in events/DA_Remaining_Wonders.txt.
+
+custom_window = {
+	name = DA_Stramolgiv_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_Stramolgiv
+	}
+}
+
+custom_button = {
+	name = DA_close_button_Stramolgiv
+	tooltip = DA_Wonder_close_button_tt
+	potential = { always = yes }
+	trigger = { always = yes }
+	effect = { clr_country_flag = DA_show_wonder_Stramolgiv }
+}
+
+custom_icon = { # frames: 1 before the restoration, 2 tier I, 3 tier II, 4 tier III (make_remaining_holds_art.py)
+	name = DA_Stramolgiv_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 3 } } } }
+	frame = { number = 3 trigger = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 2 } } } }
+	frame = { number = 2 trigger = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_name_shower
+	potential = { always = yes }
+	tooltip = DA_Stramolgiv_name_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_Wonder_level_shower
+	potential = { always = yes }
+	tooltip = DA_Stramolgiv_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_Wonder_location_shower
+	potential = { always = yes }
+	tooltip = DA_Stramolgiv_Wonder_location_shower_tt
+}
+
+# The level-up button. build_wonder_pages.py replaces this block with the wonder works (BEGIN / END DA_WW).
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_4266 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4266.
+custom_button = {
+	name = DA_Stramolgiv_upgrade_button
+	tooltip = DA_ST_upgrade_button_tt
+	potential = {
+		NOT = { has_country_flag = DA_WW_building_4266 }
+		NOT = { DA_WW_maxed_4266 = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_DA_Stramolgiv_in_use }
+		}
+		4266 = {
+			owned_by = prev
+			has_great_project = { type = DA_Stramolgiv tier = 0 }
+		}
+		if = {
+			limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 0 } NOT = { has_great_project = { type = DA_Stramolgiv tier = 1 } } } }
+			4266 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_4_or_higher
+					DA_has_dig_level_4_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_4266 = yes
+		}
+		if = {
+			limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 1 } NOT = { has_great_project = { type = DA_Stramolgiv tier = 2 } } } }
+			4266 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_6_or_higher
+					DA_has_dig_level_6_or_higher = yes
+				}
+			}
+			4266 = { custom_trigger_tooltip = { tooltip = DA_ST_find2_tt has_province_flag = DA_Krakazol_exp2 } }
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_4266 = yes
+		}
+		if = {
+			limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 2 } NOT = { has_great_project = { type = DA_Stramolgiv tier = 3 } } } }
+			4266 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_8_or_higher
+					DA_has_dig_level_8_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_4266 = yes
+		}
+	}
+	effect = {
+		hidden_effect = { DA_WW_refresh_4266 = yes }
+		if = {
+			limit = {
+				4266 = { has_great_project = { type = DA_Stramolgiv tier = 0 } NOT = { has_great_project = { type = DA_Stramolgiv tier = 1 } } }
+				DA_WW_can_pay_4266 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_4266 = yes
+			custom_tooltip = DA_ST_tier_1_unlock_tt
+		}
+		else_if = {
+			limit = {
+				4266 = { has_great_project = { type = DA_Stramolgiv tier = 1 } NOT = { has_great_project = { type = DA_Stramolgiv tier = 2 } } }
+				DA_WW_can_pay_4266 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_4266 = yes
+			custom_tooltip = DA_ST_tier_2_unlock_tt
+		}
+		else_if = {
+			limit = {
+				4266 = { has_great_project = { type = DA_Stramolgiv tier = 2 } NOT = { has_great_project = { type = DA_Stramolgiv tier = 3 } } }
+				DA_WW_can_pay_4266 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_4266 = yes
+			custom_tooltip = DA_ST_tier_3_unlock_tt
+		}
+	}
+}
+# END DA_WW
+
+custom_text_box = {
+	name = DA_Stramolgiv_header_kettle
+	potential = { always = yes }
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_header_taps
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 while a barrel is in the kettle, frame 3 before tier I
+	name = DA_Stramolgiv_button_brew
+	tooltip = DA_ST_button_brew_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_ST_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_ST_brewing } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_ST_needs_tier_1_tt DA_ST_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_ST_not_brewing_tt NOT = { has_country_flag = DA_ST_brewing } }
+		custom_trigger_tooltip = { tooltip = DA_ST_room_tt DA_ST_cellar_has_room = yes }
+		treasury = 150
+	}
+	effect = {
+		DA_ST_begin_brew = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_button_brew_text
+	potential = { always = yes }
+	tooltip = DA_ST_button_brew_tt
+}
+
+custom_button = { # frame 2 while it is on tap, frame 3 before its tier
+	name = DA_Stramolgiv_button_tap_dark
+	tooltip = DA_ST_button_tap_dark_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_ST_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_modifier = DA_ST_brew_dark } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_ST_needs_tier_1_tt DA_ST_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_ST_has_barrel_tt check_variable = { which = DA_ST_barrels value = 1 } }
+		custom_trigger_tooltip = { tooltip = DA_ST_not_on_tap_tt NOT = { has_country_modifier = DA_ST_brew_dark } }
+	}
+	effect = {
+		DA_ST_tap_dark = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_button_tap_dark_text
+	potential = { always = yes }
+	tooltip = DA_ST_button_tap_dark_tt
+}
+
+custom_button = { # frame 2 while it is on tap, frame 3 before its tier
+	name = DA_Stramolgiv_button_tap_battle
+	tooltip = DA_ST_button_tap_battle_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_ST_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_modifier = DA_ST_brew_battle } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_ST_needs_tier_1_tt DA_ST_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_ST_has_barrel_tt check_variable = { which = DA_ST_barrels value = 1 } }
+		custom_trigger_tooltip = { tooltip = DA_ST_not_on_tap_tt NOT = { has_country_modifier = DA_ST_brew_battle } }
+	}
+	effect = {
+		DA_ST_tap_battle = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_button_tap_battle_text
+	potential = { always = yes }
+	tooltip = DA_ST_button_tap_battle_tt
+}
+
+custom_button = { # frame 2 while it is on tap, frame 3 before its tier
+	name = DA_Stramolgiv_button_tap_welcome
+	tooltip = DA_ST_button_tap_welcome_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_ST_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_modifier = DA_ST_brew_welcome } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_ST_needs_tier_1_tt DA_ST_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_ST_has_barrel_tt check_variable = { which = DA_ST_barrels value = 1 } }
+		custom_trigger_tooltip = { tooltip = DA_ST_not_on_tap_tt NOT = { has_country_modifier = DA_ST_brew_welcome } }
+	}
+	effect = {
+		DA_ST_tap_welcome = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_button_tap_welcome_text
+	potential = { always = yes }
+	tooltip = DA_ST_button_tap_welcome_tt
+}
+
+custom_button = { # frame 2 while it is on tap, frame 3 before its tier
+	name = DA_Stramolgiv_button_tap_tonic
+	tooltip = DA_ST_button_tap_tonic_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_ST_at_tier_2 = yes } } }
+	frame = { number = 2 trigger = { has_country_modifier = DA_ST_brew_tonic } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_ST_needs_tier_2_tt DA_ST_at_tier_2 = yes }
+		custom_trigger_tooltip = { tooltip = DA_ST_has_barrel_tt check_variable = { which = DA_ST_barrels value = 1 } }
+		custom_trigger_tooltip = { tooltip = DA_ST_not_on_tap_tt NOT = { has_country_modifier = DA_ST_brew_tonic } }
+	}
+	effect = {
+		DA_ST_tap_tonic = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_button_tap_tonic_text
+	potential = { always = yes }
+	tooltip = DA_ST_button_tap_tonic_tt
+}
+
+custom_text_box = {
+	name = DA_Stramolgiv_info_text
+	potential = { always = yes }
+	tooltip = DA_Stramolgiv_info_text_tt
+}
+

@@ -41,7 +41,7 @@ DA_WW_give_t = {
 	if = { limit = { check_variable = { which = DA_WW_t value = 10 } } add_treasury = 10 subtract_variable = { which = DA_WW_t value = 10 } }
 }
 
-# ---------------- Magma Forge (Gor Burad, 4039) ----------------
+# ---------------- Fireglass Forge (Gor Bûrad, 4039) ----------------
 DA_WW_refresh_4039 = {
 	if = {
 		limit = { owns = 4039 4039 = { has_great_project = { type = DA_Magma_Forge tier = 0 } } }
@@ -182,16 +182,22 @@ DA_WW_finish_4039 = {
 	if = {
 		limit = { 4039 = { has_great_project = { type = DA_Magma_Forge tier = 2 } } }
 		4039 = { add_great_project_tier = { type = DA_Magma_Forge tier = 1 } }
+		DA_FG_sync = yes
+		country_event = { id = DA_Magma_forge_event.8 days = 30 }
 		country_event = { id = DA_Magma_forge_event.14 days = 3650 }
 		country_event = { id = DA_wonder_works.1 }
 	}
 	else_if = {
 		limit = { 4039 = { has_great_project = { type = DA_Magma_Forge tier = 1 } } }
 		4039 = { add_great_project_tier = { type = DA_Magma_Forge tier = 1 } }
+		DA_FG_sync = yes
+		country_event = { id = DA_Magma_forge_event.7 days = 30 }
 		country_event = { id = DA_wonder_works.1 }
 	}
 	else = {
 		4039 = { add_great_project_tier = { type = DA_Magma_Forge tier = 1 } }
+		DA_FG_sync = yes
+		country_event = { id = DA_Magma_forge_event.6 days = 30 }
 		country_event = { id = DA_Magma_forge_event.11 days = 365 }
 		country_event = { id = DA_Magma_forge_event.12 days = 1095 }
 		country_event = { id = DA_wonder_works.1 }
@@ -888,16 +894,23 @@ DA_WW_finish_4236 = {
 	if = {
 		limit = { 4236 = { has_great_project = { type = The_Dwarven_Workshop tier = 2 } } }
 		4236 = { add_great_project_tier = { type = The_Dwarven_Workshop tier = 1 } }
-		country_event = { id = DA_Mithradum_event.4 }
+		country_event = { id = DA_Mithradum_event.4 days = 30 }
+		country_event = { id = DA_Mithradum_event.14 days = 3650 }
+		country_event = { id = DA_wonder_works.5 }
 	}
 	else_if = {
 		limit = { 4236 = { has_great_project = { type = The_Dwarven_Workshop tier = 1 } } }
 		4236 = { add_great_project_tier = { type = The_Dwarven_Workshop tier = 1 } }
-		country_event = { id = DA_Mithradum_event.3 }
+		country_event = { id = DA_Mithradum_event.3 days = 30 }
+		country_event = { id = DA_Mithradum_event.13 days = 365 }
+		country_event = { id = DA_wonder_works.5 }
 	}
 	else = {
 		4236 = { add_great_project_tier = { type = The_Dwarven_Workshop tier = 1 } }
-		country_event = { id = DA_Mithradum_event.2 }
+		country_event = { id = DA_Mithradum_event.2 days = 30 }
+		country_event = { id = DA_Mithradum_event.11 days = 365 }
+		country_event = { id = DA_Mithradum_event.12 days = 1095 }
+		country_event = { id = DA_wonder_works.5 }
 	}
 	DA_WW_clear_4236 = yes
 	DA_WW_refresh_4236 = yes
@@ -2186,6 +2199,908 @@ DA_WW_tick_526 = {
 	}
 }
 
+# ---------------- Builders' Guildhall (Hehodovar, 4078) ----------------
+DA_WW_refresh_4078 = {
+	if = {
+		limit = { owns = 4078 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 0 } } }
+		4078 = {
+			if = { limit = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } } set_variable = { which = DA_WW_cost_4078 value = 7500 } set_variable = { which = DA_WW_months_4078 value = 120 } }
+			else_if = { limit = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } } set_variable = { which = DA_WW_cost_4078 value = 3750 } set_variable = { which = DA_WW_months_4078 value = 60 } }
+			else = { set_variable = { which = DA_WW_cost_4078 value = 1600 } set_variable = { which = DA_WW_months_4078 value = 24 } }
+			export_to_variable = { which = DA_WW_cg_4078 value = modifier:great_project_upgrade_cost who = owner }
+			export_to_variable = { which = DA_WW_cl_4078 value = modifier:local_great_project_upgrade_cost }
+			export_to_variable = { which = DA_WW_tg_4078 value = modifier:great_project_upgrade_time who = owner }
+			export_to_variable = { which = DA_WW_tl_4078 value = modifier:local_great_project_upgrade_time }
+			set_variable = { which = DA_WW_cf_4078 value = 1 }
+			change_variable = { which = DA_WW_cf_4078 which = DA_WW_cg_4078 }
+			change_variable = { which = DA_WW_cf_4078 which = DA_WW_cl_4078 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cf_4078 value = 0.1 } } } set_variable = { which = DA_WW_cf_4078 value = 0.1 } }
+			multiply_variable = { which = DA_WW_cost_4078 which = DA_WW_cf_4078 }
+			multiply_variable = { which = DA_WW_cost_4078 value = 0.1 }
+			multiply_variable = { which = DA_WW_cost_4078 value = 0.001 }
+			multiply_variable = { which = DA_WW_cost_4078 value = 1000 }
+			multiply_variable = { which = DA_WW_cost_4078 value = 10 }
+			set_variable = { which = DA_WW_tf_4078 value = 1 }
+			change_variable = { which = DA_WW_tf_4078 which = DA_WW_tg_4078 }
+			change_variable = { which = DA_WW_tf_4078 which = DA_WW_tl_4078 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_tf_4078 value = 0.1 } } } set_variable = { which = DA_WW_tf_4078 value = 0.1 } }
+			multiply_variable = { which = DA_WW_months_4078 which = DA_WW_tf_4078 }
+			multiply_variable = { which = DA_WW_months_4078 value = 0.001 }
+			multiply_variable = { which = DA_WW_months_4078 value = 1000 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cost_4078 value = 10 } } } set_variable = { which = DA_WW_cost_4078 value = 10 } }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_months_4078 value = 1 } } } set_variable = { which = DA_WW_months_4078 value = 1 } }
+			if = { limit = { check_variable = { which = DA_WW_months_4078 value = 372 } } set_variable = { which = DA_WW_months_4078 value = 372 } }
+			multiply_variable = { which = DA_WW_cg_4078 value = 100 }
+			multiply_variable = { which = DA_WW_cl_4078 value = 100 }
+			multiply_variable = { which = DA_WW_tg_4078 value = 100 }
+			multiply_variable = { which = DA_WW_tl_4078 value = 100 }
+			set_variable = { which = DA_WW_dm_4078 which = DA_WW_months_4078 }
+			set_variable = { which = DA_WW_dy_4078 value = 0 }
+			if = { limit = { check_variable = { which = DA_WW_dm_4078 value = 192 } } subtract_variable = { which = DA_WW_dm_4078 value = 192 } change_variable = { which = DA_WW_dy_4078 value = 16 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4078 value = 96 } } subtract_variable = { which = DA_WW_dm_4078 value = 96 } change_variable = { which = DA_WW_dy_4078 value = 8 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4078 value = 48 } } subtract_variable = { which = DA_WW_dm_4078 value = 48 } change_variable = { which = DA_WW_dy_4078 value = 4 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4078 value = 24 } } subtract_variable = { which = DA_WW_dm_4078 value = 24 } change_variable = { which = DA_WW_dy_4078 value = 2 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4078 value = 12 } } subtract_variable = { which = DA_WW_dm_4078 value = 12 } change_variable = { which = DA_WW_dy_4078 value = 1 } }
+			owner = {
+				set_variable = { which = DA_WW_cost_4078 which = PREV }
+				set_variable = { which = DA_WW_months_4078 which = PREV }
+				set_variable = { which = DA_WW_cg_4078 which = PREV }
+				set_variable = { which = DA_WW_cl_4078 which = PREV }
+				set_variable = { which = DA_WW_tg_4078 which = PREV }
+				set_variable = { which = DA_WW_tl_4078 which = PREV }
+				set_variable = { which = DA_WW_dy_4078 which = PREV }
+				set_variable = { which = DA_WW_dm_4078 which = PREV }
+			}
+		}
+	}
+}
+DA_WW_progress_4078 = {
+	set_variable = { which = DA_WW_pct_4078 which = DA_WW_total_4078 }
+	subtract_variable = { which = DA_WW_pct_4078 which = DA_WW_left_4078 }
+	multiply_variable = { which = DA_WW_pct_4078 value = 100 }
+	if = { limit = { check_variable = { which = DA_WW_total_4078 value = 1 } } divide_variable = { which = DA_WW_pct_4078 which = DA_WW_total_4078 } }
+	export_to_variable = { which = DA_WW_fy_4078 value = trigger_value:is_year }
+	export_to_variable = { which = DA_WW_fm_4078 value = trigger_value:is_month }
+	change_variable = { which = DA_WW_fm_4078 which = DA_WW_left_4078 }
+	if = { limit = { check_variable = { which = DA_WW_fm_4078 value = 192 } } subtract_variable = { which = DA_WW_fm_4078 value = 192 } change_variable = { which = DA_WW_fy_4078 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4078 value = 96 } } subtract_variable = { which = DA_WW_fm_4078 value = 96 } change_variable = { which = DA_WW_fy_4078 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4078 value = 48 } } subtract_variable = { which = DA_WW_fm_4078 value = 48 } change_variable = { which = DA_WW_fy_4078 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4078 value = 24 } } subtract_variable = { which = DA_WW_fm_4078 value = 24 } change_variable = { which = DA_WW_fy_4078 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4078 value = 12 } } subtract_variable = { which = DA_WW_fm_4078 value = 12 } change_variable = { which = DA_WW_fy_4078 value = 1 } }
+	set_variable = { which = DA_WW_lm_4078 which = DA_WW_left_4078 }
+	set_variable = { which = DA_WW_ly_4078 value = 0 }
+	if = { limit = { check_variable = { which = DA_WW_lm_4078 value = 192 } } subtract_variable = { which = DA_WW_lm_4078 value = 192 } change_variable = { which = DA_WW_ly_4078 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4078 value = 96 } } subtract_variable = { which = DA_WW_lm_4078 value = 96 } change_variable = { which = DA_WW_ly_4078 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4078 value = 48 } } subtract_variable = { which = DA_WW_lm_4078 value = 48 } change_variable = { which = DA_WW_ly_4078 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4078 value = 24 } } subtract_variable = { which = DA_WW_lm_4078 value = 24 } change_variable = { which = DA_WW_ly_4078 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4078 value = 12 } } subtract_variable = { which = DA_WW_lm_4078 value = 12 } change_variable = { which = DA_WW_ly_4078 value = 1 } }
+	set_variable = { which = DA_WW_rush_4078 which = DA_WW_paid_4078 }
+	multiply_variable = { which = DA_WW_rush_4078 value = 0.5 }
+	multiply_variable = { which = DA_WW_rush_4078 value = 0.1 }
+	multiply_variable = { which = DA_WW_rush_4078 value = 0.001 }
+	multiply_variable = { which = DA_WW_rush_4078 value = 1000 }
+	multiply_variable = { which = DA_WW_rush_4078 value = 10 }
+	set_variable = { which = DA_WW_refund_4078 which = DA_WW_paid_4078 }
+	multiply_variable = { which = DA_WW_refund_4078 value = 0.5 }
+	multiply_variable = { which = DA_WW_refund_4078 value = 0.1 }
+	multiply_variable = { which = DA_WW_refund_4078 value = 0.001 }
+	multiply_variable = { which = DA_WW_refund_4078 value = 1000 }
+	multiply_variable = { which = DA_WW_refund_4078 value = 10 }
+}
+DA_WW_begin_4078 = {
+	custom_tooltip = DA_WW_begin_4078_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_paid_4078 which = DA_WW_cost_4078 }
+		set_variable = { which = DA_WW_t which = DA_WW_cost_4078 }
+		DA_WW_take_t = yes
+		set_variable = { which = DA_WW_total_4078 which = DA_WW_months_4078 }
+		set_variable = { which = DA_WW_left_4078 which = DA_WW_months_4078 }
+		set_country_flag = DA_WW_building_4078
+		clr_country_flag = DA_WW_rushed_4078
+		set_country_flag = DA_WW_any_works
+		DA_WW_progress_4078 = yes
+	}
+}
+DA_WW_rush_now_4078 = {
+	custom_tooltip = DA_WW_rush_now_4078_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_rush_4078 }
+		DA_WW_take_t = yes
+		multiply_variable = { which = DA_WW_left_4078 value = 0.75 }
+		multiply_variable = { which = DA_WW_left_4078 value = 0.001 }
+		multiply_variable = { which = DA_WW_left_4078 value = 1000 }
+		if = { limit = { NOT = { check_variable = { which = DA_WW_left_4078 value = 1 } } } set_variable = { which = DA_WW_left_4078 value = 1 } }
+		set_country_flag = DA_WW_rushed_4078
+		DA_WW_progress_4078 = yes
+	}
+}
+DA_WW_cancel_now_4078 = {
+	custom_tooltip = DA_WW_cancel_now_4078_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_refund_4078 }
+		DA_WW_give_t = yes
+		if = { limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } } } change_variable = { which = DA_arcane_metal_total value = 20 } change_variable = { which = DA_enchanted_building_material_total value = 20 } change_variable = { which = DA_alchemy_reagents_total value = 20 } }
+		else_if = { limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } } } change_variable = { which = DA_arcane_metal_total value = 10 } change_variable = { which = DA_enchanted_building_material_total value = 10 } change_variable = { which = DA_alchemy_reagents_total value = 10 } }
+		else = { change_variable = { which = DA_arcane_metal_total value = 5 } change_variable = { which = DA_enchanted_building_material_total value = 5 } change_variable = { which = DA_alchemy_reagents_total value = 5 } }
+		DA_WW_clear_4078 = yes
+		DA_WW_refresh_4078 = yes
+	}
+}
+DA_WW_clear_4078 = {
+	clr_country_flag = DA_WW_building_4078
+	clr_country_flag = DA_WW_rushed_4078
+	set_variable = { which = DA_WW_left_4078 value = 0 }
+	set_variable = { which = DA_WW_total_4078 value = 0 }
+	set_variable = { which = DA_WW_paid_4078 value = 0 }
+	set_variable = { which = DA_WW_pct_4078 value = 0 }
+	set_variable = { which = DA_WW_rush_4078 value = 0 }
+	set_variable = { which = DA_WW_refund_4078 value = 0 }
+}
+DA_WW_finish_4078 = {
+	if = {
+		limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } } }
+		4078 = { add_great_project_tier = { type = DA_Builders_Guildhall tier = 1 } }
+		country_event = { id = DA_Hehodovar_event.14 days = 3650 }
+		country_event = { id = DA_wonder_works.26 }
+	}
+	else_if = {
+		limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } } }
+		4078 = { add_great_project_tier = { type = DA_Builders_Guildhall tier = 1 } }
+		country_event = { id = DA_Hehodovar_event.3 days = 30 }
+		country_event = { id = DA_Hehodovar_event.13 days = 365 }
+		country_event = { id = DA_wonder_works.26 }
+	}
+	else = {
+		4078 = { add_great_project_tier = { type = DA_Builders_Guildhall tier = 1 } }
+		country_event = { id = DA_Hehodovar_event.2 days = 30 }
+		country_event = { id = DA_Hehodovar_event.11 days = 365 }
+		country_event = { id = DA_Hehodovar_event.12 days = 1095 }
+		country_event = { id = DA_wonder_works.26 }
+	}
+	DA_WW_clear_4078 = yes
+	DA_WW_refresh_4078 = yes
+}
+DA_WW_tick_4078 = {
+	if = {
+		limit = { has_country_flag = DA_WW_building_4078 }
+		if = {
+			limit = { NOT = { owns = 4078 } }
+			DA_WW_clear_4078 = yes    # the hold was lost, and the works with it
+		}
+		else_if = {
+			limit = { NOT = { DA_WW_halted_4078 = yes } }
+			subtract_variable = { which = DA_WW_left_4078 value = 1 }
+			if = {
+				limit = { NOT = { check_variable = { which = DA_WW_left_4078 value = 1 } } }
+				DA_WW_finish_4078 = yes
+			}
+			else = { DA_WW_progress_4078 = yes }
+		}
+		else = { DA_WW_progress_4078 = yes }
+	}
+}
+
+# ---------------- Strâmolgiv (Hul-az-Krakazol, 4266) ----------------
+DA_WW_refresh_4266 = {
+	if = {
+		limit = { owns = 4266 4266 = { has_great_project = { type = DA_Stramolgiv tier = 0 } } }
+		4266 = {
+			if = { limit = { has_great_project = { type = DA_Stramolgiv tier = 2 } } set_variable = { which = DA_WW_cost_4266 value = 7500 } set_variable = { which = DA_WW_months_4266 value = 120 } }
+			else_if = { limit = { has_great_project = { type = DA_Stramolgiv tier = 1 } } set_variable = { which = DA_WW_cost_4266 value = 3750 } set_variable = { which = DA_WW_months_4266 value = 60 } }
+			else = { set_variable = { which = DA_WW_cost_4266 value = 1600 } set_variable = { which = DA_WW_months_4266 value = 24 } }
+			export_to_variable = { which = DA_WW_cg_4266 value = modifier:great_project_upgrade_cost who = owner }
+			export_to_variable = { which = DA_WW_cl_4266 value = modifier:local_great_project_upgrade_cost }
+			export_to_variable = { which = DA_WW_tg_4266 value = modifier:great_project_upgrade_time who = owner }
+			export_to_variable = { which = DA_WW_tl_4266 value = modifier:local_great_project_upgrade_time }
+			set_variable = { which = DA_WW_cf_4266 value = 1 }
+			change_variable = { which = DA_WW_cf_4266 which = DA_WW_cg_4266 }
+			change_variable = { which = DA_WW_cf_4266 which = DA_WW_cl_4266 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cf_4266 value = 0.1 } } } set_variable = { which = DA_WW_cf_4266 value = 0.1 } }
+			multiply_variable = { which = DA_WW_cost_4266 which = DA_WW_cf_4266 }
+			multiply_variable = { which = DA_WW_cost_4266 value = 0.1 }
+			multiply_variable = { which = DA_WW_cost_4266 value = 0.001 }
+			multiply_variable = { which = DA_WW_cost_4266 value = 1000 }
+			multiply_variable = { which = DA_WW_cost_4266 value = 10 }
+			set_variable = { which = DA_WW_tf_4266 value = 1 }
+			change_variable = { which = DA_WW_tf_4266 which = DA_WW_tg_4266 }
+			change_variable = { which = DA_WW_tf_4266 which = DA_WW_tl_4266 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_tf_4266 value = 0.1 } } } set_variable = { which = DA_WW_tf_4266 value = 0.1 } }
+			multiply_variable = { which = DA_WW_months_4266 which = DA_WW_tf_4266 }
+			multiply_variable = { which = DA_WW_months_4266 value = 0.001 }
+			multiply_variable = { which = DA_WW_months_4266 value = 1000 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cost_4266 value = 10 } } } set_variable = { which = DA_WW_cost_4266 value = 10 } }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_months_4266 value = 1 } } } set_variable = { which = DA_WW_months_4266 value = 1 } }
+			if = { limit = { check_variable = { which = DA_WW_months_4266 value = 372 } } set_variable = { which = DA_WW_months_4266 value = 372 } }
+			multiply_variable = { which = DA_WW_cg_4266 value = 100 }
+			multiply_variable = { which = DA_WW_cl_4266 value = 100 }
+			multiply_variable = { which = DA_WW_tg_4266 value = 100 }
+			multiply_variable = { which = DA_WW_tl_4266 value = 100 }
+			set_variable = { which = DA_WW_dm_4266 which = DA_WW_months_4266 }
+			set_variable = { which = DA_WW_dy_4266 value = 0 }
+			if = { limit = { check_variable = { which = DA_WW_dm_4266 value = 192 } } subtract_variable = { which = DA_WW_dm_4266 value = 192 } change_variable = { which = DA_WW_dy_4266 value = 16 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4266 value = 96 } } subtract_variable = { which = DA_WW_dm_4266 value = 96 } change_variable = { which = DA_WW_dy_4266 value = 8 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4266 value = 48 } } subtract_variable = { which = DA_WW_dm_4266 value = 48 } change_variable = { which = DA_WW_dy_4266 value = 4 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4266 value = 24 } } subtract_variable = { which = DA_WW_dm_4266 value = 24 } change_variable = { which = DA_WW_dy_4266 value = 2 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4266 value = 12 } } subtract_variable = { which = DA_WW_dm_4266 value = 12 } change_variable = { which = DA_WW_dy_4266 value = 1 } }
+			owner = {
+				set_variable = { which = DA_WW_cost_4266 which = PREV }
+				set_variable = { which = DA_WW_months_4266 which = PREV }
+				set_variable = { which = DA_WW_cg_4266 which = PREV }
+				set_variable = { which = DA_WW_cl_4266 which = PREV }
+				set_variable = { which = DA_WW_tg_4266 which = PREV }
+				set_variable = { which = DA_WW_tl_4266 which = PREV }
+				set_variable = { which = DA_WW_dy_4266 which = PREV }
+				set_variable = { which = DA_WW_dm_4266 which = PREV }
+			}
+		}
+	}
+}
+DA_WW_progress_4266 = {
+	set_variable = { which = DA_WW_pct_4266 which = DA_WW_total_4266 }
+	subtract_variable = { which = DA_WW_pct_4266 which = DA_WW_left_4266 }
+	multiply_variable = { which = DA_WW_pct_4266 value = 100 }
+	if = { limit = { check_variable = { which = DA_WW_total_4266 value = 1 } } divide_variable = { which = DA_WW_pct_4266 which = DA_WW_total_4266 } }
+	export_to_variable = { which = DA_WW_fy_4266 value = trigger_value:is_year }
+	export_to_variable = { which = DA_WW_fm_4266 value = trigger_value:is_month }
+	change_variable = { which = DA_WW_fm_4266 which = DA_WW_left_4266 }
+	if = { limit = { check_variable = { which = DA_WW_fm_4266 value = 192 } } subtract_variable = { which = DA_WW_fm_4266 value = 192 } change_variable = { which = DA_WW_fy_4266 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4266 value = 96 } } subtract_variable = { which = DA_WW_fm_4266 value = 96 } change_variable = { which = DA_WW_fy_4266 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4266 value = 48 } } subtract_variable = { which = DA_WW_fm_4266 value = 48 } change_variable = { which = DA_WW_fy_4266 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4266 value = 24 } } subtract_variable = { which = DA_WW_fm_4266 value = 24 } change_variable = { which = DA_WW_fy_4266 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4266 value = 12 } } subtract_variable = { which = DA_WW_fm_4266 value = 12 } change_variable = { which = DA_WW_fy_4266 value = 1 } }
+	set_variable = { which = DA_WW_lm_4266 which = DA_WW_left_4266 }
+	set_variable = { which = DA_WW_ly_4266 value = 0 }
+	if = { limit = { check_variable = { which = DA_WW_lm_4266 value = 192 } } subtract_variable = { which = DA_WW_lm_4266 value = 192 } change_variable = { which = DA_WW_ly_4266 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4266 value = 96 } } subtract_variable = { which = DA_WW_lm_4266 value = 96 } change_variable = { which = DA_WW_ly_4266 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4266 value = 48 } } subtract_variable = { which = DA_WW_lm_4266 value = 48 } change_variable = { which = DA_WW_ly_4266 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4266 value = 24 } } subtract_variable = { which = DA_WW_lm_4266 value = 24 } change_variable = { which = DA_WW_ly_4266 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4266 value = 12 } } subtract_variable = { which = DA_WW_lm_4266 value = 12 } change_variable = { which = DA_WW_ly_4266 value = 1 } }
+	set_variable = { which = DA_WW_rush_4266 which = DA_WW_paid_4266 }
+	multiply_variable = { which = DA_WW_rush_4266 value = 0.5 }
+	multiply_variable = { which = DA_WW_rush_4266 value = 0.1 }
+	multiply_variable = { which = DA_WW_rush_4266 value = 0.001 }
+	multiply_variable = { which = DA_WW_rush_4266 value = 1000 }
+	multiply_variable = { which = DA_WW_rush_4266 value = 10 }
+	set_variable = { which = DA_WW_refund_4266 which = DA_WW_paid_4266 }
+	multiply_variable = { which = DA_WW_refund_4266 value = 0.5 }
+	multiply_variable = { which = DA_WW_refund_4266 value = 0.1 }
+	multiply_variable = { which = DA_WW_refund_4266 value = 0.001 }
+	multiply_variable = { which = DA_WW_refund_4266 value = 1000 }
+	multiply_variable = { which = DA_WW_refund_4266 value = 10 }
+}
+DA_WW_begin_4266 = {
+	custom_tooltip = DA_WW_begin_4266_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_paid_4266 which = DA_WW_cost_4266 }
+		set_variable = { which = DA_WW_t which = DA_WW_cost_4266 }
+		DA_WW_take_t = yes
+		set_variable = { which = DA_WW_total_4266 which = DA_WW_months_4266 }
+		set_variable = { which = DA_WW_left_4266 which = DA_WW_months_4266 }
+		set_country_flag = DA_WW_building_4266
+		clr_country_flag = DA_WW_rushed_4266
+		set_country_flag = DA_WW_any_works
+		DA_WW_progress_4266 = yes
+	}
+}
+DA_WW_rush_now_4266 = {
+	custom_tooltip = DA_WW_rush_now_4266_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_rush_4266 }
+		DA_WW_take_t = yes
+		multiply_variable = { which = DA_WW_left_4266 value = 0.75 }
+		multiply_variable = { which = DA_WW_left_4266 value = 0.001 }
+		multiply_variable = { which = DA_WW_left_4266 value = 1000 }
+		if = { limit = { NOT = { check_variable = { which = DA_WW_left_4266 value = 1 } } } set_variable = { which = DA_WW_left_4266 value = 1 } }
+		set_country_flag = DA_WW_rushed_4266
+		DA_WW_progress_4266 = yes
+	}
+}
+DA_WW_cancel_now_4266 = {
+	custom_tooltip = DA_WW_cancel_now_4266_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_refund_4266 }
+		DA_WW_give_t = yes
+		if = { limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 2 } } } change_variable = { which = DA_arcane_metal_total value = 20 } change_variable = { which = DA_enchanted_building_material_total value = 20 } change_variable = { which = DA_alchemy_reagents_total value = 20 } }
+		else_if = { limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 1 } } } change_variable = { which = DA_arcane_metal_total value = 10 } change_variable = { which = DA_enchanted_building_material_total value = 10 } change_variable = { which = DA_alchemy_reagents_total value = 10 } }
+		else = { change_variable = { which = DA_arcane_metal_total value = 5 } change_variable = { which = DA_enchanted_building_material_total value = 5 } change_variable = { which = DA_alchemy_reagents_total value = 5 } }
+		DA_WW_clear_4266 = yes
+		DA_WW_refresh_4266 = yes
+	}
+}
+DA_WW_clear_4266 = {
+	clr_country_flag = DA_WW_building_4266
+	clr_country_flag = DA_WW_rushed_4266
+	set_variable = { which = DA_WW_left_4266 value = 0 }
+	set_variable = { which = DA_WW_total_4266 value = 0 }
+	set_variable = { which = DA_WW_paid_4266 value = 0 }
+	set_variable = { which = DA_WW_pct_4266 value = 0 }
+	set_variable = { which = DA_WW_rush_4266 value = 0 }
+	set_variable = { which = DA_WW_refund_4266 value = 0 }
+}
+DA_WW_finish_4266 = {
+	if = {
+		limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 2 } } }
+		4266 = { add_great_project_tier = { type = DA_Stramolgiv tier = 1 } }
+		country_event = { id = DA_Remaining_Wonders_event.104 days = 30 }
+		country_event = { id = DA_wonder_works.27 }
+	}
+	else_if = {
+		limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 1 } } }
+		4266 = { add_great_project_tier = { type = DA_Stramolgiv tier = 1 } }
+		country_event = { id = DA_Remaining_Wonders_event.103 days = 30 }
+		country_event = { id = DA_wonder_works.27 }
+	}
+	else = {
+		4266 = { add_great_project_tier = { type = DA_Stramolgiv tier = 1 } }
+		country_event = { id = DA_Remaining_Wonders_event.102 days = 30 }
+		country_event = { id = DA_wonder_works.27 }
+	}
+	DA_WW_clear_4266 = yes
+	DA_WW_refresh_4266 = yes
+}
+DA_WW_tick_4266 = {
+	if = {
+		limit = { has_country_flag = DA_WW_building_4266 }
+		if = {
+			limit = { NOT = { owns = 4266 } }
+			DA_WW_clear_4266 = yes    # the hold was lost, and the works with it
+		}
+		else_if = {
+			limit = { NOT = { DA_WW_halted_4266 = yes } }
+			subtract_variable = { which = DA_WW_left_4266 value = 1 }
+			if = {
+				limit = { NOT = { check_variable = { which = DA_WW_left_4266 value = 1 } } }
+				DA_WW_finish_4266 = yes
+			}
+			else = { DA_WW_progress_4266 = yes }
+		}
+		else = { DA_WW_progress_4266 = yes }
+	}
+}
+
+# ---------------- Sleepers' Hall (Verkal Dromak, 4323) ----------------
+DA_WW_refresh_4323 = {
+	if = {
+		limit = { owns = 4323 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 0 } } }
+		4323 = {
+			if = { limit = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } } set_variable = { which = DA_WW_cost_4323 value = 7500 } set_variable = { which = DA_WW_months_4323 value = 120 } }
+			else_if = { limit = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } } set_variable = { which = DA_WW_cost_4323 value = 3750 } set_variable = { which = DA_WW_months_4323 value = 60 } }
+			else = { set_variable = { which = DA_WW_cost_4323 value = 1600 } set_variable = { which = DA_WW_months_4323 value = 24 } }
+			export_to_variable = { which = DA_WW_cg_4323 value = modifier:great_project_upgrade_cost who = owner }
+			export_to_variable = { which = DA_WW_cl_4323 value = modifier:local_great_project_upgrade_cost }
+			export_to_variable = { which = DA_WW_tg_4323 value = modifier:great_project_upgrade_time who = owner }
+			export_to_variable = { which = DA_WW_tl_4323 value = modifier:local_great_project_upgrade_time }
+			set_variable = { which = DA_WW_cf_4323 value = 1 }
+			change_variable = { which = DA_WW_cf_4323 which = DA_WW_cg_4323 }
+			change_variable = { which = DA_WW_cf_4323 which = DA_WW_cl_4323 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cf_4323 value = 0.1 } } } set_variable = { which = DA_WW_cf_4323 value = 0.1 } }
+			multiply_variable = { which = DA_WW_cost_4323 which = DA_WW_cf_4323 }
+			multiply_variable = { which = DA_WW_cost_4323 value = 0.1 }
+			multiply_variable = { which = DA_WW_cost_4323 value = 0.001 }
+			multiply_variable = { which = DA_WW_cost_4323 value = 1000 }
+			multiply_variable = { which = DA_WW_cost_4323 value = 10 }
+			set_variable = { which = DA_WW_tf_4323 value = 1 }
+			change_variable = { which = DA_WW_tf_4323 which = DA_WW_tg_4323 }
+			change_variable = { which = DA_WW_tf_4323 which = DA_WW_tl_4323 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_tf_4323 value = 0.1 } } } set_variable = { which = DA_WW_tf_4323 value = 0.1 } }
+			multiply_variable = { which = DA_WW_months_4323 which = DA_WW_tf_4323 }
+			multiply_variable = { which = DA_WW_months_4323 value = 0.001 }
+			multiply_variable = { which = DA_WW_months_4323 value = 1000 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cost_4323 value = 10 } } } set_variable = { which = DA_WW_cost_4323 value = 10 } }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_months_4323 value = 1 } } } set_variable = { which = DA_WW_months_4323 value = 1 } }
+			if = { limit = { check_variable = { which = DA_WW_months_4323 value = 372 } } set_variable = { which = DA_WW_months_4323 value = 372 } }
+			multiply_variable = { which = DA_WW_cg_4323 value = 100 }
+			multiply_variable = { which = DA_WW_cl_4323 value = 100 }
+			multiply_variable = { which = DA_WW_tg_4323 value = 100 }
+			multiply_variable = { which = DA_WW_tl_4323 value = 100 }
+			set_variable = { which = DA_WW_dm_4323 which = DA_WW_months_4323 }
+			set_variable = { which = DA_WW_dy_4323 value = 0 }
+			if = { limit = { check_variable = { which = DA_WW_dm_4323 value = 192 } } subtract_variable = { which = DA_WW_dm_4323 value = 192 } change_variable = { which = DA_WW_dy_4323 value = 16 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4323 value = 96 } } subtract_variable = { which = DA_WW_dm_4323 value = 96 } change_variable = { which = DA_WW_dy_4323 value = 8 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4323 value = 48 } } subtract_variable = { which = DA_WW_dm_4323 value = 48 } change_variable = { which = DA_WW_dy_4323 value = 4 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4323 value = 24 } } subtract_variable = { which = DA_WW_dm_4323 value = 24 } change_variable = { which = DA_WW_dy_4323 value = 2 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4323 value = 12 } } subtract_variable = { which = DA_WW_dm_4323 value = 12 } change_variable = { which = DA_WW_dy_4323 value = 1 } }
+			owner = {
+				set_variable = { which = DA_WW_cost_4323 which = PREV }
+				set_variable = { which = DA_WW_months_4323 which = PREV }
+				set_variable = { which = DA_WW_cg_4323 which = PREV }
+				set_variable = { which = DA_WW_cl_4323 which = PREV }
+				set_variable = { which = DA_WW_tg_4323 which = PREV }
+				set_variable = { which = DA_WW_tl_4323 which = PREV }
+				set_variable = { which = DA_WW_dy_4323 which = PREV }
+				set_variable = { which = DA_WW_dm_4323 which = PREV }
+			}
+		}
+	}
+}
+DA_WW_progress_4323 = {
+	set_variable = { which = DA_WW_pct_4323 which = DA_WW_total_4323 }
+	subtract_variable = { which = DA_WW_pct_4323 which = DA_WW_left_4323 }
+	multiply_variable = { which = DA_WW_pct_4323 value = 100 }
+	if = { limit = { check_variable = { which = DA_WW_total_4323 value = 1 } } divide_variable = { which = DA_WW_pct_4323 which = DA_WW_total_4323 } }
+	export_to_variable = { which = DA_WW_fy_4323 value = trigger_value:is_year }
+	export_to_variable = { which = DA_WW_fm_4323 value = trigger_value:is_month }
+	change_variable = { which = DA_WW_fm_4323 which = DA_WW_left_4323 }
+	if = { limit = { check_variable = { which = DA_WW_fm_4323 value = 192 } } subtract_variable = { which = DA_WW_fm_4323 value = 192 } change_variable = { which = DA_WW_fy_4323 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4323 value = 96 } } subtract_variable = { which = DA_WW_fm_4323 value = 96 } change_variable = { which = DA_WW_fy_4323 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4323 value = 48 } } subtract_variable = { which = DA_WW_fm_4323 value = 48 } change_variable = { which = DA_WW_fy_4323 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4323 value = 24 } } subtract_variable = { which = DA_WW_fm_4323 value = 24 } change_variable = { which = DA_WW_fy_4323 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4323 value = 12 } } subtract_variable = { which = DA_WW_fm_4323 value = 12 } change_variable = { which = DA_WW_fy_4323 value = 1 } }
+	set_variable = { which = DA_WW_lm_4323 which = DA_WW_left_4323 }
+	set_variable = { which = DA_WW_ly_4323 value = 0 }
+	if = { limit = { check_variable = { which = DA_WW_lm_4323 value = 192 } } subtract_variable = { which = DA_WW_lm_4323 value = 192 } change_variable = { which = DA_WW_ly_4323 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4323 value = 96 } } subtract_variable = { which = DA_WW_lm_4323 value = 96 } change_variable = { which = DA_WW_ly_4323 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4323 value = 48 } } subtract_variable = { which = DA_WW_lm_4323 value = 48 } change_variable = { which = DA_WW_ly_4323 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4323 value = 24 } } subtract_variable = { which = DA_WW_lm_4323 value = 24 } change_variable = { which = DA_WW_ly_4323 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4323 value = 12 } } subtract_variable = { which = DA_WW_lm_4323 value = 12 } change_variable = { which = DA_WW_ly_4323 value = 1 } }
+	set_variable = { which = DA_WW_rush_4323 which = DA_WW_paid_4323 }
+	multiply_variable = { which = DA_WW_rush_4323 value = 0.5 }
+	multiply_variable = { which = DA_WW_rush_4323 value = 0.1 }
+	multiply_variable = { which = DA_WW_rush_4323 value = 0.001 }
+	multiply_variable = { which = DA_WW_rush_4323 value = 1000 }
+	multiply_variable = { which = DA_WW_rush_4323 value = 10 }
+	set_variable = { which = DA_WW_refund_4323 which = DA_WW_paid_4323 }
+	multiply_variable = { which = DA_WW_refund_4323 value = 0.5 }
+	multiply_variable = { which = DA_WW_refund_4323 value = 0.1 }
+	multiply_variable = { which = DA_WW_refund_4323 value = 0.001 }
+	multiply_variable = { which = DA_WW_refund_4323 value = 1000 }
+	multiply_variable = { which = DA_WW_refund_4323 value = 10 }
+}
+DA_WW_begin_4323 = {
+	custom_tooltip = DA_WW_begin_4323_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_paid_4323 which = DA_WW_cost_4323 }
+		set_variable = { which = DA_WW_t which = DA_WW_cost_4323 }
+		DA_WW_take_t = yes
+		set_variable = { which = DA_WW_total_4323 which = DA_WW_months_4323 }
+		set_variable = { which = DA_WW_left_4323 which = DA_WW_months_4323 }
+		set_country_flag = DA_WW_building_4323
+		clr_country_flag = DA_WW_rushed_4323
+		set_country_flag = DA_WW_any_works
+		DA_WW_progress_4323 = yes
+	}
+}
+DA_WW_rush_now_4323 = {
+	custom_tooltip = DA_WW_rush_now_4323_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_rush_4323 }
+		DA_WW_take_t = yes
+		multiply_variable = { which = DA_WW_left_4323 value = 0.75 }
+		multiply_variable = { which = DA_WW_left_4323 value = 0.001 }
+		multiply_variable = { which = DA_WW_left_4323 value = 1000 }
+		if = { limit = { NOT = { check_variable = { which = DA_WW_left_4323 value = 1 } } } set_variable = { which = DA_WW_left_4323 value = 1 } }
+		set_country_flag = DA_WW_rushed_4323
+		DA_WW_progress_4323 = yes
+	}
+}
+DA_WW_cancel_now_4323 = {
+	custom_tooltip = DA_WW_cancel_now_4323_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_refund_4323 }
+		DA_WW_give_t = yes
+		if = { limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } } } change_variable = { which = DA_arcane_metal_total value = 20 } change_variable = { which = DA_enchanted_building_material_total value = 20 } change_variable = { which = DA_alchemy_reagents_total value = 20 } }
+		else_if = { limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } } } change_variable = { which = DA_arcane_metal_total value = 10 } change_variable = { which = DA_enchanted_building_material_total value = 10 } change_variable = { which = DA_alchemy_reagents_total value = 10 } }
+		else = { change_variable = { which = DA_arcane_metal_total value = 5 } change_variable = { which = DA_enchanted_building_material_total value = 5 } change_variable = { which = DA_alchemy_reagents_total value = 5 } }
+		DA_WW_clear_4323 = yes
+		DA_WW_refresh_4323 = yes
+	}
+}
+DA_WW_clear_4323 = {
+	clr_country_flag = DA_WW_building_4323
+	clr_country_flag = DA_WW_rushed_4323
+	set_variable = { which = DA_WW_left_4323 value = 0 }
+	set_variable = { which = DA_WW_total_4323 value = 0 }
+	set_variable = { which = DA_WW_paid_4323 value = 0 }
+	set_variable = { which = DA_WW_pct_4323 value = 0 }
+	set_variable = { which = DA_WW_rush_4323 value = 0 }
+	set_variable = { which = DA_WW_refund_4323 value = 0 }
+}
+DA_WW_finish_4323 = {
+	if = {
+		limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } } }
+		4323 = { add_great_project_tier = { type = DA_Sleepers_Hall tier = 1 } }
+		DA_SL_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.204 days = 30 }
+		country_event = { id = DA_wonder_works.28 }
+	}
+	else_if = {
+		limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } } }
+		4323 = { add_great_project_tier = { type = DA_Sleepers_Hall tier = 1 } }
+		DA_SL_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.203 days = 30 }
+		country_event = { id = DA_wonder_works.28 }
+	}
+	else = {
+		4323 = { add_great_project_tier = { type = DA_Sleepers_Hall tier = 1 } }
+		DA_SL_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.202 days = 30 }
+		country_event = { id = DA_wonder_works.28 }
+	}
+	DA_WW_clear_4323 = yes
+	DA_WW_refresh_4323 = yes
+}
+DA_WW_tick_4323 = {
+	if = {
+		limit = { has_country_flag = DA_WW_building_4323 }
+		if = {
+			limit = { NOT = { owns = 4323 } }
+			DA_WW_clear_4323 = yes    # the hold was lost, and the works with it
+		}
+		else_if = {
+			limit = { NOT = { DA_WW_halted_4323 = yes } }
+			subtract_variable = { which = DA_WW_left_4323 value = 1 }
+			if = {
+				limit = { NOT = { check_variable = { which = DA_WW_left_4323 value = 1 } } }
+				DA_WW_finish_4323 = yes
+			}
+			else = { DA_WW_progress_4323 = yes }
+		}
+		else = { DA_WW_progress_4323 = yes }
+	}
+}
+
+# ---------------- Magistrates' Vault (Verkal Gulan, 2914) ----------------
+DA_WW_refresh_2914 = {
+	if = {
+		limit = { owns = 2914 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 0 } } }
+		2914 = {
+			if = { limit = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } } set_variable = { which = DA_WW_cost_2914 value = 7500 } set_variable = { which = DA_WW_months_2914 value = 120 } }
+			else_if = { limit = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } } set_variable = { which = DA_WW_cost_2914 value = 3750 } set_variable = { which = DA_WW_months_2914 value = 60 } }
+			else = { set_variable = { which = DA_WW_cost_2914 value = 1600 } set_variable = { which = DA_WW_months_2914 value = 24 } }
+			export_to_variable = { which = DA_WW_cg_2914 value = modifier:great_project_upgrade_cost who = owner }
+			export_to_variable = { which = DA_WW_cl_2914 value = modifier:local_great_project_upgrade_cost }
+			export_to_variable = { which = DA_WW_tg_2914 value = modifier:great_project_upgrade_time who = owner }
+			export_to_variable = { which = DA_WW_tl_2914 value = modifier:local_great_project_upgrade_time }
+			set_variable = { which = DA_WW_cf_2914 value = 1 }
+			change_variable = { which = DA_WW_cf_2914 which = DA_WW_cg_2914 }
+			change_variable = { which = DA_WW_cf_2914 which = DA_WW_cl_2914 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cf_2914 value = 0.1 } } } set_variable = { which = DA_WW_cf_2914 value = 0.1 } }
+			multiply_variable = { which = DA_WW_cost_2914 which = DA_WW_cf_2914 }
+			multiply_variable = { which = DA_WW_cost_2914 value = 0.1 }
+			multiply_variable = { which = DA_WW_cost_2914 value = 0.001 }
+			multiply_variable = { which = DA_WW_cost_2914 value = 1000 }
+			multiply_variable = { which = DA_WW_cost_2914 value = 10 }
+			set_variable = { which = DA_WW_tf_2914 value = 1 }
+			change_variable = { which = DA_WW_tf_2914 which = DA_WW_tg_2914 }
+			change_variable = { which = DA_WW_tf_2914 which = DA_WW_tl_2914 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_tf_2914 value = 0.1 } } } set_variable = { which = DA_WW_tf_2914 value = 0.1 } }
+			multiply_variable = { which = DA_WW_months_2914 which = DA_WW_tf_2914 }
+			multiply_variable = { which = DA_WW_months_2914 value = 0.001 }
+			multiply_variable = { which = DA_WW_months_2914 value = 1000 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cost_2914 value = 10 } } } set_variable = { which = DA_WW_cost_2914 value = 10 } }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_months_2914 value = 1 } } } set_variable = { which = DA_WW_months_2914 value = 1 } }
+			if = { limit = { check_variable = { which = DA_WW_months_2914 value = 372 } } set_variable = { which = DA_WW_months_2914 value = 372 } }
+			multiply_variable = { which = DA_WW_cg_2914 value = 100 }
+			multiply_variable = { which = DA_WW_cl_2914 value = 100 }
+			multiply_variable = { which = DA_WW_tg_2914 value = 100 }
+			multiply_variable = { which = DA_WW_tl_2914 value = 100 }
+			set_variable = { which = DA_WW_dm_2914 which = DA_WW_months_2914 }
+			set_variable = { which = DA_WW_dy_2914 value = 0 }
+			if = { limit = { check_variable = { which = DA_WW_dm_2914 value = 192 } } subtract_variable = { which = DA_WW_dm_2914 value = 192 } change_variable = { which = DA_WW_dy_2914 value = 16 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_2914 value = 96 } } subtract_variable = { which = DA_WW_dm_2914 value = 96 } change_variable = { which = DA_WW_dy_2914 value = 8 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_2914 value = 48 } } subtract_variable = { which = DA_WW_dm_2914 value = 48 } change_variable = { which = DA_WW_dy_2914 value = 4 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_2914 value = 24 } } subtract_variable = { which = DA_WW_dm_2914 value = 24 } change_variable = { which = DA_WW_dy_2914 value = 2 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_2914 value = 12 } } subtract_variable = { which = DA_WW_dm_2914 value = 12 } change_variable = { which = DA_WW_dy_2914 value = 1 } }
+			owner = {
+				set_variable = { which = DA_WW_cost_2914 which = PREV }
+				set_variable = { which = DA_WW_months_2914 which = PREV }
+				set_variable = { which = DA_WW_cg_2914 which = PREV }
+				set_variable = { which = DA_WW_cl_2914 which = PREV }
+				set_variable = { which = DA_WW_tg_2914 which = PREV }
+				set_variable = { which = DA_WW_tl_2914 which = PREV }
+				set_variable = { which = DA_WW_dy_2914 which = PREV }
+				set_variable = { which = DA_WW_dm_2914 which = PREV }
+			}
+		}
+	}
+}
+DA_WW_progress_2914 = {
+	set_variable = { which = DA_WW_pct_2914 which = DA_WW_total_2914 }
+	subtract_variable = { which = DA_WW_pct_2914 which = DA_WW_left_2914 }
+	multiply_variable = { which = DA_WW_pct_2914 value = 100 }
+	if = { limit = { check_variable = { which = DA_WW_total_2914 value = 1 } } divide_variable = { which = DA_WW_pct_2914 which = DA_WW_total_2914 } }
+	export_to_variable = { which = DA_WW_fy_2914 value = trigger_value:is_year }
+	export_to_variable = { which = DA_WW_fm_2914 value = trigger_value:is_month }
+	change_variable = { which = DA_WW_fm_2914 which = DA_WW_left_2914 }
+	if = { limit = { check_variable = { which = DA_WW_fm_2914 value = 192 } } subtract_variable = { which = DA_WW_fm_2914 value = 192 } change_variable = { which = DA_WW_fy_2914 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_2914 value = 96 } } subtract_variable = { which = DA_WW_fm_2914 value = 96 } change_variable = { which = DA_WW_fy_2914 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_2914 value = 48 } } subtract_variable = { which = DA_WW_fm_2914 value = 48 } change_variable = { which = DA_WW_fy_2914 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_2914 value = 24 } } subtract_variable = { which = DA_WW_fm_2914 value = 24 } change_variable = { which = DA_WW_fy_2914 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_2914 value = 12 } } subtract_variable = { which = DA_WW_fm_2914 value = 12 } change_variable = { which = DA_WW_fy_2914 value = 1 } }
+	set_variable = { which = DA_WW_lm_2914 which = DA_WW_left_2914 }
+	set_variable = { which = DA_WW_ly_2914 value = 0 }
+	if = { limit = { check_variable = { which = DA_WW_lm_2914 value = 192 } } subtract_variable = { which = DA_WW_lm_2914 value = 192 } change_variable = { which = DA_WW_ly_2914 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_2914 value = 96 } } subtract_variable = { which = DA_WW_lm_2914 value = 96 } change_variable = { which = DA_WW_ly_2914 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_2914 value = 48 } } subtract_variable = { which = DA_WW_lm_2914 value = 48 } change_variable = { which = DA_WW_ly_2914 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_2914 value = 24 } } subtract_variable = { which = DA_WW_lm_2914 value = 24 } change_variable = { which = DA_WW_ly_2914 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_2914 value = 12 } } subtract_variable = { which = DA_WW_lm_2914 value = 12 } change_variable = { which = DA_WW_ly_2914 value = 1 } }
+	set_variable = { which = DA_WW_rush_2914 which = DA_WW_paid_2914 }
+	multiply_variable = { which = DA_WW_rush_2914 value = 0.5 }
+	multiply_variable = { which = DA_WW_rush_2914 value = 0.1 }
+	multiply_variable = { which = DA_WW_rush_2914 value = 0.001 }
+	multiply_variable = { which = DA_WW_rush_2914 value = 1000 }
+	multiply_variable = { which = DA_WW_rush_2914 value = 10 }
+	set_variable = { which = DA_WW_refund_2914 which = DA_WW_paid_2914 }
+	multiply_variable = { which = DA_WW_refund_2914 value = 0.5 }
+	multiply_variable = { which = DA_WW_refund_2914 value = 0.1 }
+	multiply_variable = { which = DA_WW_refund_2914 value = 0.001 }
+	multiply_variable = { which = DA_WW_refund_2914 value = 1000 }
+	multiply_variable = { which = DA_WW_refund_2914 value = 10 }
+}
+DA_WW_begin_2914 = {
+	custom_tooltip = DA_WW_begin_2914_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_paid_2914 which = DA_WW_cost_2914 }
+		set_variable = { which = DA_WW_t which = DA_WW_cost_2914 }
+		DA_WW_take_t = yes
+		set_variable = { which = DA_WW_total_2914 which = DA_WW_months_2914 }
+		set_variable = { which = DA_WW_left_2914 which = DA_WW_months_2914 }
+		set_country_flag = DA_WW_building_2914
+		clr_country_flag = DA_WW_rushed_2914
+		set_country_flag = DA_WW_any_works
+		DA_WW_progress_2914 = yes
+	}
+}
+DA_WW_rush_now_2914 = {
+	custom_tooltip = DA_WW_rush_now_2914_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_rush_2914 }
+		DA_WW_take_t = yes
+		multiply_variable = { which = DA_WW_left_2914 value = 0.75 }
+		multiply_variable = { which = DA_WW_left_2914 value = 0.001 }
+		multiply_variable = { which = DA_WW_left_2914 value = 1000 }
+		if = { limit = { NOT = { check_variable = { which = DA_WW_left_2914 value = 1 } } } set_variable = { which = DA_WW_left_2914 value = 1 } }
+		set_country_flag = DA_WW_rushed_2914
+		DA_WW_progress_2914 = yes
+	}
+}
+DA_WW_cancel_now_2914 = {
+	custom_tooltip = DA_WW_cancel_now_2914_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_refund_2914 }
+		DA_WW_give_t = yes
+		if = { limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } } } change_variable = { which = DA_arcane_metal_total value = 20 } change_variable = { which = DA_enchanted_building_material_total value = 20 } change_variable = { which = DA_alchemy_reagents_total value = 20 } }
+		else_if = { limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } } } change_variable = { which = DA_arcane_metal_total value = 10 } change_variable = { which = DA_enchanted_building_material_total value = 10 } change_variable = { which = DA_alchemy_reagents_total value = 10 } }
+		else = { change_variable = { which = DA_arcane_metal_total value = 5 } change_variable = { which = DA_enchanted_building_material_total value = 5 } change_variable = { which = DA_alchemy_reagents_total value = 5 } }
+		DA_WW_clear_2914 = yes
+		DA_WW_refresh_2914 = yes
+	}
+}
+DA_WW_clear_2914 = {
+	clr_country_flag = DA_WW_building_2914
+	clr_country_flag = DA_WW_rushed_2914
+	set_variable = { which = DA_WW_left_2914 value = 0 }
+	set_variable = { which = DA_WW_total_2914 value = 0 }
+	set_variable = { which = DA_WW_paid_2914 value = 0 }
+	set_variable = { which = DA_WW_pct_2914 value = 0 }
+	set_variable = { which = DA_WW_rush_2914 value = 0 }
+	set_variable = { which = DA_WW_refund_2914 value = 0 }
+}
+DA_WW_finish_2914 = {
+	if = {
+		limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } } }
+		2914 = { add_great_project_tier = { type = DA_Magistrates_Vault tier = 1 } }
+		DA_MV_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.304 days = 30 }
+		country_event = { id = DA_wonder_works.29 }
+	}
+	else_if = {
+		limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } } }
+		2914 = { add_great_project_tier = { type = DA_Magistrates_Vault tier = 1 } }
+		DA_MV_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.303 days = 30 }
+		country_event = { id = DA_wonder_works.29 }
+	}
+	else = {
+		2914 = { add_great_project_tier = { type = DA_Magistrates_Vault tier = 1 } }
+		DA_MV_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.302 days = 30 }
+		country_event = { id = DA_wonder_works.29 }
+	}
+	DA_WW_clear_2914 = yes
+	DA_WW_refresh_2914 = yes
+}
+DA_WW_tick_2914 = {
+	if = {
+		limit = { has_country_flag = DA_WW_building_2914 }
+		if = {
+			limit = { NOT = { owns = 2914 } }
+			DA_WW_clear_2914 = yes    # the hold was lost, and the works with it
+		}
+		else_if = {
+			limit = { NOT = { DA_WW_halted_2914 = yes } }
+			subtract_variable = { which = DA_WW_left_2914 value = 1 }
+			if = {
+				limit = { NOT = { check_variable = { which = DA_WW_left_2914 value = 1 } } }
+				DA_WW_finish_2914 = yes
+			}
+			else = { DA_WW_progress_2914 = yes }
+		}
+		else = { DA_WW_progress_2914 = yes }
+	}
+}
+
+# ---------------- Hall of the Vanguard (Grônstunad, 4311) ----------------
+DA_WW_refresh_4311 = {
+	if = {
+		limit = { owns = 4311 4311 = { has_great_project = { type = DA_Hall_of_Vanguard tier = 0 } } }
+		4311 = {
+			if = { limit = { has_great_project = { type = DA_Hall_of_Vanguard tier = 2 } } set_variable = { which = DA_WW_cost_4311 value = 7500 } set_variable = { which = DA_WW_months_4311 value = 120 } }
+			else_if = { limit = { has_great_project = { type = DA_Hall_of_Vanguard tier = 1 } } set_variable = { which = DA_WW_cost_4311 value = 3750 } set_variable = { which = DA_WW_months_4311 value = 60 } }
+			else = { set_variable = { which = DA_WW_cost_4311 value = 1600 } set_variable = { which = DA_WW_months_4311 value = 24 } }
+			export_to_variable = { which = DA_WW_cg_4311 value = modifier:great_project_upgrade_cost who = owner }
+			export_to_variable = { which = DA_WW_cl_4311 value = modifier:local_great_project_upgrade_cost }
+			export_to_variable = { which = DA_WW_tg_4311 value = modifier:great_project_upgrade_time who = owner }
+			export_to_variable = { which = DA_WW_tl_4311 value = modifier:local_great_project_upgrade_time }
+			set_variable = { which = DA_WW_cf_4311 value = 1 }
+			change_variable = { which = DA_WW_cf_4311 which = DA_WW_cg_4311 }
+			change_variable = { which = DA_WW_cf_4311 which = DA_WW_cl_4311 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cf_4311 value = 0.1 } } } set_variable = { which = DA_WW_cf_4311 value = 0.1 } }
+			multiply_variable = { which = DA_WW_cost_4311 which = DA_WW_cf_4311 }
+			multiply_variable = { which = DA_WW_cost_4311 value = 0.1 }
+			multiply_variable = { which = DA_WW_cost_4311 value = 0.001 }
+			multiply_variable = { which = DA_WW_cost_4311 value = 1000 }
+			multiply_variable = { which = DA_WW_cost_4311 value = 10 }
+			set_variable = { which = DA_WW_tf_4311 value = 1 }
+			change_variable = { which = DA_WW_tf_4311 which = DA_WW_tg_4311 }
+			change_variable = { which = DA_WW_tf_4311 which = DA_WW_tl_4311 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_tf_4311 value = 0.1 } } } set_variable = { which = DA_WW_tf_4311 value = 0.1 } }
+			multiply_variable = { which = DA_WW_months_4311 which = DA_WW_tf_4311 }
+			multiply_variable = { which = DA_WW_months_4311 value = 0.001 }
+			multiply_variable = { which = DA_WW_months_4311 value = 1000 }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_cost_4311 value = 10 } } } set_variable = { which = DA_WW_cost_4311 value = 10 } }
+			if = { limit = { NOT = { check_variable = { which = DA_WW_months_4311 value = 1 } } } set_variable = { which = DA_WW_months_4311 value = 1 } }
+			if = { limit = { check_variable = { which = DA_WW_months_4311 value = 372 } } set_variable = { which = DA_WW_months_4311 value = 372 } }
+			multiply_variable = { which = DA_WW_cg_4311 value = 100 }
+			multiply_variable = { which = DA_WW_cl_4311 value = 100 }
+			multiply_variable = { which = DA_WW_tg_4311 value = 100 }
+			multiply_variable = { which = DA_WW_tl_4311 value = 100 }
+			set_variable = { which = DA_WW_dm_4311 which = DA_WW_months_4311 }
+			set_variable = { which = DA_WW_dy_4311 value = 0 }
+			if = { limit = { check_variable = { which = DA_WW_dm_4311 value = 192 } } subtract_variable = { which = DA_WW_dm_4311 value = 192 } change_variable = { which = DA_WW_dy_4311 value = 16 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4311 value = 96 } } subtract_variable = { which = DA_WW_dm_4311 value = 96 } change_variable = { which = DA_WW_dy_4311 value = 8 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4311 value = 48 } } subtract_variable = { which = DA_WW_dm_4311 value = 48 } change_variable = { which = DA_WW_dy_4311 value = 4 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4311 value = 24 } } subtract_variable = { which = DA_WW_dm_4311 value = 24 } change_variable = { which = DA_WW_dy_4311 value = 2 } }
+			if = { limit = { check_variable = { which = DA_WW_dm_4311 value = 12 } } subtract_variable = { which = DA_WW_dm_4311 value = 12 } change_variable = { which = DA_WW_dy_4311 value = 1 } }
+			owner = {
+				set_variable = { which = DA_WW_cost_4311 which = PREV }
+				set_variable = { which = DA_WW_months_4311 which = PREV }
+				set_variable = { which = DA_WW_cg_4311 which = PREV }
+				set_variable = { which = DA_WW_cl_4311 which = PREV }
+				set_variable = { which = DA_WW_tg_4311 which = PREV }
+				set_variable = { which = DA_WW_tl_4311 which = PREV }
+				set_variable = { which = DA_WW_dy_4311 which = PREV }
+				set_variable = { which = DA_WW_dm_4311 which = PREV }
+			}
+		}
+	}
+}
+DA_WW_progress_4311 = {
+	set_variable = { which = DA_WW_pct_4311 which = DA_WW_total_4311 }
+	subtract_variable = { which = DA_WW_pct_4311 which = DA_WW_left_4311 }
+	multiply_variable = { which = DA_WW_pct_4311 value = 100 }
+	if = { limit = { check_variable = { which = DA_WW_total_4311 value = 1 } } divide_variable = { which = DA_WW_pct_4311 which = DA_WW_total_4311 } }
+	export_to_variable = { which = DA_WW_fy_4311 value = trigger_value:is_year }
+	export_to_variable = { which = DA_WW_fm_4311 value = trigger_value:is_month }
+	change_variable = { which = DA_WW_fm_4311 which = DA_WW_left_4311 }
+	if = { limit = { check_variable = { which = DA_WW_fm_4311 value = 192 } } subtract_variable = { which = DA_WW_fm_4311 value = 192 } change_variable = { which = DA_WW_fy_4311 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4311 value = 96 } } subtract_variable = { which = DA_WW_fm_4311 value = 96 } change_variable = { which = DA_WW_fy_4311 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4311 value = 48 } } subtract_variable = { which = DA_WW_fm_4311 value = 48 } change_variable = { which = DA_WW_fy_4311 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4311 value = 24 } } subtract_variable = { which = DA_WW_fm_4311 value = 24 } change_variable = { which = DA_WW_fy_4311 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_fm_4311 value = 12 } } subtract_variable = { which = DA_WW_fm_4311 value = 12 } change_variable = { which = DA_WW_fy_4311 value = 1 } }
+	set_variable = { which = DA_WW_lm_4311 which = DA_WW_left_4311 }
+	set_variable = { which = DA_WW_ly_4311 value = 0 }
+	if = { limit = { check_variable = { which = DA_WW_lm_4311 value = 192 } } subtract_variable = { which = DA_WW_lm_4311 value = 192 } change_variable = { which = DA_WW_ly_4311 value = 16 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4311 value = 96 } } subtract_variable = { which = DA_WW_lm_4311 value = 96 } change_variable = { which = DA_WW_ly_4311 value = 8 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4311 value = 48 } } subtract_variable = { which = DA_WW_lm_4311 value = 48 } change_variable = { which = DA_WW_ly_4311 value = 4 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4311 value = 24 } } subtract_variable = { which = DA_WW_lm_4311 value = 24 } change_variable = { which = DA_WW_ly_4311 value = 2 } }
+	if = { limit = { check_variable = { which = DA_WW_lm_4311 value = 12 } } subtract_variable = { which = DA_WW_lm_4311 value = 12 } change_variable = { which = DA_WW_ly_4311 value = 1 } }
+	set_variable = { which = DA_WW_rush_4311 which = DA_WW_paid_4311 }
+	multiply_variable = { which = DA_WW_rush_4311 value = 0.5 }
+	multiply_variable = { which = DA_WW_rush_4311 value = 0.1 }
+	multiply_variable = { which = DA_WW_rush_4311 value = 0.001 }
+	multiply_variable = { which = DA_WW_rush_4311 value = 1000 }
+	multiply_variable = { which = DA_WW_rush_4311 value = 10 }
+	set_variable = { which = DA_WW_refund_4311 which = DA_WW_paid_4311 }
+	multiply_variable = { which = DA_WW_refund_4311 value = 0.5 }
+	multiply_variable = { which = DA_WW_refund_4311 value = 0.1 }
+	multiply_variable = { which = DA_WW_refund_4311 value = 0.001 }
+	multiply_variable = { which = DA_WW_refund_4311 value = 1000 }
+	multiply_variable = { which = DA_WW_refund_4311 value = 10 }
+}
+DA_WW_begin_4311 = {
+	custom_tooltip = DA_WW_begin_4311_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_paid_4311 which = DA_WW_cost_4311 }
+		set_variable = { which = DA_WW_t which = DA_WW_cost_4311 }
+		DA_WW_take_t = yes
+		set_variable = { which = DA_WW_total_4311 which = DA_WW_months_4311 }
+		set_variable = { which = DA_WW_left_4311 which = DA_WW_months_4311 }
+		set_country_flag = DA_WW_building_4311
+		clr_country_flag = DA_WW_rushed_4311
+		set_country_flag = DA_WW_any_works
+		DA_WW_progress_4311 = yes
+	}
+}
+DA_WW_rush_now_4311 = {
+	custom_tooltip = DA_WW_rush_now_4311_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_rush_4311 }
+		DA_WW_take_t = yes
+		multiply_variable = { which = DA_WW_left_4311 value = 0.75 }
+		multiply_variable = { which = DA_WW_left_4311 value = 0.001 }
+		multiply_variable = { which = DA_WW_left_4311 value = 1000 }
+		if = { limit = { NOT = { check_variable = { which = DA_WW_left_4311 value = 1 } } } set_variable = { which = DA_WW_left_4311 value = 1 } }
+		set_country_flag = DA_WW_rushed_4311
+		DA_WW_progress_4311 = yes
+	}
+}
+DA_WW_cancel_now_4311 = {
+	custom_tooltip = DA_WW_cancel_now_4311_tt
+	hidden_effect = {
+		set_variable = { which = DA_WW_t which = DA_WW_refund_4311 }
+		DA_WW_give_t = yes
+		if = { limit = { 4311 = { has_great_project = { type = DA_Hall_of_Vanguard tier = 2 } } } change_variable = { which = DA_arcane_metal_total value = 20 } change_variable = { which = DA_enchanted_building_material_total value = 20 } change_variable = { which = DA_alchemy_reagents_total value = 20 } }
+		else_if = { limit = { 4311 = { has_great_project = { type = DA_Hall_of_Vanguard tier = 1 } } } change_variable = { which = DA_arcane_metal_total value = 10 } change_variable = { which = DA_enchanted_building_material_total value = 10 } change_variable = { which = DA_alchemy_reagents_total value = 10 } }
+		else = { change_variable = { which = DA_arcane_metal_total value = 5 } change_variable = { which = DA_enchanted_building_material_total value = 5 } change_variable = { which = DA_alchemy_reagents_total value = 5 } }
+		DA_WW_clear_4311 = yes
+		DA_WW_refresh_4311 = yes
+	}
+}
+DA_WW_clear_4311 = {
+	clr_country_flag = DA_WW_building_4311
+	clr_country_flag = DA_WW_rushed_4311
+	set_variable = { which = DA_WW_left_4311 value = 0 }
+	set_variable = { which = DA_WW_total_4311 value = 0 }
+	set_variable = { which = DA_WW_paid_4311 value = 0 }
+	set_variable = { which = DA_WW_pct_4311 value = 0 }
+	set_variable = { which = DA_WW_rush_4311 value = 0 }
+	set_variable = { which = DA_WW_refund_4311 value = 0 }
+}
+DA_WW_finish_4311 = {
+	if = {
+		limit = { 4311 = { has_great_project = { type = DA_Hall_of_Vanguard tier = 2 } } }
+		4311 = { add_great_project_tier = { type = DA_Hall_of_Vanguard tier = 1 } }
+		DA_HV_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.404 days = 30 }
+		country_event = { id = DA_wonder_works.30 }
+	}
+	else_if = {
+		limit = { 4311 = { has_great_project = { type = DA_Hall_of_Vanguard tier = 1 } } }
+		4311 = { add_great_project_tier = { type = DA_Hall_of_Vanguard tier = 1 } }
+		DA_HV_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.403 days = 30 }
+		country_event = { id = DA_wonder_works.30 }
+	}
+	else = {
+		4311 = { add_great_project_tier = { type = DA_Hall_of_Vanguard tier = 1 } }
+		DA_HV_sync = yes
+		country_event = { id = DA_Remaining_Wonders_event.402 days = 30 }
+		country_event = { id = DA_wonder_works.30 }
+	}
+	DA_WW_clear_4311 = yes
+	DA_WW_refresh_4311 = yes
+}
+DA_WW_tick_4311 = {
+	if = {
+		limit = { has_country_flag = DA_WW_building_4311 }
+		if = {
+			limit = { NOT = { owns = 4311 } }
+			DA_WW_clear_4311 = yes    # the hold was lost, and the works with it
+		}
+		else_if = {
+			limit = { NOT = { DA_WW_halted_4311 = yes } }
+			subtract_variable = { which = DA_WW_left_4311 value = 1 }
+			if = {
+				limit = { NOT = { check_variable = { which = DA_WW_left_4311 value = 1 } } }
+				DA_WW_finish_4311 = yes
+			}
+			else = { DA_WW_progress_4311 = yes }
+		}
+		else = { DA_WW_progress_4311 = yes }
+	}
+}
+
 # ---------------- all wonders ----------------
 # Prices and times of every wonder of the country. Run when the hall opens and each month while it is open.
 DA_WW_refresh_all = {
@@ -2201,6 +3116,11 @@ DA_WW_refresh_all = {
 	DA_WW_refresh_4247 = yes
 	DA_WW_refresh_4208 = yes
 	DA_WW_refresh_526 = yes
+	DA_WW_refresh_4078 = yes
+	DA_WW_refresh_4266 = yes
+	DA_WW_refresh_4323 = yes
+	DA_WW_refresh_2914 = yes
+	DA_WW_refresh_4311 = yes
 }
 
 # on_monthly_pulse, for a country with works under way
@@ -2217,6 +3137,11 @@ DA_WW_monthly = {
 	DA_WW_tick_4247 = yes
 	DA_WW_tick_4208 = yes
 	DA_WW_tick_526 = yes
+	DA_WW_tick_4078 = yes
+	DA_WW_tick_4266 = yes
+	DA_WW_tick_4323 = yes
+	DA_WW_tick_2914 = yes
+	DA_WW_tick_4311 = yes
 	if = {
 		limit = { NOT = { DA_WW_any_building = yes } }
 		clr_country_flag = DA_WW_any_works

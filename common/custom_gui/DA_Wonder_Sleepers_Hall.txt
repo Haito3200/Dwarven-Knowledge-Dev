@@ -1,0 +1,267 @@
+# Sleepers' Hall, Verkal Dromak (4323): the page of the wonder. Written on 12 November 2026 by "Claude files/tools/remaining_wonders_2026-11-12/gen.py".
+# The .gui side is the window "DA_Sleepers_Hall_Window" in interface/topbar.gui (a page of the Dwarven Hall). ROOT and FROM are the country that looks at the page.
+# Effects and triggers: common/scripted_effects/DA_Remaining_Wonders_effects.txt, common/scripted_triggers/DA_Remaining_Wonders_triggers.txt.
+# The story is in events/DA_Remaining_Wonders.txt.
+
+custom_window = {
+	name = DA_Sleepers_Hall_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_Sleepers_Hall
+	}
+}
+
+custom_button = {
+	name = DA_close_button_Sleepers_Hall
+	tooltip = DA_Wonder_close_button_tt
+	potential = { always = yes }
+	trigger = { always = yes }
+	effect = { clr_country_flag = DA_show_wonder_Sleepers_Hall }
+}
+
+custom_icon = { # frames: 1 before the restoration, 2 tier I, 3 tier II, 4 tier III (make_remaining_holds_art.py)
+	name = DA_Sleepers_Hall_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 3 } } } }
+	frame = { number = 3 trigger = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } } } }
+	frame = { number = 2 trigger = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_name_shower
+	potential = { always = yes }
+	tooltip = DA_Sleepers_Hall_name_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_Wonder_level_shower
+	potential = { always = yes }
+	tooltip = DA_Sleepers_Hall_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_Wonder_location_shower
+	potential = { always = yes }
+	tooltip = DA_Sleepers_Hall_Wonder_location_shower_tt
+}
+
+# The level-up button. build_wonder_pages.py replaces this block with the wonder works (BEGIN / END DA_WW).
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_4323 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4323.
+custom_button = {
+	name = DA_Sleepers_Hall_upgrade_button
+	tooltip = DA_SL_upgrade_button_tt
+	potential = {
+		NOT = { has_country_flag = DA_WW_building_4323 }
+		NOT = { DA_WW_maxed_4323 = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_DA_Sleepers_Hall_in_use }
+		}
+		4323 = {
+			owned_by = prev
+			has_great_project = { type = DA_Sleepers_Hall tier = 0 }
+		}
+		if = {
+			limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 0 } NOT = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } } } }
+			4323 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_4_or_higher
+					DA_has_dig_level_4_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_4323 = yes
+		}
+		if = {
+			limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } NOT = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } } } }
+			4323 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_6_or_higher
+					DA_has_dig_level_6_or_higher = yes
+				}
+			}
+			4323 = { custom_trigger_tooltip = { tooltip = DA_SL_find2_tt has_province_flag = DA_Dromak_exp2 } }
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_4323 = yes
+		}
+		if = {
+			limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } NOT = { has_great_project = { type = DA_Sleepers_Hall tier = 3 } } } }
+			4323 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_8_or_higher
+					DA_has_dig_level_8_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_4323 = yes
+		}
+	}
+	effect = {
+		hidden_effect = { DA_WW_refresh_4323 = yes }
+		if = {
+			limit = {
+				4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 0 } NOT = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } } }
+				DA_WW_can_pay_4323 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_4323 = yes
+			custom_tooltip = DA_SL_tier_1_unlock_tt
+		}
+		else_if = {
+			limit = {
+				4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } NOT = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } } }
+				DA_WW_can_pay_4323 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_4323 = yes
+			custom_tooltip = DA_SL_tier_2_unlock_tt
+		}
+		else_if = {
+			limit = {
+				4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } NOT = { has_great_project = { type = DA_Sleepers_Hall tier = 3 } } }
+				DA_WW_can_pay_4323 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_4323 = yes
+			custom_tooltip = DA_SL_tier_3_unlock_tt
+		}
+	}
+}
+# END DA_WW
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_header_watch
+	potential = { always = yes }
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_header_dreams
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 while the sleepers attend to this, frame 3 before tier I
+	name = DA_Sleepers_Hall_button_watch_research
+	tooltip = DA_SL_button_watch_research_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_SL_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_SL_watch_research } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_SL_needs_tier_1_tt DA_SL_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_SL_not_this_watch_tt NOT = { has_country_flag = DA_SL_watch_research } }
+	}
+	effect = {
+		custom_tooltip = DA_SL_watch_result_tt
+		hidden_effect = {
+			DA_SL_clear_watch = yes
+			set_country_flag = DA_SL_watch_research
+			DA_SL_sync = yes
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_button_watch_research_text
+	potential = { always = yes }
+	tooltip = DA_SL_button_watch_research_tt
+}
+
+custom_button = { # frame 2 while the sleepers attend to this, frame 3 before tier I
+	name = DA_Sleepers_Hall_button_watch_counsel
+	tooltip = DA_SL_button_watch_counsel_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_SL_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_SL_watch_counsel } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_SL_needs_tier_1_tt DA_SL_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_SL_not_this_watch_tt NOT = { has_country_flag = DA_SL_watch_counsel } }
+	}
+	effect = {
+		custom_tooltip = DA_SL_watch_result_tt
+		hidden_effect = {
+			DA_SL_clear_watch = yes
+			set_country_flag = DA_SL_watch_counsel
+			DA_SL_sync = yes
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_button_watch_counsel_text
+	potential = { always = yes }
+	tooltip = DA_SL_button_watch_counsel_tt
+}
+
+custom_button = { # frame 2 while the sleepers attend to this, frame 3 before tier I
+	name = DA_Sleepers_Hall_button_watch_vigil
+	tooltip = DA_SL_button_watch_vigil_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_SL_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_SL_watch_vigil } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_SL_needs_tier_1_tt DA_SL_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_SL_not_this_watch_tt NOT = { has_country_flag = DA_SL_watch_vigil } }
+	}
+	effect = {
+		custom_tooltip = DA_SL_watch_result_tt
+		hidden_effect = {
+			DA_SL_clear_watch = yes
+			set_country_flag = DA_SL_watch_vigil
+			DA_SL_sync = yes
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_button_watch_vigil_text
+	potential = { always = yes }
+	tooltip = DA_SL_button_watch_vigil_tt
+}
+
+custom_button = { # frame 2 while the sleepers rest, frame 3 before tier I
+	name = DA_Sleepers_Hall_button_read
+	tooltip = DA_SL_button_read_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_SL_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_modifier = DA_SL_dreams_read } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_SL_needs_tier_1_tt DA_SL_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_SL_rested_tt NOT = { has_country_modifier = DA_SL_dreams_read } }
+	}
+	effect = {
+		DA_SL_read_dreams = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_button_read_text
+	potential = { always = yes }
+	tooltip = DA_SL_button_read_tt
+}
+
+custom_text_box = {
+	name = DA_Sleepers_Hall_info_text
+	potential = { always = yes }
+	tooltip = DA_Sleepers_Hall_info_text_tt
+}
+

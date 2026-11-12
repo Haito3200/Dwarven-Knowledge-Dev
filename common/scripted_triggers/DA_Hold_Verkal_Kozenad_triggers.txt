@@ -1,0 +1,31 @@
+# Verkal Kozenad: the Chained Palace (12 November 2026).
+# Written by Claude files/tools/verkal_kozenad_2026-11-12/gen.py and installed by apply_verkal_kozenad_2026-11-12.py; hand-owned after that.
+# Note: Claude files/18 - Verkal Kozenad.md
+
+# Province scope (4056).
+
+# no rebel stands in the hold and it is in our hands: a horde has been put down
+DA_VK_hold_clear = {
+	controlled_by = owner
+	NOT = { units_in_province = REB }
+}
+
+# the dead can rise: the king lives, his palace is not sealed, and we are not fighting him at this moment
+DA_VK_king_awake = {
+	has_province_modifier = DA_continous_Undeads
+	NOT = { has_province_flag = DA_Verkal_koz_king_dead }
+	NOT = { has_province_modifier = DA_LE_contained_lich }
+	NOT = { has_province_flag = DA_LE_engaged }
+}
+
+# the company that is below this hold is a Wardens column (Hold Exploration window); the floor tables ask when they roll a horde
+DA_VK_wardens_below = {
+	has_province_flag = DA_HX_run_wardens
+}
+
+# The generic find "King's Treasury" (DA_ADK_explore.12) is closed in this hold: the king is in his palace, and his strongroom is
+# DA_Verkal_Kozenad_event.7. The floor tables call this (the line is marked DA_RW there); the hold is not named in the table itself, because
+# build_hold_exploration.py takes every entry that names a province for a lost work.
+DA_VK_kings_treasury_elsewhere = {
+	NOT = { province_id = 4056 }
+}

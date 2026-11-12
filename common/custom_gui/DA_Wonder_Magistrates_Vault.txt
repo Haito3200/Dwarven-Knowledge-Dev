@@ -1,0 +1,245 @@
+# Magistrates' Vault, Verkal Gulan (2914): the page of the wonder. Written on 12 November 2026 by "Claude files/tools/remaining_wonders_2026-11-12/gen.py".
+# The .gui side is the window "DA_Magistrates_Vault_Window" in interface/topbar.gui (a page of the Dwarven Hall). ROOT and FROM are the country that looks at the page.
+# Effects and triggers: common/scripted_effects/DA_Remaining_Wonders_effects.txt, common/scripted_triggers/DA_Remaining_Wonders_triggers.txt.
+# The story is in events/DA_Remaining_Wonders.txt.
+
+custom_window = {
+	name = DA_Magistrates_Vault_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_Magistrates_Vault
+	}
+}
+
+custom_button = {
+	name = DA_close_button_Magistrates_Vault
+	tooltip = DA_Wonder_close_button_tt
+	potential = { always = yes }
+	trigger = { always = yes }
+	effect = { clr_country_flag = DA_show_wonder_Magistrates_Vault }
+}
+
+custom_icon = { # frames: 1 before the restoration, 2 tier I, 3 tier II, 4 tier III (make_remaining_holds_art.py)
+	name = DA_Magistrates_Vault_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 3 } } } }
+	frame = { number = 3 trigger = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } } } }
+	frame = { number = 2 trigger = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
+}
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_name_shower
+	potential = { always = yes }
+	tooltip = DA_Magistrates_Vault_name_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_Wonder_level_shower
+	potential = { always = yes }
+	tooltip = DA_Magistrates_Vault_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_Wonder_location_shower
+	potential = { always = yes }
+	tooltip = DA_Magistrates_Vault_Wonder_location_shower_tt
+}
+
+# The level-up button. build_wonder_pages.py replaces this block with the wonder works (BEGIN / END DA_WW).
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_2914 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_2914.
+custom_button = {
+	name = DA_Magistrates_Vault_upgrade_button
+	tooltip = DA_MV_upgrade_button_tt
+	potential = {
+		NOT = { has_country_flag = DA_WW_building_2914 }
+		NOT = { DA_WW_maxed_2914 = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_DA_Magistrates_Vault_in_use }
+		}
+		2914 = {
+			owned_by = prev
+			has_great_project = { type = DA_Magistrates_Vault tier = 0 }
+		}
+		if = {
+			limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 0 } NOT = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } } } }
+			2914 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_4_or_higher
+					DA_has_dig_level_4_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_2914 = yes
+		}
+		if = {
+			limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } NOT = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } } } }
+			2914 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_6_or_higher
+					DA_has_dig_level_6_or_higher = yes
+				}
+			}
+			2914 = { custom_trigger_tooltip = { tooltip = DA_MV_find2_tt has_province_flag = DA_Gulan_exp2 } }
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_2914 = yes
+		}
+		if = {
+			limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } NOT = { has_great_project = { type = DA_Magistrates_Vault tier = 3 } } } }
+			2914 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_8_or_higher
+					DA_has_dig_level_8_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_2914 = yes
+		}
+	}
+	effect = {
+		hidden_effect = { DA_WW_refresh_2914 = yes }
+		if = {
+			limit = {
+				2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 0 } NOT = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } } }
+				DA_WW_can_pay_2914 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_2914 = yes
+			custom_tooltip = DA_MV_tier_1_unlock_tt
+		}
+		else_if = {
+			limit = {
+				2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } NOT = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } } }
+				DA_WW_can_pay_2914 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_2914 = yes
+			custom_tooltip = DA_MV_tier_2_unlock_tt
+		}
+		else_if = {
+			limit = {
+				2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } NOT = { has_great_project = { type = DA_Magistrates_Vault tier = 3 } } }
+				DA_WW_can_pay_2914 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_2914 = yes
+			custom_tooltip = DA_MV_tier_3_unlock_tt
+		}
+	}
+}
+# END DA_WW
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_header_vault
+	potential = { always = yes }
+}
+
+custom_button = { # frame 3 before tier I
+	name = DA_Magistrates_Vault_button_deposit_500
+	tooltip = DA_MV_button_deposit_500_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_MV_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_MV_needs_tier_1_tt DA_MV_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_MV_room_500_tt check_variable = { which = DA_MV_room value = 500 } }
+		treasury = 500
+	}
+	effect = {
+		DA_MV_deposit_500 = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_button_deposit_500_text
+	potential = { always = yes }
+	tooltip = DA_MV_button_deposit_500_tt
+}
+
+custom_button = { # frame 3 before tier I
+	name = DA_Magistrates_Vault_button_deposit_2000
+	tooltip = DA_MV_button_deposit_2000_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_MV_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_MV_needs_tier_1_tt DA_MV_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_MV_room_2000_tt check_variable = { which = DA_MV_room value = 2000 } }
+		treasury = 2000
+	}
+	effect = {
+		DA_MV_deposit_2000 = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_button_deposit_2000_text
+	potential = { always = yes }
+	tooltip = DA_MV_button_deposit_2000_tt
+}
+
+custom_button = { # frame 3 before tier I
+	name = DA_Magistrates_Vault_button_withdraw_500
+	tooltip = DA_MV_button_withdraw_500_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_MV_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_MV_needs_tier_1_tt DA_MV_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_MV_holds_500_tt check_variable = { which = DA_MV_gold value = 500 } }
+	}
+	effect = {
+		DA_MV_withdraw_500 = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_button_withdraw_500_text
+	potential = { always = yes }
+	tooltip = DA_MV_button_withdraw_500_tt
+}
+
+custom_button = { # frame 3 before tier I
+	name = DA_Magistrates_Vault_button_withdraw_2000
+	tooltip = DA_MV_button_withdraw_2000_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_MV_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = { tooltip = DA_MV_needs_tier_1_tt DA_MV_at_tier_1 = yes }
+		custom_trigger_tooltip = { tooltip = DA_MV_holds_2000_tt check_variable = { which = DA_MV_gold value = 2000 } }
+	}
+	effect = {
+		DA_MV_withdraw_2000 = yes
+	}
+}
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_button_withdraw_2000_text
+	potential = { always = yes }
+	tooltip = DA_MV_button_withdraw_2000_tt
+}
+
+custom_text_box = {
+	name = DA_Magistrates_Vault_info_text
+	potential = { always = yes }
+	tooltip = DA_Magistrates_Vault_info_text_tt
+}
+

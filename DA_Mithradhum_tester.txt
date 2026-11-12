@@ -1,0 +1,74 @@
+# Amldavhad Training Facility tester. In the console: run DA_Mithradhum_tester.txt
+# It runs as the player's country. Own Mithradhum (4236) first. Each block jumps to one point of the chain:
+# remove the "#" in front of the lines of ONE block, save, and run the file.
+# The tiers of the facility also need dig level 4, 6 and 8 in Mithradhum; the tester does not dig.
+
+# --- A. The yards are found and the facility raised at tier 0, with what tier I costs (active by default)
+4236 = { set_province_flag = DA_Mithril_workshop_found add_great_project = { type = The_Dwarven_Workshop instant = yes } }
+add_treasury = 1600
+change_variable = { which = DA_alchemy_reagents_total value = 10 }
+change_variable = { which = DA_enchanted_building_material_total value = 10 }
+change_variable = { which = DA_arcane_metal_total value = 10 }
+
+# --- B. The three finds, one after the other (the yards, the Oath Hall, the Struck Name)
+# 4236 = { province_event = { id = DA_ADK_explore.104 } }
+# 4236 = { province_event = { id = DA_ADK_explore.238 days = 1 } }
+# 4236 = { province_event = { id = DA_ADK_explore.239 days = 2 } }
+
+# --- C. The facility at tier I: the five single regimens; the first class enters the yards at the next month
+# 4236 = { set_province_flag = DA_Mithril_workshop_found set_province_flag = DA_Mithradhum_exp2 add_great_project = { type = The_Dwarven_Workshop instant = yes } add_great_project_tier = { type = The_Dwarven_Workshop tier = 1 } }
+# add_treasury = 5000
+# add_mil_power = 300
+# change_variable = { ancientDwarvenKnowledge = 20 }
+
+# --- D. The facility at tier II: the company regimens and the Roll of the Shields
+# 4236 = { set_province_flag = DA_Mithril_workshop_found set_province_flag = DA_Mithradhum_exp2 add_great_project = { type = The_Dwarven_Workshop instant = yes } add_great_project_tier = { type = The_Dwarven_Workshop tier = 2 } }
+# add_treasury = 5000
+# add_mil_power = 300
+# change_variable = { ancientDwarvenKnowledge = 20 }
+
+# --- E. The facility at tier III with the Struck Name found: the Rite, the armoury; the ruling comes within a month
+# 4236 = { set_province_flag = DA_Mithril_workshop_found set_province_flag = DA_Mithradhum_exp2 set_province_flag = DA_Mithradhum_exp3 add_great_project = { type = The_Dwarven_Workshop instant = yes } add_great_project_tier = { type = The_Dwarven_Workshop tier = 3 } }
+# add_treasury = 5000
+# add_mil_power = 300
+# change_variable = { ancientDwarvenKnowledge = 20 }
+
+# --- F. The change of regimen that is under way takes hold at the next month
+# set_variable = { which = DA_AT_retrain_months value = 1 }
+
+# --- G. The class passes out at the next month (the facility must be at tier I)
+# set_country_flag = DA_AT_yards_open
+# set_variable = { which = DA_AT_class_months value = 1 }
+
+# --- H. A class stands on the Roll: the next captain is free and the first of his class
+# set_country_flag = DA_AT_class_on_roll
+
+# --- I. The Roll has rested long enough
+# remove_country_modifier = DA_AT_captain_called
+
+# --- J. Mithril for every step of the armoury (the game counts it again each month, so look at the page and the alloy forge at once)
+# set_variable = { which = DA_Metal_owned_Mithril value = 125 }
+
+# --- K. The reports of the tiers and the follow-ups, one after the other
+# country_event = { id = DA_Mithradum_event.10 }
+# country_event = { id = DA_Mithradum_event.2 days = 1 }
+# country_event = { id = DA_Mithradum_event.3 days = 2 }
+# country_event = { id = DA_Mithradum_event.4 days = 3 }
+# country_event = { id = DA_Mithradum_event.11 days = 4 }
+# country_event = { id = DA_Mithradum_event.12 days = 5 }
+# country_event = { id = DA_Mithradum_event.13 days = 6 }
+# country_event = { id = DA_Mithradum_event.14 days = 7 }
+
+# --- L. The book is taught (no event): the Rite is kinder. Then the same with the name left struck
+# 4236 = { set_province_flag = DA_Mithradhum_exp3 set_province_flag = DA_AT_book_taught }
+# # 4236 = { set_province_flag = DA_Mithradhum_exp3 set_province_flag = DA_AT_name_struck }
+
+# --- M. Forget the regimen, the change under way, the class and the Roll; the wonder and the finds stay
+# DA_AT_stand_down = yes
+# clr_country_flag = DA_AT_ever_drilled
+# clr_country_flag = DA_AT_yards_open
+# clr_country_flag = DA_AT_class_on_roll
+# clr_country_flag = DA_AT_first_captain_due
+# set_variable = { which = DA_AT_class_months value = 0 }
+# remove_country_modifier = DA_AT_captain_called
+

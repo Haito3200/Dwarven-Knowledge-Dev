@@ -1,0 +1,158 @@
+# Verkal Kozenad: the Chained Palace (12 November 2026).
+# Written by Claude files/tools/verkal_kozenad_2026-11-12/gen.py and installed by apply_verkal_kozenad_2026-11-12.py; hand-owned after that.
+# Note: Claude files/18 - Verkal Kozenad.md
+
+# Country scope: the player who owns the hold, once a month (common/on_actions/DA_Verkal_Kozenad_on_actions.txt).
+# Every step that has to wait is sent from here, so that a step is never lost to a rebel army elsewhere, to a company that
+# happens to be below, or to a change of owner.
+DA_VK_monthly = {
+	4056 = {
+		# the report of the first horde, once the hold is clear
+		if = {
+			limit = {
+				has_province_flag = DA_Verkal_koz_menace_due
+				had_province_flag = { flag = DA_Verkal_koz_menace_due days = 20 }
+				DA_VK_hold_clear = yes
+			}
+			clr_province_flag = DA_Verkal_koz_menace_due
+			owner = { country_event = { id = DA_Verkal_Kozenad_event.1 } }
+		}
+		# the report of the second horde, never before the first has been read
+		if = {
+			limit = {
+				has_province_flag = DA_Verkal_koz_palace_due
+				has_province_flag = DA_Verkal_koz_menace_told
+				NOT = { has_province_flag = DA_Verkal_koz_menace_due }
+				had_province_flag = { flag = DA_Verkal_koz_palace_due days = 20 }
+				DA_VK_hold_clear = yes
+			}
+			clr_province_flag = DA_Verkal_koz_palace_due
+			owner = { country_event = { id = DA_Verkal_Kozenad_event.2 } }
+		}
+		# the risings: every 60 months of quiet
+		if = {
+			limit = {
+				DA_VK_king_awake = yes
+				DA_VK_hold_clear = yes
+			}
+			change_variable = { which = DA_VK_quiet_months value = 1 }
+			if = {
+				limit = { check_variable = { which = DA_VK_quiet_months value = 60 } }
+				set_variable = { which = DA_VK_quiet_months value = 0 }
+				province_event = { id = DA_Verkal_Kozenad_event.3 }
+			}
+		}
+		# after the victory: the throne, the strongroom, the ghosts
+		if = {
+			limit = {
+				had_province_flag = { flag = DA_Verkal_koz_king_dead days = 30 }
+				NOT = { has_province_flag = DA_Verkal_koz_throne_sent }
+			}
+			set_province_flag = DA_Verkal_koz_throne_sent
+			owner = { country_event = { id = DA_Verkal_Kozenad_event.6 } }
+		}
+		if = {
+			limit = {
+				had_province_flag = { flag = DA_Verkal_koz_throne_done days = 365 }
+				NOT = { has_province_flag = DA_Verkal_koz_strongroom_sent }
+			}
+			set_province_flag = DA_Verkal_koz_strongroom_sent
+			owner = { country_event = { id = DA_Verkal_Kozenad_event.7 } }
+		}
+		if = { # only if no company can meet them any more: the tenth deep is charted (a company that finds them sends DA_ADK_explore.206)
+			limit = {
+				has_province_flag = DA_Verkal_koz_throne_done
+				had_province_flag = { flag = DA_Verkal_koz_king_dead days = 180 }
+				has_province_flag = DA_looked_dig_adk_10
+				NOT = { has_province_flag = DA_Verkal_koz_ghosts_met }
+				NOT = { has_province_flag = DA_Verkal_koz_ghosts_sent }
+			}
+			set_province_flag = DA_Verkal_koz_ghosts_sent
+			province_event = { id = DA_Verkal_Kozenad_event.8 }
+		}
+	}
+	# the way to the palace was found under a former owner
+	if = {
+		limit = {
+			4056 = { has_province_flag = DA_Verkal_koz_palace_found }
+			NOT = { has_country_flag = DA_can_duel_lich }
+		}
+		set_country_flag = DA_can_duel_lich
+	}
+}
+
+# Country scope, any country: the registry and the counsel of the ghosts belong to whoever owns the hold.
+DA_VK_sync = {
+	if = {
+		limit = {
+			owns = 4056
+			4056 = { has_province_flag = DA_Verkal_koz_registry_kept }
+			NOT = { has_country_modifier = DA_VK_opal_registry }
+		}
+		add_country_modifier = {
+			name = DA_VK_opal_registry
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_VK_opal_registry
+			NOT = { owns = 4056 }
+		}
+		remove_country_modifier = DA_VK_opal_registry
+	}
+	if = {
+		limit = {
+			owns = 4056
+			4056 = { has_province_flag = DA_Verkal_koz_ghosts_counsel }
+			NOT = { has_country_modifier = DA_Ver_koz_ancestor_ghosts }
+		}
+		add_country_modifier = {
+			name = DA_Ver_koz_ancestor_ghosts
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_Ver_koz_ancestor_ghosts
+			NOT = { owns = 4056 }
+		}
+		remove_country_modifier = DA_Ver_koz_ancestor_ghosts
+	}
+}
+
+# Province scope: the two answers to the ghosts (DA_ADK_explore.206 and DA_Verkal_Kozenad_event.8 offer the same two).
+DA_VK_ghosts_wards = {
+	add_permanent_province_modifier = {
+		name = DA_VK_wardwrights_wards
+		duration = -1
+	}
+	DA_VK_ghosts_thanks = yes
+}
+
+DA_VK_ghosts_counsel = {
+	owner = {
+		add_country_modifier = {
+			name = DA_Ver_koz_ancestor_ghosts
+			duration = -1
+		}
+	}
+	custom_tooltip = DA_VK_ghosts_counsel_tt
+	hidden_effect = {
+		set_province_flag = DA_Verkal_koz_ghosts_counsel
+	}
+	DA_VK_ghosts_thanks = yes
+}
+
+DA_VK_ghosts_thanks = {
+	if = {
+		limit = { has_province_flag = DA_Verkal_koz_king_entombed }
+		custom_tooltip = DA_VK_ghosts_thanks_tt
+		hidden_effect = {
+			owner = { change_variable = { ancientDwarvenKnowledge = 10 } }
+		}
+	}
+	hidden_effect = {
+		set_province_flag = DA_Verkal_koz_ghosts_met
+	}
+}

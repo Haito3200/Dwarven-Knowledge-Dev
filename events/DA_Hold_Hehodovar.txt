@@ -1,0 +1,553 @@
+# Hehodovar: the Builders' Guildhall. Written on 12 November 2026 ("Claude files/tools/hehodovar_2026-11-12/gen.py");
+# hand-owned after the first installation. The finds are DA_ADK_explore.106, .236 and .237 (events/DA_Exploration_Outcomes.txt).
+#   .10        the first inventory, five days after the house is found
+#   .2 .3      the reports of tiers I and II, thirty days after the works end (wonder works hooks)
+#   .4         tier III with the Thirteenth Room found: read the book or shelve it (DA_BG_monthly asks once)
+#   .11 .12    one and three years after tier I;  .13  one year after tier II;  .14  ten years after tier III
+#   .20        hidden: the Thinkers' Party is held (DA_BG_hold_party rolls the ideas and the sequel)
+#   .21        the report of the party;  .30 .31 .32  its sequels, three days later
+#   .40        a work of the Guild is finished (DA_BG_finish_work)
+#   .50        a reader of the Thirteen Stages stays at the window (rolled at a party, once the book is read)
+
+namespace = DA_Hehodovar_event
+
+country_event = { # the first inventory
+	id = DA_Hehodovar_event.10
+	title = "DA_Hehodovar_event.10.t"
+	desc = "DA_Hehodovar_event.10.d"
+	picture = DA_Builders_Guildhall_benches_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.10.a"
+		custom_tooltip = DA_Hehodovar_event.10.tt
+	}
+}
+
+country_event = { # tier I: the benches lit
+	id = DA_Hehodovar_event.2
+	title = "DA_Hehodovar_event.2.t"
+	desc = "DA_Hehodovar_event.2.d"
+	picture = DA_Builders_Guildhall_benches_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.2.a"
+		custom_tooltip = DA_BG_tier_1_unlock_tt
+	}
+}
+
+country_event = { # tier II: the floor uncovered
+	id = DA_Hehodovar_event.3
+	title = "DA_Hehodovar_event.3.t"
+	desc = "DA_Hehodovar_event.3.d"
+	picture = DA_Builders_Guildhall_floor_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.3.a"
+		custom_tooltip = DA_BG_tier_2_unlock_tt
+	}
+}
+
+country_event = { # tier III: read the book or shelve it
+	id = DA_Hehodovar_event.4
+	title = "DA_Hehodovar_event.4.t"
+	desc = "DA_Hehodovar_event.4.d"
+	picture = DA_Builders_Guildhall_room_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+		NOT = { DA_BG_stages_ruled = yes }
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.4.a"
+		custom_tooltip = DA_BG_gain_10_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
+		custom_tooltip = DA_Hehodovar_event.4.a.tt
+		hidden_effect = {
+			4078 = { set_province_flag = DA_BG_stages_read }
+			clr_country_flag = DA_BG_ruling_asked
+		}
+	}
+	option = {
+		name = "DA_Hehodovar_event.4.b"
+		add_stability = 1
+		add_prestige = 25
+		4078 = {
+			add_permanent_province_modifier = { name = DA_BG_quiet_room duration = -1 }
+		}
+		custom_tooltip = DA_Hehodovar_event.4.b.tt
+		hidden_effect = {
+			4078 = { set_province_flag = DA_BG_stages_shelved }
+			clr_country_flag = DA_BG_ruling_asked
+		}
+	}
+}
+
+country_event = { # one year after tier I: the Work Curse
+	id = DA_Hehodovar_event.11
+	title = "DA_Hehodovar_event.11.t"
+	desc = "DA_Hehodovar_event.11.d"
+	picture = DA_Builders_Guildhall_benches_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.11.a"
+		4078 = {
+			add_base_production = 1
+		}
+	}
+	option = {
+		name = "DA_Hehodovar_event.11.b"
+		add_country_modifier = { name = DA_BG_cursed_crews duration = 3650 }
+	}
+}
+
+country_event = { # three years after tier I: the Banjeay seal
+	id = DA_Hehodovar_event.12
+	title = "DA_Hehodovar_event.12.t"
+	desc = "DA_Hehodovar_event.12.d"
+	picture = DA_Builders_Guildhall_vaults_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.12.a"
+		add_country_modifier = { name = DA_BG_sealed_decrees duration = 7300 }
+	}
+	option = {
+		name = "DA_Hehodovar_event.12.b"
+		add_stability = 1
+	}
+}
+
+country_event = { # one year after tier II: the bearings of King Bruenor the Dizzy
+	id = DA_Hehodovar_event.13
+	title = "DA_Hehodovar_event.13.t"
+	desc = "DA_Hehodovar_event.13.d"
+	picture = DA_Builders_Guildhall_floor_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.13.a"
+		custom_tooltip = DA_BG_gain_4_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+	}
+	option = {
+		name = "DA_Hehodovar_event.13.b"
+		add_treasury = 200
+	}
+}
+
+country_event = { # ten years after tier III: the Standing in stone
+	id = DA_Hehodovar_event.14
+	title = "DA_Hehodovar_event.14.t"
+	desc = {
+		trigger = { 4078 = { has_province_flag = DA_BG_stages_read } }
+		desc = "DA_Hehodovar_event.14.d.read"
+	}
+	desc = {
+		trigger = { 4078 = { has_province_flag = DA_BG_stages_shelved } }
+		desc = "DA_Hehodovar_event.14.d.shelved"
+	}
+	desc = {
+		trigger = { NOT = { DA_BG_stages_ruled = yes } }
+		desc = "DA_Hehodovar_event.14.d"
+	}
+	picture = DA_Builders_Guildhall_hall_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.14.a"
+		add_stability = 1
+		add_prestige = 20
+	}
+	option = {
+		name = "DA_Hehodovar_event.14.b"
+		custom_tooltip = DA_BG_gain_10_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
+	}
+}
+
+# The party itself. Hidden, because its rolls must be made by an event: a random_list reached from a button or a pulse effect
+# repeats itself. It borrows the title and text keys of .21 and shows nothing.
+country_event = { # hidden: the Thinkers' Party is held
+	id = DA_Hehodovar_event.20
+	title = "DA_Hehodovar_event.21.t"
+	desc = "DA_Hehodovar_event.21.d.beer"
+	picture = DA_Builders_Guildhall_vaults_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		owns = 4078
+		DA_BG_guildhall_at_tier_1 = yes
+	}
+	immediate = {
+		DA_BG_hold_party = yes
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.21.a"
+	}
+}
+
+country_event = { # the report of the Thinkers' Party
+	id = DA_Hehodovar_event.21
+	title = "DA_Hehodovar_event.21.t"
+	desc = {
+		trigger = { has_country_flag = DA_BG_party_dry }
+		desc = "DA_Hehodovar_event.21.d.none"
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_BG_party_dry } has_country_flag = DA_BG_poured_reserve }
+		desc = "DA_Hehodovar_event.21.d.reserve"
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_BG_party_dry } has_country_flag = DA_BG_poured_ale }
+		desc = "DA_Hehodovar_event.21.d.ale"
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_BG_party_dry } NOT = { has_country_flag = DA_BG_poured_ale } NOT = { has_country_flag = DA_BG_poured_reserve } }
+		desc = "DA_Hehodovar_event.21.d.beer"
+	}
+	picture = DA_Builders_Guildhall_vaults_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Hehodovar_event.21.a"
+		if = {
+			limit = { has_country_flag = DA_BG_poured_ale }
+			custom_tooltip = DA_BG_poured_ale_tt
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_poured_reserve }
+			custom_tooltip = DA_BG_poured_reserve_tt
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_cement }
+			custom_tooltip = DA_BG_new_cement_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_cement }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_shovel }
+			custom_tooltip = DA_BG_new_shovel_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_shovel }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_chair }
+			custom_tooltip = DA_BG_new_chair_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_chair }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_gate }
+			custom_tooltip = DA_BG_new_gate_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_gate }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_cheese }
+			custom_tooltip = DA_BG_new_cheese_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_cheese }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_rampart }
+			custom_tooltip = DA_BG_new_rampart_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_rampart }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_coal }
+			custom_tooltip = DA_BG_new_coal_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_coal }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_boots }
+			custom_tooltip = DA_BG_new_boots_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_boots }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_paint }
+			custom_tooltip = DA_BG_new_paint_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_paint }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_desk }
+			custom_tooltip = DA_BG_new_desk_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_desk }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_letter }
+			custom_tooltip = DA_BG_new_letter_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_letter }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_new_observer }
+			custom_tooltip = DA_BG_new_observer_tt
+			hidden_effect = { clr_country_flag = DA_BG_new_observer }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_party_dry }
+			add_prestige = 5
+		}
+		custom_tooltip = DA_BG_party_next_tt
+	}
+}
+
+country_event = { # after a party: a motion was carried
+	id = DA_Hehodovar_event.30
+	title = "DA_Hehodovar_event.30.t"
+	desc = "DA_Hehodovar_event.30.d"
+	picture = DA_Builders_Guildhall_vaults_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.30.a"
+		add_treasury = -150
+	}
+	option = {
+		name = "DA_Hehodovar_event.30.b"
+		add_prestige = -5
+	}
+}
+
+country_event = { # after a party: the statue has moved
+	id = DA_Hehodovar_event.31
+	title = "DA_Hehodovar_event.31.t"
+	desc = "DA_Hehodovar_event.31.d"
+	picture = DA_Builders_Guildhall_vaults_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.31.a"
+		add_treasury = -100
+	}
+	option = {
+		name = "DA_Hehodovar_event.31.b"
+		custom_tooltip = DA_BG_gain_2_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 2 } }
+		4078 = {
+			add_province_modifier = { name = DA_BG_guild_grumbling duration = 1825 }
+		}
+	}
+}
+
+country_event = { # after a party: the quiet morning
+	id = DA_Hehodovar_event.32
+	title = "DA_Hehodovar_event.32.t"
+	desc = "DA_Hehodovar_event.32.d"
+	picture = DA_Builders_Guildhall_benches_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.32.a"
+		4078 = {
+			add_base_tax = 1
+		}
+		add_prestige = -5
+	}
+	option = {
+		name = "DA_Hehodovar_event.32.b"
+		add_treasury = -100
+		4078 = {
+			add_base_tax = 1
+		}
+	}
+}
+
+country_event = { # a work of the Guild is finished
+	id = DA_Hehodovar_event.40
+	title = "DA_Hehodovar_event.40.t"
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_cement }
+		desc = "DA_Hehodovar_event.40.d.cement"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_shovel }
+		desc = "DA_Hehodovar_event.40.d.shovel"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_chair }
+		desc = "DA_Hehodovar_event.40.d.chair"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_gate }
+		desc = "DA_Hehodovar_event.40.d.gate"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_cheese }
+		desc = "DA_Hehodovar_event.40.d.cheese"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_rampart }
+		desc = "DA_Hehodovar_event.40.d.rampart"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_coal }
+		desc = "DA_Hehodovar_event.40.d.coal"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_boots }
+		desc = "DA_Hehodovar_event.40.d.boots"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_paint }
+		desc = "DA_Hehodovar_event.40.d.paint"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_desk }
+		desc = "DA_Hehodovar_event.40.d.desk"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_letter }
+		desc = "DA_Hehodovar_event.40.d.letter"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_BG_finished_observer }
+		desc = "DA_Hehodovar_event.40.d.observer"
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_BG_finished_cement } NOT = { has_country_flag = DA_BG_finished_shovel } NOT = { has_country_flag = DA_BG_finished_chair } NOT = { has_country_flag = DA_BG_finished_gate } NOT = { has_country_flag = DA_BG_finished_cheese } NOT = { has_country_flag = DA_BG_finished_rampart } NOT = { has_country_flag = DA_BG_finished_coal } NOT = { has_country_flag = DA_BG_finished_boots } NOT = { has_country_flag = DA_BG_finished_paint } NOT = { has_country_flag = DA_BG_finished_desk } NOT = { has_country_flag = DA_BG_finished_letter } NOT = { has_country_flag = DA_BG_finished_observer } }
+		desc = "DA_Hehodovar_event.40.d"
+	}
+	picture = DA_Builders_Guildhall_benches_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Hehodovar_event.40.a"
+		if = {
+			limit = { has_country_flag = DA_BG_finished_cement }
+			custom_tooltip = DA_BG_finished_cement_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_cement }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_shovel }
+			custom_tooltip = DA_BG_finished_shovel_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_shovel }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_chair }
+			custom_tooltip = DA_BG_finished_chair_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_chair }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_gate }
+			4078 = {
+				add_permanent_province_modifier = { name = DA_BG_turning_gate duration = -1 }
+			}
+			hidden_effect = { clr_country_flag = DA_BG_finished_gate }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_cheese }
+			custom_tooltip = DA_BG_finished_cheese_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_cheese }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_rampart }
+			custom_tooltip = DA_BG_finished_rampart_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_rampart }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_coal }
+			custom_tooltip = DA_BG_gain_20_metal
+			hidden_effect = { change_variable = { which = DA_arcane_metal_total value = 20 } }
+			custom_tooltip = DA_BG_gain_3_ADK
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 3 } }
+			hidden_effect = { clr_country_flag = DA_BG_finished_coal }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_boots }
+			custom_tooltip = DA_BG_finished_boots_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_boots }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_paint }
+			custom_tooltip = DA_BG_finished_paint_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_paint }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_desk }
+			custom_tooltip = DA_BG_finished_desk_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_desk }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_letter }
+			custom_tooltip = DA_BG_finished_letter_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_letter }
+		}
+		if = {
+			limit = { has_country_flag = DA_BG_finished_observer }
+			custom_tooltip = DA_BG_finished_observer_tt
+			hidden_effect = { clr_country_flag = DA_BG_finished_observer }
+		}
+	}
+}
+
+country_event = { # a reader of the Thirteen Stages stays at the window
+	id = DA_Hehodovar_event.50
+	title = "DA_Hehodovar_event.50.t"
+	desc = "DA_Hehodovar_event.50.d"
+	picture = DA_Builders_Guildhall_room_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4078
+		4078 = { has_province_flag = DA_BG_stages_read }
+	}
+
+	option = {
+		name = "DA_Hehodovar_event.50.a"
+		add_treasury = -100
+	}
+	option = {
+		name = "DA_Hehodovar_event.50.b"
+		custom_tooltip = DA_BG_gain_2_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 2 } }
+		4078 = {
+			add_province_modifier = { name = DA_BG_guild_grumbling duration = 1825 }
+		}
+	}
+}
+

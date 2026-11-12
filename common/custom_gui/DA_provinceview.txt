@@ -879,84 +879,81 @@ custom_button = { #Button for the UI when building UI is closed
 	}
 }
 
-custom_button = { #Button for the UI when building UI is closed
+# BEGIN DA_FIREGLASS_FORGE (apply_fireglass_forge_2026-11-12.py): the two flame buttons of the province window
+custom_button = { # a vein of the Fireglass Forge is opened here (ROOT: the province, FROM: the country that clicks)
 	name = DA_Magma_Vein_Province_Button
-	tooltip = DA_Magma_Vein_Province_Button
+	tooltip = DA_FG_vein_button_tt
 	potential = {
 		region = serpentreach_region
 	}
 	trigger = {
-		NOT = { has_province_modifier = DA_unregulated_magma_vein }
-		NOT = { has_province_modifier = DA_regulated_magma_vein }
 		4039 = {
 			owned_by = FROM
-			has_great_project = {
-				type = DA_Magma_Forge
-				tier = 1
-			}
 		}
-		owner = {
-			tag = FROM
-			DA_Magma_Level_required = {
-				amount = 60
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 5
-			}
-			custom_trigger_tooltip = {
-				tooltip = DA_Wonder_unlocked_this_ability_tt
-				has_country_flag = DA_MF_can_create_regulated_veins
-			}
+		owned_by = FROM
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_1_tt
+			FROM = { DA_FG_at_tier_1 = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_no_vein_here_tt
+			NOT = { has_province_modifier = DA_unregulated_magma_vein }
+			NOT = { has_province_modifier = DA_regulated_magma_vein }
+		}
+		FROM = {
+			DA_Magma_Level_required = { amount = 60 }
+			DA_enchanted_building_material_total_required = { amount = 5 }
+			treasury = 350
 		}
 	}
 	effect = {
-		owner = {
-			DA_Magma_Level_spend = {
-				amount = 60
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 5
-			}
+		FROM = {
+			DA_Magma_Level_spend = { amount = 60 }
+			DA_enchanted_building_material_spend = { amount = 5 }
 			add_treasury = -350
 		}
-		add_permanent_province_modifier = {
-			name = DA_regulated_magma_vein
-			duration = -1
+		tooltip = { add_permanent_province_modifier = { name = DA_regulated_magma_vein duration = -1 } }
+		if = {
+			limit = { FROM = { NOT = { DA_FG_at_tier_2 = yes } } }
+			custom_tooltip = DA_FG_vein_wards_tt
 		}
+		hidden_effect = { DA_FG_form_vein = yes FROM = { DA_FG_count_veins = yes } }
 	}
 }
 
-custom_button = { #Button for the UI when building UI is closed
+custom_button = { # the works over a vein: a workshop, a moat, a road (event DA_Magma_forge_event.200)
 	name = DA_Magma_Vein_Province_Button_2
-	tooltip = DA_Magma_Vein_Province_Button_2
+	tooltip = DA_FG_works_button_tt
 	potential = {
 		region = serpentreach_region
 	}
 	trigger = {
 		4039 = {
 			owned_by = FROM
-			has_great_project = {
-				type = DA_Magma_Forge
-				tier = 3
-			}
 		}
-		owner = {
-			tag = FROM
-			DA_Magma_Level_required = {
-				amount = 40
+		owned_by = FROM
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_3_tt
+			FROM = { DA_FG_at_tier_3 = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_vein_here_tt
+			has_province_modifier = DA_regulated_magma_vein
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_work_missing_tt
+			OR = {
+				NOT = { has_province_modifier = DA_Magma_Building_Workshop }
+				NOT = { has_province_modifier = DA_Magma_Building_Moat }
+				AND = { has_terrain = dwarven_road NOT = { has_province_modifier = DA_Magma_Building_Road } }
 			}
-			DA_enchanted_building_material_total_required = {
-				amount = 5
-			}
-			treasury = 500
 		}
 	}
 	effect = {
-		province_event = {
-			id = DA_Magma_forge_event.200
-		}
+		province_event = { id = DA_Magma_forge_event.200 }
 	}
 }
+# END DA_FIREGLASS_FORGE
 
 custom_button = { #Button for the UI when building UI is closed
 	name = DA_Meteorite_Summoning_Province_Button
@@ -1205,26 +1202,18 @@ custom_button = { #Button for the UI when targeting enemy provinces
 			}
 			custom_trigger_tooltip = {
 				tooltip = DA_cannon_range_t2_tt
-				from = {
-					any_owned_province = {
-						has_great_project = {
-							type = DA_Earth_Shatterer
-							tier = 2
-						}
-					}
+				OR = { # the dragonfly of the Amber Gallery (DA_ADK_explore.283) reaches one tier further
+					from = { any_owned_province = { has_great_project = { type = DA_Earth_Shatterer tier = 2 } } }
+					4247 = { has_province_flag = DA_Kanzad_amber_range }
 				}
 			}
 		}
 		else = {
 			custom_trigger_tooltip = {
 				tooltip = DA_cannon_range_t3_tt
-				from = {
-					any_owned_province = {
-						has_great_project = {
-							type = DA_Earth_Shatterer
-							tier = 3
-						}
-					}
+				OR = { # the dragonfly of the Amber Gallery (DA_ADK_explore.283) reaches one tier further
+					from = { any_owned_province = { has_great_project = { type = DA_Earth_Shatterer tier = 3 } } }
+					AND = { 4247 = { has_province_flag = DA_Kanzad_amber_range } from = { any_owned_province = { has_great_project = { type = DA_Earth_Shatterer tier = 2 } } } }
 				}
 			}
 		}

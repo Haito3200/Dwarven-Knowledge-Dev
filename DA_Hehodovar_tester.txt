@@ -1,0 +1,90 @@
+# Builders' Guildhall tester. In the console: run DA_Hehodovar_tester.txt
+# It runs as the player's country. Own Hehodovar (4078) first. Each block jumps to one point of the chain:
+# remove the "#" in front of the lines of ONE block, save, and run the file.
+# The tiers of the Guildhall also need dig level 4, 6 and 8 in Hehodovar; the tester does not dig.
+
+# --- A. The house is found and the Guildhall raised at tier 0, with what tier I costs (active by default)
+4078 = { set_province_flag = DA_Hehogrim_home_found add_great_project = { type = DA_Builders_Guildhall instant = yes } }
+add_treasury = 1600
+change_variable = { which = DA_alchemy_reagents_total value = 10 }
+change_variable = { which = DA_enchanted_building_material_total value = 10 }
+change_variable = { which = DA_arcane_metal_total value = 10 }
+
+# --- B. The three finds, one after the other (the house, the Pattern Floor, the Thirteenth Room)
+# 4078 = { province_event = { id = DA_ADK_explore.106 } }
+# 4078 = { province_event = { id = DA_ADK_explore.236 days = 1 } }
+# 4078 = { province_event = { id = DA_ADK_explore.237 days = 2 } }
+
+# --- C. The Guildhall at tier I: the cellar (Small Beer, Guild Ale) and the Board
+# 4078 = { set_province_flag = DA_Hehogrim_home_found set_province_flag = DA_Hehodovar_exp2 add_great_project = { type = DA_Builders_Guildhall instant = yes } add_great_project_tier = { type = DA_Builders_Guildhall tier = 1 } }
+# add_treasury = 5000
+
+# --- D. The Guildhall at tier II: Hehogrim's Reserve, and Runic Fortifications IV in Projects and Research
+# 4078 = { set_province_flag = DA_Hehogrim_home_found set_province_flag = DA_Hehodovar_exp2 add_great_project = { type = DA_Builders_Guildhall instant = yes } add_great_project_tier = { type = DA_Builders_Guildhall tier = 2 } }
+# add_treasury = 5000
+
+# --- E. The Guildhall at tier III with the Thirteenth Room found: the ruling comes within a month
+# 4078 = { set_province_flag = DA_Hehogrim_home_found set_province_flag = DA_Hehodovar_exp2 set_province_flag = DA_Hehodovar_exp3 add_great_project = { type = DA_Builders_Guildhall instant = yes } add_great_project_tier = { type = DA_Builders_Guildhall tier = 3 } }
+# add_treasury = 5000
+
+# --- F. Hold a Thinkers' Party now (the Guildhall must be at tier I), with the cellar that is chosen
+# country_event = { id = DA_Hehodovar_event.20 }
+
+# --- G. Every idea on the Board at once (the Observer too)
+# set_country_flag = DA_BG_known_cement
+# set_country_flag = DA_BG_known_shovel
+# set_country_flag = DA_BG_known_chair
+# set_country_flag = DA_BG_known_gate
+# set_country_flag = DA_BG_known_cheese
+# set_country_flag = DA_BG_known_rampart
+# set_country_flag = DA_BG_known_coal
+# set_country_flag = DA_BG_known_boots
+# set_country_flag = DA_BG_known_paint
+# set_country_flag = DA_BG_known_desk
+# set_country_flag = DA_BG_known_letter
+# set_country_flag = DA_BG_known_observer
+
+# --- H. The work on the benches is finished at the next month
+# set_variable = { which = DA_BG_work_months value = 1 }
+
+# --- I. The next party is due at the next Bloomsdawn
+# set_variable = { which = DA_BG_party_months value = 0 }
+
+# --- J. The reports of the tiers and the follow-ups, one after the other
+# country_event = { id = DA_Hehodovar_event.10 }
+# country_event = { id = DA_Hehodovar_event.2 days = 1 }
+# country_event = { id = DA_Hehodovar_event.3 days = 2 }
+# country_event = { id = DA_Hehodovar_event.11 days = 3 }
+# country_event = { id = DA_Hehodovar_event.12 days = 4 }
+# country_event = { id = DA_Hehodovar_event.13 days = 5 }
+# country_event = { id = DA_Hehodovar_event.14 days = 6 }
+
+# --- K. The three sequels of a party, and the reader at the window (the reader needs the book read: block L first)
+# country_event = { id = DA_Hehodovar_event.30 days = 0 }
+# country_event = { id = DA_Hehodovar_event.31 days = 1 }
+# country_event = { id = DA_Hehodovar_event.32 days = 2 }
+# country_event = { id = DA_Hehodovar_event.50 days = 3 }
+
+# --- L. The book is read (no event): the Observer can be proposed
+# 4078 = { set_province_flag = DA_Hehodovar_exp3 set_province_flag = DA_BG_stages_read }
+
+# --- M. Forget everything the Guild made for us (ideas, works, cellar, party count); the wonder and the finds stay
+# clr_country_flag = DA_BG_known_cement clr_country_flag = DA_BG_work_cement clr_country_flag = DA_BG_done_cement
+# clr_country_flag = DA_BG_known_shovel clr_country_flag = DA_BG_work_shovel clr_country_flag = DA_BG_done_shovel
+# clr_country_flag = DA_BG_known_chair clr_country_flag = DA_BG_work_chair clr_country_flag = DA_BG_done_chair
+# clr_country_flag = DA_BG_known_gate clr_country_flag = DA_BG_work_gate clr_country_flag = DA_BG_done_gate
+# clr_country_flag = DA_BG_known_cheese clr_country_flag = DA_BG_work_cheese clr_country_flag = DA_BG_done_cheese
+# clr_country_flag = DA_BG_known_rampart clr_country_flag = DA_BG_work_rampart clr_country_flag = DA_BG_done_rampart
+# clr_country_flag = DA_BG_known_coal clr_country_flag = DA_BG_work_coal clr_country_flag = DA_BG_done_coal
+# clr_country_flag = DA_BG_known_boots clr_country_flag = DA_BG_work_boots clr_country_flag = DA_BG_done_boots
+# clr_country_flag = DA_BG_known_paint clr_country_flag = DA_BG_work_paint clr_country_flag = DA_BG_done_paint
+# clr_country_flag = DA_BG_known_desk clr_country_flag = DA_BG_work_desk clr_country_flag = DA_BG_done_desk
+# clr_country_flag = DA_BG_known_letter clr_country_flag = DA_BG_work_letter clr_country_flag = DA_BG_done_letter
+# clr_country_flag = DA_BG_known_observer clr_country_flag = DA_BG_work_observer clr_country_flag = DA_BG_done_observer
+# clr_country_flag = DA_BG_cellar_ale
+# clr_country_flag = DA_BG_cellar_reserve
+# set_variable = { which = DA_BG_party_months value = 0 }
+# set_variable = { which = DA_BG_parties value = 0 }
+# set_variable = { which = DA_BG_work_months value = 0 }
+# DA_BG_remove_standing = yes
+

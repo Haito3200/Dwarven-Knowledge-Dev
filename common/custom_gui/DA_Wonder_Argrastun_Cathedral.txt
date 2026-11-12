@@ -127,11 +127,13 @@ custom_button = {
 	}
 }
 
-custom_icon = {
-    name = DA_Argrastun_Cathedral_Wonder_image
-    potential = {
-		always = yes
-    }
+custom_icon = { # frames: 1 before the restoration, 2 tier I, 3 tier II, 4 tier III (make_remaining_holds_art.py)
+	name = DA_Argrastun_Cathedral_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 4284 = { has_great_project = { type = DA_Argrastun_Cathedral tier = 3 } } } }
+	frame = { number = 3 trigger = { 4284 = { has_great_project = { type = DA_Argrastun_Cathedral tier = 2 } } } }
+	frame = { number = 2 trigger = { 4284 = { has_great_project = { type = DA_Argrastun_Cathedral tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
 }
 
 custom_text_box = {
@@ -391,12 +393,12 @@ custom_text_box = {
 }
 
 
-custom_button = {
+custom_button = { # Vurodrmonir, the fourth find (DA_ADK_explore.228): raised once in ten years at tier III (apply_kanzad_az_an_2026-11-12.py)
 	name = DA_Argrastun_Cathedral_button_4
 	tooltip = DA_Argrastun_Cathedral_button_4_tt
 	potential = {
 		4284 = {
-			has_province_flag = DA_restored_MF
+			has_province_flag = DA_Argrastun_Cathedral_found_Vurodrmonir
 		}
 	}
 	trigger = {
@@ -405,15 +407,35 @@ custom_button = {
 			NOT = { has_country_flag = DA_Wonder_Argrastun_Cathedral_in_use }
 		}
 		4284 = {
+			owned_by = FROM
 			has_great_project = {
 				type = DA_Argrastun_Cathedral
 				tier = 3
 			}
 		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AC_rite_free_tt
+			NOT = { has_country_modifier = DA_AC_vurodrmonir_bounty }
+			NOT = { has_country_modifier = DA_AC_vurodrmonir_shield }
+			NOT = { has_country_modifier = DA_AC_vurodrmonir_voice }
+		}
+		treasury = 500
 	}
 	effect = {
-		#country_event = {
-		#	id = DA_Argrastun_Cathedral_event.4
-		#}
+		add_treasury = -500
+		custom_tooltip = DA_AC_rite_tt
+		hidden_effect = {
+			country_event = {
+				id = DA_Kanzad_Az_An_event.1
+			}
+		}
+	}
+}
+custom_text_box = { # what the relic is doing
+	name = DA_Argrastun_Cathedral_button_4_shower
+	potential = {
+		4284 = {
+			has_province_flag = DA_Argrastun_Cathedral_found_Vurodrmonir
+		}
 	}
 }

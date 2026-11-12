@@ -1,159 +1,67 @@
-# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
-
-
-
-# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
-#custom_button = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the button is visible
-#    trigger = { } #Determines when the button is clickable
-#    effect = { } #Effect
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_text_box = {
-#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
-#    potential = { } #Determines when the text is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    #To localize it, use the name of the button as a key, can also use customizable localisation
-#}
-
-#custom_icon = {
-#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
-#    potential = { } #Determines when the icon is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_shield = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the shield is visible
-#    trigger = { } #Determines when the shield is clickable
-#    effect = { } #Effect for clicking
-#    tooltip = localisation_key #Can use customizable localisation
-#    global_event_target = <string> # Global event target name
-#    open_country = <bool> #If clicking opens the country view
-#}
-
-##############################  Supported files with scopes ##############################
-#   The Gui objects must be directly inside the specified window Gui element!
-#   FROM is always the country that clicks
-#   provinceview.gui:
-#       province_window         (ROOT: Clicked province)
-#       buildings_window        (ROOT: Clicked province)
-#       state_window            (ROOT: Clicked province)
-#   countrycourtview.gui:
-#       countrycourtview        (ROOT = FROM)
-#   countrygovernmentview.gui:
-#       countrygovernmentview   (ROOT = FROM)
-#   countrydiplomacyview.gui:
-#       countrydiplimacyview    (ROOT: Selected country)
-#   countryeconomyview.gui:
-#       countryeconomyview      (ROOT = FROM)
-#   countrytradeview.gui:
-#       countrytradeview        (ROOT = FROM)
-#   countrytechnologyview.gui:
-#       countrytechnologyview   (ROOT = FROM)
-#   countryideasview.gui:
-#       countryideasview        (ROOT = FROM)
-#   countrymissionsview.gui:
-#       countrymissionsview     (ROOT: Selected country)
-#   countrydecisionview.gui:
-#       countrydecisionsview    (ROOT = FROM)
-#   countrystabilityview.gui:
-#       countrystabilityview    (ROOT = FROM)
-#   countryreligionview.gui:
-#       countryreligionview     (ROOT = FROM)
-#   countrymilitaryview.gui:
-#       countrymilitaryview     (ROOT = FROM)
-#   countrysubjectsview.gui:
-#       countrysubjectview      (ROOT = FROM)
-#   countryestatesview.gui:
-#       countryestatesview      (ROOT = FROM)
-#   ages_view.gui:
-#       ages_view               (ROOT = FROM)
-#   tradeinterface.gui:
-#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
-#   hre.gui:
-#       hre_window              (ROOT = FROM)
-#   papacy.gui:
-#       papacy_window           (ROOT = FROM)
-#   faction.gui:
-#       All faction windows     (ROOT = FROM)
-#   celestialempireview.gui:
-#       celestial_window        (ROOT = FROM)
-#   countrynativesview.gui:
-#       natives_window          (ROOT = FROM)
-#   religiousreforms.gui:
-#       reforms_window          (ROOT = FROM)
-#   parliament.gui:
-#       parliament_window       (ROOT = FROM)
-
-
-
-
-
-
-
-# magma forge
-
+# The Amldavhad Training Facility, Mithradhum (4236): the page of the wonder. Written on 12 November 2026 by
+# "Claude files/tools/mithradhum_2026-11-12/gen.py"; hand-owned after the first installation.
+# The .gui side is the window "DA_The_Dwarven_Workshop_Window" in interface/topbar.gui (a page of the Dwarven Hall).
+# ROOT and FROM are the country that looks at the page.
+#
+# The regimen     ten trainings and "stand down". In force: country flag DA_AT_regimen_<id> and three country modifiers
+#                 (DA_AT_sync). Being drilled in: DA_AT_next_<id> and the variable DA_AT_retrain_months.
+# The Roll        a captain: hidden event DA_Mithradum_event.30, effect DA_AT_define_captain; the Roll then rests (modifier DA_AT_captain_called).
+#                 A class sent to the Roll (DA_AT_class_on_roll) gives the next captain free and at once.
+# The armoury     only shown here. The bonuses to mithril are in events/DA_Alloys_events.txt (DA_Metallurgy_events.51.Mithril).
+# The class       every 60 months: variable DA_AT_class_months, event DA_Mithradum_event.21 (DA_AT_monthly).
+# Effects and triggers: common/scripted_effects/DA_Amldavhad_effects.txt, common/scripted_triggers/DA_Amldavhad_triggers.txt.
+# The story is in events/DA_Hold_Mithradum.txt.
 
 custom_window = {
-    name = DA_The_Dwarven_Workshop_Window
-    potential = {
-        DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
-        has_country_flag = DA_show_wonder_The_Dwarven_Workshop
-    }
+	name = DA_The_Dwarven_Workshop_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_The_Dwarven_Workshop
+	}
 }
 
 custom_button = {
 	name = DA_close_button_The_Dwarven_Workshop
 	tooltip = DA_Wonder_close_button_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-		always = yes
-	}
-	effect = {
-		clr_country_flag = DA_show_wonder_The_Dwarven_Workshop
-	}
+	potential = { always = yes }
+	trigger = { always = yes }
+	effect = { clr_country_flag = DA_show_wonder_The_Dwarven_Workshop }
 }
 
-custom_icon = {
-    name = DA_The_Dwarven_Workshop_Wonder_image
-    potential = {
-		always = yes
-    }
+custom_icon = { # frames: 1 the empty yards, 2 tier I, 3 tier II, 4 tier III (make_mithradhum_art.py)
+	name = DA_The_Dwarven_Workshop_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 4236 = { has_great_project = { type = The_Dwarven_Workshop tier = 3 } } } }
+	frame = { number = 3 trigger = { 4236 = { has_great_project = { type = The_Dwarven_Workshop tier = 2 } } } }
+	frame = { number = 2 trigger = { 4236 = { has_great_project = { type = The_Dwarven_Workshop tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
 }
 
 custom_text_box = {
-    name = DA_The_Dwarven_Workshop_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Dwarven_Workshop_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_The_Dwarven_Workshop_name_shower
+	potential = { always = yes }
+	tooltip = DA_The_Dwarven_Workshop_name_shower_tt
 }
 
 custom_text_box = {
-    name = DA_The_Dwarven_Workshop_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Dwarven_Workshop_dwarven_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_The_Dwarven_Workshop_Wonder_level_shower
+	potential = { always = yes }
+	tooltip = DA_The_Dwarven_Workshop_Wonder_level_shower_tt
 }
 
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_Wonder_location_shower
+	potential = { always = yes }
+	tooltip = DA_The_Dwarven_Workshop_Wonder_location_shower_tt
+}
+
+# The level-up button. build_wonder_pages.py replaces this block with the wonder works (BEGIN / END DA_WW).
 # BEGIN DA_WW level-up button (build_wonder_pages.py)
 # The works take time: the tier and what it brings arrive when DA_WW_finish_4236 runs
 # (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4236.
 custom_button = {
 	name = DA_The_Dwarven_Workshop_upgrade_button
-	tooltip = DA_Wonder_upgrade_button_tt
+	tooltip = DA_AT_upgrade_button_tt
 	potential = {
 		NOT = { has_country_flag = DA_WW_building_4236 }
 		NOT = { DA_WW_maxed_4236 = yes }
@@ -188,6 +96,7 @@ custom_button = {
 					DA_has_dig_level_6_or_higher = yes
 				}
 			}
+			4236 = { custom_trigger_tooltip = { tooltip = DA_AT_hall_found_tt has_province_flag = DA_Mithradhum_exp2 } }
 			DA_alchemy_reagents_total_required = { amount = 20 }
 			DA_enchanted_building_material_total_required = { amount = 20 }
 			DA_arcane_metal_total_required = { amount = 20 }
@@ -218,6 +127,7 @@ custom_button = {
 			DA_enchanted_building_material_spend = { amount = 10 }
 			DA_arcane_metal_spend = { amount = 10 }
 			DA_WW_begin_4236 = yes
+			custom_tooltip = DA_AT_tier_1_unlock_tt
 		}
 		else_if = {
 			limit = {
@@ -228,6 +138,7 @@ custom_button = {
 			DA_enchanted_building_material_spend = { amount = 20 }
 			DA_arcane_metal_spend = { amount = 20 }
 			DA_WW_begin_4236 = yes
+			custom_tooltip = DA_AT_tier_2_unlock_tt
 		}
 		else_if = {
 			limit = {
@@ -238,110 +149,564 @@ custom_button = {
 			DA_enchanted_building_material_spend = { amount = 40 }
 			DA_arcane_metal_spend = { amount = 40 }
 			DA_WW_begin_4236 = yes
+			custom_tooltip = DA_AT_tier_3_unlock_tt
 		}
 	}
 }
 # END DA_WW
 
-custom_text_box = {
-    name = DA_The_Dwarven_Workshop_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Dwarven_Workshop_Wonder_level_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
+#######################################################
+# The regimen
+#######################################################
 
 custom_text_box = {
-    name = DA_The_Dwarven_Workshop_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Dwarven_Workshop_Wonder_location_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_The_Dwarven_Workshop_header_regimen
+	potential = { always = yes }
 }
 
-
-custom_button = {
-	name = DA_The_Dwarven_Workshop_button_training
-	tooltip = DA_The_Dwarven_Workshop_button_training_tt
-	potential = {
-		always = yes
-	}
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_defensive_shock
+	tooltip = DA_AT_button_regimen_defensive_shock_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_defensive_shock has_country_flag = DA_AT_next_defensive_shock } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
 	trigger = {
-		owns = 4236
-		4236 = {
-			has_great_project = {
-				type = The_Dwarven_Workshop
-				tier = 1
-			}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_1_tt
+			DA_AT_facility_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_defensive_shock }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
 		}
 		mil_power = 50
 	}
 	effect = {
-		country_event = {
-			id = DA_Mithradum_event.1
+		add_mil_power = -50
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
 		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_defensive_shock = yes }
 	}
-}
-custom_text_box = {
-    name = DA_The_Dwarven_Workshop_training_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_The_Dwarven_Workshop_training_shower #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
-custom_button = {
-	name = DA_The_Dwarven_Workshop_button_general
-	tooltip = DA_The_Dwarven_Workshop_button_general_tt
-	potential = {
-		always = yes
-	}
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_defensive_shock_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_defensive_shock_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_defensive_fire
+	tooltip = DA_AT_button_regimen_defensive_fire_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_defensive_fire has_country_flag = DA_AT_next_defensive_fire } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
 	trigger = {
-		owns = 4236
-		4236 = {
-			has_great_project = {
-				type = The_Dwarven_Workshop
-				tier = 2
-			}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_1_tt
+			DA_AT_facility_at_tier_1 = yes
 		}
-		treasury = 750
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_defensive_fire }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
+		mil_power = 50
+	}
+	effect = {
+		add_mil_power = -50
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_defensive_fire = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_defensive_fire_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_defensive_fire_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_offensive_shock
+	tooltip = DA_AT_button_regimen_offensive_shock_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_offensive_shock has_country_flag = DA_AT_next_offensive_shock } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_1_tt
+			DA_AT_facility_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_offensive_shock }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
+		mil_power = 50
+	}
+	effect = {
+		add_mil_power = -50
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_offensive_shock = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_offensive_shock_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_offensive_shock_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_offensive_fire
+	tooltip = DA_AT_button_regimen_offensive_fire_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_offensive_fire has_country_flag = DA_AT_next_offensive_fire } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_1_tt
+			DA_AT_facility_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_offensive_fire }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
+		mil_power = 50
+	}
+	effect = {
+		add_mil_power = -50
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_offensive_fire = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_offensive_fire_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_offensive_fire_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_all_rounder_low
+	tooltip = DA_AT_button_regimen_all_rounder_low_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_all_rounder_low has_country_flag = DA_AT_next_all_rounder_low } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_1_tt
+			DA_AT_facility_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_all_rounder_low }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
+		mil_power = 50
+	}
+	effect = {
+		add_mil_power = -50
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_all_rounder_low = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_all_rounder_low_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_all_rounder_low_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_defensive
+	tooltip = DA_AT_button_regimen_defensive_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_defensive has_country_flag = DA_AT_next_defensive } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_2 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_2_tt
+			DA_AT_facility_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_defensive }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
 		mil_power = 75
-		check_variable = {
-			ancientDwarvenKnowledge = 7
+	}
+	effect = {
+		add_mil_power = -75
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_defensive = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_defensive_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_defensive_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_offensive
+	tooltip = DA_AT_button_regimen_offensive_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_offensive has_country_flag = DA_AT_next_offensive } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_2 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_2_tt
+			DA_AT_facility_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_offensive }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
+		mil_power = 75
+	}
+	effect = {
+		add_mil_power = -75
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_offensive = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_offensive_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_offensive_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_all_rounder_mid
+	tooltip = DA_AT_button_regimen_all_rounder_mid_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_all_rounder_mid has_country_flag = DA_AT_next_all_rounder_mid } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_2 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_2_tt
+			DA_AT_facility_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_all_rounder_mid }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
+		mil_power = 75
+	}
+	effect = {
+		add_mil_power = -75
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_all_rounder_mid = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_all_rounder_mid_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_all_rounder_mid_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_all_rounder_high
+	tooltip = DA_AT_button_regimen_all_rounder_high_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_all_rounder_high has_country_flag = DA_AT_next_all_rounder_high } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_3 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_3_tt
+			DA_AT_facility_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_all_rounder_high }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
+		mil_power = 100
+	}
+	effect = {
+		add_mil_power = -100
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_all_rounder_high = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_all_rounder_high_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_all_rounder_high_tt
+}
+
+custom_button = { # frame 2 while in force or being drilled in, frame 3 while the facility is too low
+	name = DA_The_Dwarven_Workshop_button_regimen_amldavhad
+	tooltip = DA_AT_button_regimen_amldavhad_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_AT_regimen_amldavhad has_country_flag = DA_AT_next_amldavhad } } }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_3 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_3_tt
+			DA_AT_facility_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_regimen_not_in_force_tt
+			NOT = { has_country_flag = DA_AT_regimen_amldavhad }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_yards_free_tt
+			NOT = { DA_AT_any_next = yes }
+		}
+		mil_power = 100
+	}
+	effect = {
+		add_mil_power = -100
+		if = {
+			limit = { NOT = { has_country_flag = DA_AT_ever_drilled } }
+			custom_tooltip = DA_AT_first_regimen_tt
+		}
+		else = {
+			custom_tooltip = DA_AT_retrain_tt
+		}
+		hidden_effect = { DA_AT_begin_amldavhad = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_regimen_amldavhad_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_regimen_amldavhad_tt
+}
+
+custom_button = { # frame 3 while there is nothing to stand down
+	name = DA_The_Dwarven_Workshop_button_stand_down
+	tooltip = DA_AT_button_stand_down_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { OR = { DA_AT_any_regimen = yes DA_AT_any_next = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_1_tt
+			DA_AT_facility_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_something_to_stand_down_tt
+			OR = { DA_AT_any_regimen = yes DA_AT_any_next = yes }
 		}
 	}
 	effect = {
-		add_treasury = -750
-		add_mil_power = -75
-		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 7 } }
-		custom_tooltip = DA_Cost_7_ADK
-		DA_create_High_tier_balanced_general = {
-			DA_Trait = Mithril_Class_Rune_Mage_general_personality
-		}
+		custom_tooltip = DA_AT_stand_down_result_tt
+		hidden_effect = { DA_AT_stand_down = yes }
 	}
 }
-custom_icon = {
-    name = DA_The_Dwarven_Workshop_panel_mithril
-    potential = {
-		owns = 4236
-		4236 = {
-			has_great_project = {
-				type = The_Dwarven_Workshop
-				tier = 3
-			}
-		}
-    }
-}
-
 
 custom_text_box = {
-    name = DA_The_Dwarven_Workshop_mithril_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = {
-		owns = 4236
-		4236 = {
-			has_great_project = {
-				type = The_Dwarven_Workshop
-				tier = 3
+	name = DA_The_Dwarven_Workshop_button_stand_down_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_stand_down_tt
+}
+
+#######################################################
+# The Roll of the Shields
+#######################################################
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_header_roll
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 while a class stands on the Roll, frame 3 while no captain can be called
+	name = DA_The_Dwarven_Workshop_button_captain
+	tooltip = DA_AT_button_captain_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_AT_facility_at_tier_2 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_AT_class_on_roll } }
+	frame = { number = 3 trigger = { DA_AT_roll_rests = yes } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_needs_tier_2_tt
+			DA_AT_facility_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_roll_ready_tt
+			OR = { has_country_flag = DA_AT_class_on_roll NOT = { DA_AT_roll_rests = yes } }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_AT_captain_price_tt
+			OR = { has_country_flag = DA_AT_class_on_roll AND = { treasury = 750 check_variable = { ancientDwarvenKnowledge = 7 } } }
+		}
+		mil_power = 75
+	}
+	effect = {
+		add_mil_power = -75
+		if = {
+			limit = { has_country_flag = DA_AT_class_on_roll }
+			custom_tooltip = DA_AT_class_captain_tt
+			hidden_effect = { clr_country_flag = DA_AT_class_on_roll set_country_flag = DA_AT_first_captain_due }
+		}
+		else = {
+			add_treasury = -750
+			custom_tooltip = DA_Cost_7_ADK
+			hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 7 } }
+			if = {
+				limit = { DA_AT_facility_at_tier_3 = yes }
+				add_country_modifier = { name = DA_AT_captain_called duration = 3650 }
+			}
+			else = {
+				add_country_modifier = { name = DA_AT_captain_called duration = 7300 }
 			}
 		}
-	} #Determines when the text is visible
-    tooltip = DA_The_Dwarven_Workshop_mithril_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+		custom_tooltip = DA_AT_captain_result_tt
+		hidden_effect = { country_event = { id = DA_Mithradum_event.30 } }
+	}
 }
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_button_captain_text
+	potential = { always = yes }
+	tooltip = DA_AT_button_captain_tt
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_roll_state
+	potential = { always = yes }
+	tooltip = DA_AT_button_captain_tt
+}
+
+#######################################################
+# The Truesilver Armoury
+#######################################################
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_header_armoury
+	potential = { always = yes }
+	tooltip = DA_AT_armoury_tt
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_armoury_step_1
+	potential = { always = yes }
+	tooltip = DA_AT_armoury_tt
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_armoury_step_2
+	potential = { always = yes }
+	tooltip = DA_AT_armoury_tt
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_armoury_step_3
+	potential = { always = yes }
+	tooltip = DA_AT_armoury_tt
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_armoury_step_4
+	potential = { always = yes }
+	tooltip = DA_AT_armoury_tt
+}
+
+custom_text_box = {
+	name = DA_The_Dwarven_Workshop_info_text
+	potential = { always = yes }
+	tooltip = DA_The_Dwarven_Workshop_info_text_tt
+}
+

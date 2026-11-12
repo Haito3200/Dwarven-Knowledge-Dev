@@ -1,0 +1,821 @@
+# Four Dwarovar Wonders of the remaining holds (12 November 2026). Written by "Claude files/tools/remaining_wonders_2026-11-12/gen.py".
+# Country scope unless said. Each DA_<XX>_monthly runs once a month for the owner of the hold; each DA_<XX>_sync also for a country
+# that still carries what goes with the hold (country flag DA_<XX>_carries).
+
+# --- Strâmolgiv: one barrel at a time is brewed (flag DA_ST_brewing, variable DA_ST_brew_months); the cellar is the variable DA_ST_barrels
+DA_ST_begin_brew = {
+	add_treasury = -150
+	custom_tooltip = DA_ST_begin_brew_tt
+	hidden_effect = {
+		set_country_flag = DA_ST_brewing
+		set_variable = { which = DA_ST_brew_months value = 12 }
+		if = {
+			limit = { DA_ST_has_grain = yes }
+			set_variable = { which = DA_ST_brew_months value = 8 }
+		}
+	}
+}
+DA_ST_monthly = {
+	change_variable = { which = DA_ST_barrels value = 0 }
+	if = {
+		limit = { has_country_flag = DA_ST_brewing }
+		subtract_variable = { which = DA_ST_brew_months value = 1 }
+		if = {
+			limit = { NOT = { check_variable = { which = DA_ST_brew_months value = 1 } } }
+			clr_country_flag = DA_ST_brewing
+			change_variable = { which = DA_ST_barrels value = 1 }
+		}
+	}
+	if = { # the ruling on Darkbarrel's kegs: tier III, and the cellar found
+		limit = {
+			DA_ST_at_tier_3 = yes
+			4266 = {
+				has_province_flag = DA_Krakazol_exp3
+				NOT = { has_province_flag = DA_ST_ruling_asked }
+			}
+		}
+		4266 = { set_province_flag = DA_ST_ruling_asked }
+		country_event = { id = DA_Remaining_Wonders_event.105 }
+	}
+}
+DA_ST_tap_dark = {
+	custom_tooltip = DA_ST_tap_tt
+	hidden_effect = { subtract_variable = { which = DA_ST_barrels value = 1 } }
+	if = {
+		limit = { 4266 = { has_province_flag = DA_ST_mother_culture } }
+		add_country_modifier = {
+			name = DA_ST_brew_dark
+			duration = 2920
+		}
+	}
+	if = {
+		limit = { NOT = { 4266 = { has_province_flag = DA_ST_mother_culture } } }
+		add_country_modifier = {
+			name = DA_ST_brew_dark
+			duration = 1825
+		}
+	}
+}
+DA_ST_tap_battle = {
+	custom_tooltip = DA_ST_tap_tt
+	hidden_effect = { subtract_variable = { which = DA_ST_barrels value = 1 } }
+	if = {
+		limit = { 4266 = { has_province_flag = DA_ST_mother_culture } }
+		add_country_modifier = {
+			name = DA_ST_brew_battle
+			duration = 2920
+		}
+	}
+	if = {
+		limit = { NOT = { 4266 = { has_province_flag = DA_ST_mother_culture } } }
+		add_country_modifier = {
+			name = DA_ST_brew_battle
+			duration = 1825
+		}
+	}
+}
+DA_ST_tap_welcome = {
+	custom_tooltip = DA_ST_tap_tt
+	hidden_effect = { subtract_variable = { which = DA_ST_barrels value = 1 } }
+	if = {
+		limit = { 4266 = { has_province_flag = DA_ST_mother_culture } }
+		add_country_modifier = {
+			name = DA_ST_brew_welcome
+			duration = 2920
+		}
+	}
+	if = {
+		limit = { NOT = { 4266 = { has_province_flag = DA_ST_mother_culture } } }
+		add_country_modifier = {
+			name = DA_ST_brew_welcome
+			duration = 1825
+		}
+	}
+}
+DA_ST_tap_tonic = {
+	custom_tooltip = DA_ST_tap_tt
+	hidden_effect = { subtract_variable = { which = DA_ST_barrels value = 1 } }
+	if = {
+		limit = { 4266 = { has_province_flag = DA_ST_mother_culture } }
+		add_country_modifier = {
+			name = DA_ST_brew_tonic
+			duration = 2920
+		}
+	}
+	if = {
+		limit = { NOT = { 4266 = { has_province_flag = DA_ST_mother_culture } } }
+		add_country_modifier = {
+			name = DA_ST_brew_tonic
+			duration = 1825
+		}
+	}
+}
+
+# --- the Sleepers' Hall: what the sleepers attend to is a country flag (DA_SL_watch_<id>); its modifier follows the tier and the hold
+DA_SL_sync = {
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_research
+			DA_SL_exact_tier_1 = yes
+			NOT = { has_country_modifier = DA_SL_research_1 }
+		}
+		add_country_modifier = {
+			name = DA_SL_research_1
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_research_1
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_research
+					DA_SL_exact_tier_1 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_research_1
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_research
+			DA_SL_exact_tier_2 = yes
+			NOT = { has_country_modifier = DA_SL_research_2 }
+		}
+		add_country_modifier = {
+			name = DA_SL_research_2
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_research_2
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_research
+					DA_SL_exact_tier_2 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_research_2
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_research
+			DA_SL_at_tier_3 = yes
+			NOT = { has_country_modifier = DA_SL_research_3 }
+		}
+		add_country_modifier = {
+			name = DA_SL_research_3
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_research_3
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_research
+					DA_SL_at_tier_3 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_research_3
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_counsel
+			DA_SL_exact_tier_1 = yes
+			NOT = { has_country_modifier = DA_SL_counsel_1 }
+		}
+		add_country_modifier = {
+			name = DA_SL_counsel_1
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_counsel_1
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_counsel
+					DA_SL_exact_tier_1 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_counsel_1
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_counsel
+			DA_SL_exact_tier_2 = yes
+			NOT = { has_country_modifier = DA_SL_counsel_2 }
+		}
+		add_country_modifier = {
+			name = DA_SL_counsel_2
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_counsel_2
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_counsel
+					DA_SL_exact_tier_2 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_counsel_2
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_counsel
+			DA_SL_at_tier_3 = yes
+			NOT = { has_country_modifier = DA_SL_counsel_3 }
+		}
+		add_country_modifier = {
+			name = DA_SL_counsel_3
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_counsel_3
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_counsel
+					DA_SL_at_tier_3 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_counsel_3
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_vigil
+			DA_SL_exact_tier_1 = yes
+			NOT = { has_country_modifier = DA_SL_vigil_1 }
+		}
+		add_country_modifier = {
+			name = DA_SL_vigil_1
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_vigil_1
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_vigil
+					DA_SL_exact_tier_1 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_vigil_1
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_vigil
+			DA_SL_exact_tier_2 = yes
+			NOT = { has_country_modifier = DA_SL_vigil_2 }
+		}
+		add_country_modifier = {
+			name = DA_SL_vigil_2
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_vigil_2
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_vigil
+					DA_SL_exact_tier_2 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_vigil_2
+	}
+	if = {
+		limit = {
+			has_country_flag = DA_SL_watch_vigil
+			DA_SL_at_tier_3 = yes
+			NOT = { has_country_modifier = DA_SL_vigil_3 }
+		}
+		add_country_modifier = {
+			name = DA_SL_vigil_3
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_vigil_3
+			NOT = {
+				AND = {
+					has_country_flag = DA_SL_watch_vigil
+					DA_SL_at_tier_3 = yes
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_vigil_3
+	}
+	if = {
+		limit = {
+			owns = 4323
+			4323 = { has_province_flag = DA_Dream_bound }
+			NOT = { has_country_modifier = DA_SL_dream_bound }
+		}
+		add_country_modifier = {
+			name = DA_SL_dream_bound
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_SL_dream_bound
+			NOT = {
+				AND = {
+					owns = 4323
+					4323 = { has_province_flag = DA_Dream_bound }
+				}
+			}
+		}
+		remove_country_modifier = DA_SL_dream_bound
+	}
+	if = {
+		limit = { owns = 4323 }
+		set_country_flag = DA_SL_carries
+	}
+	if = {
+		limit = { NOT = { owns = 4323 } }
+		clr_country_flag = DA_SL_carries
+	}
+}
+DA_SL_clear_watch = {
+	clr_country_flag = DA_SL_watch_research
+	clr_country_flag = DA_SL_watch_counsel
+	clr_country_flag = DA_SL_watch_vigil
+}
+DA_SL_read_dreams = {
+	custom_tooltip = DA_SL_read_dreams_tt
+	hidden_effect = {
+		if = {
+			limit = { DA_SL_at_tier_3 = yes }
+			add_country_modifier = { name = DA_SL_dreams_read duration = 1095 }
+		}
+		if = {
+			limit = { DA_SL_exact_tier_2 = yes }
+			add_country_modifier = { name = DA_SL_dreams_read duration = 1460 }
+		}
+		if = {
+			limit = { DA_SL_exact_tier_1 = yes }
+			add_country_modifier = { name = DA_SL_dreams_read duration = 1825 }
+		}
+		country_event = { id = DA_Remaining_Wonders_event.220 }
+	}
+}
+# province scope: the Dream of Vengeance is gone, one way or another
+DA_SL_dream_ends = {
+	set_province_flag = DA_Dream_done
+	remove_province_modifier = DA_SL_troubled_sleep
+}
+
+# --- the Magistrates' Vault: DA_MV_gold lies in the vault; DA_MV_cap is what it holds, DA_MV_room what is free; the mark is how full it is, in quarters
+DA_MV_sync = {
+	change_variable = { which = DA_MV_gold value = 0 }
+	set_variable = { which = DA_MV_cap value = 0 }
+	if = {
+		limit = { DA_MV_at_tier_1 = yes }
+		set_variable = { which = DA_MV_cap value = 2000 }
+	}
+	if = {
+		limit = { DA_MV_at_tier_2 = yes }
+		set_variable = { which = DA_MV_cap value = 4000 }
+	}
+	if = {
+		limit = { DA_MV_at_tier_3 = yes }
+		set_variable = { which = DA_MV_cap value = 8000 }
+		if = {
+			limit = { 2914 = { has_province_flag = DA_MV_off_books } }
+			change_variable = { which = DA_MV_cap value = 4000 }
+		}
+	}
+	set_variable = { which = DA_MV_room which = DA_MV_cap }
+	subtract_variable = { which = DA_MV_room which = DA_MV_gold }
+	set_variable = { which = DA_MV_mark value = 0 }
+	if = {
+		limit = { check_variable = { which = DA_MV_cap value = 1 } }
+		set_variable = { which = DA_MV_mark which = DA_MV_gold }
+		multiply_variable = { which = DA_MV_mark value = 4 }
+		divide_variable = { which = DA_MV_mark which = DA_MV_cap }
+	}
+	if = {
+		limit = {
+			DA_MV_at_tier_1 = yes
+			check_variable = { which = DA_MV_mark value = 1 }
+			NOT = { check_variable = { which = DA_MV_mark value = 2 } }
+			NOT = { has_country_modifier = DA_MV_mark_1 }
+		}
+		add_country_modifier = {
+			name = DA_MV_mark_1
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_MV_mark_1
+			NOT = {
+				AND = {
+					DA_MV_at_tier_1 = yes
+					check_variable = { which = DA_MV_mark value = 1 }
+					NOT = { check_variable = { which = DA_MV_mark value = 2 } }
+				}
+			}
+		}
+		remove_country_modifier = DA_MV_mark_1
+	}
+	if = {
+		limit = {
+			DA_MV_at_tier_1 = yes
+			check_variable = { which = DA_MV_mark value = 2 }
+			NOT = { check_variable = { which = DA_MV_mark value = 3 } }
+			NOT = { has_country_modifier = DA_MV_mark_2 }
+		}
+		add_country_modifier = {
+			name = DA_MV_mark_2
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_MV_mark_2
+			NOT = {
+				AND = {
+					DA_MV_at_tier_1 = yes
+					check_variable = { which = DA_MV_mark value = 2 }
+					NOT = { check_variable = { which = DA_MV_mark value = 3 } }
+				}
+			}
+		}
+		remove_country_modifier = DA_MV_mark_2
+	}
+	if = {
+		limit = {
+			DA_MV_at_tier_1 = yes
+			check_variable = { which = DA_MV_mark value = 3 }
+			NOT = { check_variable = { which = DA_MV_mark value = 4 } }
+			NOT = { has_country_modifier = DA_MV_mark_3 }
+		}
+		add_country_modifier = {
+			name = DA_MV_mark_3
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_MV_mark_3
+			NOT = {
+				AND = {
+					DA_MV_at_tier_1 = yes
+					check_variable = { which = DA_MV_mark value = 3 }
+					NOT = { check_variable = { which = DA_MV_mark value = 4 } }
+				}
+			}
+		}
+		remove_country_modifier = DA_MV_mark_3
+	}
+	if = {
+		limit = {
+			DA_MV_at_tier_1 = yes
+			check_variable = { which = DA_MV_mark value = 4 }
+			NOT = { has_country_modifier = DA_MV_mark_4 }
+		}
+		add_country_modifier = {
+			name = DA_MV_mark_4
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_MV_mark_4
+			NOT = {
+				AND = {
+					DA_MV_at_tier_1 = yes
+					check_variable = { which = DA_MV_mark value = 4 }
+				}
+			}
+		}
+		remove_country_modifier = DA_MV_mark_4
+	}
+	if = {
+		limit = {
+			owns = 2914
+			2914 = { has_province_flag = DA_MV_seam_opened }
+			NOT = { has_country_modifier = DA_MV_seam_corruption }
+		}
+		add_country_modifier = {
+			name = DA_MV_seam_corruption
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_MV_seam_corruption
+			NOT = {
+				AND = {
+					owns = 2914
+					2914 = { has_province_flag = DA_MV_seam_opened }
+				}
+			}
+		}
+		remove_country_modifier = DA_MV_seam_corruption
+	}
+	if = {
+		limit = { owns = 2914 }
+		set_country_flag = DA_MV_carries
+	}
+	if = {
+		limit = { NOT = { owns = 2914 } }
+		clr_country_flag = DA_MV_carries
+	}
+}
+DA_MV_monthly = {
+	DA_MV_sync = yes
+	if = { # the ruling on the seam: tier III, and the Last Weighing found
+		limit = {
+			DA_MV_at_tier_3 = yes
+			2914 = {
+				has_province_flag = DA_Gulan_exp3
+				NOT = { has_province_flag = DA_MV_ruling_asked }
+			}
+		}
+		2914 = { set_province_flag = DA_MV_ruling_asked }
+		country_event = { id = DA_Remaining_Wonders_event.305 }
+	}
+}
+DA_MV_deposit_500 = {
+	add_treasury = -500
+	custom_tooltip = DA_MV_deposit_500_tt
+	hidden_effect = {
+		change_variable = { which = DA_MV_gold value = 500 }
+		DA_MV_sync = yes
+	}
+}
+DA_MV_withdraw_500 = {
+	add_treasury = 450
+	custom_tooltip = DA_MV_withdraw_500_tt
+	hidden_effect = {
+		subtract_variable = { which = DA_MV_gold value = 500 }
+		DA_MV_sync = yes
+	}
+}
+DA_MV_deposit_2000 = {
+	add_treasury = -2000
+	custom_tooltip = DA_MV_deposit_2000_tt
+	hidden_effect = {
+		change_variable = { which = DA_MV_gold value = 2000 }
+		DA_MV_sync = yes
+	}
+}
+DA_MV_withdraw_2000 = {
+	add_treasury = 1800
+	custom_tooltip = DA_MV_withdraw_2000_tt
+	hidden_effect = {
+		subtract_variable = { which = DA_MV_gold value = 2000 }
+		DA_MV_sync = yes
+	}
+}
+
+# --- the Hall of the Vanguard: the banners are lit in the order of the list, as many as the tier allows
+DA_HV_sync = {
+	set_variable = { which = DA_HV_count value = 0 }
+	if = {
+		limit = {
+			owns = 4311
+			owns = 4311
+			DA_HV_bay_free = yes
+		}
+		change_variable = { which = DA_HV_count value = 1 }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_HV_banner_jade } }
+			add_country_modifier = {
+				name = DA_HV_banner_jade
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = DA_HV_banner_jade
+	}
+	if = {
+		limit = {
+			owns = 4311
+			owns = 4247
+			DA_HV_bay_free = yes
+		}
+		change_variable = { which = DA_HV_count value = 1 }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_HV_banner_amber } }
+			add_country_modifier = {
+				name = DA_HV_banner_amber
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = DA_HV_banner_amber
+	}
+	if = {
+		limit = {
+			owns = 4311
+			owns = 4266
+			DA_HV_bay_free = yes
+		}
+		change_variable = { which = DA_HV_count value = 1 }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_HV_banner_amethyst } }
+			add_country_modifier = {
+				name = DA_HV_banner_amethyst
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = DA_HV_banner_amethyst
+	}
+	if = {
+		limit = {
+			owns = 4311
+			owns = 4350
+			DA_HV_bay_free = yes
+		}
+		change_variable = { which = DA_HV_count value = 1 }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_HV_banner_emerald } }
+			add_country_modifier = {
+				name = DA_HV_banner_emerald
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = DA_HV_banner_emerald
+	}
+	if = {
+		limit = {
+			owns = 4311
+			owns = 4323
+			DA_HV_bay_free = yes
+		}
+		change_variable = { which = DA_HV_count value = 1 }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_HV_banner_malachite } }
+			add_country_modifier = {
+				name = DA_HV_banner_malachite
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = DA_HV_banner_malachite
+	}
+	if = {
+		limit = {
+			owns = 4311
+			owns = 4265
+			DA_HV_bay_free = yes
+		}
+		change_variable = { which = DA_HV_count value = 1 }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_HV_banner_peridot } }
+			add_country_modifier = {
+				name = DA_HV_banner_peridot
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = DA_HV_banner_peridot
+	}
+	if = {
+		limit = {
+			owns = 4311
+			owns = 4284
+			DA_HV_bay_free = yes
+		}
+		change_variable = { which = DA_HV_count value = 1 }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_HV_banner_granite } }
+			add_country_modifier = {
+				name = DA_HV_banner_granite
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = DA_HV_banner_granite
+	}
+	if = {
+		limit = {
+			owns = 4311
+			owns = 4313
+			DA_HV_bay_free = yes
+		}
+		change_variable = { which = DA_HV_count value = 1 }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_HV_banner_glass } }
+			add_country_modifier = {
+				name = DA_HV_banner_glass
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_country_modifier = DA_HV_banner_glass
+	}
+	if = {
+		limit = {
+			owns = 4311
+			4311 = { has_province_flag = DA_HV_seal_taken }
+			NOT = { has_country_modifier = DA_HV_high_king_east }
+		}
+		add_country_modifier = {
+			name = DA_HV_high_king_east
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = DA_HV_high_king_east
+			NOT = {
+				AND = {
+					owns = 4311
+					4311 = { has_province_flag = DA_HV_seal_taken }
+				}
+			}
+		}
+		remove_country_modifier = DA_HV_high_king_east
+	}
+	if = {
+		limit = { owns = 4311 }
+		set_country_flag = DA_HV_carries
+	}
+	if = {
+		limit = { NOT = { owns = 4311 } }
+		clr_country_flag = DA_HV_carries
+	}
+}
+DA_HV_monthly = {
+	DA_HV_sync = yes
+	if = { # the ruling on the seal: tier III, and the Sealed Court found
+		limit = {
+			DA_HV_at_tier_3 = yes
+			4311 = {
+				has_province_flag = DA_Gronstunad_exp3
+				NOT = { has_province_flag = DA_HV_ruling_asked }
+			}
+		}
+		4311 = { set_province_flag = DA_HV_ruling_asked }
+		country_event = { id = DA_Remaining_Wonders_event.405 }
+	}
+}
+DA_HV_muster = {
+	add_mil_power = -100
+	add_army_tradition = 5
+	if = {
+		limit = { has_country_modifier = DA_HV_banner_jade }
+		add_manpower = 2
+	}
+	if = {
+		limit = { has_country_modifier = DA_HV_banner_amber }
+		add_manpower = 2
+	}
+	if = {
+		limit = { has_country_modifier = DA_HV_banner_amethyst }
+		add_manpower = 2
+	}
+	if = {
+		limit = { has_country_modifier = DA_HV_banner_emerald }
+		add_manpower = 2
+	}
+	if = {
+		limit = { has_country_modifier = DA_HV_banner_malachite }
+		add_manpower = 2
+	}
+	if = {
+		limit = { has_country_modifier = DA_HV_banner_peridot }
+		add_manpower = 2
+	}
+	if = {
+		limit = { has_country_modifier = DA_HV_banner_granite }
+		add_manpower = 2
+	}
+	if = {
+		limit = { has_country_modifier = DA_HV_banner_glass }
+		add_manpower = 2
+	}
+	hidden_effect = {
+		add_country_modifier = { name = DA_HV_mustered duration = 3650 }
+	}
+}

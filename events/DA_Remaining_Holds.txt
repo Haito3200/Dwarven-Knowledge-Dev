@@ -1,0 +1,246 @@
+# The remaining Serpentspine holds (12 November 2026): what follows the finds, and the three legends.
+# Written by Claude files/tools/remaining_holds_2026-11-12/gen.py and installed by apply_remaining_holds_2026-11-12.py; hand-owned after that.
+# Note: Claude files/19 - Remaining holds.md
+
+namespace = DA_Remaining_Holds_event
+
+country_event = {
+	id = DA_Remaining_Holds_event.1 	# the Hall of the Ancestors: a ruler's name begins or continues the Empty Row
+	title = "DA_Remaining_Holds_event.1.t"
+	desc = "DA_Remaining_Holds_event.1.d"
+	picture = DA_Amldavhad_deeps_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4128
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.1.a"
+		add_prestige = 15
+	}
+}
+
+country_event = {
+	id = DA_Remaining_Holds_event.10 	# the Gatewarden: Parley (from the Legendary Encounter window)
+	title = "DA_Remaining_Holds_event.10.t"
+	desc = "DA_Remaining_Holds_event.10.d"
+	picture = DA_Legend_gatewarden_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4122
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.10.a"
+		trigger = {
+			DA_RH_has_countersign = yes
+		}
+		4122 = {
+			hidden_effect = { set_province_flag = DA_Gatewarden_done }
+			add_permanent_province_modifier = {
+				name = DA_RH_gatewarden_post
+				duration = -1
+			}
+		}
+		add_prestige = 20
+		hidden_effect = { country_event = { id = DA_Remaining_Holds_event.11 } }
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.10.b"
+		trigger = {
+			NOT = { DA_RH_has_countersign = yes }
+		}
+		custom_tooltip = DA_Remaining_Holds_event.10.b.tt
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.10.c"
+	}
+}
+
+country_event = {
+	id = DA_Remaining_Holds_event.11 	# the Gatewarden stands down
+	title = "DA_Remaining_Holds_event.11.t"
+	desc = "DA_Remaining_Holds_event.11.d"
+	picture = DA_Legend_gatewarden_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Remaining_Holds_event.11.a"
+	}
+}
+
+country_event = {
+	id = DA_Remaining_Holds_event.12 	# the Gatewarden destroyed (victory of the Legendary Encounter)
+	title = "DA_Remaining_Holds_event.12.t"
+	desc = "DA_Remaining_Holds_event.12.d"
+	picture = DA_Legend_gatewarden_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Remaining_Holds_event.12.a"
+		4122 = {
+			hidden_effect = { set_province_flag = DA_Gatewarden_done }
+		}
+		custom_tooltip = DA_RH_gain_adk_8
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 8 } }
+		add_army_tradition = 10
+	}
+}
+
+country_event = {
+	id = DA_Remaining_Holds_event.20 	# the Guest of the Maze: Parley, three bargains, each struck once
+	title = "DA_Remaining_Holds_event.20.t"
+	desc = "DA_Remaining_Holds_event.20.d"
+	picture = DA_Legend_guest_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4100
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.20.a"
+		trigger = {
+			NOT = { has_country_flag = DA_Guest_bargain_captain }
+			adm = 1
+		}
+		create_general = {
+			tradition = 100
+		}
+		change_adm = -1
+		hidden_effect = { set_country_flag = DA_Guest_bargain_captain }
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.20.b"
+		trigger = {
+			NOT = { has_country_flag = DA_Guest_bargain_harvest }
+		}
+		4100 = {
+			add_base_production = 2
+			add_province_modifier = {
+				name = DA_RH_fey_harvest_price
+				duration = 3650
+			}
+		}
+		hidden_effect = { set_country_flag = DA_Guest_bargain_harvest }
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.20.c"
+		trigger = {
+			NOT = { has_country_flag = DA_Guest_bargain_wood }
+		}
+		4100 = {
+			add_permanent_province_modifier = {
+				name = DA_RH_quiet_wood
+				duration = -1
+			}
+		}
+		add_prestige = -20
+		hidden_effect = { set_country_flag = DA_Guest_bargain_wood }
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.20.d"
+	}
+}
+
+country_event = {
+	id = DA_Remaining_Holds_event.22 	# the Guest of the Maze driven out (victory of the Legendary Encounter)
+	title = "DA_Remaining_Holds_event.22.t"
+	desc = "DA_Remaining_Holds_event.22.d"
+	picture = DA_Legend_guest_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Remaining_Holds_event.22.a"
+		4100 = {
+			hidden_effect = { set_province_flag = DA_Guest_done }
+			add_permanent_province_modifier = {
+				name = DA_RH_maze_ours
+				duration = -1
+			}
+		}
+		custom_tooltip = DA_RH_gain_adk_8
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 8 } }
+	}
+}
+
+country_event = {
+	id = DA_Remaining_Holds_event.30 	# Ombrindal the Stout: Parley; he is relieved by one of three proofs
+	title = "DA_Remaining_Holds_event.30.t"
+	desc = "DA_Remaining_Holds_event.30.d"
+	picture = DA_Legend_ombrindal_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 4218
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.30.a"
+		trigger = {
+			DA_RH_pact_kept = yes
+		}
+		custom_tooltip = DA_Remaining_Holds_event.30.relieve.tt
+		hidden_effect = { country_event = { id = DA_Remaining_Holds_event.31 } }
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.30.b"
+		trigger = {
+			DA_RH_name_cleared = yes
+		}
+		custom_tooltip = DA_Remaining_Holds_event.30.relieve.tt
+		hidden_effect = { country_event = { id = DA_Remaining_Holds_event.31 } }
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.30.c"
+		trigger = {
+			DA_RH_besiegers_answer = yes
+		}
+		custom_tooltip = DA_Remaining_Holds_event.30.relieve.tt
+		hidden_effect = { country_event = { id = DA_Remaining_Holds_event.31 } }
+	}
+	option = {
+		name = "DA_Remaining_Holds_event.30.d"
+		custom_tooltip = DA_Remaining_Holds_event.30.d.tt
+	}
+}
+
+country_event = {
+	id = DA_Remaining_Holds_event.31 	# Ombrindal falls back behind the gate
+	title = "DA_Remaining_Holds_event.31.t"
+	desc = "DA_Remaining_Holds_event.31.d"
+	picture = DA_Legend_ombrindal_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Remaining_Holds_event.31.a"
+		4218 = {
+			hidden_effect = { set_province_flag = DA_Ombrindal_done }
+			add_permanent_province_modifier = {
+				name = DA_RH_gate_relieved
+				duration = -1
+			}
+		}
+		add_prestige = 25
+		create_general = {
+			tradition = 100
+		}
+	}
+}
+
+country_event = {
+	id = DA_Remaining_Holds_event.32 	# Ombrindal cut down (victory of the Legendary Encounter)
+	title = "DA_Remaining_Holds_event.32.t"
+	desc = "DA_Remaining_Holds_event.32.d"
+	picture = DA_Legend_ombrindal_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Remaining_Holds_event.32.a"
+		4218 = {
+			hidden_effect = { set_province_flag = DA_Ombrindal_done }
+		}
+		custom_tooltip = DA_RH_gain_adk_8
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 8 } }
+		add_prestige = -20
+	}
+}
+

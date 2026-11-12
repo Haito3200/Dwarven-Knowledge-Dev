@@ -1,0 +1,84 @@
+# Fireglass Forge tester. In the console: run DA_Gor_Burad_tester.txt
+# It runs as the player's country. Own Gor Burad (4039) first, as a dwarven country. Each block jumps to one point of the chain:
+# remove the "#" in front of the lines of ONE block, save, and run the file.
+# The tiers of the forge also need dig level 4, 6 and 8 in Gor Burad; the tester does not dig.
+
+# --- A. The forge is found with its canals broken, the Magma Level at 90 (active by default). Wait for a half-year: tremors
+4039 = { set_province_flag = DA_Magma_forge_found set_province_flag = DA_FG_set_up set_variable = { which = DA_Magma_level value = 20 } set_variable = { which = DA_Magma_level_MAX value = 100 } set_variable = { which = DA_FG_plan_months value = 24 } add_great_project = { type = DA_Magma_Forge instant = yes } }
+4039 = { set_variable = { which = DA_Magma_level value = 90 } }
+add_treasury = 1000
+
+# --- B. The three finds, one after the other (the forge, the ring, the giant)
+# 4039 = { province_event = { id = DA_ADK_explore.201 } }
+# 4039 = { province_event = { id = DA_ADK_explore.234 days = 1 } }
+# 4039 = { province_event = { id = DA_ADK_explore.235 days = 2 } }
+
+# --- C. The plan has come and the repair can be paid (after block A)
+# 4039 = { set_variable = { which = DA_FG_plan_months value = 1 } }
+# add_treasury = 2000
+# change_variable = { ancientDwarvenKnowledge = 12 }
+
+# --- D. The canals repaired, tier 0, with what tier I costs: the sluices, a cistern
+# 4039 = { set_province_flag = DA_Magma_forge_found set_province_flag = DA_FG_set_up set_province_flag = DA_restored_MF set_variable = { which = DA_Magma_level value = 100 } set_variable = { which = DA_Magma_level_MAX value = 100 } add_great_project = { type = DA_Magma_Forge instant = yes } }
+# add_treasury = 2500
+# change_variable = { which = DA_alchemy_reagents_total value = 10 }
+# change_variable = { which = DA_enchanted_building_material_total value = 10 }
+# change_variable = { which = DA_arcane_metal_total value = 10 }
+
+# --- E. The forge at tier I: Cast Basalt, a vein from the province window of a Serpentreach province, walling in
+# 4039 = { set_province_flag = DA_Magma_forge_found set_province_flag = DA_FG_set_up set_province_flag = DA_restored_MF set_province_flag = DA_Gor_Burad_exp2 set_variable = { which = DA_Magma_level value = 180 } set_variable = { which = DA_Magma_level_MAX value = 220 } add_great_project = { type = DA_Magma_Forge instant = yes } add_great_project_tier = { type = DA_Magma_Forge tier = 1 } }
+# add_treasury = 2000
+# change_variable = { which = DA_alchemy_reagents_total value = 20 }
+# change_variable = { which = DA_enchanted_building_material_total value = 20 }
+# change_variable = { which = DA_arcane_metal_total value = 20 }
+
+# --- F. The forge at tier II: Fireglass (needs a free common alloy slot), Full Bore, Overload
+# 4039 = { set_province_flag = DA_Magma_forge_found set_province_flag = DA_FG_set_up set_province_flag = DA_restored_MF set_province_flag = DA_Gor_Burad_exp2 set_variable = { which = DA_Magma_level value = 180 } set_variable = { which = DA_Magma_level_MAX value = 220 } add_great_project = { type = DA_Magma_Forge instant = yes } add_great_project_tier = { type = DA_Magma_Forge tier = 2 } }
+# add_treasury = 3000
+# change_variable = { which = DA_alchemy_reagents_total value = 20 }
+# change_variable = { which = DA_enchanted_building_material_total value = 20 }
+# change_variable = { which = DA_arcane_metal_total value = 20 }
+
+# --- G. The forge at tier III with the giant found: the ruling comes within a month, the proposal of the wall in two; works over a vein
+# 4039 = { set_province_flag = DA_Magma_forge_found set_province_flag = DA_FG_set_up set_province_flag = DA_restored_MF set_province_flag = DA_Gor_Burad_exp2 set_province_flag = DA_Gor_Burad_exp3 set_variable = { which = DA_Magma_level value = 180 } set_variable = { which = DA_Magma_level_MAX value = 220 } add_great_project = { type = DA_Magma_Forge instant = yes } add_great_project_tier = { type = DA_Magma_Forge tier = 3 } }
+# add_treasury = 6000
+# change_variable = { which = DA_alchemy_reagents_total value = 40 }
+# change_variable = { which = DA_enchanted_building_material_total value = 40 }
+# change_variable = { which = DA_arcane_metal_total value = 40 }
+
+# --- H. Forget the waits: the sluices, the moulds and the vents can be used again at once
+# remove_country_modifier = DA_FG_sluice_changed
+# remove_country_modifier = DA_FG_moulds_cooling
+# remove_country_modifier = DA_FG_vented
+
+# --- I. The reports and the follow-ups, one after the other
+# country_event = { id = DA_Magma_forge_event.5 }
+# country_event = { id = DA_Magma_forge_event.1 days = 1 }
+# country_event = { id = DA_Magma_forge_event.2 days = 2 }
+# country_event = { id = DA_Magma_forge_event.6 days = 3 }
+# country_event = { id = DA_Magma_forge_event.7 days = 4 }
+# country_event = { id = DA_Magma_forge_event.8 days = 5 }
+# country_event = { id = DA_Magma_forge_event.11 days = 6 }
+# country_event = { id = DA_Magma_forge_event.12 days = 7 }
+# country_event = { id = DA_Magma_forge_event.14 days = 8 }
+
+# --- J. The events of the sluices and of the giant, one after the other (after block G and the ruling "lead the fire through him")
+# set_country_flag = DA_FG_sluice_full
+# country_event = { id = DA_Magma_forge_event.30 }
+# country_event = { id = DA_Magma_forge_event.31 days = 1 }
+# country_event = { id = DA_Magma_forge_event.40 days = 2 }
+# country_event = { id = DA_Magma_forge_event.10 days = 3 }
+
+# --- K. The wall: the proposal, then (own province 672) its stages told one after the other
+# country_event = { id = DA_Magma_forge_event.22 }
+# country_event = { id = DA_Magma_forge_event.16 days = 1 }
+# country_event = { id = DA_Magma_forge_event.17 days = 2 }
+# country_event = { id = DA_Magma_forge_event.18 days = 3 }
+# country_event = { id = DA_Magma_forge_event.19 days = 4 }
+
+# --- L. A save from before the Fireglass Forge: the old Magma Forge found and repaired at tier I, with a vein in Gor Burad's neighbour. Wait a month: the page works, the vein is unwarded
+# 4039 = { set_province_flag = DA_Magma_forge_found set_province_flag = DA_restored_MF set_variable = { which = DA_Magma_level value = 70 } set_variable = { which = DA_Magma_level_MAX value = 140 } set_variable = { which = DA_Magma_level_Increaser value = 1 } add_great_project = { type = DA_Magma_Forge instant = yes } add_great_project_tier = { type = DA_Magma_Forge tier = 1 } }
+# 4037 = { add_permanent_province_modifier = { name = DA_regulated_magma_vein duration = -1 } }
+# set_country_flag = DA_MF_regulate_veins
+# set_country_flag = DA_MF_can_create_regulated_veins
+

@@ -127,11 +127,13 @@ custom_button = {
 	}
 }
 
-custom_icon = {
-    name = DA_Earth_Shatterer_Wonder_image
-    potential = {
-		always = yes
-    }
+custom_icon = { # frames: 1 before the restoration, 2 tier I, 3 tier II, 4 tier III (make_remaining_holds_art.py)
+	name = DA_Earth_Shatterer_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 4247 = { has_great_project = { type = DA_Earth_Shatterer tier = 3 } } } }
+	frame = { number = 3 trigger = { 4247 = { has_great_project = { type = DA_Earth_Shatterer tier = 2 } } } }
+	frame = { number = 2 trigger = { 4247 = { has_great_project = { type = DA_Earth_Shatterer tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
 }
 
 custom_text_box = {
@@ -566,6 +568,22 @@ custom_button = {
 			tooltip = DA_Earth_Shatterer_must_have_selected_a_target_tt
 			any_province = {
 				has_province_flag = DA_Earth_shatterer_target
+			}
+		}
+		custom_trigger_tooltip = { # Penetrating Power: a target under the mountains needs it (apply_kanzad_az_an_2026-11-12.py)
+			tooltip = DA_ES_underground_tt
+			OR = {
+				4247 = { has_province_flag = DA_Earth_Shatterer.penetrating_power }
+				NOT = {
+					any_province = {
+						has_province_flag = DA_Earth_shatterer_target
+						OR = {
+							has_terrain = dwarven_hold
+							has_terrain = dwarven_road
+							has_terrain = cavern
+						}
+					}
+				}
 			}
 		}
 		DA_Earth_Shatterer_power_required = yes

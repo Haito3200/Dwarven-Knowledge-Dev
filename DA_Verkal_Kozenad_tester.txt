@@ -1,0 +1,41 @@
+# Verkal Kozenad tester (12 November 2026). Console, as the country that owns Verkal Kozenad:  run DA_Verkal_Kozenad_tester.txt
+# Block A runs as it is. Take the # away from the lines of another block to use it. The waiting steps are sent on the first
+# day of a month, so let a month pass after a block.
+
+# A. The first horde has been met and put down: "Lingering Menace" comes within a month (no rebel may stand in the hold).
+4056 = {
+	set_province_flag = DA_Verkal_koz_warning1
+	set_province_flag = DA_Verkal_koz_warning2
+	set_province_flag = DA_Verkal_koz_menace_due
+}
+add_treasury = 2000
+
+# B. A horde now, as a company would bring it (it also charts the deep the next company would go to). 204: the first, 205: the second.
+#4056 = { province_event = { id = DA_ADK_explore.204 } }
+#4056 = { set_province_flag = DA_Verkal_koz_registry_found province_event = { id = DA_ADK_explore.205 } }
+
+# C. The registry and the wardwrights' cells, as a company would find them (each charts a deep as well).
+#4056 = { province_event = { id = DA_ADK_explore.240 } }
+#4056 = { set_province_flag = DA_Verkal_koz_warning3 province_event = { id = DA_ADK_explore.241 } }
+
+# D. The northern gate is behind us: "The Chained Palace" comes within a month, and the Legendary Encounter opens.
+#4056 = { set_province_flag = DA_Verkal_koz_menace_told set_province_flag = DA_Verkal_koz_warning3 set_province_flag = DA_Verkal_koz_palace_due add_permanent_province_modifier = { name = DA_continous_Undeads duration = -1 } set_variable = { which = DA_VK_quiet_months value = 0 } }
+
+# E. A rising now (the king must be awake: block A and "Lingering Menace" first, or block D).
+#4056 = { province_event = { id = DA_Verkal_Kozenad_event.3 } }
+#    ... or the next month, by the counter:
+#4056 = { set_variable = { which = DA_VK_quiet_months value = 59 } }
+
+# F. The king is destroyed, as after the fight. The throne follows 30 days later, the strongroom a year after the throne.
+#country_event = { id = DA_Verkal_Kozenad_event.4 }
+
+# G. Without the waits: the throne, the strongroom, the ghosts (the ghosts need the throne answered).
+#country_event = { id = DA_Verkal_Kozenad_event.6 }
+#country_event = { id = DA_Verkal_Kozenad_event.7 }
+#4056 = { province_event = { id = DA_Verkal_Kozenad_event.8 } }
+
+# H. From the start: every flag and modifier of the chain is gone (the finds can be made again; the hold stays charted as it is).
+#4056 = { clr_province_flag = DA_Verkal_koz_warning1 clr_province_flag = DA_Verkal_koz_warning2 clr_province_flag = DA_Verkal_koz_warning3 clr_province_flag = DA_Verkal_koz_menace_due clr_province_flag = DA_Verkal_koz_menace_told clr_province_flag = DA_Verkal_koz_palace_due clr_province_flag = DA_Verkal_koz_palace_found clr_province_flag = DA_Verkal_koz_registry_found clr_province_flag = DA_Verkal_koz_registry_kept clr_province_flag = DA_Verkal_koz_cells_found clr_province_flag = DA_Verkal_koz_king_dead clr_province_flag = DA_Verkal_koz_throne_sent clr_province_flag = DA_Verkal_koz_throne_done clr_province_flag = DA_Verkal_koz_king_entombed clr_province_flag = DA_Verkal_koz_king_rendered clr_province_flag = DA_Verkal_koz_strongroom_sent clr_province_flag = DA_Verkal_koz_ghosts_sent clr_province_flag = DA_Verkal_koz_ghosts_met clr_province_flag = DA_Verkal_koz_ghosts_counsel clr_province_flag = DA_Verkal_koz_wardens remove_province_modifier = DA_continous_Undeads remove_province_modifier = DA_VK_king_at_rest remove_province_modifier = DA_VK_gate_opal remove_province_modifier = DA_VK_wardwrights_wards remove_province_modifier = DA_VK_galleries_walled remove_province_modifier = DA_LE_contained_lich clr_province_flag = DA_LE_weakness_given set_variable = { which = DA_VK_quiet_months value = 0 } }
+#clr_country_flag = DA_can_duel_lich
+#remove_country_modifier = DA_VK_opal_registry
+#remove_country_modifier = DA_Ver_koz_ancestor_ghosts

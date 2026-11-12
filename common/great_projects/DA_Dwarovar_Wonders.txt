@@ -2,7 +2,9 @@
 ############################################################
 ###################### Dwarovar Wonders ####################
 
-DA_Magma_Forge = {
+# BEGIN DA_FIREGLASS_FORGE (apply_fireglass_forge_2026-11-12.py)
+DA_Magma_Forge = { # Gor Burad: the Fireglass Forge (the ids are those of the old Magma Forge). Raised by the find DA_ADK_explore.201;
+	# tiers are restored from its page (wonder works) once the canals have been repaired
 	start = 4039
 	date = 2023.01.01
 	time = {
@@ -21,7 +23,7 @@ DA_Magma_Forge = {
 	}
 	on_built = {
 	}
-	on_destroyed = {		
+	on_destroyed = {
 	}
 	can_use_modifiers_trigger = {
 	}
@@ -58,8 +60,7 @@ DA_Magma_Forge = {
 		}
 		province_modifiers = {
 			local_hostile_attrition = 1
-			trade_goods_size = 0.15
-			local_monthly_devastation = 0.01
+			trade_goods_size_modifier = 0.1
 		}
 		area_modifier = {
 		}
@@ -78,13 +79,12 @@ DA_Magma_Forge = {
 		}
 		province_modifiers = {
 			local_hostile_attrition = 1
+			trade_goods_size_modifier = 0.15
 			local_production_efficiency = 0.25
-			local_monthly_devastation = 0.02
 		}
 		area_modifier = {
 			local_hostile_attrition = 0.5
-			trade_goods_size = 0.15
-			local_monthly_devastation = 0.01
+			trade_goods_size_modifier = 0.1
 		}
 		country_modifiers = {
 		}
@@ -101,19 +101,18 @@ DA_Magma_Forge = {
 		}
 		province_modifiers = {
 			local_hostile_attrition = 1
+			trade_goods_size_modifier = 0.25
 			local_production_efficiency = 0.25
-			local_monthly_devastation = 0.03
 		}
 		area_modifier = {
 			local_hostile_attrition = 0.5
+			trade_goods_size_modifier = 0.1
 			local_production_efficiency = 0.25
-			local_monthly_devastation = 0.02
 		}
 		region_modifier = {
 			local_hostile_attrition = 0.25
-			trade_goods_size = 0.15
-			local_monthly_devastation = 0.01
-        }
+			trade_goods_size_modifier = 0.1
+		}
 		country_modifiers = {
 			DA_fake_metal_strength_adder = 1
 		}
@@ -122,6 +121,7 @@ DA_Magma_Forge = {
 		}
 	}
 }
+# END DA_FIREGLASS_FORGE
 
 
 DA_Titanium_Vault = {
@@ -1376,3 +1376,559 @@ DA_Drowned_Arsenal = { # Ovdal Tungr: the Drowned Arsenal. Raised by the find DA
 	}
 }
 # END DA_DROWNED_ARSENAL
+
+# BEGIN DA_BUILDERS_GUILDHALL (apply_hehodovar_2026-11-12.py)
+DA_Builders_Guildhall = { # Hehodovar: the Builders' Guildhall. Raised by the find DA_ADK_explore.106; tiers are restored from its page (wonder works)
+	start = 4078
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Hehogrim_home_found
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_build_cost = -0.1
+			local_build_time = -0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_build_cost = -0.15
+			local_build_time = -0.15
+			local_development_cost = -0.05
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_build_cost = -0.2
+			local_build_time = -0.2
+			local_development_cost = -0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			build_cost = -0.05
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_build_cost = -0.25
+			local_build_time = -0.25
+			local_development_cost = -0.15
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			build_cost = -0.1
+			build_time = -0.1
+			innovativeness_gain = 0.25
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+}
+# END DA_BUILDERS_GUILDHALL
+
+# BEGIN DA_REMAINING_WONDERS (apply_remaining_wonders_2026-11-12.py)
+DA_Stramolgiv = { # Hul-az-Krakazol: Strâmolgiv. Raised by the find DA_ADK_explore.284; tiers are restored from its page (wonder works)
+	start = 4266
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Krakazol_exp1
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_unrest = -1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_unrest = -2
+			local_tax_modifier = 0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_unrest = -3
+			local_tax_modifier = 0.2
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			global_unrest = -0.5
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_unrest = -4
+			local_tax_modifier = 0.3
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			global_unrest = -1
+			prestige = 0.5
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+}
+DA_Sleepers_Hall = { # Verkal Dromak: Sleepers' Hall. Raised by the find DA_ADK_explore.293; tiers are restored from its page (wonder works)
+	start = 4323
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Dromak_exp1
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_unrest = -1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_unrest = -1
+			local_institution_spread = 0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_unrest = -2
+			local_institution_spread = 0.2
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			idea_cost = -0.02
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_unrest = -2
+			local_institution_spread = 0.3
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			idea_cost = -0.05
+			advisor_pool = 1
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+}
+DA_Magistrates_Vault = { # Verkal Gulan: Magistrates' Vault. Raised by the find DA_ADK_explore.287; tiers are restored from its page (wonder works)
+	start = 2914
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Gulan_exp1
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_tax_modifier = 0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_tax_modifier = 0.2
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			inflation_reduction = 0.02
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_tax_modifier = 0.3
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			inflation_reduction = 0.04
+			yearly_corruption = -0.05
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_tax_modifier = 0.4
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			inflation_reduction = 0.06
+			yearly_corruption = -0.1
+			interest = -0.5
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+}
+DA_Hall_of_Vanguard = { # Grônstunad: Hall of the Vanguard. Raised by the find DA_ADK_explore.290; tiers are restored from its page (wonder works)
+	start = 4311
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Gronstunad_exp1
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_manpower_modifier = 0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_manpower_modifier = 0.25
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			land_forcelimit_modifier = 0.05
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_manpower_modifier = 0.5
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			land_forcelimit_modifier = 0.075
+			army_tradition = 0.25
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_manpower_modifier = 0.75
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			land_forcelimit_modifier = 0.1
+			army_tradition = 0.5
+			discipline = 0.025
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+}
+# END DA_REMAINING_WONDERS

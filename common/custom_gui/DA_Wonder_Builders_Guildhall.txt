@@ -1,0 +1,745 @@
+# The Builders' Guildhall, Hehodovar (4078): the page of the wonder. Written on 12 November 2026 by
+# "Claude files/tools/hehodovar_2026-11-12/gen.py"; hand-owned after the first installation.
+# The .gui side is the window "DA_Builders_Guildhall_Window" in interface/topbar.gui (a page of the Dwarven Hall).
+# ROOT and FROM are the country that looks at the page.
+#
+# The cellar      what the Guild pours at the Thinkers' Party: country flags DA_BG_cellar_ale, DA_BG_cellar_reserve (neither: Small Beer).
+# The Board       twelve ideas. Proposed at a party: DA_BG_known_<id>. On the benches, one at a time: DA_BG_work_<id> and the
+#                 variable DA_BG_work_months. Done: DA_BG_done_<id>, and the country modifier DA_BG_idea_<id> while we own the hold.
+# The party       every 60 months, in Bloomsdawn: variable DA_BG_party_months, hidden event DA_Hehodovar_event.20, effect DA_BG_hold_party.
+# Effects and triggers: common/scripted_effects/DA_Builders_Guildhall_effects.txt, common/scripted_triggers/DA_Builders_Guildhall_triggers.txt.
+# The story is in events/DA_Hold_Hehodovar.txt.
+
+custom_window = {
+	name = DA_Builders_Guildhall_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_Builders_Guildhall
+	}
+}
+
+custom_button = {
+	name = DA_close_button_Builders_Guildhall
+	tooltip = DA_Wonder_close_button_tt
+	potential = { always = yes }
+	trigger = { always = yes }
+	effect = { clr_country_flag = DA_show_wonder_Builders_Guildhall }
+}
+
+custom_icon = { # frames: 1 the dusty benches, 2 tier I, 3 tier II, 4 tier III (make_hehodovar_art.py)
+	name = DA_Builders_Guildhall_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 3 } } } }
+	frame = { number = 3 trigger = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } } } }
+	frame = { number = 2 trigger = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_name_shower
+	potential = { always = yes }
+	tooltip = DA_Builders_Guildhall_name_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_Wonder_level_shower
+	potential = { always = yes }
+	tooltip = DA_Builders_Guildhall_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_Wonder_location_shower
+	potential = { always = yes }
+	tooltip = DA_Builders_Guildhall_Wonder_location_shower_tt
+}
+
+# The level-up button. build_wonder_pages.py replaces this block with the wonder works (BEGIN / END DA_WW).
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_4078 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4078.
+custom_button = {
+	name = DA_Builders_Guildhall_upgrade_button
+	tooltip = DA_BG_upgrade_button_tt
+	potential = {
+		NOT = { has_country_flag = DA_WW_building_4078 }
+		NOT = { DA_WW_maxed_4078 = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_DA_Builders_Guildhall_in_use }
+		}
+		4078 = {
+			owned_by = prev
+			has_great_project = { type = DA_Builders_Guildhall tier = 0 }
+		}
+		if = {
+			limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 0 } NOT = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } } } }
+			4078 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_4_or_higher
+					DA_has_dig_level_4_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_4078 = yes
+		}
+		if = {
+			limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } NOT = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } } } }
+			4078 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_6_or_higher
+					DA_has_dig_level_6_or_higher = yes
+				}
+			}
+			4078 = { custom_trigger_tooltip = { tooltip = DA_BG_floor_found_tt has_province_flag = DA_Hehodovar_exp2 } }
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_4078 = yes
+		}
+		if = {
+			limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } NOT = { has_great_project = { type = DA_Builders_Guildhall tier = 3 } } } }
+			4078 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_8_or_higher
+					DA_has_dig_level_8_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_4078 = yes
+		}
+	}
+	effect = {
+		hidden_effect = { DA_WW_refresh_4078 = yes }
+		if = {
+			limit = {
+				4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 0 } NOT = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } } }
+				DA_WW_can_pay_4078 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_4078 = yes
+			custom_tooltip = DA_BG_tier_1_unlock_tt
+		}
+		else_if = {
+			limit = {
+				4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } NOT = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } } }
+				DA_WW_can_pay_4078 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_4078 = yes
+			custom_tooltip = DA_BG_tier_2_unlock_tt
+		}
+		else_if = {
+			limit = {
+				4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } NOT = { has_great_project = { type = DA_Builders_Guildhall tier = 3 } } }
+				DA_WW_can_pay_4078 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_4078 = yes
+			custom_tooltip = DA_BG_tier_3_unlock_tt
+		}
+	}
+}
+# END DA_WW
+
+#######################################################
+# The cellar
+#######################################################
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_header_cellar
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 while the cellar pours this, frame 3 while it cannot
+	name = DA_Builders_Guildhall_button_cellar_beer
+	tooltip = DA_BG_button_cellar_beer_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_BG_guildhall_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { DA_BG_cellar_beer = yes } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_cellar_not_chosen_tt
+			NOT = { DA_BG_cellar_beer = yes }
+		}
+	}
+	effect = {
+		custom_tooltip = DA_BG_cellar_result_tt
+		hidden_effect = {
+			clr_country_flag = DA_BG_cellar_ale
+			clr_country_flag = DA_BG_cellar_reserve
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_cellar_beer_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_cellar_beer_tt
+}
+
+custom_button = { # frame 2 while the cellar pours this, frame 3 while it cannot
+	name = DA_Builders_Guildhall_button_cellar_ale
+	tooltip = DA_BG_button_cellar_ale_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_BG_guildhall_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { DA_BG_cellar_ale = yes } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_cellar_not_chosen_tt
+			NOT = { DA_BG_cellar_ale = yes }
+		}
+	}
+	effect = {
+		custom_tooltip = DA_BG_cellar_result_tt
+		hidden_effect = {
+			clr_country_flag = DA_BG_cellar_ale
+			clr_country_flag = DA_BG_cellar_reserve
+			set_country_flag = DA_BG_cellar_ale
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_cellar_ale_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_cellar_ale_tt
+}
+
+custom_button = { # frame 2 while the cellar pours this, frame 3 while it cannot
+	name = DA_Builders_Guildhall_button_cellar_reserve
+	tooltip = DA_BG_button_cellar_reserve_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_BG_guildhall_at_tier_2 = yes } } }
+	frame = { number = 2 trigger = { DA_BG_cellar_reserve = yes } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_2_tt
+			DA_BG_guildhall_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_cellar_not_chosen_tt
+			NOT = { DA_BG_cellar_reserve = yes }
+		}
+	}
+	effect = {
+		custom_tooltip = DA_BG_cellar_result_tt
+		hidden_effect = {
+			clr_country_flag = DA_BG_cellar_ale
+			clr_country_flag = DA_BG_cellar_reserve
+			set_country_flag = DA_BG_cellar_reserve
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_cellar_reserve_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_cellar_reserve_tt
+}
+
+#######################################################
+# The Board of Ideas
+#######################################################
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_header_board
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_cement
+	tooltip = DA_BG_button_idea_cement_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_cement has_country_flag = DA_BG_work_cement } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_cement } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_cement
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_cement }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 400
+	}
+	effect = {
+		add_treasury = -400
+		custom_tooltip = DA_BG_idea_cement_result_tt
+		hidden_effect = { DA_BG_begin_work_cement = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_cement_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_cement_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_shovel
+	tooltip = DA_BG_button_idea_shovel_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_shovel has_country_flag = DA_BG_work_shovel } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_shovel } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_shovel
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_shovel }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 300
+	}
+	effect = {
+		add_treasury = -300
+		custom_tooltip = DA_BG_idea_shovel_result_tt
+		hidden_effect = { DA_BG_begin_work_shovel = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_shovel_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_shovel_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_chair
+	tooltip = DA_BG_button_idea_chair_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_chair has_country_flag = DA_BG_work_chair } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_chair } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_chair
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_chair }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 200
+	}
+	effect = {
+		add_treasury = -200
+		custom_tooltip = DA_BG_idea_chair_result_tt
+		hidden_effect = { DA_BG_begin_work_chair = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_chair_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_chair_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_gate
+	tooltip = DA_BG_button_idea_gate_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_gate has_country_flag = DA_BG_work_gate } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_gate } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_gate
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_gate }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 800
+	}
+	effect = {
+		add_treasury = -800
+		custom_tooltip = DA_BG_idea_gate_result_tt
+		hidden_effect = { DA_BG_begin_work_gate = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_gate_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_gate_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_cheese
+	tooltip = DA_BG_button_idea_cheese_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_cheese has_country_flag = DA_BG_work_cheese } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_cheese } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_cheese
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_cheese }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 500
+	}
+	effect = {
+		add_treasury = -500
+		custom_tooltip = DA_BG_idea_cheese_result_tt
+		hidden_effect = { DA_BG_begin_work_cheese = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_cheese_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_cheese_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_rampart
+	tooltip = DA_BG_button_idea_rampart_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_rampart has_country_flag = DA_BG_work_rampart } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_rampart } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_rampart
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_rampart }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 500
+	}
+	effect = {
+		add_treasury = -500
+		custom_tooltip = DA_BG_idea_rampart_result_tt
+		hidden_effect = { DA_BG_begin_work_rampart = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_rampart_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_rampart_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_coal
+	tooltip = DA_BG_button_idea_coal_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_coal has_country_flag = DA_BG_work_coal } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_coal } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_coal
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_coal }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 600
+	}
+	effect = {
+		add_treasury = -600
+		custom_tooltip = DA_BG_idea_coal_result_tt
+		hidden_effect = { DA_BG_begin_work_coal = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_coal_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_coal_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_boots
+	tooltip = DA_BG_button_idea_boots_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_boots has_country_flag = DA_BG_work_boots } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_boots } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_boots
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_boots }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 300
+	}
+	effect = {
+		add_treasury = -300
+		custom_tooltip = DA_BG_idea_boots_result_tt
+		hidden_effect = { DA_BG_begin_work_boots = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_boots_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_boots_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_paint
+	tooltip = DA_BG_button_idea_paint_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_paint has_country_flag = DA_BG_work_paint } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_paint } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_paint
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_paint }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 300
+	}
+	effect = {
+		add_treasury = -300
+		custom_tooltip = DA_BG_idea_paint_result_tt
+		hidden_effect = { DA_BG_begin_work_paint = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_paint_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_paint_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_desk
+	tooltip = DA_BG_button_idea_desk_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_desk has_country_flag = DA_BG_work_desk } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_desk } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_desk
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_desk }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 300
+	}
+	effect = {
+		add_treasury = -300
+		custom_tooltip = DA_BG_idea_desk_result_tt
+		hidden_effect = { DA_BG_begin_work_desk = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_desk_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_desk_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_letter
+	tooltip = DA_BG_button_idea_letter_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_letter has_country_flag = DA_BG_work_letter } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_letter } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_letter
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_letter }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 400
+	}
+	effect = {
+		add_treasury = -400
+		custom_tooltip = DA_BG_idea_letter_result_tt
+		hidden_effect = { DA_BG_begin_work_letter = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_letter_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_letter_tt
+}
+
+custom_button = { # frame 2 once done or while it is on the benches, frame 3 until it is proposed
+	name = DA_Builders_Guildhall_button_idea_observer
+	tooltip = DA_BG_button_idea_observer_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_BG_done_observer has_country_flag = DA_BG_work_observer } } }
+	frame = { number = 3 trigger = { OR = { NOT = { has_country_flag = DA_BG_known_observer } NOT = { DA_BG_guildhall_at_tier_1 = yes } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_needs_tier_1_tt
+			DA_BG_guildhall_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_known_tt
+			has_country_flag = DA_BG_known_observer
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_idea_not_done_tt
+			NOT = { has_country_flag = DA_BG_done_observer }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_BG_benches_free_tt
+			NOT = { DA_BG_any_work = yes }
+		}
+		treasury = 1000
+	}
+	effect = {
+		add_treasury = -1000
+		custom_tooltip = DA_BG_idea_observer_result_tt
+		hidden_effect = { DA_BG_begin_work_observer = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_button_idea_observer_text
+	potential = { always = yes }
+	tooltip = DA_BG_button_idea_observer_tt
+}
+
+custom_text_box = {
+	name = DA_Builders_Guildhall_info_text
+	potential = { always = yes }
+	tooltip = DA_Builders_Guildhall_info_text_tt
+}
+

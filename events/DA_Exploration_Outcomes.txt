@@ -1147,28 +1147,115 @@ province_event = {
 
 
 province_event = {
-	id = DA_ADK_explore.104		# Found Mithril workshop
+	id = DA_ADK_explore.104 	# found the empty yards of the Amldavhad Training Facility
 	title = "DA_ADK_explore.104.t"
 	desc = "DA_ADK_explore.104.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DA_Amldavhad_yards_eventPicture
 
 	is_triggered_only = yes
-	fire_only_once = yes
 	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Mithril_workshop_found
+		}
 		DA_pre_setting_Dig_level_as_explored = yes
-		set_province_flag = DA_Mithril_workshop_found
 	}
 	option = {
 		name = "DA_ADK_explore.104.a"
-		custom_tooltip = DA_Dwarovar_Wonder_found_tt
-		owner = {
-			tooltip = { add_adk_effect = { add = 8 } }
-			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 8 } }
-		}
+		custom_tooltip = DA_ADK_explore.104.tooltip
 		hidden_effect = {
-			add_great_project = {
-				type = The_Dwarven_Workshop
+			if = {
+				limit = { NOT = { has_great_project = { type = The_Dwarven_Workshop } } }
+				add_great_project = { type = The_Dwarven_Workshop instant = yes }
 			}
+			owner = { country_event = { id = DA_Mithradum_event.10 days = 5 } }
+		}
+		custom_tooltip = DA_AT_gain_8_ADK
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 8 } } }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+province_event = {
+	id = DA_ADK_explore.238 	# found the Oath Hall and the Roll of the Shields
+	title = "DA_ADK_explore.238.t"
+	desc = "DA_ADK_explore.238.d"
+	picture = DA_Amldavhad_oath_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Mithradhum_exp2
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.238.a"
+		custom_tooltip = DA_ADK_explore.238.tooltip
+		custom_tooltip = DA_AT_gain_6_ADK
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.238.b"
+		custom_tooltip = DA_ADK_explore.238.tooltip
+		owner = { add_prestige = 15 }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+province_event = {
+	id = DA_ADK_explore.239 	# found the struck name and the book in the cell
+	title = "DA_ADK_explore.239.t"
+	desc = "DA_ADK_explore.239.d"
+	picture = DA_Amldavhad_deeps_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Mithradhum_exp3
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.239.a"
+		custom_tooltip = DA_ADK_explore.239.tooltip
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
 			DA_Set_level_as_explored = yes
 		}
 	}
@@ -1270,24 +1357,114 @@ province_event = {
 
 
 province_event = {
-	id = DA_ADK_explore.106		# Found hehogrim's home
+	id = DA_ADK_explore.106 	# found Hehogrim's home, over the drafting hall of the Builders' Guild
 	title = "DA_ADK_explore.106.t"
 	desc = "DA_ADK_explore.106.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DA_Builders_Guildhall_home_eventPicture
 
 	is_triggered_only = yes
-	fire_only_once = yes
 	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Hehogrim_home_found
+		}
 		DA_pre_setting_Dig_level_as_explored = yes
-		set_province_flag = DA_Hehogrim_home_found
 	}
 	option = {
 		name = "DA_ADK_explore.106.a"
 		custom_tooltip = DA_ADK_explore.106.tooltip
-		owner = {
-			tooltip = { add_adk_effect = { add = 6 } }
-			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_great_project = { type = DA_Builders_Guildhall } } }
+				add_great_project = { type = DA_Builders_Guildhall instant = yes }
+			}
+			owner = { country_event = { id = DA_Hehodovar_event.10 days = 5 } }
 		}
+		custom_tooltip = DA_BG_gain_6_ADK
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+province_event = {
+	id = DA_ADK_explore.236 	# found the Pattern Floor
+	title = "DA_ADK_explore.236.t"
+	desc = "DA_ADK_explore.236.d"
+	picture = DA_Builders_Guildhall_floor_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Hehodovar_exp2
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.236.a"
+		custom_tooltip = DA_ADK_explore.236.tooltip
+		custom_tooltip = DA_BG_gain_6_ADK
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.236.b"
+		custom_tooltip = DA_ADK_explore.236.tooltip
+		owner = { add_prestige = 15 }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+province_event = {
+	id = DA_ADK_explore.237 	# found the Thirteenth Room and the book in it
+	title = "DA_ADK_explore.237.t"
+	desc = "DA_ADK_explore.237.d"
+	picture = DA_Builders_Guildhall_room_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Hehodovar_exp3
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.237.a"
+		custom_tooltip = DA_ADK_explore.237.tooltip
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
 		}
@@ -1444,46 +1621,126 @@ province_event = {
 
 
 province_event = {
-	id = DA_ADK_explore.201		# Found gor burad magma forge
+	id = DA_ADK_explore.201 	# found the Fireglass Forge (the old Magma Forge)
 	title = "DA_ADK_explore.201.t"
 	desc = "DA_ADK_explore.201.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DA_Fireglass_Forge_broken_eventPicture
 
 	is_triggered_only = yes
-	fire_only_once = yes
 	immediate = {
-		DA_pre_setting_Dig_level_as_explored = yes
 		hidden_effect = {
 			set_province_flag = DA_Magma_forge_found
-			set_variable = {
-				which = DA_Magma_level
-				value = 20
-			}
-			set_variable = {
-				which = DA_Magma_level_MAX
-				value = 100
-			}
-			set_variable = {
-				which = DA_Magma_level_Increaser
-				value = 1
-			}
+			set_province_flag = DA_FG_set_up
+			set_variable = { which = DA_Magma_level value = 20 }
+			set_variable = { which = DA_Magma_level_MAX value = 100 }
+			set_variable = { which = DA_Magma_level_Increaser value = 2 }
+			set_variable = { which = DA_FG_plan_months value = 24 }
+			set_variable = { which = DA_FG_veins value = 0 }
+			set_variable = { which = DA_FG_wild value = 0 }
+			DA_FG_refresh_gauge = yes
 		}
+		DA_pre_setting_Dig_level_as_explored = yes
 	}
 	option = {
 		name = "DA_ADK_explore.201.a"
-		
 		custom_tooltip = DA_ADK_explore.201.tooltip
-		custom_tooltip = DA_Dwarovar_Wonder_found_tt
-		owner = {
-			tooltip = { add_adk_effect = { add = 5 } }
-			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_Dwarovar_Wonder_found_short_tt
+		add_permanent_province_modifier = { name = DA_FG_broken_canals duration = -1 }
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_great_project = { type = DA_Magma_Forge } } }
+				add_great_project = { type = DA_Magma_Forge instant = yes }
+			}
+			owner = { country_event = { id = DA_Magma_forge_event.5 days = 5 } }
 		}
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
-			province_event = {
-				id = DA_Magma_forge_event.3
-				days = 30
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
 			}
+		}
+	}
+}
+province_event = {
+	id = DA_ADK_explore.234 	# found the Borborduz ring under the forge
+	title = "DA_ADK_explore.234.t"
+	desc = "DA_ADK_explore.234.d"
+	picture = DA_Fireglass_Forge_ring_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Gor_Burad_exp2
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.234.a"
+		custom_tooltip = DA_ADK_explore.234.tooltip
+		add_permanent_province_modifier = { name = DA_FG_borborduz_ring duration = -1 }
+		owner = { add_army_tradition = 5 }
+		hidden_effect = { set_province_flag = DA_FG_ring_open }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.234.b"
+		custom_tooltip = DA_ADK_explore.234.tooltip
+		custom_tooltip = DA_FG_gain_6_ADK
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+province_event = {
+	id = DA_ADK_explore.235 	# found Vilngan in the vault under the ring
+	title = "DA_ADK_explore.235.t"
+	desc = "DA_ADK_explore.235.d"
+	picture = DA_Fireglass_Forge_vault_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Gor_Burad_exp3
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.235.a"
+		custom_tooltip = DA_ADK_explore.235.tooltip
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
 		}
 	}
 	after = {
@@ -1549,10 +1806,10 @@ province_event = {
 
 
 province_event = {
-	id = DA_ADK_explore.203 	# first warnings
+	id = DA_ADK_explore.203 	# Verkal Kozenad, first find: the warnings on the walls (deeps 3 to 10)
 	title = "DA_ADK_explore.203.t"
 	desc = "DA_ADK_explore.203.d"
-	picture = COUNTRY_COLLAPSE_eventPicture
+	picture = CAVE_eventPicture
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -1565,6 +1822,7 @@ province_event = {
 	option = {
 		name = "DA_ADK_explore.203.a"
 		custom_tooltip = DA_ADK_explore.203.tooltip
+		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
 		}
@@ -1584,10 +1842,17 @@ province_event = {
 }
 
 province_event = {
-	id = DA_ADK_explore.204 	# second warnings, small undead army
+	id = DA_ADK_explore.204 	# Verkal Kozenad, second find: the first horde (deeps 5 to 10). Its report is DA_Verkal_Kozenad_event.1, sent by DA_VK_monthly
 	title = "DA_ADK_explore.204.t"
-	desc = "DA_ADK_explore.204.d"
-	picture = COUNTRY_COLLAPSE_eventPicture
+	desc = {
+		trigger = { has_province_flag = DA_Verkal_koz_wardens }
+		desc = "DA_ADK_explore.204.d.wardens"
+	}
+	desc = {
+		trigger = { NOT = { has_province_flag = DA_Verkal_koz_wardens } }
+		desc = "DA_ADK_explore.204.d"
+	}
+	picture = UNDEAD_ARMY_eventPicture
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -1595,10 +1860,21 @@ province_event = {
 		DA_pre_setting_Dig_level_as_explored = yes
 		hidden_effect = {
 			set_province_flag = DA_Verkal_koz_warning2
+			set_province_flag = DA_Verkal_koz_menace_due
 		}
-		spawn_rebels = {
-			type = DA_Undead_rebels
-			size = 2
+		if = {
+			limit = { has_province_flag = DA_Verkal_koz_wardens }
+			spawn_rebels = {
+				type = DA_Undead_rebels
+				size = 1
+			}
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_Verkal_koz_wardens } }
+			spawn_rebels = {
+				type = DA_Undead_rebels
+				size = 2
+			}
 		}
 	}
 	option = {
@@ -1611,6 +1887,7 @@ province_event = {
 	after = {
 		hidden_effect = {
 			clr_province_flag = DA_expedition_in_progress
+			clr_province_flag = DA_Verkal_koz_wardens
 			owner = {
 				add_country_modifier = {
 					name = DA_ADK_menu_cooldown
@@ -1623,25 +1900,45 @@ province_event = {
 }
 
 province_event = {
-	id = DA_ADK_explore.205 	# third exploration, big undead army, will open up a path to the Lich king
-	title = "DA_ADK_explore.205.t"
-	desc = "DA_ADK_explore.205.d"
-	picture = COUNTRY_COLLAPSE_eventPicture
+	id = DA_ADK_explore.240 	# Verkal Kozenad, third find: the archive of the spymasters (deeps 6 to 10); the pact with Ducaniel
+	title = "DA_ADK_explore.240.t"
+	desc = "DA_ADK_explore.240.d"
+	picture = DA_Builders_Guildhall_hall_eventPicture
 
 	is_triggered_only = yes
-	fire_only_once = yes
 	immediate = {
 		DA_pre_setting_Dig_level_as_explored = yes
 		hidden_effect = {
-			set_province_flag = DA_Verkal_koz_warning3
+			set_province_flag = DA_Verkal_koz_registry_found
 		}
-		spawn_rebels = {
-			type = DA_Undead_rebels
-			size = 5
+	}
+	option = { # the registry works for whoever owns the hold (DA_VK_sync)
+		name = "DA_ADK_explore.240.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_VK_opal_registry
+				duration = -1
+			}
+		}
+		custom_tooltip = DA_ADK_explore.240.a.tt
+		hidden_effect = {
+			set_province_flag = DA_Verkal_koz_registry_kept
+			DA_Set_level_as_explored = yes
 		}
 	}
 	option = {
-		name = "DA_ADK_explore.205.a"
+		name = "DA_ADK_explore.240.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_VK_gain_adk_6
+			hidden_effect = {
+				change_variable = { ancientDwarvenKnowledge = 6 }
+			}
+		}
+		custom_tooltip = DA_ADK_explore.240.b.tt
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
 		}
@@ -1661,9 +1958,130 @@ province_event = {
 }
 
 province_event = {
-	id = DA_ADK_explore.206 	# forth exploration, ghosts of old
+	id = DA_ADK_explore.205 	# Verkal Kozenad, fourth find: the northern gate and the second horde (deeps 7 to 10). Its report is DA_Verkal_Kozenad_event.2
+	title = "DA_ADK_explore.205.t"
+	desc = {
+		trigger = { has_province_flag = DA_Verkal_koz_wardens }
+		desc = "DA_ADK_explore.205.d.wardens"
+	}
+	desc = {
+		trigger = { NOT = { has_province_flag = DA_Verkal_koz_wardens } }
+		desc = "DA_ADK_explore.205.d"
+	}
+	picture = DA_secondary_hold_image_eventPicture
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Verkal_koz_warning3
+			set_province_flag = DA_Verkal_koz_palace_due
+		}
+		if = {
+			limit = { has_province_flag = DA_Verkal_koz_wardens }
+			spawn_rebels = {
+				type = DA_Undead_rebels
+				size = 3
+			}
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_Verkal_koz_wardens } }
+			spawn_rebels = {
+				type = DA_Undead_rebels
+				size = 5
+			}
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.205.a"
+		custom_tooltip = DA_ADK_explore.205.tooltip
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			clr_province_flag = DA_Verkal_koz_wardens
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.241 	# Verkal Kozenad, fifth find: the plan of the wards (deeps 8 to 10); it is worth the scouts of the Legendary Encounter
+	title = "DA_ADK_explore.241.t"
+	desc = "DA_ADK_explore.241.d"
+	picture = DA_Dwarven_Rune_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Verkal_koz_cells_found
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.241.a"
+		DA_province_ADK_relative_to_dig_level = yes
+		if = { # the king lives and we do not know his weakness yet
+			limit = {
+				NOT = { has_province_flag = DA_Verkal_koz_king_dead }
+				NOT = { DA_LE_weakness_known = yes }
+			}
+			custom_tooltip = DA_ADK_explore.241.a.tt
+			hidden_effect = {
+				set_province_flag = DA_LE_weakness_given
+				set_province_flag = DA_Verkal_koz_cells_used
+			}
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_Verkal_koz_cells_used } }
+			custom_tooltip = DA_ADK_explore.241.a.late_tt
+			owner = {
+				custom_tooltip = DA_VK_gain_adk_6
+				hidden_effect = {
+					change_variable = { ancientDwarvenKnowledge = 6 }
+				}
+			}
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			clr_province_flag = DA_Verkal_koz_cells_used
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.206 	# Verkal Kozenad, last find: the ghosts of the wardwrights (deep 10, after the throne). DA_Verkal_Kozenad_event.8 is the same meeting without a company
 	title = "DA_ADK_explore.206.t"
-	desc = "DA_ADK_explore.206.d"
+	desc = {
+		trigger = { has_province_flag = DA_Verkal_koz_king_rendered }
+		desc = "DA_ADK_explore.206.d.rendered"
+	}
+	desc = {
+		trigger = { NOT = { has_province_flag = DA_Verkal_koz_king_rendered } }
+		desc = "DA_ADK_explore.206.d"
+	}
 	picture = ULMISBAR_eventPicture
 
 	is_triggered_only = yes
@@ -1671,11 +2089,18 @@ province_event = {
 	immediate = { DA_pre_setting_Dig_level_as_explored = yes }
 	option = {
 		name = "DA_ADK_explore.206.a"
+		ai_chance = { factor = 50 }
 		DA_province_ADK_relative_to_dig_level = yes
-		add_permanent_province_modifier = {
-			name = DA_Ver_koz_ancestor_ghosts
-			duration = -1
+		DA_VK_ghosts_wards = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
 		}
+	}
+	option = {
+		name = "DA_ADK_explore.206.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		DA_VK_ghosts_counsel = yes
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
 		}
@@ -2338,7 +2763,7 @@ province_event = {
 	id = DA_ADK_explore.225		# Found Argrastun_Cathedral, secondary shrine 1
 	title = "DA_ADK_explore.225.t"
 	desc = "DA_ADK_explore.225.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DA_Argrastun_shrine_1_eventPicture
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2377,7 +2802,7 @@ province_event = {
 	id = DA_ADK_explore.226		# Found Argrastun_Cathedral, secondary shrine 2
 	title = "DA_ADK_explore.226.t"
 	desc = "DA_ADK_explore.226.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DA_Argrastun_shrine_2_eventPicture
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2417,7 +2842,7 @@ province_event = {
 	id = DA_ADK_explore.227		# Found Argrastun_Cathedral, Main Cathedral
 	title = "DA_ADK_explore.227.t"
 	desc = "DA_ADK_explore.227.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DA_Argrastun_nave_eventPicture
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2455,7 +2880,7 @@ province_event = {
 	id = DA_ADK_explore.228		# Found Argrastun_Cathedral, Vurodrmonir
 	title = "DA_ADK_explore.228.t"
 	desc = "DA_ADK_explore.228.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DA_Argrastun_altar_eventPicture
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2487,3 +2912,2798 @@ province_event = {
 		}
 	}
 }
+
+# BEGIN DA_REMAINING_HOLDS (Claude files/tools/remaining_holds_2026-11-12/gen.py; installed by apply_remaining_holds_2026-11-12.py)
+province_event = {
+	id = DA_ADK_explore.242 	# Verkal Vazkron, find 1 of 3 (deeps 3 to 10): The Sally Roads
+	title = "DA_ADK_explore.242.t"
+	desc = "DA_ADK_explore.242.d"
+	picture = DA_Balgar_Road_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Vazkron_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.242.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_sally_roads
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.242.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.243 	# Verkal Vazkron, find 2 of 3 (deeps 5 to 10): The Arena
+	title = "DA_ADK_explore.243.t"
+	desc = "DA_ADK_explore.243.d"
+	picture = DA_Amldavhad_rings_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Vazkron_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.243.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_bloody_arena
+			duration = -1
+		}
+		owner = {
+			add_army_tradition = 5
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.243.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_muster_yard
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.244 	# Verkal Vazkron, find 3 of 3 (deeps 8 to 10): The Warden's Post
+	title = "DA_ADK_explore.244.t"
+	desc = "DA_ADK_explore.244.d"
+	picture = DA_Amldavhad_oath_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Vazkron_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.244.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.245 	# Amlharaz, find 1 of 3 (deeps 3 to 10): The Hall of Banners
+	title = "DA_ADK_explore.245.t"
+	desc = "DA_ADK_explore.245.d"
+	picture = DA_Builders_Guildhall_hall_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Amlharaz_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.245.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_prestige = 10
+			add_legitimacy = 10
+			add_republican_tradition = 3
+			add_devotion = 10
+			add_horde_unity = 10
+			add_meritocracy = 10
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.245.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.246 	# Amlharaz, find 2 of 3 (deeps 5 to 10): The Rolls of the Assembly
+	title = "DA_ADK_explore.246.t"
+	desc = "DA_ADK_explore.246.d"
+	picture = DA_Drowned_Arsenal_roll_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Amlharaz_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.246.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_rolls_of_assembly
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Amlharaz_rolls_kept }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.246.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.247 	# Amlharaz, find 3 of 3 (deeps 8 to 10): The Last Session
+	title = "DA_ADK_explore.247.t"
+	desc = "DA_ADK_explore.247.d"
+	picture = DA_Builders_Guildhall_room_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Amlharaz_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.247.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_session_crown
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Amlharaz_session_crown }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.247.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_session_assembly
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Amlharaz_session_assembly }
+		owner = {
+			add_stability = 1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.248 	# Hall of the Ancestors, find 1 of 3 (deeps 3 to 10): The Name-Galleries
+	title = "DA_ADK_explore.248.t"
+	desc = "DA_ADK_explore.248.d"
+	picture = DA_Frozen_Forge_mural_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Hall_Ancestors_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.248.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_prestige = 15
+		}
+		add_province_modifier = {
+			name = DA_RH_names_cleaned
+			duration = 3650
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.248.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_prestige = 5
+		}
+		add_permanent_province_modifier = {
+			name = DA_RH_names_kept_both
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.249 	# Hall of the Ancestors, find 2 of 3 (deeps 6 to 10): The Carvers' Lodge
+	title = "DA_ADK_explore.249.t"
+	desc = "DA_ADK_explore.249.d"
+	picture = DA_Builders_Guildhall_benches_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Hall_Ancestors_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.249.a"
+		ai_chance = { factor = 50 }
+		trigger = {
+			owner = { treasury = 300 }
+		}
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_treasury = -300
+		}
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_roll_completed
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Hall_Ancestors_roll_cut }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.249.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.250 	# Hall of the Ancestors, find 3 of 3 (deeps 9 to 10): The Empty Row
+	title = "DA_ADK_explore.250.t"
+	desc = "DA_ADK_explore.250.d"
+	picture = DA_Amldavhad_deeps_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Hall_Ancestors_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.250.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.250.a.tt
+		hidden_effect = { set_province_flag = DA_Hall_Ancestors_row_begun }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.250.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_stability = 1
+			add_prestige = 25
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.251 	# Arg-Ôrdstun, find 1 of 3 (deeps 4 to 10): Stormheart's Quarry
+	title = "DA_ADK_explore.251.t"
+	desc = "DA_ADK_explore.251.d"
+	picture = DA_Ore_Found_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Arg_Ordstun_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.251.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_stormheart_quarry
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.251.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_quarry_cleared
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.252 	# Arg-Ôrdstun, find 2 of 3 (deeps 6 to 10): The Bruting Floor
+	title = "DA_ADK_explore.252.t"
+	desc = "DA_ADK_explore.252.d"
+	picture = DA_Dwarven_Workshop_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Arg_Ordstun_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.252.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_gromdhal_wheels
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Arg_Ordstun_wheels_kept }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.252.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.253 	# Arg-Ôrdstun, find 3 of 3 (deeps 9 to 10): The Cradle
+	title = "DA_ADK_explore.253.t"
+	desc = "DA_ADK_explore.253.d"
+	picture = DA_Balgar_Gallery_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Arg_Ordstun_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.253.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_lesser_aegis
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Arg_Ordstun_aegis_cut }
+		add_province_modifier = {
+			name = DA_RH_cradle_stupor
+			duration = 7300
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.253.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_stability = 1
+			add_prestige = 25
+		}
+		add_permanent_province_modifier = {
+			name = DA_RH_cradle_sealed
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.254 	# Ovdal Lodhum, find 1 of 3 (deeps 3 to 10): The First Tunnel of Love
+	title = "DA_ADK_explore.254.t"
+	desc = "DA_ADK_explore.254.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Ovdal_Lodhum_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.254.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_honeymoon_road
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.254.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_killing_tunnel
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.255 	# Ovdal Lodhum, find 2 of 3 (deeps 5 to 10): The Registry of Vows
+	title = "DA_ADK_explore.255.t"
+	desc = "DA_ADK_explore.255.d"
+	picture = DA_Drowned_Arsenal_roll_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Ovdal_Lodhum_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.255.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_registry_of_vows
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Ovdal_Lodhum_registry_kept }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.255.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.256 	# Ovdal Lodhum, find 3 of 3 (deeps 8 to 10): The Unclaimed Halves
+	title = "DA_ADK_explore.256.t"
+	desc = "DA_ADK_explore.256.d"
+	picture = DA_Damestear_Deposit_Found_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Ovdal_Lodhum_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.256.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.256.a.tt
+		hidden_effect = {
+			owner = {
+				every_owned_province = {
+					limit = {
+						DA_RH_is_hold = yes
+						NOT = { province_id = 2973 }
+					}
+					add_province_modifier = { name = DA_RH_half_come_home duration = 7300 }
+				}
+			}
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.256.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_prestige = 20
+		}
+		add_permanent_province_modifier = {
+			name = DA_RH_hall_of_lights
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.257 	# Verkal Skomdihr, find 1 of 3 (deeps 3 to 10): The Rangers' Lodge
+	title = "DA_ADK_explore.257.t"
+	desc = "DA_ADK_explore.257.d"
+	picture = DA_rifle_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Skomdihr_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.257.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_skomdihr_rifles
+				duration = 5475
+			}
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.257.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.258 	# Verkal Skomdihr, find 2 of 3 (deeps 5 to 10): Kekig's First Maze
+	title = "DA_ADK_explore.258.t"
+	desc = "DA_ADK_explore.258.d"
+	picture = DA_secondary_hold_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Skomdihr_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.258.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_2
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 2 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.259 	# Verkal Skomdihr, find 3 of 3 (deeps 8 to 10): The Open Ring
+	title = "DA_ADK_explore.259.t"
+	desc = "DA_ADK_explore.259.d"
+	picture = DA_Dwarven_Runic_Circuit_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Skomdihr_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.259.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.260 	# Shazstundihr, find 1 of 3 (deeps 4 to 10): The Silent Ranks
+	title = "DA_ADK_explore.260.t"
+	desc = "DA_ADK_explore.260.d"
+	picture = DA_Builders_Guildhall_vaults_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Shazstundihr_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.260.a"
+		ai_chance = { factor = 50 }
+		trigger = {
+			owner = { treasury = 150 }
+		}
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_treasury = -150
+		}
+		owner = {
+			add_prestige = 15
+		}
+		add_permanent_province_modifier = {
+			name = DA_RH_silent_ranks
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.260.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.261 	# Shazstundihr, find 2 of 3 (deeps 6 to 10): The Sculptors' Yard
+	title = "DA_ADK_explore.261.t"
+	desc = "DA_ADK_explore.261.d"
+	picture = DA_Builders_Guildhall_benches_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Shazstundihr_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.261.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_sculptors_yard
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Shazstundihr_yard_kept }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.261.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.262 	# Shazstundihr, find 3 of 3 (deeps 9 to 10): Brightbeard's Niche
+	title = "DA_ADK_explore.262.t"
+	desc = "DA_ADK_explore.262.d"
+	picture = DA_Hammer_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Shazstundihr_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.262.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_brightbeards_hammer
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Shazstundihr_hammer_carried }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.262.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_stability = 1
+			add_prestige = 25
+		}
+		add_permanent_province_modifier = {
+			name = DA_RH_hammer_returned
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.263 	# Orlghelovar, find 1 of 3 (deeps 3 to 10): The Dark Well
+	title = "DA_ADK_explore.263.t"
+	desc = "DA_ADK_explore.263.d"
+	picture = DA_Balgar_Sunwells_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Orlghelovar_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.263.a"
+		ai_chance = { factor = 50 }
+		trigger = {
+			owner = { treasury = 150 }
+		}
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_treasury = -150
+		}
+		add_permanent_province_modifier = {
+			name = DA_RH_lightwell
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.263.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.264 	# Orlghelovar, find 2 of 3 (deeps 6 to 10): The Lens Hall of Guntîrhug
+	title = "DA_ADK_explore.264.t"
+	desc = "DA_ADK_explore.264.d"
+	picture = DA_Runic_Goggles_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Orlghelovar_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.264.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_guntirhug
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Orlghelovar_school_kept }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.264.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.265 	# Orlghelovar, find 3 of 3 (deeps 9 to 10): The Burning Glass
+	title = "DA_ADK_explore.265.t"
+	desc = "DA_ADK_explore.265.d"
+	picture = DA_Mad_Scientist_Lab_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Orlghelovar_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.265.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_sun_furnace
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.265.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_glass_over_gate
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.266 	# Seghdihr, find 1 of 3 (deeps 3 to 10): The River Stairs
+	title = "DA_ADK_explore.266.t"
+	desc = "DA_ADK_explore.266.d"
+	picture = DA_Drowned_Arsenal_gate_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Seghdihr_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.266.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_river_stairs
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.266.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.267 	# Seghdihr, find 2 of 3 (deeps 5 to 10): The Table of the Five
+	title = "DA_ADK_explore.267.t"
+	desc = "DA_ADK_explore.267.d"
+	picture = DA_Builders_Guildhall_hall_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Seghdihr_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.267.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.267.a.tt
+		hidden_effect = { owner = { DA_RH_sync = yes } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.268 	# Seghdihr, find 3 of 3 (deeps 8 to 10): The Elven Wing
+	title = "DA_ADK_explore.268.t"
+	desc = "DA_ADK_explore.268.d"
+	picture = DA_Last_King_Treasury_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Seghdihr_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.268.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_prestige = 20
+		}
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_contract_published
+				duration = 3650
+			}
+		}
+		custom_tooltip = DA_ADK_explore.268.a.tt
+		hidden_effect = { set_province_flag = DA_Seghdihr_contract_published }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.268.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_contract_burned
+				duration = 7300
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Seghdihr_contract_burned }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.269 	# Gor Ozumbrog, find 1 of 3 (deeps 3 to 10): The Counting Houses of the Four Roads
+	title = "DA_ADK_explore.269.t"
+	desc = "DA_ADK_explore.269.d"
+	picture = DA_old_settlement_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Ozumbrog_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.269.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_four_roads
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.269.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.270 	# Gor Ozumbrog, find 2 of 3 (deeps 5 to 10): The Breach
+	title = "DA_ADK_explore.270.t"
+	desc = "DA_ADK_explore.270.d"
+	picture = DA_Balgar_Northgate_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Ozumbrog_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.270.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.270.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_prestige = 15
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.271 	# Gor Ozumbrog, find 3 of 3 (deeps 8 to 10): The Inner Gate
+	title = "DA_ADK_explore.271.t"
+	desc = "DA_ADK_explore.271.d"
+	picture = DA_secondary_hold_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Ozumbrog_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.271.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.272 	# Grôzumdihr, find 1 of 3 (deeps 3 to 10): The Owl Lofts
+	title = "DA_ADK_explore.272.t"
+	desc = "DA_ADK_explore.272.d"
+	picture = DA_old_settlement_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Grozumdihr_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.272.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_owl_couriers
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Grozumdihr_owls_kept }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.272.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.273 	# Grôzumdihr, find 2 of 3 (deeps 5 to 10): The Chancery of the Code
+	title = "DA_ADK_explore.273.t"
+	desc = "DA_ADK_explore.273.d"
+	picture = DA_Drowned_Arsenal_loft_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Grozumdihr_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.273.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_tax_code
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Grozumdihr_code_kept }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.273.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.274 	# Grôzumdihr, find 3 of 3 (deeps 8 to 10): The Hall of Standing Oaths
+	title = "DA_ADK_explore.274.t"
+	desc = "DA_ADK_explore.274.d"
+	picture = DA_Dwarven_Rune_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Grozumdihr_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.274.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_treasury = 500
+		}
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_oaths_called
+				duration = 9125
+			}
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.274.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_prestige = 25
+		}
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_oaths_released
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Grozumdihr_oaths_released }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.275 	# Vûrdriz-Ândriz, find 1 of 3 (deeps 3 to 10): The Guild Floor
+	title = "DA_ADK_explore.275.t"
+	desc = "DA_ADK_explore.275.d"
+	picture = DA_Dwarven_Workshop_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Vurdriz_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.275.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_guild_floor
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.275.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.276 	# Vûrdriz-Ândriz, find 2 of 3 (deeps 5 to 10): The Assay Vault
+	title = "DA_ADK_explore.276.t"
+	desc = "DA_ADK_explore.276.d"
+	picture = DA_Alchemy_material_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Vurdriz_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.276.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_assay_vault
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Vurdriz_assay_kept }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.276.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.277 	# Vûrdriz-Ândriz, find 3 of 3 (deeps 8 to 10): The Glasslords' Letters
+	title = "DA_ADK_explore.277.t"
+	desc = "DA_ADK_explore.277.d"
+	picture = DA_Blueprint_Arcane_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Vurdriz_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.277.a"
+		ai_chance = { factor = 50 }
+		trigger = {
+			owner = { owns = 4238 }
+		}
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_two_schools
+			duration = -1
+		}
+		4238 = {
+			add_permanent_province_modifier = {
+				name = DA_RH_two_schools
+				duration = -1
+			}
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.277.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.278 	# Tuwad-Dhûmankon, find 1 of 3 (deeps 3 to 10): The Unlit Gardens
+	title = "DA_ADK_explore.278.t"
+	desc = "DA_ADK_explore.278.d"
+	picture = DA_Underground_Flora_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Tuwad_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.278.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_emerald_gardens
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.278.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_4
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 4 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.279 	# Tuwad-Dhûmankon, find 2 of 3 (deeps 5 to 10): The Lamp-Wardens' Light
+	title = "DA_ADK_explore.279.t"
+	desc = "DA_ADK_explore.279.d"
+	picture = DA_secondary_hold_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Tuwad_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.279.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		add_permanent_province_modifier = {
+			name = DA_RH_lamp_wardens
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.279.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_RH_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.280 	# Tuwad-Dhûmankon, find 3 of 3 (deeps 8 to 10): The Seed Vault
+	title = "DA_ADK_explore.280.t"
+	desc = "DA_ADK_explore.280.d"
+	picture = DA_Alchemy_material_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Tuwad_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.280.a"
+		ai_chance = { factor = 50 }
+		trigger = {
+			owner = { treasury = 400 }
+		}
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_treasury = -400
+		}
+		owner = {
+			add_country_modifier = {
+				name = DA_RH_city_never_sleeps
+				duration = -1
+			}
+		}
+		hidden_effect = { set_province_flag = DA_Tuwad_never_sleeps }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.280.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			add_stability = 1
+			add_prestige = 15
+		}
+		add_permanent_province_modifier = {
+			name = DA_RH_lights_follow_day
+			duration = -1
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+# END DA_REMAINING_HOLDS
+
+# BEGIN DA_REMAINING_WONDERS (Claude files/tools/remaining_wonders_2026-11-12/gen.py; installed by apply_remaining_wonders_2026-11-12.py)
+province_event = {
+	id = DA_ADK_explore.284 	# Hul-az-Krakazol, find 1 of 3 (deeps 3 to 10): The Dry Taps
+	title = "DA_ADK_explore.284.t"
+	desc = "DA_ADK_explore.284.d"
+	picture = DA_Stramolgiv_taps_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Krakazol_exp1
+			owner = { change_variable = { which = DA_ST_barrels value = 0 } }
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.284.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.284.tooltip
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_great_project = { type = DA_Stramolgiv } } }
+				add_great_project = { type = DA_Stramolgiv instant = yes }
+			}
+			owner = { country_event = { id = DA_Remaining_Wonders_event.101 days = 5 } }
+		}
+		custom_tooltip = DA_RHW_gain_adk_6
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.285 	# Hul-az-Krakazol, find 2 of 3 (deeps 5 to 10): The Heilzahul
+	title = "DA_ADK_explore.285.t"
+	desc = "DA_ADK_explore.285.d"
+	picture = DA_Stramolgiv_kettle_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Krakazol_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.285.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_RHW_gain_adk_6
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.285.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = { add_prestige = 15 }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.286 	# Hul-az-Krakazol, find 3 of 3 (deeps 8 to 10): Darkbarrel's Cellar
+	title = "DA_ADK_explore.286.t"
+	desc = "DA_ADK_explore.286.d"
+	picture = DA_Stramolgiv_cellar_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Krakazol_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.286.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.286.tooltip
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.287 	# Verkal Gulan, find 1 of 3 (deeps 4 to 10): The Sealed Vault
+	title = "DA_ADK_explore.287.t"
+	desc = "DA_ADK_explore.287.d"
+	picture = DA_Magistrates_Vault_door_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Gulan_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.287.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.287.tooltip
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_great_project = { type = DA_Magistrates_Vault } } }
+				add_great_project = { type = DA_Magistrates_Vault instant = yes }
+			}
+			owner = { country_event = { id = DA_Remaining_Wonders_event.301 days = 5 } }
+		}
+		custom_tooltip = DA_RHW_gain_adk_6
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.288 	# Verkal Gulan, find 2 of 3 (deeps 6 to 10): The Ledger of the King's Gate
+	title = "DA_ADK_explore.288.t"
+	desc = "DA_ADK_explore.288.d"
+	picture = DA_Magistrates_Vault_gold_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Gulan_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.288.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = { add_treasury = 100 }
+		custom_tooltip = DA_ADK_explore.288.a.tt
+		hidden_effect = {
+			owner = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4124
+							province_id = 4218
+							province_id = 4078
+							province_id = 4217
+						}
+					}
+					add_province_modifier = { name = DA_MV_debt_collected duration = 3650 }
+					owner = { add_treasury = 150 }
+				}
+			}
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.288.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = { add_prestige = 15 }
+		custom_tooltip = DA_ADK_explore.288.b.tt
+		hidden_effect = {
+			owner = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4124
+							province_id = 4218
+							province_id = 4078
+							province_id = 4217
+						}
+					}
+					add_province_modifier = { name = DA_MV_debt_forgiven duration = 7300 }
+				}
+			}
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.289 	# Verkal Gulan, find 3 of 3 (deeps 9 to 10): The Last Weighing
+	title = "DA_ADK_explore.289.t"
+	desc = "DA_ADK_explore.289.d"
+	picture = DA_Magistrates_Vault_delve_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Gulan_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.289.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.289.tooltip
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.290 	# Grônstunad, find 1 of 3 (deeps 4 to 10): The Hall of Many Banners
+	title = "DA_ADK_explore.290.t"
+	desc = "DA_ADK_explore.290.d"
+	picture = DA_Vanguard_hall_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Gronstunad_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.290.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.290.tooltip
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_great_project = { type = DA_Hall_of_Vanguard } } }
+				add_great_project = { type = DA_Hall_of_Vanguard instant = yes }
+			}
+			owner = { country_event = { id = DA_Remaining_Wonders_event.401 days = 5 } }
+		}
+		custom_tooltip = DA_RHW_gain_adk_6
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.291 	# Grônstunad, find 2 of 3 (deeps 6 to 10): The Chancery of the East
+	title = "DA_ADK_explore.291.t"
+	desc = "DA_ADK_explore.291.d"
+	picture = DA_Vanguard_bays_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Gronstunad_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.291.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.291.a.tt
+		hidden_effect = {
+			owner = {
+				every_owned_province = {
+					limit = { region = jade_mines_region }
+					add_local_autonomy = -25
+				}
+			}
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.291.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_RHW_gain_adk_6
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.292 	# Grônstunad, find 3 of 3 (deeps 11 to 11): The Sealed Court
+	title = "DA_ADK_explore.292.t"
+	desc = "DA_ADK_explore.292.d"
+	picture = DA_Vanguard_court_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Gronstunad_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.292.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.292.tooltip
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.293 	# Verkal Dromak, find 1 of 3 (deeps 4 to 10): The Hall of Beds
+	title = "DA_ADK_explore.293.t"
+	desc = "DA_ADK_explore.293.d"
+	picture = DA_Sleepers_Hall_beds_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Dromak_exp1
+			if = {
+				limit = { NOT = { has_province_flag = DA_Dream_done } }
+				add_permanent_province_modifier = { name = DA_SL_troubled_sleep duration = -1 }
+			}
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.293.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.293.tooltip
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_great_project = { type = DA_Sleepers_Hall } } }
+				add_great_project = { type = DA_Sleepers_Hall instant = yes }
+			}
+			owner = { country_event = { id = DA_Remaining_Wonders_event.201 days = 5 } }
+		}
+		custom_tooltip = DA_RHW_gain_adk_6
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.294 	# Verkal Dromak, find 2 of 3 (deeps 6 to 10): The Altar under the Stair
+	title = "DA_ADK_explore.294.t"
+	desc = "DA_ADK_explore.294.d"
+	picture = DA_Sleepers_Hall_altar_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Dromak_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.294.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_RHW_gain_adk_6
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.294.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = { add_prestige = 15 }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.295 	# Verkal Dromak, find 3 of 3 (deeps 9 to 10): The Register of the Last Dream
+	title = "DA_ADK_explore.295.t"
+	desc = "DA_ADK_explore.295.d"
+	picture = DA_Sleepers_Hall_desk_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Dromak_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.295.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		if = {
+			limit = { NOT = { has_province_flag = DA_Dream_done } NOT = { DA_LE_weakness_known = yes } }
+			custom_tooltip = DA_ADK_explore.295.weakness.tt
+			hidden_effect = { set_province_flag = DA_LE_weakness_given }
+		}
+		else = {
+			custom_tooltip = DA_RHW_gain_adk_6
+			hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 6 } } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+# END DA_REMAINING_WONDERS
+
+# BEGIN DA_KANZAD_AZ_AN (Claude files/tools/apply_kanzad_az_an_2026-11-12.py)
+province_event = {
+	id = DA_ADK_explore.281 	# Ovdal Kanzad, find 1 of 3 (deeps 4 to 10): The First Gun
+	title = "DA_ADK_explore.281.t"
+	desc = "DA_ADK_explore.281.d"
+	picture = DA_Halanna_foundry_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Kanzad_exp1
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.281.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.281.a.tt
+		hidden_effect = { change_variable = { which = DA_Earth_Shatterer_power value = 40 } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.281.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_KA_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.282 	# Ovdal Kanzad, find 2 of 3 (deeps 6 to 10): The Shell Lofts
+	title = "DA_ADK_explore.282.t"
+	desc = "DA_ADK_explore.282.d"
+	picture = DA_Halanna_lofts_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Kanzad_exp2
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.282.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = { DA_Earth_Shatterer_power_cost_decrease = { amount = 5 } }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.282.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_KA_gain_adk_6
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 6 } }
+		}
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.283 	# Ovdal Kanzad, find 3 of 3 (deeps 8 to 10): The Amber Gallery
+	title = "DA_ADK_explore.283.t"
+	desc = "DA_ADK_explore.283.d"
+	picture = DA_Halanna_gallery_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		DA_pre_setting_Dig_level_as_explored = yes
+		hidden_effect = {
+			set_province_flag = DA_Kanzad_exp3
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.283.a"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.283.a.tt
+		hidden_effect = { set_province_flag = DA_Kanzad_amber_charge }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.283.b"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		custom_tooltip = DA_ADK_explore.283.b.tt
+		hidden_effect = { set_province_flag = DA_Kanzad_amber_range }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.283.c"
+		ai_chance = { factor = 50 }
+		DA_province_ADK_relative_to_dig_level = yes
+		owner = {
+			custom_tooltip = DA_KA_gain_adk_8
+			hidden_effect = { change_variable = { ancientDwarvenKnowledge = 8 } }
+		}
+		owner = { add_prestige = 20 }
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+# END DA_KANZAD_AZ_AN

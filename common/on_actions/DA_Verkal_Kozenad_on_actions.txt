@@ -1,0 +1,21 @@
+# Verkal Kozenad: the Chained Palace (12 November 2026). An additive hook: it merges with the other files' on-actions.
+
+on_monthly_pulse = {
+	if = { # the steps of the story that have to wait, and the risings
+		limit = {
+			ai = no
+			owns = 4056
+		}
+		DA_VK_monthly = yes
+	}
+	if = { # the registry and the counsel of the ghosts go with the hold
+		limit = {
+			OR = {
+				owns = 4056
+				has_country_modifier = DA_VK_opal_registry
+				has_country_modifier = DA_Ver_koz_ancestor_ghosts
+			}
+		}
+		DA_VK_sync = yes
+	}
+}

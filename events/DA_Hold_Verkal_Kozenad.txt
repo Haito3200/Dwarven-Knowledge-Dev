@@ -1,123 +1,277 @@
+# Verkal Kozenad: the Chained Palace (12 November 2026).
+# Written by Claude files/tools/verkal_kozenad_2026-11-12/gen.py and installed by apply_verkal_kozenad_2026-11-12.py; hand-owned after that.
+# Note: Claude files/18 - Verkal Kozenad.md
+#
+# The finds are DA_ADK_explore.203 (the etchings), .204 (the first horde), .240 (the registry), .205 (the northern gate and the second
+# horde), .241 (the wardwrights' cells) and .206 (the ghosts), in events/DA_Exploration_Outcomes.txt. Everything that has to wait
+# (a horde put down, the month after the victory, the year after the throne) is sent by DA_VK_monthly
+# (common/scripted_effects/DA_Hold_Verkal_Kozenad_effects.txt), once a month, for the player who owns the hold.
+# The fight with the king is the Legendary Encounter window; the texts of .4 and the tooltip of .2 belong to
+# build_legendary_encounters.py. No event of this namespace may be numbered 5 or 50 to 59: check_legendary_encounters.py looks
+# for the retired duel event by that prefix.
+
 namespace = DA_Verkal_Kozenad_event
 
-country_event = {
-	id = DA_Verkal_Kozenad_event.1 				# after second warning
+country_event = { # after the first horde (DA_ADK_explore.204) is put down: the dead will keep rising, and the Legendary Encounter button appears
+	id = DA_Verkal_Kozenad_event.1
 	title = "DA_Verkal_Kozenad_event.1.t"
 	desc = "DA_Verkal_Kozenad_event.1.d"
-	picture = DA_research_facility_eventPicture
+	picture = UNDEAD_ARMY_eventPicture
 
-	fire_only_once = yes
-	trigger = {
-		any_core_province = {
-			has_province_flag = DA_Verkal_koz_warning2
-			NOT =  { has_province_flag = DA_expedition_in_progress }
-		}
-		NOT = { num_of_rebel_armies = 1 }
-		NOT = { num_of_rebel_controlled_provinces = 1 }
-	}
-	mean_time_to_happen = {
-		days = 10
-	}
+	is_triggered_only = yes
+	trigger = { owns = 4056 }
 
 	option = {
 		name = "DA_Verkal_Kozenad_event.1.a"
-		every_core_province = {
-			limit = {
-				province_id = 4056
-			}
-			add_permanent_province_modifier = {
-				name = DA_continous_Undeads
-				duration = -1
+		custom_tooltip = DA_Verkal_Kozenad_event.1.a.tt
+		hidden_effect = {
+			4056 = {
+				add_permanent_province_modifier = {
+					name = DA_continous_Undeads
+					duration = -1
+				}
+				set_province_flag = DA_Verkal_koz_menace_told
+				set_variable = { which = DA_VK_quiet_months value = 0 }
 			}
 		}
 	}
 }
 
-country_event = {
-	id = DA_Verkal_Kozenad_event.2 				# Unlock challenging the Immortal Lich
+country_event = { # after the second horde (DA_ADK_explore.205) is put down: the way to the king is open
+	id = DA_Verkal_Kozenad_event.2
 	title = "DA_Verkal_Kozenad_event.2.t"
-	desc = "DA_Verkal_Kozenad_event.2.d"
-	picture = DA_research_facility_eventPicture
+	desc = { # Ducaniel's journal has been read (his laboratory at Hul-Jorkad stands at tier II and is ours)
+		trigger = { 2963 = { owned_by = ROOT has_great_project = { type = The_Dwarven_Laboratory tier = 2 } } }
+		desc = "DA_Verkal_Kozenad_event.2.d.lab"
+	}
+	desc = {
+		trigger = { NOT = { 2963 = { owned_by = ROOT has_great_project = { type = The_Dwarven_Laboratory tier = 2 } } } }
+		desc = "DA_Verkal_Kozenad_event.2.d"
+	}
+	picture = DA_Amldavhad_oath_eventPicture
 
-	trigger = {
-		any_core_province = {
-			has_province_flag = DA_Verkal_koz_warning3
-			NOT =  { has_province_flag = DA_expedition_in_progress }
-		}
-		NOT = { num_of_rebel_armies = 1 }
-		NOT = { num_of_rebel_controlled_provinces = 1 }
-		NOT =  { has_country_flag = DA_can_duel_lich }
-	}
-	mean_time_to_happen = {
-		days = 10
-	}
+	is_triggered_only = yes
+	trigger = { owns = 4056 }
 
 	option = {
 		name = "DA_Verkal_Kozenad_event.2.a"
 		custom_tooltip = DA_Verkal_Kozenad_event.2.a.tt
-		set_country_flag = DA_can_duel_lich
-	}
-	
-}
-
-
-province_event = {
-	id = DA_Verkal_Kozenad_event.3 				# periodical undeads
-	title = "DA_Verkal_Kozenad_event.3.t"
-	desc = "DA_Verkal_Kozenad_event.3.d"
-	picture = NATIVES_eventPicture
-
-	hidden = yes
-	trigger = {
-		has_province_modifier = DA_continous_Undeads
-		NOT = { has_province_modifier = DA_undeads_spawn_CD }
-		NOT = { has_province_modifier = DA_LE_contained_lich }	# the palace is sealed (Legendary Encounter window)
-	}
-	mean_time_to_happen = {
-		months = 48
-	}
-	option = {
-		name = "DA_Verkal_Kozenad_event.3.a"
-		spawn_rebels = {
-			size = 2
-			type = DA_Undead_rebels
-		}
-	}
-	after = {
 		hidden_effect = {
-			add_permanent_province_modifier = {
-				name = DA_undeads_spawn_CD
-				duration = 1825
-				hidden = yes
+			set_country_flag = DA_can_duel_lich
+			4056 = {
+				set_province_flag = DA_Verkal_koz_palace_found
+				if = {
+					limit = { NOT = { has_province_modifier = DA_continous_Undeads } }
+					add_permanent_province_modifier = {
+						name = DA_continous_Undeads
+						duration = -1
+					}
+					set_variable = { which = DA_VK_quiet_months value = 0 }
+				}
 			}
 		}
 	}
 }
 
-
-country_event = {
-	id = DA_Verkal_Kozenad_event.4				# win in duel
-	title = "DA_Verkal_Kozenad_event.4.t"
-	desc = "DA_Verkal_Kozenad_event.4.d"
-	picture = NATIVES_eventPicture
+province_event = { # a rising: every 60 months of quiet while the king lives (DA_VK_monthly counts them)
+	id = DA_Verkal_Kozenad_event.3
+	title = "DA_Verkal_Kozenad_event.3.t"
+	desc = "DA_Verkal_Kozenad_event.3.d"
+	picture = UNDEAD_ARMY_eventPicture
 
 	is_triggered_only = yes
+	trigger = {
+		has_province_modifier = DA_continous_Undeads
+		NOT = { has_province_flag = DA_Verkal_koz_king_dead }
+		NOT = { has_province_modifier = DA_LE_contained_lich }	# the palace is sealed (Legendary Encounter window)
+	}
+
+	option = { # the size follows the dig level of the hold
+		name = "DA_Verkal_Kozenad_event.3.a"
+		ai_chance = { factor = 100 }
+		if = {
+			limit = { DA_has_dig_level_9_or_higher = yes }
+			spawn_rebels = {
+				type = DA_Undead_rebels
+				size = 4
+			}
+		}
+		if = {
+			limit = { DA_has_dig_level_7_or_higher = yes NOT = { DA_has_dig_level_9_or_higher = yes } }
+			spawn_rebels = {
+				type = DA_Undead_rebels
+				size = 3
+			}
+		}
+		if = {
+			limit = { NOT = { DA_has_dig_level_7_or_higher = yes } }
+			spawn_rebels = {
+				type = DA_Undead_rebels
+				size = 2
+			}
+		}
+	}
+	option = {
+		name = "DA_Verkal_Kozenad_event.3.b"
+		ai_chance = { factor = 0 }
+		trigger = {
+			OR = {
+				AND = { DA_has_dig_level_9_or_higher = yes owner = { treasury = 250 } }
+				AND = { DA_has_dig_level_7_or_higher = yes NOT = { DA_has_dig_level_9_or_higher = yes } owner = { treasury = 175 } }
+				AND = { NOT = { DA_has_dig_level_7_or_higher = yes } owner = { treasury = 100 } }
+			}
+		}
+		if = {
+			limit = { DA_has_dig_level_9_or_higher = yes }
+			owner = { add_treasury = -250 }
+		}
+		if = {
+			limit = { DA_has_dig_level_7_or_higher = yes NOT = { DA_has_dig_level_9_or_higher = yes } }
+			owner = { add_treasury = -175 }
+		}
+		if = {
+			limit = { NOT = { DA_has_dig_level_7_or_higher = yes } }
+			owner = { add_treasury = -100 }
+		}
+		add_province_modifier = {
+			name = DA_VK_galleries_walled
+			duration = 730
+		}
+		custom_tooltip = DA_Verkal_Kozenad_event.3.b.tt
+	}
+}
+
+country_event = { # the king is destroyed: fired by the Legendary Encounter (and by its five-yearly pulse for an AI owner)
+	id = DA_Verkal_Kozenad_event.4
+	title = "DA_Verkal_Kozenad_event.4.t"
+	desc = "DA_Verkal_Kozenad_event.4.d"
+	picture = UNDEAD_ARMY_eventPicture
+
+	is_triggered_only = yes
+
 	option = {
 		name = "DA_Verkal_Kozenad_event.4.a"
-		ai_chance = { factor = 40 }
 		add_stability_or_adm_power = yes
 		add_dip_power = 150
 		add_mil_power = 150
 		add_adm_power = 150
-		every_core_province = {
-			limit = {
-				has_province_flag = DA_Verkal_koz_warning3
-			}
-			remove_province_modifier = DA_continous_Undeads
-			province_event = {
-				id = DA_Tech_Alchemy_Material_Event.308
+		custom_tooltip = DA_Verkal_Kozenad_event.4.tt
+		hidden_effect = {
+			4056 = {
+				remove_province_modifier = DA_continous_Undeads
+				set_province_flag = DA_Verkal_koz_king_dead
+				clr_province_flag = DA_Verkal_koz_menace_due
+				clr_province_flag = DA_Verkal_koz_palace_due
+				if = { # an AI owner is not asked: the remains go to the alchemists, as before the rework
+					limit = { owner = { ai = yes } }
+					set_province_flag = DA_Verkal_koz_throne_sent
+					set_province_flag = DA_Verkal_koz_throne_done
+					set_province_flag = DA_Verkal_koz_king_rendered
+					province_event = { id = DA_Tech_Alchemy_Material_Event.308 }
+				}
 			}
 		}
 	}
 }
 
+country_event = { # 30 days after the victory: the body of the king
+	id = DA_Verkal_Kozenad_event.6
+	title = "DA_Verkal_Kozenad_event.6.t"
+	desc = "DA_Verkal_Kozenad_event.6.d"
+	picture = DA_Drowned_Arsenal_roll_eventPicture
+
+	is_triggered_only = yes
+	trigger = { owns = 4056 }
+
+	option = { # a tomb among the kings
+		name = "DA_Verkal_Kozenad_event.6.a"
+		ai_chance = { factor = 50 }
+		add_prestige = 20
+		4056 = {
+			add_permanent_province_modifier = {
+				name = DA_VK_king_at_rest
+				duration = -1
+			}
+		}
+		custom_tooltip = DA_Verkal_Kozenad_event.6.a.tt
+		hidden_effect = {
+			4056 = {
+				set_province_flag = DA_Verkal_koz_king_entombed
+				set_province_flag = DA_Verkal_koz_throne_done
+			}
+		}
+	}
+	option = { # the alchemists: Lich Remains, which the victory used to give by itself
+		name = "DA_Verkal_Kozenad_event.6.b"
+		ai_chance = { factor = 50 }
+		custom_tooltip = DA_Verkal_Kozenad_event.6.b.tt
+		hidden_effect = {
+			4056 = {
+				set_province_flag = DA_Verkal_koz_king_rendered
+				set_province_flag = DA_Verkal_koz_throne_done
+				province_event = { id = DA_Tech_Alchemy_Material_Event.308 }
+			}
+		}
+	}
+}
+
+country_event = { # 365 days after the throne: the strongroom of the palace. The generic King's Treasury (DA_ADK_explore.12) is closed in this hold.
+	id = DA_Verkal_Kozenad_event.7
+	title = "DA_Verkal_Kozenad_event.7.t"
+	desc = "DA_Verkal_Kozenad_event.7.d"
+	picture = DA_Last_King_Treasury_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = { owns = 4056 }
+
+	immediate = {
+		hidden_effect = {
+			4056 = { set_province_flag = DA_found_king_treasury }
+		}
+	}
+
+	option = {
+		name = "DA_Verkal_Kozenad_event.7.a"
+		ai_chance = { factor = 50 }
+		add_treasury = 600
+	}
+	option = {
+		name = "DA_Verkal_Kozenad_event.7.b"
+		ai_chance = { factor = 50 }
+		4056 = {
+			add_permanent_province_modifier = {
+				name = DA_VK_gate_opal
+				duration = -1
+			}
+		}
+		custom_tooltip = DA_Verkal_Kozenad_event.7.b.tt
+	}
+}
+
+province_event = { # the ghosts come up by themselves: 180 days after the victory, if the tenth deep was charted before the king fell
+	id = DA_Verkal_Kozenad_event.8
+	title = "DA_Verkal_Kozenad_event.8.t"
+	desc = {
+		trigger = { has_province_flag = DA_Verkal_koz_king_rendered }
+		desc = "DA_Verkal_Kozenad_event.8.d.rendered"
+	}
+	desc = {
+		trigger = { NOT = { has_province_flag = DA_Verkal_koz_king_rendered } }
+		desc = "DA_Verkal_Kozenad_event.8.d"
+	}
+	picture = ULMISBAR_eventPicture
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_province_flag = DA_Verkal_koz_ghosts_met } }
+
+	option = {
+		name = "DA_ADK_explore.206.a"
+		ai_chance = { factor = 50 }
+		DA_VK_ghosts_wards = yes
+	}
+	option = {
+		name = "DA_ADK_explore.206.b"
+		ai_chance = { factor = 50 }
+		DA_VK_ghosts_counsel = yes
+	}
+}

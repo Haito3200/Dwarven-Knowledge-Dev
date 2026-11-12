@@ -2,7 +2,6 @@
 # Province scope unless the name says otherwise. "owner" is the only country ever involved.
 
 DA_LE_is_lich = {
-	has_province_flag = DA_Verkal_koz_warning3
 	has_province_modifier = DA_continous_Undeads
 }
 
@@ -15,6 +14,26 @@ DA_LE_is_hunter = {
 	NOT = { has_province_flag = DA_Hunter_gone }
 }
 
+DA_LE_is_gatewarden = {
+	has_province_flag = DA_Vazkron_exp2
+	NOT = { has_province_flag = DA_Gatewarden_done }
+}
+
+DA_LE_is_maze_guest = {
+	has_province_flag = DA_Skomdihr_exp2
+	NOT = { has_province_flag = DA_Guest_done }
+}
+
+DA_LE_is_ombrindal = {
+	has_province_flag = DA_Ozumbrog_exp2
+	NOT = { has_province_flag = DA_Ombrindal_done }
+}
+
+DA_LE_is_dream = {
+	has_province_flag = DA_Dromak_exp1
+	NOT = { has_province_flag = DA_Dream_done }
+}
+
 DA_LE_is_guest = {
 	has_province_flag = DA_Setzunkhupa_guest_found
 	NOT = { has_province_flag = DA_Setzunkhupa_guest_gone }
@@ -25,6 +44,10 @@ DA_LE_province_has_legend = {
 		DA_LE_is_lich = yes
 		DA_LE_is_dragon = yes
 		DA_LE_is_hunter = yes
+		DA_LE_is_gatewarden = yes
+		DA_LE_is_maze_guest = yes
+		DA_LE_is_ombrindal = yes
+		DA_LE_is_dream = yes
 		DA_LE_is_guest = yes
 	}
 }
@@ -34,6 +57,10 @@ DA_LE_unlocked = {
 		AND = { DA_LE_is_lich = yes owner = { has_country_flag = DA_can_duel_lich } }
 		AND = { DA_LE_is_dragon = yes owner = { has_country_flag = DA_can_duel_Dragon } }
 		AND = { DA_LE_is_hunter = yes has_great_project = { type = DA_Titanium_Vault tier = 3 } }
+		AND = { DA_LE_is_gatewarden = yes has_province_flag = DA_Vazkron_exp3 }
+		AND = { DA_LE_is_maze_guest = yes has_province_flag = DA_Skomdihr_exp3 }
+		AND = { DA_LE_is_ombrindal = yes has_province_flag = DA_Ozumbrog_exp3 }
+		AND = { DA_LE_is_dream = yes has_province_flag = DA_Dromak_exp2 }
 		AND = { DA_LE_is_guest = yes always = yes }
 	}
 }
@@ -42,22 +69,30 @@ DA_LE_has_ward = {
 	OR = {
 		DA_LE_is_lich = yes
 		DA_LE_is_hunter = yes
+		DA_LE_is_maze_guest = yes
+		DA_LE_is_dream = yes
 	}
 }
 
 DA_LE_weakness_known = {
-	had_province_flag = { flag = DA_LE_scouting days = 180 }
+	OR = {
+		had_province_flag = { flag = DA_LE_scouting days = 180 }
+		has_province_flag = DA_LE_weakness_given
+	}
 }
 
 DA_LE_scouts_out = {
 	has_province_flag = DA_LE_scouting
 	NOT = { had_province_flag = { flag = DA_LE_scouting days = 180 } }
+	NOT = { has_province_flag = DA_LE_weakness_given }
 }
 
 DA_LE_contained = {
 	OR = {
 		has_province_modifier = DA_LE_contained_lich
 		has_province_modifier = DA_LE_contained_dragon
+		has_province_modifier = DA_LE_contained_maze_guest
+		has_province_modifier = DA_LE_contained_dream
 	}
 }
 
@@ -65,6 +100,8 @@ DA_LE_can_be_contained = {
 	OR = {
 		DA_LE_is_lich = yes
 		DA_LE_is_dragon = yes
+		DA_LE_is_maze_guest = yes
+		DA_LE_is_dream = yes
 	}
 }
 

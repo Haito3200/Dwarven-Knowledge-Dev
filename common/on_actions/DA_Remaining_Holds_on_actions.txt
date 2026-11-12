@@ -1,0 +1,22 @@
+# The remaining Serpentspine holds (12 November 2026). An additive hook: it merges with the other files' on-actions.
+
+on_monthly_pulse = {
+	if = {
+		limit = { DA_RH_has_business = yes }
+		DA_RH_sync = yes
+	}
+}
+
+on_monarch_death = {
+	if = { # the Empty Row of the Hall of the Ancestors
+		limit = {
+			ai = no
+			owns = 4128
+			4128 = { has_province_flag = DA_Hall_Ancestors_row_begun }
+		}
+		country_event = {
+			id = DA_Remaining_Holds_event.1
+			days = 5
+		}
+	}
+}

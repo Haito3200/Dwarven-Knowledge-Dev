@@ -1,159 +1,73 @@
-# ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
-
-
-
-# The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
-#custom_button = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the button is visible
-#    trigger = { } #Determines when the button is clickable
-#    effect = { } #Effect
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_text_box = {
-#    name = custom_text_testing #Must match a scripted instantTextBoxType in a .gui file
-#    potential = { } #Determines when the text is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    #To localize it, use the name of the button as a key, can also use customizable localisation
-#}
-
-#custom_icon = {
-#    name = custom_icon_testing #Must match a scripted iconType in a .gui file
-#    potential = { } #Determines when the icon is visible
-#    tooltip = localisation_key #Can use customizable localisation
-#    frame = {  #Can define multiple frame clauses
-#        number = <int> #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-#        trigger = { } #First matched frame clause will be used.
-#    }
-#}
-
-#custom_shield = {
-#    name = custom_button_testing #Must match a scripted guiButtonType in a .gui file
-#    potential = { } #Determines when the shield is visible
-#    trigger = { } #Determines when the shield is clickable
-#    effect = { } #Effect for clicking
-#    tooltip = localisation_key #Can use customizable localisation
-#    global_event_target = <string> # Global event target name
-#    open_country = <bool> #If clicking opens the country view
-#}
-
-##############################  Supported files with scopes ##############################
-#   The Gui objects must be directly inside the specified window Gui element!
-#   FROM is always the country that clicks
-#   provinceview.gui:
-#       province_window         (ROOT: Clicked province)
-#       buildings_window        (ROOT: Clicked province)
-#       state_window            (ROOT: Clicked province)
-#   countrycourtview.gui:
-#       countrycourtview        (ROOT = FROM)
-#   countrygovernmentview.gui:
-#       countrygovernmentview   (ROOT = FROM)
-#   countrydiplomacyview.gui:
-#       countrydiplimacyview    (ROOT: Selected country)
-#   countryeconomyview.gui:
-#       countryeconomyview      (ROOT = FROM)
-#   countrytradeview.gui:
-#       countrytradeview        (ROOT = FROM)
-#   countrytechnologyview.gui:
-#       countrytechnologyview   (ROOT = FROM)
-#   countryideasview.gui:
-#       countryideasview        (ROOT = FROM)
-#   countrymissionsview.gui:
-#       countrymissionsview     (ROOT: Selected country)
-#   countrydecisionview.gui:
-#       countrydecisionsview    (ROOT = FROM)
-#   countrystabilityview.gui:
-#       countrystabilityview    (ROOT = FROM)
-#   countryreligionview.gui:
-#       countryreligionview     (ROOT = FROM)
-#   countrymilitaryview.gui:
-#       countrymilitaryview     (ROOT = FROM)
-#   countrysubjectsview.gui:
-#       countrysubjectview      (ROOT = FROM)
-#   countryestatesview.gui:
-#       countryestatesview      (ROOT = FROM)
-#   ages_view.gui:
-#       ages_view               (ROOT = FROM)
-#   tradeinterface.gui:
-#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
-#   hre.gui:
-#       hre_window              (ROOT = FROM)
-#   papacy.gui:
-#       papacy_window           (ROOT = FROM)
-#   faction.gui:
-#       All faction windows     (ROOT = FROM)
-#   celestialempireview.gui:
-#       celestial_window        (ROOT = FROM)
-#   countrynativesview.gui:
-#       natives_window          (ROOT = FROM)
-#   religiousreforms.gui:
-#       reforms_window          (ROOT = FROM)
-#   parliament.gui:
-#       parliament_window       (ROOT = FROM)
-
-
-
-
-
-
-
-# magma forge
-
+# The Fireglass Forge, Gor Burad (4039): the page of the wonder. Written on 12 November 2026 by
+# "Claude files/tools/fireglass_forge_2026-11-12/gen.py"; hand-owned after the first installation.
+# The .gui side is the window "DA_Magma_Forge_Window" in interface/topbar.gui (a page of the Dwarven Hall).
+# ROOT and FROM are the country that looks at the page. The ids are those of the old Magma Forge.
+#
+# The cisterns  DA_Magma_level / DA_Magma_level_MAX on the province; DA_FG_fill (0 to 100) and DA_FG_cisterns drive the gauge.
+# The sluices   Trickle / Flowing / Full Bore: country flags DA_FG_sluice_trickle, DA_FG_sluice_full (neither = Flowing).
+# The pours     cast basalt, fireglass and heartglass (finished alloys), a pour for the wall; then the moulds cool.
+# The veins     wild veins are walled in and regulated veins overloaded here; a vein is opened and built over from the
+#               province window (common/custom_gui/DA_provinceview.txt, between BEGIN and END DA_FIREGLASS_FORGE).
+# Effects and triggers: common/scripted_effects/DA_Fireglass_Forge_effects.txt, common/scripted_triggers/DA_Fireglass_Forge_triggers.txt.
+# The story is in events/DA_Hold_Gor_Burad_magma_forge.txt.
 
 custom_window = {
-    name = DA_Magma_Forge_Window
-    potential = {
-        DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
-        has_country_flag = DA_show_wonder_magma_forge
-    }
+	name = DA_Magma_Forge_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_magma_forge
+	}
 }
 
 custom_button = {
 	name = DA_close_button_Magma_Forge
 	tooltip = DA_Wonder_close_button_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-		always = yes
-	}
-	effect = {
-		clr_country_flag = DA_show_wonder_magma_forge
-	}
+	potential = { always = yes }
+	trigger = { always = yes }
+	effect = { clr_country_flag = DA_show_wonder_magma_forge }
 }
 
-custom_icon = {
-    name = DA_Magma_forge_Wonder_image
-    potential = {
-		always = yes
-    }
+custom_icon = { # frames: 1 the broken canals, 2 the sluices mended, 3 tier I, 4 tier II, 5 tier III (make_fireglass_forge_art.py)
+	name = DA_Magma_forge_Wonder_image
+	potential = { always = yes }
+	frame = { number = 1 trigger = { 4039 = { NOT = { has_province_flag = DA_restored_MF } } } }
+	frame = { number = 5 trigger = { 4039 = { has_great_project = { type = DA_Magma_Forge tier = 3 } } } }
+	frame = { number = 4 trigger = { 4039 = { has_great_project = { type = DA_Magma_Forge tier = 2 } } } }
+	frame = { number = 3 trigger = { 4039 = { has_great_project = { type = DA_Magma_Forge tier = 1 } } } }
+	frame = { number = 2 trigger = { always = yes } }
 }
 
 custom_text_box = {
-    name = DA_Magma_forge_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Magma_forge_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_Magma_forge_name_shower
+	potential = { always = yes }
+	tooltip = DA_Magma_forge_name_shower_tt
 }
 
 custom_text_box = {
-    name = DA_Magma_forge_dwarven_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Magma_forge_dwarven_name_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_Magma_forge_dwarven_name_shower
+	potential = { always = yes }
+	tooltip = DA_Magma_forge_dwarven_name_shower_tt
 }
 
+custom_text_box = {
+	name = DA_Magma_forge_Wonder_level_shower
+	potential = { always = yes }
+	tooltip = DA_Magma_forge_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Magma_forge_Wonder_location_shower
+	potential = { always = yes }
+	tooltip = DA_Magma_forge_Wonder_location_shower_tt
+}
+
+# The level-up button. build_wonder_pages.py replaces this block with the wonder works (BEGIN / END DA_WW).
 # BEGIN DA_WW level-up button (build_wonder_pages.py)
 # The works take time: the tier and what it brings arrive when DA_WW_finish_4039 runs
 # (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4039.
 custom_button = {
 	name = DA_Magma_forge_upgrade_button
-	tooltip = DA_Wonder_upgrade_button_tt
+	tooltip = DA_FG_upgrade_button_tt
 	potential = {
 		NOT = { has_country_flag = DA_WW_building_4039 }
 		NOT = { DA_WW_maxed_4039 = yes }
@@ -189,6 +103,7 @@ custom_button = {
 					DA_has_dig_level_6_or_higher = yes
 				}
 			}
+			4039 = { custom_trigger_tooltip = { tooltip = DA_FG_ring_found_tt has_province_flag = DA_Gor_Burad_exp2 } }
 			DA_alchemy_reagents_total_required = { amount = 20 }
 			DA_enchanted_building_material_total_required = { amount = 20 }
 			DA_arcane_metal_total_required = { amount = 20 }
@@ -219,6 +134,7 @@ custom_button = {
 			DA_enchanted_building_material_spend = { amount = 5 }
 			DA_arcane_metal_spend = { amount = 5 }
 			DA_WW_begin_4039 = yes
+			custom_tooltip = DA_FG_tier_1_unlock_tt
 		}
 		else_if = {
 			limit = {
@@ -229,6 +145,7 @@ custom_button = {
 			DA_enchanted_building_material_spend = { amount = 20 }
 			DA_arcane_metal_spend = { amount = 20 }
 			DA_WW_begin_4039 = yes
+			custom_tooltip = DA_FG_tier_2_unlock_tt
 		}
 		else_if = {
 			limit = {
@@ -239,380 +156,581 @@ custom_button = {
 			DA_enchanted_building_material_spend = { amount = 40 }
 			DA_arcane_metal_spend = { amount = 40 }
 			DA_WW_begin_4039 = yes
+			custom_tooltip = DA_FG_tier_3_unlock_tt
 		}
 	}
 }
 # END DA_WW
 
+#######################################################
+# The cisterns
+#######################################################
+
 custom_text_box = {
-    name = DA_Magma_forge_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Magma_forge_Wonder_level_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_FG_header_cisterns
+	potential = { always = yes }
+}
+
+custom_icon = { # 21 frames: the fill in steps of 5%
+	name = DA_FG_gauge
+	tooltip = DA_FG_gauge_tt
+	potential = { always = yes }
+	frame = { number = 21 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 100 } } } }
+	frame = { number = 20 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 95 } } } }
+	frame = { number = 19 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 90 } } } }
+	frame = { number = 18 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 85 } } } }
+	frame = { number = 17 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 80 } } } }
+	frame = { number = 16 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 75 } } } }
+	frame = { number = 15 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 70 } } } }
+	frame = { number = 14 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 65 } } } }
+	frame = { number = 13 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 60 } } } }
+	frame = { number = 12 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 55 } } } }
+	frame = { number = 11 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 50 } } } }
+	frame = { number = 10 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 45 } } } }
+	frame = { number = 9 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 40 } } } }
+	frame = { number = 8 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 35 } } } }
+	frame = { number = 7 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 30 } } } }
+	frame = { number = 6 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 25 } } } }
+	frame = { number = 5 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 20 } } } }
+	frame = { number = 4 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 15 } } } }
+	frame = { number = 3 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 10 } } } }
+	frame = { number = 2 trigger = { 4039 = { check_variable = { which = DA_FG_fill value = 5 } } } }
+	frame = { number = 1 trigger = { always = yes } }
 }
 
 custom_text_box = {
-    name = DA_Magma_forge_Wonder_location_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Magma_forge_Wonder_location_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+	name = DA_FG_gauge_text
+	potential = { always = yes }
+	tooltip = DA_FG_gauge_tt
 }
 
-custom_icon = {
-    name = DA_Magma_forge_Wonder_magma_level_panel
-    potential = {
-		always = yes
-    }
-}
-
-custom_text_box = {
-    name = DA_Magma_forge_Wonder_magma_level_panel_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Magma_forge_Wonder_magma_level_panel_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
+custom_icon = { # 6 frames: how many cisterns have been added
+	name = DA_FG_pips
+	tooltip = DA_FG_pips_tt
+	potential = { always = yes }
+	frame = { number = 6 trigger = { 4039 = { check_variable = { which = DA_FG_cisterns value = 5 } } } }
+	frame = { number = 5 trigger = { 4039 = { check_variable = { which = DA_FG_cisterns value = 4 } } } }
+	frame = { number = 4 trigger = { 4039 = { check_variable = { which = DA_FG_cisterns value = 3 } } } }
+	frame = { number = 3 trigger = { 4039 = { check_variable = { which = DA_FG_cisterns value = 2 } } } }
+	frame = { number = 2 trigger = { 4039 = { check_variable = { which = DA_FG_cisterns value = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
 }
 
 custom_button = {
-	name = DA_Magma_forge_Wonder_repair_button
-	tooltip = DA_Magma_forge_Wonder_repair_button_tt
-	potential = {
-		4039 = {
-			NOT = {
-				has_province_flag = DA_restored_MF
-			}
-			has_province_flag = DA_Magma_forge_found
-			NOT = {
-				has_great_project = {
-					type = DA_Magma_Forge
-					tier = 1
-				}
-			}
-		}
-	}
+	name = DA_FG_button_cistern
+	tooltip = DA_FG_button_cistern_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
 	trigger = {
 		custom_trigger_tooltip = {
-			tooltip = DA_Magma_forge_restorable_tt
-			4039 = {
-				has_province_flag = DA_restorable_MF
-			}
+			tooltip = DA_FG_can_add_cistern_tt
+			DA_FG_can_add_cistern = yes
+		}
+		DA_Magma_Level_required = { amount = 100 }
+		DA_alchemy_reagents_total_required = { amount = 5 }
+		DA_enchanted_building_material_total_required = { amount = 5 }
+		DA_arcane_metal_total_required = { amount = 5 }
+		treasury = 500
+	}
+	effect = {
+		custom_tooltip = DA_FG_cistern_effect_tt
+		DA_Magma_Level_spend = { amount = 100 }
+		DA_alchemy_reagents_spend = { amount = 5 }
+		DA_enchanted_building_material_spend = { amount = 5 }
+		DA_arcane_metal_spend = { amount = 5 }
+		add_treasury = -500
+		hidden_effect = { 4039 = { change_variable = { which = DA_Magma_level_MAX value = 40 } } DA_FG_refresh_gauge = yes }
+	}
+}
+
+#######################################################
+# The broken canals (until the repair)
+#######################################################
+
+custom_text_box = {
+	name = DA_FG_header_broken
+	potential = { 4039 = { NOT = { has_province_flag = DA_restored_MF } } }
+}
+
+custom_button = { # frame 3 while it cannot be used
+	name = DA_FG_button_vent
+	tooltip = DA_FG_button_vent_tt
+	potential = { 4039 = { NOT = { has_province_flag = DA_restored_MF } } }
+	frame = { number = 3 trigger = { has_country_modifier = DA_FG_vented } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_not_vented_tt
+			NOT = { has_country_modifier = DA_FG_vented }
+		}
+		DA_Magma_Level_required = { amount = 30 }
+		treasury = 100
+	}
+	effect = {
+		add_treasury = -100
+		DA_Magma_Level_spend = { amount = 30 }
+		4039 = { add_devastation = 8 }
+		hidden_effect = { add_country_modifier = { name = DA_FG_vented duration = 365 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_vent_text
+	potential = { 4039 = { NOT = { has_province_flag = DA_restored_MF } } }
+	tooltip = DA_FG_button_vent_tt
+}
+
+custom_button = { # frame 3 until the plan has come
+	name = DA_FG_button_repair
+	tooltip = DA_FG_button_repair_tt
+	potential = { 4039 = { NOT = { has_province_flag = DA_restored_MF } } }
+	frame = { number = 3 trigger = { 4039 = { NOT = { has_province_flag = DA_restorable_MF } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_plan_ready_tt
+			4039 = { has_province_flag = DA_restorable_MF }
 		}
 		treasury = 2000
 		custom_trigger_tooltip = {
 			tooltip = DA_has_12_ADK
-			check_variable = {
-				which = ancientDwarvenKnowledge
-				value = 12
-			}
+			check_variable = { which = ancientDwarvenKnowledge value = 12 }
 		}
 	}
 	effect = {
 		add_treasury = -2000
 		custom_tooltip = DA_Cost_12_ADK
-		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 12 } }
-		hidden_effect = { 4039 = { set_province_flag = DA_restored_MF } }
-		country_event = {
-			id = DA_Magma_forge_event.2
-		}
-	}
-}
-
-custom_button = {
-	name = DA_Magma_Forge_button_6
-	tooltip = DA_Magma_Forge_button_6_tt
-	potential = {
-		4039 = {
-			has_province_flag = DA_restored_MF
-		}
-	}
-	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
-		}
-		DA_Magma_Level_required = {
-			amount = 100
-		}
-		DA_alchemy_reagents_total_required = {
-			amount = 5
-		}
-		DA_enchanted_building_material_total_required = {
-			amount = 5
-		}
-		DA_arcane_metal_total_required = {
-			amount = 5
-		}
-		treasury = 500
-	}
-	effect = {
-		custom_tooltip = DA_Magma_level_MAX_increase_tt
+		custom_tooltip = DA_FG_repair_effect_tt
 		hidden_effect = {
-			4039 = {
-				change_variable = {
-					which = DA_Magma_level_MAX
-					value = 40
-				}
-				if = {
-					limit = {
-						has_great_project = {
-							type = DA_Magma_Forge
-							tier = 2
-						}
-					}
-					change_variable = {
-						which = DA_Magma_level_Increaser
-						value = 1
-					}
-				}
-			}
-		}
-		DA_Magma_Level_spend = {
-			amount = 100
-		}
-		DA_alchemy_reagents_spend = {
-			amount = 5
-		}
-		DA_enchanted_building_material_spend = {
-			amount = 5
-		}
-		DA_arcane_metal_spend = {
-			amount = 5
-		}
-		add_treasury = -500
-	}
-}
-
-custom_button = {
-	name = DA_Magma_Forge_button_1
-	tooltip = DA_Magma_Forge_button_1_tt
-	potential = {
-		4039 = {
-			has_province_flag = DA_restored_MF
-		}
-	}
-	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
-		}
-		4039 = {
-			has_great_project = {
-				type = DA_Magma_Forge
-				tier = 1
-			}
-		}
-		DA_Magma_Level_required = {
-			amount = 60
-		}
-		DA_enchanted_building_material_total_required = {
-			amount = 5
-		}
-		treasury = 350
-		custom_trigger_tooltip = {
-			tooltip = DA_Unlocking_needs_time_tt
-			has_country_flag = DA_MF_can_create_regulated_veins
-		}
-	}
-	effect = {
-		DA_Magma_Level_spend = {
-			amount = 60
-		}
-		DA_enchanted_building_material_spend = {
-			amount = 5
-		}
-		add_treasury = -350
-		country_event = {
-			id = DA_Magma_forge_event.13
+			subtract_variable = { ancientDwarvenKnowledge = 12 }
+			4039 = { set_province_flag = DA_restored_MF remove_province_modifier = DA_FG_broken_canals }
+			DA_FG_sync = yes
+			country_event = { id = DA_Magma_forge_event.2 }
 		}
 	}
 }
 
-custom_button = {
-	name = DA_Magma_Forge_button_2
-	tooltip = DA_Magma_Forge_button_2_tt
-	potential = {
-		4039 = {
-			has_province_flag = DA_restored_MF
-		}
-	}
+custom_text_box = {
+	name = DA_FG_button_repair_text
+	potential = { 4039 = { NOT = { has_province_flag = DA_restored_MF } } }
+	tooltip = DA_FG_button_repair_tt
+}
+
+custom_text_box = {
+	name = DA_FG_broken_text
+	potential = { 4039 = { NOT = { has_province_flag = DA_restored_MF } } }
+	tooltip = DA_FG_broken_text_tt
+}
+
+#######################################################
+# The sluices
+#######################################################
+
+custom_text_box = {
+	name = DA_FG_header_sluices
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+}
+
+custom_button = { # frame 2 while this is the setting, frame 3 while it cannot be chosen
+	name = DA_FG_button_sluice_trickle
+	tooltip = DA_FG_button_sluice_trickle_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { NOT = { DA_FG_repaired = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_FG_sluice_trickle } }
+	frame = { number = 1 trigger = { always = yes } }
 	trigger = {
 		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
-		}
-		4039 = {
-			has_great_project = {
-				type = DA_Magma_Forge
-				tier = 1
-			}
-		}
-		DA_Magma_Level_required = {
-			amount = 100
+			tooltip = DA_FG_needs_repair_tt
+			DA_FG_repaired = yes
 		}
 		custom_trigger_tooltip = {
-			tooltip = DA_Unlocking_needs_time_tt
-			has_country_flag = DA_MF_can_create_regulated_veins
+			tooltip = DA_FG_not_this_sluice_tt
+			NOT = { has_country_flag = DA_FG_sluice_trickle }
 		}
-		all_owned_province = {
-			NOT = {
-				has_province_modifier = DA_regulated_magma_vein_overloaded
-			}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_sluice_not_changed_tt
+			NOT = { has_country_modifier = DA_FG_sluice_changed }
 		}
 	}
 	effect = {
-		DA_Magma_Level_spend = {
-			amount = 100
+		custom_tooltip = DA_FG_sluice_trickle_effect_tt
+		custom_tooltip = DA_FG_sluice_set_tt
+		hidden_effect = { DA_FG_set_sluice_trickle = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_sluice_trickle_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_sluice_trickle_tt
+}
+
+custom_button = { # frame 2 while this is the setting, frame 3 while it cannot be chosen
+	name = DA_FG_button_sluice_flowing
+	tooltip = DA_FG_button_sluice_flowing_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { NOT = { DA_FG_repaired = yes } } }
+	frame = { number = 2 trigger = { DA_FG_sluice_flowing = yes } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_repair_tt
+			DA_FG_repaired = yes
 		}
-		custom_tooltip = DA_all_magma_vein_provinces_get_tt
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_not_this_sluice_tt
+			NOT = { DA_FG_sluice_flowing = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_sluice_not_changed_tt
+			NOT = { has_country_modifier = DA_FG_sluice_changed }
+		}
+	}
+	effect = {
+		custom_tooltip = DA_FG_sluice_flowing_effect_tt
+		custom_tooltip = DA_FG_sluice_set_tt
+		hidden_effect = { DA_FG_set_sluice_flowing = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_sluice_flowing_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_sluice_flowing_tt
+}
+
+custom_button = { # frame 2 while this is the setting, frame 3 while it cannot be chosen
+	name = DA_FG_button_sluice_full
+	tooltip = DA_FG_button_sluice_full_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { NOT = { DA_FG_at_tier_2 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_FG_sluice_full } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_2_tt
+			DA_FG_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_not_this_sluice_tt
+			NOT = { has_country_flag = DA_FG_sluice_full }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_sluice_not_changed_tt
+			NOT = { has_country_modifier = DA_FG_sluice_changed }
+		}
+	}
+	effect = {
+		custom_tooltip = DA_FG_sluice_full_effect_tt
+		custom_tooltip = DA_FG_sluice_set_tt
+		hidden_effect = { DA_FG_set_sluice_full = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_sluice_full_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_sluice_full_tt
+}
+
+#######################################################
+# Pours
+#######################################################
+
+custom_text_box = {
+	name = DA_FG_header_pours
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+}
+
+custom_button = { # frame 3 while it cannot be poured
+	name = DA_FG_button_pour_basalt
+	tooltip = DA_FG_button_pour_basalt_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FG_pour_open_basalt = yes } has_country_modifier = DA_FG_moulds_cooling } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_1_tt
+			DA_FG_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_moulds_ready_tt
+			NOT = { has_country_modifier = DA_FG_moulds_cooling }
+		}
+		DA_Magma_Level_required = { amount = 60 }
+		treasury = 100
+	}
+	effect = {
+		DA_Magma_Level_spend = { amount = 60 }
+		add_treasury = -100
+		custom_tooltip = DA_FG_pour_basalt_result_tt
+		hidden_effect = { change_variable = { which = DA_enchanted_building_material_total value = 10 } add_country_modifier = { name = DA_FG_moulds_cooling duration = 180 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_pour_basalt_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_pour_basalt_tt
+}
+
+custom_button = { # frame 3 while it cannot be poured
+	name = DA_FG_button_pour_fireglass
+	tooltip = DA_FG_button_pour_fireglass_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FG_pour_open_fireglass = yes } has_country_modifier = DA_FG_moulds_cooling } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_2_tt
+			DA_FG_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_moulds_ready_tt
+			NOT = { has_country_modifier = DA_FG_moulds_cooling }
+		}
+		DA_FF_free_alloy_slot = yes
+		DA_FF_alloy_bench_clear = yes
+		DA_Magma_Level_required = { amount = 100 }
+		DA_alchemy_reagents_total_required = { amount = 10 }
+		treasury = 400
+	}
+	effect = {
+		DA_Magma_Level_spend = { amount = 100 }
+		add_treasury = -400
+		DA_alchemy_reagents_spend = { amount = 10 }
+		custom_tooltip = DA_FG_pour_fireglass_result_tt
+		hidden_effect = { DA_FG_fill_fireglass = yes add_country_modifier = { name = DA_FG_moulds_cooling duration = 365 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_pour_fireglass_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_pour_fireglass_tt
+}
+
+custom_button = { # frame 3 while it cannot be poured
+	name = DA_FG_button_pour_wall
+	tooltip = DA_FG_button_pour_wall_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FG_pour_open_wall = yes } has_country_modifier = DA_FG_moulds_cooling } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_3_tt
+			DA_FG_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_wall_tt
+			DA_FG_wall_standing = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_wall_not_cast_tt
+			672 = { NOT = { has_province_modifier = DA_FG_wall_casting } }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_moulds_ready_tt
+			NOT = { has_country_modifier = DA_FG_moulds_cooling }
+		}
+		DA_Magma_Level_required = { amount = 140 }
+	}
+	effect = {
+		DA_Magma_Level_spend = { amount = 140 }
+		672 = {
+			add_province_modifier = { name = DA_FG_wall_casting duration = 3650 }
+		}
+		hidden_effect = { add_country_modifier = { name = DA_FG_moulds_cooling duration = 365 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_pour_wall_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_pour_wall_tt
+}
+
+custom_button = { # frame 3 while it cannot be poured
+	name = DA_FG_button_pour_heartglass
+	tooltip = DA_FG_button_pour_heartglass_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FG_pour_open_heartglass = yes } has_country_modifier = DA_FG_moulds_cooling } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_3_tt
+			DA_FG_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_fed_tt
+			4039 = { has_province_flag = DA_FG_giant_fed }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_moulds_ready_tt
+			NOT = { has_country_modifier = DA_FG_moulds_cooling }
+		}
+		DA_FF_free_alloy_slot = yes
+		DA_FF_alloy_bench_clear = yes
+		DA_Magma_Level_required = { amount = 160 }
+		DA_alchemy_reagents_total_required = { amount = 20 }
+		treasury = 1500
+	}
+	effect = {
+		DA_Magma_Level_spend = { amount = 160 }
+		add_treasury = -1500
+		DA_alchemy_reagents_spend = { amount = 20 }
+		custom_tooltip = DA_FG_pour_heartglass_result_tt
+		hidden_effect = { DA_FG_fill_heartglass = yes add_country_modifier = { name = DA_FG_moulds_cooling duration = 730 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_pour_heartglass_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_pour_heartglass_tt
+}
+
+#######################################################
+# Veins and the wall
+#######################################################
+
+custom_text_box = {
+	name = DA_FG_header_veins
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+}
+
+custom_button = { # frame 3 while there is nothing to wall in
+	name = DA_FG_button_regulate
+	tooltip = DA_FG_button_regulate_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FG_at_tier_1 = yes } NOT = { any_owned_province = { has_province_modifier = DA_unregulated_magma_vein } } } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_1_tt
+			DA_FG_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_has_wild_vein_tt
+			any_owned_province = { has_province_modifier = DA_unregulated_magma_vein }
+		}
+		DA_Magma_Level_required = { amount = 80 }
+		treasury = 750
+	}
+	effect = {
+		DA_Magma_Level_spend = { amount = 80 }
+		add_treasury = -750
+		custom_tooltip = DA_FG_regulate_effect_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_modifier = DA_unregulated_magma_vein }
+				DA_FG_form_vein = yes
+			}
+			DA_FG_count_veins = yes
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_FG_button_regulate_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_regulate_tt
+}
+
+custom_button = { # frame 2 while the veins are overloaded, frame 3 while it cannot be done
+	name = DA_FG_button_overload
+	tooltip = DA_FG_button_overload_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FG_at_tier_2 = yes } NOT = { any_owned_province = { has_province_modifier = DA_regulated_magma_vein } } } } }
+	frame = { number = 2 trigger = { any_owned_province = { has_province_modifier = DA_regulated_magma_vein_overloaded } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_needs_tier_2_tt
+			DA_FG_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_has_vein_tt
+			any_owned_province = { has_province_modifier = DA_regulated_magma_vein }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_not_overloaded_tt
+			NOT = { any_owned_province = { has_province_modifier = DA_regulated_magma_vein_overloaded } }
+		}
+		DA_Magma_Level_required = { amount = 100 }
+	}
+	effect = {
+		DA_Magma_Level_spend = { amount = 100 }
+		custom_tooltip = DA_FG_overload_effect_tt
 		tooltip = {
 			random_owned_province = {
-				limit = {
-					has_province_modifier = DA_regulated_magma_vein
-				}
-				add_province_modifier = {
-					name = DA_regulated_magma_vein_overloaded
-					duration = 3650
-				}
+				limit = { has_province_modifier = DA_regulated_magma_vein }
+				add_province_modifier = { name = DA_regulated_magma_vein_overloaded duration = 3650 }
 			}
 		}
 		hidden_effect = {
 			every_owned_province = {
-				limit = {
-					has_province_modifier = DA_regulated_magma_vein
-				}
-				add_province_modifier = {
-					name = DA_regulated_magma_vein_overloaded
-					duration = 3650
-				}
+				limit = { has_province_modifier = DA_regulated_magma_vein }
+				add_province_modifier = { name = DA_regulated_magma_vein_overloaded duration = 3650 }
 			}
 		}
 	}
 }
 
-custom_button = {
-	name = DA_Magma_Forge_button_3
-	tooltip = DA_Magma_Forge_button_3_tt
-	potential = {
-		4039 = {
-			has_province_flag = DA_restored_MF
-		}
-		any_owned_province = {
-			has_province_modifier = DA_unregulated_magma_vein
-		}
-	}
+custom_text_box = {
+	name = DA_FG_button_overload_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_overload_tt
+}
+
+custom_button = { # frame 2 once the wall is begun, frame 3 until it can be
+	name = DA_FG_button_wall
+	tooltip = DA_FG_button_wall_tt
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	frame = { number = 2 trigger = { has_country_flag = DA_MF_can_create_Basalt_Wall_2 } }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FG_at_tier_3 = yes } NOT = { has_country_flag = DA_MF_can_create_Basalt_Wall } } } }
+	frame = { number = 1 trigger = { always = yes } }
 	trigger = {
 		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
-		}
-		4039 = {
-			has_great_project = {
-				type = DA_Magma_Forge
-				tier = 1
-			}
-		}
-		DA_Magma_Level_required = {
-			amount = 80
+			tooltip = DA_FG_needs_tier_3_tt
+			DA_FG_at_tier_3 = yes
 		}
 		custom_trigger_tooltip = {
-			tooltip = DA_Unlocking_needs_time_tt
-			has_country_flag = DA_MF_regulate_veins
-		}
-		treasury = 750
-	}
-	effect = {
-		DA_Magma_Level_spend = {
-			amount = 80
-		}
-		add_treasury = -750
-		every_owned_province = {
-			limit = {
-				has_province_modifier = DA_unregulated_magma_vein
-			}
-			remove_province_modifier = DA_unregulated_magma_vein
-			add_permanent_province_modifier = {
-				name = DA_regulated_magma_vein
-				duration = -1
-			}
-		}
-	}
-}
-
-custom_button = {
-	name = DA_Magma_Forge_button_4
-	tooltip = DA_Magma_Forge_button_4_tt
-	potential = {
-		4039 = {
-			has_province_flag = DA_restored_MF
-		}
-	}
-	trigger = {
-		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
-		}
-		4039 = {
-			has_great_project = {
-				type = DA_Magma_Forge
-				tier = 3
-			}
-		}
-	}
-	effect = {
-		country_event = {
-			id = DA_Magma_forge_event.10
-		}
-	}
-}
-
-custom_button = {
-	name = DA_Magma_Forge_button_5
-	tooltip = DA_Magma_Forge_button_5_tt
-	potential = {
-		4039 = {
-			has_province_flag = DA_restored_MF
-		}
-		custom_trigger_tooltip = {
-			tooltip = DA_Unlocking_needs_time_tt
+			tooltip = DA_FG_wall_proposed_tt
 			has_country_flag = DA_MF_can_create_Basalt_Wall
 		}
-		NOT = { has_country_flag = DA_MF_can_create_Basalt_Wall_2 }
-	}
-	trigger = {
 		custom_trigger_tooltip = {
-			tooltip = DA_Wonder_in_use_tt
-			NOT = { has_country_flag = DA_Wonder_Magma_Forge_in_use }
+			tooltip = DA_FG_wall_not_begun_tt
+			NOT = { has_country_flag = DA_MF_can_create_Basalt_Wall_2 }
 		}
-		4039 = {
-			has_great_project = {
-				type = DA_Magma_Forge
-				tier = 3
+		custom_trigger_tooltip = {
+			tooltip = DA_FG_wall_site_tt
+			owns = 672
+			672 = {
+				has_missionary = no
+				has_colonist = no
+				NOT = { has_construction = any }
 			}
 		}
-		DA_Magma_Level_required = {
-			amount = 200
-		}
+		DA_Magma_Level_required = { amount = 200 }
 		treasury = 1000
-		custom_trigger_tooltip = {
-			tooltip = DA_Unlocking_needs_time_tt
-			has_country_flag = DA_MF_can_create_Basalt_Wall
-		}
-		672 = {
-			owned_by = prev
-			has_missionary = no
-			has_colonist = no
-			NOT = { has_construction = any }
-		}
 	}
 	effect = {
-		DA_Magma_Level_spend = {
-			amount = 200
-		}
+		DA_Magma_Level_spend = { amount = 200 }
 		add_treasury = -1000
-		country_event = {
-			id = DA_Magma_forge_event.15
-		}
-		hidden_effect = {
-			set_country_flag = DA_MF_can_create_Basalt_Wall_2
-		}
+		custom_tooltip = DA_FG_wall_effect_tt
+		hidden_effect = { set_country_flag = DA_MF_can_create_Basalt_Wall_2 country_event = { id = DA_Magma_forge_event.15 } }
 	}
 }
+
+custom_text_box = {
+	name = DA_FG_button_wall_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_button_wall_tt
+}
+
+custom_text_box = {
+	name = DA_FG_info_text
+	potential = { 4039 = { has_province_flag = DA_restored_MF } }
+	tooltip = DA_FG_info_text_tt
+}
+
