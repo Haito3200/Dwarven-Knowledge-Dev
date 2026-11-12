@@ -1,0 +1,87 @@
+# Projects & Research, runes and hold inventions tester. In the console: run DA_PR_tester.txt
+# It runs as the player's country. Remove the "#" in front of the lines of a block, save, and run the file.
+
+# --- A. The research in progress finishes on the next monthly tick (active by default)
+set_variable = { which = DA_research_progress which = DA_research_progress_MAX }
+
+# --- B. Nothing is selected in the Projects & Research window (use it if the detail panel looks stuck)
+# set_variable = { which = DA_PR_selected value = 0 }
+
+# --- C. Every new one-time research counts as completed, with its permanent modifier
+# set_country_flag = DA_PR_done.Wardcraft
+# set_country_flag = DA_PR_done.Wardcraft_3
+# add_country_modifier = { name = DA_PR_mod_Wardcraft_3 duration = -1 }
+# set_country_flag = DA_PR_done.Urbanization
+# add_country_modifier = { name = DA_PR_mod_Urbanization duration = -1 }
+# set_country_flag = DA_PR_done.Urbanization_2
+# add_country_modifier = { name = DA_PR_mod_Urbanization_2 duration = -1 }
+# set_country_flag = DA_PR_done.Urbanization_3
+# add_country_modifier = { name = DA_PR_mod_Urbanization_3 duration = -1 }
+# set_country_flag = DA_PR_done.Standardization
+# add_country_modifier = { name = DA_PR_mod_Standardization duration = -1 }
+# set_country_flag = DA_PR_done.Standardization_2
+# add_country_modifier = { name = DA_PR_mod_Standardization_2 duration = -1 }
+# set_country_flag = DA_PR_done.Standardization_3
+# add_country_modifier = { name = DA_PR_mod_Standardization_3 duration = -1 }
+# set_country_flag = DA_PR_done.Gravity_Manipulation
+# add_country_modifier = { name = DA_PR_mod_Gravity_Manipulation duration = -1 }
+# set_country_flag = DA_PR_done.Signals
+# add_country_modifier = { name = DA_PR_mod_Signals duration = -1 }
+# set_country_flag = DA_PR_done.Signals_2
+# add_country_modifier = { name = DA_PR_mod_Signals_2 duration = -1 }
+# set_country_flag = DA_PR_done.Master_Runes
+# set_country_flag = DA_PR_done.Master_Runes_3
+# add_country_modifier = { name = DA_PR_mod_Master_Runes_3 duration = -1 }
+# set_country_flag = DA_PR_done.Reclamation
+# add_country_modifier = { name = DA_PR_mod_Reclamation duration = -1 }
+# set_country_flag = DA_PR_done.Reclamation_2
+# add_country_modifier = { name = DA_PR_mod_Reclamation_2 duration = -1 }
+# set_country_flag = DA_Project.completed.Urbanization
+# set_country_flag = DA_Project.completed.Gravity_Manipulation
+
+# --- D. Every new rune and blueprint is discovered (their research tiles then show as completed)
+# set_country_flag = DA_Unlocked.Ward_Deflection
+# set_country_flag = DA_Unlocked.Ward_Grounding
+# set_country_flag = DA_Unlocked.Ward_Steadfast
+# set_country_flag = DA_Unlocked.Gravity_Well
+# set_country_flag = DA_Unlocked.Gravity_Featherfall
+# set_country_flag = DA_Unlocked.Gravity_Mass_Driver
+# set_country_flag = DA_Unlocked.Master_Grudge
+# set_country_flag = DA_Unlocked.Master_Mountain
+# set_country_flag = DA_Unlocked.Master_Forge
+# set_country_flag = DA_Unlocked.Master_Ancestors
+# set_country_flag = DA_Unlocked.Holy_Magic_Sanctified_Bulwark
+# set_country_flag = DA_Unlocked.Holy_Magic_Censer_of_Radiance
+# set_country_flag = DA_Unlocked.Holy_Magic_Seraphic_Plate
+# set_country_flag = DA_Unlocked.Holy_Magic_Lance_of_Dawn
+# set_country_flag = DA_Unlocked.Curse_Blightshot_Repeater
+# set_country_flag = DA_Unlocked.Curse_Shroud_of_Whispers
+# set_country_flag = DA_Unlocked.Curse_Soulflayer_Blades
+# set_country_flag = DA_Unlocked.Curse_Lich_Iron_Carapace
+# set_country_flag = DA_Unlocked.Bio_cons_Hydra
+# set_country_flag = DA_Unlocked.Bio_cons_Behemoth
+# set_country_flag = DA_Unlocked.Mechanization_Juggernaut
+# set_country_flag = DA_Unlocked.Mechanization_Arc_Lancer
+
+# --- E. One event of each kind, to read the texts
+# country_event = { id = DA_PR_discovery.1 }
+# country_event = { id = DA_PR_discovery.7 }
+# country_event = { id = DA_PR_discovery.103 }
+# country_event = { id = DA_PR_event.1 }
+
+# --- F. Every hold invention is known (the hold must still be an owned core province to switch it on)
+# set_country_flag = DA_RS_HOLD_Amldihr_enabled
+# set_country_flag = DA_RS_HOLD_Verkal_Gulan_enabled
+# set_country_flag = DA_RS_HOLD_Er_Natvir_enabled
+# set_country_flag = DA_RS_HOLD_Orlghelovar_enabled
+# set_country_flag = DA_RS_HOLD_Shazstundihr_enabled
+# set_country_flag = DA_RS_HOLD_Verkal_Skomdihr_enabled
+# set_country_flag = DA_RS_HOLD_Hehodovar_enabled
+# set_country_flag = DA_RS_HOLD_Khugdihr_enabled
+# set_country_flag = DA_RS_HOLD_Seghdihr_enabled
+# set_country_flag = DA_RS_HOLD_Mithradhum_enabled
+# set_country_flag = DA_RS_HOLD_Ovdal_Lodhum_enabled
+# set_country_flag = DA_RS_HOLD_Tuwad_Dhumankon_enabled
+
+# --- G. The completion event of the first hold project (it only fires while that project is running)
+# country_event = { id = DA_hold_invention.1 }

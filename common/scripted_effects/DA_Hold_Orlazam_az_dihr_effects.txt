@@ -1,0 +1,163 @@
+# Orlazam-az-dihr: the Ramsteel Forges and the Dark Rams (11 November 2026). All of these run in country scope.
+# Events: events/DA_Hold_Orlazam_az_dihr.txt
+
+DA_OAD_raise_forges = { # the monument in Ramvault, at tier I. Its area modifier replaces the three province modifiers of the old decision
+	custom_tooltip = DA_OAD_raise_forges_tt
+	hidden_effect = {
+		set_country_flag = DA_Ramsteel_forges_built
+		set_country_flag = DA_can_build_ramsteel_forges
+		4130 = {
+			set_province_flag = DA_Ramsteel_forges_raised
+			remove_province_modifier = DA_Ramsteel_forges_works
+			remove_province_modifier = DA_Ramsteel_forge
+			add_great_project = {
+				type = DA_Ramsteel_Forges
+				instant = yes
+			}
+			add_great_project_tier = {
+				type = DA_Ramsteel_Forges
+				tier = 1
+			}
+		}
+		4148 = {
+			remove_province_modifier = DA_Ramsteel_forge
+		}
+		4118 = {
+			remove_province_modifier = DA_Ramsteel_forge
+		}
+	}
+}
+
+DA_OAD_unlock_dark_rams = { # Mythical Cavalry (Anbennar's enable_mythical_cavalry), the temper of the herd, the first two regiments, the pens
+	if = {
+		limit = {
+			has_dlc = "Lions of the North" # Mythical Cavalry is the Winged Hussars unit of that DLC, as in Anbennar's own missions
+		}
+		enable_mythical_cavalry = { mount = dark_rams }
+		if = {
+			limit = {
+				has_country_flag = DA_OAD_rams_broken
+			}
+			add_country_modifier = {
+				name = DA_Dark_Rams_broken
+				duration = -1
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = DA_Dark_Rams_bonded
+				duration = -1
+			}
+		}
+		custom_tooltip = DA_OAD_first_wing_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					owns = 4147
+				}
+				4147 = {
+					hussars_cavalry = ROOT
+					hussars_cavalry = ROOT
+				}
+			}
+			else = {
+				capital_scope = {
+					hussars_cavalry = ROOT
+					hussars_cavalry = ROOT
+				}
+			}
+		}
+	}
+	else = { # without the DLC: the dark rams ride in the ordinary cavalry
+		add_country_modifier = {
+			name = DA_Dark_Rams_line_cavalry
+			duration = -1
+		}
+		custom_tooltip = DA_OAD_pens_tt
+	}
+	hidden_effect = {
+		set_country_flag = DA_Dark_Rams_tamed
+		if = {
+			limit = {
+				owns = 4147
+			}
+			4147 = {
+				remove_province_modifier = DA_Dark_Rams
+				remove_province_modifier = DA_Dark_Rams_taming_process
+				add_permanent_province_modifier = {
+					name = DA_Dark_Ram_pens
+					duration = -1
+				}
+			}
+		}
+		DA_OAD_check_barding = yes
+	}
+}
+
+DA_OAD_check_barding = { # called when the herd is tamed and when the monument reaches tier II or III
+	if = {
+		limit = {
+			has_dlc = "Lions of the North"
+			has_country_flag = DA_Dark_Rams_tamed
+			NOT = { has_country_flag = DA_Dark_Rams_barded }
+			DA_OAD_forges_at_tier_2 = yes
+		}
+		country_event = {
+			id = DA_Orlazam_az_dihr_event.30
+			days = 30
+		}
+	}
+}
+
+DA_OAD_migrate_old_save = { # results of the chain as it was before 11 November 2026. Also in DA_Orlazam_tester.txt
+	if = {
+		limit = {
+			DA_OAD_has_old_forges = yes
+		}
+		DA_OAD_raise_forges = yes
+		country_event = {
+			id = DA_Orlazam_az_dihr_event.5
+		}
+	}
+	if = {
+		limit = {
+			DA_OAD_has_old_rams = yes
+		}
+		if = {
+			limit = {
+				NOT = { has_dlc = "Lions of the North" } # no herd to size: DA_OAD_unlock_dark_rams gives the line cavalry modifier
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_modifier = DA_Dark_Rams_applied3
+			}
+			add_country_modifier = {
+				name = DA_Dark_Rams_herd_3
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_modifier = DA_Dark_Rams_applied2
+			}
+			add_country_modifier = {
+				name = DA_Dark_Rams_herd_2
+				duration = -1
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = DA_Dark_Rams_herd_1
+				duration = -1
+			}
+		}
+		remove_country_modifier = DA_Dark_Rams_applied1
+		remove_country_modifier = DA_Dark_Rams_applied2
+		remove_country_modifier = DA_Dark_Rams_applied3
+		DA_OAD_unlock_dark_rams = yes
+		country_event = {
+			id = DA_Orlazam_az_dihr_event.4
+		}
+	}
+}

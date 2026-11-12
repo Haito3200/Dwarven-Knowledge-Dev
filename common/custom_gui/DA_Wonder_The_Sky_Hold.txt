@@ -73,11 +73,15 @@ custom_text_box = {
 	tooltip = DA_The_Sky_Hold_Wonder_location_shower_tt
 }
 
-custom_button = { # restores the observatory, tier by tier
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_4020 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4020.
+custom_button = {
 	name = DA_The_Sky_Hold_upgrade_button
 	tooltip = DA_SZ_upgrade_button_tt
 	potential = {
-		always = yes
+		NOT = { has_country_flag = DA_WW_building_4020 }
+		NOT = { DA_WW_maxed_4020 = yes }
 	}
 	trigger = {
 		custom_trigger_tooltip = {
@@ -86,176 +90,86 @@ custom_button = { # restores the observatory, tier by tier
 		}
 		4020 = {
 			owned_by = prev
-			has_great_project = {
-				type = The_Sky_Hold
-				tier = 0
-			}
+			has_great_project = { type = The_Sky_Hold tier = 0 }
 		}
 		if = {
-			limit = {
-				4020 = {
-					has_great_project = { type = The_Sky_Hold tier = 0 }
-					NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } }
-				}
-			}
+			limit = { 4020 = { has_great_project = { type = The_Sky_Hold tier = 0 } NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } } } }
 			4020 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_3_or_higher
 					DA_has_dig_level_3_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 10
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 10
-			}
-			DA_arcane_metal_total_required = {
-				amount = 10
-			}
-			treasury = 1600
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_4020 = yes
 		}
 		if = {
-			limit = {
-				4020 = {
-					has_great_project = { type = The_Sky_Hold tier = 1 }
-					NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } }
-				}
-			}
+			limit = { 4020 = { has_great_project = { type = The_Sky_Hold tier = 1 } NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } } } }
 			4020 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_5_or_higher
 					DA_has_dig_level_5_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 20
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 20
-			}
-			DA_arcane_metal_total_required = {
-				amount = 20
-			}
-			treasury = 3750
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_4020 = yes
 		}
 		if = {
-			limit = {
-				4020 = {
-					has_great_project = { type = The_Sky_Hold tier = 2 }
-					NOT = { has_great_project = { type = The_Sky_Hold tier = 3 } }
-				}
-			}
+			limit = { 4020 = { has_great_project = { type = The_Sky_Hold tier = 2 } NOT = { has_great_project = { type = The_Sky_Hold tier = 3 } } } }
 			4020 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_7_or_higher
 					DA_has_dig_level_7_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 40
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 40
-			}
-			DA_arcane_metal_total_required = {
-				amount = 40
-			}
-			treasury = 7500
-		}
-		if = {
-			limit = {
-				4020 = {
-					has_great_project = { type = The_Sky_Hold tier = 3 }
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = DA_Maxed_wonder_tt
-				always = no
-			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_4020 = yes
 		}
 	}
 	effect = {
+		hidden_effect = { DA_WW_refresh_4020 = yes }
 		if = {
 			limit = {
-				4020 = {
-					has_great_project = { type = The_Sky_Hold tier = 0 }
-					NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } }
-				}
+				4020 = { has_great_project = { type = The_Sky_Hold tier = 0 } NOT = { has_great_project = { type = The_Sky_Hold tier = 1 } } }
+				DA_WW_can_pay_4020 = yes    # at the price of this very day
 			}
-			add_treasury = -1600
-			DA_alchemy_reagents_spend = {
-				amount = 10
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 10
-			}
-			DA_arcane_metal_spend = {
-				amount = 10
-			}
-			4020 = {
-				add_great_project_tier = {
-					type = The_Sky_Hold
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_4020 = yes
 			custom_tooltip = DA_SZ_tier_1_unlock_tt
-			hidden_effect = { 4020 = { province_event = { id = DA_Dur_Vazhatun_event.2 days = 30 } } }
 		}
 		else_if = {
 			limit = {
-				4020 = {
-					has_great_project = { type = The_Sky_Hold tier = 1 }
-					NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } }
-				}
+				4020 = { has_great_project = { type = The_Sky_Hold tier = 1 } NOT = { has_great_project = { type = The_Sky_Hold tier = 2 } } }
+				DA_WW_can_pay_4020 = yes    # at the price of this very day
 			}
-			add_treasury = -3750
-			DA_alchemy_reagents_spend = {
-				amount = 20
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 20
-			}
-			DA_arcane_metal_spend = {
-				amount = 20
-			}
-			4020 = {
-				add_great_project_tier = {
-					type = The_Sky_Hold
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_4020 = yes
 			custom_tooltip = DA_SZ_tier_2_unlock_tt
-			hidden_effect = { 4020 = { province_event = { id = DA_Dur_Vazhatun_event.3 days = 30 } } }
 		}
 		else_if = {
 			limit = {
-				4020 = {
-					has_great_project = { type = The_Sky_Hold tier = 2 }
-					NOT = { has_great_project = { type = The_Sky_Hold tier = 3 } }
-				}
+				4020 = { has_great_project = { type = The_Sky_Hold tier = 2 } NOT = { has_great_project = { type = The_Sky_Hold tier = 3 } } }
+				DA_WW_can_pay_4020 = yes    # at the price of this very day
 			}
-			add_treasury = -7500
-			DA_alchemy_reagents_spend = {
-				amount = 40
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 40
-			}
-			DA_arcane_metal_spend = {
-				amount = 40
-			}
-			4020 = {
-				add_great_project_tier = {
-					type = The_Sky_Hold
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_4020 = yes
 			custom_tooltip = DA_SZ_tier_3_unlock_tt
-			hidden_effect = { 4020 = { province_event = { id = DA_Dur_Vazhatun_event.4 days = 30 } } }
 		}
 	}
 }
+# END DA_WW
 
 #######################################################
 # The observation programme

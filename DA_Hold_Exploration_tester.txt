@@ -1,0 +1,18 @@
+# Hold Exploration tester. In the console: run DA_Hold_Exploration_tester.txt
+# It runs as the player's country and works on the CAPITAL, which must be a hold. Remove the "#" in front of the
+# lines of ONE block, save, and run the file.
+
+# --- A. Money for a few companies (active by default)
+add_treasury = 5000
+
+# --- B. The company below the capital arrives now: the floor table rolls, the report comes ten days later
+# capital_scope = { remove_province_modifier = DA_HX_company_below }
+
+# --- C. Every kind of find mark on Deeps II, III and IV of the capital (to look at the marks and their tooltips)
+# capital_scope = { set_province_flag = DA_HX_m2_ore set_province_flag = DA_HX_m2_lore set_province_flag = DA_HX_m2_kin set_province_flag = DA_HX_m2_foe set_province_flag = DA_HX_m2_legacy set_province_flag = DA_HX_m3_ore set_province_flag = DA_HX_m3_lore set_province_flag = DA_HX_m3_kin set_province_flag = DA_HX_m3_foe set_province_flag = DA_HX_m3_legacy set_province_flag = DA_HX_m4_ore set_province_flag = DA_HX_m4_lore set_province_flag = DA_HX_m4_kin set_province_flag = DA_HX_m4_foe set_province_flag = DA_HX_m4_legacy }
+
+# --- D. Forget what the window remembers about the capital, as a conquest does (charts and progress are NOT touched)
+# capital_scope = { DA_HX_reset = yes }
+
+# --- E. Unstick: no company is below anywhere, no charter is pending
+# every_owned_province = { remove_province_modifier = DA_HX_company_below clr_province_flag = DA_expedition_in_progress DA_HX_end_roll = yes }

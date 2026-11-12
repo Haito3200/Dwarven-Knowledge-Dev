@@ -272,6 +272,7 @@ custom_button = {
 	effect = {
         hidden_effect = {
             DA_initialise_interface_variables = yes
+            DA_DH_init = yes    # DA_DH
         }
 
         if = {
@@ -1809,7 +1810,7 @@ custom_button = {
         clr_country_flag = DA_metallurgy_show_ARTIFICER
         clr_country_flag = DA_metallurgy_show_CAVAL
         clr_country_flag = DA_metallurgy_show_ARTIL
-        clr_country_flag = DA_metallurgy_show_TRANSPORT
+        clr_country_flag = DA_metallurgy_show_SHIP
         
         if = {
             limit = {
@@ -1843,7 +1844,7 @@ custom_button = {
         clr_country_flag = DA_metallurgy_show_ARTIFICER
         clr_country_flag = DA_metallurgy_show_CAVAL
         clr_country_flag = DA_metallurgy_show_ARTIL
-        clr_country_flag = DA_metallurgy_show_TRANSPORT
+        clr_country_flag = DA_metallurgy_show_SHIP
 
         set_country_flag = DA_metallurgy_show_CAVAL
 	}
@@ -1869,37 +1870,44 @@ custom_button = {
         clr_country_flag = DA_metallurgy_show_ARTIFICER
         clr_country_flag = DA_metallurgy_show_CAVAL
         clr_country_flag = DA_metallurgy_show_ARTIL
-        clr_country_flag = DA_metallurgy_show_TRANSPORT
+        clr_country_flag = DA_metallurgy_show_SHIP
 
         set_country_flag = DA_metallurgy_show_ARTIL
 	}
 }
+# BEGIN DA_SHIP_CLASS
 custom_button = {
-	name = DA_Metallurgy_transport_design_select_slider
-	tooltip = DA_Metallurgy_transport_design_select_slider_tt
+	name = DA_Metallurgy_ship_design_select_slider
+	tooltip = DA_Metallurgy_ship_design_select_slider_tt
 	potential = {
-        always = yes
+		always = yes
 	}
 	trigger = {
-        custom_trigger_tooltip = {
-            tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
-            NOT = { has_country_flag = DA_UNIT_DESIGN_IN_USE }
-        }
-        custom_trigger_tooltip = {
-            tooltip = DA_Warforged_transport_enabled_tt
-			has_country_flag = DA_enable_metallurgy_System_transport
-        }
+		custom_trigger_tooltip = {
+			tooltip = DA_NO_UNIT_DESIGN_IN_USE_tt
+			NOT = { has_country_flag = DA_UNIT_DESIGN_IN_USE }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_Warforged_ship_enabled_tt
+			OR = {
+				has_country_flag = DA_enable_metallurgy_System_ship
+				has_country_flag = DA_enable_metallurgy_System_art
+			}
+		}
 	}
 	effect = {
-        clr_country_flag = DA_metallurgy_show_INFAN
-        clr_country_flag = DA_metallurgy_show_ARTIFICER
-        clr_country_flag = DA_metallurgy_show_CAVAL
-        clr_country_flag = DA_metallurgy_show_ARTIL
-        clr_country_flag = DA_metallurgy_show_TRANSPORT
+		clr_country_flag = DA_metallurgy_show_INFAN
+		clr_country_flag = DA_metallurgy_show_ARTIFICER
+		clr_country_flag = DA_metallurgy_show_CAVAL
+		clr_country_flag = DA_metallurgy_show_ARTIL
 
-        set_country_flag = DA_metallurgy_show_TRANSPORT
+		set_country_flag = DA_metallurgy_show_SHIP
+		hidden_effect = {
+			DA_enable_Metal_Ship = yes
+		}
 	}
 }
+# END DA_SHIP_CLASS
 
 
 
@@ -1931,6 +1939,14 @@ custom_button = {
             has_country_flag = DA_metallurgy_show_ARTIL
         }
     }
+# BEGIN DA_SHIP_CLASS
+    frame = {
+    	number = 4
+    	trigger = {
+    		has_country_flag = DA_metallurgy_show_SHIP
+    	}
+    }
+# END DA_SHIP_CLASS
 	trigger = {
         always = yes
 	}
@@ -2439,6 +2455,33 @@ custom_button = {
                 }
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            hidden_effect = {
+                DA_pre_apply_metallurgy_modifiers_SHIP = yes
+            }
+            tooltip = {
+                add_country_modifier = {
+                    name = DA_metallurgy_ship_modifier_fake
+                    duration = -1
+                }
+                DA_show_SHIP_preview_tooltips = yes
+                custom_tooltip = DA_Affect_only_warforged_ships_tt
+                DA_apply_metallurgy_infcav_modifiers_effect = {
+                    DA_unit = SHIP
+                }
+                DA_give_Unique_Metallurgy_modifiers = {
+                    DA_unit = SHIP
+                }
+                DA_Apply_cost_fake = {
+                    DA_unit = SHIP
+                }
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 }
 custom_button = {
@@ -2454,6 +2497,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_ARTIFICER
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         custom_trigger_tooltip = {
@@ -2496,6 +2540,17 @@ custom_button = {
                 NOT = { has_country_flag = DA_selected_punk_ARTIL }
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_punk_tt
+                NOT = { has_country_flag = DA_selected_punk_SHIP }
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 	effect = {
         set_country_flag = DA_UNIT_DESIGN_IN_USE
@@ -2531,6 +2586,16 @@ custom_button = {
                 id = DA_Metallurgy_events.69
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            country_event = {
+                id = DA_Metallurgy_events.79
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 }
 custom_button = {
@@ -2546,6 +2611,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         custom_trigger_tooltip = {
@@ -2604,6 +2670,21 @@ custom_button = {
                 NOT = { has_country_flag = DA_selected_blueprint_ARTIL }
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_punk_first_tt
+                has_country_flag = DA_selected_punk_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_blueprint_tt
+                NOT = { has_country_flag = DA_selected_blueprint_SHIP }
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 	effect = {
         set_country_flag = DA_UNIT_DESIGN_IN_USE
@@ -2639,6 +2720,16 @@ custom_button = {
                 id = DA_Metallurgy_events.70
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            country_event = {
+                id = DA_Metallurgy_events.80
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 }
 custom_button = {
@@ -2654,6 +2745,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         custom_trigger_tooltip = {
@@ -2712,6 +2804,21 @@ custom_button = {
                 NOT = { has_country_flag = DA_selected_metal_ARTIL }
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_blueprint_first_tt
+                has_country_flag = DA_selected_blueprint_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_NOT_yet_selected_metal_tt
+                NOT = { has_country_flag = DA_selected_metal_SHIP }
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 	effect = {
         set_country_flag = DA_UNIT_DESIGN_IN_USE
@@ -2747,6 +2854,16 @@ custom_button = {
                 id = DA_Metallurgy_events.71
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            country_event = {
+                id = DA_Metallurgy_events.81
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 }
 custom_button = {
@@ -2762,6 +2879,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         custom_trigger_tooltip = {
@@ -2892,6 +3010,17 @@ custom_button = {
                 }
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_SHIP_no_runes_tt
+                always = no
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 	effect = {
         set_country_flag = DA_UNIT_DESIGN_IN_USE
@@ -2942,6 +3071,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         custom_trigger_tooltip = {
@@ -3072,6 +3202,17 @@ custom_button = {
                 }
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_SHIP_no_runes_tt
+                always = no
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 	effect = {
         set_country_flag = DA_UNIT_DESIGN_IN_USE
@@ -3122,6 +3263,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         custom_trigger_tooltip = {
@@ -3252,6 +3394,17 @@ custom_button = {
                 }
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_SHIP_no_runes_tt
+                always = no
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 	effect = {
         set_country_flag = DA_UNIT_DESIGN_IN_USE
@@ -3303,6 +3456,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         custom_trigger_tooltip = {
@@ -3433,6 +3587,17 @@ custom_button = {
                 }
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_SHIP_no_runes_tt
+                always = no
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 	effect = {
         set_country_flag = DA_UNIT_DESIGN_IN_USE
@@ -3488,6 +3653,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         mil_power = 30
@@ -3564,6 +3730,25 @@ custom_button = {
                 has_country_flag = DA_selected_metal_ARTIL
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_you_must_reset_the_unit_designer_first
+                NOT = { has_country_modifier = DA_metallurgy_ship_modifier_fake }
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_selected_blueprint_first_tt
+                has_country_flag = DA_selected_blueprint_SHIP
+            }
+            custom_trigger_tooltip = {
+                tooltip = DA_must_have_already_selected_metal_tt
+                has_country_flag = DA_selected_metal_SHIP
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 	effect = {
         set_country_flag = DA_UNIT_DESIGN_IN_USE
@@ -3655,6 +3840,30 @@ custom_button = {
                 days = 365
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            hidden_effect = {
+                DA_remove_metallurgy_infcav_modifiers_effect = {
+                    DA_unit = SHIP
+                }
+                DA_remove_Unique_Metallurgy_modifiers = {
+                    DA_unit = SHIP
+                }
+            }
+            add_mil_power = -30
+            add_country_modifier = {
+                name = DA_unit_design_in_prgress
+                duration = 365
+            }
+            country_event = {
+                id = DA_Metallurgy_events.83
+                days = 365
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 }
 custom_button = {
@@ -3670,6 +3879,7 @@ custom_button = {
                 has_country_flag = DA_metallurgy_show_INFAN
                 has_country_flag = DA_metallurgy_show_CAVAL
                 has_country_flag = DA_metallurgy_show_ARTIL
+                has_country_flag = DA_metallurgy_show_SHIP # DA_SHIP_CLASS line
             }
         }
         custom_trigger_tooltip = {
@@ -3734,6 +3944,22 @@ custom_button = {
 			    remove_country_modifier = DA_metallurgy_artillery_modifier_fake
             }
         }
+# BEGIN DA_SHIP_CLASS
+        else_if = {
+            limit = {
+                has_country_flag = DA_metallurgy_show_SHIP
+            }
+            DA_initialize_metallurgy_variables = {
+                DA_unit = SHIP
+            }
+            DA_remove_Unique_Metallurgy_modifiers_flags = {
+                DA_unit = SHIP
+            }
+            hidden_effect = {
+			    remove_country_modifier = DA_metallurgy_ship_modifier_fake
+            }
+        }
+# END DA_SHIP_CLASS
 	}
 }
 

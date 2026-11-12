@@ -1,0 +1,41 @@
+# Khugdihr: Balgar's folio (12 November 2026). Events: events/DA_Hold_Khugdihr.txt
+
+# For a province. Gives it the modifier of the answer its owner gave in the plan's event (country flags $plan$_a / $plan$_b),
+# unless it has one already. Called by on_built of the great projects and again by the report of tier I.
+#   DA_KH_settle = { plan = DA_KH_bastion a = DA_Balgar_bastion_deep_gate b = DA_Balgar_bastion_surface_gate }
+DA_KH_settle = {
+	if = {
+		limit = {
+			NOT = { has_province_modifier = $a$ }
+			NOT = { has_province_modifier = $b$ }
+		}
+		if = {
+			limit = { owner = { has_country_flag = $plan$_a } }
+			add_permanent_province_modifier = { name = $a$ duration = -1 }
+		}
+		else_if = {
+			limit = { owner = { has_country_flag = $plan$_b } }
+			add_permanent_province_modifier = { name = $b$ duration = -1 }
+		}
+	}
+}
+
+# For the country, after a plan's event: when no case is left, the closing of the folio.
+DA_KH_after_plan = {
+	if = {
+		limit = { NOT = { DA_KH_any_plan_unread = yes } }
+		country_event = { id = DA_Khugdihr_event.8 days = 5 }
+	}
+}
+
+# For the country: "Heirs of the Builder" once 5 works stand at tier III. Called by the reports of tier III and once a year.
+DA_KH_check_heirs = {
+	if = {
+		limit = {
+			has_country_flag = DA_can_build_Balgar_wonders
+			NOT = { has_country_flag = DA_Balgar_folio_closed }
+			DA_KH_works_finished = yes
+		}
+		country_event = { id = DA_Khugdihr_event.29 days = 30 }
+	}
+}

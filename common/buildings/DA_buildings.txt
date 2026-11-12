@@ -227,7 +227,10 @@ DA_railway_work = {
 
 
 	build_trigger = {
-		has_terrain = dwarven_road
+		OR = {
+			has_terrain = dwarven_road
+			has_province_flag = DA_RW_line # a line laid from the Railway Control Center
+		}
 		NOT = { has_province_modifier = dwarovar_rail }
 		owner = {
 			has_country_flag = DA_can_upgrade_rails

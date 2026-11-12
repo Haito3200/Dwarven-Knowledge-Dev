@@ -74,11 +74,16 @@ custom_text_box = {
 	tooltip = DA_Ancient_Research_facility1_Wonder_location_shower_tt
 }
 
-custom_button = { # restores the facility, tier by tier; each tier unlocks one experiment
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_4119 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4119.
+custom_button = {
 	name = DA_Ancient_Research_facility1_upgrade_button
 	tooltip = DA_ARF_upgrade_button_tt
 	potential = {
 		DA_ARF_state_sealed = no
+		NOT = { has_country_flag = DA_WW_building_4119 }
+		NOT = { DA_WW_maxed_4119 = yes }
 	}
 	trigger = {
 		custom_trigger_tooltip = {
@@ -87,173 +92,65 @@ custom_button = { # restores the facility, tier by tier; each tier unlocks one e
 		}
 		4119 = {
 			owned_by = prev
-			has_great_project = {
-				type = DA_Ancient_Research_facility1
-				tier = 0
-			}
+			has_great_project = { type = DA_Ancient_Research_facility1 tier = 0 }
 		}
 		if = {
-			limit = {
-				4119 = {
-					has_great_project = {
-						type = DA_Ancient_Research_facility1
-						tier = 0
-					}
-					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } }
-				}
-			}
-			DA_alchemy_reagents_total_required = {
-				amount = 10
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 10
-			}
-			DA_arcane_metal_total_required = {
-				amount = 10
-			}
-			treasury = 1600
+			limit = { 4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 0 } NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } } } }
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_4119 = yes
 		}
 		if = {
-			limit = {
-				4119 = {
-					has_great_project = {
-						type = DA_Ancient_Research_facility1
-						tier = 1
-					}
-					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } }
-				}
-			}
-			DA_alchemy_reagents_total_required = {
-				amount = 20
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 20
-			}
-			DA_arcane_metal_total_required = {
-				amount = 20
-			}
-			treasury = 3750
+			limit = { 4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } } } }
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_4119 = yes
 		}
 		if = {
-			limit = {
-				4119 = {
-					has_great_project = {
-						type = DA_Ancient_Research_facility1
-						tier = 2
-					}
-					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } }
-				}
-			}
-			DA_alchemy_reagents_total_required = {
-				amount = 40
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 40
-			}
-			DA_arcane_metal_total_required = {
-				amount = 40
-			}
-			treasury = 7500
-		}
-		if = {
-			limit = {
-				4119 = {
-					has_great_project = {
-						type = DA_Ancient_Research_facility1
-						tier = 3
-					}
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = DA_Maxed_wonder_tt
-				always = no
-			}
+			limit = { 4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } } } }
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_4119 = yes
 		}
 	}
 	effect = {
+		hidden_effect = { DA_WW_refresh_4119 = yes }
 		if = {
 			limit = {
-				4119 = {
-					has_great_project = {
-						type = DA_Ancient_Research_facility1
-						tier = 0
-					}
-					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } }
-				}
+				4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 0 } NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } } }
+				DA_WW_can_pay_4119 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 10
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 10
-			}
-			DA_arcane_metal_spend = {
-				amount = 10
-			}
-			add_treasury = -1600
-			4119 = {
-				add_great_project_tier = {
-					type = DA_Ancient_Research_facility1
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_4119 = yes
 		}
 		else_if = {
 			limit = {
-				4119 = {
-					has_great_project = {
-						type = DA_Ancient_Research_facility1
-						tier = 1
-					}
-					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } }
-				}
+				4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } } }
+				DA_WW_can_pay_4119 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 20
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 20
-			}
-			DA_arcane_metal_spend = {
-				amount = 20
-			}
-			add_treasury = -3750
-			4119 = {
-				add_great_project_tier = {
-					type = DA_Ancient_Research_facility1
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_4119 = yes
 		}
 		else_if = {
 			limit = {
-				4119 = {
-					has_great_project = {
-						type = DA_Ancient_Research_facility1
-						tier = 2
-					}
-					NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } }
-				}
+				4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } NOT = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 3 } } }
+				DA_WW_can_pay_4119 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 40
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 40
-			}
-			DA_arcane_metal_spend = {
-				amount = 40
-			}
-			add_treasury = -7500
-			4119 = {
-				add_great_project_tier = {
-					type = DA_Ancient_Research_facility1
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_4119 = yes
 		}
 	}
 }
+# END DA_WW
 
 
 #######################################################

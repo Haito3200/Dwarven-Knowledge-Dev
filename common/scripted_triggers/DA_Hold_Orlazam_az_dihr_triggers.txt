@@ -1,0 +1,37 @@
+# Orlazam-az-dihr: the Ramsteel Forges and the Dark Rams (11 November 2026). Country scope.
+
+DA_OAD_forges_at_tier_2 = { # tier II or III, and still ours
+	owns = 4130
+	4130 = {
+		has_great_project = {
+			type = DA_Ramsteel_Forges
+			tier = 2
+		}
+	}
+}
+
+DA_OAD_has_old_forges = { # the province modifiers of the old decision, with Ramvault ours and no monument yet
+	owns = 4130
+	NOT = { has_country_flag = DA_Ramsteel_forges_built }
+	OR = {
+		4130 = { has_province_modifier = DA_Ramsteel_forge }
+		4148 = { has_province_modifier = DA_Ramsteel_forge }
+		4118 = { has_province_modifier = DA_Ramsteel_forge }
+	}
+}
+
+DA_OAD_has_old_rams = { # one of the three country modifiers of the old choice
+	NOT = { has_country_flag = DA_Dark_Rams_tamed }
+	OR = {
+		has_country_modifier = DA_Dark_Rams_applied1
+		has_country_modifier = DA_Dark_Rams_applied2
+		has_country_modifier = DA_Dark_Rams_applied3
+	}
+}
+
+DA_OAD_has_old_results = {
+	OR = {
+		DA_OAD_has_old_forges = yes
+		DA_OAD_has_old_rams = yes
+	}
+}

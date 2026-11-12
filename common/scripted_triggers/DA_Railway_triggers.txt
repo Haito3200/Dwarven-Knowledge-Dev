@@ -1,0 +1,2183 @@
+# Railway Control Center, Er-Natvir (2931). Written by "Claude files/tools/er_natvir_2026-11-11/gen.py", 11 November 2026.
+# Country scope everywhere. A road is one of the 13 sections of the old Dwarovrod or one of the 18 lines that
+# can be laid from the window; road <n> is the same road in every name below.
+#   DA_RW_tier_<1-3>        the hall is restored that far, and Er-Natvir is ours
+#   DA_RW_owned_<n>         we own every province of the road
+#   DA_RW_ruined_<n>        a province of it has Old Ruined Rail
+#   DA_RW_restored_<n>      a province of it has Restored Rail (if none has, and none is ruined: Advanced Rail)
+#   DA_RW_shut_<n> / DA_RW_over_<n>   shut down / overloaded (read from its first province)
+#   DA_RW_laid_<n>          lines only: the line has been laid (province flag DA_RW_line on its first province)
+#   DA_RW_working_<n>       in service: it counts for the network bonus
+#   DA_RW_can_upgrade_<n>   a province of it lacks an upgrade we have developed
+# Flags: country DA_RW_sel_<n> (the lamp chosen in the window), DA_RW_laying and DA_RW_laying_<n> (works on a line),
+#        DA_RW_res_<upgrade> (the workshop is developing it), DA_RW_counted (the network was counted once),
+#        DA_EN_service_called / DA_EN_service_runs (the choice about Service One);
+#        province DA_RW_line (the province belongs to a laid line: it can take the railway upgrades).
+
+DA_RW_tier_1 = {
+	owns = 2931
+	2931 = { has_great_project = { type = DA_Railway_HQ tier = 1 } }
+}
+DA_RW_tier_2 = {
+	owns = 2931
+	2931 = { has_great_project = { type = DA_Railway_HQ tier = 2 } }
+}
+DA_RW_tier_3 = {
+	owns = 2931
+	2931 = { has_great_project = { type = DA_Railway_HQ tier = 3 } }
+}
+
+# 1 The Western Dwarovrod (section)
+DA_RW_owned_1 = {
+	owns = 2864
+	owns = 2935
+	owns = 2865
+	owns = 2866
+	owns = 2867
+	owns = 2871
+	owns = 4043
+	owns = 2872
+	owns = 2933
+}
+DA_RW_ruined_1 = {
+	OR = {
+		2864 = { has_province_modifier = dwarovar_rail }
+		2935 = { has_province_modifier = dwarovar_rail }
+		2865 = { has_province_modifier = dwarovar_rail }
+		2866 = { has_province_modifier = dwarovar_rail }
+		2867 = { has_province_modifier = dwarovar_rail }
+		2871 = { has_province_modifier = dwarovar_rail }
+		4043 = { has_province_modifier = dwarovar_rail }
+		2872 = { has_province_modifier = dwarovar_rail }
+		2933 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_1 = {
+	OR = {
+		2864 = { has_province_modifier = restored_rail }
+		2935 = { has_province_modifier = restored_rail }
+		2865 = { has_province_modifier = restored_rail }
+		2866 = { has_province_modifier = restored_rail }
+		2867 = { has_province_modifier = restored_rail }
+		2871 = { has_province_modifier = restored_rail }
+		4043 = { has_province_modifier = restored_rail }
+		2872 = { has_province_modifier = restored_rail }
+		2933 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_1 = {
+	2864 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_1 = {
+	2864 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_1 = {
+	DA_RW_owned_1 = yes
+	NOT = { DA_RW_ruined_1 = yes }
+	NOT = { DA_RW_shut_1 = yes }
+}
+DA_RW_can_upgrade_1 = {
+	OR = {
+		2864 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2935 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2865 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2866 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2867 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2871 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4043 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2872 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2933 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 2 The Railyard (section)
+DA_RW_owned_2 = {
+	owns = 2873
+	owns = 2874
+	owns = 2934
+	owns = 2875
+	owns = 2932
+	owns = 4104
+	owns = 2876
+	owns = 2988
+	owns = 2989
+	owns = 2990
+	owns = 2991
+	owns = 2986
+	owns = 4065
+}
+DA_RW_ruined_2 = {
+	OR = {
+		2873 = { has_province_modifier = dwarovar_rail }
+		2874 = { has_province_modifier = dwarovar_rail }
+		2934 = { has_province_modifier = dwarovar_rail }
+		2875 = { has_province_modifier = dwarovar_rail }
+		2932 = { has_province_modifier = dwarovar_rail }
+		4104 = { has_province_modifier = dwarovar_rail }
+		2876 = { has_province_modifier = dwarovar_rail }
+		2988 = { has_province_modifier = dwarovar_rail }
+		2989 = { has_province_modifier = dwarovar_rail }
+		2990 = { has_province_modifier = dwarovar_rail }
+		2991 = { has_province_modifier = dwarovar_rail }
+		2986 = { has_province_modifier = dwarovar_rail }
+		4065 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_2 = {
+	OR = {
+		2873 = { has_province_modifier = restored_rail }
+		2874 = { has_province_modifier = restored_rail }
+		2934 = { has_province_modifier = restored_rail }
+		2875 = { has_province_modifier = restored_rail }
+		2932 = { has_province_modifier = restored_rail }
+		4104 = { has_province_modifier = restored_rail }
+		2876 = { has_province_modifier = restored_rail }
+		2988 = { has_province_modifier = restored_rail }
+		2989 = { has_province_modifier = restored_rail }
+		2990 = { has_province_modifier = restored_rail }
+		2991 = { has_province_modifier = restored_rail }
+		2986 = { has_province_modifier = restored_rail }
+		4065 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_2 = {
+	2873 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_2 = {
+	2873 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_2 = {
+	DA_RW_owned_2 = yes
+	NOT = { DA_RW_ruined_2 = yes }
+	NOT = { DA_RW_shut_2 = yes }
+}
+DA_RW_can_upgrade_2 = {
+	OR = {
+		2873 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2874 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2934 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2875 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2932 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4104 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2876 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2988 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2989 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2990 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2991 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2986 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4065 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 3 The Dagrinrod (section)
+DA_RW_owned_3 = {
+	owns = 2992
+	owns = 2993
+	owns = 2994
+	owns = 2996
+	owns = 2997
+	owns = 2998
+	owns = 2999
+	owns = 3000
+	owns = 3001
+	owns = 3002
+	owns = 3003
+	owns = 4120
+	owns = 4121
+}
+DA_RW_ruined_3 = {
+	OR = {
+		2992 = { has_province_modifier = dwarovar_rail }
+		2993 = { has_province_modifier = dwarovar_rail }
+		2994 = { has_province_modifier = dwarovar_rail }
+		2996 = { has_province_modifier = dwarovar_rail }
+		2997 = { has_province_modifier = dwarovar_rail }
+		2998 = { has_province_modifier = dwarovar_rail }
+		2999 = { has_province_modifier = dwarovar_rail }
+		3000 = { has_province_modifier = dwarovar_rail }
+		3001 = { has_province_modifier = dwarovar_rail }
+		3002 = { has_province_modifier = dwarovar_rail }
+		3003 = { has_province_modifier = dwarovar_rail }
+		4120 = { has_province_modifier = dwarovar_rail }
+		4121 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_3 = {
+	OR = {
+		2992 = { has_province_modifier = restored_rail }
+		2993 = { has_province_modifier = restored_rail }
+		2994 = { has_province_modifier = restored_rail }
+		2996 = { has_province_modifier = restored_rail }
+		2997 = { has_province_modifier = restored_rail }
+		2998 = { has_province_modifier = restored_rail }
+		2999 = { has_province_modifier = restored_rail }
+		3000 = { has_province_modifier = restored_rail }
+		3001 = { has_province_modifier = restored_rail }
+		3002 = { has_province_modifier = restored_rail }
+		3003 = { has_province_modifier = restored_rail }
+		4120 = { has_province_modifier = restored_rail }
+		4121 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_3 = {
+	2992 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_3 = {
+	2992 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_3 = {
+	DA_RW_owned_3 = yes
+	NOT = { DA_RW_ruined_3 = yes }
+	NOT = { DA_RW_shut_3 = yes }
+}
+DA_RW_can_upgrade_3 = {
+	OR = {
+		2992 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2993 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2994 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2996 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2997 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2998 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2999 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3000 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3001 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3002 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3003 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4120 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4121 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 4 The Kozenad Road (section)
+DA_RW_owned_4 = {
+	owns = 2877
+	owns = 2937
+	owns = 2878
+	owns = 2879
+	owns = 4103
+}
+DA_RW_ruined_4 = {
+	OR = {
+		2877 = { has_province_modifier = dwarovar_rail }
+		2937 = { has_province_modifier = dwarovar_rail }
+		2878 = { has_province_modifier = dwarovar_rail }
+		2879 = { has_province_modifier = dwarovar_rail }
+		4103 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_4 = {
+	OR = {
+		2877 = { has_province_modifier = restored_rail }
+		2937 = { has_province_modifier = restored_rail }
+		2878 = { has_province_modifier = restored_rail }
+		2879 = { has_province_modifier = restored_rail }
+		4103 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_4 = {
+	2877 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_4 = {
+	2877 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_4 = {
+	DA_RW_owned_4 = yes
+	NOT = { DA_RW_ruined_4 = yes }
+	NOT = { DA_RW_shut_4 = yes }
+}
+DA_RW_can_upgrade_4 = {
+	OR = {
+		2877 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2937 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2878 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2879 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4103 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 5 The Jorkad Road (section)
+DA_RW_owned_5 = {
+	owns = 2880
+	owns = 2881
+	owns = 2882
+	owns = 2883
+	owns = 4029
+	owns = 2884
+}
+DA_RW_ruined_5 = {
+	OR = {
+		2880 = { has_province_modifier = dwarovar_rail }
+		2881 = { has_province_modifier = dwarovar_rail }
+		2882 = { has_province_modifier = dwarovar_rail }
+		2883 = { has_province_modifier = dwarovar_rail }
+		4029 = { has_province_modifier = dwarovar_rail }
+		2884 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_5 = {
+	OR = {
+		2880 = { has_province_modifier = restored_rail }
+		2881 = { has_province_modifier = restored_rail }
+		2882 = { has_province_modifier = restored_rail }
+		2883 = { has_province_modifier = restored_rail }
+		4029 = { has_province_modifier = restored_rail }
+		2884 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_5 = {
+	2880 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_5 = {
+	2880 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_5 = {
+	DA_RW_owned_5 = yes
+	NOT = { DA_RW_ruined_5 = yes }
+	NOT = { DA_RW_shut_5 = yes }
+}
+DA_RW_can_upgrade_5 = {
+	OR = {
+		2880 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2881 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2882 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2883 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4029 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2884 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 6 The Gorrod (section)
+DA_RW_owned_6 = {
+	owns = 2980
+	owns = 2981
+	owns = 2984
+	owns = 2985
+	owns = 4036
+	owns = 4037
+	owns = 4038
+}
+DA_RW_ruined_6 = {
+	OR = {
+		2980 = { has_province_modifier = dwarovar_rail }
+		2981 = { has_province_modifier = dwarovar_rail }
+		2984 = { has_province_modifier = dwarovar_rail }
+		2985 = { has_province_modifier = dwarovar_rail }
+		4036 = { has_province_modifier = dwarovar_rail }
+		4037 = { has_province_modifier = dwarovar_rail }
+		4038 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_6 = {
+	OR = {
+		2980 = { has_province_modifier = restored_rail }
+		2981 = { has_province_modifier = restored_rail }
+		2984 = { has_province_modifier = restored_rail }
+		2985 = { has_province_modifier = restored_rail }
+		4036 = { has_province_modifier = restored_rail }
+		4037 = { has_province_modifier = restored_rail }
+		4038 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_6 = {
+	2980 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_6 = {
+	2980 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_6 = {
+	DA_RW_owned_6 = yes
+	NOT = { DA_RW_ruined_6 = yes }
+	NOT = { DA_RW_shut_6 = yes }
+}
+DA_RW_can_upgrade_6 = {
+	OR = {
+		2980 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2981 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2984 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2985 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4036 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4037 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4038 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 7 The Argrod (section)
+DA_RW_owned_7 = {
+	owns = 2944
+	owns = 2945
+	owns = 2946
+	owns = 2962
+	owns = 4240
+	owns = 2969
+	owns = 2968
+	owns = 2970
+	owns = 2979
+}
+DA_RW_ruined_7 = {
+	OR = {
+		2944 = { has_province_modifier = dwarovar_rail }
+		2945 = { has_province_modifier = dwarovar_rail }
+		2946 = { has_province_modifier = dwarovar_rail }
+		2962 = { has_province_modifier = dwarovar_rail }
+		4240 = { has_province_modifier = dwarovar_rail }
+		2969 = { has_province_modifier = dwarovar_rail }
+		2968 = { has_province_modifier = dwarovar_rail }
+		2970 = { has_province_modifier = dwarovar_rail }
+		2979 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_7 = {
+	OR = {
+		2944 = { has_province_modifier = restored_rail }
+		2945 = { has_province_modifier = restored_rail }
+		2946 = { has_province_modifier = restored_rail }
+		2962 = { has_province_modifier = restored_rail }
+		4240 = { has_province_modifier = restored_rail }
+		2969 = { has_province_modifier = restored_rail }
+		2968 = { has_province_modifier = restored_rail }
+		2970 = { has_province_modifier = restored_rail }
+		2979 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_7 = {
+	2944 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_7 = {
+	2944 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_7 = {
+	DA_RW_owned_7 = yes
+	NOT = { DA_RW_ruined_7 = yes }
+	NOT = { DA_RW_shut_7 = yes }
+}
+DA_RW_can_upgrade_7 = {
+	OR = {
+		2944 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2945 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2946 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2962 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4240 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2969 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2968 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2970 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2979 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 8 The Western Argrod (section)
+DA_RW_owned_8 = {
+	owns = 2987
+	owns = 2957
+	owns = 2956
+	owns = 2954
+	owns = 2955
+	owns = 2943
+}
+DA_RW_ruined_8 = {
+	OR = {
+		2987 = { has_province_modifier = dwarovar_rail }
+		2957 = { has_province_modifier = dwarovar_rail }
+		2956 = { has_province_modifier = dwarovar_rail }
+		2954 = { has_province_modifier = dwarovar_rail }
+		2955 = { has_province_modifier = dwarovar_rail }
+		2943 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_8 = {
+	OR = {
+		2987 = { has_province_modifier = restored_rail }
+		2957 = { has_province_modifier = restored_rail }
+		2956 = { has_province_modifier = restored_rail }
+		2954 = { has_province_modifier = restored_rail }
+		2955 = { has_province_modifier = restored_rail }
+		2943 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_8 = {
+	2987 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_8 = {
+	2987 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_8 = {
+	DA_RW_owned_8 = yes
+	NOT = { DA_RW_ruined_8 = yes }
+	NOT = { DA_RW_shut_8 = yes }
+}
+DA_RW_can_upgrade_8 = {
+	OR = {
+		2987 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2957 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2956 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2954 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2955 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2943 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 9 The Middle Dwarovrod (section)
+DA_RW_owned_9 = {
+	owns = 2885
+	owns = 4028
+	owns = 2886
+	owns = 2887
+	owns = 2888
+	owns = 2889
+	owns = 2890
+	owns = 2891
+	owns = 4027
+	owns = 4082
+}
+DA_RW_ruined_9 = {
+	OR = {
+		2885 = { has_province_modifier = dwarovar_rail }
+		4028 = { has_province_modifier = dwarovar_rail }
+		2886 = { has_province_modifier = dwarovar_rail }
+		2887 = { has_province_modifier = dwarovar_rail }
+		2888 = { has_province_modifier = dwarovar_rail }
+		2889 = { has_province_modifier = dwarovar_rail }
+		2890 = { has_province_modifier = dwarovar_rail }
+		2891 = { has_province_modifier = dwarovar_rail }
+		4027 = { has_province_modifier = dwarovar_rail }
+		4082 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_9 = {
+	OR = {
+		2885 = { has_province_modifier = restored_rail }
+		4028 = { has_province_modifier = restored_rail }
+		2886 = { has_province_modifier = restored_rail }
+		2887 = { has_province_modifier = restored_rail }
+		2888 = { has_province_modifier = restored_rail }
+		2889 = { has_province_modifier = restored_rail }
+		2890 = { has_province_modifier = restored_rail }
+		2891 = { has_province_modifier = restored_rail }
+		4027 = { has_province_modifier = restored_rail }
+		4082 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_9 = {
+	2885 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_9 = {
+	2885 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_9 = {
+	DA_RW_owned_9 = yes
+	NOT = { DA_RW_ruined_9 = yes }
+	NOT = { DA_RW_shut_9 = yes }
+}
+DA_RW_can_upgrade_9 = {
+	OR = {
+		2885 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4028 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2886 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2887 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2888 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2889 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2890 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2891 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4027 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4082 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 10 The Gulan Road (section)
+DA_RW_owned_10 = {
+	owns = 2892
+	owns = 2893
+	owns = 2894
+	owns = 2895
+	owns = 4231
+	owns = 4091
+	owns = 4111
+	owns = 4112
+	owns = 4113
+	owns = 4114
+	owns = 4090
+}
+DA_RW_ruined_10 = {
+	OR = {
+		2892 = { has_province_modifier = dwarovar_rail }
+		2893 = { has_province_modifier = dwarovar_rail }
+		2894 = { has_province_modifier = dwarovar_rail }
+		2895 = { has_province_modifier = dwarovar_rail }
+		4231 = { has_province_modifier = dwarovar_rail }
+		4091 = { has_province_modifier = dwarovar_rail }
+		4111 = { has_province_modifier = dwarovar_rail }
+		4112 = { has_province_modifier = dwarovar_rail }
+		4113 = { has_province_modifier = dwarovar_rail }
+		4114 = { has_province_modifier = dwarovar_rail }
+		4090 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_10 = {
+	OR = {
+		2892 = { has_province_modifier = restored_rail }
+		2893 = { has_province_modifier = restored_rail }
+		2894 = { has_province_modifier = restored_rail }
+		2895 = { has_province_modifier = restored_rail }
+		4231 = { has_province_modifier = restored_rail }
+		4091 = { has_province_modifier = restored_rail }
+		4111 = { has_province_modifier = restored_rail }
+		4112 = { has_province_modifier = restored_rail }
+		4113 = { has_province_modifier = restored_rail }
+		4114 = { has_province_modifier = restored_rail }
+		4090 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_10 = {
+	2892 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_10 = {
+	2892 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_10 = {
+	DA_RW_owned_10 = yes
+	NOT = { DA_RW_ruined_10 = yes }
+	NOT = { DA_RW_shut_10 = yes }
+}
+DA_RW_can_upgrade_10 = {
+	OR = {
+		2892 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2893 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2894 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2895 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4231 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4091 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4111 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4112 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4113 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4114 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4090 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 11 The Kanzad Road (section)
+DA_RW_owned_11 = {
+	owns = 4242
+	owns = 4243
+	owns = 4244
+	owns = 4246
+	owns = 4245
+	owns = 4248
+	owns = 4249
+	owns = 4250
+	owns = 4251
+	owns = 4252
+	owns = 4253
+	owns = 4254
+}
+DA_RW_ruined_11 = {
+	OR = {
+		4242 = { has_province_modifier = dwarovar_rail }
+		4243 = { has_province_modifier = dwarovar_rail }
+		4244 = { has_province_modifier = dwarovar_rail }
+		4246 = { has_province_modifier = dwarovar_rail }
+		4245 = { has_province_modifier = dwarovar_rail }
+		4248 = { has_province_modifier = dwarovar_rail }
+		4249 = { has_province_modifier = dwarovar_rail }
+		4250 = { has_province_modifier = dwarovar_rail }
+		4251 = { has_province_modifier = dwarovar_rail }
+		4252 = { has_province_modifier = dwarovar_rail }
+		4253 = { has_province_modifier = dwarovar_rail }
+		4254 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_11 = {
+	OR = {
+		4242 = { has_province_modifier = restored_rail }
+		4243 = { has_province_modifier = restored_rail }
+		4244 = { has_province_modifier = restored_rail }
+		4246 = { has_province_modifier = restored_rail }
+		4245 = { has_province_modifier = restored_rail }
+		4248 = { has_province_modifier = restored_rail }
+		4249 = { has_province_modifier = restored_rail }
+		4250 = { has_province_modifier = restored_rail }
+		4251 = { has_province_modifier = restored_rail }
+		4252 = { has_province_modifier = restored_rail }
+		4253 = { has_province_modifier = restored_rail }
+		4254 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_11 = {
+	4242 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_11 = {
+	4242 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_11 = {
+	DA_RW_owned_11 = yes
+	NOT = { DA_RW_ruined_11 = yes }
+	NOT = { DA_RW_shut_11 = yes }
+}
+DA_RW_can_upgrade_11 = {
+	OR = {
+		4242 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4243 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4244 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4246 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4245 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4248 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4249 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4250 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4251 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4252 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4253 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4254 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 12 The Krakazol Road (section)
+DA_RW_owned_12 = {
+	owns = 4255
+	owns = 4256
+	owns = 4257
+	owns = 4258
+	owns = 4259
+	owns = 4260
+	owns = 4261
+	owns = 4262
+	owns = 4263
+	owns = 4264
+	owns = 4297
+	owns = 4298
+	owns = 4300
+}
+DA_RW_ruined_12 = {
+	OR = {
+		4255 = { has_province_modifier = dwarovar_rail }
+		4256 = { has_province_modifier = dwarovar_rail }
+		4257 = { has_province_modifier = dwarovar_rail }
+		4258 = { has_province_modifier = dwarovar_rail }
+		4259 = { has_province_modifier = dwarovar_rail }
+		4260 = { has_province_modifier = dwarovar_rail }
+		4261 = { has_province_modifier = dwarovar_rail }
+		4262 = { has_province_modifier = dwarovar_rail }
+		4263 = { has_province_modifier = dwarovar_rail }
+		4264 = { has_province_modifier = dwarovar_rail }
+		4297 = { has_province_modifier = dwarovar_rail }
+		4298 = { has_province_modifier = dwarovar_rail }
+		4300 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_12 = {
+	OR = {
+		4255 = { has_province_modifier = restored_rail }
+		4256 = { has_province_modifier = restored_rail }
+		4257 = { has_province_modifier = restored_rail }
+		4258 = { has_province_modifier = restored_rail }
+		4259 = { has_province_modifier = restored_rail }
+		4260 = { has_province_modifier = restored_rail }
+		4261 = { has_province_modifier = restored_rail }
+		4262 = { has_province_modifier = restored_rail }
+		4263 = { has_province_modifier = restored_rail }
+		4264 = { has_province_modifier = restored_rail }
+		4297 = { has_province_modifier = restored_rail }
+		4298 = { has_province_modifier = restored_rail }
+		4300 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_12 = {
+	4255 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_12 = {
+	4255 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_12 = {
+	DA_RW_owned_12 = yes
+	NOT = { DA_RW_ruined_12 = yes }
+	NOT = { DA_RW_shut_12 = yes }
+}
+DA_RW_can_upgrade_12 = {
+	OR = {
+		4255 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4256 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4257 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4258 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4259 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4260 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4261 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4262 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4263 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4264 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4297 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4298 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4300 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 13 The Jade Road (section)
+DA_RW_owned_13 = {
+	owns = 4360
+	owns = 4301
+	owns = 4312
+	owns = 4302
+	owns = 4303
+	owns = 4304
+	owns = 4305
+	owns = 4306
+	owns = 4307
+	owns = 4308
+	owns = 4309
+	owns = 4310
+	owns = 4314
+	owns = 4315
+	owns = 4316
+	owns = 4317
+	owns = 4318
+	owns = 4319
+	owns = 4320
+	owns = 4356
+	owns = 4359
+}
+DA_RW_ruined_13 = {
+	OR = {
+		4360 = { has_province_modifier = dwarovar_rail }
+		4301 = { has_province_modifier = dwarovar_rail }
+		4312 = { has_province_modifier = dwarovar_rail }
+		4302 = { has_province_modifier = dwarovar_rail }
+		4303 = { has_province_modifier = dwarovar_rail }
+		4304 = { has_province_modifier = dwarovar_rail }
+		4305 = { has_province_modifier = dwarovar_rail }
+		4306 = { has_province_modifier = dwarovar_rail }
+		4307 = { has_province_modifier = dwarovar_rail }
+		4308 = { has_province_modifier = dwarovar_rail }
+		4309 = { has_province_modifier = dwarovar_rail }
+		4310 = { has_province_modifier = dwarovar_rail }
+		4314 = { has_province_modifier = dwarovar_rail }
+		4315 = { has_province_modifier = dwarovar_rail }
+		4316 = { has_province_modifier = dwarovar_rail }
+		4317 = { has_province_modifier = dwarovar_rail }
+		4318 = { has_province_modifier = dwarovar_rail }
+		4319 = { has_province_modifier = dwarovar_rail }
+		4320 = { has_province_modifier = dwarovar_rail }
+		4356 = { has_province_modifier = dwarovar_rail }
+		4359 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_13 = {
+	OR = {
+		4360 = { has_province_modifier = restored_rail }
+		4301 = { has_province_modifier = restored_rail }
+		4312 = { has_province_modifier = restored_rail }
+		4302 = { has_province_modifier = restored_rail }
+		4303 = { has_province_modifier = restored_rail }
+		4304 = { has_province_modifier = restored_rail }
+		4305 = { has_province_modifier = restored_rail }
+		4306 = { has_province_modifier = restored_rail }
+		4307 = { has_province_modifier = restored_rail }
+		4308 = { has_province_modifier = restored_rail }
+		4309 = { has_province_modifier = restored_rail }
+		4310 = { has_province_modifier = restored_rail }
+		4314 = { has_province_modifier = restored_rail }
+		4315 = { has_province_modifier = restored_rail }
+		4316 = { has_province_modifier = restored_rail }
+		4317 = { has_province_modifier = restored_rail }
+		4318 = { has_province_modifier = restored_rail }
+		4319 = { has_province_modifier = restored_rail }
+		4320 = { has_province_modifier = restored_rail }
+		4356 = { has_province_modifier = restored_rail }
+		4359 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_13 = {
+	4360 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_13 = {
+	4360 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_working_13 = {
+	DA_RW_owned_13 = yes
+	NOT = { DA_RW_ruined_13 = yes }
+	NOT = { DA_RW_shut_13 = yes }
+}
+DA_RW_can_upgrade_13 = {
+	OR = {
+		4360 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4301 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4312 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4302 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4303 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4304 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4305 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4306 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4307 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4308 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4309 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4310 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4314 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4315 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4316 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4317 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4318 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4319 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4320 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4356 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4359 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 14 The Giant's Anvil Line (line)
+DA_RW_owned_14 = {
+	owns = 4207
+	owns = 4206
+	owns = 4205
+	owns = 4204
+	owns = 4203
+	owns = 4201
+	owns = 4198
+	owns = 4209
+	owns = 4210
+	owns = 4211
+}
+DA_RW_ruined_14 = {
+	OR = {
+		4207 = { has_province_modifier = dwarovar_rail }
+		4206 = { has_province_modifier = dwarovar_rail }
+		4205 = { has_province_modifier = dwarovar_rail }
+		4204 = { has_province_modifier = dwarovar_rail }
+		4203 = { has_province_modifier = dwarovar_rail }
+		4201 = { has_province_modifier = dwarovar_rail }
+		4198 = { has_province_modifier = dwarovar_rail }
+		4209 = { has_province_modifier = dwarovar_rail }
+		4210 = { has_province_modifier = dwarovar_rail }
+		4211 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_14 = {
+	OR = {
+		4207 = { has_province_modifier = restored_rail }
+		4206 = { has_province_modifier = restored_rail }
+		4205 = { has_province_modifier = restored_rail }
+		4204 = { has_province_modifier = restored_rail }
+		4203 = { has_province_modifier = restored_rail }
+		4201 = { has_province_modifier = restored_rail }
+		4198 = { has_province_modifier = restored_rail }
+		4209 = { has_province_modifier = restored_rail }
+		4210 = { has_province_modifier = restored_rail }
+		4211 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_14 = {
+	4207 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_14 = {
+	4207 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_14 = {
+	4207 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_14 = {
+	DA_RW_laid_14 = yes
+	DA_RW_owned_14 = yes
+	NOT = { DA_RW_ruined_14 = yes }
+	NOT = { DA_RW_shut_14 = yes }
+}
+DA_RW_can_upgrade_14 = {
+	OR = {
+		4207 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4206 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4205 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4204 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4203 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4201 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4198 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4209 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4210 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4211 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 15 The Logr Valley Line (line)
+DA_RW_owned_15 = {
+	owns = 4200
+	owns = 4191
+	owns = 4189
+	owns = 4184
+	owns = 4176
+	owns = 4174
+	owns = 4173
+}
+DA_RW_ruined_15 = {
+	OR = {
+		4200 = { has_province_modifier = dwarovar_rail }
+		4191 = { has_province_modifier = dwarovar_rail }
+		4189 = { has_province_modifier = dwarovar_rail }
+		4184 = { has_province_modifier = dwarovar_rail }
+		4176 = { has_province_modifier = dwarovar_rail }
+		4174 = { has_province_modifier = dwarovar_rail }
+		4173 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_15 = {
+	OR = {
+		4200 = { has_province_modifier = restored_rail }
+		4191 = { has_province_modifier = restored_rail }
+		4189 = { has_province_modifier = restored_rail }
+		4184 = { has_province_modifier = restored_rail }
+		4176 = { has_province_modifier = restored_rail }
+		4174 = { has_province_modifier = restored_rail }
+		4173 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_15 = {
+	4200 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_15 = {
+	4200 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_15 = {
+	4200 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_15 = {
+	DA_RW_laid_15 = yes
+	DA_RW_owned_15 = yes
+	NOT = { DA_RW_ruined_15 = yes }
+	NOT = { DA_RW_shut_15 = yes }
+}
+DA_RW_can_upgrade_15 = {
+	OR = {
+		4200 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4191 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4189 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4184 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4176 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4174 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4173 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 16 The Bal Vroren Line (line)
+DA_RW_owned_16 = {
+	owns = 992
+	owns = 990
+	owns = 740
+	owns = 735
+	owns = 718
+	owns = 717
+}
+DA_RW_ruined_16 = {
+	OR = {
+		992 = { has_province_modifier = dwarovar_rail }
+		990 = { has_province_modifier = dwarovar_rail }
+		740 = { has_province_modifier = dwarovar_rail }
+		735 = { has_province_modifier = dwarovar_rail }
+		718 = { has_province_modifier = dwarovar_rail }
+		717 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_16 = {
+	OR = {
+		992 = { has_province_modifier = restored_rail }
+		990 = { has_province_modifier = restored_rail }
+		740 = { has_province_modifier = restored_rail }
+		735 = { has_province_modifier = restored_rail }
+		718 = { has_province_modifier = restored_rail }
+		717 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_16 = {
+	992 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_16 = {
+	992 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_16 = {
+	992 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_16 = {
+	DA_RW_laid_16 = yes
+	DA_RW_owned_16 = yes
+	NOT = { DA_RW_ruined_16 = yes }
+	NOT = { DA_RW_shut_16 = yes }
+}
+DA_RW_can_upgrade_16 = {
+	OR = {
+		992 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		990 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		740 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		735 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		718 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		717 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 17 The Olavlund Line (line)
+DA_RW_owned_17 = {
+	owns = 991
+	owns = 988
+	owns = 986
+	owns = 6280
+	owns = 6278
+	owns = 6272
+	owns = 979
+	owns = 977
+	owns = 975
+}
+DA_RW_ruined_17 = {
+	OR = {
+		991 = { has_province_modifier = dwarovar_rail }
+		988 = { has_province_modifier = dwarovar_rail }
+		986 = { has_province_modifier = dwarovar_rail }
+		6280 = { has_province_modifier = dwarovar_rail }
+		6278 = { has_province_modifier = dwarovar_rail }
+		6272 = { has_province_modifier = dwarovar_rail }
+		979 = { has_province_modifier = dwarovar_rail }
+		977 = { has_province_modifier = dwarovar_rail }
+		975 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_17 = {
+	OR = {
+		991 = { has_province_modifier = restored_rail }
+		988 = { has_province_modifier = restored_rail }
+		986 = { has_province_modifier = restored_rail }
+		6280 = { has_province_modifier = restored_rail }
+		6278 = { has_province_modifier = restored_rail }
+		6272 = { has_province_modifier = restored_rail }
+		979 = { has_province_modifier = restored_rail }
+		977 = { has_province_modifier = restored_rail }
+		975 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_17 = {
+	991 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_17 = {
+	991 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_17 = {
+	991 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_17 = {
+	DA_RW_laid_17 = yes
+	DA_RW_owned_17 = yes
+	NOT = { DA_RW_ruined_17 = yes }
+	NOT = { DA_RW_shut_17 = yes }
+}
+DA_RW_can_upgrade_17 = {
+	OR = {
+		991 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		988 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		986 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		6280 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		6278 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		6272 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		979 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		977 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		975 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 18 The Ogre Road (line)
+DA_RW_owned_18 = {
+	owns = 5303
+	owns = 5005
+	owns = 5020
+}
+DA_RW_ruined_18 = {
+	OR = {
+		5303 = { has_province_modifier = dwarovar_rail }
+		5005 = { has_province_modifier = dwarovar_rail }
+		5020 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_18 = {
+	OR = {
+		5303 = { has_province_modifier = restored_rail }
+		5005 = { has_province_modifier = restored_rail }
+		5020 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_18 = {
+	5303 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_18 = {
+	5303 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_18 = {
+	5303 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_18 = {
+	DA_RW_laid_18 = yes
+	DA_RW_owned_18 = yes
+	NOT = { DA_RW_ruined_18 = yes }
+	NOT = { DA_RW_shut_18 = yes }
+}
+DA_RW_can_upgrade_18 = {
+	OR = {
+		5303 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		5005 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		5020 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 19 The Khugsroad Line (line)
+DA_RW_owned_19 = {
+	owns = 849
+	owns = 845
+	owns = 843
+	owns = 833
+	owns = 832
+}
+DA_RW_ruined_19 = {
+	OR = {
+		849 = { has_province_modifier = dwarovar_rail }
+		845 = { has_province_modifier = dwarovar_rail }
+		843 = { has_province_modifier = dwarovar_rail }
+		833 = { has_province_modifier = dwarovar_rail }
+		832 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_19 = {
+	OR = {
+		849 = { has_province_modifier = restored_rail }
+		845 = { has_province_modifier = restored_rail }
+		843 = { has_province_modifier = restored_rail }
+		833 = { has_province_modifier = restored_rail }
+		832 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_19 = {
+	849 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_19 = {
+	849 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_19 = {
+	849 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_19 = {
+	DA_RW_laid_19 = yes
+	DA_RW_owned_19 = yes
+	NOT = { DA_RW_ruined_19 = yes }
+	NOT = { DA_RW_shut_19 = yes }
+}
+DA_RW_can_upgrade_19 = {
+	OR = {
+		849 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		845 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		843 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		833 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		832 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 20 The Westgate Line (line)
+DA_RW_owned_20 = {
+	owns = 839
+	owns = 837
+	owns = 754
+	owns = 748
+	owns = 730
+	owns = 729
+}
+DA_RW_ruined_20 = {
+	OR = {
+		839 = { has_province_modifier = dwarovar_rail }
+		837 = { has_province_modifier = dwarovar_rail }
+		754 = { has_province_modifier = dwarovar_rail }
+		748 = { has_province_modifier = dwarovar_rail }
+		730 = { has_province_modifier = dwarovar_rail }
+		729 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_20 = {
+	OR = {
+		839 = { has_province_modifier = restored_rail }
+		837 = { has_province_modifier = restored_rail }
+		754 = { has_province_modifier = restored_rail }
+		748 = { has_province_modifier = restored_rail }
+		730 = { has_province_modifier = restored_rail }
+		729 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_20 = {
+	839 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_20 = {
+	839 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_20 = {
+	839 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_20 = {
+	DA_RW_laid_20 = yes
+	DA_RW_owned_20 = yes
+	NOT = { DA_RW_ruined_20 = yes }
+	NOT = { DA_RW_shut_20 = yes }
+}
+DA_RW_can_upgrade_20 = {
+	OR = {
+		839 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		837 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		754 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		748 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		730 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		729 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 21 The Marrhold Line (line)
+DA_RW_owned_21 = {
+	owns = 4097
+	owns = 896
+	owns = 897
+	owns = 882
+	owns = 880
+}
+DA_RW_ruined_21 = {
+	OR = {
+		4097 = { has_province_modifier = dwarovar_rail }
+		896 = { has_province_modifier = dwarovar_rail }
+		897 = { has_province_modifier = dwarovar_rail }
+		882 = { has_province_modifier = dwarovar_rail }
+		880 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_21 = {
+	OR = {
+		4097 = { has_province_modifier = restored_rail }
+		896 = { has_province_modifier = restored_rail }
+		897 = { has_province_modifier = restored_rail }
+		882 = { has_province_modifier = restored_rail }
+		880 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_21 = {
+	4097 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_21 = {
+	4097 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_21 = {
+	4097 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_21 = {
+	DA_RW_laid_21 = yes
+	DA_RW_owned_21 = yes
+	NOT = { DA_RW_ruined_21 = yes }
+	NOT = { DA_RW_shut_21 = yes }
+}
+DA_RW_can_upgrade_21 = {
+	OR = {
+		4097 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		896 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		897 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		882 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		880 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 22 The Ravenhill Line (line)
+DA_RW_owned_22 = {
+	owns = 511
+	owns = 509
+	owns = 450
+	owns = 3720
+	owns = 3714
+	owns = 442
+	owns = 431
+}
+DA_RW_ruined_22 = {
+	OR = {
+		511 = { has_province_modifier = dwarovar_rail }
+		509 = { has_province_modifier = dwarovar_rail }
+		450 = { has_province_modifier = dwarovar_rail }
+		3720 = { has_province_modifier = dwarovar_rail }
+		3714 = { has_province_modifier = dwarovar_rail }
+		442 = { has_province_modifier = dwarovar_rail }
+		431 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_22 = {
+	OR = {
+		511 = { has_province_modifier = restored_rail }
+		509 = { has_province_modifier = restored_rail }
+		450 = { has_province_modifier = restored_rail }
+		3720 = { has_province_modifier = restored_rail }
+		3714 = { has_province_modifier = restored_rail }
+		442 = { has_province_modifier = restored_rail }
+		431 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_22 = {
+	511 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_22 = {
+	511 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_22 = {
+	511 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_22 = {
+	DA_RW_laid_22 = yes
+	DA_RW_owned_22 = yes
+	NOT = { DA_RW_ruined_22 = yes }
+	NOT = { DA_RW_shut_22 = yes }
+}
+DA_RW_can_upgrade_22 = {
+	OR = {
+		511 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		509 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		450 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3720 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3714 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		442 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		431 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 23 The Skomdihr Line (line)
+DA_RW_owned_23 = {
+	owns = 3065
+	owns = 3038
+	owns = 3037
+	owns = 3033
+	owns = 3058
+	owns = 3025
+	owns = 3024
+}
+DA_RW_ruined_23 = {
+	OR = {
+		3065 = { has_province_modifier = dwarovar_rail }
+		3038 = { has_province_modifier = dwarovar_rail }
+		3037 = { has_province_modifier = dwarovar_rail }
+		3033 = { has_province_modifier = dwarovar_rail }
+		3058 = { has_province_modifier = dwarovar_rail }
+		3025 = { has_province_modifier = dwarovar_rail }
+		3024 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_23 = {
+	OR = {
+		3065 = { has_province_modifier = restored_rail }
+		3038 = { has_province_modifier = restored_rail }
+		3037 = { has_province_modifier = restored_rail }
+		3033 = { has_province_modifier = restored_rail }
+		3058 = { has_province_modifier = restored_rail }
+		3025 = { has_province_modifier = restored_rail }
+		3024 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_23 = {
+	3065 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_23 = {
+	3065 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_23 = {
+	3065 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_23 = {
+	DA_RW_laid_23 = yes
+	DA_RW_owned_23 = yes
+	NOT = { DA_RW_ruined_23 = yes }
+	NOT = { DA_RW_shut_23 = yes }
+}
+DA_RW_can_upgrade_23 = {
+	OR = {
+		3065 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3038 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3037 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3033 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3058 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3025 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3024 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 24 The Ciranmyna Line (line)
+DA_RW_owned_24 = {
+	owns = 3023
+	owns = 7011
+	owns = 3055
+	owns = 7010
+	owns = 3019
+	owns = 3020
+}
+DA_RW_ruined_24 = {
+	OR = {
+		3023 = { has_province_modifier = dwarovar_rail }
+		7011 = { has_province_modifier = dwarovar_rail }
+		3055 = { has_province_modifier = dwarovar_rail }
+		7010 = { has_province_modifier = dwarovar_rail }
+		3019 = { has_province_modifier = dwarovar_rail }
+		3020 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_24 = {
+	OR = {
+		3023 = { has_province_modifier = restored_rail }
+		7011 = { has_province_modifier = restored_rail }
+		3055 = { has_province_modifier = restored_rail }
+		7010 = { has_province_modifier = restored_rail }
+		3019 = { has_province_modifier = restored_rail }
+		3020 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_24 = {
+	3023 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_24 = {
+	3023 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_24 = {
+	3023 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_24 = {
+	DA_RW_laid_24 = yes
+	DA_RW_owned_24 = yes
+	NOT = { DA_RW_ruined_24 = yes }
+	NOT = { DA_RW_shut_24 = yes }
+}
+DA_RW_can_upgrade_24 = {
+	OR = {
+		3023 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		7011 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3055 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		7010 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3019 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		3020 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 25 The Tungr Line (line)
+DA_RW_owned_25 = {
+	owns = 534
+	owns = 531
+	owns = 530
+	owns = 528
+	owns = 527
+	owns = 525
+	owns = 526
+}
+DA_RW_ruined_25 = {
+	OR = {
+		534 = { has_province_modifier = dwarovar_rail }
+		531 = { has_province_modifier = dwarovar_rail }
+		530 = { has_province_modifier = dwarovar_rail }
+		528 = { has_province_modifier = dwarovar_rail }
+		527 = { has_province_modifier = dwarovar_rail }
+		525 = { has_province_modifier = dwarovar_rail }
+		526 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_25 = {
+	OR = {
+		534 = { has_province_modifier = restored_rail }
+		531 = { has_province_modifier = restored_rail }
+		530 = { has_province_modifier = restored_rail }
+		528 = { has_province_modifier = restored_rail }
+		527 = { has_province_modifier = restored_rail }
+		525 = { has_province_modifier = restored_rail }
+		526 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_25 = {
+	534 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_25 = {
+	534 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_25 = {
+	534 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_25 = {
+	DA_RW_laid_25 = yes
+	DA_RW_owned_25 = yes
+	NOT = { DA_RW_ruined_25 = yes }
+	NOT = { DA_RW_shut_25 = yes }
+}
+DA_RW_can_upgrade_25 = {
+	OR = {
+		534 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		531 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		530 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		528 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		527 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		525 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		526 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 26 The Harpy Hills Line (line)
+DA_RW_owned_26 = {
+	owns = 677
+	owns = 678
+	owns = 674
+	owns = 673
+	owns = 672
+	owns = 669
+	owns = 668
+	owns = 665
+}
+DA_RW_ruined_26 = {
+	OR = {
+		677 = { has_province_modifier = dwarovar_rail }
+		678 = { has_province_modifier = dwarovar_rail }
+		674 = { has_province_modifier = dwarovar_rail }
+		673 = { has_province_modifier = dwarovar_rail }
+		672 = { has_province_modifier = dwarovar_rail }
+		669 = { has_province_modifier = dwarovar_rail }
+		668 = { has_province_modifier = dwarovar_rail }
+		665 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_26 = {
+	OR = {
+		677 = { has_province_modifier = restored_rail }
+		678 = { has_province_modifier = restored_rail }
+		674 = { has_province_modifier = restored_rail }
+		673 = { has_province_modifier = restored_rail }
+		672 = { has_province_modifier = restored_rail }
+		669 = { has_province_modifier = restored_rail }
+		668 = { has_province_modifier = restored_rail }
+		665 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_26 = {
+	677 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_26 = {
+	677 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_26 = {
+	677 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_26 = {
+	DA_RW_laid_26 = yes
+	DA_RW_owned_26 = yes
+	NOT = { DA_RW_ruined_26 = yes }
+	NOT = { DA_RW_shut_26 = yes }
+}
+DA_RW_can_upgrade_26 = {
+	OR = {
+		677 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		678 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		674 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		673 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		672 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		669 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		668 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		665 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 27 The Suran Line (line)
+DA_RW_owned_27 = {
+	owns = 643
+	owns = 642
+	owns = 641
+	owns = 638
+	owns = 634
+	owns = 631
+}
+DA_RW_ruined_27 = {
+	OR = {
+		643 = { has_province_modifier = dwarovar_rail }
+		642 = { has_province_modifier = dwarovar_rail }
+		641 = { has_province_modifier = dwarovar_rail }
+		638 = { has_province_modifier = dwarovar_rail }
+		634 = { has_province_modifier = dwarovar_rail }
+		631 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_27 = {
+	OR = {
+		643 = { has_province_modifier = restored_rail }
+		642 = { has_province_modifier = restored_rail }
+		641 = { has_province_modifier = restored_rail }
+		638 = { has_province_modifier = restored_rail }
+		634 = { has_province_modifier = restored_rail }
+		631 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_27 = {
+	643 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_27 = {
+	643 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_27 = {
+	643 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_27 = {
+	DA_RW_laid_27 = yes
+	DA_RW_owned_27 = yes
+	NOT = { DA_RW_ruined_27 = yes }
+	NOT = { DA_RW_shut_27 = yes }
+}
+DA_RW_can_upgrade_27 = {
+	OR = {
+		643 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		642 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		641 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		638 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		634 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		631 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 28 The Bulwar Line (line)
+DA_RW_owned_28 = {
+	owns = 681
+	owns = 690
+	owns = 607
+	owns = 604
+	owns = 601
+}
+DA_RW_ruined_28 = {
+	OR = {
+		681 = { has_province_modifier = dwarovar_rail }
+		690 = { has_province_modifier = dwarovar_rail }
+		607 = { has_province_modifier = dwarovar_rail }
+		604 = { has_province_modifier = dwarovar_rail }
+		601 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_28 = {
+	OR = {
+		681 = { has_province_modifier = restored_rail }
+		690 = { has_province_modifier = restored_rail }
+		607 = { has_province_modifier = restored_rail }
+		604 = { has_province_modifier = restored_rail }
+		601 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_28 = {
+	681 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_28 = {
+	681 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_28 = {
+	681 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_28 = {
+	DA_RW_laid_28 = yes
+	DA_RW_owned_28 = yes
+	NOT = { DA_RW_ruined_28 = yes }
+	NOT = { DA_RW_shut_28 = yes }
+}
+DA_RW_can_upgrade_28 = {
+	OR = {
+		681 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		690 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		607 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		604 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		601 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 29 The Gold Road (line)
+DA_RW_owned_29 = {
+	owns = 2915
+	owns = 2916
+	owns = 2901
+}
+DA_RW_ruined_29 = {
+	OR = {
+		2915 = { has_province_modifier = dwarovar_rail }
+		2916 = { has_province_modifier = dwarovar_rail }
+		2901 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_29 = {
+	OR = {
+		2915 = { has_province_modifier = restored_rail }
+		2916 = { has_province_modifier = restored_rail }
+		2901 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_29 = {
+	2915 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_29 = {
+	2915 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_29 = {
+	2915 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_29 = {
+	DA_RW_laid_29 = yes
+	DA_RW_owned_29 = yes
+	NOT = { DA_RW_ruined_29 = yes }
+	NOT = { DA_RW_shut_29 = yes }
+}
+DA_RW_can_upgrade_29 = {
+	OR = {
+		2915 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2916 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		2901 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 30 The Sarnihanpur Line (line)
+DA_RW_owned_30 = {
+	owns = 4462
+	owns = 4463
+	owns = 4459
+	owns = 4460
+}
+DA_RW_ruined_30 = {
+	OR = {
+		4462 = { has_province_modifier = dwarovar_rail }
+		4463 = { has_province_modifier = dwarovar_rail }
+		4459 = { has_province_modifier = dwarovar_rail }
+		4460 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_30 = {
+	OR = {
+		4462 = { has_province_modifier = restored_rail }
+		4463 = { has_province_modifier = restored_rail }
+		4459 = { has_province_modifier = restored_rail }
+		4460 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_30 = {
+	4462 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_30 = {
+	4462 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_30 = {
+	4462 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_30 = {
+	DA_RW_laid_30 = yes
+	DA_RW_owned_30 = yes
+	NOT = { DA_RW_ruined_30 = yes }
+	NOT = { DA_RW_shut_30 = yes }
+}
+DA_RW_can_upgrade_30 = {
+	OR = {
+		4462 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4463 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4459 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4460 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# 31 The Demon Hills Line (line)
+DA_RW_owned_31 = {
+	owns = 4834
+	owns = 4832
+	owns = 5430
+}
+DA_RW_ruined_31 = {
+	OR = {
+		4834 = { has_province_modifier = dwarovar_rail }
+		4832 = { has_province_modifier = dwarovar_rail }
+		5430 = { has_province_modifier = dwarovar_rail }
+	}
+}
+DA_RW_restored_31 = {
+	OR = {
+		4834 = { has_province_modifier = restored_rail }
+		4832 = { has_province_modifier = restored_rail }
+		5430 = { has_province_modifier = restored_rail }
+	}
+}
+DA_RW_shut_31 = {
+	4834 = { has_province_modifier = DA_railway_mod_shut_down }
+}
+DA_RW_over_31 = {
+	4834 = { has_province_modifier = DA_railway_mod_overload }
+}
+DA_RW_laid_31 = {
+	4834 = { has_province_flag = DA_RW_line }
+}
+DA_RW_working_31 = {
+	DA_RW_laid_31 = yes
+	DA_RW_owned_31 = yes
+	NOT = { DA_RW_ruined_31 = yes }
+	NOT = { DA_RW_shut_31 = yes }
+}
+DA_RW_can_upgrade_31 = {
+	OR = {
+		4834 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		4832 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+		5430 = { DA_upgradable_railway_province = yes NOT = { has_construction = any } }
+	}
+}
+
+# ---- the lamp chosen in the window
+DA_RW_any_selected = {
+	OR = {
+		has_country_flag = DA_RW_sel_1
+		has_country_flag = DA_RW_sel_2
+		has_country_flag = DA_RW_sel_3
+		has_country_flag = DA_RW_sel_4
+		has_country_flag = DA_RW_sel_5
+		has_country_flag = DA_RW_sel_6
+		has_country_flag = DA_RW_sel_7
+		has_country_flag = DA_RW_sel_8
+		has_country_flag = DA_RW_sel_9
+		has_country_flag = DA_RW_sel_10
+		has_country_flag = DA_RW_sel_11
+		has_country_flag = DA_RW_sel_12
+		has_country_flag = DA_RW_sel_13
+		has_country_flag = DA_RW_sel_14
+		has_country_flag = DA_RW_sel_15
+		has_country_flag = DA_RW_sel_16
+		has_country_flag = DA_RW_sel_17
+		has_country_flag = DA_RW_sel_18
+		has_country_flag = DA_RW_sel_19
+		has_country_flag = DA_RW_sel_20
+		has_country_flag = DA_RW_sel_21
+		has_country_flag = DA_RW_sel_22
+		has_country_flag = DA_RW_sel_23
+		has_country_flag = DA_RW_sel_24
+		has_country_flag = DA_RW_sel_25
+		has_country_flag = DA_RW_sel_26
+		has_country_flag = DA_RW_sel_27
+		has_country_flag = DA_RW_sel_28
+		has_country_flag = DA_RW_sel_29
+		has_country_flag = DA_RW_sel_30
+		has_country_flag = DA_RW_sel_31
+	}
+}
+DA_RW_line_selected = {
+	OR = {
+		has_country_flag = DA_RW_sel_14
+		has_country_flag = DA_RW_sel_15
+		has_country_flag = DA_RW_sel_16
+		has_country_flag = DA_RW_sel_17
+		has_country_flag = DA_RW_sel_18
+		has_country_flag = DA_RW_sel_19
+		has_country_flag = DA_RW_sel_20
+		has_country_flag = DA_RW_sel_21
+		has_country_flag = DA_RW_sel_22
+		has_country_flag = DA_RW_sel_23
+		has_country_flag = DA_RW_sel_24
+		has_country_flag = DA_RW_sel_25
+		has_country_flag = DA_RW_sel_26
+		has_country_flag = DA_RW_sel_27
+		has_country_flag = DA_RW_sel_28
+		has_country_flag = DA_RW_sel_29
+		has_country_flag = DA_RW_sel_30
+		has_country_flag = DA_RW_sel_31
+	}
+}
+DA_RW_sel_laying = {
+	OR = {
+		AND = { has_country_flag = DA_RW_sel_14 has_country_flag = DA_RW_laying_14 }
+		AND = { has_country_flag = DA_RW_sel_15 has_country_flag = DA_RW_laying_15 }
+		AND = { has_country_flag = DA_RW_sel_16 has_country_flag = DA_RW_laying_16 }
+		AND = { has_country_flag = DA_RW_sel_17 has_country_flag = DA_RW_laying_17 }
+		AND = { has_country_flag = DA_RW_sel_18 has_country_flag = DA_RW_laying_18 }
+		AND = { has_country_flag = DA_RW_sel_19 has_country_flag = DA_RW_laying_19 }
+		AND = { has_country_flag = DA_RW_sel_20 has_country_flag = DA_RW_laying_20 }
+		AND = { has_country_flag = DA_RW_sel_21 has_country_flag = DA_RW_laying_21 }
+		AND = { has_country_flag = DA_RW_sel_22 has_country_flag = DA_RW_laying_22 }
+		AND = { has_country_flag = DA_RW_sel_23 has_country_flag = DA_RW_laying_23 }
+		AND = { has_country_flag = DA_RW_sel_24 has_country_flag = DA_RW_laying_24 }
+		AND = { has_country_flag = DA_RW_sel_25 has_country_flag = DA_RW_laying_25 }
+		AND = { has_country_flag = DA_RW_sel_26 has_country_flag = DA_RW_laying_26 }
+		AND = { has_country_flag = DA_RW_sel_27 has_country_flag = DA_RW_laying_27 }
+		AND = { has_country_flag = DA_RW_sel_28 has_country_flag = DA_RW_laying_28 }
+		AND = { has_country_flag = DA_RW_sel_29 has_country_flag = DA_RW_laying_29 }
+		AND = { has_country_flag = DA_RW_sel_30 has_country_flag = DA_RW_laying_30 }
+		AND = { has_country_flag = DA_RW_sel_31 has_country_flag = DA_RW_laying_31 }
+	}
+}
+DA_RW_sel_unlaid = {
+	OR = {
+		AND = { has_country_flag = DA_RW_sel_14 NOT = { DA_RW_laid_14 = yes } }
+		AND = { has_country_flag = DA_RW_sel_15 NOT = { DA_RW_laid_15 = yes } }
+		AND = { has_country_flag = DA_RW_sel_16 NOT = { DA_RW_laid_16 = yes } }
+		AND = { has_country_flag = DA_RW_sel_17 NOT = { DA_RW_laid_17 = yes } }
+		AND = { has_country_flag = DA_RW_sel_18 NOT = { DA_RW_laid_18 = yes } }
+		AND = { has_country_flag = DA_RW_sel_19 NOT = { DA_RW_laid_19 = yes } }
+		AND = { has_country_flag = DA_RW_sel_20 NOT = { DA_RW_laid_20 = yes } }
+		AND = { has_country_flag = DA_RW_sel_21 NOT = { DA_RW_laid_21 = yes } }
+		AND = { has_country_flag = DA_RW_sel_22 NOT = { DA_RW_laid_22 = yes } }
+		AND = { has_country_flag = DA_RW_sel_23 NOT = { DA_RW_laid_23 = yes } }
+		AND = { has_country_flag = DA_RW_sel_24 NOT = { DA_RW_laid_24 = yes } }
+		AND = { has_country_flag = DA_RW_sel_25 NOT = { DA_RW_laid_25 = yes } }
+		AND = { has_country_flag = DA_RW_sel_26 NOT = { DA_RW_laid_26 = yes } }
+		AND = { has_country_flag = DA_RW_sel_27 NOT = { DA_RW_laid_27 = yes } }
+		AND = { has_country_flag = DA_RW_sel_28 NOT = { DA_RW_laid_28 = yes } }
+		AND = { has_country_flag = DA_RW_sel_29 NOT = { DA_RW_laid_29 = yes } }
+		AND = { has_country_flag = DA_RW_sel_30 NOT = { DA_RW_laid_30 = yes } }
+		AND = { has_country_flag = DA_RW_sel_31 NOT = { DA_RW_laid_31 = yes } }
+	}
+}
+DA_RW_sel_foreign = {
+	OR = {
+		AND = { has_country_flag = DA_RW_sel_1 NOT = { DA_RW_owned_1 = yes } }
+		AND = { has_country_flag = DA_RW_sel_2 NOT = { DA_RW_owned_2 = yes } }
+		AND = { has_country_flag = DA_RW_sel_3 NOT = { DA_RW_owned_3 = yes } }
+		AND = { has_country_flag = DA_RW_sel_4 NOT = { DA_RW_owned_4 = yes } }
+		AND = { has_country_flag = DA_RW_sel_5 NOT = { DA_RW_owned_5 = yes } }
+		AND = { has_country_flag = DA_RW_sel_6 NOT = { DA_RW_owned_6 = yes } }
+		AND = { has_country_flag = DA_RW_sel_7 NOT = { DA_RW_owned_7 = yes } }
+		AND = { has_country_flag = DA_RW_sel_8 NOT = { DA_RW_owned_8 = yes } }
+		AND = { has_country_flag = DA_RW_sel_9 NOT = { DA_RW_owned_9 = yes } }
+		AND = { has_country_flag = DA_RW_sel_10 NOT = { DA_RW_owned_10 = yes } }
+		AND = { has_country_flag = DA_RW_sel_11 NOT = { DA_RW_owned_11 = yes } }
+		AND = { has_country_flag = DA_RW_sel_12 NOT = { DA_RW_owned_12 = yes } }
+		AND = { has_country_flag = DA_RW_sel_13 NOT = { DA_RW_owned_13 = yes } }
+		AND = { has_country_flag = DA_RW_sel_14 NOT = { DA_RW_owned_14 = yes } }
+		AND = { has_country_flag = DA_RW_sel_15 NOT = { DA_RW_owned_15 = yes } }
+		AND = { has_country_flag = DA_RW_sel_16 NOT = { DA_RW_owned_16 = yes } }
+		AND = { has_country_flag = DA_RW_sel_17 NOT = { DA_RW_owned_17 = yes } }
+		AND = { has_country_flag = DA_RW_sel_18 NOT = { DA_RW_owned_18 = yes } }
+		AND = { has_country_flag = DA_RW_sel_19 NOT = { DA_RW_owned_19 = yes } }
+		AND = { has_country_flag = DA_RW_sel_20 NOT = { DA_RW_owned_20 = yes } }
+		AND = { has_country_flag = DA_RW_sel_21 NOT = { DA_RW_owned_21 = yes } }
+		AND = { has_country_flag = DA_RW_sel_22 NOT = { DA_RW_owned_22 = yes } }
+		AND = { has_country_flag = DA_RW_sel_23 NOT = { DA_RW_owned_23 = yes } }
+		AND = { has_country_flag = DA_RW_sel_24 NOT = { DA_RW_owned_24 = yes } }
+		AND = { has_country_flag = DA_RW_sel_25 NOT = { DA_RW_owned_25 = yes } }
+		AND = { has_country_flag = DA_RW_sel_26 NOT = { DA_RW_owned_26 = yes } }
+		AND = { has_country_flag = DA_RW_sel_27 NOT = { DA_RW_owned_27 = yes } }
+		AND = { has_country_flag = DA_RW_sel_28 NOT = { DA_RW_owned_28 = yes } }
+		AND = { has_country_flag = DA_RW_sel_29 NOT = { DA_RW_owned_29 = yes } }
+		AND = { has_country_flag = DA_RW_sel_30 NOT = { DA_RW_owned_30 = yes } }
+		AND = { has_country_flag = DA_RW_sel_31 NOT = { DA_RW_owned_31 = yes } }
+	}
+}
+DA_RW_sel_shut = {
+	OR = {
+		AND = { has_country_flag = DA_RW_sel_1 DA_RW_shut_1 = yes }
+		AND = { has_country_flag = DA_RW_sel_2 DA_RW_shut_2 = yes }
+		AND = { has_country_flag = DA_RW_sel_3 DA_RW_shut_3 = yes }
+		AND = { has_country_flag = DA_RW_sel_4 DA_RW_shut_4 = yes }
+		AND = { has_country_flag = DA_RW_sel_5 DA_RW_shut_5 = yes }
+		AND = { has_country_flag = DA_RW_sel_6 DA_RW_shut_6 = yes }
+		AND = { has_country_flag = DA_RW_sel_7 DA_RW_shut_7 = yes }
+		AND = { has_country_flag = DA_RW_sel_8 DA_RW_shut_8 = yes }
+		AND = { has_country_flag = DA_RW_sel_9 DA_RW_shut_9 = yes }
+		AND = { has_country_flag = DA_RW_sel_10 DA_RW_shut_10 = yes }
+		AND = { has_country_flag = DA_RW_sel_11 DA_RW_shut_11 = yes }
+		AND = { has_country_flag = DA_RW_sel_12 DA_RW_shut_12 = yes }
+		AND = { has_country_flag = DA_RW_sel_13 DA_RW_shut_13 = yes }
+		AND = { has_country_flag = DA_RW_sel_14 DA_RW_shut_14 = yes }
+		AND = { has_country_flag = DA_RW_sel_15 DA_RW_shut_15 = yes }
+		AND = { has_country_flag = DA_RW_sel_16 DA_RW_shut_16 = yes }
+		AND = { has_country_flag = DA_RW_sel_17 DA_RW_shut_17 = yes }
+		AND = { has_country_flag = DA_RW_sel_18 DA_RW_shut_18 = yes }
+		AND = { has_country_flag = DA_RW_sel_19 DA_RW_shut_19 = yes }
+		AND = { has_country_flag = DA_RW_sel_20 DA_RW_shut_20 = yes }
+		AND = { has_country_flag = DA_RW_sel_21 DA_RW_shut_21 = yes }
+		AND = { has_country_flag = DA_RW_sel_22 DA_RW_shut_22 = yes }
+		AND = { has_country_flag = DA_RW_sel_23 DA_RW_shut_23 = yes }
+		AND = { has_country_flag = DA_RW_sel_24 DA_RW_shut_24 = yes }
+		AND = { has_country_flag = DA_RW_sel_25 DA_RW_shut_25 = yes }
+		AND = { has_country_flag = DA_RW_sel_26 DA_RW_shut_26 = yes }
+		AND = { has_country_flag = DA_RW_sel_27 DA_RW_shut_27 = yes }
+		AND = { has_country_flag = DA_RW_sel_28 DA_RW_shut_28 = yes }
+		AND = { has_country_flag = DA_RW_sel_29 DA_RW_shut_29 = yes }
+		AND = { has_country_flag = DA_RW_sel_30 DA_RW_shut_30 = yes }
+		AND = { has_country_flag = DA_RW_sel_31 DA_RW_shut_31 = yes }
+	}
+}
+DA_RW_sel_over = {
+	OR = {
+		AND = { has_country_flag = DA_RW_sel_1 DA_RW_over_1 = yes }
+		AND = { has_country_flag = DA_RW_sel_2 DA_RW_over_2 = yes }
+		AND = { has_country_flag = DA_RW_sel_3 DA_RW_over_3 = yes }
+		AND = { has_country_flag = DA_RW_sel_4 DA_RW_over_4 = yes }
+		AND = { has_country_flag = DA_RW_sel_5 DA_RW_over_5 = yes }
+		AND = { has_country_flag = DA_RW_sel_6 DA_RW_over_6 = yes }
+		AND = { has_country_flag = DA_RW_sel_7 DA_RW_over_7 = yes }
+		AND = { has_country_flag = DA_RW_sel_8 DA_RW_over_8 = yes }
+		AND = { has_country_flag = DA_RW_sel_9 DA_RW_over_9 = yes }
+		AND = { has_country_flag = DA_RW_sel_10 DA_RW_over_10 = yes }
+		AND = { has_country_flag = DA_RW_sel_11 DA_RW_over_11 = yes }
+		AND = { has_country_flag = DA_RW_sel_12 DA_RW_over_12 = yes }
+		AND = { has_country_flag = DA_RW_sel_13 DA_RW_over_13 = yes }
+		AND = { has_country_flag = DA_RW_sel_14 DA_RW_over_14 = yes }
+		AND = { has_country_flag = DA_RW_sel_15 DA_RW_over_15 = yes }
+		AND = { has_country_flag = DA_RW_sel_16 DA_RW_over_16 = yes }
+		AND = { has_country_flag = DA_RW_sel_17 DA_RW_over_17 = yes }
+		AND = { has_country_flag = DA_RW_sel_18 DA_RW_over_18 = yes }
+		AND = { has_country_flag = DA_RW_sel_19 DA_RW_over_19 = yes }
+		AND = { has_country_flag = DA_RW_sel_20 DA_RW_over_20 = yes }
+		AND = { has_country_flag = DA_RW_sel_21 DA_RW_over_21 = yes }
+		AND = { has_country_flag = DA_RW_sel_22 DA_RW_over_22 = yes }
+		AND = { has_country_flag = DA_RW_sel_23 DA_RW_over_23 = yes }
+		AND = { has_country_flag = DA_RW_sel_24 DA_RW_over_24 = yes }
+		AND = { has_country_flag = DA_RW_sel_25 DA_RW_over_25 = yes }
+		AND = { has_country_flag = DA_RW_sel_26 DA_RW_over_26 = yes }
+		AND = { has_country_flag = DA_RW_sel_27 DA_RW_over_27 = yes }
+		AND = { has_country_flag = DA_RW_sel_28 DA_RW_over_28 = yes }
+		AND = { has_country_flag = DA_RW_sel_29 DA_RW_over_29 = yes }
+		AND = { has_country_flag = DA_RW_sel_30 DA_RW_over_30 = yes }
+		AND = { has_country_flag = DA_RW_sel_31 DA_RW_over_31 = yes }
+	}
+}
+DA_RW_sel_ruined = {
+	OR = {
+		AND = { has_country_flag = DA_RW_sel_1 DA_RW_ruined_1 = yes }
+		AND = { has_country_flag = DA_RW_sel_2 DA_RW_ruined_2 = yes }
+		AND = { has_country_flag = DA_RW_sel_3 DA_RW_ruined_3 = yes }
+		AND = { has_country_flag = DA_RW_sel_4 DA_RW_ruined_4 = yes }
+		AND = { has_country_flag = DA_RW_sel_5 DA_RW_ruined_5 = yes }
+		AND = { has_country_flag = DA_RW_sel_6 DA_RW_ruined_6 = yes }
+		AND = { has_country_flag = DA_RW_sel_7 DA_RW_ruined_7 = yes }
+		AND = { has_country_flag = DA_RW_sel_8 DA_RW_ruined_8 = yes }
+		AND = { has_country_flag = DA_RW_sel_9 DA_RW_ruined_9 = yes }
+		AND = { has_country_flag = DA_RW_sel_10 DA_RW_ruined_10 = yes }
+		AND = { has_country_flag = DA_RW_sel_11 DA_RW_ruined_11 = yes }
+		AND = { has_country_flag = DA_RW_sel_12 DA_RW_ruined_12 = yes }
+		AND = { has_country_flag = DA_RW_sel_13 DA_RW_ruined_13 = yes }
+		AND = { has_country_flag = DA_RW_sel_14 DA_RW_ruined_14 = yes }
+		AND = { has_country_flag = DA_RW_sel_15 DA_RW_ruined_15 = yes }
+		AND = { has_country_flag = DA_RW_sel_16 DA_RW_ruined_16 = yes }
+		AND = { has_country_flag = DA_RW_sel_17 DA_RW_ruined_17 = yes }
+		AND = { has_country_flag = DA_RW_sel_18 DA_RW_ruined_18 = yes }
+		AND = { has_country_flag = DA_RW_sel_19 DA_RW_ruined_19 = yes }
+		AND = { has_country_flag = DA_RW_sel_20 DA_RW_ruined_20 = yes }
+		AND = { has_country_flag = DA_RW_sel_21 DA_RW_ruined_21 = yes }
+		AND = { has_country_flag = DA_RW_sel_22 DA_RW_ruined_22 = yes }
+		AND = { has_country_flag = DA_RW_sel_23 DA_RW_ruined_23 = yes }
+		AND = { has_country_flag = DA_RW_sel_24 DA_RW_ruined_24 = yes }
+		AND = { has_country_flag = DA_RW_sel_25 DA_RW_ruined_25 = yes }
+		AND = { has_country_flag = DA_RW_sel_26 DA_RW_ruined_26 = yes }
+		AND = { has_country_flag = DA_RW_sel_27 DA_RW_ruined_27 = yes }
+		AND = { has_country_flag = DA_RW_sel_28 DA_RW_ruined_28 = yes }
+		AND = { has_country_flag = DA_RW_sel_29 DA_RW_ruined_29 = yes }
+		AND = { has_country_flag = DA_RW_sel_30 DA_RW_ruined_30 = yes }
+		AND = { has_country_flag = DA_RW_sel_31 DA_RW_ruined_31 = yes }
+	}
+}
+DA_RW_sel_restored = {
+	OR = {
+		AND = { has_country_flag = DA_RW_sel_1 DA_RW_restored_1 = yes }
+		AND = { has_country_flag = DA_RW_sel_2 DA_RW_restored_2 = yes }
+		AND = { has_country_flag = DA_RW_sel_3 DA_RW_restored_3 = yes }
+		AND = { has_country_flag = DA_RW_sel_4 DA_RW_restored_4 = yes }
+		AND = { has_country_flag = DA_RW_sel_5 DA_RW_restored_5 = yes }
+		AND = { has_country_flag = DA_RW_sel_6 DA_RW_restored_6 = yes }
+		AND = { has_country_flag = DA_RW_sel_7 DA_RW_restored_7 = yes }
+		AND = { has_country_flag = DA_RW_sel_8 DA_RW_restored_8 = yes }
+		AND = { has_country_flag = DA_RW_sel_9 DA_RW_restored_9 = yes }
+		AND = { has_country_flag = DA_RW_sel_10 DA_RW_restored_10 = yes }
+		AND = { has_country_flag = DA_RW_sel_11 DA_RW_restored_11 = yes }
+		AND = { has_country_flag = DA_RW_sel_12 DA_RW_restored_12 = yes }
+		AND = { has_country_flag = DA_RW_sel_13 DA_RW_restored_13 = yes }
+		AND = { has_country_flag = DA_RW_sel_14 DA_RW_restored_14 = yes }
+		AND = { has_country_flag = DA_RW_sel_15 DA_RW_restored_15 = yes }
+		AND = { has_country_flag = DA_RW_sel_16 DA_RW_restored_16 = yes }
+		AND = { has_country_flag = DA_RW_sel_17 DA_RW_restored_17 = yes }
+		AND = { has_country_flag = DA_RW_sel_18 DA_RW_restored_18 = yes }
+		AND = { has_country_flag = DA_RW_sel_19 DA_RW_restored_19 = yes }
+		AND = { has_country_flag = DA_RW_sel_20 DA_RW_restored_20 = yes }
+		AND = { has_country_flag = DA_RW_sel_21 DA_RW_restored_21 = yes }
+		AND = { has_country_flag = DA_RW_sel_22 DA_RW_restored_22 = yes }
+		AND = { has_country_flag = DA_RW_sel_23 DA_RW_restored_23 = yes }
+		AND = { has_country_flag = DA_RW_sel_24 DA_RW_restored_24 = yes }
+		AND = { has_country_flag = DA_RW_sel_25 DA_RW_restored_25 = yes }
+		AND = { has_country_flag = DA_RW_sel_26 DA_RW_restored_26 = yes }
+		AND = { has_country_flag = DA_RW_sel_27 DA_RW_restored_27 = yes }
+		AND = { has_country_flag = DA_RW_sel_28 DA_RW_restored_28 = yes }
+		AND = { has_country_flag = DA_RW_sel_29 DA_RW_restored_29 = yes }
+		AND = { has_country_flag = DA_RW_sel_30 DA_RW_restored_30 = yes }
+		AND = { has_country_flag = DA_RW_sel_31 DA_RW_restored_31 = yes }
+	}
+}

@@ -1,0 +1,886 @@
+# Railway Control Center, Er-Natvir (2931). Written by "Claude files/tools/er_natvir_2026-11-11/gen.py", 11 November 2026.
+# Country scope, except DA_RW_lay_rail (province). The flags are listed in DA_Railway_triggers.txt.
+
+DA_RW_clear_sel = {
+	clr_country_flag = DA_RW_sel_1
+	clr_country_flag = DA_RW_sel_2
+	clr_country_flag = DA_RW_sel_3
+	clr_country_flag = DA_RW_sel_4
+	clr_country_flag = DA_RW_sel_5
+	clr_country_flag = DA_RW_sel_6
+	clr_country_flag = DA_RW_sel_7
+	clr_country_flag = DA_RW_sel_8
+	clr_country_flag = DA_RW_sel_9
+	clr_country_flag = DA_RW_sel_10
+	clr_country_flag = DA_RW_sel_11
+	clr_country_flag = DA_RW_sel_12
+	clr_country_flag = DA_RW_sel_13
+	clr_country_flag = DA_RW_sel_14
+	clr_country_flag = DA_RW_sel_15
+	clr_country_flag = DA_RW_sel_16
+	clr_country_flag = DA_RW_sel_17
+	clr_country_flag = DA_RW_sel_18
+	clr_country_flag = DA_RW_sel_19
+	clr_country_flag = DA_RW_sel_20
+	clr_country_flag = DA_RW_sel_21
+	clr_country_flag = DA_RW_sel_22
+	clr_country_flag = DA_RW_sel_23
+	clr_country_flag = DA_RW_sel_24
+	clr_country_flag = DA_RW_sel_25
+	clr_country_flag = DA_RW_sel_26
+	clr_country_flag = DA_RW_sel_27
+	clr_country_flag = DA_RW_sel_28
+	clr_country_flag = DA_RW_sel_29
+	clr_country_flag = DA_RW_sel_30
+	clr_country_flag = DA_RW_sel_31
+}
+
+DA_RW_lay_rail = { # province scope: the province becomes part of a laid line
+	if = {
+		limit = {
+			NOT = { has_province_modifier = restored_rail }
+			NOT = { has_province_modifier = advanced_rail }
+			NOT = { has_province_modifier = rocket_rail }
+		}
+		remove_province_modifier = dwarovar_rail
+		add_permanent_province_modifier = {
+			name = restored_rail
+			duration = -1
+		}
+	}
+	set_province_flag = DA_RW_line
+}
+
+DA_RW_finish_line_14 = { # The Giant's Anvil Line
+	4207 = { DA_RW_lay_rail = yes }
+	4206 = { DA_RW_lay_rail = yes }
+	4205 = { DA_RW_lay_rail = yes }
+	4204 = { DA_RW_lay_rail = yes }
+	4203 = { DA_RW_lay_rail = yes }
+	4201 = { DA_RW_lay_rail = yes }
+	4198 = { DA_RW_lay_rail = yes }
+	4209 = { DA_RW_lay_rail = yes }
+	4210 = { DA_RW_lay_rail = yes }
+	4211 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_14
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.114 }
+}
+DA_RW_finish_line_15 = { # The Logr Valley Line
+	4200 = { DA_RW_lay_rail = yes }
+	4191 = { DA_RW_lay_rail = yes }
+	4189 = { DA_RW_lay_rail = yes }
+	4184 = { DA_RW_lay_rail = yes }
+	4176 = { DA_RW_lay_rail = yes }
+	4174 = { DA_RW_lay_rail = yes }
+	4173 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_15
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.115 }
+}
+DA_RW_finish_line_16 = { # The Bal Vroren Line
+	992 = { DA_RW_lay_rail = yes }
+	990 = { DA_RW_lay_rail = yes }
+	740 = { DA_RW_lay_rail = yes }
+	735 = { DA_RW_lay_rail = yes }
+	718 = { DA_RW_lay_rail = yes }
+	717 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_16
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.116 }
+}
+DA_RW_finish_line_17 = { # The Olavlund Line
+	991 = { DA_RW_lay_rail = yes }
+	988 = { DA_RW_lay_rail = yes }
+	986 = { DA_RW_lay_rail = yes }
+	6280 = { DA_RW_lay_rail = yes }
+	6278 = { DA_RW_lay_rail = yes }
+	6272 = { DA_RW_lay_rail = yes }
+	979 = { DA_RW_lay_rail = yes }
+	977 = { DA_RW_lay_rail = yes }
+	975 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_17
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.117 }
+}
+DA_RW_finish_line_18 = { # The Ogre Road
+	5303 = { DA_RW_lay_rail = yes }
+	5005 = { DA_RW_lay_rail = yes }
+	5020 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_18
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.118 }
+}
+DA_RW_finish_line_19 = { # The Khugsroad Line
+	849 = { DA_RW_lay_rail = yes }
+	845 = { DA_RW_lay_rail = yes }
+	843 = { DA_RW_lay_rail = yes }
+	833 = { DA_RW_lay_rail = yes }
+	832 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_19
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.119 }
+}
+DA_RW_finish_line_20 = { # The Westgate Line
+	839 = { DA_RW_lay_rail = yes }
+	837 = { DA_RW_lay_rail = yes }
+	754 = { DA_RW_lay_rail = yes }
+	748 = { DA_RW_lay_rail = yes }
+	730 = { DA_RW_lay_rail = yes }
+	729 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_20
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.120 }
+}
+DA_RW_finish_line_21 = { # The Marrhold Line
+	4097 = { DA_RW_lay_rail = yes }
+	896 = { DA_RW_lay_rail = yes }
+	897 = { DA_RW_lay_rail = yes }
+	882 = { DA_RW_lay_rail = yes }
+	880 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_21
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.121 }
+}
+DA_RW_finish_line_22 = { # The Ravenhill Line
+	511 = { DA_RW_lay_rail = yes }
+	509 = { DA_RW_lay_rail = yes }
+	450 = { DA_RW_lay_rail = yes }
+	3720 = { DA_RW_lay_rail = yes }
+	3714 = { DA_RW_lay_rail = yes }
+	442 = { DA_RW_lay_rail = yes }
+	431 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_22
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.122 }
+}
+DA_RW_finish_line_23 = { # The Skomdihr Line
+	3065 = { DA_RW_lay_rail = yes }
+	3038 = { DA_RW_lay_rail = yes }
+	3037 = { DA_RW_lay_rail = yes }
+	3033 = { DA_RW_lay_rail = yes }
+	3058 = { DA_RW_lay_rail = yes }
+	3025 = { DA_RW_lay_rail = yes }
+	3024 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_23
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.123 }
+}
+DA_RW_finish_line_24 = { # The Ciranmyna Line
+	3023 = { DA_RW_lay_rail = yes }
+	7011 = { DA_RW_lay_rail = yes }
+	3055 = { DA_RW_lay_rail = yes }
+	7010 = { DA_RW_lay_rail = yes }
+	3019 = { DA_RW_lay_rail = yes }
+	3020 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_24
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.124 }
+}
+DA_RW_finish_line_25 = { # The Tungr Line
+	534 = { DA_RW_lay_rail = yes }
+	531 = { DA_RW_lay_rail = yes }
+	530 = { DA_RW_lay_rail = yes }
+	528 = { DA_RW_lay_rail = yes }
+	527 = { DA_RW_lay_rail = yes }
+	525 = { DA_RW_lay_rail = yes }
+	526 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_25
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.125 }
+}
+DA_RW_finish_line_26 = { # The Harpy Hills Line
+	677 = { DA_RW_lay_rail = yes }
+	678 = { DA_RW_lay_rail = yes }
+	674 = { DA_RW_lay_rail = yes }
+	673 = { DA_RW_lay_rail = yes }
+	672 = { DA_RW_lay_rail = yes }
+	669 = { DA_RW_lay_rail = yes }
+	668 = { DA_RW_lay_rail = yes }
+	665 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_26
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.126 }
+}
+DA_RW_finish_line_27 = { # The Suran Line
+	643 = { DA_RW_lay_rail = yes }
+	642 = { DA_RW_lay_rail = yes }
+	641 = { DA_RW_lay_rail = yes }
+	638 = { DA_RW_lay_rail = yes }
+	634 = { DA_RW_lay_rail = yes }
+	631 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_27
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.127 }
+}
+DA_RW_finish_line_28 = { # The Bulwar Line
+	681 = { DA_RW_lay_rail = yes }
+	690 = { DA_RW_lay_rail = yes }
+	607 = { DA_RW_lay_rail = yes }
+	604 = { DA_RW_lay_rail = yes }
+	601 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_28
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.128 }
+}
+DA_RW_finish_line_29 = { # The Gold Road
+	2915 = { DA_RW_lay_rail = yes }
+	2916 = { DA_RW_lay_rail = yes }
+	2901 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_29
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.129 }
+}
+DA_RW_finish_line_30 = { # The Sarnihanpur Line
+	4462 = { DA_RW_lay_rail = yes }
+	4463 = { DA_RW_lay_rail = yes }
+	4459 = { DA_RW_lay_rail = yes }
+	4460 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_30
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.130 }
+}
+DA_RW_finish_line_31 = { # The Demon Hills Line
+	4834 = { DA_RW_lay_rail = yes }
+	4832 = { DA_RW_lay_rail = yes }
+	5430 = { DA_RW_lay_rail = yes }
+	clr_country_flag = DA_RW_laying_31
+	clr_country_flag = DA_RW_laying
+	DA_RW_recount = yes
+	country_event = { id = DA_Er_Natvir_event.131 }
+}
+
+DA_RW_works_tick = { # called by DA_Er_Natvir_event.90: the works on a line are due. If a province of it is not ours they are abandoned,
+	# and half the ducats come back (DA_Er_Natvir_event.91)
+	if = {
+		limit = { has_country_flag = DA_RW_laying_14 }
+		if = {
+			limit = { DA_RW_owned_14 = yes }
+			DA_RW_finish_line_14 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_14
+			clr_country_flag = DA_RW_laying
+			add_treasury = 500
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_15 }
+		if = {
+			limit = { DA_RW_owned_15 = yes }
+			DA_RW_finish_line_15 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_15
+			clr_country_flag = DA_RW_laying
+			add_treasury = 350
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_16 }
+		if = {
+			limit = { DA_RW_owned_16 = yes }
+			DA_RW_finish_line_16 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_16
+			clr_country_flag = DA_RW_laying
+			add_treasury = 300
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_17 }
+		if = {
+			limit = { DA_RW_owned_17 = yes }
+			DA_RW_finish_line_17 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_17
+			clr_country_flag = DA_RW_laying
+			add_treasury = 450
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_18 }
+		if = {
+			limit = { DA_RW_owned_18 = yes }
+			DA_RW_finish_line_18 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_18
+			clr_country_flag = DA_RW_laying
+			add_treasury = 150
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_19 }
+		if = {
+			limit = { DA_RW_owned_19 = yes }
+			DA_RW_finish_line_19 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_19
+			clr_country_flag = DA_RW_laying
+			add_treasury = 250
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_20 }
+		if = {
+			limit = { DA_RW_owned_20 = yes }
+			DA_RW_finish_line_20 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_20
+			clr_country_flag = DA_RW_laying
+			add_treasury = 300
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_21 }
+		if = {
+			limit = { DA_RW_owned_21 = yes }
+			DA_RW_finish_line_21 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_21
+			clr_country_flag = DA_RW_laying
+			add_treasury = 250
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_22 }
+		if = {
+			limit = { DA_RW_owned_22 = yes }
+			DA_RW_finish_line_22 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_22
+			clr_country_flag = DA_RW_laying
+			add_treasury = 350
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_23 }
+		if = {
+			limit = { DA_RW_owned_23 = yes }
+			DA_RW_finish_line_23 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_23
+			clr_country_flag = DA_RW_laying
+			add_treasury = 350
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_24 }
+		if = {
+			limit = { DA_RW_owned_24 = yes }
+			DA_RW_finish_line_24 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_24
+			clr_country_flag = DA_RW_laying
+			add_treasury = 300
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_25 }
+		if = {
+			limit = { DA_RW_owned_25 = yes }
+			DA_RW_finish_line_25 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_25
+			clr_country_flag = DA_RW_laying
+			add_treasury = 350
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_26 }
+		if = {
+			limit = { DA_RW_owned_26 = yes }
+			DA_RW_finish_line_26 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_26
+			clr_country_flag = DA_RW_laying
+			add_treasury = 400
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_27 }
+		if = {
+			limit = { DA_RW_owned_27 = yes }
+			DA_RW_finish_line_27 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_27
+			clr_country_flag = DA_RW_laying
+			add_treasury = 300
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_28 }
+		if = {
+			limit = { DA_RW_owned_28 = yes }
+			DA_RW_finish_line_28 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_28
+			clr_country_flag = DA_RW_laying
+			add_treasury = 250
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_29 }
+		if = {
+			limit = { DA_RW_owned_29 = yes }
+			DA_RW_finish_line_29 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_29
+			clr_country_flag = DA_RW_laying
+			add_treasury = 150
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_30 }
+		if = {
+			limit = { DA_RW_owned_30 = yes }
+			DA_RW_finish_line_30 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_30
+			clr_country_flag = DA_RW_laying
+			add_treasury = 200
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = DA_RW_laying_31 }
+		if = {
+			limit = { DA_RW_owned_31 = yes }
+			DA_RW_finish_line_31 = yes
+		}
+		else = {
+			clr_country_flag = DA_RW_laying_31
+			clr_country_flag = DA_RW_laying
+			add_treasury = 150
+			country_event = { id = DA_Er_Natvir_event.91 }
+		}
+	}
+}
+
+DA_RW_recount = { # how many roads are in service, and the modifier that goes with the number
+	set_variable = { which = DA_RW_network value = 0 }
+	set_country_flag = DA_RW_counted
+	if = {
+		limit = { DA_RW_tier_1 = yes }
+		if = { limit = { DA_RW_working_1 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_2 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_3 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_4 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_5 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_6 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_7 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_8 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_9 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_10 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_11 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_12 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_13 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_14 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_15 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_16 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_17 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_18 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_19 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_20 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_21 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_22 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_23 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_24 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_25 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_26 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_27 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_28 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_29 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_30 = yes } change_variable = { which = DA_RW_network value = 1 } }
+		if = { limit = { DA_RW_working_31 = yes } change_variable = { which = DA_RW_network value = 1 } }
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 1 } NOT = { check_variable = { which = DA_RW_network value = 2 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_1 } }
+			add_country_modifier = { name = DA_RW_network_1 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_1 }
+		remove_country_modifier = DA_RW_network_1
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 2 } NOT = { check_variable = { which = DA_RW_network value = 3 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_2 } }
+			add_country_modifier = { name = DA_RW_network_2 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_2 }
+		remove_country_modifier = DA_RW_network_2
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 3 } NOT = { check_variable = { which = DA_RW_network value = 4 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_3 } }
+			add_country_modifier = { name = DA_RW_network_3 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_3 }
+		remove_country_modifier = DA_RW_network_3
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 4 } NOT = { check_variable = { which = DA_RW_network value = 5 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_4 } }
+			add_country_modifier = { name = DA_RW_network_4 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_4 }
+		remove_country_modifier = DA_RW_network_4
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 5 } NOT = { check_variable = { which = DA_RW_network value = 6 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_5 } }
+			add_country_modifier = { name = DA_RW_network_5 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_5 }
+		remove_country_modifier = DA_RW_network_5
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 6 } NOT = { check_variable = { which = DA_RW_network value = 7 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_6 } }
+			add_country_modifier = { name = DA_RW_network_6 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_6 }
+		remove_country_modifier = DA_RW_network_6
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 7 } NOT = { check_variable = { which = DA_RW_network value = 8 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_7 } }
+			add_country_modifier = { name = DA_RW_network_7 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_7 }
+		remove_country_modifier = DA_RW_network_7
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 8 } NOT = { check_variable = { which = DA_RW_network value = 9 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_8 } }
+			add_country_modifier = { name = DA_RW_network_8 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_8 }
+		remove_country_modifier = DA_RW_network_8
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 9 } NOT = { check_variable = { which = DA_RW_network value = 10 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_9 } }
+			add_country_modifier = { name = DA_RW_network_9 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_9 }
+		remove_country_modifier = DA_RW_network_9
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 10 } NOT = { check_variable = { which = DA_RW_network value = 11 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_10 } }
+			add_country_modifier = { name = DA_RW_network_10 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_10 }
+		remove_country_modifier = DA_RW_network_10
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 11 } NOT = { check_variable = { which = DA_RW_network value = 12 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_11 } }
+			add_country_modifier = { name = DA_RW_network_11 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_11 }
+		remove_country_modifier = DA_RW_network_11
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 12 } NOT = { check_variable = { which = DA_RW_network value = 13 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_12 } }
+			add_country_modifier = { name = DA_RW_network_12 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_12 }
+		remove_country_modifier = DA_RW_network_12
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 13 } NOT = { check_variable = { which = DA_RW_network value = 14 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_13 } }
+			add_country_modifier = { name = DA_RW_network_13 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_13 }
+		remove_country_modifier = DA_RW_network_13
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 14 } NOT = { check_variable = { which = DA_RW_network value = 15 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_14 } }
+			add_country_modifier = { name = DA_RW_network_14 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_14 }
+		remove_country_modifier = DA_RW_network_14
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 15 } NOT = { check_variable = { which = DA_RW_network value = 16 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_15 } }
+			add_country_modifier = { name = DA_RW_network_15 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_15 }
+		remove_country_modifier = DA_RW_network_15
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 16 } NOT = { check_variable = { which = DA_RW_network value = 17 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_16 } }
+			add_country_modifier = { name = DA_RW_network_16 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_16 }
+		remove_country_modifier = DA_RW_network_16
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 17 } NOT = { check_variable = { which = DA_RW_network value = 18 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_17 } }
+			add_country_modifier = { name = DA_RW_network_17 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_17 }
+		remove_country_modifier = DA_RW_network_17
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 18 } NOT = { check_variable = { which = DA_RW_network value = 19 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_18 } }
+			add_country_modifier = { name = DA_RW_network_18 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_18 }
+		remove_country_modifier = DA_RW_network_18
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 19 } NOT = { check_variable = { which = DA_RW_network value = 20 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_19 } }
+			add_country_modifier = { name = DA_RW_network_19 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_19 }
+		remove_country_modifier = DA_RW_network_19
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 20 } NOT = { check_variable = { which = DA_RW_network value = 21 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_20 } }
+			add_country_modifier = { name = DA_RW_network_20 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_20 }
+		remove_country_modifier = DA_RW_network_20
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 21 } NOT = { check_variable = { which = DA_RW_network value = 22 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_21 } }
+			add_country_modifier = { name = DA_RW_network_21 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_21 }
+		remove_country_modifier = DA_RW_network_21
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 22 } NOT = { check_variable = { which = DA_RW_network value = 23 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_22 } }
+			add_country_modifier = { name = DA_RW_network_22 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_22 }
+		remove_country_modifier = DA_RW_network_22
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 23 } NOT = { check_variable = { which = DA_RW_network value = 24 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_23 } }
+			add_country_modifier = { name = DA_RW_network_23 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_23 }
+		remove_country_modifier = DA_RW_network_23
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 24 } NOT = { check_variable = { which = DA_RW_network value = 25 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_24 } }
+			add_country_modifier = { name = DA_RW_network_24 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_24 }
+		remove_country_modifier = DA_RW_network_24
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 25 } NOT = { check_variable = { which = DA_RW_network value = 26 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_25 } }
+			add_country_modifier = { name = DA_RW_network_25 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_25 }
+		remove_country_modifier = DA_RW_network_25
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 26 } NOT = { check_variable = { which = DA_RW_network value = 27 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_26 } }
+			add_country_modifier = { name = DA_RW_network_26 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_26 }
+		remove_country_modifier = DA_RW_network_26
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 27 } NOT = { check_variable = { which = DA_RW_network value = 28 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_27 } }
+			add_country_modifier = { name = DA_RW_network_27 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_27 }
+		remove_country_modifier = DA_RW_network_27
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 28 } NOT = { check_variable = { which = DA_RW_network value = 29 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_28 } }
+			add_country_modifier = { name = DA_RW_network_28 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_28 }
+		remove_country_modifier = DA_RW_network_28
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 29 } NOT = { check_variable = { which = DA_RW_network value = 30 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_29 } }
+			add_country_modifier = { name = DA_RW_network_29 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_29 }
+		remove_country_modifier = DA_RW_network_29
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 30 } NOT = { check_variable = { which = DA_RW_network value = 31 } } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_30 } }
+			add_country_modifier = { name = DA_RW_network_30 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_30 }
+		remove_country_modifier = DA_RW_network_30
+	}
+	if = {
+		limit = { check_variable = { which = DA_RW_network value = 31 } }
+		if = {
+			limit = { NOT = { has_country_modifier = DA_RW_network_31 } }
+			add_country_modifier = { name = DA_RW_network_31 duration = -1 }
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = DA_RW_network_31 }
+		remove_country_modifier = DA_RW_network_31
+	}
+}

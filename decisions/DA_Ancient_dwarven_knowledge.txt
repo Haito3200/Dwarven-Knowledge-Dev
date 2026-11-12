@@ -1,29 +1,5 @@
 country_decisions = {
 	
-	DA_open_metallurgy_interface_decision = {				# set up expedition camp
-		major = yes
-		potential = {
-			ai = no
-			NOT = {
-				has_country_flag = DA_AKT_interface_on
-			}
-		}
-		
-		provinces_to_highlight = {
-		}
-		
-		allow = {
-			always = yes
-		}
-		
-		effect = {
-			DA_open_main_tech_interface = yes
-		}
-		
-		ai_will_do = {
-			factor = 0
-		}
-	}
 	DA_Dig_adk_1 = {			# research facility menu. AI
 		major = yes
 		potential = {
@@ -276,48 +252,6 @@ country_decisions = {
 						id = DA_Hul_Jorkad_event.666
 					}
 				}
-			}
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-	}
-	DA_build_ramsteel_forges_decision = {					# ramsteel
-		major =yes
-		potential = {
-			NOT = { has_country_flag = DA_deciding_things }
-			has_country_flag = DA_can_build_ramsteel_forges
-			any_owned_province = {
-				OR = {
-					province_id = 4148
-					province_id = 4130
-					province_id = 4118
-				}
-				NOT = {
-					has_province_modifier = DA_Ramsteel_forge
-				}
-			}
-		}
-		
-		provinces_to_highlight = {
-			OR = {
-				province_id = 4148
-				province_id = 4130
-				province_id = 4118
-			}
-		}
-		
-		allow = {
-			treasury = 500
-			owns = 4148
-			owns = 4130
-			owns = 4118
-		}
-		
-		effect = {
-			country_event = {
-				id = DA_Orlazam_az_dihr_event.2
 			}
 		}
 		

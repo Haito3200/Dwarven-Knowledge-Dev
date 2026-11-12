@@ -1,0 +1,625 @@
+# The Frozen Forge, Krakdhumvror (4208): the page of the wonder. Written on 11 November 2026 by
+# "Claude files/tools/krakdhumvror_2026-11-11/gen.py"; hand-owned after the first installation.
+# The .gui side is the window "DA_Frozen_Forge_Window" in interface/topbar.gui (a page of the Dwarven Hall).
+# ROOT and FROM are the country that looks at the page.
+#
+# The draw      Banked / Steady / Deep: country flags DA_FF_draw_banked, DA_FF_draw_deep (neither = Steady).
+# The issue     Edge / Shot / Plate: country flags DA_FF_issue_<id>; DA_FF_sync turns the choice into a country modifier.
+# The orders    a finished alloy in the first free common alloy slot (DA_FF_fill_<id>), then the troughs refreeze.
+# Effects and triggers: common/scripted_effects/DA_Frozen_Forge_effects.txt, common/scripted_triggers/DA_Frozen_Forge_triggers.txt.
+# The story is in events/DA_Hold_Krakdhumvror.txt.
+
+custom_window = {
+	name = DA_Frozen_Forge_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_Frozen_Forge
+	}
+}
+
+custom_button = {
+	name = DA_close_button_Frozen_Forge
+	tooltip = DA_Wonder_close_button_tt
+	potential = { always = yes }
+	trigger = { always = yes }
+	effect = { clr_country_flag = DA_show_wonder_Frozen_Forge }
+}
+
+custom_icon = { # frames: 1 the cold hearths, 2 tier I, 3 tier II, 4 tier III (make_krakdhumvror_art.py)
+	name = DA_Frozen_Forge_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 4208 = { has_great_project = { type = DA_Frozen_Forge tier = 3 } } } }
+	frame = { number = 3 trigger = { 4208 = { has_great_project = { type = DA_Frozen_Forge tier = 2 } } } }
+	frame = { number = 2 trigger = { 4208 = { has_great_project = { type = DA_Frozen_Forge tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_name_shower
+	potential = { always = yes }
+	tooltip = DA_Frozen_Forge_name_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_Wonder_level_shower
+	potential = { always = yes }
+	tooltip = DA_Frozen_Forge_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_Wonder_location_shower
+	potential = { always = yes }
+	tooltip = DA_Frozen_Forge_Wonder_location_shower_tt
+}
+
+# The level-up button. build_wonder_pages.py replaces this block with the wonder works (BEGIN / END DA_WW).
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_4208 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4208.
+custom_button = {
+	name = DA_Frozen_Forge_upgrade_button
+	tooltip = DA_FF_upgrade_button_tt
+	potential = {
+		NOT = { has_country_flag = DA_WW_building_4208 }
+		NOT = { DA_WW_maxed_4208 = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_DA_Frozen_Forge_in_use }
+		}
+		custom_trigger_tooltip = { tooltip = DA_FF_no_old_project_tt NOT = { has_country_modifier = DA_Ice_steel_forge_research_improvement } }
+		4208 = {
+			owned_by = prev
+			has_great_project = { type = DA_Frozen_Forge tier = 0 }
+		}
+		if = {
+			limit = { 4208 = { has_great_project = { type = DA_Frozen_Forge tier = 0 } NOT = { has_great_project = { type = DA_Frozen_Forge tier = 1 } } } }
+			4208 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_4_or_higher
+					DA_has_dig_level_4_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_4208 = yes
+		}
+		if = {
+			limit = { 4208 = { has_great_project = { type = DA_Frozen_Forge tier = 1 } NOT = { has_great_project = { type = DA_Frozen_Forge tier = 2 } } } }
+			4208 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_6_or_higher
+					DA_has_dig_level_6_or_higher = yes
+				}
+			}
+			4208 = { custom_trigger_tooltip = { tooltip = DA_FF_giant_found_tt has_province_flag = DA_Krakdhumvror_exp2 } }
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_4208 = yes
+		}
+		if = {
+			limit = { 4208 = { has_great_project = { type = DA_Frozen_Forge tier = 2 } NOT = { has_great_project = { type = DA_Frozen_Forge tier = 3 } } } }
+			4208 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_8_or_higher
+					DA_has_dig_level_8_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_4208 = yes
+		}
+	}
+	effect = {
+		hidden_effect = { DA_WW_refresh_4208 = yes }
+		if = {
+			limit = {
+				4208 = { has_great_project = { type = DA_Frozen_Forge tier = 0 } NOT = { has_great_project = { type = DA_Frozen_Forge tier = 1 } } }
+				DA_WW_can_pay_4208 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_4208 = yes
+			custom_tooltip = DA_FF_tier_1_unlock_tt
+		}
+		else_if = {
+			limit = {
+				4208 = { has_great_project = { type = DA_Frozen_Forge tier = 1 } NOT = { has_great_project = { type = DA_Frozen_Forge tier = 2 } } }
+				DA_WW_can_pay_4208 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_4208 = yes
+			custom_tooltip = DA_FF_tier_2_unlock_tt
+		}
+		else_if = {
+			limit = {
+				4208 = { has_great_project = { type = DA_Frozen_Forge tier = 2 } NOT = { has_great_project = { type = DA_Frozen_Forge tier = 3 } } }
+				DA_WW_can_pay_4208 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_4208 = yes
+			custom_tooltip = DA_FF_tier_3_unlock_tt
+		}
+	}
+}
+# END DA_WW
+
+#######################################################
+# The draw
+#######################################################
+
+custom_text_box = {
+	name = DA_Frozen_Forge_header_draw
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 while this is the draw, frame 3 while it cannot be set
+	name = DA_Frozen_Forge_button_draw_banked
+	tooltip = DA_FF_button_draw_banked_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_FF_forge_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_FF_draw_banked } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_1_tt
+			DA_FF_forge_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_this_draw_tt
+			NOT = { has_country_flag = DA_FF_draw_banked }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_draw_not_changed_tt
+			NOT = { has_country_modifier = DA_FF_draw_changed }
+		}
+	}
+	effect = {
+		custom_tooltip = DA_FF_draw_banked_effect_tt
+		custom_tooltip = DA_FF_draw_set_tt
+		hidden_effect = { DA_FF_set_draw_banked = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_draw_banked_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_draw_banked_tt
+}
+
+custom_button = { # frame 2 while this is the draw, frame 3 while it cannot be set
+	name = DA_Frozen_Forge_button_draw_steady
+	tooltip = DA_FF_button_draw_steady_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FF_forge_at_tier_1 = yes } DA_FF_giant_away = yes } } }
+	frame = { number = 2 trigger = { DA_FF_draw_steady = yes } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_1_tt
+			DA_FF_forge_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_giant_here_tt
+			NOT = { DA_FF_giant_away = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_this_draw_tt
+			NOT = { DA_FF_draw_steady = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_draw_not_changed_tt
+			NOT = { has_country_modifier = DA_FF_draw_changed }
+		}
+	}
+	effect = {
+		custom_tooltip = DA_FF_draw_steady_effect_tt
+		custom_tooltip = DA_FF_draw_set_tt
+		hidden_effect = { DA_FF_set_draw_steady = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_draw_steady_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_draw_steady_tt
+}
+
+custom_button = { # frame 2 while this is the draw, frame 3 while it cannot be set
+	name = DA_Frozen_Forge_button_draw_deep
+	tooltip = DA_FF_button_draw_deep_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FF_forge_at_tier_2 = yes } DA_FF_giant_away = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_FF_draw_deep } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_2_tt
+			DA_FF_forge_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_giant_here_tt
+			NOT = { DA_FF_giant_away = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_this_draw_tt
+			NOT = { has_country_flag = DA_FF_draw_deep }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_draw_not_changed_tt
+			NOT = { has_country_modifier = DA_FF_draw_changed }
+		}
+	}
+	effect = {
+		custom_tooltip = DA_FF_draw_deep_effect_tt
+		custom_tooltip = DA_FF_draw_set_tt
+		hidden_effect = { DA_FF_set_draw_deep = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_draw_deep_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_draw_deep_tt
+}
+
+#######################################################
+# The standing issue
+#######################################################
+
+custom_text_box = {
+	name = DA_Frozen_Forge_header_issue
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 while this issue is in force, frame 3 while it cannot be adopted
+	name = DA_Frozen_Forge_button_issue_edge
+	tooltip = DA_FF_button_issue_edge_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_FF_forge_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_FF_issue_edge } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_1_tt
+			DA_FF_forge_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_this_issue_tt
+			NOT = { has_country_flag = DA_FF_issue_edge }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_issue_not_changed_tt
+			NOT = { has_country_modifier = DA_FF_issue_changed }
+		}
+		if = {
+			limit = { DA_FF_any_issue = yes }    # the first issue is free
+			DA_arcane_metal_total_required = { amount = 10 }
+			treasury = 1000
+		}
+	}
+	effect = {
+		if = {
+			limit = { DA_FF_any_issue = yes }
+			add_treasury = -1000
+			DA_arcane_metal_spend = { amount = 10 }
+			custom_tooltip = DA_FF_issue_changed_tt
+			hidden_effect = { add_country_modifier = { name = DA_FF_issue_changed duration = 1825 } }
+		}
+		tooltip = { add_country_modifier = { name = DA_FF_issue_edge duration = -1 } }
+		custom_tooltip = DA_FF_issue_draw_tt
+		hidden_effect = {
+			clr_country_flag = DA_FF_issue_edge
+			clr_country_flag = DA_FF_issue_shot
+			clr_country_flag = DA_FF_issue_plate
+			set_country_flag = DA_FF_issue_edge
+			DA_FF_sync = yes
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_issue_edge_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_issue_edge_tt
+}
+
+custom_button = { # frame 2 while this issue is in force, frame 3 while it cannot be adopted
+	name = DA_Frozen_Forge_button_issue_shot
+	tooltip = DA_FF_button_issue_shot_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_FF_forge_at_tier_1 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_FF_issue_shot } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_1_tt
+			DA_FF_forge_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_this_issue_tt
+			NOT = { has_country_flag = DA_FF_issue_shot }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_issue_not_changed_tt
+			NOT = { has_country_modifier = DA_FF_issue_changed }
+		}
+		if = {
+			limit = { DA_FF_any_issue = yes }    # the first issue is free
+			DA_arcane_metal_total_required = { amount = 10 }
+			treasury = 1000
+		}
+	}
+	effect = {
+		if = {
+			limit = { DA_FF_any_issue = yes }
+			add_treasury = -1000
+			DA_arcane_metal_spend = { amount = 10 }
+			custom_tooltip = DA_FF_issue_changed_tt
+			hidden_effect = { add_country_modifier = { name = DA_FF_issue_changed duration = 1825 } }
+		}
+		tooltip = { add_country_modifier = { name = DA_FF_issue_shot duration = -1 } }
+		custom_tooltip = DA_FF_issue_draw_tt
+		hidden_effect = {
+			clr_country_flag = DA_FF_issue_edge
+			clr_country_flag = DA_FF_issue_shot
+			clr_country_flag = DA_FF_issue_plate
+			set_country_flag = DA_FF_issue_shot
+			DA_FF_sync = yes
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_issue_shot_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_issue_shot_tt
+}
+
+custom_button = { # frame 2 while this issue is in force, frame 3 while it cannot be adopted
+	name = DA_Frozen_Forge_button_issue_plate
+	tooltip = DA_FF_button_issue_plate_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { NOT = { DA_FF_forge_at_tier_3 = yes } } }
+	frame = { number = 2 trigger = { has_country_flag = DA_FF_issue_plate } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_3_tt
+			DA_FF_forge_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_this_issue_tt
+			NOT = { has_country_flag = DA_FF_issue_plate }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_issue_not_changed_tt
+			NOT = { has_country_modifier = DA_FF_issue_changed }
+		}
+		if = {
+			limit = { DA_FF_any_issue = yes }    # the first issue is free
+			DA_arcane_metal_total_required = { amount = 10 }
+			treasury = 1000
+		}
+	}
+	effect = {
+		if = {
+			limit = { DA_FF_any_issue = yes }
+			add_treasury = -1000
+			DA_arcane_metal_spend = { amount = 10 }
+			custom_tooltip = DA_FF_issue_changed_tt
+			hidden_effect = { add_country_modifier = { name = DA_FF_issue_changed duration = 1825 } }
+		}
+		tooltip = { add_country_modifier = { name = DA_FF_issue_plate duration = -1 } }
+		custom_tooltip = DA_FF_issue_draw_tt
+		hidden_effect = {
+			clr_country_flag = DA_FF_issue_edge
+			clr_country_flag = DA_FF_issue_shot
+			clr_country_flag = DA_FF_issue_plate
+			set_country_flag = DA_FF_issue_plate
+			DA_FF_sync = yes
+		}
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_issue_plate_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_issue_plate_tt
+}
+
+#######################################################
+# Quench orders
+#######################################################
+
+custom_text_box = {
+	name = DA_Frozen_Forge_header_orders
+	potential = { always = yes }
+}
+
+custom_button = { # frame 3 while it cannot be ordered
+	name = DA_Frozen_Forge_button_order_ice_steel
+	tooltip = DA_FF_button_order_ice_steel_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FF_order_open_ice_steel = yes } has_country_flag = DA_FF_draw_banked has_country_modifier = DA_FF_troughs_refreezing } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_1_tt
+			DA_FF_forge_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_banked_tt
+			NOT = { has_country_flag = DA_FF_draw_banked }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_troughs_ready_tt
+			NOT = { has_country_modifier = DA_FF_troughs_refreezing }
+		}
+		DA_FF_free_alloy_slot = yes
+		DA_FF_alloy_bench_clear = yes
+		DA_arcane_metal_total_required = { amount = 15 }
+		treasury = 400
+	}
+	effect = {
+		add_treasury = -400
+		DA_arcane_metal_spend = { amount = 15 }
+		custom_tooltip = DA_FF_order_ice_steel_result_tt
+		hidden_effect = { DA_FF_fill_ice_steel = yes DA_FF_refreeze_ice_steel = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_order_ice_steel_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_order_ice_steel_tt
+}
+
+custom_button = { # frame 3 while it cannot be ordered
+	name = DA_Frozen_Forge_button_order_ice_mithril
+	tooltip = DA_FF_button_order_ice_mithril_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FF_order_open_ice_mithril = yes } has_country_flag = DA_FF_draw_banked has_country_modifier = DA_FF_troughs_refreezing } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_2_tt
+			DA_FF_forge_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_mithril_tt
+			any_owned_province = { has_province_flag = DA_Mine_Mithril }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_banked_tt
+			NOT = { has_country_flag = DA_FF_draw_banked }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_troughs_ready_tt
+			NOT = { has_country_modifier = DA_FF_troughs_refreezing }
+		}
+		DA_FF_free_alloy_slot = yes
+		DA_FF_alloy_bench_clear = yes
+		DA_arcane_metal_total_required = { amount = 25 }
+		treasury = 800
+	}
+	effect = {
+		add_treasury = -800
+		DA_arcane_metal_spend = { amount = 25 }
+		custom_tooltip = DA_FF_order_ice_mithril_result_tt
+		hidden_effect = { DA_FF_fill_ice_mithril = yes DA_FF_refreeze_ice_mithril = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_order_ice_mithril_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_order_ice_mithril_tt
+}
+
+custom_button = { # frame 3 while it cannot be ordered
+	name = DA_Frozen_Forge_button_order_twice_tempered
+	tooltip = DA_FF_button_order_twice_tempered_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FF_order_open_twice_tempered = yes } has_country_flag = DA_FF_draw_banked has_country_modifier = DA_FF_troughs_refreezing } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_2_tt
+			DA_FF_forge_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_magma_forge_tt
+			owns = 4039
+			4039 = { has_province_flag = DA_restored_MF }
+		}
+		DA_Magma_Level_required = { amount = 60 }
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_banked_tt
+			NOT = { has_country_flag = DA_FF_draw_banked }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_troughs_ready_tt
+			NOT = { has_country_modifier = DA_FF_troughs_refreezing }
+		}
+		DA_FF_free_alloy_slot = yes
+		DA_FF_alloy_bench_clear = yes
+		DA_arcane_metal_total_required = { amount = 25 }
+		treasury = 800
+	}
+	effect = {
+		add_treasury = -800
+		DA_arcane_metal_spend = { amount = 25 }
+		DA_Magma_Level_spend = { amount = 60 }
+		custom_tooltip = DA_FF_order_twice_tempered_result_tt
+		hidden_effect = { DA_FF_fill_twice_tempered = yes DA_FF_refreeze_twice_tempered = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_order_twice_tempered_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_order_twice_tempered_tt
+}
+
+custom_button = { # frame 3 while it cannot be ordered
+	name = DA_Frozen_Forge_button_order_dark_ice
+	tooltip = DA_FF_button_order_dark_ice_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_FF_order_open_dark_ice = yes } has_country_flag = DA_FF_draw_banked has_country_modifier = DA_FF_troughs_refreezing } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_tier_3_tt
+			DA_FF_forge_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_mural_tt
+			4208 = { has_province_flag = DA_Krakdhumvror_exp3 }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_needs_trough_tt
+			4208 = { has_province_flag = DA_FF_giant_kept }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_not_banked_tt
+			NOT = { has_country_flag = DA_FF_draw_banked }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_troughs_ready_tt
+			NOT = { has_country_modifier = DA_FF_troughs_refreezing }
+		}
+		DA_FF_free_alloy_slot = yes
+		DA_FF_alloy_bench_clear = yes
+		DA_arcane_metal_total_required = { amount = 40 }
+		treasury = 1500
+	}
+	effect = {
+		add_treasury = -1500
+		DA_arcane_metal_spend = { amount = 40 }
+		custom_tooltip = DA_FF_order_dark_ice_result_tt
+		hidden_effect = { DA_FF_fill_dark_ice = yes DA_FF_refreeze_dark_ice = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_button_order_dark_ice_text
+	potential = { always = yes }
+	tooltip = DA_FF_button_order_dark_ice_tt
+}
+
+custom_text_box = {
+	name = DA_Frozen_Forge_info_text
+	potential = { always = yes }
+	tooltip = DA_Frozen_Forge_info_text_tt
+}
+

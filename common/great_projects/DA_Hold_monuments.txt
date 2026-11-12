@@ -443,3 +443,131 @@ DA_Upward_Digger = {
 }
 
 
+# BEGIN DA_ORLAZAM
+# The Ramsteel Forges of Old Dagrinrod. Raised at tier I in Ramvault (4130) when the Runesmith project
+# DA_RS_project_Ramsteel_Forges ends (DA_OAD_raise_forges); tiers II and III are bought from the province.
+# The area of Ramvault is Ramvault, Lord's Gorge (4148) and Pikten Quarry (4118): the three provinces of the old decision.
+DA_Ramsteel_Forges = {
+	start = 4130
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Ramsteel_Forges_build_tt
+			has_province_flag = DA_Ramsteel_forges_raised
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		owner = {
+			DA_has_RF_6_or_higher = yes
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = { # never seen in play: the project raises the monument at tier I
+		upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = { # the first quenching floor. The time and cost only matter if the monument is ever found at tier 0
+		upgrade_time = {
+			months = 36
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.10
+		}
+		area_modifier = {
+			trade_goods_size_modifier = 0.25
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_2 = { # the second floor: finished arms instead of bar
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2500
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.20
+		}
+		area_modifier = {
+			trade_goods_size_modifier = 0.40
+			local_development_cost = -0.05
+		}
+		country_modifiers = {
+			global_regiment_cost = -0.05
+		}
+		on_upgraded = {
+			hidden_effect = {
+				owner = {
+					country_event = {
+						id = DA_Orlazam_az_dihr_event.12
+						days = 3
+					}
+				}
+			}
+		}
+	}
+	tier_3 = { # the third floor: enough ramsteel to alloy it
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 5000
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.30
+		}
+		area_modifier = {
+			trade_goods_size_modifier = 0.60
+			local_development_cost = -0.10
+		}
+		country_modifiers = {
+			global_regiment_cost = -0.10
+			shock_damage_received = -0.05
+			DA_fake_metal_strength_adder = 1
+		}
+		on_upgraded = {
+			hidden_effect = {
+				owner = {
+					country_event = {
+						id = DA_Orlazam_az_dihr_event.13
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+# END DA_ORLAZAM

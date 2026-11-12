@@ -149,227 +149,101 @@ custom_text_box = {
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_4217 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_4217.
 custom_button = {
 	name = DA_Titanium_Vault_upgrade_button
 	tooltip = DA_Wonder_upgrade_button_tt
 	potential = {
-		always = yes
+		NOT = { has_country_flag = DA_WW_building_4217 }
+		NOT = { DA_WW_maxed_4217 = yes }
 	}
 	trigger = {
 		custom_trigger_tooltip = {
 			tooltip = DA_Wonder_in_use_tt
 			NOT = { has_country_flag = DA_Wonder_Titanium_Vault_in_use }
 		}
-		custom_trigger_tooltip = {
-			tooltip = DA_Titanium_Vault_completed_Antidote_tt
-			has_country_flag = DA_Titanium_Vault_completed_Antidote
-		}
+		custom_trigger_tooltip = { tooltip = DA_Titanium_Vault_completed_Antidote_tt has_country_flag = DA_Titanium_Vault_completed_Antidote }
 		4217 = {
 			owned_by = prev
-			has_great_project = {
-				type = DA_Titanium_Vault
-				tier = 0
-			}
+			has_great_project = { type = DA_Titanium_Vault tier = 0 }
 		}
 		if = {
-			limit = {
-				4217 = {
-					AND = {
-						has_great_project = {
-							type = DA_Titanium_Vault
-							tier = 0
-						}
-						NOT = { has_great_project = { type = DA_Titanium_Vault tier = 1 } }
-					}
-				}
-			}
+			limit = { 4217 = { has_great_project = { type = DA_Titanium_Vault tier = 0 } NOT = { has_great_project = { type = DA_Titanium_Vault tier = 1 } } } }
 			4217 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_4_or_higher
 					DA_has_dig_level_4_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 5
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 5
-			}
-			DA_arcane_metal_total_required = {
-				amount = 5
-			}
-			treasury = 1600
+			DA_alchemy_reagents_total_required = { amount = 5 }
+			DA_enchanted_building_material_total_required = { amount = 5 }
+			DA_arcane_metal_total_required = { amount = 5 }
+			DA_WW_can_pay_4217 = yes
 		}
 		if = {
-			limit = {
-				4217 = {
-					AND = {
-						has_great_project = {
-							type = DA_Titanium_Vault
-							tier = 1
-						}
-						NOT = { has_great_project = { type = DA_Titanium_Vault tier = 2 } }
-					}
-				}
-			}
+			limit = { 4217 = { has_great_project = { type = DA_Titanium_Vault tier = 1 } NOT = { has_great_project = { type = DA_Titanium_Vault tier = 2 } } } }
 			4217 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_6_or_higher
 					DA_has_dig_level_6_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 20
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 20
-			}
-			DA_arcane_metal_total_required = {
-				amount = 20
-			}
-			treasury = 3750
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_4217 = yes
 		}
 		if = {
-			limit = {
-				4217 = {
-					AND = {
-						has_great_project = {
-							type = DA_Titanium_Vault
-							tier = 2
-						}
-						NOT = { has_great_project = { type = DA_Titanium_Vault tier = 3 } }
-					}
-				}
-			}
+			limit = { 4217 = { has_great_project = { type = DA_Titanium_Vault tier = 2 } NOT = { has_great_project = { type = DA_Titanium_Vault tier = 3 } } } }
 			4217 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_8_or_higher
 					DA_has_dig_level_8_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 40
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 40
-			}
-			DA_arcane_metal_total_required = {
-				amount = 40
-			}
-			treasury = 7500
-		}
-		if = {
-			limit = {
-				4217 = {
-					has_great_project = {
-						type = DA_Titanium_Vault
-						tier = 3
-					}
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = DA_Maxed_wonder_tt
-				always = no
-			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_4217 = yes
 		}
 	}
 	effect = {
+		hidden_effect = { DA_WW_refresh_4217 = yes }
 		if = {
 			limit = {
-				4217 = {
-					AND = {
-						has_great_project = {
-							type = DA_Titanium_Vault
-							tier = 0
-						}
-						NOT = { has_great_project = { type = DA_Titanium_Vault tier = 1 } }
-					}
-				}
+				4217 = { has_great_project = { type = DA_Titanium_Vault tier = 0 } NOT = { has_great_project = { type = DA_Titanium_Vault tier = 1 } } }
+				DA_WW_can_pay_4217 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 5
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 5
-			}
-			DA_arcane_metal_spend = {
-				amount = 5
-			}
-			add_treasury = -1600
-			4217 = {
-				add_great_project_tier = {
-					type = DA_Titanium_Vault
-					tier = 1
-				}
-			}
-			hidden_effect = {
-				country_event = { id = DA_Hold_Gor_Vazumbrog.11 days = 365 }
-				country_event = { id = DA_Hold_Gor_Vazumbrog.12 days = 1095 }
-			}
+			DA_alchemy_reagents_spend = { amount = 5 }
+			DA_enchanted_building_material_spend = { amount = 5 }
+			DA_arcane_metal_spend = { amount = 5 }
+			DA_WW_begin_4217 = yes
 		}
 		else_if = {
 			limit = {
-				4217 = {
-					AND = {
-						has_great_project = {
-							type = DA_Titanium_Vault
-							tier = 1
-						}
-						NOT = { has_great_project = { type = DA_Titanium_Vault tier = 2 } }
-					}
-				}
+				4217 = { has_great_project = { type = DA_Titanium_Vault tier = 1 } NOT = { has_great_project = { type = DA_Titanium_Vault tier = 2 } } }
+				DA_WW_can_pay_4217 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 20
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 20
-			}
-			DA_arcane_metal_spend = {
-				amount = 20
-			}
-			add_treasury = -3750
-			4217 = {
-				add_great_project_tier = {
-					type = DA_Titanium_Vault
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_4217 = yes
 		}
 		else_if = {
 			limit = {
-				4217 = {
-					AND = {
-						has_great_project = {
-							type = DA_Titanium_Vault
-							tier = 2
-						}
-						NOT = { has_great_project = { type = DA_Titanium_Vault tier = 3 } }
-					}
-				}
+				4217 = { has_great_project = { type = DA_Titanium_Vault tier = 2 } NOT = { has_great_project = { type = DA_Titanium_Vault tier = 3 } } }
+				DA_WW_can_pay_4217 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 40
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 40
-			}
-			DA_arcane_metal_spend = {
-				amount = 40
-			}
-			add_treasury = -7500
-			4217 = {
-				add_great_project_tier = {
-					type = DA_Titanium_Vault
-					tier = 1
-				}
-			}
-			hidden_effect = {
-				country_event = { id = DA_Hold_Gor_Vazumbrog.14 days = 3650 }
-			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_4217 = yes
 		}
 	}
 }
+# END DA_WW
 
 custom_text_box = {
     name = DA_Titanium_Vault_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file

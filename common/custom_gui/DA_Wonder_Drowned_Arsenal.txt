@@ -1,0 +1,752 @@
+# The Drowned Arsenal, Ovdal Tungr (526): the page of the wonder. Written on 12 November 2026 by
+# "Claude files/tools/ovdal_tungr_2026-11-12/gen.py"; hand-owned after the first installation.
+# The .gui side is the window "DA_Drowned_Arsenal_Window" in interface/topbar.gui (a page of the Dwarven Hall).
+# ROOT and FROM are the country that looks at the page.
+#
+# The Slips       no button: DA_OT_sync gives the country modifiers DA_OT_slips_<tier> and DA_OT_ironclad_yards_<tier>.
+# The Admiralty   four captains (DA_OT_recruit_<id>); the wait is the country modifier DA_OT_admiralty_wait.
+# The loft        five drawings, one at a time: country flag DA_OT_study_<id>, variable DA_OT_study_months, then the
+#                 blueprint flag DA_Unlocked.Ironclad_<blueprint> that the Ironclad designer asks for.
+# The dock        six flagship modifications, each bought once: country flags DA_OT_fmod_<id> (the old DA_Flagship_mod1 for the first).
+# Effects and triggers: common/scripted_effects/DA_Drowned_Arsenal_effects.txt, common/scripted_triggers/DA_Drowned_Arsenal_triggers.txt.
+# The story is in events/DA_Hold_Ovdal_Tungr.txt.
+
+custom_window = {
+	name = DA_Drowned_Arsenal_Window
+	potential = {
+		DA_has_Racial_Interface_on_Dwarven_wonders_open = yes
+		has_country_flag = DA_show_wonder_Drowned_Arsenal
+	}
+}
+
+custom_button = {
+	name = DA_close_button_Drowned_Arsenal
+	tooltip = DA_Wonder_close_button_tt
+	potential = { always = yes }
+	trigger = { always = yes }
+	effect = { clr_country_flag = DA_show_wonder_Drowned_Arsenal }
+}
+
+custom_icon = { # frames: 1 the flooded slips, 2 tier I, 3 tier II, 4 tier III (make_ovdal_tungr_art.py)
+	name = DA_Drowned_Arsenal_Wonder_image
+	potential = { always = yes }
+	frame = { number = 4 trigger = { 526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 3 } } } }
+	frame = { number = 3 trigger = { 526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 2 } } } }
+	frame = { number = 2 trigger = { 526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 1 } } } }
+	frame = { number = 1 trigger = { always = yes } }
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_name_shower
+	potential = { always = yes }
+	tooltip = DA_Drowned_Arsenal_name_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_Wonder_level_shower
+	potential = { always = yes }
+	tooltip = DA_Drowned_Arsenal_Wonder_level_shower_tt
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_Wonder_location_shower
+	potential = { always = yes }
+	tooltip = DA_Drowned_Arsenal_Wonder_location_shower_tt
+}
+
+# The level-up button. build_wonder_pages.py replaces this block with the wonder works (BEGIN / END DA_WW).
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_526 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_526.
+custom_button = {
+	name = DA_Drowned_Arsenal_upgrade_button
+	tooltip = DA_OT_upgrade_button_tt
+	potential = {
+		NOT = { has_country_flag = DA_WW_building_526 }
+		NOT = { DA_WW_maxed_526 = yes }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Wonder_in_use_tt
+			NOT = { has_country_flag = DA_Wonder_DA_Drowned_Arsenal_in_use }
+		}
+		526 = {
+			owned_by = prev
+			has_great_project = { type = DA_Drowned_Arsenal tier = 0 }
+		}
+		if = {
+			limit = { 526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 0 } NOT = { has_great_project = { type = DA_Drowned_Arsenal tier = 1 } } } }
+			526 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_4_or_higher
+					DA_has_dig_level_4_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_526 = yes
+		}
+		if = {
+			limit = { 526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 1 } NOT = { has_great_project = { type = DA_Drowned_Arsenal tier = 2 } } } }
+			526 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_6_or_higher
+					DA_has_dig_level_6_or_higher = yes
+				}
+			}
+			526 = { custom_trigger_tooltip = { tooltip = DA_OT_dock_found_tt has_province_flag = DA_Ovdal_Tungr_exp2 } }
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_526 = yes
+		}
+		if = {
+			limit = { 526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 2 } NOT = { has_great_project = { type = DA_Drowned_Arsenal tier = 3 } } } }
+			526 = {
+				custom_trigger_tooltip = {
+					tooltip = DA_tooltip_has_dig_level_8_or_higher
+					DA_has_dig_level_8_or_higher = yes
+				}
+			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_526 = yes
+		}
+	}
+	effect = {
+		hidden_effect = { DA_WW_refresh_526 = yes }
+		if = {
+			limit = {
+				526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 0 } NOT = { has_great_project = { type = DA_Drowned_Arsenal tier = 1 } } }
+				DA_WW_can_pay_526 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_526 = yes
+			custom_tooltip = DA_OT_tier_1_unlock_tt
+		}
+		else_if = {
+			limit = {
+				526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 1 } NOT = { has_great_project = { type = DA_Drowned_Arsenal tier = 2 } } }
+				DA_WW_can_pay_526 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_526 = yes
+			custom_tooltip = DA_OT_tier_2_unlock_tt
+		}
+		else_if = {
+			limit = {
+				526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 2 } NOT = { has_great_project = { type = DA_Drowned_Arsenal tier = 3 } } }
+				DA_WW_can_pay_526 = yes    # at the price of this very day
+			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_526 = yes
+			custom_tooltip = DA_OT_tier_3_unlock_tt
+		}
+	}
+}
+# END DA_WW
+
+#######################################################
+# The Admiralty
+#######################################################
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_header_admiralty
+	potential = { always = yes }
+}
+
+custom_button = { # frame 3 while this captain cannot be examined
+	name = DA_Drowned_Arsenal_button_admiral_pilot
+	tooltip = DA_OT_button_admiral_pilot_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_OT_arsenal_at_tier_1 = yes } has_country_modifier = DA_OT_admiralty_wait } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_1_tt
+			DA_OT_arsenal_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_admiralty_ready_tt
+			NOT = { has_country_modifier = DA_OT_admiralty_wait }
+		}
+		treasury = 150
+		dip_power = 25
+	}
+	effect = {
+		add_treasury = -150
+		add_dip_power = -25
+		custom_tooltip = DA_OT_admiral_pilot_result_tt
+		DA_OT_recruit_pilot = yes
+		custom_tooltip = DA_OT_admiralty_wait_tt
+		hidden_effect = { add_country_modifier = { name = DA_OT_admiralty_wait duration = 1825 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_admiral_pilot_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_admiral_pilot_tt
+}
+
+custom_button = { # frame 3 while this captain cannot be examined
+	name = DA_Drowned_Arsenal_button_admiral_gunner
+	tooltip = DA_OT_button_admiral_gunner_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_OT_arsenal_at_tier_1 = yes } has_country_modifier = DA_OT_admiralty_wait } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_1_tt
+			DA_OT_arsenal_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_admiralty_ready_tt
+			NOT = { has_country_modifier = DA_OT_admiralty_wait }
+		}
+		treasury = 150
+		dip_power = 25
+	}
+	effect = {
+		add_treasury = -150
+		add_dip_power = -25
+		custom_tooltip = DA_OT_admiral_gunner_result_tt
+		DA_OT_recruit_gunner = yes
+		custom_tooltip = DA_OT_admiralty_wait_tt
+		hidden_effect = { add_country_modifier = { name = DA_OT_admiralty_wait duration = 1825 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_admiral_gunner_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_admiral_gunner_tt
+}
+
+custom_button = { # frame 3 while this captain cannot be examined
+	name = DA_Drowned_Arsenal_button_admiral_ram
+	tooltip = DA_OT_button_admiral_ram_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_OT_arsenal_at_tier_1 = yes } has_country_modifier = DA_OT_admiralty_wait } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_1_tt
+			DA_OT_arsenal_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_admiralty_ready_tt
+			NOT = { has_country_modifier = DA_OT_admiralty_wait }
+		}
+		treasury = 150
+		dip_power = 25
+	}
+	effect = {
+		add_treasury = -150
+		add_dip_power = -25
+		custom_tooltip = DA_OT_admiral_ram_result_tt
+		DA_OT_recruit_ram = yes
+		custom_tooltip = DA_OT_admiralty_wait_tt
+		hidden_effect = { add_country_modifier = { name = DA_OT_admiralty_wait duration = 1825 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_admiral_ram_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_admiral_ram_tt
+}
+
+custom_button = { # frame 3 while this captain cannot be examined
+	name = DA_Drowned_Arsenal_button_admiral_fleet
+	tooltip = DA_OT_button_admiral_fleet_tt
+	potential = { always = yes }
+	frame = { number = 3 trigger = { OR = { NOT = { DA_OT_arsenal_at_tier_3 = yes } has_country_modifier = DA_OT_fleet_admiral_wait } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_3_tt
+			DA_OT_arsenal_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_fleet_ready_tt
+			NOT = { has_country_modifier = DA_OT_fleet_admiral_wait }
+		}
+		treasury = 600
+		dip_power = 50
+	}
+	effect = {
+		add_treasury = -600
+		add_dip_power = -50
+		custom_tooltip = DA_OT_admiral_fleet_result_tt
+		DA_OT_recruit_fleet = yes
+		custom_tooltip = DA_OT_fleet_wait_tt
+		hidden_effect = { add_country_modifier = { name = DA_OT_fleet_admiral_wait duration = 7300 } }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_admiral_fleet_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_admiral_fleet_tt
+}
+
+#######################################################
+# The Drawing Loft
+#######################################################
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_header_loft
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 once copied or while it is being copied, frame 3 while it cannot be copied
+	name = DA_Drowned_Arsenal_button_study_copper
+	tooltip = DA_OT_button_study_copper_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_Unlocked.Ironclad_Copper_Sheathed_Hull has_country_flag = DA_OT_study_copper } } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_study_open_copper = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_found_tt
+			DA_OT_arsenal_found = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_copied_tt
+			NOT = { has_country_flag = DA_Unlocked.Ironclad_Copper_Sheathed_Hull }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_loft_free_tt
+			NOT = { DA_OT_any_study = yes }
+		}
+		treasury = 300
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_has_3_ADK
+			check_variable = { ancientDwarvenKnowledge = 3 }
+		}
+	}
+	effect = {
+		add_treasury = -300
+		custom_tooltip = DA_OT_cost_3_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 3 } }
+		custom_tooltip = DA_OT_study_copper_result_tt
+		hidden_effect = { DA_OT_begin_study_copper = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_study_copper_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_study_copper_tt
+}
+
+custom_button = { # frame 2 once copied or while it is being copied, frame 3 while it cannot be copied
+	name = DA_Drowned_Arsenal_button_study_casemate
+	tooltip = DA_OT_button_study_casemate_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_Unlocked.Ironclad_Casemate_Battery has_country_flag = DA_OT_study_casemate } } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_study_open_casemate = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_1_tt
+			DA_OT_arsenal_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_copied_tt
+			NOT = { has_country_flag = DA_Unlocked.Ironclad_Casemate_Battery }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_loft_free_tt
+			NOT = { DA_OT_any_study = yes }
+		}
+		treasury = 500
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_has_5_ADK
+			check_variable = { ancientDwarvenKnowledge = 5 }
+		}
+	}
+	effect = {
+		add_treasury = -500
+		custom_tooltip = DA_OT_cost_5_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_OT_study_casemate_result_tt
+		hidden_effect = { DA_OT_begin_study_casemate = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_study_casemate_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_study_casemate_tt
+}
+
+custom_button = { # frame 2 once copied or while it is being copied, frame 3 while it cannot be copied
+	name = DA_Drowned_Arsenal_button_study_ram
+	tooltip = DA_OT_button_study_ram_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_Unlocked.Ironclad_Ram_of_Aul_Dwarov has_country_flag = DA_OT_study_ram } } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_study_open_ram = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_1_tt
+			DA_OT_arsenal_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_dock_tt
+			526 = { has_province_flag = DA_Ovdal_Tungr_exp2 }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_copied_tt
+			NOT = { has_country_flag = DA_Unlocked.Ironclad_Ram_of_Aul_Dwarov }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_loft_free_tt
+			NOT = { DA_OT_any_study = yes }
+		}
+		treasury = 600
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_has_6_ADK
+			check_variable = { ancientDwarvenKnowledge = 6 }
+		}
+	}
+	effect = {
+		add_treasury = -600
+		custom_tooltip = DA_OT_cost_6_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 6 } }
+		custom_tooltip = DA_OT_study_ram_result_tt
+		hidden_effect = { DA_OT_begin_study_ram = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_study_ram_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_study_ram_tt
+}
+
+custom_button = { # frame 2 once copied or while it is being copied, frame 3 while it cannot be copied
+	name = DA_Drowned_Arsenal_button_study_engines
+	tooltip = DA_OT_button_study_engines_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_Unlocked.Ironclad_Strongbellow_Engines has_country_flag = DA_OT_study_engines } } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_study_open_engines = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_2_tt
+			DA_OT_arsenal_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_copied_tt
+			NOT = { has_country_flag = DA_Unlocked.Ironclad_Strongbellow_Engines }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_loft_free_tt
+			NOT = { DA_OT_any_study = yes }
+		}
+		treasury = 800
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_has_8_ADK
+			check_variable = { ancientDwarvenKnowledge = 8 }
+		}
+	}
+	effect = {
+		add_treasury = -800
+		custom_tooltip = DA_OT_cost_8_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 8 } }
+		custom_tooltip = DA_OT_study_engines_result_tt
+		hidden_effect = { DA_OT_begin_study_engines = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_study_engines_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_study_engines_tt
+}
+
+custom_button = { # frame 2 once copied or while it is being copied, frame 3 while it cannot be copied
+	name = DA_Drowned_Arsenal_button_study_dreadnought
+	tooltip = DA_OT_button_study_dreadnought_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { OR = { has_country_flag = DA_Unlocked.Ironclad_Dreadnought has_country_flag = DA_OT_study_dreadnought } } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_study_open_dreadnought = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_3_tt
+			DA_OT_arsenal_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_pattern_tt
+			526 = { has_province_flag = DA_OT_hull_pattern }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_roll_tt
+			526 = { has_province_flag = DA_Ovdal_Tungr_exp3 }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_copied_tt
+			NOT = { has_country_flag = DA_Unlocked.Ironclad_Dreadnought }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_loft_free_tt
+			NOT = { DA_OT_any_study = yes }
+		}
+		treasury = 1500
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_has_15_ADK
+			check_variable = { ancientDwarvenKnowledge = 15 }
+		}
+	}
+	effect = {
+		add_treasury = -1500
+		custom_tooltip = DA_OT_cost_15_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 15 } }
+		custom_tooltip = DA_OT_study_dreadnought_result_tt
+		hidden_effect = { DA_OT_begin_study_dreadnought = yes }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_study_dreadnought_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_study_dreadnought_tt
+}
+
+#######################################################
+# The Flagship Dock
+#######################################################
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_header_flagship
+	potential = { always = yes }
+}
+
+custom_button = { # frame 2 once bought, frame 3 while it cannot be bought
+	name = DA_Drowned_Arsenal_button_fmod_gargantuan
+	tooltip = DA_OT_button_fmod_gargantuan_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { has_country_flag = DA_Flagship_mod1 } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_arsenal_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_1_tt
+			DA_OT_arsenal_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_fitted_tt
+			NOT = { has_country_flag = DA_Flagship_mod1 }
+		}
+		treasury = 1000
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_has_10_ADK
+			check_variable = { ancientDwarvenKnowledge = 10 }
+		}
+	}
+	effect = {
+		add_treasury = -1000
+		custom_tooltip = DA_OT_cost_10_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 10 } }
+		custom_tooltip = DA_OT_fmod_result_tt
+		hidden_effect = { set_country_flag = DA_Flagship_mod1 }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_fmod_gargantuan_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_fmod_gargantuan_tt
+}
+
+custom_button = { # frame 2 once bought, frame 3 while it cannot be bought
+	name = DA_Drowned_Arsenal_button_fmod_sheathing
+	tooltip = DA_OT_button_fmod_sheathing_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { has_country_flag = DA_OT_fmod_sheathing } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_arsenal_at_tier_1 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_1_tt
+			DA_OT_arsenal_at_tier_1 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_fitted_tt
+			NOT = { has_country_flag = DA_OT_fmod_sheathing }
+		}
+		treasury = 400
+		DA_arcane_metal_total_required = { amount = 10 }
+	}
+	effect = {
+		add_treasury = -400
+		DA_arcane_metal_spend = { amount = 10 }
+		custom_tooltip = DA_OT_fmod_result_tt
+		hidden_effect = { set_country_flag = DA_OT_fmod_sheathing }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_fmod_sheathing_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_fmod_sheathing_tt
+}
+
+custom_button = { # frame 2 once bought, frame 3 while it cannot be bought
+	name = DA_Drowned_Arsenal_button_fmod_engines
+	tooltip = DA_OT_button_fmod_engines_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { has_country_flag = DA_OT_fmod_engines } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_arsenal_at_tier_2 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_2_tt
+			DA_OT_arsenal_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_fitted_tt
+			NOT = { has_country_flag = DA_OT_fmod_engines }
+		}
+		treasury = 800
+		DA_arcane_metal_total_required = { amount = 15 }
+	}
+	effect = {
+		add_treasury = -800
+		DA_arcane_metal_spend = { amount = 15 }
+		custom_tooltip = DA_OT_fmod_result_tt
+		hidden_effect = { set_country_flag = DA_OT_fmod_engines }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_fmod_engines_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_fmod_engines_tt
+}
+
+custom_button = { # frame 2 once bought, frame 3 while it cannot be bought
+	name = DA_Drowned_Arsenal_button_fmod_bridge
+	tooltip = DA_OT_button_fmod_bridge_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { has_country_flag = DA_OT_fmod_bridge } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_arsenal_at_tier_2 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_2_tt
+			DA_OT_arsenal_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_fitted_tt
+			NOT = { has_country_flag = DA_OT_fmod_bridge }
+		}
+		treasury = 600
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_has_5_ADK
+			check_variable = { ancientDwarvenKnowledge = 5 }
+		}
+	}
+	effect = {
+		add_treasury = -600
+		custom_tooltip = DA_OT_cost_5_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_OT_fmod_result_tt
+		hidden_effect = { set_country_flag = DA_OT_fmod_bridge }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_fmod_bridge_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_fmod_bridge_tt
+}
+
+custom_button = { # frame 2 once bought, frame 3 while it cannot be bought
+	name = DA_Drowned_Arsenal_button_fmod_rune_keel
+	tooltip = DA_OT_button_fmod_rune_keel_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { has_country_flag = DA_OT_fmod_rune_keel } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_arsenal_at_tier_2 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_2_tt
+			DA_OT_arsenal_at_tier_2 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_fitted_tt
+			NOT = { has_country_flag = DA_OT_fmod_rune_keel }
+		}
+		treasury = 800
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_has_10_ADK
+			check_variable = { ancientDwarvenKnowledge = 10 }
+		}
+	}
+	effect = {
+		add_treasury = -800
+		custom_tooltip = DA_OT_cost_10_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 10 } }
+		custom_tooltip = DA_OT_fmod_result_tt
+		hidden_effect = { set_country_flag = DA_OT_fmod_rune_keel }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_fmod_rune_keel_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_fmod_rune_keel_tt
+}
+
+custom_button = { # frame 2 once bought, frame 3 while it cannot be bought
+	name = DA_Drowned_Arsenal_button_fmod_turrets
+	tooltip = DA_OT_button_fmod_turrets_tt
+	potential = { always = yes }
+	frame = { number = 2 trigger = { has_country_flag = DA_OT_fmod_turrets } }
+	frame = { number = 3 trigger = { NOT = { DA_OT_arsenal_at_tier_3 = yes } } }
+	frame = { number = 1 trigger = { always = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_needs_tier_3_tt
+			DA_OT_arsenal_at_tier_3 = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_OT_not_fitted_tt
+			NOT = { has_country_flag = DA_OT_fmod_turrets }
+		}
+		treasury = 1500
+		DA_arcane_metal_total_required = { amount = 25 }
+	}
+	effect = {
+		add_treasury = -1500
+		DA_arcane_metal_spend = { amount = 25 }
+		custom_tooltip = DA_OT_fmod_result_tt
+		hidden_effect = { set_country_flag = DA_OT_fmod_turrets }
+	}
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_button_fmod_turrets_text
+	potential = { always = yes }
+	tooltip = DA_OT_button_fmod_turrets_tt
+}
+
+custom_text_box = {
+	name = DA_Drowned_Arsenal_info_text
+	potential = { always = yes }
+	tooltip = DA_Drowned_Arsenal_info_text_tt
+}
+

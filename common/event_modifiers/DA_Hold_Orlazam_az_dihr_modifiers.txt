@@ -1,0 +1,117 @@
+# Orlazam-az-dihr: the Ramsteel Forges and the Dark Rams (11 November 2026).
+# The first six were in DA_Dwarven_Knowledge_modifiers.txt before. Events: events/DA_Hold_Orlazam_az_dihr.txt
+
+#######################################################
+# Ramsteel Forges
+#######################################################
+
+DA_Ramsteel_forges_works = { # Ramvault, while the Runesmith project runs (3 years). Its remaining time is the project's
+	picture = "production_efficiency"
+	local_production_efficiency = -0.25
+	local_unrest = 1
+}
+
+DA_Ramsteel_forge = { # old saves only: the province modifier of the old decision. Removed when the monument is raised
+	picture = "production_efficiency"
+	trade_goods_size_modifier = 0.25
+}
+
+#######################################################
+# Dark Rams
+#######################################################
+
+DA_Dark_Rams = { # Orlazam-az-dihr: the wild herd (DA_ADK_explore.218), until it is tamed
+	picture = "cavalry_power"
+	local_manpower_modifier = 0.10
+	local_development_cost = -0.05
+}
+
+DA_Dark_Rams_taming_process = { # Orlazam-az-dihr, while the Runesmith project runs (5 years)
+	local_unrest = 5
+	local_manpower_modifier = -0.25
+	local_tax_modifier = -0.25
+	local_production_efficiency = -0.25
+}
+
+DA_Dark_Ram_pens = { # Orlazam-az-dihr, once the herd is tamed. Replaces DA_Dark_Rams
+	picture = "cavalry_power"
+	local_manpower_modifier = 0.20
+	local_development_cost = -0.05
+}
+
+# The mount of Anbennar's Mythical Cavalry (enable_mythical_cavalry = { mount = dark_rams }). The name must keep its prefix.
+mythical_cavalry_dark_rams = {
+	is_hussars_modifier = yes
+	cavalry_power = 0.30
+	cavalry_shock = 0.5
+	shock_damage_received = -0.15
+	cavalry_flanking = 0.5
+	reinforce_speed = -0.25
+	reinforce_cost_modifier = 0.25
+}
+
+# The temper of the herd (DA_Orlazam_az_dihr_event.21). One of the two, for the Mythical Cavalry only.
+DA_Dark_Rams_broken = {
+	is_hussars_modifier = yes
+	morale_damage = 0.15
+}
+DA_Dark_Rams_bonded = {
+	is_hussars_modifier = yes
+	morale_damage_received = -0.15
+}
+
+# Without the Lions of the North DLC there is no Mythical Cavalry: this one, for all cavalry, takes the place of the three above.
+DA_Dark_Rams_line_cavalry = {
+	picture = "cavalry_power"
+	cavalry_power = 0.10
+	cavalry_shock = 0.25
+	cavalry_cost = 0.10
+}
+
+# Ramsteel barding (DA_Orlazam_az_dihr_event.30), for the Mythical Cavalry only.
+DA_Dark_Rams_ramsteel_barding = {
+	is_hussars_modifier = yes
+	shock_damage_received = -0.10
+	fire_damage_received = -0.10
+}
+
+# How the herd is kept (DA_Orlazam_az_dihr_event.3). One of the three, for the country.
+DA_Dark_Rams_herd_1 = {
+	picture = "cavalry_power"
+	amount_of_hussars = 4
+}
+DA_Dark_Rams_herd_2 = {
+	picture = "cavalry_power"
+	amount_of_hussars = 8
+	cavalry_cost = 0.10
+}
+DA_Dark_Rams_herd_3 = {
+	picture = "cavalry_power"
+	amount_of_hussars = 12
+	cavalry_cost = 0.20
+	cav_to_inf_ratio = 0.10
+}
+
+# Old saves only: the three results of the old choice. DA_Orlazam_az_dihr_event.1 turns them into the ones above.
+DA_Dark_Rams_applied1 = {
+	picture = "cavalry_power"
+	land_forcelimit_modifier = 0.05
+	cav_to_inf_ratio = 0.05
+	cavalry_cost = 0.05
+	cavalry_power = 0.025
+	cavalry_shock = 0.10
+}
+DA_Dark_Rams_applied2 = {
+	picture = "cavalry_power"
+	cavalry_cost = 0.10
+	cavalry_power = 0.05
+	cavalry_shock = 0.20
+}
+DA_Dark_Rams_applied3 = {
+	picture = "cavalry_power"
+	land_forcelimit_modifier = -0.10
+	cav_to_inf_ratio = -0.05
+	cavalry_cost = 0.50
+	cavalry_power = 0.15
+	cavalry_shock = 0.30
+}

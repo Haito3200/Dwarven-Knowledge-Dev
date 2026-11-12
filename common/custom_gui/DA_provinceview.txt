@@ -232,6 +232,7 @@ custom_button = {
 	tooltip = dig_hold_go_button_tt
 }
 
+# BEGIN DA_HOLD_EXPLORATION (build_hold_exploration.py; the window is in DA_Hold_Exploration_interface.txt)
 custom_button = {
 	name = DA_province_explore_button
 	tooltip = DA_province_explore_button_tt
@@ -241,217 +242,24 @@ custom_button = {
 			tag = FROM
 		}
 	}
-	trigger = {
-		has_subterranean_race = yes
-		is_state_core = FROM
-		controlled_by = FROM
-		if = {
-			limit = { has_province_modifier = incomplete_hold }
-			NOT = { has_province_modifier = incomplete_hold }
-		}
-		if = { limit = { has_province_modifier = F23_flooded_depths }
-			custom_trigger_tooltip = {
-				tooltip = F23_cannot_dig_why
-				always = no
-			}
-		}
-		hidden_trigger = { NOT = { has_province_modifier = incomplete_hold_0 } }
-		custom_trigger_tooltip = {
-			tooltip = diggy_max_deepness_tooltip
-			if = {
-				limit = { OR = { province_id = 4119 province_id = 4311 AND = { province_id = 2931 OWNER = { has_country_flag = I98_may_come_down_flag } } AND = { province_id = 4093 owner = { has_country_flag = H76_reached_the_bottom } } } } #Big and Second capital
-				NOT = { has_province_modifier = dig_11 }
-			}
-			else = {
-				NOT = { has_province_modifier = dig_10 }
-			}
-		}
-        custom_trigger_tooltip = {
-            tooltip = DA_ADK_menu_CD_tt
-			owner = {
-				NOT = { has_country_flag = DA_ADK_menu_in_use }
-				NOT = { has_country_modifier = DA_ADK_menu_cooldown }
-			}
-        }
-        custom_trigger_tooltip = {
-            tooltip = DA_ADK_menu_Exp_in_progress_tt
-			owner = {
-				all_owned_province = {
-					NOT = { has_province_flag = DA_expedition_in_progress }
-				}
-			}
-        }
-		
-		if = { 
-			limit = { hold_condition = { Damaged = yes } } 
-			hold_condition = { Repaired = yes }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_2 } }
-			DA_has_dig_level_1_or_higher = yes
-			owner = {
-				treasury = 25
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_3 } }
-			DA_has_dig_level_2_or_higher = yes
-			owner = {
-				treasury = 50
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_4 } }
-			DA_has_dig_level_3_or_higher = yes
-			owner = {
-				treasury = 100
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_5 } }
-			DA_has_dig_level_4_or_higher = yes
-			owner = {
-				treasury = 200
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_6 } }
-			DA_has_dig_level_5_or_higher = yes
-			owner = {
-				treasury = 300
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_7 } }
-			DA_has_dig_level_6_or_higher = yes
-			owner = {
-				treasury = 500
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_8 } }
-			DA_has_dig_level_7_or_higher = yes
-			owner = {
-				treasury = 800
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_9 } }
-			DA_has_dig_level_8_or_higher = yes
-			owner = {
-				treasury = 1200
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_10 } }
-			DA_has_dig_level_9_or_higher = yes
-			owner = {
-				treasury = 2500
-			}
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_11 } }
-			OR = { province_id = 4119 province_id = 4311 }
-			DA_has_dig_level_10_or_higher = yes
-			owner = {
-				treasury = 7000
-			}
-		}
-	}
+	trigger = { always = yes }
 	effect = {
-		play_sound = diggy_diggy_pickaxe_sfx
+		FROM = {
+			clr_country_flag = DA_province_mega_engineering_open
+			clr_country_flag = DA_province_medicine_open
+			clr_country_flag = DA_province_fortifications_open
+		}
 		if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_2 } }
-			owner = {
-				add_treasury = -25
-			}
-			custom_tooltip = DA_explore_dig_2_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+			limit = { has_province_flag = DA_HX_open }
+			clr_province_flag = DA_HX_open
 		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_3 } }
-			owner = {
-				add_treasury = -50
-			}
-			custom_tooltip = DA_explore_dig_3_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_4 } }
-			owner = {
-				add_treasury = -100
-			}
-			custom_tooltip = DA_explore_dig_4_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_5 } }
-			owner = {
-				add_treasury = -200
-			}
-			custom_tooltip = DA_explore_dig_5_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_6 } }
-			owner = {
-				add_treasury = -300
-			}
-			custom_tooltip = DA_explore_dig_6_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_7 } }
-			owner = {
-				add_treasury = -500
-			}
-			custom_tooltip = DA_explore_dig_7_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_8 } }
-			owner = {
-				add_treasury = -800
-			}
-			custom_tooltip = DA_explore_dig_8_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_9 } }
-			owner = {
-				add_treasury = -1200
-			}
-			custom_tooltip = DA_explore_dig_9_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_10 } }
-			owner = {
-				add_treasury = -2500
-			}
-			custom_tooltip = DA_explore_dig_10_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
-		}
-		else_if = {
-			limit = { NOT = { has_province_flag = DA_looked_dig_adk_11 } }
-			owner = {
-				add_treasury = -5000
-			}
-			custom_tooltip = DA_explore_dig_11_tooltip
-			custom_tooltip = DA_Hold_exploration_completion_tt
-			hidden_effect = { set_province_flag = DA_expedition_in_progress }
+		else = {
+			clr_province_flag = DA_LE_open
+			set_province_flag = DA_HX_open
 		}
 	}
 }
+# END DA_HOLD_EXPLORATION
 
 custom_button = {
 	name = diggy_diggy_repair

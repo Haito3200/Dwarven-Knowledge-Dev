@@ -270,3 +270,55 @@ custom_button = { # Halanna's Wrath
 		}
 	}
 }
+
+custom_button = { # Frozen Forge
+	name = DA_wonder_shortcut_button_DA_Frozen_Forge
+	tooltip = DA_wonder_shortcut_button_DA_Frozen_Forge_tt
+	potential = {
+		province_id = 4208
+		FROM = { 4208 = { owned_by = from has_great_project = { type = DA_Frozen_Forge } } }
+	}
+	effect = {
+		FROM = {
+			hidden_effect = {
+				if = {
+					limit = {
+						DA_WS_wonders_tab_showing = yes
+						has_country_flag = DA_show_wonder_Frozen_Forge
+					}
+					DA_close_wonders_etc_interface = yes
+				}
+				else = {
+					DA_WS_show_wonders_tab = yes
+					set_country_flag = DA_show_wonder_Frozen_Forge
+				}
+			}
+		}
+	}
+}
+
+custom_button = { # Drowned Arsenal
+	name = DA_wonder_shortcut_button_DA_Drowned_Arsenal
+	tooltip = DA_wonder_shortcut_button_DA_Drowned_Arsenal_tt
+	potential = {
+		province_id = 526
+		FROM = { 526 = { owned_by = from has_great_project = { type = DA_Drowned_Arsenal } } }
+	}
+	effect = {
+		FROM = {
+			hidden_effect = {
+				if = {
+					limit = {
+						DA_WS_wonders_tab_showing = yes
+						has_country_flag = DA_show_wonder_Drowned_Arsenal
+					}
+					DA_close_wonders_etc_interface = yes
+				}
+				else = {
+					DA_WS_show_wonders_tab = yes
+					set_country_flag = DA_show_wonder_Drowned_Arsenal
+				}
+			}
+		}
+	}
+}

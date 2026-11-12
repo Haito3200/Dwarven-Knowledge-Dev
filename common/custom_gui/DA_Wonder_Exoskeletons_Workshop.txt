@@ -74,11 +74,15 @@ custom_text_box = {
 	tooltip = DA_Exoskeletons_Workshop_Wonder_location_shower_tt
 }
 
-custom_button = { # restores the foundry, tier by tier; each tier unlocks a doctrine and a tier of the turrets
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_2868 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_2868.
+custom_button = {
 	name = DA_Exoskeletons_Workshop_upgrade_button
 	tooltip = DA_HO_upgrade_button_tt
 	potential = {
-		always = yes
+		NOT = { has_country_flag = DA_WW_building_2868 }
+		NOT = { DA_WW_maxed_2868 = yes }
 	}
 	trigger = {
 		custom_trigger_tooltip = {
@@ -87,207 +91,86 @@ custom_button = { # restores the foundry, tier by tier; each tier unlocks a doct
 		}
 		2868 = {
 			owned_by = prev
-			has_great_project = {
-				type = DA_Exoskeletons_Workshop
-				tier = 0
-			}
+			has_great_project = { type = DA_Exoskeletons_Workshop tier = 0 }
 		}
 		if = {
-			limit = {
-				2868 = {
-					has_great_project = {
-						type = DA_Exoskeletons_Workshop
-						tier = 0
-					}
-					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } }
-				}
-			}
+			limit = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 0 } NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } } } }
 			2868 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_4_or_higher
 					DA_has_dig_level_4_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 10
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 10
-			}
-			DA_arcane_metal_total_required = {
-				amount = 10
-			}
-			treasury = 1600
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_2868 = yes
 		}
 		if = {
-			limit = {
-				2868 = {
-					has_great_project = {
-						type = DA_Exoskeletons_Workshop
-						tier = 1
-					}
-					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } }
-				}
-			}
+			limit = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } } } }
 			2868 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_6_or_higher
 					DA_has_dig_level_6_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 20
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 20
-			}
-			DA_arcane_metal_total_required = {
-				amount = 20
-			}
-			treasury = 3750
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_2868 = yes
 		}
 		if = {
-			limit = {
-				2868 = {
-					has_great_project = {
-						type = DA_Exoskeletons_Workshop
-						tier = 2
-					}
-					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } }
-				}
-			}
+			limit = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } } } }
 			2868 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_8_or_higher
 					DA_has_dig_level_8_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 40
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 40
-			}
-			DA_arcane_metal_total_required = {
-				amount = 40
-			}
-			treasury = 7500
-		}
-		if = {
-			limit = {
-				2868 = {
-					has_great_project = {
-						type = DA_Exoskeletons_Workshop
-						tier = 3
-					}
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = DA_Maxed_wonder_tt
-				always = no
-			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_2868 = yes
 		}
 	}
 	effect = {
+		hidden_effect = { DA_WW_refresh_2868 = yes }
 		if = {
 			limit = {
-				2868 = {
-					has_great_project = {
-						type = DA_Exoskeletons_Workshop
-						tier = 0
-					}
-					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } }
-				}
+				2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 0 } NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } } }
+				DA_WW_can_pay_2868 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 10
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 10
-			}
-			DA_arcane_metal_spend = {
-				amount = 10
-			}
-			add_treasury = -1600
-			2868 = {
-				add_great_project_tier = {
-					type = DA_Exoskeletons_Workshop
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_2868 = yes
 			custom_tooltip = DA_HO_tier_1_unlock_tt
-			hidden_effect = {
-				set_country_flag = DA_can_implement_platinum_exoskeletons # the Runesmith project Platinum Warsuits
-				country_event = { id = DA_Haraz_Orldhum_event.2 days = 30 }
-				country_event = { id = DA_Haraz_Orldhum_event.21 days = 365 }
-				country_event = { id = DA_Haraz_Orldhum_event.22 days = 1095 }
-			}
 		}
 		else_if = {
 			limit = {
-				2868 = {
-					has_great_project = {
-						type = DA_Exoskeletons_Workshop
-						tier = 1
-					}
-					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } }
-				}
+				2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } } }
+				DA_WW_can_pay_2868 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 20
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 20
-			}
-			DA_arcane_metal_spend = {
-				amount = 20
-			}
-			add_treasury = -3750
-			2868 = {
-				add_great_project_tier = {
-					type = DA_Exoskeletons_Workshop
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_2868 = yes
 			custom_tooltip = DA_HO_tier_2_unlock_tt
-			hidden_effect = {
-				country_event = { id = DA_Haraz_Orldhum_event.4 days = 30 }
-			}
 		}
 		else_if = {
 			limit = {
-				2868 = {
-					has_great_project = {
-						type = DA_Exoskeletons_Workshop
-						tier = 2
-					}
-					NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } }
-				}
+				2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } NOT = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 3 } } }
+				DA_WW_can_pay_2868 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 40
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 40
-			}
-			DA_arcane_metal_spend = {
-				amount = 40
-			}
-			add_treasury = -7500
-			2868 = {
-				add_great_project_tier = {
-					type = DA_Exoskeletons_Workshop
-					tier = 1
-				}
-			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_2868 = yes
 			custom_tooltip = DA_HO_tier_3_unlock_tt
-			hidden_effect = {
-				country_event = { id = DA_Haraz_Orldhum_event.5 days = 30 }
-				country_event = { id = DA_Haraz_Orldhum_event.24 days = 3650 }
-			}
 		}
 	}
 }
+# END DA_WW
 
 
 #######################################################

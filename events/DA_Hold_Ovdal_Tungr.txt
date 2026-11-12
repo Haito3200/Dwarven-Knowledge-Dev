@@ -1,0 +1,265 @@
+# Ovdal Tungr: the Drowned Arsenal. Written on 12 November 2026 ("Claude files/tools/ovdal_tungr_2026-11-12/gen.py");
+# hand-owned after the first installation. The finds are DA_ADK_explore.200, .232 and .233 (events/DA_Exploration_Outcomes.txt).
+#   .10        the first inventory, five days after the loft is found
+#   .2 .3      the reports of tiers I and II, thirty days after the works end (wonder works hooks)
+#   .4         tier III: a flagship or a pattern (DA_OT_monthly asks once)
+#   .11 .12    one and three years after tier I;  .13  one year after tier II;  .14  ten years after tier III
+#   .40        a drawing of the loft has been copied (DA_OT_finish_study)
+#   .41        the hull was launched and the Fleet Roll read: the Keel of Aul-Dwarov (DA_OT_monthly)
+
+namespace = DA_Ovdal_Tungr_event
+
+country_event = { # the first inventory
+	id = DA_Ovdal_Tungr_event.10
+	title = "DA_Ovdal_Tungr_event.10.t"
+	desc = "DA_Ovdal_Tungr_event.10.d"
+	picture = DA_Drowned_Arsenal_loft_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 526
+	}
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.10.a"
+		custom_tooltip = DA_Ovdal_Tungr_event.10.tt
+	}
+}
+
+country_event = { # tier I: the pumps running
+	id = DA_Ovdal_Tungr_event.2
+	title = "DA_Ovdal_Tungr_event.2.t"
+	desc = "DA_Ovdal_Tungr_event.2.d"
+	picture = DA_Drowned_Arsenal_gate_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 526
+	}
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.2.a"
+		custom_tooltip = DA_OT_tier_1_unlock_tt
+	}
+}
+
+country_event = { # tier II: the great dock dry
+	id = DA_Ovdal_Tungr_event.3
+	title = "DA_Ovdal_Tungr_event.3.t"
+	desc = "DA_Ovdal_Tungr_event.3.d"
+	picture = DA_Drowned_Arsenal_hull_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 526
+	}
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.3.a"
+		custom_tooltip = DA_OT_tier_2_unlock_tt
+	}
+}
+
+country_event = { # tier III: a flagship or a pattern
+	id = DA_Ovdal_Tungr_event.4
+	title = "DA_Ovdal_Tungr_event.4.t"
+	desc = "DA_Ovdal_Tungr_event.4.d"
+	picture = DA_Drowned_Arsenal_hull_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 526
+		NOT = { DA_OT_hull_ruled = yes }
+	}
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.4.a"
+		add_prestige = 20
+		custom_tooltip = DA_Ovdal_Tungr_event.4.a.tt
+		hidden_effect = {
+			526 = { set_province_flag = DA_OT_hull_launched }
+			clr_country_flag = DA_OT_ruling_asked
+		}
+	}
+	option = {
+		name = "DA_Ovdal_Tungr_event.4.b"
+		custom_tooltip = DA_OT_gain_5_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_Ovdal_Tungr_event.4.b.tt
+		hidden_effect = {
+			526 = { set_province_flag = DA_OT_hull_pattern }
+			clr_country_flag = DA_OT_ruling_asked
+		}
+	}
+}
+
+country_event = { # one year after tier I: the water-drinkers' petition
+	id = DA_Ovdal_Tungr_event.11
+	title = "DA_Ovdal_Tungr_event.11.t"
+	desc = "DA_Ovdal_Tungr_event.11.d"
+	picture = SHIP_SAILING_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 526
+	}
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.11.a"
+		add_navy_tradition = 10
+	}
+	option = {
+		name = "DA_Ovdal_Tungr_event.11.b"
+		add_prestige = 15
+	}
+}
+
+country_event = { # three years after tier I: buyers at the sea gate
+	id = DA_Ovdal_Tungr_event.12
+	title = "DA_Ovdal_Tungr_event.12.t"
+	desc = "DA_Ovdal_Tungr_event.12.d"
+	picture = DA_Drowned_Arsenal_gate_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 526
+	}
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.12.a"
+		add_treasury = 400
+	}
+	option = {
+		name = "DA_Ovdal_Tungr_event.12.b"
+		custom_tooltip = DA_OT_gain_10_metal
+		hidden_effect = { change_variable = { which = DA_arcane_metal_total value = 10 } }
+	}
+}
+
+country_event = { # one year after tier II: sea trials
+	id = DA_Ovdal_Tungr_event.13
+	title = "DA_Ovdal_Tungr_event.13.t"
+	desc = "DA_Ovdal_Tungr_event.13.d"
+	picture = SHIP_SAILING_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 526
+	}
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.13.a"
+		custom_tooltip = DA_OT_gain_5_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 5 } }
+	}
+	option = {
+		name = "DA_Ovdal_Tungr_event.13.b"
+		add_navy_tradition = 10
+	}
+}
+
+country_event = { # ten years after tier III: the tenth year
+	id = DA_Ovdal_Tungr_event.14
+	title = "DA_Ovdal_Tungr_event.14.t"
+	desc = {
+		trigger = { 526 = { has_province_flag = DA_OT_hull_launched } }
+		desc = "DA_Ovdal_Tungr_event.14.d.launched"
+	}
+	desc = {
+		trigger = { NOT = { 526 = { has_province_flag = DA_OT_hull_launched } } }
+		desc = "DA_Ovdal_Tungr_event.14.d"
+	}
+	picture = DA_Drowned_Arsenal_gate_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 526
+	}
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.14.a"
+		add_stability = 1
+		add_prestige = 20
+	}
+	option = {
+		name = "DA_Ovdal_Tungr_event.14.b"
+		custom_tooltip = DA_OT_gain_10_ADK
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
+	}
+}
+
+country_event = { # a drawing of the loft has been copied
+	id = DA_Ovdal_Tungr_event.40
+	title = "DA_Ovdal_Tungr_event.40.t"
+	desc = {
+		trigger = { has_country_flag = DA_OT_copied_copper }
+		desc = "DA_Ovdal_Tungr_event.40.d.copper"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_OT_copied_casemate }
+		desc = "DA_Ovdal_Tungr_event.40.d.casemate"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_OT_copied_ram }
+		desc = "DA_Ovdal_Tungr_event.40.d.ram"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_OT_copied_engines }
+		desc = "DA_Ovdal_Tungr_event.40.d.engines"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_OT_copied_dreadnought }
+		desc = "DA_Ovdal_Tungr_event.40.d.dreadnought"
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_OT_copied_copper } NOT = { has_country_flag = DA_OT_copied_casemate } NOT = { has_country_flag = DA_OT_copied_ram } NOT = { has_country_flag = DA_OT_copied_engines } NOT = { has_country_flag = DA_OT_copied_dreadnought } }
+		desc = "DA_Ovdal_Tungr_event.40.d"
+	}
+	picture = DA_Drowned_Arsenal_loft_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.40.a"
+		if = {
+			limit = { has_country_flag = DA_OT_copied_copper }
+			custom_tooltip = DA_OT_copied_copper_tt
+			hidden_effect = { clr_country_flag = DA_OT_copied_copper }
+		}
+		if = {
+			limit = { has_country_flag = DA_OT_copied_casemate }
+			custom_tooltip = DA_OT_copied_casemate_tt
+			hidden_effect = { clr_country_flag = DA_OT_copied_casemate }
+		}
+		if = {
+			limit = { has_country_flag = DA_OT_copied_ram }
+			custom_tooltip = DA_OT_copied_ram_tt
+			hidden_effect = { clr_country_flag = DA_OT_copied_ram }
+		}
+		if = {
+			limit = { has_country_flag = DA_OT_copied_engines }
+			custom_tooltip = DA_OT_copied_engines_tt
+			hidden_effect = { clr_country_flag = DA_OT_copied_engines }
+		}
+		if = {
+			limit = { has_country_flag = DA_OT_copied_dreadnought }
+			custom_tooltip = DA_OT_copied_dreadnought_tt
+			hidden_effect = { clr_country_flag = DA_OT_copied_dreadnought }
+		}
+	}
+}
+
+country_event = { # the hull was launched and the Fleet Roll read: the Keel of Aul-Dwarov
+	id = DA_Ovdal_Tungr_event.41
+	title = "DA_Ovdal_Tungr_event.41.t"
+	desc = "DA_Ovdal_Tungr_event.41.d"
+	picture = DA_Drowned_Arsenal_hull_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Ovdal_Tungr_event.41.a"
+		custom_tooltip = DA_Ovdal_Tungr_event.41.tt
+	}
+}
+

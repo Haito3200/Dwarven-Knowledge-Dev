@@ -2519,51 +2519,81 @@ DA_RS_project_Platinum_exoskeletons = {
 	}
 }
 
-DA_RS_project_Dark_Rams_Taming = {
+DA_RS_project_Ramsteel_Forges = { # Orlazam-az-dihr: the forges of Old Dagrinrod. Ends with DA_Orlazam_az_dihr_event.2 (the monument DA_Ramsteel_Forges)
 	icon = DA_RS_Unique1
 	loyalty = 0.10
 	is_valid = {
-		any_core_province = {
-			owned_by = root
-			province_id = 4147
-			has_province_modifier = DA_Dark_Rams
+		OR = {
+			has_country_flag = DA_can_build_ramsteel_forges
+			4147 = {
+				owned_by = ROOT
+				has_province_flag = DA_Orlazam_az_dihr_exp1
+			}
 		}
-		NOT = { has_country_modifier = DA_Dark_Rams_applied1 }
-		NOT = { has_country_modifier = DA_Dark_Rams_applied2 }
-		NOT = { has_country_modifier = DA_Dark_Rams_applied3 }
+		owns = 4130
+		NOT = { has_country_flag = DA_Ramsteel_forges_built }
 	}
 	can_select = {
 		DA_RS_has_points_for_advanced = yes
 		DA_has_NO_Project_active = yes
-		any_core_province = {
-			owned_by = root
-			province_id = 4147
-			has_province_modifier = DA_Dark_Rams
+		DA_has_RF_4_or_higher = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_OAD_forge_needs_drawings_tt
+			OR = {
+				has_country_flag = DA_can_build_ramsteel_forges
+				4147 = {
+					owned_by = ROOT
+					has_province_flag = DA_Orlazam_az_dihr_exp1
+				}
+			}
 		}
-		treasury = 3000
+		owns = 4130
+		owns = 4148
+		owns = 4118
+		treasury = 1500
 	}
 	on_granted = {
 		DA_grants_production_advanced = yes
-		add_treasury = -3000
-		every_core_province = {
-			limit = { province_id = 4147 } 
-			add_permanent_province_modifier = {
-				name = "DA_Dark_Rams_taming_process"
-				duration = 1825
+		add_treasury = -1500
+		custom_tooltip = DA_OAD_forge_project_time_tt
+		4130 = {
+			add_province_modifier = {
+				name = DA_Ramsteel_forges_works
+				duration = 1095
 			}
 		}
 		hidden_effect = {
+			clr_country_flag = DA_OAD_forge_run
+			clr_country_flag = DA_OAD_forge_midway
+			clr_country_flag = DA_OAD_forge_capped
+			set_country_flag = DA_OAD_forge_run
 			country_event = {
-				id = DA_Orlazam_az_dihr_event.3
-				days = 1825
+				id = DA_Orlazam_az_dihr_event.11
+				days = 365
+			}
+			country_event = {
+				id = DA_Orlazam_az_dihr_event.2
+				days = 1095
 			}
 		}
 	}
 	on_revoked = {
 		DA_remove_production_advanced = yes
+		hidden_effect = {
+			clr_country_flag = DA_OAD_forge_run
+			4130 = {
+				remove_province_modifier = DA_Ramsteel_forges_works
+			}
+		}
 	}
 	on_invalid = {
 		DA_remove_production_advanced = yes
+		hidden_effect = {
+			clr_country_flag = DA_OAD_forge_run
+			4130 = {
+				remove_province_modifier = DA_Ramsteel_forges_works
+			}
+		}
 	}
 	penalties = {
 	}
@@ -2577,23 +2607,164 @@ DA_RS_project_Dark_Rams_Taming = {
 	}
 }
 
-DA_RS_project_Ice_Steel_techniques1 = {
+DA_RS_project_Dark_Rams_Taming = { # Orlazam-az-dihr: the wild herd. Ends with DA_Orlazam_az_dihr_event.3 (Mythical Cavalry, the Dark Rams)
 	icon = DA_RS_Unique1
 	loyalty = 0.10
 	is_valid = {
-		has_country_flag = DA_can_build_ice_forge1
-		any_core_province = { province_id = 4208 } 
-		NOT = { has_country_modifier = DA_Ice_steel_equipment_shock1 }
-		NOT = { has_country_modifier = DA_Ice_steel_equipment_fire1 }
-		NOT = { has_country_modifier = DA_Ice_steel_equipment_shock2 }
-		NOT = { has_country_modifier = DA_Ice_steel_equipment_fire2 }
+		owns = 4147
+		4147 = {
+			has_province_flag = DA_Orlazam_az_dihr_exp2
+		}
+		NOT = { has_country_flag = DA_Dark_Rams_tamed }
+		NOT = { has_country_modifier = DA_Dark_Rams_applied1 }
+		NOT = { has_country_modifier = DA_Dark_Rams_applied2 }
+		NOT = { has_country_modifier = DA_Dark_Rams_applied3 }
 	}
 	can_select = {
 		DA_RS_has_points_for_advanced = yes
 		DA_has_NO_Project_active = yes
-		has_country_flag = DA_can_build_ice_forge1
-		any_core_province = { province_id = 4208 } 
-		treasury = 2000
+		owns = 4147
+		custom_trigger_tooltip = {
+			tooltip = DA_OAD_rams_needs_herd_tt
+			4147 = {
+				has_province_flag = DA_Orlazam_az_dihr_exp2
+			}
+		}
+		treasury = 3000
+	}
+	on_granted = {
+		DA_grants_production_advanced = yes
+		add_treasury = -3000
+		custom_tooltip = DA_OAD_rams_project_time_tt
+		4147 = {
+			add_province_modifier = {
+				name = DA_Dark_Rams_taming_process
+				duration = 1825
+			}
+		}
+		hidden_effect = {
+			clr_country_flag = DA_OAD_rams_run
+			clr_country_flag = DA_OAD_rams_midway
+			clr_country_flag = DA_OAD_rams_broken
+			set_country_flag = DA_OAD_rams_run
+			country_event = {
+				id = DA_Orlazam_az_dihr_event.21
+				days = 730
+			}
+			country_event = {
+				id = DA_Orlazam_az_dihr_event.3
+				days = 1825
+			}
+		}
+	}
+	on_revoked = {
+		DA_remove_production_advanced = yes
+		hidden_effect = {
+			clr_country_flag = DA_OAD_rams_run
+			4147 = {
+				remove_province_modifier = DA_Dark_Rams_taming_process
+			}
+		}
+	}
+	on_invalid = {
+		DA_remove_production_advanced = yes
+		hidden_effect = {
+			clr_country_flag = DA_OAD_rams_run
+			4147 = {
+				remove_province_modifier = DA_Dark_Rams_taming_process
+			}
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	can_revoke = {
+		always = no
+	}
+	ai_will_do = {
+		factor = 1000
+	}
+}
+
+# BEGIN DA_BALGAR_FOLIO
+DA_RS_project_Balgar_Folio = { # Khugdihr: one sealed case of Balgar's folio is deciphered. Repeatable. Ends with DA_Khugdihr_event.6, which reads a random plan
+	icon = DA_RS_Unique1
+	loyalty = 0.05
+	is_valid = {
+		has_country_flag = DA_can_build_Balgar_wonders
+		owns = 2863
+		DA_KH_any_plan_unread = yes
+	}
+	can_select = {
+		DA_RS_has_points_for_basic = yes
+		DA_has_NO_Project_active = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_folio_open_tt
+			has_country_flag = DA_can_build_Balgar_wonders
+		}
+		owns = 2863
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_cases_left_tt
+			DA_KH_any_plan_unread = yes
+		}
+		treasury = 500
+		custom_trigger_tooltip = {
+			tooltip = DA_has_5_ADK
+			check_variable = { ancientDwarvenKnowledge = 5 }
+		}
+	}
+	on_granted = {
+		DA_grants_production_basic = yes
+		add_treasury = -500
+		custom_tooltip = DA_Cost_5_ADK
+		hidden_effect = { subtract_variable = { ancientDwarvenKnowledge = 5 } }
+		custom_tooltip = DA_KH_decipher_time_tt
+		hidden_effect = {
+			clr_country_flag = DA_KH_decipher_run
+			set_country_flag = DA_KH_decipher_run
+			country_event = {
+				id = DA_Khugdihr_event.6
+				days = 365
+			}
+		}
+	}
+	on_revoked = {
+		DA_remove_production_basic = yes
+		hidden_effect = {
+			clr_country_flag = DA_KH_decipher_run
+		}
+	}
+	on_invalid = {
+		DA_remove_production_basic = yes
+		hidden_effect = {
+			clr_country_flag = DA_KH_decipher_run
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	can_revoke = {
+		always = no
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+# END DA_BALGAR_FOLIO
+
+DA_RS_project_Ice_Steel_techniques1 = {
+	icon = DA_RS_Unique1
+	loyalty = 0.10
+	is_valid = { # retired on 11 November 2026: the techniques are tiers of the Frozen Forge. Only a project that was running then stays valid
+		has_country_modifier = DA_Ice_steel_forge_research_improvement
+	}
+	can_select = {
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_project_folded_tt
+			always = no
+		}
 	}
 	on_granted = {
 		DA_grants_production_advanced = yes
@@ -2630,32 +2801,13 @@ DA_RS_project_Ice_Steel_techniques1 = {
 DA_RS_project_Ice_Steel_techniques2 = {
 	icon = DA_RS_Unique2
 	loyalty = 0.10
-	is_valid = {
-		has_country_flag = DA_can_build_ice_forge1
-		NOT = { has_country_modifier = DA_Ice_steel_forge_research_improvement } 
-		any_core_province = {
-			province_id = 4208
-			has_province_modifier = DA_Alchemy_material.Giant_remains
-		}
-		OR = {
-			has_country_modifier = DA_Ice_steel_equipment_shock1
-			has_country_modifier = DA_Ice_steel_equipment_fire1
-		}
-		NOT = { has_country_modifier = DA_Ice_steel_equipment_shock2 }
-		NOT = { has_country_modifier = DA_Ice_steel_equipment_fire2 }
+	is_valid = { # retired on 11 November 2026: the techniques are tiers of the Frozen Forge. Only a project that was running then stays valid
+		has_country_modifier = DA_Ice_steel_forge_research_improvement
 	}
 	can_select = {
-		DA_RS_has_points_for_masterwork = yes
-		DA_has_NO_Project_active = yes
-		NOT = { has_country_modifier = DA_Ice_steel_forge_research_improvement } 
-		any_core_province = {
-			province_id = 4208
-			has_province_modifier = DA_Alchemy_material.Giant_remains
-		}
-		treasury = 6000
-		OR = {
-			has_country_modifier = DA_Ice_steel_equipment_shock1
-			has_country_modifier = DA_Ice_steel_equipment_fire1
+		custom_trigger_tooltip = {
+			tooltip = DA_FF_project_folded_tt
+			always = no
 		}
 	}
 	on_granted = {

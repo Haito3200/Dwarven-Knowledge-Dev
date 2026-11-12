@@ -18,7 +18,10 @@ DA_Castonath = {
 			owns = 831
 		}
 	}
-	on_built = {
+	on_built = { # the answer given in the plan's event becomes a modifier of the province
+		831 = { DA_KH_settle = { plan = DA_KH_castonath a = DA_Balgar_castonath_raised b = DA_Balgar_castonath_delved } }
+		832 = { DA_KH_settle = { plan = DA_KH_castonath a = DA_Balgar_castonath_raised b = DA_Balgar_castonath_delved } }
+		833 = { DA_KH_settle = { plan = DA_KH_castonath a = DA_Balgar_castonath_raised b = DA_Balgar_castonath_delved } }
 	}
 	on_destroyed = {		
 	}
@@ -75,6 +78,14 @@ DA_Castonath = {
 		country_modifiers = {
 		}
 		on_upgraded = {
+			hidden_effect = { # the report of the works: the first district (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.24
+						days = 3
+					}
+				}
+			}
 		}
 	}
 	tier_2 = {
@@ -120,6 +131,14 @@ DA_Castonath = {
 			monthly_splendor = 1
 		}
 		on_upgraded = {
+			hidden_effect = { # the report of the works: Castonath finished (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.25
+						days = 3
+					}
+				}
+			}
 		}
 	}
 }
@@ -139,7 +158,8 @@ DA_Khugdihr_last_defense = {
 			has_country_flag = DA_can_reinforce_khugdihr
 		}
 	}
-	on_built = {
+	on_built = { # the answer given in the plan's event becomes a modifier of the province
+		2863 = { DA_KH_settle = { plan = DA_KH_bastion a = DA_Balgar_bastion_deep_gate b = DA_Balgar_bastion_surface_gate } }
 	}
 	on_destroyed = {		
 	}
@@ -190,6 +210,14 @@ DA_Khugdihr_last_defense = {
 		country_modifiers = {
 		}
 		on_upgraded = {
+			hidden_effect = { # the report of the works: the first course (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.21
+						days = 3
+					}
+				}
+			}
 		}
 	}
 	tier_2 = {
@@ -230,6 +258,14 @@ DA_Khugdihr_last_defense = {
 		country_modifiers = {
 		}
 		on_upgraded = {
+			hidden_effect = { # the report of the works: the Bastion finished (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.22
+						days = 3
+					}
+				}
+			}
 		}
 	}
 }
@@ -276,7 +312,8 @@ DA_Serpent_Vale_wall1 = {
 			has_country_flag = DA_can_build_vale_walls
 		}
 	}
-	on_built = {
+	on_built = { # the answer given in the plan's event becomes a modifier of the province
+		4166 = { DA_KH_settle = { plan = DA_KH_vale a = DA_Balgar_vale_gated b = DA_Balgar_vale_closed } }
 	}
 	on_destroyed = {		
 	}
@@ -378,6 +415,14 @@ DA_Serpent_Vale_wall1 = {
 		country_modifiers = {
 		}
 		on_upgraded = {
+			hidden_effect = { # the report of the works: the first of the two walls at tier I (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.27
+						days = 3
+					}
+				}
+			}
 		}
 	}
 	tier_2 = {
@@ -427,6 +472,14 @@ DA_Serpent_Vale_wall1 = {
 				add_building_construction = {
 					building = fort_18th
 					cost = 0
+				}
+			}
+			hidden_effect = { # the report of the works: both walls at tier III (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.28
+						days = 3
+					}
 				}
 			}
 		}
@@ -475,7 +528,8 @@ DA_Serpent_Vale_wall2 = {
 			has_country_flag = DA_can_build_vale_walls
 		}
 	}
-	on_built = {
+	on_built = { # the answer given in the plan's event becomes a modifier of the province
+		4145 = { DA_KH_settle = { plan = DA_KH_vale a = DA_Balgar_vale_gated b = DA_Balgar_vale_closed } }
 	}
 	on_destroyed = {		
 	}
@@ -577,6 +631,14 @@ DA_Serpent_Vale_wall2 = {
 		country_modifiers = {
 		}
 		on_upgraded = {
+			hidden_effect = { # the report of the works: the first of the two walls at tier I (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.27
+						days = 3
+					}
+				}
+			}
 		}
 	}
 	tier_2 = {
@@ -628,6 +690,850 @@ DA_Serpent_Vale_wall2 = {
 					cost = 0
 				}
 			}
+			hidden_effect = { # the report of the works: both walls at tier III (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.28
+						days = 3
+					}
+				}
+			}
 		}
 	}
 }
+
+# BEGIN DA_BALGAR_FOLIO
+# Six more works of Balgar's folio (12 November 2026; written by Claude files/tools/khugdihr_2026-11-12/gen.py, hand-owned once installed).
+# A plan is read by the Runesmith project DA_RS_project_Balgar_Folio; the great project can then be built once its conditions are met.
+DA_Balgar_Sunwells = { # The Sunwells of Khugdihr. Plan: DA_Khugdihr_event.14; reports: .50 (tier I) and .51 (tier III)
+	start = 2896 # Khugscave
+	date = 2023.01.01
+	time = {
+		months = 24
+	}
+	build_cost = 400
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_sunwells }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_sunwells_tt
+			owner = { owns = 2863 owns = 2896 owns = 2897 }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_no_dragon_tt
+			2863 = { NOT = { has_province_modifier = DA_Dragon_raids } }
+		}
+	}
+	on_built = {
+		2896 = { DA_KH_settle = { plan = DA_KH_sunwells a = DA_Balgar_sunwells_terraces b = DA_Balgar_sunwells_streets } }
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+		province_is_or_accepts_culture = yes
+	}
+	can_upgrade_trigger = {
+		province_is_or_accepts_culture = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_sunwells }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_sunwells_tt
+			owner = { owns = 2863 owns = 2896 owns = 2897 }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_no_dragon_tt
+			2863 = { NOT = { has_province_modifier = DA_Dragon_raids } }
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+			local_development_cost = -0.04
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 96
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+			local_development_cost = -0.08
+			local_manpower_modifier = 0.08
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.50
+						days = 3
+					}
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 180
+		}
+		cost_to_upgrade = {
+			factor = 2200
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+			local_development_cost = -0.12
+			local_manpower_modifier = 0.15
+			supply_limit_modifier = 0.2
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 300
+		}
+		cost_to_upgrade = {
+			factor = 4500
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+			local_development_cost = -0.15
+			local_manpower_modifier = 0.25
+			supply_limit_modifier = 0.4
+		}
+		country_modifiers = {
+			global_manpower_modifier = 0.04
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.51
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+DA_Balgar_Homeforge = { # The Homeforge. Plan: DA_Khugdihr_event.15; reports: .52 (tier I) and .53 (tier III)
+	start = 2863 # Khugdihr
+	date = 2023.01.01
+	time = {
+		months = 36
+	}
+	build_cost = 600
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_homeforge }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_dragon_dead_tt
+			OR = { has_province_flag = DA_Khugdihr_dragon_dead has_province_modifier = DA_Alchemy_material.Dragon_remains }
+		}
+	}
+	on_built = {
+		2863 = { DA_KH_settle = { plan = DA_KH_homeforge a = DA_Balgar_homeforge_runesmiths b = DA_Balgar_homeforge_balgarsmiths } }
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+		province_is_or_accepts_culture = yes
+	}
+	can_upgrade_trigger = {
+		province_is_or_accepts_culture = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_homeforge }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_dragon_dead_tt
+			OR = { has_province_flag = DA_Khugdihr_dragon_dead has_province_modifier = DA_Alchemy_material.Dragon_remains }
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.08
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 1500
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.15
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			artillery_cost = -0.04
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.52
+						days = 3
+					}
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3000
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.25
+		}
+		area_modifier = {
+			trade_goods_size_modifier = 0.08
+		}
+		country_modifiers = {
+			artillery_cost = -0.08
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 6000
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.4
+		}
+		area_modifier = {
+			trade_goods_size_modifier = 0.15
+		}
+		country_modifiers = {
+			artillery_cost = -0.12
+			global_regiment_cost = -0.04
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.53
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+DA_Balgar_Gallery = { # The Gallery of the Old Gods. Plan: DA_Khugdihr_event.16; reports: .54 (tier I) and .55 (tier III)
+	start = 2897 # Outer Khugscave
+	date = 2023.01.01
+	time = {
+		months = 24
+	}
+	build_cost = 300
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_gallery }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_gallery_tt
+			owner = { owns = 2863 owns = 2897 }
+		}
+	}
+	on_built = {
+		2897 = { DA_KH_settle = { plan = DA_KH_gallery a = DA_Balgar_gallery_road b = DA_Balgar_gallery_hold } }
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+		province_is_or_accepts_culture = yes
+	}
+	can_upgrade_trigger = {
+		province_is_or_accepts_culture = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_gallery }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_gallery_tt
+			owner = { owns = 2863 owns = 2897 }
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			prestige = 0.2
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 800
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			prestige = 0.4
+			tolerance_own = 0.4
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.54
+						days = 3
+					}
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 1800
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			prestige = 0.6
+			tolerance_own = 0.75
+			stability_cost_modifier = -0.04
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3600
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			prestige = 0.75
+			tolerance_own = 0.75
+			tolerance_heathen = 0.75
+			stability_cost_modifier = -0.08
+			legitimacy = 0.4
+			devotion = 0.4
+			republican_tradition = 0.2
+			meritocracy = 0.4
+			horde_unity = 0.4
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.55
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+DA_Balgar_Northgate = { # Bal Dwaroval, the Northgate. Plan: DA_Khugdihr_event.17; reports: .56 (tier I) and .57 (tier III)
+	start = 4173 # Old Dwaroval
+	date = 2023.01.01
+	time = {
+		months = 30
+	}
+	build_cost = 400
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_northgate }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_northgate_tt
+			owner = { owns = 4171 owns = 4173 owns = 4174 owns = 4175 }
+		}
+	}
+	on_built = {
+		4173 = { DA_KH_settle = { plan = DA_KH_northgate a = DA_Balgar_northgate_toll b = DA_Balgar_northgate_bane } }
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+		province_is_or_accepts_culture = yes
+	}
+	can_upgrade_trigger = {
+		province_is_or_accepts_culture = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_northgate }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_northgate_tt
+			owner = { owns = 4171 owns = 4173 owns = 4174 owns = 4175 }
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_defensiveness = 0.2
+		}
+		area_modifier = {
+			local_hostile_attrition = 1
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.56
+						days = 3
+					}
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_defensiveness = 0.4
+			local_defender_dice_roll_bonus = 1
+		}
+		area_modifier = {
+			local_hostile_attrition = 1.5
+		}
+		region_modifier = {
+			local_unrest = -0.75
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 180
+		}
+		cost_to_upgrade = {
+			factor = 4000
+		}
+		province_modifiers = {
+			local_defensiveness = 0.75
+			local_defender_dice_roll_bonus = 1
+		}
+		area_modifier = {
+			local_hostile_attrition = 2
+		}
+		region_modifier = {
+			local_unrest = -1.5
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.57
+						days = 3
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_building = fort_18th }
+				}
+				add_building_construction = {
+					building = fort_18th
+					cost = 0
+				}
+			}
+		}
+	}
+}
+DA_Balgar_Builders_Road = { # The Builder's Road. Plan: DA_Khugdihr_event.18; reports: .58 (tier I) and .59 (tier III)
+	start = 849 # Khugsroad
+	date = 2023.01.01
+	time = {
+		months = 30
+	}
+	build_cost = 400
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_builders_road }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_road_tt
+			owner = { owns = 849 owns = 2863 owns = 833 }
+		}
+	}
+	on_built = {
+		849 = { DA_KH_settle = { plan = DA_KH_road a = DA_Balgar_road_paved b = DA_Balgar_road_railed } }
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+		province_is_or_accepts_culture = yes
+	}
+	can_upgrade_trigger = {
+		province_is_or_accepts_culture = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_builders_road }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_road_tt
+			owner = { owns = 849 owns = 2863 owns = 833 }
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {
+			province_trade_power_value = 2
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1200
+		}
+		province_modifiers = {
+			province_trade_power_value = 4
+		}
+		area_modifier = {
+			local_friendly_movement_speed = 0.08
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.58
+						days = 3
+					}
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2400
+		}
+		province_modifiers = {
+			province_trade_power_value = 8
+		}
+		area_modifier = {
+			local_friendly_movement_speed = 0.15
+			local_institution_spread = 0.08
+		}
+		country_modifiers = {
+			caravan_power = 0.08
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 4800
+		}
+		province_modifiers = {
+			province_trade_power_value = 15
+		}
+		area_modifier = {
+			local_friendly_movement_speed = 0.25
+			local_institution_spread = 0.15
+		}
+		country_modifiers = {
+			caravan_power = 0.15
+			trade_steering = 0.08
+			merchants = 1
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.59
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+DA_Balgar_Nath_Waterworks = { # The Nath Waterworks. Plan: DA_Khugdihr_event.19; reports: .60 (tier I) and .61 (tier III)
+	start = 854 # Bradnath
+	date = 2023.01.01
+	time = {
+		months = 36
+	}
+	build_cost = 500
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_nath_waterworks }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_nath_tt
+			owner = { owns = 851 owns = 844 owns = 854 owns = 841 owns = 853 owns = 855 }
+		}
+	}
+	on_built = {
+		854 = { DA_KH_settle = { plan = DA_KH_nath a = DA_Balgar_nath_fields b = DA_Balgar_nath_settlers } }
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+		province_is_or_accepts_culture = yes
+	}
+	can_upgrade_trigger = {
+		province_is_or_accepts_culture = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_plan_read_tt
+			owner = { has_country_flag = DA_can_build_nath_waterworks }
+		}
+		custom_trigger_tooltip = {
+			tooltip = DA_KH_site_nath_tt
+			owner = { owns = 851 owns = 844 owns = 854 owns = 841 owns = 853 owns = 855 }
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 0
+		}
+		cost_to_upgrade = {
+			factor = 0
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+			local_development_cost = -0.04
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 1500
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+			trade_goods_size_modifier = 0.08
+			local_development_cost = -0.08
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.60
+						days = 3
+					}
+				}
+			}
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3000
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+			trade_goods_size_modifier = 0.15
+			local_development_cost = -0.12
+		}
+		region_modifier = {
+			local_monthly_devastation = -0.04
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 5500
+		}
+		province_modifiers = {
+		}
+		area_modifier = {
+			trade_goods_size_modifier = 0.25
+			local_development_cost = -0.15
+		}
+		region_modifier = {
+			local_monthly_devastation = -0.08
+			local_prosperity_growth = 0.08
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			hidden_effect = { # the report of the works (events/DA_Hold_Khugdihr.txt)
+				owner = {
+					country_event = {
+						id = DA_Khugdihr_event.61
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}
+# END DA_BALGAR_FOLIO

@@ -116,91 +116,27 @@ custom_button = {
         DA_close_projects_research_interface = yes
     }
 }
-custom_text_box = {
-    name = DA_projects_research_Interface_on_name_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_projects_research_Interface_on_name_shower #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
+# DA_projects_research_Interface_on_name_shower removed by build_projects_research.py (one page per method now)
 
-custom_button = {
-    name = DA_projects_research_Interface_on_button_previous
-    tooltip = DA_projects_research_Interface_on_button_previous_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        hidden_trigger = {
-            NOT = { has_country_flag = DA_projects_research_Interface_on_arcane_1 }
-            NOT = { has_country_flag = DA_projects_research_Interface_on_Steam_1 }
-            NOT = { has_country_flag = DA_projects_research_Interface_on_Electrical_1 }
-            NOT = { has_country_flag = DA_projects_research_Interface_on_Unique_1 }
-        }
-    }
-    effect = {
-        if = {
-            limit = {
-                has_country_flag = DA_projects_research_Interface_on_arcane_2
-            }
-            clr_country_flag = DA_projects_research_Interface_on_arcane_2
-            set_country_flag = DA_projects_research_Interface_on_arcane_1
-        }
-    }
-}
-custom_button = {
-    name = DA_projects_research_Interface_on_button_next
-    tooltip = DA_projects_research_Interface_on_button_next_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        hidden_trigger = {
-            NOT = { has_country_flag = DA_projects_research_Interface_on_arcane_2 }
-            NOT = { has_country_flag = DA_projects_research_Interface_on_Steam_1 }
-            NOT = { has_country_flag = DA_projects_research_Interface_on_Electrical_1 }
-            NOT = { has_country_flag = DA_projects_research_Interface_on_Unique_1 }
-        }
-    }
-    effect = {
-        if = {
-            limit = {
-                has_country_flag = DA_projects_research_Interface_on_arcane_1
-            }
-            clr_country_flag = DA_projects_research_Interface_on_arcane_1
-            set_country_flag = DA_projects_research_Interface_on_arcane_2
-        }
-    }
-}
+# DA_projects_research_Interface_on_button_previous removed by build_projects_research.py (one page per method now)
+# DA_projects_research_Interface_on_button_next removed by build_projects_research.py (one page per method now)
 
 custom_window = {
-    name = DA_projects_research_Interface_Arcane_1
-    potential = {
-        has_country_flag = DA_projects_research_Interface_on_arcane_1
-    }
+	name = DA_projects_research_Interface_Arcane_1
+	potential = { NOT = { has_country_flag = DA_projects_research_Interface_on_Steam_1 } NOT = { has_country_flag = DA_projects_research_Interface_on_Electrical_1 } NOT = { has_country_flag = DA_projects_research_Interface_on_Unique_1 } }
+}
+# DA_projects_research_Interface_Arcane_2 removed by build_projects_research.py (one page per method now)
+custom_window = {
+	name = DA_projects_research_Interface_Steam_1
+	potential = { has_country_flag = DA_projects_research_Interface_on_Steam_1 }
 }
 custom_window = {
-    name = DA_projects_research_Interface_Arcane_2
-    potential = {
-        has_country_flag = DA_projects_research_Interface_on_arcane_2
-    }
+	name = DA_projects_research_Interface_Electrical_1
+	potential = { has_country_flag = DA_projects_research_Interface_on_Electrical_1 }
 }
 custom_window = {
-    name = DA_projects_research_Interface_Steam_1
-    potential = {
-        has_country_flag = DA_projects_research_Interface_on_Steam_1
-    }
-}
-custom_window = {
-    name = DA_projects_research_Interface_Electrical_1
-    potential = {
-        has_country_flag = DA_projects_research_Interface_on_Electrical_1
-    }
-}
-custom_window = {
-    name = DA_projects_research_Interface_Unique_1
-    potential = {
-        has_country_flag = DA_projects_research_Interface_on_Unique_1
-    }
+	name = DA_projects_research_Interface_Unique_1
+	potential = { has_country_flag = DA_projects_research_Interface_on_Unique_1 }
 }
 
 
@@ -265,146 +201,91 @@ custom_button = {
     }
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_Advancement_arcane
-    tooltip = DA_projects_research_buttons_background_Advancement_arcane_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        hidden_trigger = {
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = no
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = yes
-        }
-    }
-    effect = {
-    }
+	name = DA_projects_research_buttons_background_Advancement_arcane
+	tooltip = DA_projects_research_buttons_background_Advancement_arcane_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 1 } }
+	trigger = {
+		hidden_trigger = {
+			always = no
+		}
+	}
+	effect = {
+
+	}
 }
 
 custom_button = {
-    name = DA_projects_research_buttons_background_Advancement_steam
-    tooltip = DA_projects_research_buttons_background_Advancement_steam_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Magic_Theory_2 = yes
-        DA_completed.Mechanics_2 = yes
-        DA_completed.Alchemy_2 = yes
-        DA_yet_to_complete.Steam_Power_Project = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_completed.Steam_Power_Project = no
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Steam_Power_Project = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = steam
-            time = 120
-            steam = yes
-            unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = {
-                id = DA_project_event.300
-                days = 30
-            }
-        }
-    }
+	name = DA_projects_research_buttons_background_Advancement_steam
+	tooltip = DA_projects_research_buttons_background_Advancement_steam_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 2 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Magic_Theory_2 = yes
+		DA_completed.Mechanics_2 = yes
+		DA_completed.Alchemy_2 = yes
+		DA_yet_to_complete.Steam_Power_Project = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = steam
+			time = 120
+			steam = yes
+			unstoppable = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.300
+				days = 30
+			}
+		}
+	}
 }
 
 custom_button = {
-    name = DA_projects_research_buttons_background_Advancement_electric
-    tooltip = DA_projects_research_buttons_background_Advancement_electric_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Magic_Theory_3 = yes
-        DA_completed.Mechanics_3 = yes
-        DA_completed.Alchemy_3 = yes
-        DA_completed.Steam_Power_Project = yes
-        DA_yet_to_complete.Electric_Power_Project = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_completed.Electric_Power_Project = no
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Electric_Power_Project = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = electric
-            time = 180
-            electric = yes
-            unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = {
-                id = DA_project_event.310
-                days = 30
-            }
-        }
-    }
+	name = DA_projects_research_buttons_background_Advancement_electric
+	tooltip = DA_projects_research_buttons_background_Advancement_electric_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 3 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Magic_Theory_3 = yes
+		DA_completed.Mechanics_3 = yes
+		DA_completed.Alchemy_3 = yes
+		DA_completed.Steam_Power_Project = yes
+		DA_yet_to_complete.Electric_Power_Project = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = electric
+			time = 180
+			electric = yes
+			unstoppable = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.310
+				days = 30
+			}
+		}
+	}
 }
 
 custom_button = {
-    name = DA_projects_research_buttons_background_Advancement_tracendence
-    tooltip = DA_projects_research_buttons_background_Advancement_tracendence_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Electric_Power_Project = yes
-        DA_has_transcendent_path_to_unlock = yes
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_has_transcendent_path_to_unlock = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    effect = {
-        # Mega Engineering: see "Claude files/tools/build_mega_engineering.py"
-        DA_start_research = {
-            flag = trascendence
-            time = 240
-            electric = yes
-            unstoppable = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_Advancement_tracendence
+	tooltip = DA_projects_research_buttons_background_Advancement_tracendence_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 4 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Electric_Power_Project = yes
+		DA_has_transcendent_path_to_unlock = yes
+	}
+	effect = {
+		# Mega Engineering: see "Claude files/tools/build_mega_engineering.py"
+		DA_start_research = {
+			flag = trascendence
+			time = 240
+			electric = yes
+			unstoppable = yes
+		}
+	}
 }
 

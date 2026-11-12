@@ -1033,14 +1033,85 @@ province_event = { # Amldihr floor 11: the expedition is lost and the Abyssal In
 # The floor is marked as explored, and the Runic Gate found, by DA_Halanna_heart.40 when the disaster ends.
 
 ##########
-#Er-Natvir
+#Er-Natvir (2931): three finds, in order. The story continues in events/DA_Hold_Er_Natvir.txt.
+# The rolls are in common/scripted_effects/DA_Hold_exploration_effects.txt:
+# .229 on floors 3-10, .230 on floors 5-10 once .229 was found, .103 on floors 6-10 once .230 was found.
 
+province_event = {
+	id = DA_ADK_explore.229 	# the dead switchyard
+	title = "DA_ADK_explore.229.t"
+	desc = "DA_ADK_explore.229.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Er_Natvir_switchyard_found
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.229.a"
+		custom_tooltip = DA_ADK_explore.229.tooltip
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.230 	# the Chief Dispatcher's office and the last timetable
+	title = "DA_ADK_explore.230.t"
+	desc = "DA_ADK_explore.230.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Er_Natvir_timetable_found
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.230.a"
+		custom_tooltip = DA_ADK_explore.230.tooltip
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
 
 province_event = {
 	id = DA_ADK_explore.103		# Found Dwarven rail control room
 	title = "DA_ADK_explore.103.t"
 	desc = "DA_ADK_explore.103.d"
-	picture = BIG_BOOK_eventPicture
+	picture = GREAT_BUILDING_eventPicture
 
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -1241,24 +1312,112 @@ province_event = {
 
 
 province_event = {
-	id = DA_ADK_explore.200		# Found ovdal tungr shipyard
+	id = DA_ADK_explore.200 	# found the Drawing Loft of Ovdal Tungr
 	title = "DA_ADK_explore.200.t"
 	desc = "DA_ADK_explore.200.d"
-	picture = BIG_BOOK_eventPicture
+	picture = DA_Drowned_Arsenal_loft_eventPicture
 
 	is_triggered_only = yes
-	fire_only_once = yes
 	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_dwarven_shipyard_found
+		}
 		DA_pre_setting_Dig_level_as_explored = yes
-		set_province_flag = DA_dwarven_shipyard_found
 	}
 	option = {
 		name = "DA_ADK_explore.200.a"
 		custom_tooltip = DA_ADK_explore.200.tooltip
-		add_permanent_province_modifier = {
-			name = DA_Aul_dwarov_shipyard
-			duration = -1
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_great_project = { type = DA_Drowned_Arsenal } } }
+				add_great_project = { type = DA_Drowned_Arsenal instant = yes }
+			}
+			remove_province_modifier = DA_Aul_dwarov_shipyard
+			owner = { country_event = { id = DA_Ovdal_Tungr_event.10 days = 5 } }
 		}
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+province_event = {
+	id = DA_ADK_explore.232 	# found the Drowned Dock and the hull on its blocks
+	title = "DA_ADK_explore.232.t"
+	desc = "DA_ADK_explore.232.d"
+	picture = DA_Drowned_Arsenal_hull_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Ovdal_Tungr_exp2
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.232.a"
+		custom_tooltip = DA_ADK_explore.232.tooltip
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+province_event = {
+	id = DA_ADK_explore.233 	# found the Fleet Roll
+	title = "DA_ADK_explore.233.t"
+	desc = "DA_ADK_explore.233.d"
+	picture = DA_Drowned_Arsenal_roll_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Ovdal_Tungr_exp3
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.233.a"
+		custom_tooltip = DA_ADK_explore.233.tooltip
+		custom_tooltip = DA_OT_gain_8_ADK
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 8 } } }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.233.b"
+		custom_tooltip = DA_ADK_explore.233.tooltip
+		owner = { add_navy_tradition = 15 }
+		DA_province_prestige_relative_to_dig_level = yes
 		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
@@ -1715,6 +1874,7 @@ province_event = {
 		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {
 			DA_Set_level_as_explored = yes
+			owner = { country_event = { id = DA_Khugdihr_event.1 days = 180 } } # the catalogue of the studio (events/DA_Hold_Khugdihr.txt); the three-yearly pulse sends it later if the Research Facility is below 3
 		}
 	}
 	after = {
@@ -1735,7 +1895,7 @@ province_event = {
 	id = DA_ADK_explore.215 	# found dragon's signs
 	title = "DA_ADK_explore.215.t"
 	desc = "DA_ADK_explore.215.d"
-	picture = ULMISBAR_eventPicture
+	picture = KOBOLD_HOARD_eventPicture
 
 	is_triggered_only = yes
 	immediate = {
@@ -1769,7 +1929,7 @@ province_event = {
 	id = DA_ADK_explore.216 	# found dragon's nest
 	title = "DA_ADK_explore.216.t"
 	desc = "DA_ADK_explore.216.d"
-	picture = COUNTRY_COLLAPSE_eventPicture
+	picture = DRAGON_ATTACK_eventPicture
 
 	is_triggered_only = yes
 	immediate = {
@@ -1817,6 +1977,7 @@ province_event = {
 	immediate = {
 		hidden_effect = {
 			set_province_flag = DA_Orlazam_az_dihr_exp1
+			owner = { set_country_flag = DA_can_build_ramsteel_forges } # the drawings stay known if the hold is lost
 		}
 		DA_pre_setting_Dig_level_as_explored = yes
 	}
@@ -1885,10 +2046,10 @@ province_event = {
 # Krakdhûmvror
 
 province_event = {
-	id = DA_ADK_explore.219 	# found Ice-Steel forge
+	id = DA_ADK_explore.219 	# found the Frozen Forge
 	title = "DA_ADK_explore.219.t"
 	desc = "DA_ADK_explore.219.d"
-	picture = EKLUZAGNU_eventPicture
+	picture = DA_Frozen_Forge_cold_eventPicture
 
 	is_triggered_only = yes
 	immediate = {
@@ -1900,9 +2061,12 @@ province_event = {
 	option = {
 		name = "DA_ADK_explore.219.a"
 		custom_tooltip = DA_ADK_explore.219.tooltip
-		add_permanent_province_modifier = {
-			name = DA_Ice_steel_forge1
-			duration = -1
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_great_project = { type = DA_Frozen_Forge } } }
+				add_great_project = { type = DA_Frozen_Forge instant = yes }
+			}
+			owner = { country_event = { id = DA_Krakdhumvror_event.10 days = 5 } }
 		}
 		DA_province_prestige_relative_to_dig_level = yes
 		DA_province_ADK_relative_to_dig_level = yes
@@ -1925,10 +2089,10 @@ province_event = {
 }
 
 province_event = {
-	id = DA_ADK_explore.220 	# found Ice Giant's remains
+	id = DA_ADK_explore.220 	# found the giant under the hold
 	title = "DA_ADK_explore.220.t"
 	desc = "DA_ADK_explore.220.d"
-	picture = ULMISBAR_eventPicture
+	picture = DA_Frozen_Forge_giant_eventPicture
 
 	is_triggered_only = yes
 	immediate = {
@@ -1944,6 +2108,54 @@ province_event = {
 			id = DA_Tech_Alchemy_Material_Event.307
 			days = 0
 		}
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_province_flag = DA_expedition_in_progress
+			owner = {
+				add_country_modifier = {
+					name = DA_ADK_menu_cooldown
+					duration = 10
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+province_event = {
+	id = DA_ADK_explore.231 	# found the Wall of the Jotunn
+	title = "DA_ADK_explore.231.t"
+	desc = "DA_ADK_explore.231.d"
+	picture = DA_Frozen_Forge_mural_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_province_flag = DA_Krakdhumvror_exp3
+		}
+		DA_pre_setting_Dig_level_as_explored = yes
+	}
+	option = {
+		name = "DA_ADK_explore.231.a"
+		custom_tooltip = DA_ADK_explore.231.tooltip
+		custom_tooltip = DA_FF_gain_8_ADK
+		hidden_effect = { owner = { change_variable = { ancientDwarvenKnowledge = 8 } } }
+		DA_province_prestige_relative_to_dig_level = yes
+		DA_province_ADK_relative_to_dig_level = yes
+		hidden_effect = {
+			DA_Set_level_as_explored = yes
+		}
+	}
+	option = {
+		name = "DA_ADK_explore.231.b"
+		custom_tooltip = DA_ADK_explore.231.tooltip
+		owner = { add_prestige = 20 }
 		DA_province_prestige_relative_to_dig_level = yes
 		DA_province_ADK_relative_to_dig_level = yes
 		hidden_effect = {

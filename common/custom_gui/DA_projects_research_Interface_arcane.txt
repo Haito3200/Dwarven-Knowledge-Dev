@@ -107,188 +107,116 @@
 ########################### elemental magic ####################################
 
 custom_button = {
-    name = DA_projects_research_button_Arcane
-    tooltip = DA_projects_research_button_Arcane_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        always = yes
-    }
-    effect = {
-        clr_country_flag = DA_projects_research_Interface_on_arcane_1
-        clr_country_flag = DA_projects_research_Interface_on_arcane_2
-        clr_country_flag = DA_projects_research_Interface_on_Steam_1
-        clr_country_flag = DA_projects_research_Interface_on_Electrical_1
-        clr_country_flag = DA_projects_research_Interface_on_Unique_1
-
-        set_country_flag = DA_projects_research_Interface_on_arcane_1
-    }
+	name = DA_projects_research_button_Arcane
+	tooltip = DA_projects_research_button_Arcane_tt
+	potential = { always = yes }
+	trigger = {
+		always = yes
+	}
+	effect = {
+		clr_country_flag = DA_projects_research_Interface_on_arcane_1
+		clr_country_flag = DA_projects_research_Interface_on_arcane_2
+		clr_country_flag = DA_projects_research_Interface_on_Steam_1
+		clr_country_flag = DA_projects_research_Interface_on_Electrical_1
+		clr_country_flag = DA_projects_research_Interface_on_Unique_1
+		set_country_flag = DA_projects_research_Interface_on_arcane_1
+		hidden_effect = { set_variable = { which = DA_PR_selected value = 0 } }
+	}
 }
 
 
 custom_button = {
-    name = DA_projects_research_buttons_background_elemental_magic_fire
-    tooltip = DA_projects_research_buttons_background_elemental_magic_fire_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Magic_Theory_1 = yes
-        DA_yet_to_complete.Elemental_Magic_Fire = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Elemental_Magic_Fire = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Elemental_Magic_Fire = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = fire
-            time = 36
-            arcane = yes
-            unstoppable = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_elemental_magic_fire
+	tooltip = DA_projects_research_buttons_background_elemental_magic_fire_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 5 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Magic_Theory_1 = yes
+		DA_yet_to_complete.Elemental_Magic_Fire = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = fire
+			time = 36
+			arcane = yes
+			unstoppable = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_elemental_magic_water
-    tooltip = DA_projects_research_buttons_background_elemental_magic_water_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Magic_Theory_1 = yes
-        DA_yet_to_complete.Elemental_Magic_Water = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Elemental_Magic_Water = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Elemental_Magic_Water = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = water
-            time = 36
-            arcane = yes
-            unstoppable = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_elemental_magic_water
+	tooltip = DA_projects_research_buttons_background_elemental_magic_water_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 6 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Magic_Theory_1 = yes
+		DA_yet_to_complete.Elemental_Magic_Water = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = water
+			time = 36
+			arcane = yes
+			unstoppable = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_elemental_magic_earth
-    tooltip = DA_projects_research_buttons_background_elemental_magic_earth_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Magic_Theory_1 = yes
-        DA_yet_to_complete.Elemental_Magic_Earth = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Elemental_Magic_Earth = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Elemental_Magic_Earth = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = earth
-            time = 36
-            arcane = yes
-            unstoppable = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_elemental_magic_earth
+	tooltip = DA_projects_research_buttons_background_elemental_magic_earth_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 7 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Magic_Theory_1 = yes
+		DA_yet_to_complete.Elemental_Magic_Earth = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = earth
+			time = 36
+			arcane = yes
+			unstoppable = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_elemental_magic_air
-    tooltip = DA_projects_research_buttons_background_elemental_magic_air_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Magic_Theory_1 = yes
-        DA_yet_to_complete.Elemental_Magic_Air = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Elemental_Magic_Air = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Elemental_Magic_Air = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = air
-            time = 36
-            arcane = yes
-            unstoppable = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_elemental_magic_air
+	tooltip = DA_projects_research_buttons_background_elemental_magic_air_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 8 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Magic_Theory_1 = yes
+		DA_yet_to_complete.Elemental_Magic_Air = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = air
+			time = 36
+			arcane = yes
+			unstoppable = yes
+		}
+	}
 }
 
 custom_button = {
-    name = DA_projects_research_buttons_background_elemental_magic_repeatable
-    tooltip = DA_projects_research_buttons_background_elemental_magic_repeatable_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Magic_Theory_1 = yes
-        OR = {
-            DA_completed.Elemental_Magic_Water = yes
-            DA_completed.Elemental_Magic_Air = yes
-            DA_completed.Elemental_Magic_Fire = yes
-            DA_completed.Elemental_Magic_Earth = yes
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        country_event = {
-            id = DA_General_Research_events.10
-        }
-    }
+	name = DA_projects_research_buttons_background_elemental_magic_repeatable
+	tooltip = DA_projects_research_buttons_background_elemental_magic_repeatable_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 9 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Magic_Theory_1 = yes
+		OR = {
+			DA_completed.Elemental_Magic_Water = yes
+			DA_completed.Elemental_Magic_Air = yes
+			DA_completed.Elemental_Magic_Fire = yes
+			DA_completed.Elemental_Magic_Earth = yes
+		}
+	}
+	effect = {
+		country_event = {
+			id = DA_General_Research_events.10
+		}
+	}
 }
 
 ###################################################################################
@@ -297,140 +225,84 @@ custom_button = {
 
 
 custom_button = {
-    name = DA_projects_research_buttons_background_clockwork_1
-    tooltip = DA_projects_research_buttons_background_clockwork_1_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
+	name = DA_projects_research_buttons_background_clockwork_1
+	tooltip = DA_projects_research_buttons_background_clockwork_1_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 10 } }
+	trigger = {
+		DA_available_research = yes
 		DA_completed.Magic_Theory_1 = yes
 		DA_completed.Mechanics_1 = yes
 		DA_completed.Metallurgy_1 = yes
-        DA_yet_to_complete.ClockWork = yes
+		DA_yet_to_complete.ClockWork = yes
 		custom_trigger_tooltip = {
 			tooltip = DA_Project.Allowed.ClockWork.tt
 			has_country_flag = DA_Project.Allowed.ClockWork
 		}
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.ClockWork = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.ClockWork = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = ClockWork
-            time = 96
-            arcane = yes
-            unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = {
-                id = DA_project_event.200
-                days = 30
-            }
-        }
-    }
+	}
+	effect = {
+		DA_start_research = {
+			flag = ClockWork
+			time = 96
+			arcane = yes
+			unstoppable = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.200
+				days = 30
+			}
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_clockwork_2
-    tooltip = DA_projects_research_buttons_background_clockwork_2_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.ClockWork = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = ClockWork_2
-            time = 48
-            arcane = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_clockwork_2
+	tooltip = DA_projects_research_buttons_background_clockwork_2_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 11 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.ClockWork = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = ClockWork_2
+			time = 48
+			arcane = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_clockwork_3
-    tooltip = DA_projects_research_buttons_background_clockwork_3_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.ClockWork = yes
-        DA_completed.Steam_Power_Project = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = ClockWork_3
-            time = 72
-            steam = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_clockwork_3
+	tooltip = DA_projects_research_buttons_background_clockwork_3_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 12 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.ClockWork = yes
+		DA_completed.Steam_Power_Project = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = ClockWork_3
+			time = 72
+			steam = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_clockwork_4
-    tooltip = DA_projects_research_buttons_background_clockwork_4_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.ClockWork = yes
-        DA_completed.Electric_Power_Project = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = ClockWork_4
-            time = 96
-            electric = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_clockwork_4
+	tooltip = DA_projects_research_buttons_background_clockwork_4_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 13 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.ClockWork = yes
+		DA_completed.Electric_Power_Project = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = ClockWork_4
+			time = 96
+			electric = yes
+		}
+	}
 }
 
 ###################################################################################
@@ -516,140 +388,84 @@ custom_button = {
 ###################################################################################
 
 custom_button = {
-    name = DA_projects_research_buttons_background_golem_1
-    tooltip = DA_projects_research_buttons_background_golem_1_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
+	name = DA_projects_research_buttons_background_golem_1
+	tooltip = DA_projects_research_buttons_background_golem_1_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 14 } }
+	trigger = {
+		DA_available_research = yes
 		DA_completed.Magic_Theory_1 = yes
 		DA_completed.Mechanics_1 = yes
 		DA_completed.Alchemy_1 = yes
-        DA_yet_to_complete.Golem = yes
+		DA_yet_to_complete.Golem = yes
 		custom_trigger_tooltip = {
 			tooltip = DA_Project.Allowed.Golem.tt
 			has_country_flag = DA_Project.Allowed.Golem
 		}
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Golem = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Golem = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Golem
-            time = 96
-            arcane = yes
-            unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = {
-                id = DA_project_event.209
-                days = 30
-            }
-        }
-    }
+	}
+	effect = {
+		DA_start_research = {
+			flag = Golem
+			time = 96
+			arcane = yes
+			unstoppable = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.209
+				days = 30
+			}
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_golem_2
-    tooltip = DA_projects_research_buttons_background_golem_2_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Golem = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Golem_2
-            time = 48
-            arcane = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_golem_2
+	tooltip = DA_projects_research_buttons_background_golem_2_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 15 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Golem = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Golem_2
+			time = 48
+			arcane = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_golem_3
-    tooltip = DA_projects_research_buttons_background_golem_3_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Golem = yes
-        DA_completed.Steam_Power_Project = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Golem_3
-            time = 72
-            steam = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_golem_3
+	tooltip = DA_projects_research_buttons_background_golem_3_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 16 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Golem = yes
+		DA_completed.Steam_Power_Project = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Golem_3
+			time = 72
+			steam = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_golem_4
-    tooltip = DA_projects_research_buttons_background_golem_4_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Golem = yes
-        DA_completed.Electric_Power_Project = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Golem_4
-            time = 96
-            electric = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_golem_4
+	tooltip = DA_projects_research_buttons_background_golem_4_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 17 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Golem = yes
+		DA_completed.Electric_Power_Project = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Golem_4
+			time = 96
+			electric = yes
+		}
+	}
 }
 
 ###################################################################################
@@ -657,147 +473,85 @@ custom_button = {
 ###################################################################################
 
 custom_button = {
-    name = DA_projects_research_buttons_background_holy_magic_1
-    tooltip = DA_projects_research_buttons_background_holy_magic_1_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
+	name = DA_projects_research_buttons_background_holy_magic_1
+	tooltip = DA_projects_research_buttons_background_holy_magic_1_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 18 } }
+	trigger = {
+		DA_available_research = yes
 		DA_completed.Magic_Theory_1 = yes
 		religious_unity = 0.95
-        DA_yet_to_complete.Holy_Magic = yes
+		DA_yet_to_complete.Holy_Magic = yes
 		OR = {
 			DA_yet_to_complete.Curse_Magic = yes
 			DA_completed.Magic_Theory_4 = yes
 		}
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Holy_Magic = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Holy_Magic = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Holy_Magic
-            time = 96
-            arcane = yes
-            unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = {
-                id = DA_project_event.340
-                days = 30
-            }
-        }
-    }
+	}
+	effect = {
+		DA_start_research = {
+			flag = Holy_Magic
+			time = 96
+			arcane = yes
+			unstoppable = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.340
+				days = 30
+			}
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_holy_magic_2
-    tooltip = DA_projects_research_buttons_background_holy_magic_2_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Holy_Magic = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Holy_Magic_2
-            time = 48
-            arcane = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_holy_magic_2
+	tooltip = DA_projects_research_buttons_background_holy_magic_2_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 19 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Holy_Magic = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Holy_Magic_2
+			time = 48
+			arcane = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_holy_magic_3
-    tooltip = DA_projects_research_buttons_background_holy_magic_3_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Holy_Magic = yes
-        DA_completed.Steam_Power_Project = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Holy_Magic_3
-            time = 72
-            steam = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_holy_magic_3
+	tooltip = DA_projects_research_buttons_background_holy_magic_3_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 20 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Holy_Magic = yes
+		DA_completed.Steam_Power_Project = yes
+		DA_PR_can_find.Holy_steam = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Holy_Magic_3
+			time = 72
+			steam = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_holy_magic_4
-    tooltip = DA_projects_research_buttons_background_holy_magic_4_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Holy_Magic = yes
-        DA_completed.Electric_Power_Project = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Holy_Magic_4
-            time = 96
-            electric = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_holy_magic_4
+	tooltip = DA_projects_research_buttons_background_holy_magic_4_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 21 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Holy_Magic = yes
+		DA_completed.Electric_Power_Project = yes
+		DA_PR_can_find.Holy_electric = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Holy_Magic_4
+			time = 96
+			electric = yes
+		}
+	}
 }
 
 ###################################################################################
@@ -805,146 +559,84 @@ custom_button = {
 ###################################################################################
 
 custom_button = {
-    name = DA_projects_research_buttons_background_curse_1
-    tooltip = DA_projects_research_buttons_background_curse_1_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
+	name = DA_projects_research_buttons_background_curse_1
+	tooltip = DA_projects_research_buttons_background_curse_1_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 22 } }
+	trigger = {
+		DA_available_research = yes
 		DA_completed.Magic_Theory_1 = yes
-        DA_yet_to_complete.Curse_Magic = yes
+		DA_yet_to_complete.Curse_Magic = yes
 		OR = {
 			DA_yet_to_complete.Holy_Magic = yes
 			DA_completed.Magic_Theory_4 = yes
 		}
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Curse_Magic = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Curse_Magic = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Curse_Magic
-            time = 96
-            arcane = yes
-            unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = {
-                id = DA_project_event.330
-                days = 30
-            }
-        }
-    }
+	}
+	effect = {
+		DA_start_research = {
+			flag = Curse_Magic
+			time = 96
+			arcane = yes
+			unstoppable = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.330
+				days = 30
+			}
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_curse_2
-    tooltip = DA_projects_research_buttons_background_curse_2_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Curse_Magic = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Curse_Magic_2
-            time = 48
-            arcane = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_curse_2
+	tooltip = DA_projects_research_buttons_background_curse_2_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 23 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Curse_Magic = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Curse_Magic_2
+			time = 48
+			arcane = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_curse_3
-    tooltip = DA_projects_research_buttons_background_curse_3_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Curse_Magic = yes
-        DA_completed.Steam_Power_Project = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Curse_Magic_3
-            time = 72
-            steam = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_curse_3
+	tooltip = DA_projects_research_buttons_background_curse_3_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 24 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Curse_Magic = yes
+		DA_completed.Steam_Power_Project = yes
+		DA_PR_can_find.Curse_steam = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Curse_Magic_3
+			time = 72
+			steam = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_curse_4
-    tooltip = DA_projects_research_buttons_background_curse_4_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Curse_Magic = yes
-        DA_completed.Electric_Power_Project = yes
-        custom_trigger_tooltip = {
-            tooltip = DA_in_development_tt
-            always = no
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Curse_Magic_4
-            time = 96
-            electric = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_curse_4
+	tooltip = DA_projects_research_buttons_background_curse_4_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 25 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Curse_Magic = yes
+		DA_completed.Electric_Power_Project = yes
+		DA_PR_can_find.Curse_electric = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Curse_Magic_4
+			time = 96
+			electric = yes
+		}
+	}
 }
 
 ###################################################################################
@@ -952,141 +644,85 @@ custom_button = {
 ###################################################################################
 
 custom_button = {
-    name = DA_projects_research_buttons_background_warforged_1
-    tooltip = DA_projects_research_buttons_background_warforged_1_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
+	name = DA_projects_research_buttons_background_warforged_1
+	tooltip = DA_projects_research_buttons_background_warforged_1_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 26 } }
+	trigger = {
+		DA_available_research = yes
 		DA_completed.Metallurgy_1 = yes
-        hidden_trigger = {
-            NOT = { has_country_flag = DA_enable_metallurgy_System }
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            NOT = { has_country_flag = DA_enable_metallurgy_System }
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            has_country_flag = DA_enable_metallurgy_System
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = warforged
-            time = 48
-            arcane = yes
-            unstoppable = yes
-        }
-    }
+		hidden_trigger = {
+			NOT = { has_country_flag = DA_enable_metallurgy_System }
+		}
+	}
+	effect = {
+		DA_start_research = {
+			flag = warforged
+			time = 48
+			arcane = yes
+			unstoppable = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_warforged_2
-    tooltip = DA_projects_research_buttons_background_warforged_2_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        mil_tech = 6
-        DA_completed.Metallurgy_1 = yes
-        hidden_trigger = {
-            NOT = { has_country_flag = DA_enable_metallurgy_System_cav }
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            NOT = { has_country_flag = DA_enable_metallurgy_System_cav }
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            has_country_flag = DA_enable_metallurgy_System_cav
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = warforged_2
-            time = 48
-            arcane = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_warforged_2
+	tooltip = DA_projects_research_buttons_background_warforged_2_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 27 } }
+	trigger = {
+		DA_available_research = yes
+		mil_tech = 6
+		DA_completed.Metallurgy_1 = yes
+		hidden_trigger = {
+			NOT = { has_country_flag = DA_enable_metallurgy_System_cav }
+		}
+	}
+	effect = {
+		DA_start_research = {
+			flag = warforged_2
+			time = 48
+			arcane = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_warforged_3
-    tooltip = DA_projects_research_buttons_background_warforged_3_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        mil_tech = 7
-        DA_completed.Metallurgy_1 = yes
-        hidden_trigger = {
-            NOT = { has_country_flag = DA_enable_metallurgy_System_art }
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            NOT = { has_country_flag = DA_enable_metallurgy_System_art }
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            has_country_flag = DA_enable_metallurgy_System_art
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = warforged_3
-            time = 60
-            arcane = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_warforged_3
+	tooltip = DA_projects_research_buttons_background_warforged_3_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 28 } }
+	trigger = {
+		DA_available_research = yes
+		mil_tech = 7
+		DA_completed.Metallurgy_1 = yes
+		hidden_trigger = {
+			NOT = { has_country_flag = DA_enable_metallurgy_System_art }
+		}
+	}
+	effect = {
+		DA_start_research = {
+			flag = warforged_3
+			time = 60
+			arcane = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_warforged_4
-    tooltip = DA_projects_research_buttons_background_warforged_4_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
+	name = DA_projects_research_buttons_background_warforged_4
+	tooltip = DA_projects_research_buttons_background_warforged_4_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 29 } }
+	trigger = {
+		DA_available_research = yes
 		has_estate = estate_artificers
-        DA_completed.Metallurgy_2 = yes
-        has_country_flag = DA_enable_metallurgy_System
-        hidden_trigger = {
-            NOT = { has_country_flag = DA_enable_metallurgy_System_artificer }
-        }
-    }
-    frame = {
-        number = 1
-        trigger = {
-            NOT = { has_country_flag = DA_enable_metallurgy_System_artificer }
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            has_country_flag = DA_enable_metallurgy_System_artificer
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = warforged_to_artificer
-            time = 96
-            steam = yes
-        }
-    }
+		DA_completed.Metallurgy_2 = yes
+		has_country_flag = DA_enable_metallurgy_System
+		hidden_trigger = {
+			NOT = { has_country_flag = DA_enable_metallurgy_System_artificer }
+		}
+	}
+	effect = {
+		DA_start_research = {
+			flag = warforged_to_artificer
+			time = 96
+			steam = yes
+		}
+	}
 }
 
 ###################################################################################
@@ -1094,135 +730,79 @@ custom_button = {
 ###################################################################################
 
 custom_button = {
-    name = DA_projects_research_buttons_background_spirits_1
-    tooltip = DA_projects_research_buttons_background_spirits_1_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
+	name = DA_projects_research_buttons_background_spirits_1
+	tooltip = DA_projects_research_buttons_background_spirits_1_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 30 } }
+	trigger = {
+		DA_available_research = yes
 		DA_completed.Metallurgy_1 = yes
-        DA_yet_to_complete.Spirits = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Spirits = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Spirits = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Spirits
-            time = 96
-            arcane = yes
-            unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = {
-                id = DA_project_event.345
-                days = 30
-            }
-        }
-    }
+		DA_yet_to_complete.Spirits = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Spirits
+			time = 96
+			arcane = yes
+			unstoppable = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.345
+				days = 30
+			}
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_spirits_2
-    tooltip = DA_projects_research_buttons_background_spirits_2_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Spirits = yes
-        DA_completed.Metallurgy_1 = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Spirits_2
-            time = 48
-            arcane = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_spirits_2
+	tooltip = DA_projects_research_buttons_background_spirits_2_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 31 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Spirits = yes
+		DA_completed.Metallurgy_1 = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Spirits_2
+			time = 48
+			arcane = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_spirits_3
-    tooltip = DA_projects_research_buttons_background_spirits_3_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Spirits = yes
-        DA_completed.Steam_Power_Project = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Spirits_3
-            time = 72
-            steam = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_spirits_3
+	tooltip = DA_projects_research_buttons_background_spirits_3_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 32 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Spirits = yes
+		DA_completed.Steam_Power_Project = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Spirits_3
+			time = 72
+			steam = yes
+		}
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_spirits_4
-    tooltip = DA_projects_research_buttons_background_spirits_4_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Spirits = yes
-        DA_completed.Electric_Power_Project = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = Spirits_4
-            time = 96
-            electric = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_spirits_4
+	tooltip = DA_projects_research_buttons_background_spirits_4_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 33 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Spirits = yes
+		DA_completed.Electric_Power_Project = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = Spirits_4
+			time = 96
+			electric = yes
+		}
+	}
 }
 
 ###################################################################################
@@ -1230,65 +810,57 @@ custom_button = {
 ###################################################################################
 
 custom_button = {
- name = DA_projects_research_buttons_background_enviromental_adaptation_1
- tooltip = DA_projects_research_buttons_background_enviromental_adaptation_1_tt
- potential = { always = yes }
- trigger = {
-  DA_available_research = yes
-  DA_completed.Metallurgy_1 = yes
-  NOT = { has_country_flag = DA_mining_technology_1 }
- }
- frame = { number = 2 trigger = { has_country_flag = DA_mining_technology_1 } }
- frame = { number = 1 trigger = { always = yes } }
- effect = {
-  DA_start_research = { flag = mining_1 time = 48 arcane = yes }
- }
+	name = DA_projects_research_buttons_background_enviromental_adaptation_1
+	tooltip = DA_projects_research_buttons_background_enviromental_adaptation_1_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 34 } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Metallurgy_1 = yes
+		NOT = { has_country_flag = DA_mining_technology_1 }
+	}
+	effect = {
+		DA_start_research = { flag = mining_1 time = 48 arcane = yes }
+	}
 }
 custom_button = {
- name = DA_projects_research_buttons_background_enviromental_adaptation_2
- tooltip = DA_projects_research_buttons_background_enviromental_adaptation_2_tt
- potential = { always = yes }
- trigger = {
-  DA_available_research = yes
-  has_country_flag = DA_mining_technology_1
-  NOT = { has_country_flag = DA_mining_technology_2 }
- }
- frame = { number = 2 trigger = { has_country_flag = DA_mining_technology_2 } }
- frame = { number = 1 trigger = { always = yes } }
- effect = {
-  DA_start_research = { flag = mining_2 time = 60 arcane = yes }
- }
+	name = DA_projects_research_buttons_background_enviromental_adaptation_2
+	tooltip = DA_projects_research_buttons_background_enviromental_adaptation_2_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 35 } }
+	trigger = {
+		DA_available_research = yes
+		has_country_flag = DA_mining_technology_1
+		NOT = { has_country_flag = DA_mining_technology_2 }
+	}
+	effect = {
+		DA_start_research = { flag = mining_2 time = 60 arcane = yes }
+	}
 }
 custom_button = {
- name = DA_projects_research_buttons_background_enviromental_adaptation_3
- tooltip = DA_projects_research_buttons_background_enviromental_adaptation_3_tt
- potential = { always = yes }
- trigger = {
-  DA_available_research = yes
-  has_country_flag = DA_mining_technology_2
-  NOT = { has_country_flag = DA_mining_technology_3 }
- }
- frame = { number = 2 trigger = { has_country_flag = DA_mining_technology_3 } }
- frame = { number = 1 trigger = { always = yes } }
- effect = {
-  DA_start_research = { flag = mining_3 time = 72 arcane = yes }
- }
+	name = DA_projects_research_buttons_background_enviromental_adaptation_3
+	tooltip = DA_projects_research_buttons_background_enviromental_adaptation_3_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 36 } }
+	trigger = {
+		DA_available_research = yes
+		has_country_flag = DA_mining_technology_2
+		NOT = { has_country_flag = DA_mining_technology_3 }
+	}
+	effect = {
+		DA_start_research = { flag = mining_3 time = 72 arcane = yes }
+	}
 }
 custom_button = {
- name = DA_projects_research_buttons_background_enviromental_adaptation_4
- tooltip = DA_projects_research_buttons_background_enviromental_adaptation_4_tt
- potential = { always = yes }
- trigger = {
-  DA_available_research = yes
-  has_country_flag = DA_mining_technology_3
-  DA_completed.Steam_Power_Project = yes
-  NOT = { has_country_flag = DA_mining_technology_4 }
- }
- frame = { number = 2 trigger = { has_country_flag = DA_mining_technology_4 } }
- frame = { number = 1 trigger = { always = yes } }
- effect = {
-  DA_start_research = { flag = mining_4 time = 96 steam = yes }
- }
+	name = DA_projects_research_buttons_background_enviromental_adaptation_4
+	tooltip = DA_projects_research_buttons_background_enviromental_adaptation_4_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 37 } }
+	trigger = {
+		DA_available_research = yes
+		has_country_flag = DA_mining_technology_3
+		DA_completed.Steam_Power_Project = yes
+		NOT = { has_country_flag = DA_mining_technology_4 }
+	}
+	effect = {
+		DA_start_research = { flag = mining_4 time = 96 steam = yes }
+	}
 }
 
 ###################################################################################

@@ -1,36 +1,25 @@
 namespace = DA_railway_event
 
+# Railway upgrades: the reports of the workshop of the Railway Control Center (Er-Natvir).
+# Rewritten on 11 November 2026. Each is queued by its button in the wonder window
+# (common/custom_gui/DA_Wonder_Railway_HQ.txt) when the workshop is paid, and arrives when the drawings are done.
+# .5 to .8 the first four upgrades (the hall at tier I), .9 to .12 the second four (tier III, and the first of its kind).
+# The flag an event sets is what the building DA_railway_work reads (common/buildings/DA_buildings.txt).
 
 country_event = {
-	id = DA_railway_event.3 # unlock Railway upgrades, wonder t1
-	title = "DA_railway_event.3.t"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
-	is_triggered_only = yes
-	option = {
-		name = "DA_railway_event.3.a"
-		custom_tooltip = DA_railway_event.3.tt
-		hidden_effect = {
-			set_country_flag = DA_can_upgrade_rails
-		}
-	}
-}
-country_event = {
-	id = DA_railway_event.5 # unlock Railway upgrade, DA_rail_faster1_c
-	title = "DA_railway_event.2.a"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
+	id = DA_railway_event.5 # Improved Railway I
+	title = "DA_railway_event.5.t"
+	desc = "DA_railway_event.5.d"
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		NOT = { has_country_flag = DA_rail_faster1_c }
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_RW_res_faster1
+		}
 	}
 	option = {
-		name = "DA_railway_event.2.a"
-		hidden_effect = {
-			set_country_flag = DA_rail_faster1_c
-		}
+		name = "DA_railway_event.research.a"
 		custom_tooltip = DA_unlocked_rail_upgrade.tt
 		tooltip = {
 			random_core_province = {
@@ -40,25 +29,27 @@ country_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			set_country_flag = DA_rail_faster1_c
+			set_country_flag = DA_can_upgrade_rails
+		}
 	}
 }
 
 country_event = {
-	id = DA_railway_event.6 # unlock Railway upgrade, DA_rail_trade1_c
-	title = "DA_railway_event.2.b"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
+	id = DA_railway_event.6 # Improved Trade Route I
+	title = "DA_railway_event.6.t"
+	desc = "DA_railway_event.6.d"
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		NOT = { has_country_flag = DA_rail_trade1_c }
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_RW_res_trade1
+		}
 	}
 	option = {
-		name = "DA_railway_event.2.b"
-		hidden_effect = {
-			set_country_flag = DA_rail_trade1_c
-		}
+		name = "DA_railway_event.research.a"
 		custom_tooltip = DA_unlocked_rail_upgrade.tt
 		tooltip = {
 			random_core_province = {
@@ -68,25 +59,27 @@ country_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			set_country_flag = DA_rail_trade1_c
+			set_country_flag = DA_can_upgrade_rails
+		}
 	}
 }
 
 country_event = {
-	id = DA_railway_event.7 # unlock Railway upgrade, DA_rail_traps1_c
-	title = "DA_railway_event.2.c"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
+	id = DA_railway_event.7 # Traps on the Railway I
+	title = "DA_railway_event.7.t"
+	desc = "DA_railway_event.7.d"
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		NOT = { has_country_flag = DA_rail_traps1_c }
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_RW_res_traps1
+		}
 	}
 	option = {
-		name = "DA_railway_event.2.c"
-		hidden_effect = {
-			set_country_flag = DA_rail_traps1_c
-		}
+		name = "DA_railway_event.research.a"
 		custom_tooltip = DA_unlocked_rail_upgrade.tt
 		tooltip = {
 			random_core_province = {
@@ -96,25 +89,27 @@ country_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			set_country_flag = DA_rail_traps1_c
+			set_country_flag = DA_can_upgrade_rails
+		}
 	}
 }
 
 country_event = {
-	id = DA_railway_event.8 # unlock Railway upgrade, DA_rail_supply1_c
-	title = "DA_railway_event.2.e"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
+	id = DA_railway_event.8 # Improved Supply Line I
+	title = "DA_railway_event.8.t"
+	desc = "DA_railway_event.8.d"
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		NOT = { has_country_flag = DA_rail_supply1_c }
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_RW_res_supply1
+		}
 	}
 	option = {
-		name = "DA_railway_event.2.e"
-		hidden_effect = {
-			set_country_flag = DA_rail_supply1_c
-		}
+		name = "DA_railway_event.research.a"
 		custom_tooltip = DA_unlocked_rail_upgrade.tt
 		tooltip = {
 			random_core_province = {
@@ -124,45 +119,27 @@ country_event = {
 				}
 			}
 		}
-	}
-}
-
-country_event = {
-	id = DA_railway_event.30 # unlock Railway upgrades 2 , wonder t3
-	title = "DA_railway_event.30.t"
-	desc = "DA_railway_event.30.d"
-	picture = DA_train_image_eventPicture
-	is_triggered_only = yes
-	option = {
-		name = "DA_railway_event.3.a"
-		custom_tooltip = DA_railway_event.30.tt
-	}
-}
-
-country_event = {
-	id = DA_railway_event.9 # unlock Railway upgrade, DA_rail_faster2_c
-	title = "DA_railway_event.21.a"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
-
-	is_triggered_only = yes
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		has_country_flag = DA_can_upgrade_rails_2
-		NOT = { has_country_flag = DA_rail_faster2_c }
-		2931 = {
-			owned_by = from
-			has_great_project = {
-				type = DA_Railway_HQ
-				tier = 3
-			}
-		}
-	}
-	option = {
-		name = "DA_railway_event.21.a"
 		hidden_effect = {
-			set_country_flag = DA_rail_faster2_c
+			set_country_flag = DA_rail_supply1_c
+			set_country_flag = DA_can_upgrade_rails
 		}
+	}
+}
+
+country_event = {
+	id = DA_railway_event.9 # Improved Railway II
+	title = "DA_railway_event.9.t"
+	desc = "DA_railway_event.9.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_RW_res_faster2
+		}
+	}
+	option = {
+		name = "DA_railway_event.research.a"
 		custom_tooltip = DA_unlocked_rail_upgrade.tt
 		tooltip = {
 			random_core_province = {
@@ -172,33 +149,28 @@ country_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			set_country_flag = DA_rail_faster2_c
+			set_country_flag = DA_can_upgrade_rails
+			set_country_flag = DA_can_upgrade_rails_2
+		}
 	}
 }
 
 country_event = {
-	id = DA_railway_event.10 # unlock Railway upgrade, DA_rail_trade2_c
-	title = "DA_railway_event.21.b"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
+	id = DA_railway_event.10 # Improved Trade Route II
+	title = "DA_railway_event.10.t"
+	desc = "DA_railway_event.10.d"
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		has_country_flag = DA_can_upgrade_rails_2
-		NOT = { has_country_flag = DA_rail_trade2_c }
-		2931 = {
-			owned_by = from
-			has_great_project = {
-				type = DA_Railway_HQ
-				tier = 3
-			}
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_RW_res_trade2
 		}
 	}
 	option = {
-		name = "DA_railway_event.21.b"
-		hidden_effect = {
-			set_country_flag = DA_rail_trade2_c
-		}
+		name = "DA_railway_event.research.a"
 		custom_tooltip = DA_unlocked_rail_upgrade.tt
 		tooltip = {
 			random_core_province = {
@@ -208,33 +180,28 @@ country_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			set_country_flag = DA_rail_trade2_c
+			set_country_flag = DA_can_upgrade_rails
+			set_country_flag = DA_can_upgrade_rails_2
+		}
 	}
 }
 
 country_event = {
-	id = DA_railway_event.11 # unlock Railway upgrade, DA_rail_traps2_c
-	title = "DA_railway_event.21.c"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
+	id = DA_railway_event.11 # Traps on the Railway II
+	title = "DA_railway_event.11.t"
+	desc = "DA_railway_event.11.d"
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		has_country_flag = DA_can_upgrade_rails_2
-		NOT = { has_country_flag = DA_rail_traps2_c }
-		2931 = {
-			owned_by = from
-			has_great_project = {
-				type = DA_Railway_HQ
-				tier = 3
-			}
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_RW_res_traps2
 		}
 	}
 	option = {
-		name = "DA_railway_event.21.c"
-		hidden_effect = {
-			set_country_flag = DA_rail_traps2_c
-		}
+		name = "DA_railway_event.research.a"
 		custom_tooltip = DA_unlocked_rail_upgrade.tt
 		tooltip = {
 			random_core_province = {
@@ -244,33 +211,28 @@ country_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			set_country_flag = DA_rail_traps2_c
+			set_country_flag = DA_can_upgrade_rails
+			set_country_flag = DA_can_upgrade_rails_2
+		}
 	}
 }
 
 country_event = {
-	id = DA_railway_event.12 # unlock Railway upgrade, DA_rail_supply2_c
-	title = "DA_railway_event.21.e"
-	desc = "DA_railway_event.3.d"
-	picture = DA_train_image_eventPicture
+	id = DA_railway_event.12 # Improved Supply Line II
+	title = "DA_railway_event.12.t"
+	desc = "DA_railway_event.12.d"
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
-	trigger = {
-		has_country_flag = DA_can_upgrade_rails
-		has_country_flag = DA_can_upgrade_rails_2
-		NOT = { has_country_flag = DA_rail_supply2_c }
-		2931 = {
-			owned_by = from
-			has_great_project = {
-				type = DA_Railway_HQ
-				tier = 3
-			}
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = DA_RW_res_supply2
 		}
 	}
 	option = {
-		name = "DA_railway_event.21.e"
-		hidden_effect = {
-			set_country_flag = DA_rail_supply2_c
-		}
+		name = "DA_railway_event.research.a"
 		custom_tooltip = DA_unlocked_rail_upgrade.tt
 		tooltip = {
 			random_core_province = {
@@ -280,7 +242,10 @@ country_event = {
 				}
 			}
 		}
+		hidden_effect = {
+			set_country_flag = DA_rail_supply2_c
+			set_country_flag = DA_can_upgrade_rails
+			set_country_flag = DA_can_upgrade_rails_2
+		}
 	}
 }
-
-

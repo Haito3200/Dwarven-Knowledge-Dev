@@ -814,8 +814,8 @@ The_Dwarven_Laboratory = {
 }
 
 
-DA_Railway_HQ = {
-	start = 2931 
+DA_Railway_HQ = { # Er-Natvir: the Railway Control Center. Tiers are bought in the wonder window; each one wakes a rank of desks
+	start = 2931
 	date = 2023.01.01
 	time = {
 		months = 1
@@ -832,8 +832,9 @@ DA_Railway_HQ = {
 		}
 	}
 	on_built = {
+		province_event = { id = DA_Er_Natvir_event.1 days = 5 } # the first report from the hall
 	}
-	on_destroyed = {		
+	on_destroyed = {
 	}
 	can_use_modifiers_trigger = {
 	}
@@ -878,7 +879,7 @@ DA_Railway_HQ = {
 			movement_speed = 0.025
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			custom_tooltip = DA_RW_tier_1_unlock_tt
 		}
 	}
 	tier_2 = {
@@ -898,7 +899,7 @@ DA_Railway_HQ = {
 			movement_speed = 0.05
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			custom_tooltip = DA_RW_tier_2_unlock_tt
 		}
 	}
 	tier_3 = {
@@ -918,7 +919,7 @@ DA_Railway_HQ = {
 			movement_speed = 0.1
 		}
 		on_upgraded = {
-			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+			custom_tooltip = DA_RW_tier_3_unlock_tt
 		}
 	}
 }
@@ -1140,3 +1141,238 @@ DA_Earth_Shatterer = {
 		}
 	}
 }
+
+# BEGIN DA_FROZEN_FORGE (apply_krakdhumvror_2026-11-11.py)
+DA_Frozen_Forge = { # Krakdhumvror: the Frozen Forge. Raised by the find DA_ADK_explore.219; tiers are restored from its page (wonder works)
+	start = 4208
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_Krakdhumvror_exp1
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.1
+			trade_goods_size_modifier = 0.05
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.25
+			trade_goods_size_modifier = 0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.35
+			trade_goods_size_modifier = 0.15
+		}
+		area_modifier = {
+			local_production_efficiency = 0.1
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_production_efficiency = 0.5
+			trade_goods_size_modifier = 0.25
+		}
+		area_modifier = {
+			local_production_efficiency = 0.15
+			trade_goods_size_modifier = 0.1
+		}
+		country_modifiers = {
+			DA_fake_magic_conductivity_adder = 1
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+}
+# END DA_FROZEN_FORGE
+
+# BEGIN DA_DROWNED_ARSENAL (apply_ovdal_tungr_2026-11-12.py)
+DA_Drowned_Arsenal = { # Ovdal Tungr: the Drowned Arsenal. Raised by the find DA_ADK_explore.200; tiers are restored from its page (wonder works)
+	start = 526
+	date = 2023.01.01
+	time = {
+		months = 1
+	}
+	build_cost = 0
+	can_be_moved = no
+	move_days_per_unit_distance = 1
+	starting_tier = 0
+	type = monument
+	build_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_needs_initial_upgrade_tt
+			has_province_flag = DA_dwarven_shipyard_found
+		}
+	}
+	on_built = {
+	}
+	on_destroyed = {
+	}
+	can_use_modifiers_trigger = {
+	}
+	can_upgrade_trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_Dwarovar_wonder_cant_upgrade_normally_tt
+			always = no
+		}
+	}
+	keep_trigger = {
+	}
+	tier_0 = {
+		upgrade_time = {
+			months = 60
+		}
+		cost_to_upgrade = {
+			factor = 1000
+		}
+		province_modifiers = {
+			local_ship_cost = -0.1
+			local_ship_repair = 1
+			local_sailors_modifier = 0.5
+			ship_recruit_speed = -0.1
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+		}
+	}
+	tier_1 = {
+		upgrade_time = {
+			months = 120
+		}
+		cost_to_upgrade = {
+			factor = 2000
+		}
+		province_modifiers = {
+			local_ship_cost = -0.15
+			local_ship_repair = 1
+			local_sailors_modifier = 0.75
+			ship_recruit_speed = -0.2
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_2 = {
+		upgrade_time = {
+			months = 240
+		}
+		cost_to_upgrade = {
+			factor = 3500
+		}
+		province_modifiers = {
+			local_ship_cost = -0.2
+			local_ship_repair = 1.5
+			local_sailors_modifier = 1
+			ship_recruit_speed = -0.3
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			naval_forcelimit_modifier = 0.05
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+	tier_3 = {
+		upgrade_time = {
+			months = 360
+		}
+		cost_to_upgrade = {
+			factor = 7000
+		}
+		province_modifiers = {
+			local_ship_cost = -0.25
+			local_ship_repair = 2
+			local_sailors_modifier = 1.5
+			ship_recruit_speed = -0.4
+		}
+		area_modifier = {
+		}
+		country_modifiers = {
+			naval_forcelimit_modifier = 0.1
+			navy_tradition = 0.5
+		}
+		on_upgraded = {
+			custom_tooltip = DA_Wonder_unlock_new_abilities_tt
+		}
+	}
+}
+# END DA_DROWNED_ARSENAL

@@ -148,11 +148,15 @@ custom_text_box = {
     #To localize it, use the name of the button as a key, can also use customizable localisation
 }
 
+# BEGIN DA_WW level-up button (build_wonder_pages.py)
+# The works take time: the tier and what it brings arrive when DA_WW_finish_2963 runs
+# (common/scripted_effects/DA_Wonder_Works_effects.txt). Materials are taken here, ducats by DA_WW_begin_2963.
 custom_button = {
 	name = DA_The_Dwarven_Laboratory_upgrade_button
 	tooltip = DA_Wonder_upgrade_button_tt
 	potential = {
-		always = yes
+		NOT = { has_country_flag = DA_WW_building_2963 }
+		NOT = { DA_WW_maxed_2963 = yes }
 	}
 	trigger = {
 		custom_trigger_tooltip = {
@@ -161,212 +165,83 @@ custom_button = {
 		}
 		2963 = {
 			owned_by = prev
-			has_great_project = {
-				type = The_Dwarven_Laboratory
-				tier = 0
-			}
+			has_great_project = { type = The_Dwarven_Laboratory tier = 0 }
 		}
 		if = {
-			limit = {
-				2963 = {
-					AND = {
-						has_great_project = {
-							type = The_Dwarven_Laboratory
-							tier = 0
-						}
-						NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 1 } }
-					}
-				}
-			}
+			limit = { 2963 = { has_great_project = { type = The_Dwarven_Laboratory tier = 0 } NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 1 } } } }
 			2963 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_4_or_higher
 					DA_has_dig_level_4_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 10
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 10
-			}
-			DA_arcane_metal_total_required = {
-				amount = 10
-			}
-			treasury = 1600
+			DA_alchemy_reagents_total_required = { amount = 10 }
+			DA_enchanted_building_material_total_required = { amount = 10 }
+			DA_arcane_metal_total_required = { amount = 10 }
+			DA_WW_can_pay_2963 = yes
 		}
 		if = {
-			limit = {
-				2963 = {
-					AND = {
-						has_great_project = {
-							type = The_Dwarven_Laboratory
-							tier = 1
-						}
-						NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 2 } }
-					}
-				}
-			}
+			limit = { 2963 = { has_great_project = { type = The_Dwarven_Laboratory tier = 1 } NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 2 } } } }
 			2963 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_6_or_higher
 					DA_has_dig_level_6_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 20
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 20
-			}
-			DA_arcane_metal_total_required = {
-				amount = 20
-			}
-			treasury = 3750
+			DA_alchemy_reagents_total_required = { amount = 20 }
+			DA_enchanted_building_material_total_required = { amount = 20 }
+			DA_arcane_metal_total_required = { amount = 20 }
+			DA_WW_can_pay_2963 = yes
 		}
 		if = {
-			limit = {
-				2963 = {
-					AND = {
-						has_great_project = {
-							type = The_Dwarven_Laboratory
-							tier = 2
-						}
-						NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 3 } }
-					}
-				}
-			}
+			limit = { 2963 = { has_great_project = { type = The_Dwarven_Laboratory tier = 2 } NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 3 } } } }
 			2963 = {
 				custom_trigger_tooltip = {
 					tooltip = DA_tooltip_has_dig_level_8_or_higher
 					DA_has_dig_level_8_or_higher = yes
 				}
 			}
-			DA_alchemy_reagents_total_required = {
-				amount = 40
-			}
-			DA_enchanted_building_material_total_required = {
-				amount = 40
-			}
-			DA_arcane_metal_total_required = {
-				amount = 40
-			}
-			treasury = 7500
-		}
-		if = {
-			limit = {
-				2963 = {
-					has_great_project = {
-						type = The_Dwarven_Laboratory
-						tier = 3
-					}
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = DA_Maxed_wonder_tt
-				always = no
-			}
+			DA_alchemy_reagents_total_required = { amount = 40 }
+			DA_enchanted_building_material_total_required = { amount = 40 }
+			DA_arcane_metal_total_required = { amount = 40 }
+			DA_WW_can_pay_2963 = yes
 		}
 	}
 	effect = {
+		hidden_effect = { DA_WW_refresh_2963 = yes }
 		if = {
 			limit = {
-				2963 = {
-					AND = {
-						has_great_project = {
-							type = The_Dwarven_Laboratory
-							tier = 0
-						}
-						NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 1 } }
-					}
-				}
+				2963 = { has_great_project = { type = The_Dwarven_Laboratory tier = 0 } NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 1 } } }
+				DA_WW_can_pay_2963 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 10
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 10
-			}
-			DA_arcane_metal_spend = {
-				amount = 10
-			}
-			add_treasury = -1600
-			2963 = {
-				add_great_project_tier = {
-					type = The_Dwarven_Laboratory
-					tier = 1
-				}
-			}
-			hidden_effect = {
-				country_event = { id = DA_Hul_Jorkad_event.2 days = 30 } # tier I report
-			}
+			DA_alchemy_reagents_spend = { amount = 10 }
+			DA_enchanted_building_material_spend = { amount = 10 }
+			DA_arcane_metal_spend = { amount = 10 }
+			DA_WW_begin_2963 = yes
 		}
 		else_if = {
 			limit = {
-				2963 = {
-					AND = {
-						has_great_project = {
-							type = The_Dwarven_Laboratory
-							tier = 1
-						}
-						NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 2 } }
-					}
-				}
+				2963 = { has_great_project = { type = The_Dwarven_Laboratory tier = 1 } NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 2 } } }
+				DA_WW_can_pay_2963 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 20
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 20
-			}
-			DA_arcane_metal_spend = {
-				amount = 20
-			}
-			add_treasury = -3750
-			2963 = {
-				add_great_project_tier = {
-					type = The_Dwarven_Laboratory
-					tier = 1
-				}
-			}
-			hidden_effect = {
-				2963 = { province_event = { id = DA_Hul_Jorkad_event.3 days = 30 } } # tier II report
-			}
+			DA_alchemy_reagents_spend = { amount = 20 }
+			DA_enchanted_building_material_spend = { amount = 20 }
+			DA_arcane_metal_spend = { amount = 20 }
+			DA_WW_begin_2963 = yes
 		}
 		else_if = {
 			limit = {
-				2963 = {
-					AND = {
-						has_great_project = {
-							type = The_Dwarven_Laboratory
-							tier = 2
-						}
-						NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 3 } }
-					}
-				}
+				2963 = { has_great_project = { type = The_Dwarven_Laboratory tier = 2 } NOT = { has_great_project = { type = The_Dwarven_Laboratory tier = 3 } } }
+				DA_WW_can_pay_2963 = yes    # at the price of this very day
 			}
-			DA_alchemy_reagents_spend = {
-				amount = 40
-			}
-			DA_enchanted_building_material_spend = {
-				amount = 40
-			}
-			DA_arcane_metal_spend = {
-				amount = 40
-			}
-			add_treasury = -7500
-			2963 = {
-				add_great_project_tier = {
-					type = The_Dwarven_Laboratory
-					tier = 1
-				}
-			}
-			hidden_effect = {
-				2963 = { province_event = { id = DA_Hul_Jorkad_event.4 days = 30 } } # tier III report: unlocks Genetic Engineering
-			}
+			DA_alchemy_reagents_spend = { amount = 40 }
+			DA_enchanted_building_material_spend = { amount = 40 }
+			DA_arcane_metal_spend = { amount = 40 }
+			DA_WW_begin_2963 = yes
 		}
 	}
 }
+# END DA_WW
 
 custom_text_box = {
     name = DA_The_Dwarven_Laboratory_Wonder_level_shower #Must match a scripted instantTextBoxType in a .gui file

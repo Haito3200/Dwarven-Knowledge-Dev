@@ -1,0 +1,56 @@
+# Er-Natvir tester. In the console: run DA_Er_Natvir_tester.txt
+# It runs as the player's country. Own Er-Natvir (2931) first. Each block jumps to one point of the rework:
+# remove the "#" in front of the lines of ONE block, save, and run the file.
+# The tiers of the hall also need dig level 4, 6 and 8 in Er-Natvir; the tester does not dig.
+
+# --- A. The hall is found: the wonder can be raised from the province's Great Projects panel (active by default)
+2931 = { set_province_flag = DA_Er_Natvir_switchyard_found set_province_flag = DA_Er_Natvir_timetable_found set_province_flag = DA_Railway_HQ_found }
+
+# --- B. The hall fully restored, with money, materials and knowledge for the workshop and for a line
+# 2931 = { set_province_flag = DA_Railway_HQ_found add_great_project = { type = DA_Railway_HQ instant = yes } add_great_project_tier = { type = DA_Railway_HQ tier = 3 } }
+# set_country_flag = DA_can_upgrade_rails
+# set_country_flag = DA_can_upgrade_rails_2
+# add_treasury = 10000
+# add_adm_power = 300
+# change_variable = { which = DA_enchanted_building_material_total value = 40 }
+# change_variable = { ancientDwarvenKnowledge = 20 }
+# DA_RW_recount = yes
+
+# --- C. The workshop's report now (5 to 8 the first upgrades, 9 to 12 the second), after pressing a workshop button
+# country_event = { id = DA_railway_event.5 }
+# remove_country_modifier = DA_researching_rails
+
+# --- D. The works on the line being laid are finished now (after pressing Lay the Line)
+# country_event = { id = DA_Er_Natvir_event.90 }
+
+# --- E. The Giant's Anvil Line is laid without the works (its provinces get Restored Rail whoever owns them)
+# DA_RW_finish_line_14 = yes
+
+# --- F. Count the roads in service now
+# DA_RW_recount = yes
+
+# --- G. The story: 1 the dark board (a province event), 2 3 4 the three restorations, 11 the lamp that moves, 12 the choice, 14 Service One
+# country_event = { id = DA_Er_Natvir_event.12 }
+# country_event = { id = DA_Er_Natvir_event.14 }
+
+# --- H. Undo the selection and the works flags, if the window is stuck
+# DA_RW_clear_sel = yes
+# clr_country_flag = DA_RW_laying
+# clr_country_flag = DA_RW_laying_14
+# clr_country_flag = DA_RW_laying_15
+# clr_country_flag = DA_RW_laying_16
+# clr_country_flag = DA_RW_laying_17
+# clr_country_flag = DA_RW_laying_18
+# clr_country_flag = DA_RW_laying_19
+# clr_country_flag = DA_RW_laying_20
+# clr_country_flag = DA_RW_laying_21
+# clr_country_flag = DA_RW_laying_22
+# clr_country_flag = DA_RW_laying_23
+# clr_country_flag = DA_RW_laying_24
+# clr_country_flag = DA_RW_laying_25
+# clr_country_flag = DA_RW_laying_26
+# clr_country_flag = DA_RW_laying_27
+# clr_country_flag = DA_RW_laying_28
+# clr_country_flag = DA_RW_laying_29
+# clr_country_flag = DA_RW_laying_30
+# clr_country_flag = DA_RW_laying_31

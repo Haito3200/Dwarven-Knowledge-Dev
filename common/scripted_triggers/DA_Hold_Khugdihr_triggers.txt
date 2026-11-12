@@ -1,0 +1,45 @@
+# Khugdihr: Balgar's folio (12 November 2026). Events: events/DA_Hold_Khugdihr.txt. All of these are for the country.
+
+# A sealed case is left: the Runesmith project DA_RS_project_Balgar_Folio can be started (again).
+DA_KH_any_plan_unread = {
+	OR = {
+		NOT = { has_country_flag = DA_can_reinforce_khugdihr }
+		NOT = { has_country_flag = DA_can_upgrade_Castonath }
+		NOT = { has_country_flag = DA_can_build_vale_walls }
+		NOT = { has_country_flag = DA_can_build_sunwells }
+		NOT = { has_country_flag = DA_can_build_homeforge }
+		NOT = { has_country_flag = DA_can_build_gallery }
+		NOT = { has_country_flag = DA_can_build_northgate }
+		NOT = { has_country_flag = DA_can_build_builders_road }
+		NOT = { has_country_flag = DA_can_build_nath_waterworks }
+	}
+}
+
+DA_KH_vale_walls_complete = {
+	4166 = { has_great_project = { type = DA_Serpent_Vale_wall1 tier = 3 } }
+	4145 = { has_great_project = { type = DA_Serpent_Vale_wall2 tier = 3 } }
+}
+
+# 5 of the nine works stand at tier III (the two Vale Walls count as one).
+DA_KH_works_finished = {
+	calc_true_if = {
+		amount = 5
+		2863 = { has_great_project = { type = DA_Khugdihr_last_defense tier = 3 } }
+		833 = { has_great_project = { type = DA_Castonath tier = 3 } }
+		DA_KH_vale_walls_complete = yes
+		2896 = { has_great_project = { type = DA_Balgar_Sunwells tier = 3 } }
+		2863 = { has_great_project = { type = DA_Balgar_Homeforge tier = 3 } }
+		2897 = { has_great_project = { type = DA_Balgar_Gallery tier = 3 } }
+		4173 = { has_great_project = { type = DA_Balgar_Northgate tier = 3 } }
+		849 = { has_great_project = { type = DA_Balgar_Builders_Road tier = 3 } }
+		854 = { has_great_project = { type = DA_Balgar_Nath_Waterworks tier = 3 } }
+	}
+}
+
+# The inner face of the Bastion was chosen and the first tier stands: a raid of the dragon does half the damage.
+DA_KH_deep_gate_holds = {
+	2863 = {
+		has_province_modifier = DA_Balgar_bastion_deep_gate
+		has_great_project = { type = DA_Khugdihr_last_defense tier = 1 }
+	}
+}

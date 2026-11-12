@@ -1,15 +1,29 @@
+# Khugdihr: Balgar's folio and Nimrith's offspring (12 November 2026).
+# Written by Claude files/tools/khugdihr_2026-11-12/gen.py and installed by apply_khugdihr_folio_2026-11-12.py; hand-owned after that.
+# Note: Claude files/13 - Khugdihr.md
+#
+# The finds are DA_ADK_explore.214 (Balgar's house), .215 (the counting halls) and .216 (the dragon), in
+# events/DA_Exploration_Outcomes.txt. The folio is read by the Runesmith project DA_RS_project_Balgar_Folio (Projects page of the
+# Dwarven Hall): each run ends with .6, which reads one of the nine plans at random. The fight with the dragon is the
+# Legendary Encounter window; the texts of .2 belong to build_legendary_encounters.py.
+# No event of this namespace may be numbered 3 or 30 to 39: check_legendary_encounters.py looks for the retired duel event by that prefix.
+
 namespace = DA_Khugdihr_event
 
-country_event = {
-	id = DA_Khugdihr_event.1 				# can build Balgar's unbuilt projects
+#######################################################
+# Balgar's folio
+#######################################################
+
+country_event = { # the catalogue of the studio: 180 days after the find, or from the three-yearly pulse once the Research Facility is at level 3
+	id = DA_Khugdihr_event.1
 	title = "DA_Khugdihr_event.1.t"
 	desc = "DA_Khugdihr_event.1.d"
-	picture = GREAT_BUILDING_eventPicture
+	picture = EKLUZAGNU_eventPicture
 
 	is_triggered_only = yes
 	trigger = {
 		DA_has_RF_3_or_higher = yes
-		any_core_province = {
+		any_owned_province = {
 			has_province_flag = DA_Khugdihr_exp1
 		}
 		NOT = { has_country_flag = DA_can_build_Balgar_wonders }
@@ -24,13 +38,1081 @@ country_event = {
 	}
 }
 
-country_event = {
-	id = DA_Khugdihr_event.2 			# Victory against Nimrith's Child
+country_event = { # the Runesmith project ends (365 days after it was started): the privilege goes and a plan is read
+	id = DA_Khugdihr_event.6
+	title = "DA_Khugdihr_event.1.t"
+	desc = "DA_Khugdihr_event.1.d"
+	picture = EKLUZAGNU_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_estate_privilege = DA_RS_project_Balgar_Folio
+		had_country_flag = {
+			flag = DA_KH_decipher_run
+			days = 360
+		}
+	}
+
+	immediate = {
+		remove_estate_privilege = DA_RS_project_Balgar_Folio
+		country_event = { id = DA_Khugdihr_event.7 }
+	}
+}
+
+country_event = { # one of the plans that are still sealed, at random. The roll is in an event: dice thrown from a button or the console always fall the same way
+	id = DA_Khugdihr_event.7
+	title = "DA_Khugdihr_event.1.t"
+	desc = "DA_Khugdihr_event.1.d"
+	picture = EKLUZAGNU_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		DA_KH_any_plan_unread = yes
+	}
+
+	immediate = {
+		random_list = {
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_reinforce_khugdihr } }
+				country_event = { id = DA_Khugdihr_event.11 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_upgrade_Castonath } }
+				country_event = { id = DA_Khugdihr_event.12 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_build_vale_walls } }
+				country_event = { id = DA_Khugdihr_event.13 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_build_sunwells } }
+				country_event = { id = DA_Khugdihr_event.14 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_build_homeforge } }
+				country_event = { id = DA_Khugdihr_event.15 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_build_gallery } }
+				country_event = { id = DA_Khugdihr_event.16 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_build_northgate } }
+				country_event = { id = DA_Khugdihr_event.17 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_build_builders_road } }
+				country_event = { id = DA_Khugdihr_event.18 }
+			}
+			10 = {
+				trigger = { NOT = { has_country_flag = DA_can_build_nath_waterworks } }
+				country_event = { id = DA_Khugdihr_event.19 }
+			}
+		}
+	}
+}
+
+country_event = { # the last case is read (DA_KH_after_plan, 5 days after the last plan's event)
+	id = DA_Khugdihr_event.8
+	title = "DA_Khugdihr_event.8.t"
+	desc = "DA_Khugdihr_event.8.d"
+	picture = EKLUZAGNU_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { DA_KH_any_plan_unread = yes }
+		NOT = { has_country_flag = DA_KH_folio_empty }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_folio_empty
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.8.a"
+		add_prestige = 15
+		add_estate_loyalty = {
+			estate = estate_da_runesmiths
+			loyalty = 10
+		}
+	}
+}
+
+#######################################################
+# The nine plans. Each asks one question; the answer is kept as a country flag (DA_KH_<plan>_a / _b)
+# and becomes a province modifier when the great project is built (DA_KH_settle).
+#######################################################
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): bastion
+	id = DA_Khugdihr_event.11
+	title = "DA_Khugdihr_event.11.t"
+	desc = "DA_Khugdihr_event.11.d"
+	picture = FORT_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_reinforce_khugdihr }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_reinforce_khugdihr
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.11.a"
+		goto = 2863
+		custom_tooltip = DA_Balgar_project_bastion_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			2863 = { add_permanent_province_modifier = { name = DA_Balgar_bastion_deep_gate duration = -1 } }
+		}
+		custom_tooltip = DA_Balgar_bastion_deep_gate_tt
+		hidden_effect = {
+			set_country_flag = DA_KH_bastion_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.11.b"
+		goto = 2863
+		custom_tooltip = DA_Balgar_project_bastion_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			2863 = { add_permanent_province_modifier = { name = DA_Balgar_bastion_surface_gate duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_bastion_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): castonath
+	id = DA_Khugdihr_event.12
+	title = "DA_Khugdihr_event.12.t"
+	desc = "DA_Khugdihr_event.12.d"
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_upgrade_Castonath }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_upgrade_Castonath
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.12.a"
+		goto = 833
+		custom_tooltip = DA_Balgar_project_castonath_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			831 = { add_permanent_province_modifier = { name = DA_Balgar_castonath_raised duration = -1 } }
+			832 = { add_permanent_province_modifier = { name = DA_Balgar_castonath_raised duration = -1 } }
+			833 = { add_permanent_province_modifier = { name = DA_Balgar_castonath_raised duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_castonath_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.12.b"
+		goto = 833
+		custom_tooltip = DA_Balgar_project_castonath_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			831 = { add_permanent_province_modifier = { name = DA_Balgar_castonath_delved duration = -1 } }
+			832 = { add_permanent_province_modifier = { name = DA_Balgar_castonath_delved duration = -1 } }
+			833 = { add_permanent_province_modifier = { name = DA_Balgar_castonath_delved duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_castonath_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): vale
+	id = DA_Khugdihr_event.13
+	title = "DA_Khugdihr_event.13.t"
+	desc = "DA_Khugdihr_event.13.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_build_vale_walls }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_build_vale_walls
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.13.a"
+		goto = 4145
+		custom_tooltip = DA_Balgar_project_vale_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			4166 = { add_permanent_province_modifier = { name = DA_Balgar_vale_gated duration = -1 } }
+			4145 = { add_permanent_province_modifier = { name = DA_Balgar_vale_gated duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_vale_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.13.b"
+		goto = 4145
+		custom_tooltip = DA_Balgar_project_vale_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			4166 = { add_permanent_province_modifier = { name = DA_Balgar_vale_closed duration = -1 } }
+			4145 = { add_permanent_province_modifier = { name = DA_Balgar_vale_closed duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_vale_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): sunwells
+	id = DA_Khugdihr_event.14
+	title = "DA_Khugdihr_event.14.t"
+	desc = "DA_Khugdihr_event.14.d"
+	picture = DA_Balgar_Sunwells_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_build_sunwells }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_build_sunwells
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.14.a"
+		goto = 2896
+		custom_tooltip = DA_Balgar_project_sunwells_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			2896 = { add_permanent_province_modifier = { name = DA_Balgar_sunwells_terraces duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_sunwells_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.14.b"
+		goto = 2896
+		custom_tooltip = DA_Balgar_project_sunwells_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			2896 = { add_permanent_province_modifier = { name = DA_Balgar_sunwells_streets duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_sunwells_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): homeforge
+	id = DA_Khugdihr_event.15
+	title = "DA_Khugdihr_event.15.t"
+	desc = "DA_Khugdihr_event.15.d"
+	picture = DA_Balgar_Homeforge_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_build_homeforge }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_build_homeforge
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.15.a"
+		goto = 2863
+		custom_tooltip = DA_Balgar_project_homeforge_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			2863 = { add_permanent_province_modifier = { name = DA_Balgar_homeforge_runesmiths duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_homeforge_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.15.b"
+		goto = 2863
+		custom_tooltip = DA_Balgar_project_homeforge_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			2863 = { add_permanent_province_modifier = { name = DA_Balgar_homeforge_balgarsmiths duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_homeforge_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): gallery
+	id = DA_Khugdihr_event.16
+	title = "DA_Khugdihr_event.16.t"
+	desc = "DA_Khugdihr_event.16.d"
+	picture = DA_Balgar_Gallery_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_build_gallery }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_build_gallery
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.16.a"
+		goto = 2897
+		custom_tooltip = DA_Balgar_project_gallery_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			2897 = { add_permanent_province_modifier = { name = DA_Balgar_gallery_road duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_gallery_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.16.b"
+		goto = 2897
+		custom_tooltip = DA_Balgar_project_gallery_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			2897 = { add_permanent_province_modifier = { name = DA_Balgar_gallery_hold duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_gallery_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): northgate
+	id = DA_Khugdihr_event.17
+	title = "DA_Khugdihr_event.17.t"
+	desc = "DA_Khugdihr_event.17.d"
+	picture = DA_Balgar_Northgate_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_build_northgate }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_build_northgate
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.17.a"
+		goto = 4173
+		custom_tooltip = DA_Balgar_project_northgate_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			4173 = { add_permanent_province_modifier = { name = DA_Balgar_northgate_toll duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_northgate_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.17.b"
+		goto = 4173
+		custom_tooltip = DA_Balgar_project_northgate_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			4173 = { add_permanent_province_modifier = { name = DA_Balgar_northgate_bane duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_northgate_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): road
+	id = DA_Khugdihr_event.18
+	title = "DA_Khugdihr_event.18.t"
+	desc = "DA_Khugdihr_event.18.d"
+	picture = DA_Balgar_Road_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_build_builders_road }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_build_builders_road
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.18.a"
+		goto = 849
+		custom_tooltip = DA_Balgar_project_road_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			849 = { add_permanent_province_modifier = { name = DA_Balgar_road_paved duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_road_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.18.b"
+		goto = 849
+		custom_tooltip = DA_Balgar_project_road_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			849 = { add_permanent_province_modifier = { name = DA_Balgar_road_railed duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_road_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = { # a plan of the folio is read (DA_Khugdihr_event.7): nath
+	id = DA_Khugdihr_event.19
+	title = "DA_Khugdihr_event.19.t"
+	desc = "DA_Khugdihr_event.19.d"
+	picture = DA_Balgar_Nath_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_can_build_nath_waterworks }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_can_build_nath_waterworks
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.19.a"
+		goto = 854
+		custom_tooltip = DA_Balgar_project_nath_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			854 = { add_permanent_province_modifier = { name = DA_Balgar_nath_fields duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_nath_a
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = "DA_Khugdihr_event.19.b"
+		goto = 854
+		custom_tooltip = DA_Balgar_project_nath_tt
+		custom_tooltip = DA_KH_answer_tt
+		tooltip = {
+			854 = { add_permanent_province_modifier = { name = DA_Balgar_nath_settlers duration = -1 } }
+		}
+		hidden_effect = {
+			set_country_flag = DA_KH_nath_b
+			DA_KH_after_plan = yes
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+#######################################################
+# The works: reports from the great projects (on_upgraded, 3 days later)
+#######################################################
+
+country_event = { # bastion: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.21
+	title = "DA_Khugdihr_event.21.t"
+	desc = {
+		trigger = { has_country_flag = DA_KH_bastion_a }
+		desc = "DA_Khugdihr_event.21.d.deep"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_KH_bastion_b }
+		desc = "DA_Khugdihr_event.21.d.surface"
+	}
+	desc = {
+		trigger = {
+			NOT = { has_country_flag = DA_KH_bastion_a }
+			NOT = { has_country_flag = DA_KH_bastion_b }
+		}
+		desc = "DA_Khugdihr_event.21.d"
+	}
+	picture = FORT_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_bastion_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_bastion_first_course
+			2863 = { DA_KH_settle = { plan = DA_KH_bastion a = DA_Balgar_bastion_deep_gate b = DA_Balgar_bastion_surface_gate } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.21.a"
+		add_prestige = 5
+		2863 = {
+			add_base_manpower = 1
+		}
+	}
+}
+
+country_event = { # bastion: tier III
+	id = DA_Khugdihr_event.22
+	title = "DA_Khugdihr_event.22.t"
+	desc = "DA_Khugdihr_event.22.d"
+	picture = FORT_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_bastion_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_bastion_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.22.a"
+		add_prestige = 25
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # castonath: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.24
+	title = "DA_Khugdihr_event.24.t"
+	desc = {
+		trigger = { has_country_flag = DA_KH_castonath_a }
+		desc = "DA_Khugdihr_event.24.d.raised"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_KH_castonath_b }
+		desc = "DA_Khugdihr_event.24.d.delved"
+	}
+	desc = {
+		trigger = {
+			NOT = { has_country_flag = DA_KH_castonath_a }
+			NOT = { has_country_flag = DA_KH_castonath_b }
+		}
+		desc = "DA_Khugdihr_event.24.d"
+	}
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_castonath_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_castonath_first_course
+			831 = { DA_KH_settle = { plan = DA_KH_castonath a = DA_Balgar_castonath_raised b = DA_Balgar_castonath_delved } }
+			832 = { DA_KH_settle = { plan = DA_KH_castonath a = DA_Balgar_castonath_raised b = DA_Balgar_castonath_delved } }
+			833 = { DA_KH_settle = { plan = DA_KH_castonath a = DA_Balgar_castonath_raised b = DA_Balgar_castonath_delved } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.24.a"
+		add_prestige = 10
+	}
+}
+
+country_event = { # castonath: tier III
+	id = DA_Khugdihr_event.25
+	title = "DA_Khugdihr_event.25.t"
+	desc = "DA_Khugdihr_event.25.d"
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_castonath_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_castonath_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.25.a"
+		add_prestige = 50
+		every_owned_province = {
+			limit = { area = castonath_area }
+			add_base_production = 1
+		}
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # vale: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.27
+	title = "DA_Khugdihr_event.27.t"
+	desc = {
+		trigger = { has_country_flag = DA_KH_vale_a }
+		desc = "DA_Khugdihr_event.27.d.gated"
+	}
+	desc = {
+		trigger = { has_country_flag = DA_KH_vale_b }
+		desc = "DA_Khugdihr_event.27.d.closed"
+	}
+	desc = {
+		trigger = {
+			NOT = { has_country_flag = DA_KH_vale_a }
+			NOT = { has_country_flag = DA_KH_vale_b }
+		}
+		desc = "DA_Khugdihr_event.27.d"
+	}
+	picture = GREAT_BUILDING_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_vale_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_vale_first_course
+			4166 = { DA_KH_settle = { plan = DA_KH_vale a = DA_Balgar_vale_gated b = DA_Balgar_vale_closed } }
+			4145 = { DA_KH_settle = { plan = DA_KH_vale a = DA_Balgar_vale_gated b = DA_Balgar_vale_closed } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.27.a"
+		add_prestige = 5
+	}
+}
+
+country_event = { # vale: tier III
+	id = DA_Khugdihr_event.28
+	title = "DA_Khugdihr_event.28.t"
+	desc = "DA_Khugdihr_event.28.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		DA_KH_vale_walls_complete = yes
+		NOT = { has_country_flag = DA_KH_vale_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_vale_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.28.a"
+		add_prestige = 25
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # sunwells: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.50
+	title = "DA_Khugdihr_event.50.t"
+	desc = "DA_Khugdihr_event.50.d"
+	picture = DA_Balgar_Sunwells_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_sunwells_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_sunwells_first_course
+			2896 = { DA_KH_settle = { plan = DA_KH_sunwells a = DA_Balgar_sunwells_terraces b = DA_Balgar_sunwells_streets } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.50.a"
+		add_prestige = 5
+	}
+}
+
+country_event = { # sunwells: tier III
+	id = DA_Khugdihr_event.51
+	title = "DA_Khugdihr_event.51.t"
+	desc = "DA_Khugdihr_event.51.d"
+	picture = DA_Balgar_Sunwells_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_sunwells_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_sunwells_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.51.a"
+		add_prestige = 25
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # homeforge: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.52
+	title = "DA_Khugdihr_event.52.t"
+	desc = "DA_Khugdihr_event.52.d"
+	picture = DA_Balgar_Homeforge_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_homeforge_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_homeforge_first_course
+			2863 = { DA_KH_settle = { plan = DA_KH_homeforge a = DA_Balgar_homeforge_runesmiths b = DA_Balgar_homeforge_balgarsmiths } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.52.a"
+		add_prestige = 5
+	}
+}
+
+country_event = { # homeforge: tier III
+	id = DA_Khugdihr_event.53
+	title = "DA_Khugdihr_event.53.t"
+	desc = "DA_Khugdihr_event.53.d"
+	picture = DA_Balgar_Homeforge_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_homeforge_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_homeforge_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.53.a"
+		add_prestige = 25
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # gallery: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.54
+	title = "DA_Khugdihr_event.54.t"
+	desc = "DA_Khugdihr_event.54.d"
+	picture = DA_Balgar_Gallery_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_gallery_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_gallery_first_course
+			2897 = { DA_KH_settle = { plan = DA_KH_gallery a = DA_Balgar_gallery_road b = DA_Balgar_gallery_hold } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.54.a"
+		add_prestige = 5
+	}
+}
+
+country_event = { # gallery: tier III
+	id = DA_Khugdihr_event.55
+	title = "DA_Khugdihr_event.55.t"
+	desc = "DA_Khugdihr_event.55.d"
+	picture = DA_Balgar_Gallery_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_gallery_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_gallery_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.55.a"
+		add_prestige = 25
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # northgate: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.56
+	title = "DA_Khugdihr_event.56.t"
+	desc = "DA_Khugdihr_event.56.d"
+	picture = DA_Balgar_Northgate_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_northgate_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_northgate_first_course
+			4173 = { DA_KH_settle = { plan = DA_KH_northgate a = DA_Balgar_northgate_toll b = DA_Balgar_northgate_bane } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.56.a"
+		add_prestige = 5
+	}
+}
+
+country_event = { # northgate: tier III
+	id = DA_Khugdihr_event.57
+	title = "DA_Khugdihr_event.57.t"
+	desc = "DA_Khugdihr_event.57.d"
+	picture = DA_Balgar_Northgate_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_northgate_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_northgate_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.57.a"
+		add_prestige = 25
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # road: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.58
+	title = "DA_Khugdihr_event.58.t"
+	desc = "DA_Khugdihr_event.58.d"
+	picture = DA_Balgar_Road_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_road_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_road_first_course
+			849 = { DA_KH_settle = { plan = DA_KH_road a = DA_Balgar_road_paved b = DA_Balgar_road_railed } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.58.a"
+		add_prestige = 5
+	}
+}
+
+country_event = { # road: tier III
+	id = DA_Khugdihr_event.59
+	title = "DA_Khugdihr_event.59.t"
+	desc = "DA_Khugdihr_event.59.d"
+	picture = DA_Balgar_Road_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_road_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_road_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.59.a"
+		add_prestige = 25
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # nath: tier I (on_upgraded of the great project, 3 days later)
+	id = DA_Khugdihr_event.60
+	title = "DA_Khugdihr_event.60.t"
+	desc = "DA_Khugdihr_event.60.d"
+	picture = DA_Balgar_Nath_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_nath_first_course }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_nath_first_course
+			854 = { DA_KH_settle = { plan = DA_KH_nath a = DA_Balgar_nath_fields b = DA_Balgar_nath_settlers } }
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.60.a"
+		add_prestige = 5
+	}
+}
+
+country_event = { # nath: tier III
+	id = DA_Khugdihr_event.61
+	title = "DA_Khugdihr_event.61.t"
+	desc = "DA_Khugdihr_event.61.d"
+	picture = DA_Balgar_Nath_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = DA_KH_nath_finished }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_KH_nath_finished
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.61.a"
+		add_prestige = 25
+		custom_tooltip = DA_KH_gain_5_ADK
+		hidden_effect = {
+			change_variable = { ancientDwarvenKnowledge = 5 }
+			DA_KH_check_heirs = yes
+		}
+	}
+}
+
+country_event = { # 5 works of the folio stand at tier III (DA_KH_check_heirs)
+	id = DA_Khugdihr_event.29
+	title = "DA_Khugdihr_event.29.t"
+	desc = "DA_Khugdihr_event.29.d"
+	picture = EKLUZAGNU_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		DA_KH_works_finished = yes
+		NOT = { has_country_flag = DA_Balgar_folio_closed }
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_Balgar_folio_closed
+		}
+	}
+
+	option = {
+		name = "DA_Khugdihr_event.29.a"
+		add_prestige = 25
+		add_country_modifier = {
+			name = DA_Balgar_heirs
+			duration = -1
+		}
+	}
+}
+
+#######################################################
+# Nimrith's offspring
+#######################################################
+
+country_event = { # the dragon is dead (Legendary Encounter window; for the AI, DA_LE_five_year_pulse). Its texts are written by build_legendary_encounters.py
+	id = DA_Khugdihr_event.2
 	title = "DA_Khugdihr_event.2.t"
 	desc = "DA_Khugdihr_event.2.d"
 	picture = BATTLE_eventPicture
 
 	is_triggered_only = yes
+
 	option = {
 		name = "DA_Khugdihr_event.2.a"
 		custom_tooltip = DA_Khugdihr_event.2.a.tt
@@ -44,31 +1126,58 @@ country_event = {
 				id = DA_Tech_Alchemy_Material_Event.306
 			}
 		}
+		hidden_effect = {
+			set_country_flag = DA_Khugdihr_dragon_slain
+			2863 = {
+				set_province_flag = DA_Khugdihr_dragon_dead # the Homeforge wants the skull
+			}
+			country_event = {
+				id = DA_Khugdihr_event.40
+				days = 10
+			}
+			country_event = {
+				id = DA_Khugdihr_event.41
+				days = 730
+			}
+		}
 	}
-	
 }
 
-
-
-country_event = {
-	id = DA_Khugdihr_event.4 				#  periodical dragon raid
+country_event = { # a raid (DA_LE_five_year_pulse: 40% every five years while the dragon is neither dead, paid off nor being fought)
+	id = DA_Khugdihr_event.4
 	title = "DA_Khugdihr_event.4.t"
-	desc = "DA_Khugdihr_event.4.d"
-	picture = COUNTRY_COLLAPSE_eventPicture
+	desc = {
+		trigger = { DA_KH_deep_gate_holds = yes }
+		desc = "DA_Khugdihr_event.4.d.gate"
+	}
+	desc = {
+		trigger = { NOT = { DA_KH_deep_gate_holds = yes } }
+		desc = "DA_Khugdihr_event.4.d"
+	}
+	picture = DRAGON_ATTACK_eventPicture
 
+	is_triggered_only = yes
 	trigger = {
 		owns = 2863
 		2863 = {
 			has_province_modifier = DA_Dragon_raids
 		}
 	}
-	is_triggered_only = yes
 
 	option = {
 		name = "DA_Khugdihr_event.4.a"
 		goto = 2863
-		2863 = {
-			add_devastation = 20
+		if = {
+			limit = { DA_KH_deep_gate_holds = yes }
+			custom_tooltip = DA_Khugdihr_event.4.gate_tt
+			2863 = {
+				add_devastation = 10
+			}
+		}
+		else = {
+			2863 = {
+				add_devastation = 20
+			}
 		}
 		hidden_effect = {
 			set_country_flag = DA_can_duel_Dragon
@@ -76,98 +1185,100 @@ country_event = {
 	}
 }
 
-#  events which unlock Balgar's unbuilt projects
+country_event = { # what the dragon lay on, ten days after its death
+	id = DA_Khugdihr_event.40
+	title = "DA_Khugdihr_event.40.t"
+	desc = {
+		trigger = { has_country_flag = DA_can_build_Balgar_wonders }
+		desc = "DA_Khugdihr_event.40.d.folio"
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_can_build_Balgar_wonders } }
+		desc = "DA_Khugdihr_event.40.d"
+	}
+	picture = KOBOLD_HOARD_eventPicture
 
-country_event = {
-	id = DA_Khugdihr_event.11 				#  unlocked Khugdihr's last line of defense
-	title = "DA_Khugdihr_event.11.t"
-	desc = "DA_Khugdihr_event.11.d"
-	picture = GREAT_BUILDING_eventPicture
-
+	is_triggered_only = yes
 	trigger = {
-		has_country_flag = DA_can_build_Balgar_wonders
-		NOT = { has_country_flag = DA_can_reinforce_khugdihr }
+		NOT = { has_country_flag = DA_KH_hoard_settled }
+	}
+
+	option = { # the crown's
+		name = "DA_Khugdihr_event.40.a"
+		add_treasury = 1200
+		add_inflation = 1
+		ai_chance = { factor = 50 }
+	}
+	option = { # the clans'
+		name = "DA_Khugdihr_event.40.b"
+		add_stability = 1
+		add_prestige = 20
+		add_estate_loyalty = {
+			estate = all
+			loyalty = 10
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Balgar's
+		name = "DA_Khugdihr_event.40.c"
+		trigger = {
+			has_country_flag = DA_can_build_Balgar_wonders
+		}
+		add_prestige = 10
+		add_country_modifier = {
+			name = DA_Balgar_hoard_fund
+			duration = 9125
+		}
+		ai_chance = { factor = 0 }
+	}
+	after = {
+		hidden_effect = {
+			set_country_flag = DA_KH_hoard_settled
+		}
+	}
+}
+
+country_event = { # the Darkscales ask for the bones of Nimrith, two years after the death of his offspring
+	id = DA_Khugdihr_event.41
+	title = "DA_Khugdihr_event.41.t"
+	desc = "DA_Khugdihr_event.41.d"
+	picture = KOBOLD_HOARD_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
 		owns = 2863
+		NOT = { has_country_flag = DA_KH_pilgrims_answered }
 	}
-	is_triggered_only = yes
 
-	option = {
-		name = "DA_Khugdihr_event.11.a"
-		goto = 2863
-		custom_tooltip = DA_Balgar_project.tt
-		hidden_effect = {
-			set_country_flag = DA_can_reinforce_khugdihr
+	option = { # let them come
+		name = "DA_Khugdihr_event.41.a"
+		2863 = {
+			add_province_modifier = {
+				name = DA_Khugdihr_darkscale_pilgrims
+				duration = 7300
+			}
 		}
+		ai_chance = { factor = 30 }
 	}
-}
-
-country_event = {
-	id = DA_Khugdihr_event.12 				#  unlocked Castonath
-	title = "DA_Khugdihr_event.12.t"
-	desc = "DA_Khugdihr_event.12.d"
-	picture = GREAT_BUILDING_eventPicture
-
-	trigger = {
-		has_country_flag = DA_can_build_Balgar_wonders
-		NOT = { has_country_flag = DA_can_upgrade_Castonath }
-		owns = 833
-		owns = 832
-		owns = 831
-	}
-	is_triggered_only = yes
-	
-
-	option = {
-		name = "DA_Khugdihr_event.12.a"
-		goto = 833
-		custom_tooltip = DA_Balgar_project.tt
-		hidden_effect = {
-			set_country_flag = DA_can_upgrade_Castonath
+	option = { # give them the bones
+		name = "DA_Khugdihr_event.41.b"
+		2863 = {
+			add_province_modifier = {
+				name = DA_Khugdihr_quiet_depths
+				duration = 7300
+			}
 		}
+		ai_chance = { factor = 40 }
 	}
-}
-
-country_event = {
-	id = DA_Khugdihr_event.13 				#  unlocked 2 Vale's Great walls
-	title = "DA_Khugdihr_event.13.t"
-	desc = "DA_Khugdihr_event.13.d"
-	picture = GREAT_BUILDING_eventPicture
-
-	trigger = {
-		has_country_flag = DA_can_build_Balgar_wonders
-		NOT = { has_country_flag = DA_can_build_vale_walls }
-		owns = 4152
-		owns = 4151
-		owns = 4158
-		owns = 4123
-		owns = 4125
-		owns = 4142
-		owns = 4131
-		owns = 4143
-		owns = 4145
-		owns = 4164
-		owns = 4166
-
-		4152 = { NOT = { has_province_modifier = flooded_province } }
-		4151 = { NOT = { has_province_modifier = flooded_province } }
-		4158 = { NOT = { has_province_modifier = flooded_province } }
-		4123 = { NOT = { has_province_modifier = flooded_province } }
-		4125 = { NOT = { has_province_modifier = flooded_province } }
-		4142 = { NOT = { has_province_modifier = flooded_province } }
-		4131 = { NOT = { has_province_modifier = flooded_province } }
-		4143 = { NOT = { has_province_modifier = flooded_province } }
-		4145 = { NOT = { has_province_modifier = flooded_province } }
-		4164 = { NOT = { has_province_modifier = flooded_province } }
-		4166 = { NOT = { has_province_modifier = flooded_province } }
+	option = { # shut the doors
+		name = "DA_Khugdihr_event.41.c"
+		add_prestige = 5
+		add_army_tradition = 5
+		ai_chance = { factor = 30 }
 	}
-	
-
-	option = {
-		name = "DA_Khugdihr_event.13.a"
-		goto = 4145
-		custom_tooltip = DA_Balgar_project.tt
+	after = {
 		hidden_effect = {
-			set_country_flag = DA_can_build_vale_walls
+			set_country_flag = DA_KH_pilgrims_answered
 		}
 	}
 }

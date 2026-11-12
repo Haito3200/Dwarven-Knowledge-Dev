@@ -1,92 +1,331 @@
 namespace = DA_Orlazam_az_dihr_event
 
-country_event = {
-	id = DA_Orlazam_az_dihr_event.1 				# can build ramsteel forges
+# Orlazam-az-dihr (4147), the Ramsteel Hold: the Ramsteel Forges and the Dark Rams. Reworked on 11 November 2026.
+#
+#   Hold exploration (DA_ADK_explore.217-218, events/DA_Exploration_Outcomes.txt)
+#     .217 the forge-master's strongbox: the ramsteel drawings  -> Runesmith project Ramsteel Forges
+#     .218 the wild herd of the lowest pastures                 -> Runesmith project Dark Rams Taming
+#   Ramsteel Forges (DA_RS_project_Ramsteel_Forges, 3 years, started from the Projects page of the Dwarven Hall)
+#     one year in      -> .11 the rams will not strike: cap the horns or not
+#     the project ends -> .2  the monument DA_Ramsteel_Forges stands in Ramvault (4130) at tier I
+#     tier II          -> .12 finished work instead of bar
+#     tier III         -> .13 enough ramsteel to alloy it
+#   Dark Rams Taming (DA_RS_project_Dark_Rams_Taming, 5 years)
+#     two years in     -> .21 the Old One: break him or let him choose
+#     the project ends -> .3  Mythical Cavalry is unlocked, its regiments are Dark Rams; how the herd is kept
+#                             (without the Lions of the North DLC: one option, a modifier for all cavalry)
+#   Both               -> .30 ramsteel barding for the Dark Rams (monument at tier II and the herd tamed)
+#   Old saves          -> .1  hidden: turns the results of the chain as it was before into the new ones (.4 and .5 tell the player)
+#
+# Every number of the chain is in the two privileges (common/estate_privileges/DA_estate_privileges.txt), the monument
+# (common/great_projects/DA_Hold_monuments.txt), common/event_modifiers/DA_Hold_Orlazam_az_dihr_modifiers.txt and this file.
+# A delayed event of a project that was interrupted cannot end a later run: the end events read the age of the run flag.
+
+
+#######################################################
+# Old saves
+#######################################################
+
+country_event = { # hidden. Still in the three-yearly pulse (common/on_actions/DA_on_actions.txt), where the old "blueprints sorted" event was
+	id = DA_Orlazam_az_dihr_event.1
 	title = "DA_Orlazam_az_dihr_event.1.t"
 	desc = "DA_Orlazam_az_dihr_event.1.d"
 	picture = DA_research_facility_eventPicture
 
+	hidden = yes
 	is_triggered_only = yes
 	trigger = {
-		DA_has_RF_4_or_higher = yes
-		any_core_province = {
-			has_province_flag = DA_Orlazam_az_dihr_exp1
-		}
-		NOT = { has_country_flag = DA_can_build_ramsteel_forges }
+		DA_OAD_has_old_results = yes
+	}
+
+	immediate = {
+		DA_OAD_migrate_old_save = yes
 	}
 
 	option = {
 		name = "DA_Orlazam_az_dihr_event.1.a"
-		custom_tooltip = DA_can_build_ramsteel_forges_tt
-		hidden_effect = {
-			set_country_flag = DA_can_build_ramsteel_forges
-		}
 	}
 }
 
-country_event = {
-	id = DA_Orlazam_az_dihr_event.2 			# establish ramsteel forges, decision
-	title = "DA_Orlazam_az_dihr_event.2.t"
-	desc = "DA_Orlazam_az_dihr_event.2.d"
-	picture = DA_research_facility_eventPicture
-
-	is_triggered_only = yes
-	immediate = {
-		set_country_flag = DA_deciding_things
-	}
-	option = {
-		name = "DA_Orlazam_az_dihr_event.2.a"
-		add_treasury = -500
-		every_owned_province = {
-			limit = {
-				OR = {
-					province_id = 4148
-					province_id = 4130
-					province_id = 4118
-				}
-			}
-			add_permanent_province_modifier = {
-				name = DA_Ramsteel_forge
-				duration = -1
-			}
-		}
-	}
-	option = {
-		name = "DA_Orlazam_az_dihr_event.2.b"
-	}
-	after = {
-		clr_country_flag = DA_deciding_things
-	}
-}
-
-
-country_event = {
-	id = DA_Orlazam_az_dihr_event.3 				# decison on dark rams, mission tree
-	title = "DA_Orlazam_az_dihr_event.3.t"
-	desc = "DA_Orlazam_az_dihr_event.3.d"
+country_event = { # old save: the Dark Rams modifier of the old choice became Mythical Cavalry
+	id = DA_Orlazam_az_dihr_event.4
+	title = "DA_Orlazam_az_dihr_event.4.t"
+	desc = "DA_Orlazam_az_dihr_event.4.d"
 	picture = ULMISBAR_eventPicture
 
 	is_triggered_only = yes
 
 	option = {
+		name = "DA_Orlazam_az_dihr_event.4.a"
+		custom_tooltip = DA_Orlazam_az_dihr_event.4.tt
+	}
+}
+
+country_event = { # old save: the three province modifiers of the old decision became the monument
+	id = DA_Orlazam_az_dihr_event.5
+	title = "DA_Orlazam_az_dihr_event.5.t"
+	desc = "DA_Orlazam_az_dihr_event.5.d"
+	picture = DA_Ramsteel_Forges_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Orlazam_az_dihr_event.5.a"
+		custom_tooltip = DA_Orlazam_az_dihr_event.5.tt
+	}
+}
+
+
+#######################################################
+# The Ramsteel Forges
+#######################################################
+
+country_event = { # one year into the project
+	id = DA_Orlazam_az_dihr_event.11
+	title = "DA_Orlazam_az_dihr_event.11.t"
+	desc = "DA_Orlazam_az_dihr_event.11.d"
+	picture = DA_Ramsteel_Forges_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_estate_privilege = DA_RS_project_Ramsteel_Forges
+		NOT = { has_country_flag = DA_OAD_forge_midway }
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_OAD_forge_midway
+		}
+	}
+
+	option = { # cap the horns
+		name = "DA_Orlazam_az_dihr_event.11.a"
+		add_treasury = -200
+		custom_tooltip = DA_Orlazam_az_dihr_event.11.a.tt
+		hidden_effect = {
+			set_country_flag = DA_OAD_forge_capped
+		}
+		ai_chance = {
+			factor = 60
+			modifier = {
+				factor = 0
+				NOT = { treasury = 300 }
+			}
+		}
+	}
+	option = { # let them harden
+		name = "DA_Orlazam_az_dihr_event.11.b"
+		add_estate_loyalty = {
+			estate = estate_da_runesmiths
+			loyalty = -5
+		}
+		ai_chance = {
+			factor = 40
+		}
+	}
+}
+
+country_event = { # the project ends
+	id = DA_Orlazam_az_dihr_event.2
+	title = "DA_Orlazam_az_dihr_event.2.t"
+	desc = "DA_Orlazam_az_dihr_event.2.d"
+	picture = DA_Ramsteel_Forges_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_estate_privilege = DA_RS_project_Ramsteel_Forges
+		had_country_flag = {
+			flag = DA_OAD_forge_run
+			days = 1090
+		}
+	}
+
+	option = {
+		name = "DA_Orlazam_az_dihr_event.2.a"
+		remove_estate_privilege = DA_RS_project_Ramsteel_Forges
+		DA_OAD_raise_forges = yes
+		if = {
+			limit = {
+				has_country_flag = DA_OAD_forge_capped
+			}
+			4130 = {
+				add_base_production = 1
+			}
+		}
+	}
+}
+
+country_event = { # tier II (on_upgraded of the monument, 3 days later)
+	id = DA_Orlazam_az_dihr_event.12
+	title = "DA_Orlazam_az_dihr_event.12.t"
+	desc = "DA_Orlazam_az_dihr_event.12.d"
+	picture = DA_Ramsteel_Forges_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Orlazam_az_dihr_event.12.a"
+		custom_tooltip = DA_Orlazam_az_dihr_event.12.tt
+		hidden_effect = {
+			DA_OAD_check_barding = yes
+		}
+	}
+}
+
+country_event = { # tier III
+	id = DA_Orlazam_az_dihr_event.13
+	title = "DA_Orlazam_az_dihr_event.13.t"
+	desc = "DA_Orlazam_az_dihr_event.13.d"
+	picture = DA_Ramsteel_Forges_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "DA_Orlazam_az_dihr_event.13.a"
+		custom_tooltip = DA_Orlazam_az_dihr_event.13.tt
+		hidden_effect = {
+			DA_OAD_check_barding = yes
+		}
+	}
+}
+
+
+#######################################################
+# The Dark Rams
+#######################################################
+
+country_event = { # two years into the project
+	id = DA_Orlazam_az_dihr_event.21
+	title = "DA_Orlazam_az_dihr_event.21.t"
+	desc = "DA_Orlazam_az_dihr_event.21.d"
+	picture = ULMISBAR_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_estate_privilege = DA_RS_project_Dark_Rams_Taming
+		NOT = { has_country_flag = DA_OAD_rams_midway }
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = DA_OAD_rams_midway
+		}
+	}
+
+	option = { # break him
+		name = "DA_Orlazam_az_dihr_event.21.a"
+		custom_tooltip = DA_Orlazam_az_dihr_event.21.a.tt
+		hidden_effect = {
+			set_country_flag = DA_OAD_rams_broken
+		}
+		ai_chance = {
+			factor = 50
+		}
+	}
+	option = { # let him choose
+		name = "DA_Orlazam_az_dihr_event.21.b"
+		custom_tooltip = DA_Orlazam_az_dihr_event.21.b.tt
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+
+country_event = { # the project ends: Mythical Cavalry, and how the herd is kept
+	id = DA_Orlazam_az_dihr_event.3
+	title = "DA_Orlazam_az_dihr_event.3.t"
+	desc = "DA_Orlazam_az_dihr_event.3.d"
+	picture = ULMISBAR_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_estate_privilege = DA_RS_project_Dark_Rams_Taming
+		OR = {
+			NOT = { has_country_flag = DA_OAD_rams_run } # a project that was started before the rework
+			had_country_flag = {
+				flag = DA_OAD_rams_run
+				days = 1820
+			}
+		}
+	}
+
+	option = { # one wing
 		name = "DA_Orlazam_az_dihr_event.3.a"
+		trigger = {
+			has_dlc = "Lions of the North"
+		}
+		remove_estate_privilege = DA_RS_project_Dark_Rams_Taming
+		DA_OAD_unlock_dark_rams = yes
 		add_country_modifier = {
-			name = DA_Dark_Rams_applied1
+			name = DA_Dark_Rams_herd_1
 			duration = -1
 		}
+		ai_chance = {
+			factor = 30
+		}
 	}
-	option = {
+	option = { # a wing for every army
 		name = "DA_Orlazam_az_dihr_event.3.b"
+		trigger = {
+			has_dlc = "Lions of the North"
+		}
+		remove_estate_privilege = DA_RS_project_Dark_Rams_Taming
+		DA_OAD_unlock_dark_rams = yes
 		add_country_modifier = {
-			name = DA_Dark_Rams_applied2
+			name = DA_Dark_Rams_herd_2
 			duration = -1
 		}
+		ai_chance = {
+			factor = 50
+		}
 	}
-	option = {
+	option = { # the Ram Corps rebuilt
 		name = "DA_Orlazam_az_dihr_event.3.c"
+		trigger = {
+			has_dlc = "Lions of the North"
+		}
+		remove_estate_privilege = DA_RS_project_Dark_Rams_Taming
+		DA_OAD_unlock_dark_rams = yes
 		add_country_modifier = {
-			name = DA_Dark_Rams_applied3
+			name = DA_Dark_Rams_herd_3
 			duration = -1
+		}
+		ai_chance = {
+			factor = 20
+		}
+	}
+	option = { # without the Lions of the North DLC there is no Mythical Cavalry: the dark rams join the ordinary cavalry
+		name = "DA_Orlazam_az_dihr_event.3.e"
+		trigger = {
+			NOT = { has_dlc = "Lions of the North" }
+		}
+		remove_estate_privilege = DA_RS_project_Dark_Rams_Taming
+		DA_OAD_unlock_dark_rams = yes
+	}
+}
+
+country_event = { # the herd is tamed and the Ramsteel Forges stand at tier II: barding
+	id = DA_Orlazam_az_dihr_event.30
+	title = "DA_Orlazam_az_dihr_event.30.t"
+	desc = "DA_Orlazam_az_dihr_event.30.d"
+	picture = DA_Ramsteel_Forges_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		has_dlc = "Lions of the North"
+		has_country_flag = DA_Dark_Rams_tamed
+		NOT = { has_country_flag = DA_Dark_Rams_barded }
+		DA_OAD_forges_at_tier_2 = yes
+	}
+
+	option = {
+		name = "DA_Orlazam_az_dihr_event.30.a"
+		add_country_modifier = {
+			name = DA_Dark_Rams_ramsteel_barding
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = DA_Dark_Rams_barded
 		}
 	}
 }

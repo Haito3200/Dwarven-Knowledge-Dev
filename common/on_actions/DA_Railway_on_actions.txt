@@ -1,0 +1,13 @@
+# Railway Control Center (11 November 2026). An additive hook: it merges with the other files' on-actions.
+
+on_yearly_pulse = {
+	if = {
+		limit = {
+			OR = {
+				DA_RW_tier_1 = yes
+				has_country_flag = DA_RW_counted
+			}
+		}
+		DA_RW_recount = yes # the roads in service are counted again; a country that lost Er-Natvir loses the bonus
+	}
+}

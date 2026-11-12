@@ -1,0 +1,56 @@
+# Frozen Forge tester. In the console: run DA_Krakdhumvror_tester.txt
+# It runs as the player's country. Own Krakdhumvror (4208) first. Each block jumps to one point of the chain:
+# remove the "#" in front of the lines of ONE block, save, and run the file.
+# The tiers of the forge also need dig level 4, 6 and 8 in Krakdhumvror; the tester does not dig.
+
+# --- A. The forge is found and raised at tier 0, with what tier I costs (active by default)
+4208 = { set_province_flag = DA_Krakdhumvror_exp1 add_great_project = { type = DA_Frozen_Forge instant = yes } }
+add_treasury = 1600
+change_variable = { which = DA_alchemy_reagents_total value = 10 }
+change_variable = { which = DA_enchanted_building_material_total value = 10 }
+change_variable = { which = DA_arcane_metal_total value = 10 }
+
+# --- B. The three finds, one after the other (the forge, the giant, the wall)
+# 4208 = { province_event = { id = DA_ADK_explore.219 } }
+# 4208 = { province_event = { id = DA_ADK_explore.220 days = 1 } }
+# 4208 = { province_event = { id = DA_ADK_explore.231 days = 2 } }
+
+# --- C. The forge at tier I: the draw, Edge and Shot, an Ice-Steel order (needs a free common alloy slot)
+# 4208 = { set_province_flag = DA_Krakdhumvror_exp1 set_province_flag = DA_Krakdhumvror_exp2 add_great_project = { type = DA_Frozen_Forge instant = yes } add_great_project_tier = { type = DA_Frozen_Forge tier = 1 } }
+# add_treasury = 2000
+# change_variable = { which = DA_arcane_metal_total value = 40 }
+
+# --- D. The forge at tier II with the giant found: the Deep draw, Ice-Mithril, Twice-Tempered
+# 4208 = { set_province_flag = DA_Krakdhumvror_exp1 set_province_flag = DA_Krakdhumvror_exp2 add_great_project = { type = DA_Frozen_Forge instant = yes } add_great_project_tier = { type = DA_Frozen_Forge tier = 2 } }
+# add_treasury = 3000
+# change_variable = { which = DA_arcane_metal_total value = 40 }
+
+# --- E. The forge at tier III with the wall read: the ruling comes within a month, then Plate and Dark Ice
+# 4208 = { set_province_flag = DA_Krakdhumvror_exp1 set_province_flag = DA_Krakdhumvror_exp2 add_great_project = { type = DA_Frozen_Forge instant = yes } add_great_project_tier = { type = DA_Frozen_Forge tier = 3 } }
+# 4208 = { set_province_flag = DA_Krakdhumvror_exp3 }
+# add_treasury = 4000
+# change_variable = { which = DA_arcane_metal_total value = 40 }
+
+# --- F. Forget the waits: the draw, the issue and the troughs can be used again at once
+# remove_country_modifier = DA_FF_draw_changed
+# remove_country_modifier = DA_FF_issue_changed
+# remove_country_modifier = DA_FF_troughs_refreezing
+
+# --- G. The reports of the three tiers, one after the other (after block E: at a lower tier, .2 and .3 raise the forge the way an old project did)
+# country_event = { id = DA_Krakdhumvror_event.2 }
+# country_event = { id = DA_Krakdhumvror_event.3 days = 1 }
+# country_event = { id = DA_Krakdhumvror_event.4 days = 2 }
+
+# --- H. The follow-ups and the cold events, one after the other
+# country_event = { id = DA_Krakdhumvror_event.11 }
+# country_event = { id = DA_Krakdhumvror_event.12 days = 1 }
+# country_event = { id = DA_Krakdhumvror_event.14 days = 2 }
+# country_event = { id = DA_Krakdhumvror_event.20 days = 3 }
+# set_country_flag = DA_FF_draw_deep
+# country_event = { id = DA_Krakdhumvror_event.30 days = 4 }
+# country_event = { id = DA_Krakdhumvror_event.31 days = 5 }
+
+# --- I. A save from before the Frozen Forge: Ice-Steel Forge III and shock equipment II. Wait two months: the wonder at tier II, the issue Edge
+# 4208 = { set_province_flag = DA_Krakdhumvror_exp1 add_permanent_province_modifier = { name = DA_Ice_steel_forge3 duration = -1 } }
+# add_country_modifier = { name = DA_Ice_steel_equipment_shock2 duration = -1 }
+

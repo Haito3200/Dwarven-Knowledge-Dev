@@ -1,0 +1,437 @@
+namespace = DA_Er_Natvir_event
+
+# Er-Natvir (2931) and its Railway Control Center. Written on 11 November 2026.
+#
+# The hall
+#   .1          the dark board: the wonder is raised at tier 0 (on_built of DA_Railway_HQ)
+#   .2 .3 .4    tier I, II, III: queued by the upgrade button of the wonder window, 30 days later
+# Service One, the train that was never recalled
+#   .11         the lamp that moves: one year after tier I
+#   .12         a road for Service One: three years after tier II; the choice sets DA_EN_service_called or DA_EN_service_runs
+#   .14         Service One comes in, or passes: five years after tier III; its text and options follow the choice
+# New lines (at the end of this file, generated from the table of lines)
+#   .90         hidden: the works on a line are due (DA_RW_works_tick);  .91 they are abandoned: a province of the line was not ours
+#   .114 - .131 a line opens: 100 + the number of the line
+# The three finds that lead to the hall are DA_ADK_explore.229, .230 and .103 (events/DA_Exploration_Outcomes.txt).
+# The reports of the workshop are events/DA_Railway_events.txt. State: common/scripted_triggers/DA_Railway_triggers.txt.
+
+
+#########################################################
+# The hall
+
+province_event = {
+	id = DA_Er_Natvir_event.1 				# tier 0: the first report from the hall
+	title = "DA_Er_Natvir_event.1.t"
+	desc = "DA_Er_Natvir_event.1.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Er_Natvir_event.1.a"
+		custom_tooltip = DA_RW_first_report_tt
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.2 				# tier I: the board is lit, and one lamp on it moves
+	title = "DA_Er_Natvir_event.2.t"
+	desc = "DA_Er_Natvir_event.2.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Er_Natvir_event.2.a"
+		custom_tooltip = DA_RW_tier_1_unlock_tt
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.3 				# tier II: the signal desks
+	title = "DA_Er_Natvir_event.3.t"
+	desc = "DA_Er_Natvir_event.3.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Er_Natvir_event.3.a"
+		custom_tooltip = DA_RW_tier_2_unlock_tt
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.4 				# tier III: the survey desks
+	title = "DA_Er_Natvir_event.4.t"
+	desc = "DA_Er_Natvir_event.4.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Er_Natvir_event.4.a"
+		custom_tooltip = DA_RW_tier_3_unlock_tt
+	}
+}
+
+
+#########################################################
+# Service One
+
+country_event = {
+	id = DA_Er_Natvir_event.11 				# The Lamp That Moves
+	title = "DA_Er_Natvir_event.11.t"
+	desc = "DA_Er_Natvir_event.11.d"
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 2931
+	}
+	option = {
+		name = "DA_Er_Natvir_event.11.a"
+		tooltip = { add_adk_effect = { add = 3 } }
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 3 } }
+	}
+	option = {
+		name = "DA_Er_Natvir_event.11.b"
+		add_prestige = 10
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.12 				# A Road for Service One
+	title = "DA_Er_Natvir_event.12.t"
+	desc = "DA_Er_Natvir_event.12.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		owns = 2931
+		NOT = { has_country_flag = DA_EN_service_called }
+		NOT = { has_country_flag = DA_EN_service_runs }
+	}
+	option = {
+		name = "DA_Er_Natvir_event.12.a"
+		custom_tooltip = DA_RW_service_called_tt
+		hidden_effect = {
+			set_country_flag = DA_EN_service_called
+		}
+	}
+	option = {
+		name = "DA_Er_Natvir_event.12.b"
+		custom_tooltip = DA_RW_service_runs_tt
+		hidden_effect = {
+			set_country_flag = DA_EN_service_runs
+		}
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.14 				# Service One comes in, or passes
+	title = "DA_Er_Natvir_event.14.t"
+	desc = {
+		trigger = { has_country_flag = DA_EN_service_called }
+		desc = "DA_Er_Natvir_event.14.d_called"
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = DA_EN_service_called } }
+		desc = "DA_Er_Natvir_event.14.d_runs"
+	}
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		owns = 2931
+	}
+	option = {
+		name = "DA_Er_Natvir_event.14.a"
+		trigger = { has_country_flag = DA_EN_service_called }
+		add_stability = 1
+		add_prestige = 20
+	}
+	option = {
+		name = "DA_Er_Natvir_event.14.b"
+		trigger = { has_country_flag = DA_EN_service_called }
+		tooltip = { add_adk_effect = { add = 10 } }
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 10 } }
+	}
+	option = {
+		name = "DA_Er_Natvir_event.14.c"
+		trigger = { NOT = { has_country_flag = DA_EN_service_called } }
+		add_stability = 1
+		add_prestige = 10
+	}
+	option = {
+		name = "DA_Er_Natvir_event.14.e"
+		trigger = { NOT = { has_country_flag = DA_EN_service_called } }
+		tooltip = { add_adk_effect = { add = 5 } }
+		hidden_effect = { change_variable = { ancientDwarvenKnowledge = 5 } }
+		change_innovativeness = 2
+	}
+}
+
+#########################################################
+# New lines (generated by gen.py from network.py)
+
+country_event = {
+	id = DA_Er_Natvir_event.90 				# hidden: the works on a line are due
+	title = "DA_Er_Natvir_event.1.t"
+	desc = "DA_Er_Natvir_event.1.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		DA_RW_works_tick = yes
+	}
+	option = {
+		name = "DA_Er_Natvir_event.1.a"
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.91 				# the works on a line are abandoned: a province of it was not ours when they were due
+	title = "DA_Er_Natvir_event.91.t"
+	desc = "DA_Er_Natvir_event.91.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_Er_Natvir_event.91.a"
+		custom_tooltip = DA_RW_works_abandoned_tt
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.114 				# The Giant's Anvil Line opens
+	title = "DA_Er_Natvir_event.114.t"
+	desc = "DA_Er_Natvir_event.114.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.115 				# The Logr Valley Line opens
+	title = "DA_Er_Natvir_event.115.t"
+	desc = "DA_Er_Natvir_event.115.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.116 				# The Bal Vroren Line opens
+	title = "DA_Er_Natvir_event.116.t"
+	desc = "DA_Er_Natvir_event.116.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.117 				# The Olavlund Line opens
+	title = "DA_Er_Natvir_event.117.t"
+	desc = "DA_Er_Natvir_event.117.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.118 				# The Ogre Road opens
+	title = "DA_Er_Natvir_event.118.t"
+	desc = "DA_Er_Natvir_event.118.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.119 				# The Khugsroad Line opens
+	title = "DA_Er_Natvir_event.119.t"
+	desc = "DA_Er_Natvir_event.119.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.120 				# The Westgate Line opens
+	title = "DA_Er_Natvir_event.120.t"
+	desc = "DA_Er_Natvir_event.120.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.121 				# The Marrhold Line opens
+	title = "DA_Er_Natvir_event.121.t"
+	desc = "DA_Er_Natvir_event.121.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.122 				# The Ravenhill Line opens
+	title = "DA_Er_Natvir_event.122.t"
+	desc = "DA_Er_Natvir_event.122.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.123 				# The Skomdihr Line opens
+	title = "DA_Er_Natvir_event.123.t"
+	desc = "DA_Er_Natvir_event.123.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.124 				# The Ciranmyna Line opens
+	title = "DA_Er_Natvir_event.124.t"
+	desc = "DA_Er_Natvir_event.124.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.125 				# The Tungr Line opens
+	title = "DA_Er_Natvir_event.125.t"
+	desc = "DA_Er_Natvir_event.125.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.126 				# The Harpy Hills Line opens
+	title = "DA_Er_Natvir_event.126.t"
+	desc = "DA_Er_Natvir_event.126.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.127 				# The Suran Line opens
+	title = "DA_Er_Natvir_event.127.t"
+	desc = "DA_Er_Natvir_event.127.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.128 				# The Bulwar Line opens
+	title = "DA_Er_Natvir_event.128.t"
+	desc = "DA_Er_Natvir_event.128.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.129 				# The Gold Road opens
+	title = "DA_Er_Natvir_event.129.t"
+	desc = "DA_Er_Natvir_event.129.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.130 				# The Sarnihanpur Line opens
+	title = "DA_Er_Natvir_event.130.t"
+	desc = "DA_Er_Natvir_event.130.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
+
+country_event = {
+	id = DA_Er_Natvir_event.131 				# The Demon Hills Line opens
+	title = "DA_Er_Natvir_event.131.t"
+	desc = "DA_Er_Natvir_event.131.d"
+	picture = DA_train_image_eventPicture
+
+	is_triggered_only = yes
+	option = {
+		name = "DA_RW_line_event.a"
+		add_prestige = 5
+	}
+}
