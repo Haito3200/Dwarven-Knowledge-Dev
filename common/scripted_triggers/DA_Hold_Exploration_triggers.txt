@@ -424,3 +424,137 @@ DA_HX_seal_6_found = {
 	}
 }
 
+# what the Send button checks (its tooltips come from here); owner is the country that looks at the window
+DA_HX_send_allowed = {
+	has_subterranean_race = yes
+	is_state_core = owner
+	controlled_by = owner
+	if = {
+		limit = { has_province_modifier = incomplete_hold }
+		NOT = { has_province_modifier = incomplete_hold }
+	}
+	if = {
+		limit = { has_province_modifier = F23_flooded_depths }
+		custom_trigger_tooltip = {
+			tooltip = F23_cannot_dig_why
+			always = no
+		}
+	}
+	hidden_trigger = { NOT = { has_province_modifier = incomplete_hold_0 } }
+	if = {
+		limit = { hold_condition = { Damaged = yes } }
+		hold_condition = { Repaired = yes }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_HX_menu_closed_tt
+		owner = { NOT = { has_country_flag = DA_ADK_menu_in_use } }
+	}
+	if = {
+		limit = { DA_HX_target_2 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 40 }
+		}
+		else = {
+			owner = { treasury = 25 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_3 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 75 }
+		}
+		else = {
+			owner = { treasury = 50 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_4 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 150 }
+		}
+		else = {
+			owner = { treasury = 100 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_5 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 300 }
+		}
+		else = {
+			owner = { treasury = 200 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_6 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 450 }
+		}
+		else = {
+			owner = { treasury = 300 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_7 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 750 }
+		}
+		else = {
+			owner = { treasury = 500 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_8 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 1200 }
+		}
+		else = {
+			owner = { treasury = 800 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_9 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 1800 }
+		}
+		else = {
+			owner = { treasury = 1200 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_10 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 3750 }
+		}
+		else = {
+			owner = { treasury = 2500 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_11 = yes }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens }
+			owner = { treasury = 7500 }
+		}
+		else = {
+			owner = { treasury = 5000 }
+		}
+	}
+}
+
+# a company could leave from this hold now: the explore marker of the top bar (build_attention_markers.py)
+DA_HX_can_send = {
+	DA_HX_has_target = yes
+	NOT = { has_province_flag = DA_expedition_in_progress }
+	DA_HX_send_allowed = yes
+}
+

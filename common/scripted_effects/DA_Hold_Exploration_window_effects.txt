@@ -33,6 +33,17 @@ DA_HX_end_roll = {
 	clr_province_flag = DA_HX_run_wardens
 	clr_province_flag = DA_HX_run_prospectors
 	clr_province_flag = DA_HX_run_loreseekers
+	owner = { if = { limit = { ai = no } DA_HX_refresh_ready_count = yes } }
+}
+
+# Country scope. How many holds could send a company now: the tooltip of the explore marker of the top bar.
+# Also run on the monthly pulse for players (common/on_actions/DA_Attention_Markers_on_actions.txt).
+DA_HX_refresh_ready_count = {
+	set_variable = { which = DA_HX_ready_count value = 0 }
+	every_owned_province = {
+		limit = { DA_HX_can_send = yes }
+		owner = { change_variable = { which = DA_HX_ready_count value = 1 } }
+	}
 }
 
 # The Send button. The company leaves now; the floor table rolls when the modifier of its way down has run out.
@@ -69,6 +80,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 20 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -103,6 +115,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -137,6 +150,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 50 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -171,6 +185,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 65 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -205,6 +220,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -239,6 +255,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 95 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -273,6 +290,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 110 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -307,6 +325,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -341,6 +360,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 140 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 	else_if = {
@@ -375,6 +395,7 @@ DA_HX_send = {
 				add_province_modifier = { name = DA_HX_company_below duration = 155 }
 			}
 			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
 }

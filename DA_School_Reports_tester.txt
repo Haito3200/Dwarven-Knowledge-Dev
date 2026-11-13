@@ -1,0 +1,15 @@
+# School report tester. In the console: run DA_School_Reports_tester.txt
+# It runs as the player's country. Remove the "#" in front of the lines of ONE block, save, and run the file.
+
+# --- A. The schools report now (needs at least one tech building of a school's current tier, see block C)
+country_event = { id = DA_Tech_Tree_event.40 }
+
+# --- B. Show the experience of the five schools in the console log (game.log)
+# log = "Alchemy [Root.DA_Alchemy_exp.GetValue], Arcane Arts [Root.DA_Arcane_Arts_exp.GetValue], Mechanics [Root.DA_Mechanics_exp.GetValue], Medicine [Root.DA_Medicine_exp.GetValue], Metallurgy [Root.DA_Metallurgy_exp.GetValue]"
+
+# --- C. A tier-0 Alchemist's Workroom and Mage Mentor in every owned province without one (to test the +100 per five)
+# every_owned_province = { limit = { NOT = { has_building = DA_Alchemy_workshop_0 } } add_building = DA_Alchemy_workshop_0 }
+# every_owned_province = { limit = { NOT = { has_building = DA_Runesmiths_branch_0 } } add_building = DA_Runesmiths_branch_0 }
+
+# --- D. Enough experience for every school to advance one level (the report then shows the "can now advance" lines)
+# change_variable = { which = DA_Alchemy_exp value = 10000 } change_variable = { which = DA_Arcane_Arts_exp value = 10000 } change_variable = { which = DA_Mechanics_exp value = 10000 } change_variable = { which = DA_Medicine_exp value = 10000 } change_variable = { which = DA_Metallurgy_exp value = 10000 }

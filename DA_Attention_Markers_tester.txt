@@ -1,0 +1,18 @@
+# Attention markers tester. In the console: run DA_Attention_Markers_tester.txt
+# It runs as the player's country. Remove the "#" in front of the lines of ONE block, save, and run the file.
+# The markers sit in a row under the top bar, from x 598: explore, research, school, facility, capacity, works.
+
+# --- A. Count the holds that can send a company now (the explore marker's tooltip) and print the number in game.log
+DA_HX_refresh_ready_count = yes
+log = "Holds ready to send a company: [Root.DA_HX_ready_count.GetValue]"
+
+# --- B. A school can advance: 1,000 Alchemy experience (enough for level I; the school marker appears unless a study or project runs)
+# change_variable = { which = DA_Alchemy_exp value = 1000 }
+
+# --- C. Production Capacity exceeded, for 30 days (the next capacity update may remove it sooner)
+# add_country_modifier = { name = DA_over_production_cap duration = 30 }
+
+# --- D. Money for the next Research Facility level (the facility marker needs its dig level explored as well)
+# add_treasury = 5000
+
+# Works halted: start the works of a wonder you own, then let an enemy siege or occupy its hold.
