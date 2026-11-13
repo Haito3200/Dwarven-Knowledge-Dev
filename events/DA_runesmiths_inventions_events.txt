@@ -1000,7 +1000,7 @@ country_event = {
 	}
 }
 # to be used
-country_event = {
+country_event = {	# Subterranean Agriculture Rig (apply_new_inventions_2026-11-13.py)
 	id = DA_Runesmith_invention.204
 	title = DA_Runesmith_invention.204.t
 	desc = DA_Runesmith_invention.204.d
@@ -1008,11 +1008,64 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = DA_Runesmith_invention.69.a
 		custom_tooltip = DA_Runesmith_invention_new_tt
-		set_country_flag = DA_RS_IND_DEV_Subterrean_agriculture_rig_enabled
+		set_country_flag = DA_RS_IND_DEV_Subterranean_Agriculture_Rig_enabled
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {	# Subterranean Agriculture Rig upgrades (apply_new_inventions_2026-11-13.py)
+	id = DA_Runesmith_invention.2041
+	title = DA_Runesmith_invention.2041.t
+	desc = DA_Runesmith_invention.204.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmith_invention.2041.Alchemy_3
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_DEV_Subterranean_Agriculture_Rig_enabled.Alchemy_3 }
+			innovativeness = 3
+			DA_completed.Alchemy_3 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -3
+		custom_tooltip = DA_D2_up.2041.1.tt
+		set_country_flag = DA_RS_IND_DEV_Subterranean_Agriculture_Rig_enabled.Alchemy_3
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.2041.Mechanics_3
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_DEV_Subterranean_Agriculture_Rig_enabled.Mechanics_3 }
+			innovativeness = 3
+			DA_completed.Mechanics_3 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -3
+		custom_tooltip = DA_D2_up.2041.2.tt
+		set_country_flag = DA_RS_IND_DEV_Subterranean_Agriculture_Rig_enabled.Mechanics_3
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.2041.Bio_Construct
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_DEV_Subterranean_Agriculture_Rig_enabled.Bio_Construct }
+			innovativeness = 5
+			DA_completed.Bio_Construct = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.2041.3.tt
+		set_country_flag = DA_RS_IND_DEV_Subterranean_Agriculture_Rig_enabled.Bio_Construct
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.go_back
+		ai_chance = { factor = 1 }
 	}
 }
 
@@ -1169,7 +1222,7 @@ country_event = {
 }
 
 # to be used
-country_event = {
+country_event = {	# Lightning Foundries (apply_new_inventions_2026-11-13.py)
 	id = DA_Runesmith_invention.301
 	title = DA_Runesmith_invention.301.t
 	desc = DA_Runesmith_invention.301.d
@@ -1177,16 +1230,69 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = DA_Runesmith_invention.69.a
 		custom_tooltip = DA_Runesmith_invention_new_tt
-		set_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled
+		set_country_flag = DA_RS_IND_PROD_Lightning_Foundries_enabled
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {	# Lightning Foundries upgrades (apply_new_inventions_2026-11-13.py)
+	id = DA_Runesmith_invention.3012
+	title = DA_Runesmith_invention.3012.t
+	desc = DA_Runesmith_invention.301.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmith_invention.3012.Tesla
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_PROD_Lightning_Foundries_enabled.Tesla }
+			innovativeness = 4
+			DA_completed.Tesla = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -4
+		custom_tooltip = DA_D2_up.3012.1.tt
+		set_country_flag = DA_RS_IND_PROD_Lightning_Foundries_enabled.Tesla
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.3012.Metallurgy_4
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_PROD_Lightning_Foundries_enabled.Metallurgy_4 }
+			innovativeness = 4
+			DA_completed.Metallurgy_4 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -4
+		custom_tooltip = DA_D2_up.3012.2.tt
+		set_country_flag = DA_RS_IND_PROD_Lightning_Foundries_enabled.Metallurgy_4
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.3012.Resonance
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_PROD_Lightning_Foundries_enabled.Resonance }
+			innovativeness = 5
+			DA_completed.Resonance = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.3012.3.tt
+		set_country_flag = DA_RS_IND_PROD_Lightning_Foundries_enabled.Resonance
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.go_back
+		ai_chance = { factor = 1 }
 	}
 }
 
 # to be used
-country_event = {
+country_event = {	# Arc-Lit Deep Roads (apply_new_inventions_2026-11-13.py)
 	id = DA_Runesmith_invention.302
 	title = DA_Runesmith_invention.302.t
 	desc = DA_Runesmith_invention.302.d
@@ -1194,16 +1300,69 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = DA_Runesmith_invention.69.a
 		custom_tooltip = DA_Runesmith_invention_new_tt
-		set_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled
+		set_country_flag = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads_enabled
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {	# Arc-Lit Deep Roads upgrades (apply_new_inventions_2026-11-13.py)
+	id = DA_Runesmith_invention.3022
+	title = DA_Runesmith_invention.3022.t
+	desc = DA_Runesmith_invention.302.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmith_invention.3022.Motorization
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads_enabled.Motorization }
+			innovativeness = 4
+			DA_completed.Motorization = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -4
+		custom_tooltip = DA_D2_up.3022.1.tt
+		set_country_flag = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads_enabled.Motorization
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.3022.Airships
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads_enabled.Airships }
+			innovativeness = 5
+			DA_completed.Airships = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.3022.2.tt
+		set_country_flag = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads_enabled.Airships
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.3022.Dimensional_Eng
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads_enabled.Dimensional_Eng }
+			innovativeness = 5
+			DA_completed.Dimensional_Eng = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.3022.3.tt
+		set_country_flag = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads_enabled.Dimensional_Eng
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.go_back
+		ai_chance = { factor = 1 }
 	}
 }
 
 # to be used
-country_event = {
+country_event = {	# Galvanic Masonry (apply_new_inventions_2026-11-13.py)
 	id = DA_Runesmith_invention.303
 	title = DA_Runesmith_invention.303.t
 	desc = DA_Runesmith_invention.303.d
@@ -1211,11 +1370,64 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = DA_Runesmith_invention.69.a
 		custom_tooltip = DA_Runesmith_invention_new_tt
-		set_country_flag = DA_RS_IND_INFRA_Runic_Buildings_enabled
+		set_country_flag = DA_RS_IND_INFRA_Galvanic_Masonry_enabled
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {	# Galvanic Masonry upgrades (apply_new_inventions_2026-11-13.py)
+	id = DA_Runesmith_invention.3032
+	title = DA_Runesmith_invention.3032.t
+	desc = DA_Runesmith_invention.303.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmith_invention.3032.Metallurgy_4
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_INFRA_Galvanic_Masonry_enabled.Metallurgy_4 }
+			innovativeness = 4
+			DA_completed.Metallurgy_4 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -4
+		custom_tooltip = DA_D2_up.3032.1.tt
+		set_country_flag = DA_RS_IND_INFRA_Galvanic_Masonry_enabled.Metallurgy_4
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.3032.Golem
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_INFRA_Galvanic_Masonry_enabled.Golem }
+			innovativeness = 4
+			DA_completed.Golem = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -4
+		custom_tooltip = DA_D2_up.3032.2.tt
+		set_country_flag = DA_RS_IND_INFRA_Galvanic_Masonry_enabled.Golem
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.3032.Universal_Law_Space
+		trigger = {
+			NOT = { has_country_flag = DA_RS_IND_INFRA_Galvanic_Masonry_enabled.Universal_Law_Space }
+			innovativeness = 5
+			DA_completed.Universal_Law_Space = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.3032.3.tt
+		set_country_flag = DA_RS_IND_INFRA_Galvanic_Masonry_enabled.Universal_Law_Space
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.go_back
+		ai_chance = { factor = 1 }
 	}
 }
 
@@ -1870,7 +2082,7 @@ country_event = {
 	}
 }
 # to be used
-country_event = {
+country_event = {	# Pneumatic Post (apply_new_inventions_2026-11-13.py)
 	id = DA_Runesmith_invention.502
 	title = DA_Runesmith_invention.502.t
 	desc = DA_Runesmith_invention.502.d
@@ -1878,16 +2090,56 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = DA_Runesmith_invention.69.a
 		custom_tooltip = DA_Runesmith_invention_new_tt
-		set_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled
+		set_country_flag = DA_RS_SOC_COURT_Pneumatic_Post_enabled
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {	# Pneumatic Post upgrades (apply_new_inventions_2026-11-13.py)
+	id = DA_Runesmith_invention.5021
+	title = DA_Runesmith_invention.5021.t
+	desc = DA_Runesmith_invention.502.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmith_invention.5021.ClockWork
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_COURT_Pneumatic_Post_enabled.ClockWork }
+			innovativeness = 3
+			DA_completed.ClockWork = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -3
+		custom_tooltip = DA_D2_up.5021.1.tt
+		set_country_flag = DA_RS_SOC_COURT_Pneumatic_Post_enabled.ClockWork
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.5021.Mechanics_3
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_COURT_Pneumatic_Post_enabled.Mechanics_3 }
+			innovativeness = 3
+			DA_completed.Mechanics_3 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -3
+		custom_tooltip = DA_D2_up.5021.2.tt
+		set_country_flag = DA_RS_SOC_COURT_Pneumatic_Post_enabled.Mechanics_3
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.go_back
+		ai_chance = { factor = 1 }
 	}
 }
 
 # to be used
-country_event = {
+country_event = {	# Steam Bathhouses (apply_new_inventions_2026-11-13.py)
 	id = DA_Runesmith_invention.503
 	title = DA_Runesmith_invention.503.t
 	desc = DA_Runesmith_invention.503.d
@@ -1895,11 +2147,64 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = DA_Runesmith_invention.69.a
 		custom_tooltip = DA_Runesmith_invention_new_tt
-		set_country_flag = DA_RS_SOC_COURT_Runic_Message_Sender_enabled
+		set_country_flag = DA_RS_SOC_LUX_Steam_Bathhouses_enabled
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {	# Steam Bathhouses upgrades (apply_new_inventions_2026-11-13.py)
+	id = DA_Runesmith_invention.5031
+	title = DA_Runesmith_invention.5031.t
+	desc = DA_Runesmith_invention.503.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmith_invention.5031.Alchemy_3
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_LUX_Steam_Bathhouses_enabled.Alchemy_3 }
+			innovativeness = 3
+			DA_completed.Alchemy_3 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -3
+		custom_tooltip = DA_D2_up.5031.1.tt
+		set_country_flag = DA_RS_SOC_LUX_Steam_Bathhouses_enabled.Alchemy_3
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.5031.Medicine_3
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_LUX_Steam_Bathhouses_enabled.Medicine_3 }
+			innovativeness = 4
+			DA_completed.Medicine_3 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -4
+		custom_tooltip = DA_D2_up.5031.2.tt
+		set_country_flag = DA_RS_SOC_LUX_Steam_Bathhouses_enabled.Medicine_3
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.5031.Enhancement
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_LUX_Steam_Bathhouses_enabled.Enhancement }
+			innovativeness = 5
+			DA_completed.Enhancement = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.5031.3.tt
+		set_country_flag = DA_RS_SOC_LUX_Steam_Bathhouses_enabled.Enhancement
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.go_back
+		ai_chance = { factor = 1 }
 	}
 }
 
@@ -2153,7 +2458,7 @@ country_event = {
 }
 
 # to be used
-country_event = {
+country_event = {	# Voice Wires (apply_new_inventions_2026-11-13.py)
 	id = DA_Runesmith_invention.604
 	title = DA_Runesmith_invention.604.t
 	desc = DA_Runesmith_invention.604.d
@@ -2161,16 +2466,69 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = DA_Runesmith_invention.69.a
 		custom_tooltip = DA_Runesmith_invention_new_tt
-		set_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled
+		set_country_flag = DA_RS_SOC_COURT_Voice_Wires_enabled
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {	# Voice Wires upgrades (apply_new_inventions_2026-11-13.py)
+	id = DA_Runesmith_invention.6041
+	title = DA_Runesmith_invention.6041.t
+	desc = DA_Runesmith_invention.604.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmith_invention.6041.Tesla
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_COURT_Voice_Wires_enabled.Tesla }
+			innovativeness = 4
+			DA_completed.Tesla = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -4
+		custom_tooltip = DA_D2_up.6041.1.tt
+		set_country_flag = DA_RS_SOC_COURT_Voice_Wires_enabled.Tesla
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.6041.Universal_Law_Space
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_COURT_Voice_Wires_enabled.Universal_Law_Space }
+			innovativeness = 5
+			DA_completed.Universal_Law_Space = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.6041.2.tt
+		set_country_flag = DA_RS_SOC_COURT_Voice_Wires_enabled.Universal_Law_Space
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.6041.Magic_Theory_4
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_COURT_Voice_Wires_enabled.Magic_Theory_4 }
+			innovativeness = 5
+			DA_completed.Magic_Theory_4 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.6041.3.tt
+		set_country_flag = DA_RS_SOC_COURT_Voice_Wires_enabled.Magic_Theory_4
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.go_back
+		ai_chance = { factor = 1 }
 	}
 }
 
 # to be used
-country_event = {
+country_event = {	# Lamp-Grid Libraries (apply_new_inventions_2026-11-13.py)
 	id = DA_Runesmith_invention.605
 	title = DA_Runesmith_invention.605.t
 	desc = DA_Runesmith_invention.605.d
@@ -2178,11 +2536,64 @@ country_event = {
 
 	is_triggered_only = yes
 
-
 	option = {
 		name = DA_Runesmith_invention.69.a
 		custom_tooltip = DA_Runesmith_invention_new_tt
-		set_country_flag = DA_RS_SOC_SECURITY_Runic_Traps_enabled
+		set_country_flag = DA_RS_SOC_LEARN_Lamp_Grid_Libraries_enabled
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {	# Lamp-Grid Libraries upgrades (apply_new_inventions_2026-11-13.py)
+	id = DA_Runesmith_invention.6051
+	title = DA_Runesmith_invention.6051.t
+	desc = DA_Runesmith_invention.605.d
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = DA_Runesmith_invention.6051.Medicine_4
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_LEARN_Lamp_Grid_Libraries_enabled.Medicine_4 }
+			innovativeness = 4
+			DA_completed.Medicine_4 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -4
+		custom_tooltip = DA_D2_up.6051.1.tt
+		set_country_flag = DA_RS_SOC_LEARN_Lamp_Grid_Libraries_enabled.Medicine_4
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.6051.Magic_Theory_4
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_LEARN_Lamp_Grid_Libraries_enabled.Magic_Theory_4 }
+			innovativeness = 5
+			DA_completed.Magic_Theory_4 = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.6051.2.tt
+		set_country_flag = DA_RS_SOC_LEARN_Lamp_Grid_Libraries_enabled.Magic_Theory_4
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.6051.Universal_Law_Time
+		trigger = {
+			NOT = { has_country_flag = DA_RS_SOC_LEARN_Lamp_Grid_Libraries_enabled.Universal_Law_Time }
+			innovativeness = 5
+			DA_completed.Universal_Law_Time = yes
+		}
+		custom_tooltip = DA_Runesmith_upgrade_new_tt
+		change_innovativeness = -5
+		custom_tooltip = DA_D2_up.6051.3.tt
+		set_country_flag = DA_RS_SOC_LEARN_Lamp_Grid_Libraries_enabled.Universal_Law_Time
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		name = DA_Runesmith_invention.go_back
+		ai_chance = { factor = 1 }
 	}
 }
 

@@ -203,21 +203,21 @@ custom_button = {
 custom_button = {
 	name = DA_projects_research_buttons_background_Advancement_arcane
 	tooltip = DA_projects_research_buttons_background_Advancement_arcane_tt
-	potential = { is_variable_equal = { which = DA_PR_selected value = 1 } }
+	potential = { is_variable_equal = { which = DA_PR_selected value = 1 } NOT = { has_country_flag = DA_research_in_progress } }
 	trigger = {
 		hidden_trigger = {
 			always = no
 		}
 	}
 	effect = {
-
+		hidden_effect = { if = { limit = { is_variable_equal = { which = DA_PR_queued value = 1 } } set_variable = { which = DA_PR_queued value = 0 } } }
 	}
 }
 
 custom_button = {
 	name = DA_projects_research_buttons_background_Advancement_steam
 	tooltip = DA_projects_research_buttons_background_Advancement_steam_tt
-	potential = { is_variable_equal = { which = DA_PR_selected value = 2 } }
+	potential = { is_variable_equal = { which = DA_PR_selected value = 2 } NOT = { has_country_flag = DA_research_in_progress } }
 	trigger = {
 		DA_available_research = yes
 		DA_completed.Magic_Theory_2 = yes
@@ -238,13 +238,14 @@ custom_button = {
 				days = 30
 			}
 		}
+		hidden_effect = { if = { limit = { is_variable_equal = { which = DA_PR_queued value = 2 } } set_variable = { which = DA_PR_queued value = 0 } } }
 	}
 }
 
 custom_button = {
 	name = DA_projects_research_buttons_background_Advancement_electric
 	tooltip = DA_projects_research_buttons_background_Advancement_electric_tt
-	potential = { is_variable_equal = { which = DA_PR_selected value = 3 } }
+	potential = { is_variable_equal = { which = DA_PR_selected value = 3 } NOT = { has_country_flag = DA_research_in_progress } }
 	trigger = {
 		DA_available_research = yes
 		DA_completed.Magic_Theory_3 = yes
@@ -266,13 +267,14 @@ custom_button = {
 				days = 30
 			}
 		}
+		hidden_effect = { if = { limit = { is_variable_equal = { which = DA_PR_queued value = 3 } } set_variable = { which = DA_PR_queued value = 0 } } }
 	}
 }
 
 custom_button = {
 	name = DA_projects_research_buttons_background_Advancement_tracendence
 	tooltip = DA_projects_research_buttons_background_Advancement_tracendence_tt
-	potential = { is_variable_equal = { which = DA_PR_selected value = 4 } }
+	potential = { is_variable_equal = { which = DA_PR_selected value = 4 } NOT = { has_country_flag = DA_research_in_progress } }
 	trigger = {
 		DA_available_research = yes
 		DA_completed.Electric_Power_Project = yes
@@ -286,6 +288,7 @@ custom_button = {
 			electric = yes
 			unstoppable = yes
 		}
+		hidden_effect = { if = { limit = { is_variable_equal = { which = DA_PR_queued value = 4 } } set_variable = { which = DA_PR_queued value = 0 } } }
 	}
 }
 

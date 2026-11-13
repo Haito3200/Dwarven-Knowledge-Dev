@@ -126,6 +126,11 @@ DA_PR_research_rewards = {
 		limit = { has_country_flag = DA_research_flag.PR_Reclamation_2 }
 		country_event = { id = DA_PR_event.15 }
 	}
+	# research queue: the queued node starts once the two-day pause (DA_AKT_research_CD) is over
+	if = {
+		limit = { check_variable = { which = DA_PR_queued value = 1 } }
+		country_event = { id = DA_PR_queue.1 days = 3 }
+	}
 }
 
 # Footer button: show the research in progress (select its tile and open its page).
@@ -709,4 +714,2722 @@ DA_PR_open_page_unique = {
 	clr_country_flag = DA_projects_research_Interface_on_arcane_1
 	clr_country_flag = DA_projects_research_Interface_on_arcane_2
 	set_country_flag = DA_projects_research_Interface_on_Unique_1
+}
+
+# Research queue (DA_PR_queue.1): start the queued node as its Start button would; else tell the player (DA_PR_queue.2).
+DA_PR_start_queued = {
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 1 } }	# Arcane Energy
+		if = {
+			limit = { always = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				hidden_trigger = {
+					always = no
+				}
+			}
+
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 2 } }	# Steam Power
+		if = {
+			limit = { DA_completed.Steam_Power_Project = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_2 = yes
+				DA_completed.Mechanics_2 = yes
+				DA_completed.Alchemy_2 = yes
+				DA_yet_to_complete.Steam_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = steam
+				time = 120
+				steam = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.300
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 3 } }	# Electric Power
+		if = {
+			limit = { DA_completed.Electric_Power_Project = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_3 = yes
+				DA_completed.Mechanics_3 = yes
+				DA_completed.Alchemy_3 = yes
+				DA_completed.Steam_Power_Project = yes
+				DA_yet_to_complete.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = electric
+				time = 180
+				electric = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.310
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 4 } }	# Transcendent Technology
+		if = {
+			limit = { NOT = { DA_has_transcendent_path_to_unlock = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Electric_Power_Project = yes
+				DA_has_transcendent_path_to_unlock = yes
+			}
+			# Mega Engineering: see "Claude files/tools/build_mega_engineering.py"
+			DA_start_research = {
+				flag = trascendence
+				time = 240
+				electric = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 5 } }	# Fire Magic
+		if = {
+			limit = { DA_completed.Elemental_Magic_Fire = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				DA_yet_to_complete.Elemental_Magic_Fire = yes
+			}
+			DA_start_research = {
+				flag = fire
+				time = 36
+				arcane = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 6 } }	# Water Magic
+		if = {
+			limit = { DA_completed.Elemental_Magic_Water = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				DA_yet_to_complete.Elemental_Magic_Water = yes
+			}
+			DA_start_research = {
+				flag = water
+				time = 36
+				arcane = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 7 } }	# Earth Magic
+		if = {
+			limit = { DA_completed.Elemental_Magic_Earth = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				DA_yet_to_complete.Elemental_Magic_Earth = yes
+			}
+			DA_start_research = {
+				flag = earth
+				time = 36
+				arcane = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 8 } }	# Air Magic
+		if = {
+			limit = { DA_completed.Elemental_Magic_Air = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				DA_yet_to_complete.Elemental_Magic_Air = yes
+			}
+			DA_start_research = {
+				flag = air
+				time = 36
+				arcane = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 9 } }	# Elemental Research
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				OR = {
+					DA_completed.Elemental_Magic_Water = yes
+					DA_completed.Elemental_Magic_Air = yes
+					DA_completed.Elemental_Magic_Fire = yes
+					DA_completed.Elemental_Magic_Earth = yes
+				}
+			}
+			country_event = {
+				id = DA_General_Research_events.10
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 10 } }	# Clockwork I
+		if = {
+			limit = { DA_completed.ClockWork = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				DA_completed.Mechanics_1 = yes
+				DA_completed.Metallurgy_1 = yes
+				DA_yet_to_complete.ClockWork = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.ClockWork.tt
+					has_country_flag = DA_Project.Allowed.ClockWork
+				}
+			}
+			DA_start_research = {
+				flag = ClockWork
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.200
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 11 } }	# Clockwork II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.ClockWork = yes
+			}
+			DA_start_research = {
+				flag = ClockWork_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 12 } }	# Clockwork III
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.ClockWork = yes
+				DA_completed.Steam_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = ClockWork_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 13 } }	# Clockwork IV
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.ClockWork = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = ClockWork_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 14 } }	# Golem Core I
+		if = {
+			limit = { DA_completed.Golem = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				DA_completed.Mechanics_1 = yes
+				DA_completed.Alchemy_1 = yes
+				DA_yet_to_complete.Golem = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Golem.tt
+					has_country_flag = DA_Project.Allowed.Golem
+				}
+			}
+			DA_start_research = {
+				flag = Golem
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.209
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 15 } }	# Golem Core II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Golem = yes
+			}
+			DA_start_research = {
+				flag = Golem_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 16 } }	# Golem Core III
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Golem = yes
+				DA_completed.Steam_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Golem_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 17 } }	# Golem Core IV
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Golem = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Golem_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 18 } }	# Holy Magic I
+		if = {
+			limit = { DA_completed.Holy_Magic = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				religious_unity = 0.95
+				DA_yet_to_complete.Holy_Magic = yes
+				OR = {
+					DA_yet_to_complete.Curse_Magic = yes
+					DA_completed.Magic_Theory_4 = yes
+				}
+			}
+			DA_start_research = {
+				flag = Holy_Magic
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.340
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 19 } }	# Holy Magic II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Holy_Magic = yes
+			}
+			DA_start_research = {
+				flag = Holy_Magic_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 20 } }	# Holy Magic III
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Holy_steam = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Holy_Magic = yes
+				DA_completed.Steam_Power_Project = yes
+				DA_PR_can_find.Holy_steam = yes
+			}
+			DA_start_research = {
+				flag = Holy_Magic_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 21 } }	# Holy Magic IV
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Holy_electric = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Holy_Magic = yes
+				DA_completed.Electric_Power_Project = yes
+				DA_PR_can_find.Holy_electric = yes
+			}
+			DA_start_research = {
+				flag = Holy_Magic_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 22 } }	# Curse Weaponization I
+		if = {
+			limit = { DA_completed.Curse_Magic = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				DA_yet_to_complete.Curse_Magic = yes
+				OR = {
+					DA_yet_to_complete.Holy_Magic = yes
+					DA_completed.Magic_Theory_4 = yes
+				}
+			}
+			DA_start_research = {
+				flag = Curse_Magic
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.330
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 23 } }	# Curse Weaponization II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Curse_Magic = yes
+			}
+			DA_start_research = {
+				flag = Curse_Magic_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 24 } }	# Curse Weaponization III
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Curse_steam = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Curse_Magic = yes
+				DA_completed.Steam_Power_Project = yes
+				DA_PR_can_find.Curse_steam = yes
+			}
+			DA_start_research = {
+				flag = Curse_Magic_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 25 } }	# Curse Weaponization IV
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Curse_electric = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Curse_Magic = yes
+				DA_completed.Electric_Power_Project = yes
+				DA_PR_can_find.Curse_electric = yes
+			}
+			DA_start_research = {
+				flag = Curse_Magic_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 26 } }	# Warforged Infantry
+		if = {
+			limit = { has_country_flag = DA_enable_metallurgy_System }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Metallurgy_1 = yes
+				hidden_trigger = {
+					NOT = { has_country_flag = DA_enable_metallurgy_System }
+				}
+			}
+			DA_start_research = {
+				flag = warforged
+				time = 48
+				arcane = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 27 } }	# Warforged Cavalry
+		if = {
+			limit = { has_country_flag = DA_enable_metallurgy_System_cav }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				mil_tech = 6
+				DA_completed.Metallurgy_1 = yes
+				hidden_trigger = {
+					NOT = { has_country_flag = DA_enable_metallurgy_System_cav }
+				}
+			}
+			DA_start_research = {
+				flag = warforged_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 28 } }	# Warforged Artillery
+		if = {
+			limit = { has_country_flag = DA_enable_metallurgy_System_art }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				mil_tech = 7
+				DA_completed.Metallurgy_1 = yes
+				hidden_trigger = {
+					NOT = { has_country_flag = DA_enable_metallurgy_System_art }
+				}
+			}
+			DA_start_research = {
+				flag = warforged_3
+				time = 60
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 29 } }	# Warforged Artificers
+		if = {
+			limit = { has_country_flag = DA_enable_metallurgy_System_artificer }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				has_estate = estate_artificers
+				DA_completed.Metallurgy_2 = yes
+				has_country_flag = DA_enable_metallurgy_System
+				hidden_trigger = {
+					NOT = { has_country_flag = DA_enable_metallurgy_System_artificer }
+				}
+			}
+			DA_start_research = {
+				flag = warforged_to_artificer
+				time = 96
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 30 } }	# Spirit Puppets I
+		if = {
+			limit = { DA_completed.Spirits = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Metallurgy_1 = yes
+				DA_yet_to_complete.Spirits = yes
+			}
+			DA_start_research = {
+				flag = Spirits
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.345
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 31 } }	# Spirit Puppets II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Spirits = yes
+				DA_completed.Metallurgy_1 = yes
+			}
+			DA_start_research = {
+				flag = Spirits_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 32 } }	# Spirit Puppets III
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Spirits = yes
+				DA_completed.Steam_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Spirits_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 33 } }	# Spirit Puppets IV
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Spirits = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Spirits_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 34 } }	# Mining Technology I
+		if = {
+			limit = { has_country_flag = DA_mining_technology_1 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Metallurgy_1 = yes
+				NOT = { has_country_flag = DA_mining_technology_1 }
+			}
+			DA_start_research = { flag = mining_1 time = 48 arcane = yes }
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 35 } }	# Mining Technology II
+		if = {
+			limit = { has_country_flag = DA_mining_technology_2 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				has_country_flag = DA_mining_technology_1
+				NOT = { has_country_flag = DA_mining_technology_2 }
+			}
+			DA_start_research = { flag = mining_2 time = 60 arcane = yes }
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 36 } }	# Mining Technology III
+		if = {
+			limit = { has_country_flag = DA_mining_technology_3 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				has_country_flag = DA_mining_technology_2
+				NOT = { has_country_flag = DA_mining_technology_3 }
+			}
+			DA_start_research = { flag = mining_3 time = 72 arcane = yes }
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 37 } }	# Mining Technology IV
+		if = {
+			limit = { has_country_flag = DA_mining_technology_4 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				has_country_flag = DA_mining_technology_3
+				DA_completed.Steam_Power_Project = yes
+				NOT = { has_country_flag = DA_mining_technology_4 }
+			}
+			DA_start_research = { flag = mining_4 time = 96 steam = yes }
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 38 } }	# Wardcraft
+		if = {
+			limit = { has_country_flag = DA_PR_done.Wardcraft }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_1 = yes
+				DA_completed.Alchemy_1 = yes
+				DA_PR_todo.Wardcraft = yes
+			}
+			DA_start_research = {
+				flag = PR_Wardcraft
+				time = 72
+				arcane = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 39 } }	# Ward Patterns
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Ward = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Wardcraft = yes
+				DA_PR_can_find.Ward = yes
+			}
+			DA_start_research = {
+				flag = PR_Wardcraft_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 40 } }	# Layered Wards
+		if = {
+			limit = { has_country_flag = DA_PR_done.Wardcraft_3 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Wardcraft = yes
+				DA_completed.Steam_Power_Project = yes
+				DA_PR_todo.Wardcraft_3 = yes
+			}
+			DA_start_research = {
+				flag = PR_Wardcraft_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 41 } }	# Bio-Constructs I
+		if = {
+			limit = { DA_completed.Bio_Construct = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Alchemy_3 = yes
+				DA_completed.Medicine_2 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Bio_Construct.tt
+					has_country_flag = DA_Project.Allowed.Bio_Construct
+				}
+				DA_yet_to_complete.Bio_Construct = yes
+			}
+			DA_start_research = {
+				flag = Bio_Construct
+				time = 96
+				steam = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.232
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 42 } }	# Bio-Constructs II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Bio_Construct = yes
+				DA_completed.Steam_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Bio_Construct_2
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 43 } }	# Bio-Constructs III
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Bio_electric = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Bio_Construct = yes
+				DA_completed.Electric_Power_Project = yes
+				DA_PR_can_find.Bio_electric = yes
+			}
+			DA_start_research = {
+				flag = Bio_Construct_3
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 44 } }	# Enhancement I
+		if = {
+			limit = { DA_completed.Enhancement = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Medicine_2 = yes
+				DA_completed.Alchemy_2 = yes
+				DA_completed.Magic_Theory_2 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Enhancement.tt
+					has_country_flag = DA_Project.Allowed.Enhancement
+				}
+				DA_yet_to_complete.Enhancement = yes
+			}
+			DA_start_research = {
+				flag = Enhancement
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.227
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 45 } }	# Enhancement II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Enhancement = yes
+				DA_completed.Steam_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Enhancement_2
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 46 } }	# Enhancement III
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Enhancement = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Enhancement_3
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 47 } }	# Mechanization I
+		if = {
+			limit = { DA_completed.Mechanization = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Medicine_2 = yes
+				DA_completed.Alchemy_2 = yes
+				DA_completed.Magic_Theory_2 = yes
+				DA_yet_to_complete.Mechanization = yes
+			}
+			DA_start_research = {
+				flag = Mechanization
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.320
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 48 } }	# Mechanization II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Mechanization = yes
+				DA_completed.Steam_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Mechanization_2
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 49 } }	# Mechanization III
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Mech_electric = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Mechanization = yes
+				DA_completed.Electric_Power_Project = yes
+				DA_PR_can_find.Mech_electric = yes
+			}
+			DA_start_research = {
+				flag = Mechanization_3
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 50 } }	# Motorization I
+		if = {
+			limit = { DA_completed.Motorization = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Medicine_2 = yes
+				DA_completed.Alchemy_2 = yes
+				DA_completed.Magic_Theory_2 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Motorization.tt
+					has_country_flag = DA_Project.Allowed.Motorization
+				}
+				DA_yet_to_complete.Motorization = yes
+			}
+			DA_start_research = {
+				flag = Motorization
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.222
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 51 } }	# Motorization II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Motorization = yes
+				DA_completed.Steam_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Motorization_2
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 52 } }	# Motorization III
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Motorization = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Motorization_3
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 53 } }	# Planned Districts
+		if = {
+			limit = { has_country_flag = DA_PR_done.Urbanization }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Steam_Power_Project = yes
+				DA_completed.Mechanics_2 = yes
+				DA_PR_todo.Urbanization = yes
+			}
+			DA_start_research = {
+				flag = PR_Urbanization
+				time = 96
+				steam = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 54 } }	# Steam Utilities
+		if = {
+			limit = { has_country_flag = DA_PR_done.Urbanization_2 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Urbanization = yes
+				DA_PR_todo.Urbanization_2 = yes
+			}
+			DA_start_research = {
+				flag = PR_Urbanization_2
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 55 } }	# Electric City Grid
+		if = {
+			limit = { has_country_flag = DA_PR_done.Urbanization_3 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Urbanization_2 = yes
+				DA_completed.Electric_Power_Project = yes
+				DA_PR_todo.Urbanization_3 = yes
+			}
+			DA_start_research = {
+				flag = PR_Urbanization_3
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 56 } }	# Gauge Blocks
+		if = {
+			limit = { has_country_flag = DA_PR_done.Standardization }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Steam_Power_Project = yes
+				DA_completed.Mechanics_2 = yes
+				DA_completed.Metallurgy_2 = yes
+				DA_PR_todo.Standardization = yes
+			}
+			DA_start_research = {
+				flag = PR_Standardization
+				time = 72
+				steam = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 57 } }	# Interchangeable Parts
+		if = {
+			limit = { has_country_flag = DA_PR_done.Standardization_2 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Standardization = yes
+				DA_PR_todo.Standardization_2 = yes
+			}
+			DA_start_research = {
+				flag = PR_Standardization_2
+				time = 96
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 58 } }	# Assembly Lines
+		if = {
+			limit = { has_country_flag = DA_PR_done.Standardization_3 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Standardization_2 = yes
+				DA_completed.Electric_Power_Project = yes
+				DA_PR_todo.Standardization_3 = yes
+			}
+			DA_start_research = {
+				flag = PR_Standardization_3
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 59 } }	# Law of Life
+		if = {
+			limit = { DA_completed.Universal_Law_Life = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_3 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Universal_Law_Life.tt
+					has_country_flag = DA_Project.Allowed.Universal_Law_Life
+				}
+				DA_yet_to_complete.Universal_Law_Life = yes
+			}
+			DA_start_research = {
+				flag = Universal_Law_Life
+				time = 96
+				electric = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 60 } }	# Law of Death
+		if = {
+			limit = { DA_completed.Universal_Law_Death = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_3 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Universal_Law_Death.tt
+					has_country_flag = DA_Project.Allowed.Universal_Law_Death
+				}
+				DA_yet_to_complete.Universal_Law_Death = yes
+			}
+			DA_start_research = {
+				flag = Universal_Law_Death
+				time = 96
+				electric = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 61 } }	# Law of Time
+		if = {
+			limit = { DA_completed.Universal_Law_Time = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_3 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Universal_Law_Time.tt
+					has_country_flag = DA_Project.Allowed.Universal_Law_Time
+				}
+				DA_yet_to_complete.Universal_Law_Time = yes
+			}
+			DA_start_research = {
+				flag = Universal_Law_Time
+				time = 96
+				electric = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 62 } }	# Law of Space
+		if = {
+			limit = { DA_completed.Universal_Law_Space = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_3 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Universal_Law_Space.tt
+					has_country_flag = DA_Project.Allowed.Universal_Law_Space
+				}
+				DA_yet_to_complete.Universal_Law_Space = yes
+			}
+			DA_start_research = {
+				flag = Universal_Law_Space
+				time = 96
+				electric = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 63 } }	# Conceptual Research
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Magic_Theory_3 = yes
+				OR = {
+					DA_completed.Universal_Law_Life = yes
+					DA_completed.Universal_Law_Death = yes
+					DA_completed.Universal_Law_Time = yes
+					DA_completed.Universal_Law_Space = yes
+				}
+			}
+			country_event = {
+				id = DA_General_Research_events.20
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 64 } }	# Dimensional Engineering I
+		if = {
+			limit = { DA_completed.Dimensional_Eng = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Mechanics_4 = yes
+				DA_completed.Magic_Theory_4 = yes
+				DA_completed.Universal_Law_Space = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Dimensional_Eng.tt
+					has_country_flag = DA_Project.Allowed.Dimensional_Eng
+				}
+				DA_yet_to_complete.Dimensional_Eng = yes
+			}
+			DA_start_research = {
+				flag = Dimensional_Eng
+				time = 120
+				electric = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.244
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 65 } }	# Dimensional Engineering II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Dimensional_Eng = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Dimensional_Eng_2
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 66 } }	# Airships I
+		if = {
+			limit = { DA_completed.Airships = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Alchemy_3 = yes
+				DA_completed.Magic_Theory_3 = yes
+				DA_completed.Mechanics_3 = yes
+				DA_yet_to_complete.Airships = yes
+			}
+			DA_start_research = {
+				flag = Airships
+				time = 120
+				electric = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.350
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 67 } }	# Airships II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Airships = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Airships_2
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 68 } }	# Resonance I
+		if = {
+			limit = { DA_completed.Resonance = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Alchemy_4 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Resonance.tt
+					has_country_flag = DA_Project.Allowed.Resonance
+				}
+				DA_yet_to_complete.Resonance = yes
+			}
+			DA_start_research = {
+				flag = Resonance
+				time = 120
+				electric = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.236
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 69 } }	# Resonance II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Resonance = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Resonance_2
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 70 } }	# Tesla I
+		if = {
+			limit = { DA_completed.Tesla = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Alchemy_4 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_Project.Allowed.Tesla.tt
+					has_country_flag = DA_Project.Allowed.Tesla
+				}
+				DA_yet_to_complete.Tesla = yes
+			}
+			DA_start_research = {
+				flag = Tesla
+				time = 120
+				electric = yes
+				unstoppable = yes
+			}
+			hidden_effect = {
+				country_event = {
+					id = DA_project_event.240
+					days = 30
+				}
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 71 } }	# Tesla II
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Tesla = yes
+				DA_completed.Electric_Power_Project = yes
+			}
+			DA_start_research = {
+				flag = Tesla_2
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 72 } }	# Gravity Manipulation
+		if = {
+			limit = { has_country_flag = DA_PR_done.Gravity_Manipulation }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Universal_Law_Space = yes
+				DA_completed.Mechanics_4 = yes
+				DA_completed.Magic_Theory_4 = yes
+				DA_PR_todo.Gravity_Manipulation = yes
+			}
+			DA_start_research = {
+				flag = PR_Gravity_Manipulation
+				time = 120
+				electric = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 73 } }	# Gravity Circuits
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Gravity = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Gravity_Manipulation = yes
+				DA_PR_can_find.Gravity = yes
+			}
+			DA_start_research = {
+				flag = PR_Gravity_Manipulation_2
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 74 } }	# Mana-Wave Telegraph
+		if = {
+			limit = { has_country_flag = DA_PR_done.Signals }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Electric_Power_Project = yes
+				DA_completed.Mechanics_3 = yes
+				DA_PR_todo.Signals = yes
+			}
+			DA_start_research = {
+				flag = PR_Signals
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 75 } }	# Command Relays
+		if = {
+			limit = { has_country_flag = DA_PR_done.Signals_2 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Signals = yes
+				DA_completed.Magic_Theory_3 = yes
+				DA_PR_todo.Signals_2 = yes
+			}
+			DA_start_research = {
+				flag = PR_Signals_2
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 76 } }	# Runic Barriers I
+		if = {
+			limit = { DA_completed.Runic_barrier = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_2_or_higher = yes
+				DA_yet_to_complete.Runic_barrier = yes
+			}
+			DA_start_research = {
+				flag = Runic_barrier
+				time = 36
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 77 } }	# Runic Barriers II
+		if = {
+			limit = { DA_completed.Runic_barrier_t2 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_4_or_higher = yes
+				DA_completed.Runic_barrier = yes
+				DA_yet_to_complete.Runic_barrier_t2 = yes
+			}
+			DA_start_research = {
+				flag = Runic_barrier_2
+				time = 48
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 78 } }	# Runic Barriers III
+		if = {
+			limit = { DA_completed.Runic_barrier_t3 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_6_or_higher = yes
+				DA_completed.Runic_barrier_t2 = yes
+				DA_yet_to_complete.Runic_barrier_t3 = yes
+			}
+			DA_start_research = {
+				flag = Runic_barrier_3
+				time = 72
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 79 } }	# Runic Barriers IV
+		if = {
+			limit = { has_country_modifier = DA_impenetrable_dwarovar }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.Runic_barrier_t3 = yes
+				calc_true_if = {
+					all_core_province = {
+						owned_by = root
+						custom_trigger_tooltip = {
+							tooltip = DA_has_dwarven_runic_barrier_t3_tt
+							has_Dwarven_magic_Barrier_t3 = yes
+						}
+					}
+					amount = 6
+				}
+				NOT = { has_country_modifier = DA_impenetrable_dwarovar }
+			}
+			DA_start_research = {
+				flag = Runic_barrier_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 80 } }	# Production System
+		if = {
+			limit = { has_country_flag = DA_unlocked_production_System }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_3_or_higher = yes
+				hidden_trigger = {
+					NOT = { has_country_flag = DA_unlocked_production_System }
+				}
+			}
+			DA_start_research = {
+				flag = runes_manufacturing
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 81 } }	# Runesmith Research
+		if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_3_or_higher = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_unlocked_production_System_tt
+					has_country_flag = DA_unlocked_production_System
+				}
+			}
+			add_adm_power = -10
+			add_dip_power = -10
+			add_mil_power = -10
+			country_event = {
+				id = DA_Runesmiths_events.1
+			}
+			set_estate_privilege = DA_Runesmith_research_privilege
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 82 } }	# Runes Manufacturing III
+		if = {
+			limit = { has_country_flag = DA_RS_inventions_unlocked }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_4_or_higher = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_unlocked_production_System_tt
+					has_country_flag = DA_unlocked_production_System
+				}
+				hidden_trigger = {
+					NOT = { has_country_flag = DA_RS_inventions_unlocked }
+				}
+			}
+			DA_start_research = {
+				flag = runes_manufacturing_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 83 } }	# Runes Manufacturing IV
+		if = {
+			limit = { has_country_flag = DA_Disabled_simple_Runes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_5_or_higher = yes
+				NOT = { has_country_flag =  DA_Disabled_simple_Runes }
+			}
+			DA_start_research = {
+				flag = runes_manufacturing_4
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 84 } }	# Runic Fortifications I
+		if = {
+			limit = { DA_completed.runeforged_fort = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_2_or_higher = yes
+				DA_yet_to_complete.runeforged_fort = yes
+			}
+			DA_start_research = {
+				flag = runeforged_fort
+				time = 36
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 85 } }	# Runic Fortifications II
+		if = {
+			limit = { DA_completed.runeforged_fort_t2 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_4_or_higher = yes
+				DA_completed.runeforged_fort = yes
+				DA_yet_to_complete.runeforged_fort_t2 = yes
+			}
+			DA_start_research = {
+				flag = runeforged_fort_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 86 } }	# Runic Fortifications III
+		if = {
+			limit = { DA_completed.runeforged_fort_t3 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_6_or_higher = yes
+				DA_completed.runeforged_fort_t2 = yes
+				DA_yet_to_complete.runeforged_fort_t3 = yes
+			}
+			DA_start_research = {
+				flag = runeforged_fort_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 87 } }	# Runic Fortifications IV
+		if = {
+			limit = { DA_completed.runeforged_fort_t4 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_completed.runeforged_fort_t3 = yes
+				DA_yet_to_complete.runeforged_fort_t4 = yes
+				custom_trigger_tooltip = {
+					tooltip = DA_BG_fort_plans_tt
+					DA_BG_guildhall_at_tier_2 = yes
+				}
+			}
+			DA_start_research = {
+				flag = runeforged_fort_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 88 } }	# Artificial Mage Creation I
+		if = {
+			limit = { DA_completed.artificial_mage_creation = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_2_or_higher = yes
+				DA_yet_to_complete.artificial_mage_creation = yes
+			}
+			DA_start_research = {
+				flag = artificial_mage_creation
+				time = 36
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 89 } }	# Artificial Mage Creation II
+		if = {
+			limit = { DA_completed.artificial_mage_creation_t1 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_4_or_higher = yes
+				DA_completed.artificial_mage_creation = yes
+				DA_yet_to_complete.artificial_mage_creation_t1 = yes
+			}
+			DA_start_research = {
+				flag = artificial_mage_creation_2
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 90 } }	# Artificial Mage Creation III
+		if = {
+			limit = { DA_completed.artificial_mage_creation_t2 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_6_or_higher = yes
+				DA_completed.artificial_mage_creation_t1 = yes
+				DA_yet_to_complete.artificial_mage_creation_t2 = yes
+			}
+			DA_start_research = {
+				flag = artificial_mage_creation_3
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 91 } }	# Artificial Mage Creation IV
+		if = {
+			limit = { DA_completed.artificial_mage_creation_t3 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_8_or_higher = yes
+				DA_completed.artificial_mage_creation_t2 = yes
+				DA_yet_to_complete.artificial_mage_creation_t3 = yes
+			}
+			DA_start_research = {
+				flag = artificial_mage_creation_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 92 } }	# Runes Heritage I
+		if = {
+			limit = { DA_completed.runes_heritage = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_3_or_higher = yes
+				DA_yet_to_complete.runes_heritage = yes
+			}
+			DA_start_research = {
+				flag = runes_heritage
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 93 } }	# Runes Heritage II
+		if = {
+			limit = { DA_completed.runes_heritage_t2 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_4_or_higher = yes
+				DA_completed.runes_heritage = yes
+				DA_yet_to_complete.runes_heritage_t2 = yes
+			}
+			DA_start_research = {
+				flag = runes_heritage_2
+				time = 72
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 94 } }	# Mage Leader Creation I
+		if = {
+			limit = { DA_completed.mage_leaders = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_3_or_higher = yes
+				DA_yet_to_complete.mage_leaders = yes
+			}
+			DA_start_research = {
+				flag = mage_leaders
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 95 } }	# Mage Leader Creation II
+		if = {
+			limit = { DA_completed.mage_leaders_t2 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_5_or_higher = yes
+				DA_completed.mage_leaders = yes
+				DA_yet_to_complete.mage_leaders_t2 = yes
+			}
+			DA_start_research = {
+				flag = mage_leaders_2
+				time = 60
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 96 } }	# Mage Leader Creation III
+		if = {
+			limit = { DA_completed.mage_leaders_t3 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_6_or_higher = yes
+				DA_completed.mage_leaders_t2 = yes
+				DA_yet_to_complete.mage_leaders_t3 = yes
+			}
+			DA_start_research = {
+				flag = mage_leaders_3
+				time = 72
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 97 } }	# Mage Leader Creation IV
+		if = {
+			limit = { DA_completed.mage_leaders_t4 = yes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_11_or_higher = yes
+				DA_completed.mage_leaders_t3 = yes
+				DA_yet_to_complete.mage_leaders_t4 = yes
+			}
+			DA_start_research = {
+				flag = mage_leaders_4
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 98 } }	# Master Rune Theory
+		if = {
+			limit = { has_country_flag = DA_PR_done.Master_Runes }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_5_or_higher = yes
+				DA_completed.runes_heritage = yes
+				DA_PR_todo.Master_Runes = yes
+			}
+			DA_start_research = {
+				flag = PR_Master_Runes
+				time = 96
+				arcane = yes
+				unstoppable = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 99 } }	# Carve a Master Rune
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Master = yes } }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Master_Runes = yes
+				DA_has_RF_6_or_higher = yes
+				DA_PR_can_find.Master = yes
+			}
+			DA_start_research = {
+				flag = PR_Master_Runes_2
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 100 } }	# Rune Harmonics
+		if = {
+			limit = { has_country_flag = DA_PR_done.Master_Runes_3 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Master_Runes = yes
+				DA_has_RF_8_or_higher = yes
+				DA_PR_todo.Master_Runes_3 = yes
+			}
+			DA_start_research = {
+				flag = PR_Master_Runes_3
+				time = 96
+				electric = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 101 } }	# Survey Guilds
+		if = {
+			limit = { has_country_flag = DA_PR_done.Reclamation }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_has_RF_2_or_higher = yes
+				DA_PR_todo.Reclamation = yes
+			}
+			DA_start_research = {
+				flag = PR_Reclamation
+				time = 48
+				arcane = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	else_if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 102 } }	# Reclamation Engines
+		if = {
+			limit = { has_country_flag = DA_PR_done.Reclamation_2 }
+			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
+		}
+		else_if = {
+			limit = {
+				DA_available_research = yes
+				DA_PR_done.Reclamation = yes
+				DA_has_RF_5_or_higher = yes
+				custom_trigger_tooltip = { tooltip = DA_PR_needs_mining_2_tt has_country_flag = DA_mining_technology_2 }
+				DA_PR_todo.Reclamation_2 = yes
+			}
+			DA_start_research = {
+				flag = PR_Reclamation_2
+				time = 72
+				steam = yes
+			}
+			set_variable = { which = DA_PR_queued value = 0 }
+		}
+	}
+	if = {
+		limit = { check_variable = { which = DA_PR_queued value = 1 } }
+		country_event = { id = DA_PR_queue.2 }
+	}
+}
+
+# Research queue: select the queued node, open its page and the window (DA_PR_queue.2).
+DA_PR_show_queued = {
+	DA_initialise_interface_variables = yes
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 1 } }
+		set_variable = { which = DA_PR_selected value = 1 }
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 2 } }
+		set_variable = { which = DA_PR_selected value = 2 }
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 3 } }
+		set_variable = { which = DA_PR_selected value = 3 }
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 4 } }
+		set_variable = { which = DA_PR_selected value = 4 }
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 5 } }
+		set_variable = { which = DA_PR_selected value = 5 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 6 } }
+		set_variable = { which = DA_PR_selected value = 6 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 7 } }
+		set_variable = { which = DA_PR_selected value = 7 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 8 } }
+		set_variable = { which = DA_PR_selected value = 8 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 9 } }
+		set_variable = { which = DA_PR_selected value = 9 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 10 } }
+		set_variable = { which = DA_PR_selected value = 10 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 11 } }
+		set_variable = { which = DA_PR_selected value = 11 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 12 } }
+		set_variable = { which = DA_PR_selected value = 12 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 13 } }
+		set_variable = { which = DA_PR_selected value = 13 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 14 } }
+		set_variable = { which = DA_PR_selected value = 14 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 15 } }
+		set_variable = { which = DA_PR_selected value = 15 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 16 } }
+		set_variable = { which = DA_PR_selected value = 16 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 17 } }
+		set_variable = { which = DA_PR_selected value = 17 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 18 } }
+		set_variable = { which = DA_PR_selected value = 18 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 19 } }
+		set_variable = { which = DA_PR_selected value = 19 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 20 } }
+		set_variable = { which = DA_PR_selected value = 20 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 21 } }
+		set_variable = { which = DA_PR_selected value = 21 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 22 } }
+		set_variable = { which = DA_PR_selected value = 22 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 23 } }
+		set_variable = { which = DA_PR_selected value = 23 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 24 } }
+		set_variable = { which = DA_PR_selected value = 24 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 25 } }
+		set_variable = { which = DA_PR_selected value = 25 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 26 } }
+		set_variable = { which = DA_PR_selected value = 26 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 27 } }
+		set_variable = { which = DA_PR_selected value = 27 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 28 } }
+		set_variable = { which = DA_PR_selected value = 28 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 29 } }
+		set_variable = { which = DA_PR_selected value = 29 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 30 } }
+		set_variable = { which = DA_PR_selected value = 30 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 31 } }
+		set_variable = { which = DA_PR_selected value = 31 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 32 } }
+		set_variable = { which = DA_PR_selected value = 32 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 33 } }
+		set_variable = { which = DA_PR_selected value = 33 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 34 } }
+		set_variable = { which = DA_PR_selected value = 34 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 35 } }
+		set_variable = { which = DA_PR_selected value = 35 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 36 } }
+		set_variable = { which = DA_PR_selected value = 36 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 37 } }
+		set_variable = { which = DA_PR_selected value = 37 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 38 } }
+		set_variable = { which = DA_PR_selected value = 38 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 39 } }
+		set_variable = { which = DA_PR_selected value = 39 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 40 } }
+		set_variable = { which = DA_PR_selected value = 40 }
+		DA_PR_open_page_arcane = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 41 } }
+		set_variable = { which = DA_PR_selected value = 41 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 42 } }
+		set_variable = { which = DA_PR_selected value = 42 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 43 } }
+		set_variable = { which = DA_PR_selected value = 43 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 44 } }
+		set_variable = { which = DA_PR_selected value = 44 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 45 } }
+		set_variable = { which = DA_PR_selected value = 45 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 46 } }
+		set_variable = { which = DA_PR_selected value = 46 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 47 } }
+		set_variable = { which = DA_PR_selected value = 47 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 48 } }
+		set_variable = { which = DA_PR_selected value = 48 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 49 } }
+		set_variable = { which = DA_PR_selected value = 49 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 50 } }
+		set_variable = { which = DA_PR_selected value = 50 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 51 } }
+		set_variable = { which = DA_PR_selected value = 51 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 52 } }
+		set_variable = { which = DA_PR_selected value = 52 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 53 } }
+		set_variable = { which = DA_PR_selected value = 53 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 54 } }
+		set_variable = { which = DA_PR_selected value = 54 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 55 } }
+		set_variable = { which = DA_PR_selected value = 55 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 56 } }
+		set_variable = { which = DA_PR_selected value = 56 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 57 } }
+		set_variable = { which = DA_PR_selected value = 57 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 58 } }
+		set_variable = { which = DA_PR_selected value = 58 }
+		DA_PR_open_page_steam = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 59 } }
+		set_variable = { which = DA_PR_selected value = 59 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 60 } }
+		set_variable = { which = DA_PR_selected value = 60 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 61 } }
+		set_variable = { which = DA_PR_selected value = 61 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 62 } }
+		set_variable = { which = DA_PR_selected value = 62 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 63 } }
+		set_variable = { which = DA_PR_selected value = 63 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 64 } }
+		set_variable = { which = DA_PR_selected value = 64 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 65 } }
+		set_variable = { which = DA_PR_selected value = 65 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 66 } }
+		set_variable = { which = DA_PR_selected value = 66 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 67 } }
+		set_variable = { which = DA_PR_selected value = 67 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 68 } }
+		set_variable = { which = DA_PR_selected value = 68 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 69 } }
+		set_variable = { which = DA_PR_selected value = 69 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 70 } }
+		set_variable = { which = DA_PR_selected value = 70 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 71 } }
+		set_variable = { which = DA_PR_selected value = 71 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 72 } }
+		set_variable = { which = DA_PR_selected value = 72 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 73 } }
+		set_variable = { which = DA_PR_selected value = 73 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 74 } }
+		set_variable = { which = DA_PR_selected value = 74 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 75 } }
+		set_variable = { which = DA_PR_selected value = 75 }
+		DA_PR_open_page_electrical = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 76 } }
+		set_variable = { which = DA_PR_selected value = 76 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 77 } }
+		set_variable = { which = DA_PR_selected value = 77 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 78 } }
+		set_variable = { which = DA_PR_selected value = 78 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 79 } }
+		set_variable = { which = DA_PR_selected value = 79 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 80 } }
+		set_variable = { which = DA_PR_selected value = 80 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 81 } }
+		set_variable = { which = DA_PR_selected value = 81 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 82 } }
+		set_variable = { which = DA_PR_selected value = 82 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 83 } }
+		set_variable = { which = DA_PR_selected value = 83 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 84 } }
+		set_variable = { which = DA_PR_selected value = 84 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 85 } }
+		set_variable = { which = DA_PR_selected value = 85 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 86 } }
+		set_variable = { which = DA_PR_selected value = 86 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 87 } }
+		set_variable = { which = DA_PR_selected value = 87 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 88 } }
+		set_variable = { which = DA_PR_selected value = 88 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 89 } }
+		set_variable = { which = DA_PR_selected value = 89 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 90 } }
+		set_variable = { which = DA_PR_selected value = 90 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 91 } }
+		set_variable = { which = DA_PR_selected value = 91 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 92 } }
+		set_variable = { which = DA_PR_selected value = 92 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 93 } }
+		set_variable = { which = DA_PR_selected value = 93 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 94 } }
+		set_variable = { which = DA_PR_selected value = 94 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 95 } }
+		set_variable = { which = DA_PR_selected value = 95 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 96 } }
+		set_variable = { which = DA_PR_selected value = 96 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 97 } }
+		set_variable = { which = DA_PR_selected value = 97 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 98 } }
+		set_variable = { which = DA_PR_selected value = 98 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 99 } }
+		set_variable = { which = DA_PR_selected value = 99 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 100 } }
+		set_variable = { which = DA_PR_selected value = 100 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 101 } }
+		set_variable = { which = DA_PR_selected value = 101 }
+		DA_PR_open_page_unique = yes
+	}
+	if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 102 } }
+		set_variable = { which = DA_PR_selected value = 102 }
+		DA_PR_open_page_unique = yes
+	}
+	DA_open_projects_research_interface = yes
 }

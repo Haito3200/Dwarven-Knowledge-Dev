@@ -1,0 +1,91 @@
+# One level of the Research Facility: found it (level II) or expand it by one level.
+# Used by the Expansion button (DA_RF_Expansion_button, common/custom_gui/DA_Research_Facility_Interface.txt)
+# and by the AI (DA_AI_facility_yearly, DA_AI_Facility_effects.txt). Who may expand is decided by the
+# button's trigger (and DA_AM_rf_can_expand, built from it); this effect only pays and grants.
+# build_ai_facility.py reads the prices (add_treasury) for the reserve the AI keeps: re-run it after
+# changing them.
+
+DA_RF_expand_one_level = {
+	if = {
+		limit = {
+			NOT = { has_estate = estate_da_runesmiths }
+			NOT = { has_estate_privilege = estate_da_runesmiths_RF_2 }
+			NOT = { has_reform = dwarovar_adventurer_reform }
+			DA_Expandable_dig_2 = yes
+		}
+		hidden_effect = { set_country_flag = DA_supporting_Runesmiths }
+		add_treasury = -50
+		country_event = {
+			id = DA_Government_event.1
+			days = 5
+		}
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_2 DA_Expandable_dig_3 = yes }
+		add_treasury = -100
+		remove_estate_privilege = estate_da_runesmiths_RF_2
+		set_estate_privilege = estate_da_runesmiths_RF_3
+		define_advisor = {
+			type = Hold_restorer
+			discount = yes
+			skill = 1
+		}
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_3 DA_Expandable_dig_4 = yes }
+		add_treasury = -200
+		remove_estate_privilege = estate_da_runesmiths_RF_3
+		set_estate_privilege = estate_da_runesmiths_RF_4
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_4 DA_Expandable_dig_5 = yes }
+		add_treasury = -400
+		remove_estate_privilege = estate_da_runesmiths_RF_4
+		set_estate_privilege = estate_da_runesmiths_RF_5
+		define_advisor = {
+			type = DA_runesmith
+			discount = yes
+			skill = 2
+		}
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_5 DA_Expandable_dig_6 = yes }
+		add_treasury = -600
+		remove_estate_privilege = estate_da_runesmiths_RF_5
+		set_estate_privilege = estate_da_runesmiths_RF_6
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_6 DA_Expandable_dig_7 = yes }
+		add_treasury = -1000
+		DA_MAX_RS_Invention_slots_increase_1 = yes
+		remove_estate_privilege = estate_da_runesmiths_RF_6
+		set_estate_privilege = estate_da_runesmiths_RF_7
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_7 DA_Expandable_dig_8 = yes }
+		add_treasury = -1600
+		remove_estate_privilege = estate_da_runesmiths_RF_7
+		set_estate_privilege = estate_da_runesmiths_RF_8
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_8 DA_Expandable_dig_9 = yes }
+		add_treasury = -2400
+		DA_MAX_RS_Invention_slots_increase_1 = yes
+		remove_estate_privilege = estate_da_runesmiths_RF_8
+		set_estate_privilege = estate_da_runesmiths_RF_9
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_9 DA_Expandable_dig_10 = yes }
+		add_treasury = -5000
+		DA_MAX_RS_Invention_slots_increase_1 = yes
+		remove_estate_privilege = estate_da_runesmiths_RF_9
+		set_estate_privilege = estate_da_runesmiths_RF_10
+	}
+	else_if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_10 DA_Expandable_dig_11 = yes }
+		add_treasury = -10000
+		DA_MAX_RS_Invention_slots_increase_1 = yes
+		remove_estate_privilege = estate_da_runesmiths_RF_10
+		set_estate_privilege = estate_da_runesmiths_RF_11
+	}
+}

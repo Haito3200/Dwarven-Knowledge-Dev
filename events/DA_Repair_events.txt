@@ -1,0 +1,31 @@
+# Written by "Claude files/tools/apply_repair_button_2026-11-13.py".
+namespace = DA_Repair
+
+country_event = {
+	id = DA_Repair.1 # the Repair button of the Dwarven Hall (DA_DH_repair)
+	title = DA_Repair.1.t
+	desc = DA_Repair.1.d
+	picture = INVENTION_eventPicture
+	is_triggered_only = yes
+
+	option = {	# nothing is lost
+		name = DA_Repair.1.a
+		DA_repair_locks = yes
+	}
+	option = {	# the research in progress ends
+		name = DA_Repair.1.b
+		trigger = { has_country_flag = DA_research_in_progress }
+		DA_repair_cancel_research = yes
+	}
+	option = {	# the potion crafter is emptied
+		name = DA_Repair.1.c
+		DA_repair_empty_crafter = yes
+	}
+	option = {	# the AI strength (build_ai_strength.py)
+		name = DA_Repair.1.ai
+		country_event = { id = DA_AI_Strength.2 }
+	}
+	option = {
+		name = DA_Repair.1.leave
+	}
+}

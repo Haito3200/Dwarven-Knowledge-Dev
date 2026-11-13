@@ -1,0 +1,91 @@
+# Written by "Claude files/tools/apply_repair_button_2026-11-13.py".
+
+# Option a of DA_Repair.1: free what stays locked. Nothing is lost.
+DA_repair_locks = {
+	custom_tooltip = DA_repair_locks_tt
+	hidden_effect = {
+		clr_country_flag = DA_rf_menu_in_use	# Research Facility menu
+		clr_country_flag = DA_ADK_menu_in_use	# hold exploration menu
+		clr_country_flag = DA_Buildings_menu_in_use	# buildings menu
+		clr_country_flag = DA_alchemy_in_use	# potion crafter
+		# a hold whose company came back from the deep but still counts as exploring
+		every_owned_province = {
+			limit = {
+				has_province_flag = DA_expedition_in_progress
+				NOT = { has_province_modifier = DA_HX_company_below }
+			}
+			clr_province_flag = DA_expedition_in_progress
+		}
+		DA_HX_refresh_ready_count = yes
+		# research leftovers when nothing runs, or a research with no target (it could never end)
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_country_flag = DA_research_in_progress }
+					NOT = { check_variable = { which = DA_research_progress_MAX value = 0.001 } }
+				}
+			}
+			DA_reset_research = yes
+			remove_estate_privilege = DA_Runesmith_research_privilege	# -10% tax while a Runesmith Research runs
+		}
+	}
+}
+
+# Option b of DA_Repair.1: the research in progress ends; its progress is lost.
+DA_repair_cancel_research = {
+	custom_tooltip = DA_repair_cancel_research_tt
+	hidden_effect = {
+		DA_reset_research = yes
+		remove_estate_privilege = DA_Runesmith_research_privilege
+	}
+}
+
+# Option c of DA_Repair.1: the potion crafter is emptied (as DA_fix_broken_potion_crafter.txt).
+DA_repair_empty_crafter = {
+	custom_tooltip = DA_repair_empty_crafter_tt
+	hidden_effect = {
+		clr_country_flag = DA_alchemy_in_use
+		set_variable = { which = DA_Toxicity value = 0 }
+		set_variable = { which = DA_alchemy_slot value = 0 }
+		set_variable = { which = DA_constitution value = 0 }
+		set_variable = { which = DA_strength value = 0 }
+		set_variable = { which = DA_dexterity value = 0 }
+		set_variable = { which = DA_intelligence value = 0 }
+		set_variable = { which = DA_wisdom value = 0 }
+		set_variable = { which = DA_charisma value = 0 }
+		set_variable = { which = DA_mindfog value = 0 }
+		set_variable = { which = DA_clarity value = 0 }
+		set_variable = { which = DA_battle_focus value = 0 }
+		set_variable = { which = DA_arcane_affinity value = 0 }
+		set_variable = { which = DA_iron_skin value = 0 }
+		set_variable = { which = DA_unyielding_spirit value = 0 }
+		set_variable = { which = DA_adaptive_combat value = 0 }
+		set_variable = { which = DA_beast_instinct value = 0 }
+		set_variable = { which = DA_vitality value = 0 }
+		set_variable = { which = DA_farsight value = 0 }
+		set_variable = { which = DA_hyperfocus value = 0 }
+		set_variable = { which = DA_architect_vision value = 0 }
+		set_variable = { which = DA_microscopic_sight value = 0 }
+		set_variable = { which = DA_wanderer_lore value = 0 }
+		set_variable = { which = DA_fire_affinity value = 0 }
+		set_variable = { which = DA_water_affinity value = 0 }
+		set_variable = { which = DA_air_affinity value = 0 }
+		set_variable = { which = DA_earth_affinity value = 0 }
+		set_variable = { which = DA_battle_frenzy value = 0 }
+		set_variable = { which = DA_bloodthirst value = 0 }
+		set_variable = { which = DA_night_veil value = 0 }
+		set_variable = { which = DA_corruptable_heart value = 0 }
+		set_variable = { which = DA_fanatic_fervor value = 0 }
+		set_variable = { which = DA_genial_madness value = 0 }
+		set_variable = { which = DA_Hyper_Regeneration value = 0 }
+		set_variable = { which = DA_demonic_charm value = 0 }
+		set_variable = { which = DA_leviathan value = 0 }
+		set_variable = { which = DA_rejuvenation value = 0 }
+		set_variable = { which = DA_unbreakable value = 0 }
+		set_variable = { which = DA_Whispers_of_eternity value = 0 }
+		set_variable = { which = DA_draconic_power value = 0 }
+		set_variable = { which = DA_giant_power value = 0 }
+		set_variable = { which = DA_lich_power value = 0 }
+		set_variable = { which = DA_precursor_mana value = 0 }
+	}
+}

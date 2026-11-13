@@ -286,17 +286,7 @@ on_startup = {
 		days = 1
 	}
 }
-on_institution_embracement = {
-	events = {
-		DA_Government_event.10
-		DA_Government_event.11
-		DA_Government_event.12
-		DA_Government_event.13
-		DA_Government_event.14
-		DA_Government_event.15
-		DA_Government_event.16
-	}
-}
+# on_institution_embracement: the AI buffs events left; see DA_AI_Strength_on_actions.txt (build_ai_strength.py)
 on_country_creation = {
 	DA_on_country_creation_effect = yes
 	set_variable = {
@@ -658,30 +648,10 @@ on_battle_won_province = {
 	}
 }
 
-on_dependency_gained = {
-	if = {
-		limit = { FROM = { ai = yes } }
-		FROM = { 
-			remove_country_modifier = DA_AI_Buffs_medium
-			remove_country_modifier = DA_AI_Buffs_hard
-			remove_country_modifier = DA_AI_Buffs_very_hard
-			add_country_modifier = {
-				name = DA_AI_Buffs_vassal_reduction
-				duration = -1
-			}
-		}
-	}
+on_dependency_gained = {	# the AI strength follows the new place of the subject (build_ai_strength.py)
+	FROM = { DA_AI_buffs_refresh = yes }
 }
 
-on_dependency_lost = {	# when ai stops being vassal he loses vassal reduction and gets medium buff (can be made via global flags but not worth it, will update on next institution anyway)
-	if = {
-		limit = { FROM = { ai = yes } }
-		FROM = { 
-			remove_country_modifier = DA_AI_Buffs_vassal_reduction
-			add_country_modifier = {
-				name = DA_AI_Buffs_medium
-				duration = -1
-			}
-		}
-	}
+on_dependency_lost = {	# the AI strength follows the new place of the subject (build_ai_strength.py)
+	FROM = { DA_AI_buffs_refresh = yes }
 }
