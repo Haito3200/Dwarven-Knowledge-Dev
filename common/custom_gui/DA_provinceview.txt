@@ -234,28 +234,67 @@ custom_button = {
 
 # BEGIN DA_HOLD_EXPLORATION (build_hold_exploration.py; the window is in DA_Hold_Exploration_interface.txt)
 custom_button = {
-	name = DA_province_explore_button
-	tooltip = DA_province_explore_button_tt
+	name = DA_dig_deeper_button
+	tooltip = DA_dig_deeper_button_tt
 	potential = {
-		has_province_flag = diggy_diggy_estimate_flag
-		owner = {
-			tag = FROM
+		OR = {
+			has_terrain = dwarven_hold
+			has_terrain = dwarven_hold_surface
+		}
+		owner = { tag = FROM }
+		# Anbennar: orcs cannot repair holds other than the capital
+		OR = {
+			is_capital = yes
+			NOT = { owner = { dwarovar_orc_culture_primary = yes } }
 		}
 	}
-	trigger = { always = yes }
-	effect = {
-		FROM = {
-			clr_country_flag = DA_province_mega_engineering_open
-			clr_country_flag = DA_province_medicine_open
-			clr_country_flag = DA_province_fortifications_open
+	trigger = {
+		if = {
+			limit = { owner = { is_nomad = yes } }
+			owner = { NOT = { is_nomad = yes } }
 		}
 		if = {
-			limit = { has_province_flag = DA_HX_open }
-			clr_province_flag = DA_HX_open
+			limit = { owner = { government = native } }
+			owner = { NOT = { government = native } }
 		}
-		else = {
-			clr_province_flag = DA_LE_open
-			set_province_flag = DA_HX_open
+	}
+	effect = {
+		if = {
+			limit = { NOT = { DA_HX_dig_estimate_allowed = yes } }
+			custom_tooltip = DA_dig_deeper_button_window_only_tt
+		}
+		hidden_effect = {
+			if = {
+				limit = { OR = { has_province_flag = diggy_diggy_estimate_flag DA_HX_window_shown = yes } }
+				clr_province_flag = diggy_diggy_estimate_flag
+				clr_province_flag = DA_HX_open
+			}
+			else = {
+				if = {
+					limit = { DA_HX_dig_estimate_allowed = yes }
+					set_province_flag = diggy_diggy_estimate_flag
+					if = {
+						limit = { OR = { has_province_modifier = ruined_hold has_province_modifier = partially_ruined_hold has_province_modifier = damaged_hold } }
+						owner = { PREV = { setup_restoration_speed = yes } }
+					}
+					else = {
+						if = {
+							limit = { is_capital = yes }
+							owner = { PREV = { setup_digging_deeper_capital = yes } }
+						}
+						else = {
+							owner = { PREV = { setup_digging_deeper_non_capital = yes } }
+						}
+					}
+				}
+				FROM = {
+					clr_country_flag = DA_province_mega_engineering_open
+					clr_country_flag = DA_province_medicine_open
+					clr_country_flag = DA_province_fortifications_open
+				}
+				clr_province_flag = DA_LE_open
+				set_province_flag = DA_HX_open
+			}
 		}
 	}
 }

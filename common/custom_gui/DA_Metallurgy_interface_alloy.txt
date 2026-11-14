@@ -1,5 +1,6 @@
+# DA_SCH: the entries of the old Secondary Technologies window that the new one does not use were removed on
+# 14 November 2026 by build_secondary_tech.py; the others are used by name by the new window.
 # ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
-
 
 
 # The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
@@ -95,140 +96,8 @@
 #       reforms_window          (ROOT = FROM)
 #   parliament.gui:
 #       parliament_window       (ROOT = FROM)
-custom_window = {
-    name = DA_Metallurgy_interface_alloy
-    potential = {
-        DA_has_alloy_interface_open = yes
-    }
-}
-custom_icon = {
-    name = DA_Metallurgy_interface_alloy_background
-    potential = {
-        always = yes
-    }
-       # frame = {  #Can define multiple frame clauses
-           # number = 1 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
-            #trigger = {
-               # has_country_flag = DA_Technology_interface_on_main
-            #} #First matched frame clause will be used.
-      #  }
-}
-custom_button = {
-	name = DA_Increase_metallurgy_2
-	tooltip = DA_Increase_metallurgy_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-        custom_trigger_tooltip = {
-            tooltip = DA_Increase_metallurgy_trigger_tt
-            OR = {
-                AND = {
-                    NOT = { DA_completed.Metallurgy_1 = yes }
-                    check_variable = {
-                        which = DA_Metallurgy_exp
-                        value = 1000
-                    }
-                }
-                AND = {
-                    DA_completed.Metallurgy_1 = yes
-                    NOT = { DA_completed.Metallurgy_2 = yes }
-                    check_variable = {
-                        which = DA_Metallurgy_exp
-                        value = 2500
-                    }
-                }
-                AND = {
-                    DA_completed.Metallurgy_2 = yes
-                    NOT = { DA_completed.Metallurgy_3 = yes }
-                    check_variable = {
-                        which = DA_Metallurgy_exp
-                        value = 5000
-                    }
-                }
-                AND = {
-                    DA_completed.Metallurgy_3 = yes
-                    NOT = { DA_completed.Metallurgy_4 = yes }
-                    check_variable = {
-                        which = DA_Metallurgy_exp
-                        value = 10000
-                    }
-                }
-            }
-        }
-        DA_has_NO_Project_active = yes
-	}
-	effect = {
-        add_country_modifier = {
-            name = DA_Tech_Researching_Metallurgy
-            duration = -1
-        }
-        hidden_effect = {
-            if = {
-                limit = {
-                    NOT = { DA_completed.Metallurgy_1 = yes }
-                }
-                subtract_variable = {
-                    which = DA_Metallurgy_exp
-                    value = 1000
-                }
-                country_event = {
-                    id = DA_Tech_Tree_event.500
-                    days = 365
-                }
-            }
-            else_if = {
-                limit = {
-                    DA_completed.Metallurgy_1 = yes
-                    NOT = { DA_completed.Metallurgy_2 = yes }
-                }
-                subtract_variable = {
-                    which = DA_Metallurgy_exp
-                    value = 2500
-                }
-                country_event = {
-                    id = DA_Tech_Tree_event.501
-                    days = 365
-                }
-            }
-            else_if = {
-                limit = {
-                    DA_completed.Metallurgy_2 = yes
-                    NOT = { DA_completed.Metallurgy_3 = yes }
-                }
-                subtract_variable = {
-                    which = DA_Metallurgy_exp
-                    value = 5000
-                }
-                country_event = {
-                    id = DA_Tech_Tree_event.503
-                    days = 240
-                }
-            }
-            else_if = {
-                limit = {
-                    DA_completed.Metallurgy_3 = yes
-                    NOT = { DA_completed.Metallurgy_4 = yes }
-                }
-                subtract_variable = {
-                    which = DA_Metallurgy_exp
-                    value = 10000
-                }
-                country_event = {
-                    id = DA_Tech_Tree_event.506
-                    days = 240
-                }
-            }
-        }
-	}
-}
 
-custom_text_box = {
-    name = DA_Tech_Shower.Metallurgy_2 #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Tech_Shower.Metallurgy.tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
+
 custom_text_box = {
     name = DA_alloy_slot_shower_common #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
@@ -267,12 +136,7 @@ custom_button = {
 	}
 }
 
-custom_text_box = {
-    name = DA_metallurgy_tech_level_shower #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_metallurgy_tech_level_shower_tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
+
 custom_text_box = {
     name = DA_Alloy_technique_select_title #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible

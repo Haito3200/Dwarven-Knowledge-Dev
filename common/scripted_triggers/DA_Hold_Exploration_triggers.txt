@@ -558,3 +558,79 @@ DA_HX_can_send = {
 	DA_HX_send_allowed = yes
 }
 
+# the Dig Deeper button (DA_provinceview.txt): Anbennar lets this hold be dug, so the dig estimate opens too.
+# As the first condition of its dig_deeper_capital: the capital, a damaged or infested hold, or Centralized Hold Operations.
+DA_HX_dig_estimate_allowed = {
+	OR = {
+		is_capital = yes
+		has_province_modifier = ruined_hold
+		has_province_modifier = partially_ruined_hold
+		has_province_modifier = damaged_hold
+		has_province_modifier = infested_hold
+		owner = { has_country_flag = hold_operation }
+	}
+}
+
+# the window is open and not hidden by another panel of the province view (its potential, with owner for FROM)
+DA_HX_window_shown = {
+	has_province_flag = DA_HX_open
+	NOT = { has_province_flag = DA_LE_open }
+	owner = { NOT = { has_country_flag = DA_province_mega_engineering_open } NOT = { has_country_flag = DA_province_medicine_open } NOT = { has_country_flag = DA_province_fortifications_open } }
+}
+
+# Country scope. The company the Dwarven Hall sends from the country menu: no flag is Pathfinders.
+DA_HX_hall_pathfinders = {
+	NOT = { has_country_flag = DA_HX_hall_charter_wardens }
+	NOT = { has_country_flag = DA_HX_hall_charter_prospectors }
+	NOT = { has_country_flag = DA_HX_hall_charter_loreseekers }
+}
+
+# Province scope, ROOT the country (the country menu and the Hall's button): the treasury holds the price of the
+# Hall's company for the deep the menu would send it to (the first DA_Explorable_dig_<n>, as the menu picks it).
+# DA_Explorable_dig_<n> already asks for the usual price.
+DA_HX_hall_affordable = {
+	if = {
+		limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+		if = {
+			limit = { DA_Explorable_dig_2 = yes }
+			owner = { treasury = 40 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_3 = yes }
+			owner = { treasury = 75 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_4 = yes }
+			owner = { treasury = 150 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_5 = yes }
+			owner = { treasury = 300 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_6 = yes }
+			owner = { treasury = 450 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_7 = yes }
+			owner = { treasury = 750 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_8 = yes }
+			owner = { treasury = 1200 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_9 = yes }
+			owner = { treasury = 1800 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_10 = yes }
+			owner = { treasury = 3750 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_11 = yes }
+			owner = { treasury = 7500 }
+		}
+	}
+}
+

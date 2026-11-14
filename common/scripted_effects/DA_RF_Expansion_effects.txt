@@ -10,10 +10,14 @@ DA_RF_expand_one_level = {
 		limit = {
 			NOT = { has_estate = estate_da_runesmiths }
 			NOT = { has_estate_privilege = estate_da_runesmiths_RF_2 }
+			NOT = { has_country_flag = DA_RF_founding_pending }	# DA_Government_event.1 is already on its way
 			NOT = { has_reform = dwarovar_adventurer_reform }
 			DA_Expandable_dig_2 = yes
 		}
-		hidden_effect = { set_country_flag = DA_supporting_Runesmiths }
+		hidden_effect = {
+			set_country_flag = DA_supporting_Runesmiths
+			set_country_flag = DA_RF_founding_pending	# until DA_Government_event.1 grants the level: no second payment
+		}
 		add_treasury = -50
 		country_event = {
 			id = DA_Government_event.1

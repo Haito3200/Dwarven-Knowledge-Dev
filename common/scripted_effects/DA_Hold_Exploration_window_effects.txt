@@ -400,8 +400,9 @@ DA_HX_send = {
 	}
 }
 
-# The country menu (DA_adk_hold_exploration_menu.1). The AI keeps the old pace; a player's company travels like any
-# Pathfinder company. The floor is found the way DA_Hold_exploration_workaround finds it.
+# The country menu (DA_adk_hold_exploration_menu.1). The AI keeps the old pace; a player's company is the one chosen
+# in the Dwarven Hall (DA_HX_hall_charter_<id>) and travels like any company of that charter. The floor is found the way
+# DA_Hold_exploration_workaround finds it. The price is paid by the menu (DA_HX_hall_pay_<n>).
 DA_HX_depart_from_menu = {
 	if = {
 		limit = { owner = { ai = no } }
@@ -409,46 +410,506 @@ DA_HX_depart_from_menu = {
 		remove_province_modifier = DA_HX_company_below
 		if = {
 			limit = { DA_has_dig_level_1_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_2 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_2_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_3 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 58 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 58 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_3_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_4 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_4_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_5 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 102 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 102 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_5_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_6 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_6_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_7 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 95 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 95 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 148 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 148 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 95 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_7_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_8 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 110 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 110 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 170 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 170 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 110 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_8_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_9 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 192 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 192 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_9_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_10 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 140 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 140 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 215 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 215 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 140 }
+			}
 		}
 		else_if = {
 			limit = { DA_has_dig_level_10_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_11 } }
-			add_province_modifier = { name = DA_HX_company_below duration = 155 }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				set_province_flag = DA_HX_run_wardens
+				add_province_modifier = { name = DA_HX_company_below duration = 155 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 238 }
+			}
+			else_if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 238 }
+			}
+			else = {
+				add_province_modifier = { name = DA_HX_company_below duration = 155 }
+			}
 		}
 	}
 	set_province_flag = DA_expedition_in_progress
+}
+
+# Country scope. The plaques of the Dwarven Hall: the company the country menu sends.
+DA_HX_hall_select_pathfinders = {
+	clr_country_flag = DA_HX_hall_charter_wardens
+	clr_country_flag = DA_HX_hall_charter_prospectors
+	clr_country_flag = DA_HX_hall_charter_loreseekers
+}
+
+DA_HX_hall_select_wardens = {
+	clr_country_flag = DA_HX_hall_charter_wardens
+	clr_country_flag = DA_HX_hall_charter_prospectors
+	clr_country_flag = DA_HX_hall_charter_loreseekers
+	set_country_flag = DA_HX_hall_charter_wardens
+}
+
+DA_HX_hall_select_prospectors = {
+	clr_country_flag = DA_HX_hall_charter_wardens
+	clr_country_flag = DA_HX_hall_charter_prospectors
+	clr_country_flag = DA_HX_hall_charter_loreseekers
+	set_country_flag = DA_HX_hall_charter_prospectors
+}
+
+DA_HX_hall_select_loreseekers = {
+	clr_country_flag = DA_HX_hall_charter_wardens
+	clr_country_flag = DA_HX_hall_charter_prospectors
+	clr_country_flag = DA_HX_hall_charter_loreseekers
+	set_country_flag = DA_HX_hall_charter_loreseekers
+}
+
+# Country scope. What a departure of the country menu costs, deep by deep, and the line that says who goes (the AI
+# never chooses a company: it pays the usual price, without the line).
+DA_HX_hall_pay_2 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -40
+		custom_tooltip = DA_HX_hall_go_2_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -25
+		custom_tooltip = DA_HX_hall_go_2_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -25
+		custom_tooltip = DA_HX_hall_go_2_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -25
+		custom_tooltip = DA_HX_hall_go_2_pathfinders
+	}
+	else = {
+		add_treasury = -25
+	}
+}
+
+DA_HX_hall_pay_3 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -75
+		custom_tooltip = DA_HX_hall_go_3_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -50
+		custom_tooltip = DA_HX_hall_go_3_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -50
+		custom_tooltip = DA_HX_hall_go_3_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -50
+		custom_tooltip = DA_HX_hall_go_3_pathfinders
+	}
+	else = {
+		add_treasury = -50
+	}
+}
+
+DA_HX_hall_pay_4 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -150
+		custom_tooltip = DA_HX_hall_go_4_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -100
+		custom_tooltip = DA_HX_hall_go_4_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -100
+		custom_tooltip = DA_HX_hall_go_4_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -100
+		custom_tooltip = DA_HX_hall_go_4_pathfinders
+	}
+	else = {
+		add_treasury = -100
+	}
+}
+
+DA_HX_hall_pay_5 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -300
+		custom_tooltip = DA_HX_hall_go_5_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -200
+		custom_tooltip = DA_HX_hall_go_5_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -200
+		custom_tooltip = DA_HX_hall_go_5_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -200
+		custom_tooltip = DA_HX_hall_go_5_pathfinders
+	}
+	else = {
+		add_treasury = -200
+	}
+}
+
+DA_HX_hall_pay_6 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -450
+		custom_tooltip = DA_HX_hall_go_6_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -300
+		custom_tooltip = DA_HX_hall_go_6_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -300
+		custom_tooltip = DA_HX_hall_go_6_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -300
+		custom_tooltip = DA_HX_hall_go_6_pathfinders
+	}
+	else = {
+		add_treasury = -300
+	}
+}
+
+DA_HX_hall_pay_7 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -750
+		custom_tooltip = DA_HX_hall_go_7_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -500
+		custom_tooltip = DA_HX_hall_go_7_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -500
+		custom_tooltip = DA_HX_hall_go_7_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -500
+		custom_tooltip = DA_HX_hall_go_7_pathfinders
+	}
+	else = {
+		add_treasury = -500
+	}
+}
+
+DA_HX_hall_pay_8 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -1200
+		custom_tooltip = DA_HX_hall_go_8_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -800
+		custom_tooltip = DA_HX_hall_go_8_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -800
+		custom_tooltip = DA_HX_hall_go_8_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -800
+		custom_tooltip = DA_HX_hall_go_8_pathfinders
+	}
+	else = {
+		add_treasury = -800
+	}
+}
+
+DA_HX_hall_pay_9 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -1800
+		custom_tooltip = DA_HX_hall_go_9_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -1200
+		custom_tooltip = DA_HX_hall_go_9_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -1200
+		custom_tooltip = DA_HX_hall_go_9_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -1200
+		custom_tooltip = DA_HX_hall_go_9_pathfinders
+	}
+	else = {
+		add_treasury = -1200
+	}
+}
+
+DA_HX_hall_pay_10 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -3750
+		custom_tooltip = DA_HX_hall_go_10_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -2500
+		custom_tooltip = DA_HX_hall_go_10_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -2500
+		custom_tooltip = DA_HX_hall_go_10_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -2500
+		custom_tooltip = DA_HX_hall_go_10_pathfinders
+	}
+	else = {
+		add_treasury = -2500
+	}
+}
+
+DA_HX_hall_pay_11 = {
+	if = {
+		limit = { has_country_flag = DA_HX_hall_charter_wardens }
+		add_treasury = -7500
+		custom_tooltip = DA_HX_hall_go_11_wardens
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_prospectors }
+		add_treasury = -5000
+		custom_tooltip = DA_HX_hall_go_11_prospectors
+	}
+	else_if = {
+		limit = { has_country_flag = DA_HX_hall_charter_loreseekers }
+		add_treasury = -5000
+		custom_tooltip = DA_HX_hall_go_11_loreseekers
+	}
+	else_if = {
+		limit = { ai = no }
+		add_treasury = -5000
+		custom_tooltip = DA_HX_hall_go_11_pathfinders
+	}
+	else = {
+		add_treasury = -5000
+	}
 }
 
 # on_conquest: the reset stays total. The lost works already found are remembered by their own flags, as before.

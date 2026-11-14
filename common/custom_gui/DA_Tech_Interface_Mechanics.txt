@@ -1,5 +1,6 @@
+# DA_SCH: the entries of the old Secondary Technologies window that the new one does not use were removed on
+# 14 November 2026 by build_secondary_tech.py; the others are used by name by the new window.
 # ANBENNAR: this folder is arranged into the different interface files the GUI elements belong in. For mission/tag-specific GUI, please use zz_mission_content.txt
-
 
 
 # The custom guiButtonType/instantTextBoxType/iconType must have a 'scripted = yes' line to work
@@ -97,138 +98,6 @@
 #       parliament_window       (ROOT = FROM)
 
 
-
-custom_window = {
-    name = DA_Mechanics_Interface
-    potential = {
-        DA_has_mechanics_interface_open = yes
-    }
-}
-custom_icon = {
-    name = DA_Mechanics_Interface_icon
-    potential = {
-        always = yes
-    }
-}
-
-custom_button = {
-	name = DA_Increase_mechanics
-	tooltip = DA_Increase_mechanics_tt
-	potential = {
-		always = yes
-	}
-	trigger = {
-        custom_trigger_tooltip = {
-            tooltip = DA_Increase_mechanics_trigger_tt
-            OR = {
-                AND = {
-                    NOT = { DA_completed.Mechanics_1 = yes }
-                    check_variable = {
-                        which = DA_Mechanics_exp
-                        value = 1000
-                    }
-                }
-                AND = {
-                    DA_completed.Mechanics_1 = yes
-                    NOT = { DA_completed.Mechanics_2 = yes }
-                    check_variable = {
-                        which = DA_Mechanics_exp
-                        value = 2500
-                    }
-                }
-                AND = {
-                    DA_completed.Mechanics_2 = yes
-                    NOT = { DA_completed.Mechanics_3 = yes }
-                    check_variable = {
-                        which = DA_Mechanics_exp
-                        value = 5000
-                    }
-                }
-                AND = {
-                    DA_completed.Mechanics_3 = yes
-                    NOT = { DA_completed.Mechanics_4 = yes }
-                    check_variable = {
-                        which = DA_Mechanics_exp
-                        value = 10000
-                    }
-                }
-            }
-        }
-        DA_has_NO_Project_active = yes
-	}
-	effect = {
-        add_country_modifier = {
-            name = DA_Tech_Researching_Mechanics
-            duration = -1
-        }
-        hidden_effect = {
-            if = {
-                limit = {
-                    NOT = { DA_completed.Mechanics_1 = yes }
-                }
-                subtract_variable = {
-                    which = DA_Mechanics_exp
-                    value = 1000
-                }
-                country_event = {
-                    id = DA_Tech_Tree_event.400
-                    days = 365
-                }
-            }
-            else_if = {
-                limit = {
-                    DA_completed.Mechanics_1 = yes
-                    NOT = { DA_completed.Mechanics_2 = yes }
-                }
-                subtract_variable = {
-                    which = DA_Mechanics_exp
-                    value = 2500
-                }
-                country_event = {
-                    id = DA_Tech_Tree_event.401
-                    days = 365
-                }
-            }
-            else_if = {
-                limit = {
-                    DA_completed.Mechanics_2 = yes
-                    NOT = { DA_completed.Mechanics_3 = yes }
-                }
-                subtract_variable = {
-                    which = DA_Mechanics_exp
-                    value = 5000
-                }
-                country_event = {
-                    id = DA_Tech_Tree_event.403
-                    days = 240
-                }
-            }
-            else_if = {
-                limit = {
-                    DA_completed.Mechanics_3 = yes
-                    NOT = { DA_completed.Mechanics_4 = yes }
-                }
-                subtract_variable = {
-                    which = DA_Mechanics_exp
-                    value = 10000
-                }
-                country_event = {
-                    id = DA_Tech_Tree_event.406
-                    days = 240
-                }
-            }
-        }
-	}
-}
-
-custom_text_box = {
-    name = DA_Tech_Shower.Mechanics #Must match a scripted instantTextBoxType in a .gui file
-    potential = { always = yes } #Determines when the text is visible
-    tooltip = DA_Tech_Shower.Mechanics.tt #Can use customizable localisation
-    #To localize it, use the name of the button as a key, can also use customizable localisation
-}
-
-
 custom_text_box = {
     name = DA_Mechanics_Shower_t1_points #Must match a scripted instantTextBoxType in a .gui file
     potential = { always = yes } #Determines when the text is visible
@@ -269,10 +138,10 @@ custom_button = {
 }
 
 
-
-
 custom_button = {
 	name = DA_mechanics_trade_and_production_switch_button
+	frame = { number = 2 trigger = { has_country_flag = DA_mechanics_trade_and_production_on } } # DA_SCH frame
+	frame = { number = 1 trigger = { NOT = { has_country_flag = DA_mechanics_trade_and_production_on } } } # DA_SCH frame
 	tooltip = DA_mechanics_trade_and_production_switch_button_tt
 	potential = {
         always = yes
@@ -292,6 +161,8 @@ custom_button = {
 }
 custom_button = {
 	name = DA_mechanics_tax_and_religion_switch_button
+	frame = { number = 2 trigger = { has_country_flag = DA_mechanics_tax_and_religion_on } } # DA_SCH frame
+	frame = { number = 1 trigger = { NOT = { has_country_flag = DA_mechanics_tax_and_religion_on } } } # DA_SCH frame
 	tooltip = DA_mechanics_tax_and_religion_switch_button_tt
 	potential = {
         always = yes
@@ -311,6 +182,8 @@ custom_button = {
 }
 custom_button = {
 	name = DA_mechanics_education_and_government_switch_button
+	frame = { number = 2 trigger = { has_country_flag = DA_mechanics_education_and_government_on } } # DA_SCH frame
+	frame = { number = 1 trigger = { NOT = { has_country_flag = DA_mechanics_education_and_government_on } } } # DA_SCH frame
 	tooltip = DA_mechanics_education_and_government_switch_button_tt
 	potential = {
         always = yes
@@ -330,6 +203,8 @@ custom_button = {
 }
 custom_button = {
 	name = DA_mechanics_infrastructure_switch_button
+	frame = { number = 2 trigger = { has_country_flag = DA_mechanics_infrastructure_on } } # DA_SCH frame
+	frame = { number = 1 trigger = { NOT = { has_country_flag = DA_mechanics_infrastructure_on } } } # DA_SCH frame
 	tooltip = DA_mechanics_infrastructure_switch_button_tt
 	potential = {
         always = yes
@@ -349,6 +224,8 @@ custom_button = {
 }
 custom_button = {
 	name = DA_mechanics_army_switch_button
+	frame = { number = 2 trigger = { has_country_flag = DA_mechanics_army_on } } # DA_SCH frame
+	frame = { number = 1 trigger = { NOT = { has_country_flag = DA_mechanics_army_on } } } # DA_SCH frame
 	tooltip = DA_mechanics_army_switch_button_tt
 	potential = {
         always = yes
@@ -368,6 +245,8 @@ custom_button = {
 }
 custom_button = {
 	name = DA_mechanics_navy_switch_button
+	frame = { number = 2 trigger = { has_country_flag = DA_mechanics_navy_on } } # DA_SCH frame
+	frame = { number = 1 trigger = { NOT = { has_country_flag = DA_mechanics_navy_on } } } # DA_SCH frame
 	tooltip = DA_mechanics_navy_switch_button_tt
 	potential = {
         always = yes
@@ -387,47 +266,8 @@ custom_button = {
 }
 
 
-
-
 # upgrades
 
-
-custom_window = {
-    name = DA_mechanics_window_trade_and_production
-    potential = {
-        has_country_flag = DA_mechanics_trade_and_production_on
-    }
-}
-custom_window = {
-    name = DA_mechanics_window_tax_and_religion
-    potential = {
-        has_country_flag = DA_mechanics_tax_and_religion_on
-    }
-}
-custom_window = {
-    name = DA_mechanics_window_education_and_government
-    potential = {
-        has_country_flag = DA_mechanics_education_and_government_on
-    }
-}
-custom_window = {
-    name = DA_mechanics_window_infrastructure
-    potential = {
-        has_country_flag = DA_mechanics_infrastructure_on
-    }
-}
-custom_window = {
-    name = DA_mechanics_window_army
-    potential = {
-        has_country_flag = DA_mechanics_army_on
-    }
-}
-custom_window = {
-    name = DA_mechanics_window_navy
-    potential = {
-        has_country_flag = DA_mechanics_navy_on
-    }
-}
 
 custom_button = {
 	name = DA_mechanics_trade_and_production_upgrade_1_1
@@ -1040,7 +880,6 @@ custom_button = {
 }
 
 
-
 # tax
 
 custom_button = {
@@ -1241,9 +1080,6 @@ custom_button = {
         }
 	}
 }
-
-
-
 
 
 # religion
@@ -1891,9 +1727,6 @@ custom_button = {
 }
 
 
-
-
-
 # generators
 
 custom_button = {
@@ -2382,8 +2215,6 @@ custom_button = {
 }
 
 
-
-
 # road
 
 custom_button = {
@@ -2582,7 +2413,6 @@ custom_button = {
 }
 
 
-
 # manpower
 
 custom_button = {
@@ -2779,7 +2609,6 @@ custom_button = {
         }
 	}
 }
-
 
 
 # forcelimit
@@ -3178,7 +3007,6 @@ custom_button = {
 }
 
 
-
 # sailors
 
 custom_button = {
@@ -3375,10 +3203,6 @@ custom_button = {
         }
 	}
 }
-
-
-
-
 
 
 # navy force limit

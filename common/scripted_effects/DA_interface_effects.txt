@@ -44,91 +44,71 @@ DA_clear_all_non_essential_interface_flags = {
 }
 
 #Window 1 - DA_main_tech_interface
+# BEGIN DA_SCH open and tabs (build_secondary_tech.py; the old page effects keep their names)
 DA_open_first_open_tech_interface = {
 	DA_open_main_tech_interface = yes
-	DA_open_metallurgy_interface = yes
+	DA_SCH_show_overview = yes
 }
 
 DA_open_main_tech_interface = {
-    set_country_flag = DA_show_tech_interface
+	set_country_flag = DA_show_tech_interface
 	if = {
-		limit = { DA_has_metallurgy_interface_open = yes }
-		hidden_effect = {
-			# DA_calculate_metal_provinces = yes
-			country_event = { id = DA_Metallurgy_events.0 }
-		}
+		limit = { NOT = { DA_has_any_tech_interface_active_trigger = yes } }
+		set_country_flag = DA_SCH_tab_overview
 	}
+	DA_SCH_refresh = yes
 }
 DA_close_main_tech_interface = {
-    clr_country_flag = DA_show_tech_interface
+	clr_country_flag = DA_show_tech_interface
 }
 DA_open_metallurgy_interface = {
-    set_country_flag = DA_Technology_interface_on_main
-	hidden_effect = {
-		# DA_calculate_metal_provinces = yes
-		country_event = { id = DA_Metallurgy_events.0 }
-	}
+	DA_SCH_show_met = yes
 }
 DA_close_metallurgy_interface = {
-    clr_country_flag = DA_Technology_interface_on_main
+	clr_country_flag = DA_Technology_interface_on_main
 }
 DA_open_alloy_interface = {
-    set_country_flag = DA_Technology_interface_on_alloy
+	DA_SCH_show_met = yes
+	set_variable = { which = DA_SCH_sub_met value = 2 }
 }
 DA_close_alloy_interface = {
-    clr_country_flag = DA_Technology_interface_on_alloy
+	clr_country_flag = DA_Technology_interface_on_main
 }
 DA_open_arcane_arts_interface = {
-    set_country_flag = DA_Technology_interface_on_Arcane_Arts
+	DA_SCH_show_arc = yes
 }
 DA_close_arcane_arts_interface = {
-    clr_country_flag = DA_Technology_interface_on_Arcane_Arts
+	clr_country_flag = DA_Technology_interface_on_Arcane_Arts
 }
 DA_open_mechanics_interface = {
-    set_country_flag = DA_Technology_interface_on_Mechanics
+	DA_SCH_show_mec = yes
 }
 DA_close_mechanics_interface = {
-    clr_country_flag = DA_Technology_interface_on_Mechanics
+	clr_country_flag = DA_Technology_interface_on_Mechanics
 }
 DA_open_alchemy_interface = {
-    set_country_flag = DA_Technology_interface_on_Alchemy
+	DA_SCH_show_alc = yes
 }
 DA_close_alchemy_interface = {
-    clr_country_flag = DA_Technology_interface_on_Alchemy
+	clr_country_flag = DA_Technology_interface_on_Alchemy
 }
 DA_open_medicine_interface = {
-    set_country_flag = DA_Technology_interface_on_Medicine
+	DA_SCH_show_med = yes
 }
 DA_close_medicine_interface = {
-    clr_country_flag = DA_Technology_interface_on_Medicine
+	clr_country_flag = DA_Technology_interface_on_Medicine
 }
 
 DA_tech_interface_close_tabs_effect = {
-	if = {
-		limit = { DA_has_metallurgy_interface_open = yes }
-		DA_close_metallurgy_interface = yes
-	}
-	else_if = {
-		limit = { DA_has_alloy_interface_open = yes }
-		DA_close_alloy_interface = yes
-	}
-	else_if = {
-		limit = { DA_has_arcane_arts_interface_open = yes }
-		DA_close_arcane_arts_interface = yes
-	}
-	else_if = {
-		limit = { DA_has_mechanics_interface_open = yes }
-		DA_close_mechanics_interface = yes
-	}
-	else_if = {
-		limit = { DA_has_alchemy_interface_open = yes }
-		DA_close_alchemy_interface = yes
-	}
-	else_if = {
-		limit = { DA_has_medicine_interface_open = yes }
-		DA_close_medicine_interface = yes
-	}
+	clr_country_flag = DA_SCH_tab_overview
+	clr_country_flag = DA_Technology_interface_on_main
+	clr_country_flag = DA_Technology_interface_on_alloy
+	clr_country_flag = DA_Technology_interface_on_Arcane_Arts
+	clr_country_flag = DA_Technology_interface_on_Mechanics
+	clr_country_flag = DA_Technology_interface_on_Alchemy
+	clr_country_flag = DA_Technology_interface_on_Medicine
 }
+# END DA_SCH open and tabs
 
 #Window 2 - DA_projects_research_Interface
 DA_open_projects_research_interface = {
