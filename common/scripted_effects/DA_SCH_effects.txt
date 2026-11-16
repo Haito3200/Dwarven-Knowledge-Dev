@@ -11,7 +11,7 @@ DA_SCH_start_study_Metallurgy = {
 		if = {
 			limit = {
 				NOT = { DA_completed.Metallurgy_1 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Metallurgy_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Metallurgy_exp
 				value = 1000
@@ -22,11 +22,12 @@ DA_SCH_start_study_Metallurgy = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Metallurgy_1 value = 1 } } NOT = { AND = { NOT = { DA_completed.Metallurgy_1 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Metallurgy_1 = yes
 				NOT = { DA_completed.Metallurgy_2 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Metallurgy_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Metallurgy_exp
 				value = 2500
@@ -37,11 +38,12 @@ DA_SCH_start_study_Metallurgy = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Metallurgy_1 value = 1 } } NOT = { AND = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Metallurgy_2 = yes
 				NOT = { DA_completed.Metallurgy_3 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Metallurgy_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Metallurgy_exp
 				value = 5000
@@ -52,7 +54,8 @@ DA_SCH_start_study_Metallurgy = {
 				days = 240
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Metallurgy_1 value = 1 } } NOT = { AND = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Metallurgy_3 = yes
 				NOT = { DA_completed.Metallurgy_4 = yes }
@@ -66,7 +69,8 @@ DA_SCH_start_study_Metallurgy = {
 				id = DA_Tech_Tree_event.506
 				days = 240
 			}
-		}
+		} } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Metallurgy_1 value = 0 } }
 	}
 
 	hidden_effect = { DA_SCH_refresh = yes }
@@ -80,7 +84,7 @@ DA_SCH_start_study_Magic_Theory = {
 		if = {
 			limit = {
 				NOT = { DA_completed.Magic_Theory_1 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Magic_Theory_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Arcane_Arts_exp
 				value = 1000
@@ -91,11 +95,12 @@ DA_SCH_start_study_Magic_Theory = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Magic_Theory_1 value = 1 } } NOT = { AND = { NOT = { DA_completed.Magic_Theory_1 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Magic_Theory_1 = yes
 				NOT = { DA_completed.Magic_Theory_2 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Magic_Theory_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Arcane_Arts_exp
 				value = 2500
@@ -106,11 +111,12 @@ DA_SCH_start_study_Magic_Theory = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Magic_Theory_1 value = 1 } } NOT = { AND = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Magic_Theory_2 = yes
 				NOT = { DA_completed.Magic_Theory_3 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Magic_Theory_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Arcane_Arts_exp
 				value = 5000
@@ -121,7 +127,8 @@ DA_SCH_start_study_Magic_Theory = {
 				days = 240
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Magic_Theory_1 value = 1 } } NOT = { AND = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Magic_Theory_3 = yes
 				NOT = { DA_completed.Magic_Theory_4 = yes }
@@ -135,7 +142,8 @@ DA_SCH_start_study_Magic_Theory = {
 				id = DA_Tech_Tree_event.306
 				days = 240
 			}
-		}
+		} } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Magic_Theory_1 value = 0 } }
 	}
 
 	hidden_effect = { DA_SCH_refresh = yes }
@@ -149,7 +157,7 @@ DA_SCH_start_study_Mechanics = {
 		if = {
 			limit = {
 				NOT = { DA_completed.Mechanics_1 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Mechanics_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Mechanics_exp
 				value = 1000
@@ -160,11 +168,12 @@ DA_SCH_start_study_Mechanics = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Mechanics_1 value = 1 } } NOT = { AND = { NOT = { DA_completed.Mechanics_1 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Mechanics_1 = yes
 				NOT = { DA_completed.Mechanics_2 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Mechanics_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Mechanics_exp
 				value = 2500
@@ -175,11 +184,12 @@ DA_SCH_start_study_Mechanics = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Mechanics_1 value = 1 } } NOT = { AND = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Mechanics_2 = yes
 				NOT = { DA_completed.Mechanics_3 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Mechanics_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Mechanics_exp
 				value = 5000
@@ -190,7 +200,8 @@ DA_SCH_start_study_Mechanics = {
 				days = 240
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Mechanics_1 value = 1 } } NOT = { AND = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Mechanics_3 = yes
 				NOT = { DA_completed.Mechanics_4 = yes }
@@ -204,7 +215,8 @@ DA_SCH_start_study_Mechanics = {
 				id = DA_Tech_Tree_event.406
 				days = 240
 			}
-		}
+		} } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Mechanics_1 value = 0 } }
 	}
 
 	hidden_effect = { DA_SCH_refresh = yes }
@@ -218,7 +230,7 @@ DA_SCH_start_study_Alchemy = {
 		if = {
 			limit = {
 				NOT = { DA_completed.Alchemy_1 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Alchemy_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Alchemy_exp
 				value = 1000
@@ -229,11 +241,12 @@ DA_SCH_start_study_Alchemy = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Alchemy_1 value = 1 } } NOT = { AND = { NOT = { DA_completed.Alchemy_1 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Alchemy_1 = yes
 				NOT = { DA_completed.Alchemy_2 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Alchemy_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Alchemy_exp
 				value = 2500
@@ -244,11 +257,12 @@ DA_SCH_start_study_Alchemy = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Alchemy_1 value = 1 } } NOT = { AND = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Alchemy_2 = yes
 				NOT = { DA_completed.Alchemy_3 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Alchemy_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Alchemy_exp
 				value = 5000
@@ -259,7 +273,8 @@ DA_SCH_start_study_Alchemy = {
 				days = 240
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Alchemy_1 value = 1 } } NOT = { AND = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Alchemy_3 = yes
 				NOT = { DA_completed.Alchemy_4 = yes }
@@ -273,7 +288,8 @@ DA_SCH_start_study_Alchemy = {
 				id = DA_Tech_Tree_event.206
 				days = 240
 			}
-		}
+		} } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Alchemy_1 value = 0 } }
 	}
 
 	hidden_effect = { DA_SCH_refresh = yes }
@@ -287,7 +303,7 @@ DA_SCH_start_study_Medicine = {
 		if = {
 			limit = {
 				NOT = { DA_completed.Medicine_1 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Medicine_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Medicine_exp
 				value = 1000
@@ -298,11 +314,12 @@ DA_SCH_start_study_Medicine = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Medicine_1 value = 1 } } NOT = { AND = { NOT = { DA_completed.Medicine_1 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Medicine_1 = yes
 				NOT = { DA_completed.Medicine_2 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Medicine_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Medicine_exp
 				value = 2500
@@ -313,11 +330,12 @@ DA_SCH_start_study_Medicine = {
 				days = 365
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Medicine_1 value = 1 } } NOT = { AND = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Medicine_2 = yes
 				NOT = { DA_completed.Medicine_3 = yes }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Medicine_1 value = 1 } }
 			subtract_variable = {
 				which = DA_Medicine_exp
 				value = 5000
@@ -328,7 +346,8 @@ DA_SCH_start_study_Medicine = {
 				days = 240
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_SCH_start_study_Medicine_1 value = 1 } } NOT = { AND = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_completed.Medicine_3 = yes
 				NOT = { DA_completed.Medicine_4 = yes }
@@ -342,7 +361,8 @@ DA_SCH_start_study_Medicine = {
 				id = DA_Tech_Tree_event.106
 				days = 240
 			}
-		}
+		} } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_SCH_start_study_Medicine_1 value = 0 } }
 	}
 
 	hidden_effect = { DA_SCH_refresh = yes }

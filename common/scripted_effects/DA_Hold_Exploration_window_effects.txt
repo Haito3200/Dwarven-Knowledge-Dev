@@ -49,355 +49,425 @@ DA_HX_refresh_ready_count = {
 # The Send button. The company leaves now; the floor table rolls when the modifier of its way down has run out.
 DA_HX_send = {
 	if = {
-		limit = { DA_HX_target_2 = yes }
+		limit = { DA_HX_target_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -40 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -25 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 20 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 20 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
-		limit = { DA_HX_target_3 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_2 = yes } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+		limit = { DA_HX_target_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -75 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -50 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 58 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 58 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
-		limit = { DA_HX_target_4 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_3 = yes } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+		limit = { DA_HX_target_4 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -150 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -100 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 50 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 50 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
-		limit = { DA_HX_target_5 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_4 = yes } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+		limit = { DA_HX_target_5 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -300 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -200 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 65 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 102 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 102 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 65 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
-		limit = { DA_HX_target_6 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_5 = yes } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+		limit = { DA_HX_target_6 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -450 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -300 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
-		limit = { DA_HX_target_7 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_6 = yes } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+		limit = { DA_HX_target_7 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -750 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -500 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 95 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 148 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 148 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 95 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
-		limit = { DA_HX_target_8 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_7 = yes } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+		limit = { DA_HX_target_8 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -1200 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -800 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 110 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 170 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 170 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 110 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
-		limit = { DA_HX_target_9 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_8 = yes } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+		limit = { DA_HX_target_9 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -1800 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -1200 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 192 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 192 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
-		limit = { DA_HX_target_10 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_9 = yes } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+		limit = { DA_HX_target_10 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 1 } }
+		if = {
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -3750 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -2500 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 140 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 215 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 215 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 140 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_1 value = 1 } } NOT = { AND = { DA_HX_target_10 = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { DA_HX_target_11 = yes }
 		if = {
-			limit = { has_province_flag = DA_HX_charter_wardens }
+			limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 			owner = { add_treasury = -7500 }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else (else_lowering.py)
+			
 			owner = { add_treasury = -5000 }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 		custom_tooltip = DA_HX_send_effect_tt
 		hidden_effect = {
 			DA_HX_end_roll = yes
 			remove_province_modifier = DA_HX_company_below
 			if = {
-				limit = { has_province_flag = DA_HX_charter_wardens }
+				limit = { has_province_flag = DA_HX_charter_wardens } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 155 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_prospectors }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_wardens } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_prospectors } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 238 }
 			}
-			else_if = {
-				limit = { has_province_flag = DA_HX_charter_loreseekers }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_prospectors } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_province_flag = DA_HX_charter_loreseekers } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 238 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_2 value = 1 } } NOT = { AND = { has_province_flag = DA_HX_charter_loreseekers } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 155 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_send_2 value = 0 } }
 			set_province_flag = DA_expedition_in_progress
 			owner = { DA_HX_refresh_ready_count = yes }
 		}
-	}
+	} } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 0 } }
 }
 
 # The country menu (DA_adk_hold_exploration_menu.1). The AI keeps the old pace; a player's company is the one chosen
@@ -409,215 +479,265 @@ DA_HX_depart_from_menu = {
 		DA_HX_end_roll = yes
 		remove_province_modifier = DA_HX_company_below
 		if = {
-			limit = { DA_has_dig_level_1_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_2 } }
+			limit = { DA_has_dig_level_1_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_2 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 20 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 20 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_has_dig_level_2_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_3 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_1_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_2 } } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+			limit = { DA_has_dig_level_2_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_3 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 58 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 58 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 35 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_has_dig_level_3_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_4 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_2_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_3 } } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+			limit = { DA_has_dig_level_3_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_4 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 50 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 50 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_has_dig_level_4_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_5 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_3_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_4 } } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+			limit = { DA_has_dig_level_4_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_5 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 65 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 102 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 102 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 65 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_has_dig_level_5_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_6 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_4_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_5 } } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+			limit = { DA_has_dig_level_5_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_6 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 80 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_has_dig_level_6_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_7 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_5_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_6 } } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+			limit = { DA_has_dig_level_6_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_7 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 95 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 148 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 148 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 95 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_has_dig_level_7_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_8 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_6_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_7 } } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+			limit = { DA_has_dig_level_7_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_8 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 110 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 170 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 170 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 110 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_has_dig_level_8_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_9 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_7_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_8 } } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+			limit = { DA_has_dig_level_8_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_9 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 192 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 192 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 125 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_has_dig_level_9_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_10 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_8_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_9 } } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+			limit = { DA_has_dig_level_9_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_10 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 140 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 215 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 215 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 140 }
-			}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_9_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_10 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { DA_has_dig_level_10_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_11 } }
 			if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } }
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_wardens
 				add_province_modifier = { name = DA_HX_company_below duration = 155 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_wardens } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_prospectors
 				add_province_modifier = { name = DA_HX_company_below duration = 238 }
 			}
-			else_if = {
-				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_prospectors } } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } }
 				set_province_flag = DA_HX_run_loreseekers
 				add_province_modifier = { name = DA_HX_company_below duration = 238 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_HX_hall_charter_loreseekers } } } }    # was else (else_lowering.py)
+				
 				add_province_modifier = { name = DA_HX_company_below duration = 155 }
-			}
-		}
+			} } }
+			hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_2 value = 0 } }
+		} } } } } } } } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 0 } }
 	}
 	set_province_flag = DA_expedition_in_progress
 }

@@ -12,37 +12,40 @@ DA_mechanics_upgrade_applier_4 = {
 			owner = {
 				has_country_flag = DA_mechanics_upgrade.$upgrade_4$.flag
 			}
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_4_1 value = 1 } }
 		add_permanent_province_modifier = {
 			name = DA_mechanics_upgrade.$upgrade_4$
 			duration = -1
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_mechanics_upgrade_applier_4_1 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_mechanics_upgrade.$upgrade_4$.flag } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			owner = {
 				NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_4$.flag }
 				has_country_flag = DA_mechanics_upgrade.$upgrade_3$.flag
 			}
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_4_1 value = 1 } }
 		add_permanent_province_modifier = {
 			name = DA_mechanics_upgrade.$upgrade_3$
 			duration = -1
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_mechanics_upgrade_applier_4_1 value = 1 } } NOT = { AND = { owner = { NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_4$.flag } has_country_flag = DA_mechanics_upgrade.$upgrade_3$.flag } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			owner = {
 				NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_3$.flag }
 				has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag
 			}
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_4_1 value = 1 } }
 		add_permanent_province_modifier = {
 			name = DA_mechanics_upgrade.$upgrade_2$
 			duration = -1
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_mechanics_upgrade_applier_4_1 value = 1 } } NOT = { AND = { owner = { NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_3$.flag } has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			owner = {
 				NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag }
@@ -53,7 +56,8 @@ DA_mechanics_upgrade_applier_4 = {
 			name = DA_mechanics_upgrade.$upgrade_1$
 			duration = -1
 		}
-	}
+	} } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_4_1 value = 0 } }
 }
 
 
@@ -68,25 +72,27 @@ DA_mechanics_upgrade_applier_3 = {
 			owner = {
 				has_country_flag = DA_mechanics_upgrade.$upgrade_3$.flag
 			}
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_3_1 value = 1 } }
 		add_permanent_province_modifier = {
 			name = DA_mechanics_upgrade.$upgrade_3$
 			duration = -1
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_mechanics_upgrade_applier_3_1 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_mechanics_upgrade.$upgrade_3$.flag } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			owner = {
 				NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_3$.flag }
 				has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag
 			}
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_3_1 value = 1 } }
 		add_permanent_province_modifier = {
 			name = DA_mechanics_upgrade.$upgrade_2$
 			duration = -1
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_mechanics_upgrade_applier_3_1 value = 1 } } NOT = { AND = { owner = { NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_3$.flag } has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			owner = {
 				NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag }
@@ -97,7 +103,8 @@ DA_mechanics_upgrade_applier_3 = {
 			name = DA_mechanics_upgrade.$upgrade_1$
 			duration = -1
 		}
-	}
+	} } }
+	hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_3_1 value = 0 } }
 }
 
 DA_mechanics_upgrade_applier_2 = {
@@ -110,13 +117,14 @@ DA_mechanics_upgrade_applier_2 = {
 			owner = {
 				has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag
 			}
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_2_1 value = 1 } }
 		add_permanent_province_modifier = {
 			name = DA_mechanics_upgrade.$upgrade_2$
 			duration = -1
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_mechanics_upgrade_applier_2_1 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			owner = {
 				NOT = { has_country_flag = DA_mechanics_upgrade.$upgrade_2$.flag }
@@ -127,7 +135,8 @@ DA_mechanics_upgrade_applier_2 = {
 			name = DA_mechanics_upgrade.$upgrade_1$
 			duration = -1
 		}
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_mechanics_upgrade_applier_2_1 value = 0 } }
 }
 
 DA_mechanics_upgrade_applier_1 = {

@@ -37,16 +37,26 @@ country_decisions = {
 					}
 					country_event = { id = DA_Halanna_heart.30 days = 90 }
 				}
-				else_if = {
+				if = {	# one hint (plain ifs, not else_if: see Claude files/tools/else_lowering.py)
 					limit = {
 						OR = {
 							has_country_flag = DA_abyss_hint_scouts
 							has_country_flag = DA_abyss_hint_ghost
 						}
+						NOT = {
+							AND = {
+								has_country_flag = DA_abyss_hint_scouts
+								has_country_flag = DA_abyss_hint_ghost
+							}
+						}
 					}
 					country_event = { id = DA_Halanna_heart.30 days = 135 }
 				}
-				else = {
+				if = {	# no hint
+					limit = {
+						NOT = { has_country_flag = DA_abyss_hint_scouts }
+						NOT = { has_country_flag = DA_abyss_hint_ghost }
+					}
 					country_event = { id = DA_Halanna_heart.30 days = 180 }
 				}
 			}

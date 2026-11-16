@@ -37,16 +37,18 @@ DA_AI_facility_yearly = {
 			limit = {
 				DA_is_over_production_points = yes
 				DA_AI_has_invention = yes
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_AI_facility_yearly_1 value = 1 } }
 			DA_AI_drop_invention = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_facility_yearly_1 value = 1 } } NOT = { AND = { DA_is_over_production_points = yes DA_AI_has_invention = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				NOT = { DA_is_over_production_points = yes }
 				DA_AI_can_take_invention = yes
 			}
 			DA_AI_take_invention = yes
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_AI_facility_yearly_1 value = 0 } }
 	}
 }
 
@@ -215,159 +217,198 @@ DA_AI_take_invention = {
 # One invention is switched off, the dearest tier first (its on_revoked returns the Production Capacity).
 DA_AI_drop_invention = {
 	if = {
-		limit = { has_estate_privilege = DA_RS_IND_PROD_Runic_augmented_uniforms }
+		limit = { has_estate_privilege = DA_RS_IND_PROD_Runic_augmented_uniforms } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_PROD_Runic_augmented_uniforms
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_COURT_Advanced_Runepowered_Filing_System }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_PROD_Runic_augmented_uniforms } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_COURT_Advanced_Runepowered_Filing_System } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_COURT_Advanced_Runepowered_Filing_System
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_COURT_Portable_government_broadcast_array }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_COURT_Advanced_Runepowered_Filing_System } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_COURT_Portable_government_broadcast_array } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_COURT_Portable_government_broadcast_array
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Siegecraft_Command_Matrix }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_COURT_Portable_government_broadcast_array } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Siegecraft_Command_Matrix } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Siegecraft_Command_Matrix
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Mana_Waves_War_Communicators }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Siegecraft_Command_Matrix } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Mana_Waves_War_Communicators } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Mana_Waves_War_Communicators
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_War_Simulation_Chambers }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Mana_Waves_War_Communicators } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_War_Simulation_Chambers } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_War_Simulation_Chambers
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Heavy_Troops_Optimizations }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_War_Simulation_Chambers } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Heavy_Troops_Optimizations } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Heavy_Troops_Optimizations
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_PROD_Lightning_Foundries }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Heavy_Troops_Optimizations } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_PROD_Lightning_Foundries } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_PROD_Lightning_Foundries
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_PROD_Lightning_Foundries } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_INFRA_Galvanic_Masonry }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_INFRA_Arc_Lit_Deep_Roads } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_INFRA_Galvanic_Masonry } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_INFRA_Galvanic_Masonry
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_COURT_Voice_Wires }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_INFRA_Galvanic_Masonry } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_COURT_Voice_Wires } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_COURT_Voice_Wires
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_LEARN_Lamp_Grid_Libraries }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_COURT_Voice_Wires } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_LEARN_Lamp_Grid_Libraries } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_LEARN_Lamp_Grid_Libraries
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_PROD_Magitech_Drill }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_LEARN_Lamp_Grid_Libraries } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_PROD_Magitech_Drill } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_PROD_Magitech_Drill
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_PROD_Steam_Trains }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_PROD_Magitech_Drill } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_PROD_Steam_Trains } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_PROD_Steam_Trains
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_PROD_Automated_Rune_Press }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_PROD_Steam_Trains } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_PROD_Automated_Rune_Press } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_PROD_Automated_Rune_Press
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_COURT_Runic_Message_Sender }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_PROD_Automated_Rune_Press } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_COURT_Runic_Message_Sender } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_COURT_Runic_Message_Sender
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_COURT_Runic_Runic_Recorders }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_COURT_Runic_Message_Sender } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_COURT_Runic_Runic_Recorders } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_COURT_Runic_Runic_Recorders
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Mechanical_Gargoyles }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_COURT_Runic_Runic_Recorders } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Mechanical_Gargoyles } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Mechanical_Gargoyles
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Self_Deployable_Tents }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Mechanical_Gargoyles } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Self_Deployable_Tents } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Self_Deployable_Tents
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Boots_of_Water_Striding }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Self_Deployable_Tents } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Boots_of_Water_Striding } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Boots_of_Water_Striding
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Steam_portable_cooker }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Boots_of_Water_Striding } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Steam_portable_cooker } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Steam_portable_cooker
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_DEV_Subterranean_Agriculture_Rig }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Steam_portable_cooker } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_DEV_Subterranean_Agriculture_Rig } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_DEV_Subterranean_Agriculture_Rig
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_COURT_Pneumatic_Post }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_DEV_Subterranean_Agriculture_Rig } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_COURT_Pneumatic_Post } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_COURT_Pneumatic_Post
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_LUX_Steam_Bathhouses }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_COURT_Pneumatic_Post } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_LUX_Steam_Bathhouses } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_LUX_Steam_Bathhouses
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_LUX_Steam_Bathhouses } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_PROD_Runes_Manufacturing } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_PROD_Stonecutting_Goggles } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_DEV_Automatic_settler }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_DEV_Runic_construction_tools } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_DEV_Automatic_settler } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_DEV_Automatic_settler
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_IND_DEV_Self_Repairing_Structures }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_DEV_Automatic_settler } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_IND_DEV_Self_Repairing_Structures } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_IND_DEV_Self_Repairing_Structures
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_LUX_Enchanted_jewelry }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_IND_DEV_Self_Repairing_Structures } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_LUX_Enchanted_jewelry } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_LUX_Enchanted_jewelry
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_LUX_Charming_Runes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_LUX_Enchanted_jewelry } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_LUX_Charming_Runes } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_LUX_Charming_Runes
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_LUX_Lifespan_extension_rituals }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_LUX_Charming_Runes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_LUX_Lifespan_extension_rituals } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_LUX_Lifespan_extension_rituals
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_LUX_Runic_Binding_Contracts }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_LUX_Lifespan_extension_rituals } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_LUX_Runic_Binding_Contracts } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_LUX_Runic_Binding_Contracts
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_SECURITY_Runic_Traps }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_LUX_Runic_Binding_Contracts } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_SECURITY_Runic_Traps } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_SECURITY_Runic_Traps
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_SOC_SECURITY_Runic_Police }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_SECURITY_Runic_Traps } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_SOC_SECURITY_Runic_Police } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_SOC_SECURITY_Runic_Police
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Damestear_Overload }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_SOC_SECURITY_Runic_Police } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Damestear_Overload } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Damestear_Overload
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_Rune_Etched_Armors }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Damestear_Overload } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_Rune_Etched_Armors } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_Rune_Etched_Armors
 	}
-	else_if = {
-		limit = { has_estate_privilege = DA_RS_MIL_First_Aid_Potions }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_Rune_Etched_Armors } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_estate_privilege = DA_RS_MIL_First_Aid_Potions } hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } }
 		remove_estate_privilege = DA_RS_MIL_First_Aid_Potions
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_drop_invention_1 value = 1 } } NOT = { AND = { has_estate_privilege = DA_RS_MIL_First_Aid_Potions } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { has_estate_privilege = DA_RS_MIL_War_Propaganda }
 		remove_estate_privilege = DA_RS_MIL_War_Propaganda
-	}
+	} } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AI_drop_invention_1 value = 0 } }
 }

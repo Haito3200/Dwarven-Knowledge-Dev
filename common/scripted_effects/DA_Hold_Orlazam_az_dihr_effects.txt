@@ -32,49 +32,55 @@ DA_OAD_unlock_dark_rams = { # Mythical Cavalry (Anbennar's enable_mythical_caval
 	if = {
 		limit = {
 			has_dlc = "Lions of the North" # Mythical Cavalry is the Winged Hussars unit of that DLC, as in Anbennar's own missions
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_OAD_unlock_dark_rams_1 value = 1 } }
 		enable_mythical_cavalry = { mount = dark_rams }
 		if = {
 			limit = {
 				has_country_flag = DA_OAD_rams_broken
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_OAD_unlock_dark_rams_2 value = 1 } }
 			add_country_modifier = {
 				name = DA_Dark_Rams_broken
 				duration = -1
 			}
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OAD_unlock_dark_rams_2 value = 1 } } NOT = { AND = { has_country_flag = DA_OAD_rams_broken } } }    # was else (else_lowering.py)
+			
 			add_country_modifier = {
 				name = DA_Dark_Rams_bonded
 				duration = -1
 			}
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_OAD_unlock_dark_rams_2 value = 0 } }
 		custom_tooltip = DA_OAD_first_wing_tt
 		hidden_effect = {
 			if = {
 				limit = {
 					owns = 4147
-				}
+				} hidden_effect = { set_variable = { which = DA_else_DA_OAD_unlock_dark_rams_2 value = 1 } }
 				4147 = {
 					hussars_cavalry = ROOT
 					hussars_cavalry = ROOT
 				}
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OAD_unlock_dark_rams_2 value = 1 } } NOT = { AND = { owns = 4147 } } }    # was else (else_lowering.py)
+				
 				capital_scope = {
 					hussars_cavalry = ROOT
 					hussars_cavalry = ROOT
 				}
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_OAD_unlock_dark_rams_2 value = 0 } }
 		}
 	}
-	else = { # without the DLC: the dark rams ride in the ordinary cavalry
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_OAD_unlock_dark_rams_1 value = 1 } } NOT = { AND = { has_dlc = "Lions of the North" } } }    # was else (else_lowering.py)
+		 # without the DLC: the dark rams ride in the ordinary cavalry
 		add_country_modifier = {
 			name = DA_Dark_Rams_line_cavalry
 			duration = -1
 		}
 		custom_tooltip = DA_OAD_pens_tt
 	}
+	hidden_effect = { set_variable = { which = DA_else_DA_OAD_unlock_dark_rams_1 value = 0 } }
 	hidden_effect = {
 		set_country_flag = DA_Dark_Rams_tamed
 		if = {
@@ -126,32 +132,36 @@ DA_OAD_migrate_old_save = { # results of the chain as it was before 11 November 
 		if = {
 			limit = {
 				NOT = { has_dlc = "Lions of the North" } # no herd to size: DA_OAD_unlock_dark_rams gives the line cavalry modifier
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_OAD_migrate_old_save_1 value = 1 } }
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OAD_migrate_old_save_1 value = 1 } } NOT = { AND = { NOT = { has_dlc = "Lions of the North" } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				has_country_modifier = DA_Dark_Rams_applied3
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_OAD_migrate_old_save_1 value = 1 } }
 			add_country_modifier = {
 				name = DA_Dark_Rams_herd_3
 				duration = -1
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OAD_migrate_old_save_1 value = 1 } } NOT = { AND = { has_country_modifier = DA_Dark_Rams_applied3 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				has_country_modifier = DA_Dark_Rams_applied2
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_OAD_migrate_old_save_1 value = 1 } }
 			add_country_modifier = {
 				name = DA_Dark_Rams_herd_2
 				duration = -1
 			}
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OAD_migrate_old_save_1 value = 1 } } NOT = { AND = { has_country_modifier = DA_Dark_Rams_applied2 } } }    # was else (else_lowering.py)
+			
 			add_country_modifier = {
 				name = DA_Dark_Rams_herd_1
 				duration = -1
 			}
-		}
+		} } }
+		hidden_effect = { set_variable = { which = DA_else_DA_OAD_migrate_old_save_1 value = 0 } }
 		remove_country_modifier = DA_Dark_Rams_applied1
 		remove_country_modifier = DA_Dark_Rams_applied2
 		remove_country_modifier = DA_Dark_Rams_applied3

@@ -33,9 +33,60 @@ country_event = {
 	option = {
 		name = "DA_Government_event.1.a"
 		custom_tooltip = DA_supporting_Runesmiths_tt
+		hidden_effect = { set_country_flag = DA_RF_changing_level }
 		set_estate_privilege = estate_da_runesmiths_RF_2
-		hidden_effect = { clr_country_flag = DA_RF_founding_pending }
+		hidden_effect = {
+			clr_country_flag = DA_RF_changing_level
+			clr_country_flag = DA_RF_founding_pending
+		}
 	}	
+}
+
+country_event = {
+	id = DA_Government_event.2 # the Research Facility rises one level (fired by DA_RF_expand_one_level and DA_RF_resend_level)
+	title = "DA_Government_event.2.t"
+	desc = "DA_Government_event.2.d"
+	picture = INVENTION_eventPicture
+
+	is_triggered_only = yes
+
+	# 16 November 2026, second fix (Claude files/tools/apply_rf_expansion_event_2026-11-16.py): this event was hidden and fired with no delay, and it never
+	# ran. It is now an ordinary event, a day after the click, like DA_Government_event.1, and the level changes in
+	# its option, as there. DA_RF_next_level is the level that was paid for.
+	option = {
+		name = "DA_Government_event.2.a"
+		if = {
+			limit = {
+				has_country_flag = DA_RF_level_pending	# one level per payment: a second copy of this event does nothing
+				check_variable = { which = DA_RF_next_level value = 3 }
+			}
+			hidden_effect = { set_country_flag = DA_RF_changing_level }	# the level privileges change only while it is set
+			# the lower levels go first (one left over by an older expansion goes too), then the new level comes
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 3 } has_estate_privilege = estate_da_runesmiths_RF_2 } remove_estate_privilege = estate_da_runesmiths_RF_2 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 4 } has_estate_privilege = estate_da_runesmiths_RF_3 } remove_estate_privilege = estate_da_runesmiths_RF_3 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 5 } has_estate_privilege = estate_da_runesmiths_RF_4 } remove_estate_privilege = estate_da_runesmiths_RF_4 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 6 } has_estate_privilege = estate_da_runesmiths_RF_5 } remove_estate_privilege = estate_da_runesmiths_RF_5 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 7 } has_estate_privilege = estate_da_runesmiths_RF_6 } remove_estate_privilege = estate_da_runesmiths_RF_6 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 8 } has_estate_privilege = estate_da_runesmiths_RF_7 } remove_estate_privilege = estate_da_runesmiths_RF_7 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 9 } has_estate_privilege = estate_da_runesmiths_RF_8 } remove_estate_privilege = estate_da_runesmiths_RF_8 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 10 } has_estate_privilege = estate_da_runesmiths_RF_9 } remove_estate_privilege = estate_da_runesmiths_RF_9 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 11 } has_estate_privilege = estate_da_runesmiths_RF_10 } remove_estate_privilege = estate_da_runesmiths_RF_10 }
+			if = { limit = { check_variable = { which = DA_RF_next_level value = 11 } } set_estate_privilege = estate_da_runesmiths_RF_11 }
+			else_if = { limit = { check_variable = { which = DA_RF_next_level value = 10 } } set_estate_privilege = estate_da_runesmiths_RF_10 }
+			else_if = { limit = { check_variable = { which = DA_RF_next_level value = 9 } } set_estate_privilege = estate_da_runesmiths_RF_9 }
+			else_if = { limit = { check_variable = { which = DA_RF_next_level value = 8 } } set_estate_privilege = estate_da_runesmiths_RF_8 }
+			else_if = { limit = { check_variable = { which = DA_RF_next_level value = 7 } } set_estate_privilege = estate_da_runesmiths_RF_7 }
+			else_if = { limit = { check_variable = { which = DA_RF_next_level value = 6 } } set_estate_privilege = estate_da_runesmiths_RF_6 }
+			else_if = { limit = { check_variable = { which = DA_RF_next_level value = 5 } } set_estate_privilege = estate_da_runesmiths_RF_5 }
+			else_if = { limit = { check_variable = { which = DA_RF_next_level value = 4 } } set_estate_privilege = estate_da_runesmiths_RF_4 }
+			else_if = { limit = { check_variable = { which = DA_RF_next_level value = 3 } } set_estate_privilege = estate_da_runesmiths_RF_3 }
+			hidden_effect = {
+				clr_country_flag = DA_RF_changing_level
+				clr_country_flag = DA_RF_level_pending
+				set_variable = { which = DA_RF_next_level value = 0 }
+			}
+		}
+	}
 }
 
 

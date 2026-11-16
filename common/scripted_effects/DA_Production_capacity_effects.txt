@@ -151,12 +151,14 @@ DA_Update_production_points = {
 							value = 0
 						}
 					}
-				}
+				} hidden_effect = { set_variable = { which = DA_else_DA_Update_production_points_1 value = 1 } }
 				add_country_modifier = { name =  DA_over_production_cap duration = -1 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_Update_production_points_1 value = 1 } } NOT = { AND = { NOT = { check_variable = { which = DA_REMAINING_Production_Points value = 0 } } } } }    # was else (else_lowering.py)
+				
 				remove_country_modifier = DA_over_production_cap
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_Update_production_points_1 value = 0 } }
 		}
 	}
 }
@@ -446,80 +448,92 @@ DA_grants_prod_points_relative_to_energy_10 = {
 	if = {
 		limit = {
 			DA_has_Rune_power = yes
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_10_1 value = 1 } }
 		DA_grants_production_basic = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_10_1 value = 1 } } NOT = { AND = { DA_has_Rune_power = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			DA_has_Steam_power = yes
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_10_1 value = 1 } }
 		DA_grants_production_expert = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_10_1 value = 1 } } NOT = { AND = { DA_has_Steam_power = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			DA_has_Energy_power = yes
 		}
 		DA_grants_production_advanced = yes
-	}
+	} } }
+	hidden_effect = { set_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_10_1 value = 0 } }
 }
 DA_grants_prod_points_relative_to_energy_20 = {
 	if = {
 		limit = {
 			DA_has_Rune_power = yes
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_20_1 value = 1 } }
 		DA_grants_production_expert = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_20_1 value = 1 } } NOT = { AND = { DA_has_Rune_power = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			DA_has_Steam_power = yes
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_20_1 value = 1 } }
 		DA_grants_production_advanced = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_20_1 value = 1 } } NOT = { AND = { DA_has_Steam_power = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			DA_has_Energy_power = yes
 		}
 		DA_grants_production_masterwork = yes
-	}
+	} } }
+	hidden_effect = { set_variable = { which = DA_else_DA_grants_prod_points_relative_to_energy_20_1 value = 0 } }
 }
 
 DA_remove_prod_points_relative_to_energy_10 = {
 	if = {
 		limit = {
 			DA_has_Rune_power = yes
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_10_1 value = 1 } }
 		DA_remove_production_basic = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_10_1 value = 1 } } NOT = { AND = { DA_has_Rune_power = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			DA_has_Steam_power = yes
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_10_1 value = 1 } }
 		DA_remove_production_expert = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_10_1 value = 1 } } NOT = { AND = { DA_has_Steam_power = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			DA_has_Energy_power = yes
 		}
 		DA_remove_production_advanced = yes
-	}
+	} } }
+	hidden_effect = { set_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_10_1 value = 0 } }
 }
 DA_remove_prod_points_relative_to_energy_20 = {
 	if = {
 		limit = {
 			DA_has_Rune_power = yes
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_20_1 value = 1 } }
 		DA_remove_production_expert = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_20_1 value = 1 } } NOT = { AND = { DA_has_Rune_power = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			DA_has_Steam_power = yes
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_20_1 value = 1 } }
 		DA_remove_production_advanced = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_20_1 value = 1 } } NOT = { AND = { DA_has_Steam_power = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = {
 			DA_has_Energy_power = yes
 		}
 		DA_remove_production_masterwork = yes
-	}
+	} } }
+	hidden_effect = { set_variable = { which = DA_else_DA_remove_prod_points_relative_to_energy_20_1 value = 0 } }
 }

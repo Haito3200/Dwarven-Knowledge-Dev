@@ -16,12 +16,18 @@ DA_AM_open_school_page = {
 	DA_initialise_interface_variables = yes
 	DA_open_main_tech_interface = yes
 	DA_tech_interface_close_tabs_effect = yes
-	if = { limit = { DA_AM_school_ready_Metallurgy = yes } DA_open_metallurgy_interface = yes }
-	else_if = { limit = { DA_AM_school_ready_Magic_Theory = yes } DA_open_arcane_arts_interface = yes }
-	else_if = { limit = { DA_AM_school_ready_Mechanics = yes } DA_open_mechanics_interface = yes }
-	else_if = { limit = { DA_AM_school_ready_Alchemy = yes } DA_open_alchemy_interface = yes }
-	else_if = { limit = { DA_AM_school_ready_Medicine = yes } DA_open_medicine_interface = yes }
-	else = { DA_open_metallurgy_interface = yes }
+	if = { limit = { DA_AM_school_ready_Metallurgy = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } DA_open_metallurgy_interface = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } NOT = { AND = { DA_AM_school_ready_Metallurgy = yes } } }    # was else_if (else_lowering.py)
+		if = { limit = { DA_AM_school_ready_Magic_Theory = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } DA_open_arcane_arts_interface = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } NOT = { AND = { DA_AM_school_ready_Magic_Theory = yes } } }    # was else_if (else_lowering.py)
+		if = { limit = { DA_AM_school_ready_Mechanics = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } DA_open_mechanics_interface = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } NOT = { AND = { DA_AM_school_ready_Mechanics = yes } } }    # was else_if (else_lowering.py)
+		if = { limit = { DA_AM_school_ready_Alchemy = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } DA_open_alchemy_interface = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } NOT = { AND = { DA_AM_school_ready_Alchemy = yes } } }    # was else_if (else_lowering.py)
+		if = { limit = { DA_AM_school_ready_Medicine = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } DA_open_medicine_interface = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_school_page_1 value = 1 } } NOT = { AND = { DA_AM_school_ready_Medicine = yes } } }    # was else (else_lowering.py)
+		 DA_open_metallurgy_interface = yes } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AM_open_school_page_1 value = 0 } }
 	export_to_variable = { value = modifier:DA_fake_alloy_common_slot_adder variable_name = DA_alloy_common_slots }
 	export_to_variable = { value = modifier:DA_fake_alloy_rare_slot_adder variable_name = DA_alloy_rare_slots }
 	export_to_variable = { value = modifier:DA_fake_alloy_legendary_slot_adder variable_name = DA_alloy_legendary_slots }
@@ -35,88 +41,105 @@ DA_AM_open_projects_research = {
 # The page of the first wonder whose works stand still (as the wonder shortcut of the province view opens it).
 DA_AM_open_halted_wonder = {
 	if = {   # Fireglass Forge
-		limit = { DA_AM_works_halted_4039 = yes }
+		limit = { DA_AM_works_halted_4039 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_magma_forge
 	}
-	else_if = {   # Titanium Vault
-		limit = { DA_AM_works_halted_4217 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4039 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Titanium Vault
+		limit = { DA_AM_works_halted_4217 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Titanium_Vault
 	}
-	else_if = {   # Argrâstun Cathedral
-		limit = { DA_AM_works_halted_4284 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4217 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Argrâstun Cathedral
+		limit = { DA_AM_works_halted_4284 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Argrastun_Cathedral
 	}
-	else_if = {   # Ancient Research Facility
-		limit = { DA_AM_works_halted_4119 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4284 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Ancient Research Facility
+		limit = { DA_AM_works_halted_4119 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_DA_Ancient_Research_facility1
 	}
-	else_if = {   # Amldavhad Training Facility
-		limit = { DA_AM_works_halted_4236 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4119 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Amldavhad Training Facility
+		limit = { DA_AM_works_halted_4236 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_The_Dwarven_Workshop
 	}
-	else_if = {   # The Setzunkhupa
-		limit = { DA_AM_works_halted_4020 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4236 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # The Setzunkhupa
+		limit = { DA_AM_works_halted_4020 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_The_Sky_Hold
 	}
-	else_if = {   # Ducaniel's Laboratory
-		limit = { DA_AM_works_halted_2963 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4020 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Ducaniel's Laboratory
+		limit = { DA_AM_works_halted_2963 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_The_Dwarven_Laboratory
 	}
-	else_if = {   # Railway Control Center
-		limit = { DA_AM_works_halted_2931 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_2963 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Railway Control Center
+		limit = { DA_AM_works_halted_2931 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Railway_HQ
 	}
-	else_if = {   # Warsuit Foundry
-		limit = { DA_AM_works_halted_2868 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_2931 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Warsuit Foundry
+		limit = { DA_AM_works_halted_2868 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Exoskeletons_Workshop
 	}
-	else_if = {   # Halanna's Wrath
-		limit = { DA_AM_works_halted_4247 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_2868 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Halanna's Wrath
+		limit = { DA_AM_works_halted_4247 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Earth_Shatterer
 	}
-	else_if = {   # Frozen Forge
-		limit = { DA_AM_works_halted_4208 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4247 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Frozen Forge
+		limit = { DA_AM_works_halted_4208 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Frozen_Forge
 	}
-	else_if = {   # Drowned Arsenal
-		limit = { DA_AM_works_halted_526 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4208 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Drowned Arsenal
+		limit = { DA_AM_works_halted_526 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Drowned_Arsenal
 	}
-	else_if = {   # Builders' Guildhall
-		limit = { DA_AM_works_halted_4078 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_526 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Builders' Guildhall
+		limit = { DA_AM_works_halted_4078 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Builders_Guildhall
 	}
-	else_if = {   # Strâmolgiv
-		limit = { DA_AM_works_halted_4266 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4078 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Strâmolgiv
+		limit = { DA_AM_works_halted_4266 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Stramolgiv
 	}
-	else_if = {   # Sleepers' Hall
-		limit = { DA_AM_works_halted_4323 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4266 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Sleepers' Hall
+		limit = { DA_AM_works_halted_4323 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Sleepers_Hall
 	}
-	else_if = {   # Magistrates' Vault
-		limit = { DA_AM_works_halted_2914 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_4323 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Magistrates' Vault
+		limit = { DA_AM_works_halted_2914 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Magistrates_Vault
 	}
-	else_if = {   # Hall of the Vanguard
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 1 } } NOT = { AND = { DA_AM_works_halted_2914 = yes } } }    # was else_if (else_lowering.py)
+		if = {   # Hall of the Vanguard
 		limit = { DA_AM_works_halted_4311 = yes }
 		DA_WS_show_wonders_tab = yes
 		set_country_flag = DA_show_wonder_Hall_of_Vanguard
-	}
+	} } } } } } } } } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AM_open_halted_wonder_1 value = 0 } }
 }

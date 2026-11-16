@@ -660,93 +660,109 @@ DA_ME_recount = {
 	every_owned_province = {
 		limit = { DA_ME_province_has_any = yes }
 		if = {
-			limit = { DA_ME_has_Hyper_Conductive_Mana_Reserve = yes }
+			limit = { DA_ME_has_Hyper_Conductive_Mana_Reserve = yes } hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 1 } }
 			owner = {
 				change_variable = { which = DA_ME_built_Hyper_Conductive_Mana_Reserve value = 1 }
 				change_variable = { which = DA_ME_count_Hyper_Conductive_Mana_Reserve value = 1 }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_recount_1 value = 1 } } NOT = { AND = { DA_ME_has_Hyper_Conductive_Mana_Reserve = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { has_province_flag = DA_ME_building.Hyper_Conductive_Mana_Reserve }
 			owner = { change_variable = { which = DA_ME_count_Hyper_Conductive_Mana_Reserve value = 1 } }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 0 } }
 		if = {
-			limit = { DA_ME_has_ambient_mana_collector = yes }
+			limit = { DA_ME_has_ambient_mana_collector = yes } hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 1 } }
 			owner = {
 				change_variable = { which = DA_ME_built_ambient_mana_collector value = 1 }
 				change_variable = { which = DA_ME_count_ambient_mana_collector value = 1 }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_recount_1 value = 1 } } NOT = { AND = { DA_ME_has_ambient_mana_collector = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { has_province_flag = DA_ME_building.ambient_mana_collector }
 			owner = { change_variable = { which = DA_ME_count_ambient_mana_collector value = 1 } }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 0 } }
 		if = {
-			limit = { DA_ME_has_Anti_Magic_Barrier = yes }
+			limit = { DA_ME_has_Anti_Magic_Barrier = yes } hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 1 } }
 			owner = {
 				change_variable = { which = DA_ME_built_Anti_Magic_Barrier value = 1 }
 				change_variable = { which = DA_ME_count_Anti_Magic_Barrier value = 1 }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_recount_1 value = 1 } } NOT = { AND = { DA_ME_has_Anti_Magic_Barrier = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { has_province_flag = DA_ME_building.Anti_Magic_Barrier }
 			owner = { change_variable = { which = DA_ME_count_Anti_Magic_Barrier value = 1 } }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 0 } }
 		if = {
-			limit = { DA_ME_has_Floating_Fortress = yes }
+			limit = { DA_ME_has_Floating_Fortress = yes } hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 1 } }
 			owner = {
 				change_variable = { which = DA_ME_built_Floating_Fortress value = 1 }
 				change_variable = { which = DA_ME_count_Floating_Fortress value = 1 }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_recount_1 value = 1 } } NOT = { AND = { DA_ME_has_Floating_Fortress = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { has_province_flag = DA_ME_building.Floating_Fortress }
 			owner = { change_variable = { which = DA_ME_count_Floating_Fortress value = 1 } }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 0 } }
 		if = {
-			limit = { DA_ME_has_Core_Driller = yes }
+			limit = { DA_ME_has_Core_Driller = yes } hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 1 } }
 			owner = {
 				change_variable = { which = DA_ME_built_Core_Driller value = 1 }
 				change_variable = { which = DA_ME_count_Core_Driller value = 1 }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_recount_1 value = 1 } } NOT = { AND = { DA_ME_has_Core_Driller = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { has_province_flag = DA_ME_building.Core_Driller }
 			owner = { change_variable = { which = DA_ME_count_Core_Driller value = 1 } }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 0 } }
 		if = {
-			limit = { DA_ME_has_Mega_Hold = yes }
+			limit = { DA_ME_has_Mega_Hold = yes } hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 1 } }
 			owner = {
 				change_variable = { which = DA_ME_built_Mega_Hold value = 1 }
 				change_variable = { which = DA_ME_count_Mega_Hold value = 1 }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_recount_1 value = 1 } } NOT = { AND = { DA_ME_has_Mega_Hold = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { has_province_flag = DA_ME_building.Mega_Hold }
 			owner = { change_variable = { which = DA_ME_count_Mega_Hold value = 1 } }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 0 } }
 		if = {
-			limit = { DA_ME_has_Megalopolis = yes }
+			limit = { DA_ME_has_Megalopolis = yes } hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 1 } }
 			owner = {
 				change_variable = { which = DA_ME_built_Megalopolis value = 1 }
 				change_variable = { which = DA_ME_count_Megalopolis value = 1 }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_recount_1 value = 1 } } NOT = { AND = { DA_ME_has_Megalopolis = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { has_province_flag = DA_ME_building.Megalopolis }
 			owner = { change_variable = { which = DA_ME_count_Megalopolis value = 1 } }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 0 } }
 		if = {
-			limit = { DA_ME_has_Mega_Port = yes }
+			limit = { DA_ME_has_Mega_Port = yes } hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 1 } }
 			owner = {
 				change_variable = { which = DA_ME_built_Mega_Port value = 1 }
 				change_variable = { which = DA_ME_count_Mega_Port value = 1 }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_recount_1 value = 1 } } NOT = { AND = { DA_ME_has_Mega_Port = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { has_province_flag = DA_ME_building.Mega_Port }
 			owner = { change_variable = { which = DA_ME_count_Mega_Port value = 1 } }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_recount_1 value = 0 } }
 	}
 	DA_ME_refresh_country_modifiers = yes
 	DA_ME_refresh_research_display = yes
@@ -766,17 +782,20 @@ DA_ME_refresh_country_modifiers = {
 		remove_country_modifier = DA_ME_country.Hyper_Conductive_Mana_Reserve.2
 		remove_country_modifier = DA_ME_country.Hyper_Conductive_Mana_Reserve.3
 		if = {
-			limit = { check_variable = { which = DA_ME_built_Hyper_Conductive_Mana_Reserve value = 3 } }
+			limit = { check_variable = { which = DA_ME_built_Hyper_Conductive_Mana_Reserve value = 3 } } hidden_effect = { set_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } }
 			add_country_modifier = { name = DA_ME_country.Hyper_Conductive_Mana_Reserve.3 duration = -1 }
 		}
-		else_if = {
-			limit = { check_variable = { which = DA_ME_built_Hyper_Conductive_Mana_Reserve value = 2 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_ME_built_Hyper_Conductive_Mana_Reserve value = 3 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { check_variable = { which = DA_ME_built_Hyper_Conductive_Mana_Reserve value = 2 } } hidden_effect = { set_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } }
 			add_country_modifier = { name = DA_ME_country.Hyper_Conductive_Mana_Reserve.2 duration = -1 }
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_ME_built_Hyper_Conductive_Mana_Reserve value = 2 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { check_variable = { which = DA_ME_built_Hyper_Conductive_Mana_Reserve value = 1 } }
 			add_country_modifier = { name = DA_ME_country.Hyper_Conductive_Mana_Reserve.1 duration = -1 }
-		}
+		} } }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 0 } }
 		set_variable = { which = DA_ME_applied_Hyper_Conductive_Mana_Reserve which = DA_ME_built_Hyper_Conductive_Mana_Reserve }
 	}
 	if = {
@@ -792,17 +811,20 @@ DA_ME_refresh_country_modifiers = {
 		remove_country_modifier = DA_ME_country.ambient_mana_collector.2
 		remove_country_modifier = DA_ME_country.ambient_mana_collector.3
 		if = {
-			limit = { check_variable = { which = DA_ME_built_ambient_mana_collector value = 3 } }
+			limit = { check_variable = { which = DA_ME_built_ambient_mana_collector value = 3 } } hidden_effect = { set_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } }
 			add_country_modifier = { name = DA_ME_country.ambient_mana_collector.3 duration = -1 }
 		}
-		else_if = {
-			limit = { check_variable = { which = DA_ME_built_ambient_mana_collector value = 2 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_ME_built_ambient_mana_collector value = 3 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { check_variable = { which = DA_ME_built_ambient_mana_collector value = 2 } } hidden_effect = { set_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } }
 			add_country_modifier = { name = DA_ME_country.ambient_mana_collector.2 duration = -1 }
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_ME_built_ambient_mana_collector value = 2 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { check_variable = { which = DA_ME_built_ambient_mana_collector value = 1 } }
 			add_country_modifier = { name = DA_ME_country.ambient_mana_collector.1 duration = -1 }
-		}
+		} } }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 0 } }
 		set_variable = { which = DA_ME_applied_ambient_mana_collector which = DA_ME_built_ambient_mana_collector }
 	}
 	if = {
@@ -817,13 +839,15 @@ DA_ME_refresh_country_modifiers = {
 		remove_country_modifier = DA_ME_country.Mega_Port.1
 		remove_country_modifier = DA_ME_country.Mega_Port.2
 		if = {
-			limit = { check_variable = { which = DA_ME_built_Mega_Port value = 2 } }
+			limit = { check_variable = { which = DA_ME_built_Mega_Port value = 2 } } hidden_effect = { set_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } }
 			add_country_modifier = { name = DA_ME_country.Mega_Port.2 duration = -1 }
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_ME_built_Mega_Port value = 2 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { check_variable = { which = DA_ME_built_Mega_Port value = 1 } }
 			add_country_modifier = { name = DA_ME_country.Mega_Port.1 duration = -1 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_ME_refresh_country_modifiers_1 value = 0 } }
 		set_variable = { which = DA_ME_applied_Mega_Port which = DA_ME_built_Mega_Port }
 	}
 }
@@ -999,13 +1023,15 @@ DA_ME_open_interface = {
 		limit = {
 			has_country_flag = DA_unlocked.genetic_engineering
 			NOT = { has_country_flag = DA_unlocked.mega_engineering }
-		}
+		} hidden_effect = { set_variable = { which = DA_else_DA_ME_open_interface_1 value = 1 } }
 		DA_GE_open_tab = yes # build_genetic_engineering.py
 	}
-	else = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_open_interface_1 value = 1 } } NOT = { AND = { has_country_flag = DA_unlocked.genetic_engineering NOT = { has_country_flag = DA_unlocked.mega_engineering } } } }    # was else (else_lowering.py)
+		
 		set_country_flag = DA_Ascension_Paths_interface_on_Mega_Engineering
 		DA_ME_recount = yes
 	}
+	hidden_effect = { set_variable = { which = DA_else_DA_ME_open_interface_1 value = 0 } }
 }
 DA_ME_close_interface = {
 	clr_country_flag = DA_Ascension_Paths_interface_on

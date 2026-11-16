@@ -5,6 +5,14 @@
 # build_ai_facility.py reads the prices (add_treasury) for the reserve the AI keeps: re-run it after
 # changing them.
 
+# 16 November 2026 (Claude files/tools/apply_bug_fixes_2026-11-16.py, then Claude files/tools/apply_rf_expansion_event_2026-11-16.py):
+# the levels from III on are granted by DA_Government_event.2, an ordinary event a day after the click, in its
+# option (the hidden event of the first fix never ran). Each level sets DA_RF_next_level and DA_RF_level_pending;
+# the event clears them. DA_RF_not_on_its_way (DA_RF_Expansion_triggers.txt) honours the flag for 30 days.
+# Third fix (Claude files/tools/apply_rf_level_if_2026-11-16.py): the cases are plain ifs, not else_if. EU4 drops a
+# country_event inside an else / else_if of a scripted effect, so the first click paid and the level never came.
+# The cases still exclude each other: each level sets DA_RF_level_pending, which DA_RF_not_on_its_way then refuses.
+# Do not turn them back into else_if.
 DA_RF_expand_one_level = {
 	if = {
 		limit = {
@@ -24,72 +32,162 @@ DA_RF_expand_one_level = {
 			days = 5
 		}
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_2 DA_Expandable_dig_3 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_2 DA_Expandable_dig_3 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -100
-		remove_estate_privilege = estate_da_runesmiths_RF_2
-		set_estate_privilege = estate_da_runesmiths_RF_3
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_2
+			set_estate_privilege = estate_da_runesmiths_RF_3
+		}
 		define_advisor = {
 			type = Hold_restorer
 			discount = yes
 			skill = 1
 		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 3 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_3 DA_Expandable_dig_4 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_3 DA_Expandable_dig_4 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -200
-		remove_estate_privilege = estate_da_runesmiths_RF_3
-		set_estate_privilege = estate_da_runesmiths_RF_4
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_3
+			set_estate_privilege = estate_da_runesmiths_RF_4
+		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 4 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_4 DA_Expandable_dig_5 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_4 DA_Expandable_dig_5 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -400
-		remove_estate_privilege = estate_da_runesmiths_RF_4
-		set_estate_privilege = estate_da_runesmiths_RF_5
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_4
+			set_estate_privilege = estate_da_runesmiths_RF_5
+		}
 		define_advisor = {
 			type = DA_runesmith
 			discount = yes
 			skill = 2
 		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 5 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_5 DA_Expandable_dig_6 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_5 DA_Expandable_dig_6 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -600
-		remove_estate_privilege = estate_da_runesmiths_RF_5
-		set_estate_privilege = estate_da_runesmiths_RF_6
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_5
+			set_estate_privilege = estate_da_runesmiths_RF_6
+		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 6 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_6 DA_Expandable_dig_7 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_6 DA_Expandable_dig_7 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -1000
 		DA_MAX_RS_Invention_slots_increase_1 = yes
-		remove_estate_privilege = estate_da_runesmiths_RF_6
-		set_estate_privilege = estate_da_runesmiths_RF_7
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_6
+			set_estate_privilege = estate_da_runesmiths_RF_7
+		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 7 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_7 DA_Expandable_dig_8 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_7 DA_Expandable_dig_8 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -1600
-		remove_estate_privilege = estate_da_runesmiths_RF_7
-		set_estate_privilege = estate_da_runesmiths_RF_8
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_7
+			set_estate_privilege = estate_da_runesmiths_RF_8
+		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 8 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_8 DA_Expandable_dig_9 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_8 DA_Expandable_dig_9 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -2400
 		DA_MAX_RS_Invention_slots_increase_1 = yes
-		remove_estate_privilege = estate_da_runesmiths_RF_8
-		set_estate_privilege = estate_da_runesmiths_RF_9
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_8
+			set_estate_privilege = estate_da_runesmiths_RF_9
+		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 9 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_9 DA_Expandable_dig_10 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_9 DA_Expandable_dig_10 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -5000
 		DA_MAX_RS_Invention_slots_increase_1 = yes
-		remove_estate_privilege = estate_da_runesmiths_RF_9
-		set_estate_privilege = estate_da_runesmiths_RF_10
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_9
+			set_estate_privilege = estate_da_runesmiths_RF_10
+		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 10 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
 	}
-	else_if = {
-		limit = { has_estate_privilege = estate_da_runesmiths_RF_10 DA_Expandable_dig_11 = yes }
+	if = {
+		limit = { has_estate_privilege = estate_da_runesmiths_RF_10 DA_Expandable_dig_11 = yes DA_RF_not_on_its_way = yes }
 		add_treasury = -10000
 		DA_MAX_RS_Invention_slots_increase_1 = yes
-		remove_estate_privilege = estate_da_runesmiths_RF_10
-		set_estate_privilege = estate_da_runesmiths_RF_11
+		tooltip = {	# the level itself comes from DA_Government_event.2, a day later
+			remove_estate_privilege = estate_da_runesmiths_RF_10
+			set_estate_privilege = estate_da_runesmiths_RF_11
+		}
+		hidden_effect = {
+			set_variable = { which = DA_RF_next_level value = 11 }
+			clr_country_flag = DA_RF_level_pending	# a flag left by a lost event starts again from today
+			set_country_flag = DA_RF_level_pending	# until DA_Government_event.2 has granted the level: no second payment
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }	# an ordinary event, as the founding one
+	}
+}
+
+# A level was paid for, but its event has not come in 30 days (DA_RF_level_pending is older than that): send
+# DA_Government_event.2 again, free. Called by the Expansion button before DA_RF_expand_one_level, which then sees
+# the flag as new and does not charge. (Claude files/tools/apply_rf_expansion_event_2026-11-16.py)
+DA_RF_resend_level = {
+	if = {
+		limit = {
+			has_country_flag = DA_RF_level_pending
+			had_country_flag = { flag = DA_RF_level_pending days = 30 }
+			check_variable = { which = DA_RF_next_level value = 3 }
+		}
+		hidden_effect = {
+			clr_country_flag = DA_RF_level_pending
+			set_country_flag = DA_RF_level_pending
+		}
+		country_event = { id = DA_Government_event.2 days = 1 }
 	}
 }

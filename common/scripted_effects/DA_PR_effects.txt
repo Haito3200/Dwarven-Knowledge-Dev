@@ -719,7 +719,7 @@ DA_PR_open_page_unique = {
 # Research queue (DA_PR_queue.1): start the queued node as its Start button would; else tell the player (DA_PR_queue.2).
 DA_PR_start_queued = {
 	if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 1 } }	# Arcane Energy
+		limit = { is_variable_equal = { which = DA_PR_queued value = 1 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Arcane Energy
 		if = {
 			limit = { always = yes }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
@@ -734,13 +734,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 2 } }	# Steam Power
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 1 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Steam_Power_Project = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 2 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Steam Power
+		if = {
+			limit = { DA_completed.Steam_Power_Project = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Steam_Power_Project = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_2 = yes
@@ -761,15 +763,18 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 3 } }	# Electric Power
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 2 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Electric_Power_Project = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 3 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Electric Power
+		if = {
+			limit = { DA_completed.Electric_Power_Project = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Electric_Power_Project = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_3 = yes
@@ -791,15 +796,18 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 4 } }	# Transcendent Technology
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 3 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_has_transcendent_path_to_unlock = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 4 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Transcendent Technology
+		if = {
+			limit = { NOT = { DA_has_transcendent_path_to_unlock = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_has_transcendent_path_to_unlock = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Electric_Power_Project = yes
@@ -813,15 +821,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 5 } }	# Fire Magic
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 4 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Elemental_Magic_Fire = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 5 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Fire Magic
+		if = {
+			limit = { DA_completed.Elemental_Magic_Fire = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Elemental_Magic_Fire = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -834,15 +845,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 6 } }	# Water Magic
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 5 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Elemental_Magic_Water = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 6 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Water Magic
+		if = {
+			limit = { DA_completed.Elemental_Magic_Water = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Elemental_Magic_Water = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -855,15 +869,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 7 } }	# Earth Magic
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 6 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Elemental_Magic_Earth = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 7 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Earth Magic
+		if = {
+			limit = { DA_completed.Elemental_Magic_Earth = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Elemental_Magic_Earth = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -876,15 +893,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 8 } }	# Air Magic
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 7 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Elemental_Magic_Air = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 8 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Air Magic
+		if = {
+			limit = { DA_completed.Elemental_Magic_Air = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Elemental_Magic_Air = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -897,10 +917,12 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 9 } }	# Elemental Research
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 8 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 9 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Elemental Research
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -918,13 +940,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 10 } }	# Clockwork I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 9 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.ClockWork = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 10 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Clockwork I
+		if = {
+			limit = { DA_completed.ClockWork = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.ClockWork = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -949,10 +973,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 11 } }	# Clockwork II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 10 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 11 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Clockwork II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -966,8 +992,9 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 12 } }	# Clockwork III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 11 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 12 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Clockwork III
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -982,8 +1009,9 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 13 } }	# Clockwork IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 12 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 13 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Clockwork IV
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -998,13 +1026,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 14 } }	# Golem Core I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 13 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Golem = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 14 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Golem Core I
+		if = {
+			limit = { DA_completed.Golem = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Golem = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -1029,10 +1059,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 15 } }	# Golem Core II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 14 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 15 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Golem Core II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1046,8 +1078,9 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 16 } }	# Golem Core III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 15 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 16 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Golem Core III
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1062,8 +1095,9 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 17 } }	# Golem Core IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 16 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 17 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Golem Core IV
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1078,13 +1112,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 18 } }	# Holy Magic I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 17 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Holy_Magic = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 18 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Holy Magic I
+		if = {
+			limit = { DA_completed.Holy_Magic = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Holy_Magic = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -1108,10 +1144,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 19 } }	# Holy Magic II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 18 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 19 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Holy Magic II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1125,13 +1163,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 20 } }	# Holy Magic III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 19 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Holy_steam = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 20 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Holy Magic III
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Holy_steam = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Holy_steam = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Holy_Magic = yes
@@ -1144,15 +1184,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 21 } }	# Holy Magic IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 20 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Holy_electric = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 21 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Holy Magic IV
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Holy_electric = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Holy_electric = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Holy_Magic = yes
@@ -1165,15 +1208,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 22 } }	# Curse Weaponization I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 21 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Curse_Magic = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 22 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Curse Weaponization I
+		if = {
+			limit = { DA_completed.Curse_Magic = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Curse_Magic = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -1196,10 +1242,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 23 } }	# Curse Weaponization II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 22 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 23 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Curse Weaponization II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1213,13 +1261,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 24 } }	# Curse Weaponization III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 23 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Curse_steam = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 24 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Curse Weaponization III
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Curse_steam = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Curse_steam = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Curse_Magic = yes
@@ -1232,15 +1282,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 25 } }	# Curse Weaponization IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 24 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Curse_electric = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 25 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Curse Weaponization IV
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Curse_electric = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Curse_electric = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Curse_Magic = yes
@@ -1253,15 +1306,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 26 } }	# Warforged Infantry
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 25 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_enable_metallurgy_System }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 26 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Warforged Infantry
+		if = {
+			limit = { has_country_flag = DA_enable_metallurgy_System } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_enable_metallurgy_System } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Metallurgy_1 = yes
@@ -1276,15 +1332,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 27 } }	# Warforged Cavalry
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 26 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_enable_metallurgy_System_cav }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 27 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Warforged Cavalry
+		if = {
+			limit = { has_country_flag = DA_enable_metallurgy_System_cav } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_enable_metallurgy_System_cav } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				mil_tech = 6
@@ -1299,15 +1358,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 28 } }	# Warforged Artillery
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 27 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_enable_metallurgy_System_art }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 28 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Warforged Artillery
+		if = {
+			limit = { has_country_flag = DA_enable_metallurgy_System_art } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_enable_metallurgy_System_art } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				mil_tech = 7
@@ -1322,15 +1384,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 29 } }	# Warforged Artificers
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 28 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_enable_metallurgy_System_artificer }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 29 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Warforged Artificers
+		if = {
+			limit = { has_country_flag = DA_enable_metallurgy_System_artificer } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_enable_metallurgy_System_artificer } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				has_estate = estate_artificers
@@ -1346,15 +1411,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 30 } }	# Spirit Puppets I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 29 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Spirits = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 30 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Spirit Puppets I
+		if = {
+			limit = { DA_completed.Spirits = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Spirits = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Metallurgy_1 = yes
@@ -1373,10 +1441,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 31 } }	# Spirit Puppets II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 30 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 31 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Spirit Puppets II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1391,8 +1461,9 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 32 } }	# Spirit Puppets III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 31 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 32 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Spirit Puppets III
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1407,8 +1478,9 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 33 } }	# Spirit Puppets IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 32 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 33 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Spirit Puppets IV
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1423,13 +1495,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 34 } }	# Mining Technology I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 33 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_mining_technology_1 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 34 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mining Technology I
+		if = {
+			limit = { has_country_flag = DA_mining_technology_1 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_mining_technology_1 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Metallurgy_1 = yes
@@ -1437,15 +1511,18 @@ DA_PR_start_queued = {
 			}
 			DA_start_research = { flag = mining_1 time = 48 arcane = yes }
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 35 } }	# Mining Technology II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 34 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_mining_technology_2 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 35 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mining Technology II
+		if = {
+			limit = { has_country_flag = DA_mining_technology_2 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_mining_technology_2 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				has_country_flag = DA_mining_technology_1
@@ -1453,15 +1530,18 @@ DA_PR_start_queued = {
 			}
 			DA_start_research = { flag = mining_2 time = 60 arcane = yes }
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 36 } }	# Mining Technology III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 35 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_mining_technology_3 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 36 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mining Technology III
+		if = {
+			limit = { has_country_flag = DA_mining_technology_3 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_mining_technology_3 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				has_country_flag = DA_mining_technology_2
@@ -1469,15 +1549,18 @@ DA_PR_start_queued = {
 			}
 			DA_start_research = { flag = mining_3 time = 72 arcane = yes }
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 37 } }	# Mining Technology IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 36 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_mining_technology_4 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 37 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mining Technology IV
+		if = {
+			limit = { has_country_flag = DA_mining_technology_4 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_mining_technology_4 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				has_country_flag = DA_mining_technology_3
@@ -1486,15 +1569,18 @@ DA_PR_start_queued = {
 			}
 			DA_start_research = { flag = mining_4 time = 96 steam = yes }
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 38 } }	# Wardcraft
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 37 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Wardcraft }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 38 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Wardcraft
+		if = {
+			limit = { has_country_flag = DA_PR_done.Wardcraft } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Wardcraft } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_1 = yes
@@ -1508,15 +1594,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 39 } }	# Ward Patterns
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 38 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Ward = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 39 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Ward Patterns
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Ward = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Ward = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Wardcraft = yes
@@ -1528,15 +1617,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 40 } }	# Layered Wards
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 39 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Wardcraft_3 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 40 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Layered Wards
+		if = {
+			limit = { has_country_flag = DA_PR_done.Wardcraft_3 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Wardcraft_3 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Wardcraft = yes
@@ -1549,15 +1641,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 41 } }	# Bio-Constructs I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 40 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Bio_Construct = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 41 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Bio-Constructs I
+		if = {
+			limit = { DA_completed.Bio_Construct = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Bio_Construct = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Alchemy_3 = yes
@@ -1581,10 +1676,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 42 } }	# Bio-Constructs II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 41 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 42 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Bio-Constructs II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1599,13 +1696,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 43 } }	# Bio-Constructs III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 42 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Bio_electric = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 43 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Bio-Constructs III
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Bio_electric = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Bio_electric = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Bio_Construct = yes
@@ -1618,15 +1717,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 44 } }	# Enhancement I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 43 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Enhancement = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 44 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Enhancement I
+		if = {
+			limit = { DA_completed.Enhancement = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Enhancement = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Medicine_2 = yes
@@ -1651,10 +1753,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 45 } }	# Enhancement II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 44 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 45 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Enhancement II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1669,8 +1773,9 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 46 } }	# Enhancement III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 45 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 46 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Enhancement III
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1685,13 +1790,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 47 } }	# Mechanization I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 46 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Mechanization = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 47 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mechanization I
+		if = {
+			limit = { DA_completed.Mechanization = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Mechanization = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Medicine_2 = yes
@@ -1712,10 +1819,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 48 } }	# Mechanization II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 47 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 48 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mechanization II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1730,13 +1839,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 49 } }	# Mechanization III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 48 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Mech_electric = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 49 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mechanization III
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Mech_electric = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Mech_electric = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Mechanization = yes
@@ -1749,15 +1860,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 50 } }	# Motorization I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 49 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Motorization = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 50 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Motorization I
+		if = {
+			limit = { DA_completed.Motorization = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Motorization = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Medicine_2 = yes
@@ -1782,10 +1896,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 51 } }	# Motorization II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 50 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 51 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Motorization II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1800,8 +1916,9 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 52 } }	# Motorization III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 51 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 52 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Motorization III
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -1816,13 +1933,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 53 } }	# Planned Districts
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 52 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Urbanization }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 53 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Planned Districts
+		if = {
+			limit = { has_country_flag = DA_PR_done.Urbanization } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Urbanization } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Steam_Power_Project = yes
@@ -1836,15 +1955,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 54 } }	# Steam Utilities
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 53 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Urbanization_2 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 54 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Steam Utilities
+		if = {
+			limit = { has_country_flag = DA_PR_done.Urbanization_2 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Urbanization_2 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Urbanization = yes
@@ -1856,15 +1978,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 55 } }	# Electric City Grid
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 54 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Urbanization_3 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 55 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Electric City Grid
+		if = {
+			limit = { has_country_flag = DA_PR_done.Urbanization_3 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Urbanization_3 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Urbanization_2 = yes
@@ -1877,15 +2002,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 56 } }	# Gauge Blocks
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 55 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Standardization }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 56 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Gauge Blocks
+		if = {
+			limit = { has_country_flag = DA_PR_done.Standardization } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Standardization } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Steam_Power_Project = yes
@@ -1900,15 +2028,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 57 } }	# Interchangeable Parts
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 56 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Standardization_2 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 57 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Interchangeable Parts
+		if = {
+			limit = { has_country_flag = DA_PR_done.Standardization_2 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Standardization_2 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Standardization = yes
@@ -1920,15 +2051,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 58 } }	# Assembly Lines
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 57 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Standardization_3 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 58 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Assembly Lines
+		if = {
+			limit = { has_country_flag = DA_PR_done.Standardization_3 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Standardization_3 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Standardization_2 = yes
@@ -1941,15 +2075,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 59 } }	# Law of Life
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 58 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Universal_Law_Life = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 59 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Law of Life
+		if = {
+			limit = { DA_completed.Universal_Law_Life = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Universal_Law_Life = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_3 = yes
@@ -1966,15 +2103,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 60 } }	# Law of Death
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 59 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Universal_Law_Death = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 60 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Law of Death
+		if = {
+			limit = { DA_completed.Universal_Law_Death = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Universal_Law_Death = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_3 = yes
@@ -1991,15 +2131,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 61 } }	# Law of Time
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 60 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Universal_Law_Time = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 61 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Law of Time
+		if = {
+			limit = { DA_completed.Universal_Law_Time = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Universal_Law_Time = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_3 = yes
@@ -2016,15 +2159,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 62 } }	# Law of Space
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 61 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Universal_Law_Space = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 62 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Law of Space
+		if = {
+			limit = { DA_completed.Universal_Law_Space = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Universal_Law_Space = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Magic_Theory_3 = yes
@@ -2041,10 +2187,12 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 63 } }	# Conceptual Research
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 62 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 63 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Conceptual Research
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -2062,13 +2210,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 64 } }	# Dimensional Engineering I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 63 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Dimensional_Eng = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 64 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Dimensional Engineering I
+		if = {
+			limit = { DA_completed.Dimensional_Eng = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Dimensional_Eng = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Mechanics_4 = yes
@@ -2093,10 +2243,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 65 } }	# Dimensional Engineering II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 64 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 65 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Dimensional Engineering II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -2111,13 +2263,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 66 } }	# Airships I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 65 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Airships = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 66 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Airships I
+		if = {
+			limit = { DA_completed.Airships = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Airships = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Alchemy_3 = yes
@@ -2138,10 +2292,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 67 } }	# Airships II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 66 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 67 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Airships II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -2156,13 +2312,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 68 } }	# Resonance I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 67 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Resonance = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 68 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Resonance I
+		if = {
+			limit = { DA_completed.Resonance = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Resonance = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Alchemy_4 = yes
@@ -2185,10 +2343,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 69 } }	# Resonance II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 68 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 69 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Resonance II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -2203,13 +2363,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 70 } }	# Tesla I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 69 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Tesla = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 70 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Tesla I
+		if = {
+			limit = { DA_completed.Tesla = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Tesla = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Alchemy_4 = yes
@@ -2232,10 +2394,12 @@ DA_PR_start_queued = {
 				}
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 71 } }	# Tesla II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 70 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 71 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Tesla II
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -2250,13 +2414,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 72 } }	# Gravity Manipulation
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 71 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Gravity_Manipulation }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 72 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Gravity Manipulation
+		if = {
+			limit = { has_country_flag = DA_PR_done.Gravity_Manipulation } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Gravity_Manipulation } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Universal_Law_Space = yes
@@ -2271,15 +2437,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 73 } }	# Gravity Circuits
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 72 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Gravity = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 73 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Gravity Circuits
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Gravity = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Gravity = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Gravity_Manipulation = yes
@@ -2291,15 +2460,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 74 } }	# Mana-Wave Telegraph
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 73 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Signals }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 74 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mana-Wave Telegraph
+		if = {
+			limit = { has_country_flag = DA_PR_done.Signals } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Signals } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Electric_Power_Project = yes
@@ -2312,15 +2484,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 75 } }	# Command Relays
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 74 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Signals_2 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 75 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Command Relays
+		if = {
+			limit = { has_country_flag = DA_PR_done.Signals_2 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Signals_2 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Signals = yes
@@ -2333,15 +2508,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 76 } }	# Runic Barriers I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 75 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Runic_barrier = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 76 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runic Barriers I
+		if = {
+			limit = { DA_completed.Runic_barrier = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Runic_barrier = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_2_or_higher = yes
@@ -2353,15 +2531,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 77 } }	# Runic Barriers II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 76 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Runic_barrier_t2 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 77 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runic Barriers II
+		if = {
+			limit = { DA_completed.Runic_barrier_t2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Runic_barrier_t2 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_4_or_higher = yes
@@ -2374,15 +2555,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 78 } }	# Runic Barriers III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 77 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.Runic_barrier_t3 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 78 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runic Barriers III
+		if = {
+			limit = { DA_completed.Runic_barrier_t3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.Runic_barrier_t3 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_6_or_higher = yes
@@ -2395,15 +2579,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 79 } }	# Runic Barriers IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 78 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_modifier = DA_impenetrable_dwarovar }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 79 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runic Barriers IV
+		if = {
+			limit = { has_country_modifier = DA_impenetrable_dwarovar } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_modifier = DA_impenetrable_dwarovar } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.Runic_barrier_t3 = yes
@@ -2425,15 +2612,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 80 } }	# Production System
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 79 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_unlocked_production_System }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 80 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Production System
+		if = {
+			limit = { has_country_flag = DA_unlocked_production_System } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_unlocked_production_System } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_3_or_higher = yes
@@ -2448,10 +2638,12 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 81 } }	# Runesmith Research
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 80 } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_variable_equal = { which = DA_PR_queued value = 81 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runesmith Research
 		if = {
 			limit = {
 				DA_available_research = yes
@@ -2471,13 +2663,15 @@ DA_PR_start_queued = {
 			set_variable = { which = DA_PR_queued value = 0 }
 		}
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 82 } }	# Runes Manufacturing III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 81 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_RS_inventions_unlocked }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 82 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runes Manufacturing III
+		if = {
+			limit = { has_country_flag = DA_RS_inventions_unlocked } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_RS_inventions_unlocked } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_4_or_higher = yes
@@ -2495,15 +2689,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 83 } }	# Runes Manufacturing IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 82 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_Disabled_simple_Runes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 83 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runes Manufacturing IV
+		if = {
+			limit = { has_country_flag = DA_Disabled_simple_Runes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_Disabled_simple_Runes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_5_or_higher = yes
@@ -2515,15 +2712,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 84 } }	# Runic Fortifications I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 83 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.runeforged_fort = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 84 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runic Fortifications I
+		if = {
+			limit = { DA_completed.runeforged_fort = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.runeforged_fort = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_2_or_higher = yes
@@ -2535,15 +2735,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 85 } }	# Runic Fortifications II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 84 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.runeforged_fort_t2 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 85 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runic Fortifications II
+		if = {
+			limit = { DA_completed.runeforged_fort_t2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.runeforged_fort_t2 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_4_or_higher = yes
@@ -2556,15 +2759,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 86 } }	# Runic Fortifications III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 85 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.runeforged_fort_t3 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 86 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runic Fortifications III
+		if = {
+			limit = { DA_completed.runeforged_fort_t3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.runeforged_fort_t3 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_6_or_higher = yes
@@ -2577,15 +2783,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 87 } }	# Runic Fortifications IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 86 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.runeforged_fort_t4 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 87 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runic Fortifications IV
+		if = {
+			limit = { DA_completed.runeforged_fort_t4 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.runeforged_fort_t4 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_completed.runeforged_fort_t3 = yes
@@ -2601,15 +2810,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 88 } }	# Artificial Mage Creation I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 87 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.artificial_mage_creation = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 88 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Artificial Mage Creation I
+		if = {
+			limit = { DA_completed.artificial_mage_creation = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.artificial_mage_creation = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_2_or_higher = yes
@@ -2621,15 +2833,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 89 } }	# Artificial Mage Creation II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 88 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.artificial_mage_creation_t1 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 89 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Artificial Mage Creation II
+		if = {
+			limit = { DA_completed.artificial_mage_creation_t1 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.artificial_mage_creation_t1 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_4_or_higher = yes
@@ -2642,15 +2857,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 90 } }	# Artificial Mage Creation III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 89 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.artificial_mage_creation_t2 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 90 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Artificial Mage Creation III
+		if = {
+			limit = { DA_completed.artificial_mage_creation_t2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.artificial_mage_creation_t2 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_6_or_higher = yes
@@ -2663,15 +2881,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 91 } }	# Artificial Mage Creation IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 90 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.artificial_mage_creation_t3 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 91 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Artificial Mage Creation IV
+		if = {
+			limit = { DA_completed.artificial_mage_creation_t3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.artificial_mage_creation_t3 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_8_or_higher = yes
@@ -2684,15 +2905,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 92 } }	# Runes Heritage I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 91 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.runes_heritage = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 92 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runes Heritage I
+		if = {
+			limit = { DA_completed.runes_heritage = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.runes_heritage = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_3_or_higher = yes
@@ -2704,15 +2928,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 93 } }	# Runes Heritage II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 92 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.runes_heritage_t2 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 93 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Runes Heritage II
+		if = {
+			limit = { DA_completed.runes_heritage_t2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.runes_heritage_t2 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_4_or_higher = yes
@@ -2725,15 +2952,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 94 } }	# Mage Leader Creation I
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 93 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.mage_leaders = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 94 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mage Leader Creation I
+		if = {
+			limit = { DA_completed.mage_leaders = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.mage_leaders = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_3_or_higher = yes
@@ -2745,15 +2975,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 95 } }	# Mage Leader Creation II
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 94 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.mage_leaders_t2 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 95 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mage Leader Creation II
+		if = {
+			limit = { DA_completed.mage_leaders_t2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.mage_leaders_t2 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_5_or_higher = yes
@@ -2766,15 +2999,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 96 } }	# Mage Leader Creation III
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 95 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.mage_leaders_t3 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 96 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mage Leader Creation III
+		if = {
+			limit = { DA_completed.mage_leaders_t3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.mage_leaders_t3 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_6_or_higher = yes
@@ -2787,15 +3023,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 97 } }	# Mage Leader Creation IV
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 96 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { DA_completed.mage_leaders_t4 = yes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 97 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Mage Leader Creation IV
+		if = {
+			limit = { DA_completed.mage_leaders_t4 = yes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { DA_completed.mage_leaders_t4 = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_11_or_higher = yes
@@ -2808,15 +3047,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 98 } }	# Master Rune Theory
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 97 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Master_Runes }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 98 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Master Rune Theory
+		if = {
+			limit = { has_country_flag = DA_PR_done.Master_Runes } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Master_Runes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_5_or_higher = yes
@@ -2830,15 +3072,18 @@ DA_PR_start_queued = {
 				unstoppable = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 99 } }	# Carve a Master Rune
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 98 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { NOT = { DA_PR_pool_left.Master = yes } }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 99 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Carve a Master Rune
+		if = {
+			limit = { NOT = { DA_PR_pool_left.Master = yes } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { NOT = { DA_PR_pool_left.Master = yes } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Master_Runes = yes
@@ -2851,15 +3096,18 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 100 } }	# Rune Harmonics
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 99 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Master_Runes_3 }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 100 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Rune Harmonics
+		if = {
+			limit = { has_country_flag = DA_PR_done.Master_Runes_3 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Master_Runes_3 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Master_Runes = yes
@@ -2872,15 +3120,18 @@ DA_PR_start_queued = {
 				electric = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
-		limit = { is_variable_equal = { which = DA_PR_queued value = 101 } }	# Survey Guilds
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 100 } } } }    # was else_if (else_lowering.py)
 		if = {
-			limit = { has_country_flag = DA_PR_done.Reclamation }
+		limit = { is_variable_equal = { which = DA_PR_queued value = 101 } } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } }	# Survey Guilds
+		if = {
+			limit = { has_country_flag = DA_PR_done.Reclamation } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Reclamation } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_has_RF_2_or_higher = yes
@@ -2892,15 +3143,18 @@ DA_PR_start_queued = {
 				arcane = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_PR_queued value = 101 } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { is_variable_equal = { which = DA_PR_queued value = 102 } }	# Reclamation Engines
 		if = {
-			limit = { has_country_flag = DA_PR_done.Reclamation_2 }
+			limit = { has_country_flag = DA_PR_done.Reclamation_2 } hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } }
 			set_variable = { which = DA_PR_queued value = 0 }	# finished meanwhile
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_PR_start_queued_2 value = 1 } } NOT = { AND = { has_country_flag = DA_PR_done.Reclamation_2 } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_available_research = yes
 				DA_PR_done.Reclamation = yes
@@ -2914,8 +3168,10 @@ DA_PR_start_queued = {
 				steam = yes
 			}
 			set_variable = { which = DA_PR_queued value = 0 }
-		}
-	}
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_2 value = 0 } }
+	} } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_PR_start_queued_1 value = 0 } }
 	if = {
 		limit = { check_variable = { which = DA_PR_queued value = 1 } }
 		country_event = { id = DA_PR_queue.2 }

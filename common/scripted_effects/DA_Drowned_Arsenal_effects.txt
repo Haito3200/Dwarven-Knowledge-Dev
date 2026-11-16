@@ -14,20 +14,23 @@ DA_OT_remove_slips = {
 DA_OT_sync = {
 	DA_OT_remove_slips = yes
 	if = {
-		limit = { DA_OT_arsenal_at_tier_3 = yes }
+		limit = { DA_OT_arsenal_at_tier_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_sync_1 value = 1 } }
 		add_country_modifier = { name = DA_OT_slips_3 duration = -1 }
 		add_country_modifier = { name = DA_OT_ironclad_yards_3 duration = -1 hidden = yes }
 	}
-	else_if = {
-		limit = { DA_OT_arsenal_at_tier_2 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_sync_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_at_tier_3 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_OT_arsenal_at_tier_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_sync_1 value = 1 } }
 		add_country_modifier = { name = DA_OT_slips_2 duration = -1 }
 		add_country_modifier = { name = DA_OT_ironclad_yards_2 duration = -1 hidden = yes }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_sync_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_at_tier_2 = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { DA_OT_arsenal_at_tier_1 = yes }
 		add_country_modifier = { name = DA_OT_slips_1 duration = -1 }
 		add_country_modifier = { name = DA_OT_ironclad_yards_1 duration = -1 hidden = yes }
-	}
+	} } }
+	hidden_effect = { set_variable = { which = DA_else_DA_OT_sync_1 value = 0 } }
 }
 
 # one captain. The names are saved by the caller (the way DA_Leader_Admiral_creation_effects.txt does it).
@@ -43,34 +46,43 @@ DA_OT_recruit_pilot = {
 		set_saved_name = { key = root_name_male type = advisor scope = ROOT }
 		set_saved_name = { key = root_name_female type = advisor female = yes scope = ROOT }
 		if = {
-			limit = { DA_OT_arsenal_at_tier_3 = yes }
+			limit = { DA_OT_arsenal_at_tier_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_1 value = 1 } }
 			if = {
-				limit = { navy_tradition = 50 }
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 3 shock = 2 manuever = 5 trait = DA_OT_pilot_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 2 shock = 2 manuever = 5 trait = DA_OT_pilot_personality }
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_OT_arsenal_at_tier_2 = yes }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_pilot_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_at_tier_3 = yes } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { navy_tradition = 50 }
+			limit = { DA_OT_arsenal_at_tier_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_1 value = 1 } }
+			if = {
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 3 shock = 1 manuever = 4 trait = DA_OT_pilot_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 2 shock = 1 manuever = 4 trait = DA_OT_pilot_personality }
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 0 } }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_pilot_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_at_tier_2 = yes } } }    # was else (else_lowering.py)
+			
 			if = {
-				limit = { navy_tradition = 50 }
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 2 shock = 1 manuever = 3 trait = DA_OT_pilot_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 1 shock = 1 manuever = 3 trait = DA_OT_pilot_personality }
 			}
-		}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_2 value = 0 } }
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_pilot_1 value = 0 } }
 		clear_saved_name = root_name_male
 		clear_saved_name = root_name_female
 	}
@@ -81,34 +93,43 @@ DA_OT_recruit_gunner = {
 		set_saved_name = { key = root_name_male type = advisor scope = ROOT }
 		set_saved_name = { key = root_name_female type = advisor female = yes scope = ROOT }
 		if = {
-			limit = { DA_OT_arsenal_at_tier_3 = yes }
+			limit = { DA_OT_arsenal_at_tier_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_1 value = 1 } }
 			if = {
-				limit = { navy_tradition = 50 }
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 5 shock = 2 manuever = 3 trait = DA_OT_gunner_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 5 shock = 2 manuever = 2 trait = DA_OT_gunner_personality }
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_OT_arsenal_at_tier_2 = yes }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_gunner_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_at_tier_3 = yes } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { navy_tradition = 50 }
+			limit = { DA_OT_arsenal_at_tier_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_1 value = 1 } }
+			if = {
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 4 shock = 1 manuever = 3 trait = DA_OT_gunner_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 4 shock = 1 manuever = 2 trait = DA_OT_gunner_personality }
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 0 } }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_gunner_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_at_tier_2 = yes } } }    # was else (else_lowering.py)
+			
 			if = {
-				limit = { navy_tradition = 50 }
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 3 shock = 1 manuever = 2 trait = DA_OT_gunner_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 3 shock = 1 manuever = 1 trait = DA_OT_gunner_personality }
 			}
-		}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_2 value = 0 } }
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_gunner_1 value = 0 } }
 		clear_saved_name = root_name_male
 		clear_saved_name = root_name_female
 	}
@@ -119,34 +140,43 @@ DA_OT_recruit_ram = {
 		set_saved_name = { key = root_name_male type = advisor scope = ROOT }
 		set_saved_name = { key = root_name_female type = advisor female = yes scope = ROOT }
 		if = {
-			limit = { DA_OT_arsenal_at_tier_3 = yes }
+			limit = { DA_OT_arsenal_at_tier_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_1 value = 1 } }
 			if = {
-				limit = { navy_tradition = 50 }
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 3 shock = 5 manuever = 2 trait = DA_OT_ram_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 2 shock = 5 manuever = 2 trait = DA_OT_ram_personality }
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_OT_arsenal_at_tier_2 = yes }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_ram_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_at_tier_3 = yes } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { navy_tradition = 50 }
+			limit = { DA_OT_arsenal_at_tier_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_1 value = 1 } }
+			if = {
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 2 shock = 4 manuever = 2 trait = DA_OT_ram_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 1 shock = 4 manuever = 2 trait = DA_OT_ram_personality }
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 0 } }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_ram_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_at_tier_2 = yes } } }    # was else (else_lowering.py)
+			
 			if = {
-				limit = { navy_tradition = 50 }
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 1 } }
 				DA_OT_define_admiral = { fire = 2 shock = 3 manuever = 1 trait = DA_OT_ram_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 1 shock = 3 manuever = 1 trait = DA_OT_ram_personality }
 			}
-		}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_2 value = 0 } }
+		} }
+		hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_ram_1 value = 0 } }
 		clear_saved_name = root_name_male
 		clear_saved_name = root_name_female
 	}
@@ -159,12 +189,14 @@ DA_OT_recruit_fleet = {
 		if = {
 			limit = { DA_OT_arsenal_at_tier_3 = yes }
 			if = {
-				limit = { navy_tradition = 50 }
+				limit = { navy_tradition = 50 } hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_fleet_1 value = 1 } }
 				DA_OT_define_admiral = { fire = 5 shock = 5 manuever = 4 trait = DA_OT_fleet_personality }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_recruit_fleet_1 value = 1 } } NOT = { AND = { navy_tradition = 50 } } }    # was else (else_lowering.py)
+				
 				DA_OT_define_admiral = { fire = 4 shock = 4 manuever = 4 trait = DA_OT_fleet_personality }
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_OT_recruit_fleet_1 value = 0 } }
 		}
 		clear_saved_name = root_name_male
 		clear_saved_name = root_name_female
@@ -239,7 +271,7 @@ DA_OT_monthly = {
 		DA_OT_convert_old_save = yes
 	}
 	if = {
-		limit = { DA_OT_arsenal_found = yes }
+		limit = { DA_OT_arsenal_found = yes } hidden_effect = { set_variable = { which = DA_else_DA_OT_monthly_1 value = 1 } }
 		if = {
 			limit = { NOT = { DA_OT_slips_in_step = yes } }
 			DA_OT_sync = yes
@@ -274,10 +306,12 @@ DA_OT_monthly = {
 			country_event = { id = DA_Ovdal_Tungr_event.41 }
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_OT_monthly_1 value = 1 } } NOT = { AND = { DA_OT_arsenal_found = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { DA_OT_any_slips = yes }    # the hold is lost: the Slips lapse; a drawing under the scribes waits
 		DA_OT_remove_slips = yes
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_OT_monthly_1 value = 0 } }
 }
 
 # a save from before the Drowned Arsenal: the shipyard found becomes the wonder at tier 0, which carries the old modifier's numbers.

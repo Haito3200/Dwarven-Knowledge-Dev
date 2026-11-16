@@ -41,7 +41,7 @@ DA_SCH_due_Metallurgy = {
 		}
 	}
 }
-DA_SCH_can_start_Metallurgy = { DA_SCH_due_Metallurgy = yes DA_has_NO_Project_active = yes }
+DA_SCH_can_start_Metallurgy = { DA_SCH_due_Metallurgy = yes DA_has_NO_Project_active = yes DA_SCH_no_research_running = yes }
 DA_SCH_studying_Metallurgy = { has_country_modifier = DA_Tech_Researching_Metallurgy }
 DA_SCH_ready_Metallurgy = { DA_SCH_due_Metallurgy = yes NOT = { DA_SCH_studying_Metallurgy = yes } }
 DA_SCH_xp_full_Metallurgy = {
@@ -101,7 +101,7 @@ DA_SCH_due_Magic_Theory = {
 		}
 	}
 }
-DA_SCH_can_start_Magic_Theory = { DA_SCH_due_Magic_Theory = yes DA_has_NO_Project_active = yes }
+DA_SCH_can_start_Magic_Theory = { DA_SCH_due_Magic_Theory = yes DA_has_NO_Project_active = yes DA_SCH_no_research_running = yes }
 DA_SCH_studying_Magic_Theory = { has_country_modifier = DA_Tech_Researching_Arcane_Arts }
 DA_SCH_ready_Magic_Theory = { DA_SCH_due_Magic_Theory = yes NOT = { DA_SCH_studying_Magic_Theory = yes } }
 DA_SCH_xp_full_Magic_Theory = {
@@ -157,7 +157,7 @@ DA_SCH_due_Mechanics = {
 		}
 	}
 }
-DA_SCH_can_start_Mechanics = { DA_SCH_due_Mechanics = yes DA_has_NO_Project_active = yes }
+DA_SCH_can_start_Mechanics = { DA_SCH_due_Mechanics = yes DA_has_NO_Project_active = yes DA_SCH_no_research_running = yes }
 DA_SCH_studying_Mechanics = { has_country_modifier = DA_Tech_Researching_Mechanics }
 DA_SCH_ready_Mechanics = { DA_SCH_due_Mechanics = yes NOT = { DA_SCH_studying_Mechanics = yes } }
 DA_SCH_xp_full_Mechanics = {
@@ -213,7 +213,7 @@ DA_SCH_due_Alchemy = {
 		}
 	}
 }
-DA_SCH_can_start_Alchemy = { DA_SCH_due_Alchemy = yes DA_has_NO_Project_active = yes }
+DA_SCH_can_start_Alchemy = { DA_SCH_due_Alchemy = yes DA_has_NO_Project_active = yes DA_SCH_no_research_running = yes }
 DA_SCH_studying_Alchemy = { has_country_modifier = DA_Tech_Researching_Alchemy }
 DA_SCH_ready_Alchemy = { DA_SCH_due_Alchemy = yes NOT = { DA_SCH_studying_Alchemy = yes } }
 DA_SCH_xp_full_Alchemy = {
@@ -269,7 +269,7 @@ DA_SCH_due_Medicine = {
 		}
 	}
 }
-DA_SCH_can_start_Medicine = { DA_SCH_due_Medicine = yes DA_has_NO_Project_active = yes }
+DA_SCH_can_start_Medicine = { DA_SCH_due_Medicine = yes DA_has_NO_Project_active = yes DA_SCH_no_research_running = yes }
 DA_SCH_studying_Medicine = { has_country_modifier = DA_Tech_Researching_Medicine }
 DA_SCH_ready_Medicine = { DA_SCH_due_Medicine = yes NOT = { DA_SCH_studying_Medicine = yes } }
 DA_SCH_xp_full_Medicine = {
@@ -287,6 +287,12 @@ DA_SCH_lvl_med_2 = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine
 DA_SCH_lvl_med_3 = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } }
 DA_SCH_lvl_med_4 = { DA_completed.Medicine_4 = yes }
 
+DA_SCH_no_research_running = {
+	custom_trigger_tooltip = {
+		tooltip = DA_SCH_no_research_running_tt
+		NOT = { has_country_flag = DA_research_in_progress }
+	}
+}
 DA_SCH_studying_any = { OR = { DA_SCH_studying_Metallurgy = yes DA_SCH_studying_Magic_Theory = yes DA_SCH_studying_Mechanics = yes DA_SCH_studying_Alchemy = yes DA_SCH_studying_Medicine = yes } }
 DA_SCH_any_ready = { OR = { DA_SCH_ready_Metallurgy = yes DA_SCH_ready_Magic_Theory = yes DA_SCH_ready_Mechanics = yes DA_SCH_ready_Alchemy = yes DA_SCH_ready_Medicine = yes } }
 

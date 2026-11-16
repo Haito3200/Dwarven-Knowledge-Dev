@@ -93,996 +93,1245 @@ DA_AI_buffs_refresh = {
 		}
 		# stage: the latest institution that has appeared in the world
 		if = {
-			limit = { DA_AI_level_easy = yes }
+			limit = { DA_AI_level_easy = yes } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 1 } }
 			if = {
-				limit = { is_institution_enabled = industrialization }
+				limit = { is_institution_enabled = industrialization } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_half_7 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = enlightenment }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = industrialization } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = enlightenment } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_half_6 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = manufactories }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = enlightenment } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = manufactories } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_half_5 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = global_trade }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = manufactories } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = global_trade } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_half_4 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = printing_press }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = global_trade } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = printing_press } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_half_3 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = new_world_i }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = printing_press } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = new_world_i } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_half_2 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = new_world_i } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { is_institution_enabled = renaissance }
 				add_country_modifier = { name = DA_AI_Buffs_half_1 duration = -1 }
-			}
+			} } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 1 } } NOT = { AND = { DA_AI_level_easy = yes } } }    # was else (else_lowering.py)
+			
 			if = {
-				limit = { is_institution_enabled = industrialization }
+				limit = { is_institution_enabled = industrialization } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_7 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = enlightenment }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = industrialization } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = enlightenment } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_6 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = manufactories }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = enlightenment } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = manufactories } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_5 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = global_trade }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = manufactories } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = global_trade } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_4 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = printing_press }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = global_trade } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = printing_press } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_3 duration = -1 }
 			}
-			else_if = {
-				limit = { is_institution_enabled = new_world_i }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = printing_press } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { is_institution_enabled = new_world_i } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_2 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_institution_enabled = new_world_i } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { is_institution_enabled = renaissance }
 				add_country_modifier = { name = DA_AI_Buffs_1 duration = -1 }
-			}
+			} } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			# the level: subjects get the vassal reduction instead
 			if = {
-				limit = { is_subject = yes }
+				limit = { is_subject = yes } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_vassal_reduction duration = -1 }
 			}
-			else_if = {
-				limit = { DA_AI_level_normal = yes }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { is_subject = yes } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { DA_AI_level_normal = yes } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_medium duration = -1 }
 			}
-			else_if = {
-				limit = { DA_AI_level_hard = yes }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { DA_AI_level_normal = yes } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { DA_AI_level_hard = yes } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_Buffs_hard duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { DA_AI_level_hard = yes } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { DA_AI_level_very_hard = yes }
 				add_country_modifier = { name = DA_AI_Buffs_very_hard duration = -1 }
-			}
+			} } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 0 } }
 		# combat catch-up: a share of the best human design (global flags DA_AI_best_<unit>_<step>)
 		if = {
-			limit = { DA_AI_level_easy = yes }
+			limit = { DA_AI_level_easy = yes } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 1 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_20 }
+				limit = { has_global_flag = DA_AI_best_INFAN_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_1 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_1 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_1 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_5 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_INFAN_4 }
 				add_country_modifier = { name = DA_AI_cu_INFAN_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_20 }
+				limit = { has_global_flag = DA_AI_best_CAVAL_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_1 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_1 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_1 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_5 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_CAVAL_4 }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_20 }
+				limit = { has_global_flag = DA_AI_best_ARTIL_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_1 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_1 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_1 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_5 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_ARTIL_4 }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_AI_level_normal = yes }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 1 } } NOT = { AND = { DA_AI_level_easy = yes } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_20 }
+			limit = { DA_AI_level_normal = yes } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 1 } }
+			if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_1 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_3 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_INFAN_2 }
 				add_country_modifier = { name = DA_AI_cu_INFAN_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_20 }
+				limit = { has_global_flag = DA_AI_best_CAVAL_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_1 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_3 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_CAVAL_2 }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_20 }
+				limit = { has_global_flag = DA_AI_best_ARTIL_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_2 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_1 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_3 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_ARTIL_2 }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 		}
-		else_if = {
-			limit = { DA_AI_level_hard = yes }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 1 } } NOT = { AND = { DA_AI_level_normal = yes } } }    # was else_if (else_lowering.py)
 			if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_20 }
+			limit = { DA_AI_level_hard = yes } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 1 } }
+			if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_15 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_14 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_13 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_11 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_2 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_3 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_INFAN_2 }
 				add_country_modifier = { name = DA_AI_cu_INFAN_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_20 }
+				limit = { has_global_flag = DA_AI_best_CAVAL_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_15 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_14 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_13 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_11 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_2 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_3 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_CAVAL_2 }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_20 }
+				limit = { has_global_flag = DA_AI_best_ARTIL_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_15 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_14 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_13 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_11 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_2 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_3 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_ARTIL_2 }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 1 } } NOT = { AND = { DA_AI_level_hard = yes } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { DA_AI_level_very_hard = yes }
 			if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_20 }
+				limit = { has_global_flag = DA_AI_best_INFAN_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_20 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_19 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_18 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_17 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_16 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_15 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_14 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_13 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_11 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_INFAN_2 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_3 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_INFAN_2 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_INFAN_2 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_INFAN_2 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_INFAN_1 }
 				add_country_modifier = { name = DA_AI_cu_INFAN_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_20 }
+				limit = { has_global_flag = DA_AI_best_CAVAL_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_20 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_19 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_18 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_17 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_16 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_15 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_14 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_13 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_11 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_CAVAL_2 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_3 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_CAVAL_2 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_2 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_CAVAL_2 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_CAVAL_1 }
 				add_country_modifier = { name = DA_AI_cu_CAVAL_1 duration = -1 }
-			}
+			} } } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
 			if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_20 }
+				limit = { has_global_flag = DA_AI_best_ARTIL_20 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_20 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_19 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_20 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_19 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_19 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_18 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_19 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_18 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_18 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_17 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_18 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_17 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_17 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_16 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_17 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_16 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_16 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_15 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_16 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_15 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_15 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_14 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_15 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_14 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_14 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_13 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_14 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_13 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_13 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_12 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_13 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_12 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_12 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_11 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_12 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_11 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_11 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_10 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_11 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_10 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_10 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_9 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_10 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_9 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_9 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_8 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_9 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_8 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_8 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_7 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_8 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_7 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_7 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_6 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_7 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_6 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_6 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_5 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_6 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_5 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_5 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_4 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_5 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_4 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_4 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_3 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_4 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_3 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_3 duration = -1 }
 			}
-			else_if = {
-				limit = { has_global_flag = DA_AI_best_ARTIL_2 }
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_3 } } }    # was else_if (else_lowering.py)
+				if = {
+				limit = { has_global_flag = DA_AI_best_ARTIL_2 } hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_2 duration = -1 }
 			}
-			else_if = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 1 } } NOT = { AND = { has_global_flag = DA_AI_best_ARTIL_2 } } }    # was else_if (else_lowering.py)
+				if = {
 				limit = { has_global_flag = DA_AI_best_ARTIL_1 }
 				add_country_modifier = { name = DA_AI_cu_ARTIL_1 duration = -1 }
-			}
-		}
+			} } } } } } } } } } } } } } } } } } } }
+			hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_2 value = 0 } }
+		} } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_AI_buffs_refresh_1 value = 0 } }
 	}
 }
 
@@ -1138,85 +1387,105 @@ DA_AI_update_design_flags = {
 	clr_global_flag = DA_AI_best_INFAN_19
 	clr_global_flag = DA_AI_best_INFAN_20
 	if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 1 } } }
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 1 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_20
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.95 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 1 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.95 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_19
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.9 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.95 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.9 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_18
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.85 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.9 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.85 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_17
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.8 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.85 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.8 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_16
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.75 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.8 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.75 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_15
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.7 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.75 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.7 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_14
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.65 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.7 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.65 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_13
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.6 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.65 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.6 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_12
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.55 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.6 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.55 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_11
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.5 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.55 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.5 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_10
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.45 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.5 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.45 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_9
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.4 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.45 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.4 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_8
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.35 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.4 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.35 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_7
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.3 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.35 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.3 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_6
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.25 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.3 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.25 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_5
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.2 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.25 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.2 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_4
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.15 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.2 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.15 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_3
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.1 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.15 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.1 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_INFAN_2
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.1 } } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_INFAN value = 0.05 } } }
 		set_global_flag = DA_AI_best_INFAN_1
-	}
+	} } } } } } } } } } } } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 0 } }
 	clr_global_flag = DA_AI_best_CAVAL_1
 	clr_global_flag = DA_AI_best_CAVAL_2
 	clr_global_flag = DA_AI_best_CAVAL_3
@@ -1238,85 +1507,105 @@ DA_AI_update_design_flags = {
 	clr_global_flag = DA_AI_best_CAVAL_19
 	clr_global_flag = DA_AI_best_CAVAL_20
 	if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 1 } } }
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 1 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_20
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.95 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 1 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.95 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_19
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.9 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.95 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.9 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_18
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.85 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.9 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.85 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_17
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.8 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.85 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.8 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_16
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.75 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.8 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.75 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_15
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.7 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.75 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.7 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_14
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.65 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.7 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.65 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_13
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.6 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.65 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.6 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_12
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.55 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.6 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.55 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_11
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.5 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.55 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.5 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_10
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.45 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.5 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.45 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_9
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.4 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.45 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.4 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_8
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.35 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.4 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.35 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_7
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.3 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.35 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.3 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_6
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.25 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.3 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.25 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_5
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.2 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.25 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.2 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_4
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.15 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.2 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.15 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_3
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.1 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.15 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.1 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_CAVAL_2
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.1 } } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_CAVAL value = 0.05 } } }
 		set_global_flag = DA_AI_best_CAVAL_1
-	}
+	} } } } } } } } } } } } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 0 } }
 	clr_global_flag = DA_AI_best_ARTIL_1
 	clr_global_flag = DA_AI_best_ARTIL_2
 	clr_global_flag = DA_AI_best_ARTIL_3
@@ -1338,85 +1627,105 @@ DA_AI_update_design_flags = {
 	clr_global_flag = DA_AI_best_ARTIL_19
 	clr_global_flag = DA_AI_best_ARTIL_20
 	if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 1 } } }
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 1 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_20
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.95 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 1 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.95 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_19
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.9 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.95 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.9 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_18
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.85 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.9 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.85 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_17
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.8 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.85 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.8 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_16
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.75 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.8 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.75 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_15
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.7 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.75 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.7 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_14
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.65 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.7 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.65 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_13
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.6 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.65 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.6 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_12
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.55 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.6 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.55 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_11
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.5 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.55 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.5 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_10
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.45 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.5 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.45 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_9
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.4 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.45 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.4 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_8
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.35 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.4 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.35 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_7
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.3 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.35 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.3 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_6
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.25 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.3 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.25 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_5
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.2 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.25 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.2 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_4
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.15 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.2 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.15 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_3
 	}
-	else_if = {
-		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.1 } } }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.15 } } } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.1 } } } hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } }
 		set_global_flag = DA_AI_best_ARTIL_2
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 1 } } NOT = { AND = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.1 } } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { any_country = { ai = no check_variable = { which = DA_AI_score_ARTIL value = 0.05 } } }
 		set_global_flag = DA_AI_best_ARTIL_1
-	}
+	} } } } } } } } } } } } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AI_update_design_flags_1 value = 0 } }
 }
 
 # A new level, for the whole game: every AI country follows at once.
@@ -1452,7 +1761,7 @@ DA_AI_stage_mark = {
 # player (DA_AI_Strength.3), unless the level is None.
 DA_AI_stage_check = {
 	if = {
-		limit = { is_institution_enabled = industrialization }
+		limit = { is_institution_enabled = industrialization } hidden_effect = { set_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } }
 		if = {
 			limit = { NOT = { has_global_flag = DA_AI_stage_7 } }
 			DA_AI_stage_mark = yes
@@ -1462,8 +1771,9 @@ DA_AI_stage_check = {
 			}
 		}
 	}
-	else_if = {
-		limit = { is_institution_enabled = enlightenment }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } } NOT = { AND = { is_institution_enabled = industrialization } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_institution_enabled = enlightenment } hidden_effect = { set_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } }
 		if = {
 			limit = { NOT = { has_global_flag = DA_AI_stage_6 } }
 			DA_AI_stage_mark = yes
@@ -1473,8 +1783,9 @@ DA_AI_stage_check = {
 			}
 		}
 	}
-	else_if = {
-		limit = { is_institution_enabled = manufactories }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } } NOT = { AND = { is_institution_enabled = enlightenment } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_institution_enabled = manufactories } hidden_effect = { set_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } }
 		if = {
 			limit = { NOT = { has_global_flag = DA_AI_stage_5 } }
 			DA_AI_stage_mark = yes
@@ -1484,8 +1795,9 @@ DA_AI_stage_check = {
 			}
 		}
 	}
-	else_if = {
-		limit = { is_institution_enabled = global_trade }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } } NOT = { AND = { is_institution_enabled = manufactories } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_institution_enabled = global_trade } hidden_effect = { set_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } }
 		if = {
 			limit = { NOT = { has_global_flag = DA_AI_stage_4 } }
 			DA_AI_stage_mark = yes
@@ -1495,8 +1807,9 @@ DA_AI_stage_check = {
 			}
 		}
 	}
-	else_if = {
-		limit = { is_institution_enabled = printing_press }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } } NOT = { AND = { is_institution_enabled = global_trade } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_institution_enabled = printing_press } hidden_effect = { set_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } }
 		if = {
 			limit = { NOT = { has_global_flag = DA_AI_stage_3 } }
 			DA_AI_stage_mark = yes
@@ -1506,8 +1819,9 @@ DA_AI_stage_check = {
 			}
 		}
 	}
-	else_if = {
-		limit = { is_institution_enabled = new_world_i }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } } NOT = { AND = { is_institution_enabled = printing_press } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { is_institution_enabled = new_world_i } hidden_effect = { set_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } }
 		if = {
 			limit = { NOT = { has_global_flag = DA_AI_stage_2 } }
 			DA_AI_stage_mark = yes
@@ -1517,7 +1831,8 @@ DA_AI_stage_check = {
 			}
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AI_stage_check_1 value = 1 } } NOT = { AND = { is_institution_enabled = new_world_i } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { is_institution_enabled = renaissance }
 		if = {
 			limit = { NOT = { has_global_flag = DA_AI_stage_1 } }
@@ -1527,5 +1842,6 @@ DA_AI_stage_check = {
 				every_country = { limit = { ai = no } country_event = { id = DA_AI_Strength.3 } }
 			}
 		}
-	}
+	} } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AI_stage_check_1 value = 0 } }
 }

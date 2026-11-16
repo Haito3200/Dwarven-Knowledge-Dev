@@ -353,81 +353,93 @@ DA_AT_define_captain = {
 	set_saved_name = { key = root_name_male type = advisor scope = ROOT }
 	set_saved_name = { key = root_name_female type = advisor female = yes scope = ROOT }
 	if = {
-		limit = { has_country_flag = DA_AT_first_captain_due }
+		limit = { has_country_flag = DA_AT_first_captain_due } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_1 value = 1 } }
 		clr_country_flag = DA_AT_first_captain_due
 		if = {
-			limit = { army_tradition = 0 NOT = { army_tradition = 20 } }
+			limit = { army_tradition = 0 NOT = { army_tradition = 20 } } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } }
 			random_list = {
 				50 = { define_general = { fire = 4 shock = 5 manuever = 3 siege = 2 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 4 shock = 5 manuever = 3 siege = 2 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
 		}
-		else_if = {
-			limit = { army_tradition = 20 NOT = { army_tradition = 40 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } } NOT = { AND = { army_tradition = 0 NOT = { army_tradition = 20 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { army_tradition = 20 NOT = { army_tradition = 40 } } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } }
 			random_list = {
 				50 = { define_general = { fire = 5 shock = 6 manuever = 4 siege = 3 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 5 shock = 6 manuever = 4 siege = 3 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
 		}
-		else_if = {
-			limit = { army_tradition = 40 NOT = { army_tradition = 60 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } } NOT = { AND = { army_tradition = 20 NOT = { army_tradition = 40 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { army_tradition = 40 NOT = { army_tradition = 60 } } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } }
 			random_list = {
 				50 = { define_general = { fire = 6 shock = 7 manuever = 5 siege = 4 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 6 shock = 7 manuever = 5 siege = 4 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
 		}
-		else_if = {
-			limit = { army_tradition = 60 NOT = { army_tradition = 80 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } } NOT = { AND = { army_tradition = 40 NOT = { army_tradition = 60 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { army_tradition = 60 NOT = { army_tradition = 80 } } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } }
 			random_list = {
 				50 = { define_general = { fire = 7 shock = 7 manuever = 5 siege = 5 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 7 shock = 7 manuever = 5 siege = 5 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } } NOT = { AND = { army_tradition = 60 NOT = { army_tradition = 80 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { army_tradition = 80 }
 			random_list = {
 				50 = { define_general = { fire = 8 shock = 8 manuever = 5 siege = 5 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 8 shock = 8 manuever = 5 siege = 5 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
-		}
+		} } } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 0 } }
 	}
-	else = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_1 value = 1 } } NOT = { AND = { has_country_flag = DA_AT_first_captain_due } } }    # was else (else_lowering.py)
+		
 		if = {
-			limit = { army_tradition = 0 NOT = { army_tradition = 20 } }
+			limit = { army_tradition = 0 NOT = { army_tradition = 20 } } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } }
 			random_list = {
 				50 = { define_general = { fire = 3 shock = 4 manuever = 3 siege = 2 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 3 shock = 4 manuever = 3 siege = 2 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
 		}
-		else_if = {
-			limit = { army_tradition = 20 NOT = { army_tradition = 40 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } } NOT = { AND = { army_tradition = 0 NOT = { army_tradition = 20 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { army_tradition = 20 NOT = { army_tradition = 40 } } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } }
 			random_list = {
 				50 = { define_general = { fire = 4 shock = 5 manuever = 4 siege = 3 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 4 shock = 5 manuever = 4 siege = 3 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
 		}
-		else_if = {
-			limit = { army_tradition = 40 NOT = { army_tradition = 60 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } } NOT = { AND = { army_tradition = 20 NOT = { army_tradition = 40 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { army_tradition = 40 NOT = { army_tradition = 60 } } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } }
 			random_list = {
 				50 = { define_general = { fire = 5 shock = 6 manuever = 5 siege = 4 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 5 shock = 6 manuever = 5 siege = 4 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
 		}
-		else_if = {
-			limit = { army_tradition = 60 NOT = { army_tradition = 80 } }
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } } NOT = { AND = { army_tradition = 40 NOT = { army_tradition = 60 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { army_tradition = 60 NOT = { army_tradition = 80 } } hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } }
 			random_list = {
 				50 = { define_general = { fire = 6 shock = 6 manuever = 5 siege = 5 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 6 shock = 6 manuever = 5 siege = 5 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_define_captain_2 value = 1 } } NOT = { AND = { army_tradition = 60 NOT = { army_tradition = 80 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = { army_tradition = 80 }
 			random_list = {
 				50 = { define_general = { fire = 7 shock = 7 manuever = 5 siege = 5 trait = Mithril_Class_Rune_Mage_general_personality name = root_name_male } }
 				50 = { define_general = { fire = 7 shock = 7 manuever = 5 siege = 5 trait = Mithril_Class_Rune_Mage_general_personality female = yes name = root_name_female } }
 			}
-		}
+		} } } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_2 value = 0 } }
 	}
+	hidden_effect = { set_variable = { which = DA_else_DA_AT_define_captain_1 value = 0 } }
 	clear_saved_name = root_name_male
 	clear_saved_name = root_name_female
 }
@@ -435,7 +447,7 @@ DA_AT_define_captain = {
 # every month, for the owner of Mithradhum and for a country that still carries modifiers of the yards
 DA_AT_monthly = {
 	if = {
-		limit = { DA_AT_facility_found = yes }
+		limit = { DA_AT_facility_found = yes } hidden_effect = { set_variable = { which = DA_else_DA_AT_monthly_1 value = 1 } }
 		if = {
 			limit = { NOT = { DA_AT_mods_in_step = yes } }
 			DA_AT_remove_mods = yes
@@ -444,11 +456,12 @@ DA_AT_monthly = {
 		if = {
 			limit = { DA_AT_facility_at_tier_1 = yes }
 			if = {
-				limit = { NOT = { has_country_flag = DA_AT_yards_open } }    # the first month of tier I: the first class enters the yards
+				limit = { NOT = { has_country_flag = DA_AT_yards_open } } hidden_effect = { set_variable = { which = DA_else_DA_AT_monthly_2 value = 1 } }    # the first month of tier I: the first class enters the yards
 				set_country_flag = DA_AT_yards_open
 				set_variable = { which = DA_AT_class_months value = 60 }
 			}
-			else = {
+			if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_monthly_2 value = 1 } } NOT = { AND = { NOT = { has_country_flag = DA_AT_yards_open } } } }    # was else (else_lowering.py)
+				
 				if = {
 					limit = { check_variable = { which = DA_AT_class_months value = 1 } }
 					subtract_variable = { which = DA_AT_class_months value = 1 }
@@ -459,6 +472,7 @@ DA_AT_monthly = {
 					country_event = { id = DA_Mithradum_event.21 }
 				}
 			}
+			hidden_effect = { set_variable = { which = DA_else_DA_AT_monthly_2 value = 0 } }
 			if = {
 				limit = { DA_AT_any_next = yes }
 				subtract_variable = { which = DA_AT_retrain_months value = 1 }
@@ -479,8 +493,10 @@ DA_AT_monthly = {
 			country_event = { id = DA_Mithradum_event.5 }
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AT_monthly_1 value = 1 } } NOT = { AND = { DA_AT_facility_found = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { DA_AT_any_regimen_mod = yes }    # the hold is lost: the regimen lapses; a change under way and the class wait
 		DA_AT_remove_mods = yes
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_AT_monthly_1 value = 0 } }
 }

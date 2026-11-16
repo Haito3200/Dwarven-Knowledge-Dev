@@ -1,0 +1,15 @@
+# The Expansion of the Research Facility (DA_RF_Expansion_button, DA_RF_expand_one_level). Written by
+# Claude files/tools/apply_rf_expansion_event_2026-11-16.py.
+
+# No level paid for is still on its way. DA_RF_level_pending is set with the payment and cleared by
+# DA_Government_event.2 when the level comes. A flag 30 days old belongs to an event that never came: then the
+# button may be pressed again, and DA_RF_resend_level sends the level again, free.
+DA_RF_not_on_its_way = {
+	custom_trigger_tooltip = {
+		tooltip = DA_RF_level_pending_tt
+		OR = {
+			NOT = { has_country_flag = DA_RF_level_pending }
+			had_country_flag = { flag = DA_RF_level_pending days = 30 }
+		}
+	}
+}

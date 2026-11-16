@@ -7,18 +7,20 @@ DA_Spawn_noble_rebels = { # province scope
 				owner = {
 					has_country_modifier = DA_Unrestricted_mage_creation
 				}
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_Spawn_noble_rebels_1 value = 1 } }
 			spawn_rebels = {
 				type = DA_Old_nobles_army_with_general
 				size = $amount$
 			}
 		}
-		else = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_Spawn_noble_rebels_1 value = 1 } } NOT = { AND = { owner = { has_country_modifier = DA_Unrestricted_mage_creation } } } }    # was else (else_lowering.py)
+			
 			spawn_rebels = {
 				type = DA_Old_nobles_army
 				size = $amount$
 			}
 		}
+		hidden_effect = { set_variable = { which = DA_else_DA_Spawn_noble_rebels_1 value = 0 } }
 	}
 }
 

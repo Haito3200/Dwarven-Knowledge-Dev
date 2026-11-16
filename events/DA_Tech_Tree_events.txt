@@ -689,8 +689,9 @@ country_event = {
 }
 ################# The five-year school report ##################
 # DA_Tech_Tree_event.40 replaced the twenty province events .20-.39 (13 November 2026,
-# "Claude files/tools/apply_school_reports_2026-11-13.py"). The experience is added in immediate, the option only shows
-# it, so the "ready to advance" lines are right. Rules and numbers: common/scripted_effects/DA_School_Reports_effects.txt
+# "Claude files/tools/apply_school_reports_2026-11-13.py"). Since 16 November 2026 ("Claude files/tools/apply_bug_fixes_2026-11-16.py") the experience
+# is added when the reports are filed (the option), not in immediate: immediate only works out the "can now advance"
+# lines. Rules and numbers: common/scripted_effects/DA_School_Reports_effects.txt
 
 country_event = {
 	id = DA_Tech_Tree_event.40 		# the schools report, every five years (on_five_year_pulse)
@@ -705,22 +706,24 @@ country_event = {
 
 	immediate = {
 		hidden_effect = {
-			DA_SR_refresh_multipliers = yes
-			DA_SR_line_Alchemy = { do = grant }
-			DA_SR_line_Magic_Theory = { do = grant }
-			DA_SR_line_Mechanics = { do = grant }
-			DA_SR_line_Medicine = { do = grant }
-			DA_SR_line_Metallurgy = { do = grant }
+			DA_SR_prepare = yes
 		}
 	}
 
 	option = {
 		name = "DA_Tech_Tree_event.40.a"
-		DA_SR_line_Alchemy = { do = note }
-		DA_SR_line_Magic_Theory = { do = note }
-		DA_SR_line_Mechanics = { do = note }
-		DA_SR_line_Medicine = { do = note }
-		DA_SR_line_Metallurgy = { do = note }
+		DA_SR_line_Alchemy = yes
+		DA_SR_line_Magic_Theory = yes
+		DA_SR_line_Mechanics = yes
+		DA_SR_line_Medicine = yes
+		DA_SR_line_Metallurgy = yes
+		hidden_effect = {
+			DA_SR_grant = yes
+			if = {
+				limit = { ai = no }
+				DA_SCH_refresh = yes	# the Secondary Technologies window shows the new experience at once
+			}
+		}
 	}
 }
 

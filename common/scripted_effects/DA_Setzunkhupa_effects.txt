@@ -4,58 +4,71 @@
 DA_SZ_roll_first_pod = {
 	clr_country_flag = DA_SZ_roll_lost
 	if = {
-		limit = { has_country_flag = DA_SZ_pod_lost_2 }
+		limit = { has_country_flag = DA_SZ_pod_lost_2 } hidden_effect = { set_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } }
 	}
-	else_if = {
-		limit = { DA_SZ_first_pod_precautions_5 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } } NOT = { AND = { has_country_flag = DA_SZ_pod_lost_2 } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_SZ_first_pod_precautions_5 = yes } hidden_effect = { set_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } }
 		random = { chance = 4 set_country_flag = DA_SZ_roll_lost }
 	}
-	else_if = {
-		limit = { DA_SZ_first_pod_precautions_4 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } } NOT = { AND = { DA_SZ_first_pod_precautions_5 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_SZ_first_pod_precautions_4 = yes } hidden_effect = { set_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } }
 		random = { chance = 8 set_country_flag = DA_SZ_roll_lost }
 	}
-	else_if = {
-		limit = { DA_SZ_first_pod_precautions_3 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } } NOT = { AND = { DA_SZ_first_pod_precautions_4 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_SZ_first_pod_precautions_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } }
 		random = { chance = 16 set_country_flag = DA_SZ_roll_lost }
 	}
-	else_if = {
-		limit = { DA_SZ_first_pod_precautions_2 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } } NOT = { AND = { DA_SZ_first_pod_precautions_3 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_SZ_first_pod_precautions_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } }
 		random = { chance = 24 set_country_flag = DA_SZ_roll_lost }
 	}
-	else_if = {
-		limit = { DA_SZ_first_pod_precautions_1 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } } NOT = { AND = { DA_SZ_first_pod_precautions_2 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_SZ_first_pod_precautions_1 = yes } hidden_effect = { set_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } }
 		random = { chance = 32 set_country_flag = DA_SZ_roll_lost }
 	}
-	else = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 1 } } NOT = { AND = { DA_SZ_first_pod_precautions_1 = yes } } }    # was else (else_lowering.py)
+		
 		random = { chance = 40 set_country_flag = DA_SZ_roll_lost }
-	}
+	} } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_SZ_roll_first_pod_1 value = 0 } }
 }
 
 DA_AG_roll_pod = {
 	clr_country_flag = DA_AG_roll_lost
 	if = {
-		limit = { DA_AG_pod_precautions_5 = yes }
+		limit = { DA_AG_pod_precautions_5 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } }
 		random = { chance = 5 set_country_flag = DA_AG_roll_lost }
 	}
-	else_if = {
-		limit = { DA_AG_pod_precautions_4 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } } NOT = { AND = { DA_AG_pod_precautions_5 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_AG_pod_precautions_4 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } }
 		random = { chance = 10 set_country_flag = DA_AG_roll_lost }
 	}
-	else_if = {
-		limit = { DA_AG_pod_precautions_3 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } } NOT = { AND = { DA_AG_pod_precautions_4 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_AG_pod_precautions_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } }
 		random = { chance = 16 set_country_flag = DA_AG_roll_lost }
 	}
-	else_if = {
-		limit = { DA_AG_pod_precautions_2 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } } NOT = { AND = { DA_AG_pod_precautions_3 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_AG_pod_precautions_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } }
 		random = { chance = 24 set_country_flag = DA_AG_roll_lost }
 	}
-	else_if = {
-		limit = { DA_AG_pod_precautions_1 = yes }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } } NOT = { AND = { DA_AG_pod_precautions_2 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_AG_pod_precautions_1 = yes } hidden_effect = { set_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } }
 		random = { chance = 32 set_country_flag = DA_AG_roll_lost }
 	}
-	else = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AG_roll_pod_1 value = 1 } } NOT = { AND = { DA_AG_pod_precautions_1 = yes } } }    # was else (else_lowering.py)
+		
 		random = { chance = 40 set_country_flag = DA_AG_roll_lost }
-	}
+	} } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AG_roll_pod_1 value = 0 } }
 }
 
 # The one way to open Agradent to a country. Anything may call it: it asks for nothing else.
@@ -312,16 +325,19 @@ DA_AG_set_watch_modifier = {
 	remove_country_modifier = DA_AG_far_watch_2
 	remove_country_modifier = DA_AG_far_watch_3
 	if = {
-		limit = { has_country_flag = DA_AG_outpost_watch_3 }
+		limit = { has_country_flag = DA_AG_outpost_watch_3 } hidden_effect = { set_variable = { which = DA_else_DA_AG_set_watch_modifier_1 value = 1 } }
 		add_country_modifier = { name = DA_AG_far_watch_3 duration = -1 }
 	}
-	else_if = {
-		limit = { has_country_flag = DA_AG_outpost_watch_2 }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AG_set_watch_modifier_1 value = 1 } } NOT = { AND = { has_country_flag = DA_AG_outpost_watch_3 } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_country_flag = DA_AG_outpost_watch_2 } hidden_effect = { set_variable = { which = DA_else_DA_AG_set_watch_modifier_1 value = 1 } }
 		add_country_modifier = { name = DA_AG_far_watch_2 duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_AG_set_watch_modifier_1 value = 1 } } NOT = { AND = { has_country_flag = DA_AG_outpost_watch_2 } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { has_country_flag = DA_AG_outpost_watch_1 }
 		add_country_modifier = { name = DA_AG_far_watch_1 duration = -1 }
-	}
+	} } }
+	hidden_effect = { set_variable = { which = DA_else_DA_AG_set_watch_modifier_1 value = 0 } }
 }
 

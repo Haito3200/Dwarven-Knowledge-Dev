@@ -2716,34 +2716,40 @@ DA_GE_recount = {
 	}
 	if = {
 		limit = { is_variable_equal = { which = DA_GE_band value = 1 }
-			NOT = { has_country_modifier = DA_GE_band.1 } }
+			NOT = { has_country_modifier = DA_GE_band.1 } } hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 1 } }
 		add_country_modifier = { name = DA_GE_band.1 duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_GE_recount_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_GE_band value = 1 } NOT = { has_country_modifier = DA_GE_band.1 } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { NOT = { is_variable_equal = { which = DA_GE_band value = 1 } }
 			has_country_modifier = DA_GE_band.1 }
 		remove_country_modifier = DA_GE_band.1
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 0 } }
 	if = {
 		limit = { is_variable_equal = { which = DA_GE_band value = 2 }
-			NOT = { has_country_modifier = DA_GE_band.2 } }
+			NOT = { has_country_modifier = DA_GE_band.2 } } hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 1 } }
 		add_country_modifier = { name = DA_GE_band.2 duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_GE_recount_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_GE_band value = 2 } NOT = { has_country_modifier = DA_GE_band.2 } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { NOT = { is_variable_equal = { which = DA_GE_band value = 2 } }
 			has_country_modifier = DA_GE_band.2 }
 		remove_country_modifier = DA_GE_band.2
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 0 } }
 	if = {
 		limit = { is_variable_equal = { which = DA_GE_band value = 3 }
-			NOT = { has_country_modifier = DA_GE_band.3 } }
+			NOT = { has_country_modifier = DA_GE_band.3 } } hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 1 } }
 		add_country_modifier = { name = DA_GE_band.3 duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_GE_recount_1 value = 1 } } NOT = { AND = { is_variable_equal = { which = DA_GE_band value = 3 } NOT = { has_country_modifier = DA_GE_band.3 } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { NOT = { is_variable_equal = { which = DA_GE_band value = 3 } }
 			has_country_modifier = DA_GE_band.3 }
 		remove_country_modifier = DA_GE_band.3
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 0 } }
 	set_variable = { which = DA_GE_count_Muscular value = 0 }
 	if = {
 		limit = { has_country_flag = DA_GE_applied.Dense_Muscle }
@@ -2771,14 +2777,16 @@ DA_GE_recount = {
 	}
 	if = {
 		limit = { check_variable = { which = DA_GE_count_Muscular value = 3 }
-			NOT = { has_country_modifier = DA_GE_mastery.Muscular } }
+			NOT = { has_country_modifier = DA_GE_mastery.Muscular } } hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 1 } }
 		add_country_modifier = { name = DA_GE_mastery.Muscular duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_GE_recount_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_GE_count_Muscular value = 3 } NOT = { has_country_modifier = DA_GE_mastery.Muscular } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { NOT = { check_variable = { which = DA_GE_count_Muscular value = 3 } }
 			has_country_modifier = DA_GE_mastery.Muscular }
 		remove_country_modifier = DA_GE_mastery.Muscular
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 0 } }
 	set_variable = { which = DA_GE_count_Skeletal value = 0 }
 	if = {
 		limit = { has_country_flag = DA_GE_applied.Dense_Bones }
@@ -2806,14 +2814,16 @@ DA_GE_recount = {
 	}
 	if = {
 		limit = { check_variable = { which = DA_GE_count_Skeletal value = 3 }
-			NOT = { has_country_modifier = DA_GE_mastery.Skeletal } }
+			NOT = { has_country_modifier = DA_GE_mastery.Skeletal } } hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 1 } }
 		add_country_modifier = { name = DA_GE_mastery.Skeletal duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_GE_recount_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_GE_count_Skeletal value = 3 } NOT = { has_country_modifier = DA_GE_mastery.Skeletal } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { NOT = { check_variable = { which = DA_GE_count_Skeletal value = 3 } }
 			has_country_modifier = DA_GE_mastery.Skeletal }
 		remove_country_modifier = DA_GE_mastery.Skeletal
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 0 } }
 	set_variable = { which = DA_GE_count_Neural value = 0 }
 	if = {
 		limit = { has_country_flag = DA_GE_applied.Enhanced_Instinct }
@@ -2841,14 +2851,16 @@ DA_GE_recount = {
 	}
 	if = {
 		limit = { check_variable = { which = DA_GE_count_Neural value = 3 }
-			NOT = { has_country_modifier = DA_GE_mastery.Neural } }
+			NOT = { has_country_modifier = DA_GE_mastery.Neural } } hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 1 } }
 		add_country_modifier = { name = DA_GE_mastery.Neural duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_GE_recount_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_GE_count_Neural value = 3 } NOT = { has_country_modifier = DA_GE_mastery.Neural } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { NOT = { check_variable = { which = DA_GE_count_Neural value = 3 } }
 			has_country_modifier = DA_GE_mastery.Neural }
 		remove_country_modifier = DA_GE_mastery.Neural
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 0 } }
 	set_variable = { which = DA_GE_count_Arcane value = 0 }
 	if = {
 		limit = { has_country_flag = DA_GE_applied.Common_Magic }
@@ -2876,14 +2888,16 @@ DA_GE_recount = {
 	}
 	if = {
 		limit = { check_variable = { which = DA_GE_count_Arcane value = 3 }
-			NOT = { has_country_modifier = DA_GE_mastery.Arcane } }
+			NOT = { has_country_modifier = DA_GE_mastery.Arcane } } hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 1 } }
 		add_country_modifier = { name = DA_GE_mastery.Arcane duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_GE_recount_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_GE_count_Arcane value = 3 } NOT = { has_country_modifier = DA_GE_mastery.Arcane } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { NOT = { check_variable = { which = DA_GE_count_Arcane value = 3 } }
 			has_country_modifier = DA_GE_mastery.Arcane }
 		remove_country_modifier = DA_GE_mastery.Arcane
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 0 } }
 	set_variable = { which = DA_GE_count_Special value = 0 }
 	if = {
 		limit = { has_country_flag = DA_GE_applied.Enhanced_Fertility }
@@ -2911,14 +2925,16 @@ DA_GE_recount = {
 	}
 	if = {
 		limit = { check_variable = { which = DA_GE_count_Special value = 3 }
-			NOT = { has_country_modifier = DA_GE_mastery.Special } }
+			NOT = { has_country_modifier = DA_GE_mastery.Special } } hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 1 } }
 		add_country_modifier = { name = DA_GE_mastery.Special duration = -1 }
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_GE_recount_1 value = 1 } } NOT = { AND = { check_variable = { which = DA_GE_count_Special value = 3 } NOT = { has_country_modifier = DA_GE_mastery.Special } } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { NOT = { check_variable = { which = DA_GE_count_Special value = 3 } }
 			has_country_modifier = DA_GE_mastery.Special }
 		remove_country_modifier = DA_GE_mastery.Special
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_GE_recount_1 value = 0 } }
 	set_variable = { which = DA_GE_seq_pct value = 0 }
 	if = {
 		limit = { has_country_flag = DA_GE_seq_active

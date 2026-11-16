@@ -274,10 +274,11 @@ DA_BG_hold_party = {
 	clr_country_flag = DA_BG_poured_reserve
 	clr_country_flag = DA_BG_party_dry
 	if = {
-		limit = { DA_BG_all_ideas_known = yes }    # nothing left to propose: small beer, no bill, no sequel
+		limit = { DA_BG_all_ideas_known = yes } hidden_effect = { set_variable = { which = DA_else_DA_BG_hold_party_1 value = 1 } }    # nothing left to propose: small beer, no bill, no sequel
 		set_country_flag = DA_BG_party_dry
 	}
-	else = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_BG_hold_party_1 value = 1 } } NOT = { AND = { DA_BG_all_ideas_known = yes } } }    # was else (else_lowering.py)
+		
 		if = {
 			limit = { DA_BG_cellar_reserve = yes DA_BG_guildhall_at_tier_2 = yes treasury = 400 }
 			add_treasury = -400
@@ -328,6 +329,7 @@ DA_BG_hold_party = {
 			}
 		}
 	}
+	hidden_effect = { set_variable = { which = DA_else_DA_BG_hold_party_1 value = 0 } }
 	if = {
 		limit = { 4078 = { has_province_flag = DA_BG_stages_read } }
 		random_list = {
@@ -345,7 +347,7 @@ DA_BG_hold_party = {
 # every month, for the owner of Hehodovar and for a country that still carries standing modifiers of the Guild
 DA_BG_monthly = {
 	if = {
-		limit = { DA_BG_guildhall_found = yes }
+		limit = { DA_BG_guildhall_found = yes } hidden_effect = { set_variable = { which = DA_else_DA_BG_monthly_1 value = 1 } }
 		if = {
 			limit = { NOT = { DA_BG_standing_in_step = yes } }
 			DA_BG_sync = yes
@@ -380,8 +382,10 @@ DA_BG_monthly = {
 			country_event = { id = DA_Hehodovar_event.4 }
 		}
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_BG_monthly_1 value = 1 } } NOT = { AND = { DA_BG_guildhall_found = yes } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { DA_BG_any_standing = yes }    # the hold is lost: what the Guild built for us lapses; a work on the benches waits
 		DA_BG_remove_standing = yes
-	}
+	} }
+	hidden_effect = { set_variable = { which = DA_else_DA_BG_monthly_1 value = 0 } }
 }

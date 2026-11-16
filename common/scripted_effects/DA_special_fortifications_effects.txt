@@ -270,49 +270,60 @@ DA_finish_DA_Runeforged_Amldihr_fort = {
 # Save compatibility: retain the highest runic tier, otherwise magic, otherwise artificer.
 DA_normalize_special_forts = {
 	if = {
-		limit = { has_building = DA_Runeforged_Amldihr_fort }
+		limit = { has_building = DA_Runeforged_Amldihr_fort } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_DA_Runeforged_Amldihr_fort = yes
 	}
-	else_if = {
-		limit = { has_building = DA_Hehogrim_Runeforged_fort }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = DA_Runeforged_Amldihr_fort } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = DA_Hehogrim_Runeforged_fort } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_DA_Hehogrim_Runeforged_fort = yes
 	}
-	else_if = {
-		limit = { has_building = DA_Runeforged_fort_t3 }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = DA_Hehogrim_Runeforged_fort } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = DA_Runeforged_fort_t3 } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_DA_Runeforged_fort_t3 = yes
 	}
-	else_if = {
-		limit = { has_building = DA_Runeforged_fort_t2 }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = DA_Runeforged_fort_t3 } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = DA_Runeforged_fort_t2 } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_DA_Runeforged_fort_t2 = yes
 	}
-	else_if = {
-		limit = { has_building = DA_Runeforged_fort }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = DA_Runeforged_fort_t2 } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = DA_Runeforged_fort } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_DA_Runeforged_fort = yes
 	}
-	else_if = {
-		limit = { has_building = fen_magic_fort_t3 }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = DA_Runeforged_fort } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = fen_magic_fort_t3 } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_fen_magic_fort_t3 = yes
 	}
-	else_if = {
-		limit = { has_building = fen_magic_fort_t2 }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = fen_magic_fort_t3 } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = fen_magic_fort_t2 } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_fen_magic_fort_t2 = yes
 	}
-	else_if = {
-		limit = { has_building = fen_magic_fort_t1 }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = fen_magic_fort_t2 } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = fen_magic_fort_t1 } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_fen_magic_fort_t1 = yes
 	}
-	else_if = {
-		limit = { has_building = fen_tech_fort_t3 }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = fen_magic_fort_t1 } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = fen_tech_fort_t3 } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_fen_tech_fort_t3 = yes
 	}
-	else_if = {
-		limit = { has_building = fen_tech_fort_t2 }
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = fen_tech_fort_t3 } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { has_building = fen_tech_fort_t2 } hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } }
 		DA_finish_fen_tech_fort_t2 = yes
 	}
-	else_if = {
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_normalize_special_forts_1 value = 1 } } NOT = { AND = { has_building = fen_tech_fort_t2 } } }    # was else_if (else_lowering.py)
+		if = {
 		limit = { has_building = fen_tech_fort_t1 }
 		DA_finish_fen_tech_fort_t1 = yes
-	}
+	} } } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_normalize_special_forts_1 value = 0 } }
 }
 
 # Country scope. Re-evaluated before each purchase; keep at least the build price in reserve.
@@ -323,79 +334,90 @@ DA_ai_build_one_special_fort = {
 			limit = {
 				DA_can_construct_DA_Runeforged_Amldihr_fort = yes
 				DA_can_afford_special_fort = { cost = 30000 minimum = 3000 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_DA_Runeforged_Amldihr_fort = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_DA_Runeforged_Amldihr_fort = yes DA_can_afford_special_fort = { cost = 30000 minimum = 3000 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_DA_Hehogrim_Runeforged_fort = yes
 				DA_can_afford_special_fort = { cost = 6000 minimum = 600 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_DA_Hehogrim_Runeforged_fort = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_DA_Hehogrim_Runeforged_fort = yes DA_can_afford_special_fort = { cost = 6000 minimum = 600 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_DA_Runeforged_fort_t3 = yes
 				DA_can_afford_special_fort = { cost = 3200 minimum = 320 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_DA_Runeforged_fort_t3 = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_DA_Runeforged_fort_t3 = yes DA_can_afford_special_fort = { cost = 3200 minimum = 320 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_DA_Runeforged_fort_t2 = yes
 				DA_can_afford_special_fort = { cost = 1500 minimum = 150 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_DA_Runeforged_fort_t2 = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_DA_Runeforged_fort_t2 = yes DA_can_afford_special_fort = { cost = 1500 minimum = 150 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_DA_Runeforged_fort = yes
 				DA_can_afford_special_fort = { cost = 500 minimum = 50 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_DA_Runeforged_fort = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_DA_Runeforged_fort = yes DA_can_afford_special_fort = { cost = 500 minimum = 50 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_fen_magic_fort_t3 = yes
 				DA_can_afford_special_fort = { cost = 2400 minimum = 240 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_fen_magic_fort_t3 = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_fen_magic_fort_t3 = yes DA_can_afford_special_fort = { cost = 2400 minimum = 240 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_fen_magic_fort_t2 = yes
 				DA_can_afford_special_fort = { cost = 1000 minimum = 100 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_fen_magic_fort_t2 = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_fen_magic_fort_t2 = yes DA_can_afford_special_fort = { cost = 1000 minimum = 100 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_fen_magic_fort_t1 = yes
 				DA_can_afford_special_fort = { cost = 400 minimum = 40 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_fen_magic_fort_t1 = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_fen_magic_fort_t1 = yes DA_can_afford_special_fort = { cost = 400 minimum = 40 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_fen_tech_fort_t3 = yes
 				DA_can_afford_special_fort = { cost = 2400 minimum = 240 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_fen_tech_fort_t3 = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_fen_tech_fort_t3 = yes DA_can_afford_special_fort = { cost = 2400 minimum = 240 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_fen_tech_fort_t2 = yes
 				DA_can_afford_special_fort = { cost = 1000 minimum = 100 }
-			}
+			} hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } }
 			DA_start_fen_tech_fort_t2 = yes
 		}
-		else_if = {
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 1 } } NOT = { AND = { DA_can_construct_fen_tech_fort_t2 = yes DA_can_afford_special_fort = { cost = 1000 minimum = 100 } } } }    # was else_if (else_lowering.py)
+			if = {
 			limit = {
 				DA_can_construct_fen_tech_fort_t1 = yes
 				DA_can_afford_special_fort = { cost = 400 minimum = 40 }
 			}
 			DA_start_fen_tech_fort_t1 = yes
-		}
+		} } } } } } } } } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_ai_build_one_special_fort_1 value = 0 } }
 	}
 }
 

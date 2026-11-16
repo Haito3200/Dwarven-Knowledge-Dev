@@ -191,3 +191,771 @@ country_event = { # Hall of the Vanguard
 		name = DA_wonder_works.a
 	}
 }
+
+# The works whose time ran out this month (DA_WW_monthly fires this event when a DA_WW_due_P flag is set).
+# It fires the finishing event of each such wonder. From its option, as Anbennar does for Stromolgiv
+# (flavor_krakazol.202 and .203): the finishing event then has this country as FROM, which
+# add_great_project_tier needs.
+country_event = {
+	id = DA_wonder_works.100
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	option = {
+		name = DA_wonder_works.a
+		if = {    # Fireglass Forge
+			limit = { has_country_flag = DA_WW_due_4039 has_country_flag = DA_WW_building_4039 owns = 4039 }
+			country_event = { id = DA_wonder_works.101 }
+		}
+		if = {    # Titanium Vault
+			limit = { has_country_flag = DA_WW_due_4217 has_country_flag = DA_WW_building_4217 owns = 4217 }
+			country_event = { id = DA_wonder_works.102 }
+		}
+		if = {    # Argrâstun Cathedral
+			limit = { has_country_flag = DA_WW_due_4284 has_country_flag = DA_WW_building_4284 owns = 4284 }
+			country_event = { id = DA_wonder_works.103 }
+		}
+		if = {    # Ancient Research Facility
+			limit = { has_country_flag = DA_WW_due_4119 has_country_flag = DA_WW_building_4119 owns = 4119 }
+			country_event = { id = DA_wonder_works.104 }
+		}
+		if = {    # Amldavhad Training Facility
+			limit = { has_country_flag = DA_WW_due_4236 has_country_flag = DA_WW_building_4236 owns = 4236 }
+			country_event = { id = DA_wonder_works.105 }
+		}
+		if = {    # The Setzunkhupa
+			limit = { has_country_flag = DA_WW_due_4020 has_country_flag = DA_WW_building_4020 owns = 4020 }
+			country_event = { id = DA_wonder_works.106 }
+		}
+		if = {    # Ducaniel's Laboratory
+			limit = { has_country_flag = DA_WW_due_2963 has_country_flag = DA_WW_building_2963 owns = 2963 }
+			country_event = { id = DA_wonder_works.107 }
+		}
+		if = {    # Railway Control Center
+			limit = { has_country_flag = DA_WW_due_2931 has_country_flag = DA_WW_building_2931 owns = 2931 }
+			country_event = { id = DA_wonder_works.108 }
+		}
+		if = {    # Warsuit Foundry
+			limit = { has_country_flag = DA_WW_due_2868 has_country_flag = DA_WW_building_2868 owns = 2868 }
+			country_event = { id = DA_wonder_works.121 }
+		}
+		if = {    # Halanna's Wrath
+			limit = { has_country_flag = DA_WW_due_4247 has_country_flag = DA_WW_building_4247 owns = 4247 }
+			country_event = { id = DA_wonder_works.122 }
+		}
+		if = {    # Frozen Forge
+			limit = { has_country_flag = DA_WW_due_4208 has_country_flag = DA_WW_building_4208 owns = 4208 }
+			country_event = { id = DA_wonder_works.124 }
+		}
+		if = {    # Drowned Arsenal
+			limit = { has_country_flag = DA_WW_due_526 has_country_flag = DA_WW_building_526 owns = 526 }
+			country_event = { id = DA_wonder_works.125 }
+		}
+		if = {    # Builders' Guildhall
+			limit = { has_country_flag = DA_WW_due_4078 has_country_flag = DA_WW_building_4078 owns = 4078 }
+			country_event = { id = DA_wonder_works.126 }
+		}
+		if = {    # Strâmolgiv
+			limit = { has_country_flag = DA_WW_due_4266 has_country_flag = DA_WW_building_4266 owns = 4266 }
+			country_event = { id = DA_wonder_works.127 }
+		}
+		if = {    # Sleepers' Hall
+			limit = { has_country_flag = DA_WW_due_4323 has_country_flag = DA_WW_building_4323 owns = 4323 }
+			country_event = { id = DA_wonder_works.128 }
+		}
+		if = {    # Magistrates' Vault
+			limit = { has_country_flag = DA_WW_due_2914 has_country_flag = DA_WW_building_2914 owns = 2914 }
+			country_event = { id = DA_wonder_works.129 }
+		}
+		if = {    # Hall of the Vanguard
+			limit = { has_country_flag = DA_WW_due_4311 has_country_flag = DA_WW_building_4311 owns = 4311 }
+			country_event = { id = DA_wonder_works.130 }
+		}
+	}
+}
+
+# One finishing event per wonder: the tier, then what the old button did on the day of the purchase, then the
+# notice. No else and no else_if anywhere (see the head of wonder_pages_script.py): the tier being raised
+# is read into DA_WW_tier_P first, and each tier has its own plain if.
+
+country_event = { # Fireglass Forge: the works are finished
+	id = DA_wonder_works.101
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4039
+		owns = 4039
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4039 value = 1 }
+		if = { limit = { 4039 = { has_great_project = { type = DA_Magma_Forge tier = 1 } } } set_variable = { which = DA_WW_tier_4039 value = 2 } }
+		if = { limit = { 4039 = { has_great_project = { type = DA_Magma_Forge tier = 2 } } } set_variable = { which = DA_WW_tier_4039 value = 3 } }
+		4039 = { add_great_project_tier = { type = DA_Magma_Forge tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4039 value = 2 } } }
+			DA_FG_sync = yes
+			country_event = { id = DA_Magma_forge_event.6 days = 30 }
+			country_event = { id = DA_Magma_forge_event.11 days = 365 }
+			country_event = { id = DA_Magma_forge_event.12 days = 1095 }
+			country_event = { id = DA_wonder_works.1 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4039 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4039 value = 3 } } }
+			DA_FG_sync = yes
+			country_event = { id = DA_Magma_forge_event.7 days = 30 }
+			country_event = { id = DA_wonder_works.1 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4039 value = 3 } }
+			DA_FG_sync = yes
+			country_event = { id = DA_Magma_forge_event.8 days = 30 }
+			country_event = { id = DA_Magma_forge_event.14 days = 3650 }
+			country_event = { id = DA_wonder_works.1 }
+		}
+		DA_WW_clear_4039 = yes
+		DA_WW_refresh_4039 = yes
+	}
+}
+
+country_event = { # Titanium Vault: the works are finished
+	id = DA_wonder_works.102
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4217
+		owns = 4217
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4217 value = 1 }
+		if = { limit = { 4217 = { has_great_project = { type = DA_Titanium_Vault tier = 1 } } } set_variable = { which = DA_WW_tier_4217 value = 2 } }
+		if = { limit = { 4217 = { has_great_project = { type = DA_Titanium_Vault tier = 2 } } } set_variable = { which = DA_WW_tier_4217 value = 3 } }
+		4217 = { add_great_project_tier = { type = DA_Titanium_Vault tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4217 value = 2 } } }
+			country_event = { id = DA_Hold_Gor_Vazumbrog.11 days = 365 }
+			country_event = { id = DA_Hold_Gor_Vazumbrog.12 days = 1095 }
+			country_event = { id = DA_wonder_works.2 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4217 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4217 value = 3 } } }
+			country_event = { id = DA_wonder_works.2 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4217 value = 3 } }
+			country_event = { id = DA_Hold_Gor_Vazumbrog.14 days = 3650 }
+			country_event = { id = DA_wonder_works.2 }
+		}
+		DA_WW_clear_4217 = yes
+		DA_WW_refresh_4217 = yes
+	}
+}
+
+country_event = { # Argrâstun Cathedral: the works are finished
+	id = DA_wonder_works.103
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4284
+		owns = 4284
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4284 value = 1 }
+		if = { limit = { 4284 = { has_great_project = { type = DA_Argrastun_Cathedral tier = 1 } } } set_variable = { which = DA_WW_tier_4284 value = 2 } }
+		if = { limit = { 4284 = { has_great_project = { type = DA_Argrastun_Cathedral tier = 2 } } } set_variable = { which = DA_WW_tier_4284 value = 3 } }
+		4284 = { add_great_project_tier = { type = DA_Argrastun_Cathedral tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4284 value = 2 } } }
+			country_event = { id = DA_wonder_works.3 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4284 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4284 value = 3 } } }
+			country_event = { id = DA_wonder_works.3 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4284 value = 3 } }
+			country_event = { id = DA_wonder_works.3 }
+		}
+		DA_WW_clear_4284 = yes
+		DA_WW_refresh_4284 = yes
+	}
+}
+
+country_event = { # Ancient Research Facility: the works are finished
+	id = DA_wonder_works.104
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4119
+		owns = 4119
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4119 value = 1 }
+		if = { limit = { 4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 1 } } } set_variable = { which = DA_WW_tier_4119 value = 2 } }
+		if = { limit = { 4119 = { has_great_project = { type = DA_Ancient_Research_facility1 tier = 2 } } } set_variable = { which = DA_WW_tier_4119 value = 3 } }
+		4119 = { add_great_project_tier = { type = DA_Ancient_Research_facility1 tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4119 value = 2 } } }
+			country_event = { id = DA_wonder_works.4 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4119 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4119 value = 3 } } }
+			country_event = { id = DA_wonder_works.4 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4119 value = 3 } }
+			country_event = { id = DA_wonder_works.4 }
+		}
+		DA_WW_clear_4119 = yes
+		DA_WW_refresh_4119 = yes
+	}
+}
+
+country_event = { # Amldavhad Training Facility: the works are finished
+	id = DA_wonder_works.105
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4236
+		owns = 4236
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4236 value = 1 }
+		if = { limit = { 4236 = { has_great_project = { type = The_Dwarven_Workshop tier = 1 } } } set_variable = { which = DA_WW_tier_4236 value = 2 } }
+		if = { limit = { 4236 = { has_great_project = { type = The_Dwarven_Workshop tier = 2 } } } set_variable = { which = DA_WW_tier_4236 value = 3 } }
+		4236 = { add_great_project_tier = { type = The_Dwarven_Workshop tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4236 value = 2 } } }
+			country_event = { id = DA_Mithradum_event.2 days = 30 }
+			country_event = { id = DA_Mithradum_event.11 days = 365 }
+			country_event = { id = DA_Mithradum_event.12 days = 1095 }
+			country_event = { id = DA_wonder_works.5 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4236 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4236 value = 3 } } }
+			country_event = { id = DA_Mithradum_event.3 days = 30 }
+			country_event = { id = DA_Mithradum_event.13 days = 365 }
+			country_event = { id = DA_wonder_works.5 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4236 value = 3 } }
+			country_event = { id = DA_Mithradum_event.4 days = 30 }
+			country_event = { id = DA_Mithradum_event.14 days = 3650 }
+			country_event = { id = DA_wonder_works.5 }
+		}
+		DA_WW_clear_4236 = yes
+		DA_WW_refresh_4236 = yes
+	}
+}
+
+country_event = { # The Setzunkhupa: the works are finished
+	id = DA_wonder_works.106
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4020
+		owns = 4020
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4020 value = 1 }
+		if = { limit = { 4020 = { has_great_project = { type = The_Sky_Hold tier = 1 } } } set_variable = { which = DA_WW_tier_4020 value = 2 } }
+		if = { limit = { 4020 = { has_great_project = { type = The_Sky_Hold tier = 2 } } } set_variable = { which = DA_WW_tier_4020 value = 3 } }
+		4020 = { add_great_project_tier = { type = The_Sky_Hold tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4020 value = 2 } } }
+			4020 = { province_event = { id = DA_Dur_Vazhatun_event.2 days = 30 } }
+			country_event = { id = DA_wonder_works.6 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4020 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4020 value = 3 } } }
+			4020 = { province_event = { id = DA_Dur_Vazhatun_event.3 days = 30 } }
+			country_event = { id = DA_wonder_works.6 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4020 value = 3 } }
+			4020 = { province_event = { id = DA_Dur_Vazhatun_event.4 days = 30 } }
+			country_event = { id = DA_wonder_works.6 }
+		}
+		DA_WW_clear_4020 = yes
+		DA_WW_refresh_4020 = yes
+	}
+}
+
+country_event = { # Ducaniel's Laboratory: the works are finished
+	id = DA_wonder_works.107
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_2963
+		owns = 2963
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_2963 value = 1 }
+		if = { limit = { 2963 = { has_great_project = { type = The_Dwarven_Laboratory tier = 1 } } } set_variable = { which = DA_WW_tier_2963 value = 2 } }
+		if = { limit = { 2963 = { has_great_project = { type = The_Dwarven_Laboratory tier = 2 } } } set_variable = { which = DA_WW_tier_2963 value = 3 } }
+		2963 = { add_great_project_tier = { type = The_Dwarven_Laboratory tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_2963 value = 2 } } }
+			country_event = { id = DA_Hul_Jorkad_event.2 days = 30 }
+			country_event = { id = DA_wonder_works.7 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_2963 value = 2 } NOT = { check_variable = { which = DA_WW_tier_2963 value = 3 } } }
+			2963 = { province_event = { id = DA_Hul_Jorkad_event.3 days = 30 } }
+			country_event = { id = DA_wonder_works.7 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_2963 value = 3 } }
+			2963 = { province_event = { id = DA_Hul_Jorkad_event.4 days = 30 } }
+			country_event = { id = DA_wonder_works.7 }
+		}
+		DA_WW_clear_2963 = yes
+		DA_WW_refresh_2963 = yes
+	}
+}
+
+country_event = { # Railway Control Center: the works are finished
+	id = DA_wonder_works.108
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_2931
+		owns = 2931
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_2931 value = 1 }
+		if = { limit = { 2931 = { has_great_project = { type = DA_Railway_HQ tier = 1 } } } set_variable = { which = DA_WW_tier_2931 value = 2 } }
+		if = { limit = { 2931 = { has_great_project = { type = DA_Railway_HQ tier = 2 } } } set_variable = { which = DA_WW_tier_2931 value = 3 } }
+		2931 = { add_great_project_tier = { type = DA_Railway_HQ tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_2931 value = 2 } } }
+			set_country_flag = DA_can_upgrade_rails
+			country_event = { id = DA_Er_Natvir_event.2 days = 30 }
+			country_event = { id = DA_Er_Natvir_event.11 days = 365 }
+			DA_RW_recount = yes
+			country_event = { id = DA_wonder_works.8 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_2931 value = 2 } NOT = { check_variable = { which = DA_WW_tier_2931 value = 3 } } }
+			country_event = { id = DA_Er_Natvir_event.3 days = 30 }
+			country_event = { id = DA_Er_Natvir_event.12 days = 1095 }
+			DA_RW_recount = yes
+			country_event = { id = DA_wonder_works.8 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_2931 value = 3 } }
+			set_country_flag = DA_can_upgrade_rails_2
+			country_event = { id = DA_Er_Natvir_event.4 days = 30 }
+			country_event = { id = DA_Er_Natvir_event.14 days = 1825 }
+			DA_RW_recount = yes
+			country_event = { id = DA_wonder_works.8 }
+		}
+		DA_WW_clear_2931 = yes
+		DA_WW_refresh_2931 = yes
+	}
+}
+
+country_event = { # Warsuit Foundry: the works are finished
+	id = DA_wonder_works.121
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_2868
+		owns = 2868
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_2868 value = 1 }
+		if = { limit = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 1 } } } set_variable = { which = DA_WW_tier_2868 value = 2 } }
+		if = { limit = { 2868 = { has_great_project = { type = DA_Exoskeletons_Workshop tier = 2 } } } set_variable = { which = DA_WW_tier_2868 value = 3 } }
+		2868 = { add_great_project_tier = { type = DA_Exoskeletons_Workshop tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_2868 value = 2 } } }
+			set_country_flag = DA_can_implement_platinum_exoskeletons
+			country_event = { id = DA_Haraz_Orldhum_event.2 days = 30 }
+			country_event = { id = DA_Haraz_Orldhum_event.21 days = 365 }
+			country_event = { id = DA_Haraz_Orldhum_event.22 days = 1095 }
+			country_event = { id = DA_wonder_works.21 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_2868 value = 2 } NOT = { check_variable = { which = DA_WW_tier_2868 value = 3 } } }
+			country_event = { id = DA_Haraz_Orldhum_event.4 days = 30 }
+			country_event = { id = DA_wonder_works.21 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_2868 value = 3 } }
+			country_event = { id = DA_Haraz_Orldhum_event.5 days = 30 }
+			country_event = { id = DA_Haraz_Orldhum_event.24 days = 3650 }
+			country_event = { id = DA_wonder_works.21 }
+		}
+		DA_WW_clear_2868 = yes
+		DA_WW_refresh_2868 = yes
+	}
+}
+
+country_event = { # Halanna's Wrath: the works are finished
+	id = DA_wonder_works.122
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4247
+		owns = 4247
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4247 value = 1 }
+		if = { limit = { 4247 = { has_great_project = { type = DA_Earth_Shatterer tier = 1 } } } set_variable = { which = DA_WW_tier_4247 value = 2 } }
+		if = { limit = { 4247 = { has_great_project = { type = DA_Earth_Shatterer tier = 2 } } } set_variable = { which = DA_WW_tier_4247 value = 3 } }
+		4247 = { add_great_project_tier = { type = DA_Earth_Shatterer tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4247 value = 2 } } }
+			4247 = { province_event = { id = DA_Hold_Ovdal_Kanzad_event.21 } }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4247 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4247 value = 3 } } }
+			country_event = { id = DA_wonder_works.22 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4247 value = 3 } }
+			country_event = { id = DA_wonder_works.22 }
+		}
+		DA_WW_clear_4247 = yes
+		DA_WW_refresh_4247 = yes
+	}
+}
+
+country_event = { # Frozen Forge: the works are finished
+	id = DA_wonder_works.124
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4208
+		owns = 4208
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4208 value = 1 }
+		if = { limit = { 4208 = { has_great_project = { type = DA_Frozen_Forge tier = 1 } } } set_variable = { which = DA_WW_tier_4208 value = 2 } }
+		if = { limit = { 4208 = { has_great_project = { type = DA_Frozen_Forge tier = 2 } } } set_variable = { which = DA_WW_tier_4208 value = 3 } }
+		4208 = { add_great_project_tier = { type = DA_Frozen_Forge tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4208 value = 2 } } }
+			country_event = { id = DA_Krakdhumvror_event.2 days = 30 }
+			country_event = { id = DA_Krakdhumvror_event.11 days = 365 }
+			country_event = { id = DA_Krakdhumvror_event.12 days = 1095 }
+			country_event = { id = DA_wonder_works.24 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4208 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4208 value = 3 } } }
+			country_event = { id = DA_Krakdhumvror_event.3 days = 30 }
+			country_event = { id = DA_wonder_works.24 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4208 value = 3 } }
+			country_event = { id = DA_Krakdhumvror_event.14 days = 3650 }
+			country_event = { id = DA_wonder_works.24 }
+		}
+		DA_WW_clear_4208 = yes
+		DA_WW_refresh_4208 = yes
+	}
+}
+
+country_event = { # Drowned Arsenal: the works are finished
+	id = DA_wonder_works.125
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_526
+		owns = 526
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_526 value = 1 }
+		if = { limit = { 526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 1 } } } set_variable = { which = DA_WW_tier_526 value = 2 } }
+		if = { limit = { 526 = { has_great_project = { type = DA_Drowned_Arsenal tier = 2 } } } set_variable = { which = DA_WW_tier_526 value = 3 } }
+		526 = { add_great_project_tier = { type = DA_Drowned_Arsenal tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_526 value = 2 } } }
+			DA_enable_Metal_Ship = yes
+			DA_OT_sync = yes
+			country_event = { id = DA_Ovdal_Tungr_event.2 days = 30 }
+			country_event = { id = DA_Ovdal_Tungr_event.11 days = 365 }
+			country_event = { id = DA_Ovdal_Tungr_event.12 days = 1095 }
+			country_event = { id = DA_wonder_works.25 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_526 value = 2 } NOT = { check_variable = { which = DA_WW_tier_526 value = 3 } } }
+			DA_OT_sync = yes
+			country_event = { id = DA_Ovdal_Tungr_event.3 days = 30 }
+			country_event = { id = DA_Ovdal_Tungr_event.13 days = 365 }
+			country_event = { id = DA_wonder_works.25 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_526 value = 3 } }
+			DA_OT_sync = yes
+			country_event = { id = DA_Ovdal_Tungr_event.14 days = 3650 }
+			country_event = { id = DA_wonder_works.25 }
+		}
+		DA_WW_clear_526 = yes
+		DA_WW_refresh_526 = yes
+	}
+}
+
+country_event = { # Builders' Guildhall: the works are finished
+	id = DA_wonder_works.126
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4078
+		owns = 4078
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4078 value = 1 }
+		if = { limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 1 } } } set_variable = { which = DA_WW_tier_4078 value = 2 } }
+		if = { limit = { 4078 = { has_great_project = { type = DA_Builders_Guildhall tier = 2 } } } set_variable = { which = DA_WW_tier_4078 value = 3 } }
+		4078 = { add_great_project_tier = { type = DA_Builders_Guildhall tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4078 value = 2 } } }
+			country_event = { id = DA_Hehodovar_event.2 days = 30 }
+			country_event = { id = DA_Hehodovar_event.11 days = 365 }
+			country_event = { id = DA_Hehodovar_event.12 days = 1095 }
+			country_event = { id = DA_wonder_works.26 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4078 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4078 value = 3 } } }
+			country_event = { id = DA_Hehodovar_event.3 days = 30 }
+			country_event = { id = DA_Hehodovar_event.13 days = 365 }
+			country_event = { id = DA_wonder_works.26 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4078 value = 3 } }
+			country_event = { id = DA_Hehodovar_event.14 days = 3650 }
+			country_event = { id = DA_wonder_works.26 }
+		}
+		DA_WW_clear_4078 = yes
+		DA_WW_refresh_4078 = yes
+	}
+}
+
+country_event = { # Strâmolgiv: the works are finished
+	id = DA_wonder_works.127
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4266
+		owns = 4266
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4266 value = 1 }
+		if = { limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 1 } } } set_variable = { which = DA_WW_tier_4266 value = 2 } }
+		if = { limit = { 4266 = { has_great_project = { type = DA_Stramolgiv tier = 2 } } } set_variable = { which = DA_WW_tier_4266 value = 3 } }
+		4266 = { add_great_project_tier = { type = DA_Stramolgiv tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4266 value = 2 } } }
+			country_event = { id = DA_Remaining_Wonders_event.102 days = 30 }
+			country_event = { id = DA_wonder_works.27 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4266 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4266 value = 3 } } }
+			country_event = { id = DA_Remaining_Wonders_event.103 days = 30 }
+			country_event = { id = DA_wonder_works.27 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4266 value = 3 } }
+			country_event = { id = DA_Remaining_Wonders_event.104 days = 30 }
+			country_event = { id = DA_wonder_works.27 }
+		}
+		DA_WW_clear_4266 = yes
+		DA_WW_refresh_4266 = yes
+	}
+}
+
+country_event = { # Sleepers' Hall: the works are finished
+	id = DA_wonder_works.128
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4323
+		owns = 4323
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4323 value = 1 }
+		if = { limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 1 } } } set_variable = { which = DA_WW_tier_4323 value = 2 } }
+		if = { limit = { 4323 = { has_great_project = { type = DA_Sleepers_Hall tier = 2 } } } set_variable = { which = DA_WW_tier_4323 value = 3 } }
+		4323 = { add_great_project_tier = { type = DA_Sleepers_Hall tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4323 value = 2 } } }
+			DA_SL_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.202 days = 30 }
+			country_event = { id = DA_wonder_works.28 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4323 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4323 value = 3 } } }
+			DA_SL_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.203 days = 30 }
+			country_event = { id = DA_wonder_works.28 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4323 value = 3 } }
+			DA_SL_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.204 days = 30 }
+			country_event = { id = DA_wonder_works.28 }
+		}
+		DA_WW_clear_4323 = yes
+		DA_WW_refresh_4323 = yes
+	}
+}
+
+country_event = { # Magistrates' Vault: the works are finished
+	id = DA_wonder_works.129
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_2914
+		owns = 2914
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_2914 value = 1 }
+		if = { limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 1 } } } set_variable = { which = DA_WW_tier_2914 value = 2 } }
+		if = { limit = { 2914 = { has_great_project = { type = DA_Magistrates_Vault tier = 2 } } } set_variable = { which = DA_WW_tier_2914 value = 3 } }
+		2914 = { add_great_project_tier = { type = DA_Magistrates_Vault tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_2914 value = 2 } } }
+			DA_MV_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.302 days = 30 }
+			country_event = { id = DA_wonder_works.29 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_2914 value = 2 } NOT = { check_variable = { which = DA_WW_tier_2914 value = 3 } } }
+			DA_MV_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.303 days = 30 }
+			country_event = { id = DA_wonder_works.29 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_2914 value = 3 } }
+			DA_MV_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.304 days = 30 }
+			country_event = { id = DA_wonder_works.29 }
+		}
+		DA_WW_clear_2914 = yes
+		DA_WW_refresh_2914 = yes
+	}
+}
+
+country_event = { # Hall of the Vanguard: the works are finished
+	id = DA_wonder_works.130
+	title = DA_wonder_works.100.t
+	desc = DA_wonder_works.100.d
+	picture = GREAT_BUILDING_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = DA_WW_building_4311
+		owns = 4311
+	}
+	option = {
+		name = DA_wonder_works.a
+		# the tier these works raise, read before it changes
+		set_variable = { which = DA_WW_tier_4311 value = 1 }
+		if = { limit = { 4311 = { has_great_project = { type = DA_Hall_of_Vanguard tier = 1 } } } set_variable = { which = DA_WW_tier_4311 value = 2 } }
+		if = { limit = { 4311 = { has_great_project = { type = DA_Hall_of_Vanguard tier = 2 } } } set_variable = { which = DA_WW_tier_4311 value = 3 } }
+		4311 = { add_great_project_tier = { type = DA_Hall_of_Vanguard tier = 1 } }
+		if = {    # tier I
+			limit = { NOT = { check_variable = { which = DA_WW_tier_4311 value = 2 } } }
+			DA_HV_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.402 days = 30 }
+			country_event = { id = DA_wonder_works.30 }
+		}
+		if = {    # tier II
+			limit = { check_variable = { which = DA_WW_tier_4311 value = 2 } NOT = { check_variable = { which = DA_WW_tier_4311 value = 3 } } }
+			DA_HV_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.403 days = 30 }
+			country_event = { id = DA_wonder_works.30 }
+		}
+		if = {    # tier III
+			limit = { check_variable = { which = DA_WW_tier_4311 value = 3 } }
+			DA_HV_sync = yes
+			country_event = { id = DA_Remaining_Wonders_event.404 days = 30 }
+			country_event = { id = DA_wonder_works.30 }
+		}
+		DA_WW_clear_4311 = yes
+		DA_WW_refresh_4311 = yes
+	}
+}
