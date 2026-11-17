@@ -3,6 +3,9 @@
 # Country scope. The five-year school report (DA_Tech_Tree_event.40).
 # No scripted effect here takes a parameter: the old DA_SR_line_<school> = { do = grant } chose with a parameter
 # which effect it called, and the experience never came.
+# No else / else_if either: the num_of_owned_provinces_with ladder (if / else_if) that picked the amount paid only
+# its last rung, the base, and never the +100 per five buildings. The amounts are now worked out like the
+# "next report" of the Secondary Technologies window (DA_SCH_refresh): count, base, +100 per five.
 
 # Refresh the five experience multipliers (1 + the fake modifier), as DA_Tech_prov.<school> does.
 # DA_SCH_refresh (the Secondary Technologies window) calls it too.
@@ -19,579 +22,220 @@ DA_SR_refresh_multipliers = {
 	change_variable = { which = DA_Metallurgy_exp_modifier_var value = 1 }
 }
 
-# DA_SR_amt_<var>: what the report gives a school now, multiplier included; 0 when it has nothing to report.
+# DA_SR_n_<var>: owned provinces with a building of the school's current tier or better (0 at level IV).
+# DA_SR_amt_<var>: what the report gives the school now, multiplier included; 0 when it has nothing to report.
 DA_SR_amount_Alchemy = {	# Alchemy: DA_Alchemy_workshop line
-	set_variable = { which = DA_SR_amt_Alchemy value = 0 }
+	set_variable = { which = DA_SR_n_Alchemy value = 0 }
 	if = {
-		limit = { NOT = { DA_completed.Alchemy_4 = yes } }	# a school at level IV has nothing left to report
-		if = {
-			limit = { DA_completed.Alchemy_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Alchemy_workshop_3 } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 1000 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Alchemy_workshop_3 } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Alchemy_workshop_3 } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Alchemy_workshop_3 } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Alchemy_workshop_3 } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Alchemy_workshop_3 } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 500 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Alchemy_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 400 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Alchemy_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 300 }
-			}
-		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 300 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				set_variable = { which = DA_SR_amt_Alchemy value = 200 }
-			}
+		limit = { NOT = { DA_completed.Alchemy_1 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } }
+			owner = { change_variable = { which = DA_SR_n_Alchemy value = 1 } }
 		}
 	}
+	if = {
+		limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } }
+			owner = { change_variable = { which = DA_SR_n_Alchemy value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } }
+			owner = { change_variable = { which = DA_SR_n_Alchemy value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } }
+		every_owned_province = {
+			limit = { has_building = DA_Alchemy_workshop_3 }
+			owner = { change_variable = { which = DA_SR_n_Alchemy value = 1 } }
+		}
+	}
+	set_variable = { which = DA_SR_amt_Alchemy value = 0 }
+	if = { limit = { NOT = { DA_completed.Alchemy_1 = yes } check_variable = { which = DA_SR_n_Alchemy value = 1 } } set_variable = { which = DA_SR_amt_Alchemy value = 200 } }
+	if = { limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } check_variable = { which = DA_SR_n_Alchemy value = 1 } } set_variable = { which = DA_SR_amt_Alchemy value = 300 } }
+	if = { limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } check_variable = { which = DA_SR_n_Alchemy value = 1 } } set_variable = { which = DA_SR_amt_Alchemy value = 400 } }
+	if = { limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } check_variable = { which = DA_SR_n_Alchemy value = 1 } } set_variable = { which = DA_SR_amt_Alchemy value = 500 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Alchemy value = 5 } } change_variable = { which = DA_SR_amt_Alchemy value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Alchemy value = 10 } } change_variable = { which = DA_SR_amt_Alchemy value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Alchemy value = 15 } } change_variable = { which = DA_SR_amt_Alchemy value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Alchemy value = 20 } } change_variable = { which = DA_SR_amt_Alchemy value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Alchemy value = 25 } } change_variable = { which = DA_SR_amt_Alchemy value = 100 } }
 	multiply_variable = { which = DA_SR_amt_Alchemy which = DA_Alchemy_exp_modifier_var }
 }
 
 DA_SR_amount_Magic_Theory = {	# Arcane Arts: DA_Runesmiths_branch line
-	set_variable = { which = DA_SR_amt_Arcane_Arts value = 0 }
+	set_variable = { which = DA_SR_n_Arcane_Arts value = 0 }
 	if = {
-		limit = { NOT = { DA_completed.Magic_Theory_4 = yes } }	# a school at level IV has nothing left to report
-		if = {
-			limit = { DA_completed.Magic_Theory_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Runesmiths_branch_3 } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 1000 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Runesmiths_branch_3 } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Runesmiths_branch_3 } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Runesmiths_branch_3 } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Runesmiths_branch_3 } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Runesmiths_branch_3 } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 500 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Magic_Theory_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 400 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Magic_Theory_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 300 }
-			}
-		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 300 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				set_variable = { which = DA_SR_amt_Arcane_Arts value = 200 }
-			}
+		limit = { NOT = { DA_completed.Magic_Theory_1 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } }
+			owner = { change_variable = { which = DA_SR_n_Arcane_Arts value = 1 } }
 		}
 	}
+	if = {
+		limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } }
+			owner = { change_variable = { which = DA_SR_n_Arcane_Arts value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } }
+			owner = { change_variable = { which = DA_SR_n_Arcane_Arts value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } }
+		every_owned_province = {
+			limit = { has_building = DA_Runesmiths_branch_3 }
+			owner = { change_variable = { which = DA_SR_n_Arcane_Arts value = 1 } }
+		}
+	}
+	set_variable = { which = DA_SR_amt_Arcane_Arts value = 0 }
+	if = { limit = { NOT = { DA_completed.Magic_Theory_1 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } } set_variable = { which = DA_SR_amt_Arcane_Arts value = 200 } }
+	if = { limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } } set_variable = { which = DA_SR_amt_Arcane_Arts value = 300 } }
+	if = { limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } } set_variable = { which = DA_SR_amt_Arcane_Arts value = 400 } }
+	if = { limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } } set_variable = { which = DA_SR_amt_Arcane_Arts value = 500 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } } change_variable = { which = DA_SR_amt_Arcane_Arts value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } } change_variable = { which = DA_SR_amt_Arcane_Arts value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } } change_variable = { which = DA_SR_amt_Arcane_Arts value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } } change_variable = { which = DA_SR_amt_Arcane_Arts value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } } change_variable = { which = DA_SR_amt_Arcane_Arts value = 100 } }
 	multiply_variable = { which = DA_SR_amt_Arcane_Arts which = DA_Arcane_Arts_exp_modifier_var }
 }
 
 DA_SR_amount_Mechanics = {	# Mechanics: DA_Factory line
-	set_variable = { which = DA_SR_amt_Mechanics value = 0 }
+	set_variable = { which = DA_SR_n_Mechanics value = 0 }
 	if = {
-		limit = { NOT = { DA_completed.Mechanics_4 = yes } }	# a school at level IV has nothing left to report
-		if = {
-			limit = { DA_completed.Mechanics_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Factory_3 } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 1000 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Factory_3 } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Factory_3 } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Factory_3 } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Factory_3 } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Factory_3 } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 500 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Mechanics_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 400 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Mechanics_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 300 }
-			}
-		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 300 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				set_variable = { which = DA_SR_amt_Mechanics value = 200 }
-			}
+		limit = { NOT = { DA_completed.Mechanics_1 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } }
+			owner = { change_variable = { which = DA_SR_n_Mechanics value = 1 } }
 		}
 	}
+	if = {
+		limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } }
+			owner = { change_variable = { which = DA_SR_n_Mechanics value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } }
+			owner = { change_variable = { which = DA_SR_n_Mechanics value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } }
+		every_owned_province = {
+			limit = { has_building = DA_Factory_3 }
+			owner = { change_variable = { which = DA_SR_n_Mechanics value = 1 } }
+		}
+	}
+	set_variable = { which = DA_SR_amt_Mechanics value = 0 }
+	if = { limit = { NOT = { DA_completed.Mechanics_1 = yes } check_variable = { which = DA_SR_n_Mechanics value = 1 } } set_variable = { which = DA_SR_amt_Mechanics value = 200 } }
+	if = { limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } check_variable = { which = DA_SR_n_Mechanics value = 1 } } set_variable = { which = DA_SR_amt_Mechanics value = 300 } }
+	if = { limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } check_variable = { which = DA_SR_n_Mechanics value = 1 } } set_variable = { which = DA_SR_amt_Mechanics value = 400 } }
+	if = { limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } check_variable = { which = DA_SR_n_Mechanics value = 1 } } set_variable = { which = DA_SR_amt_Mechanics value = 500 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Mechanics value = 5 } } change_variable = { which = DA_SR_amt_Mechanics value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Mechanics value = 10 } } change_variable = { which = DA_SR_amt_Mechanics value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Mechanics value = 15 } } change_variable = { which = DA_SR_amt_Mechanics value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Mechanics value = 20 } } change_variable = { which = DA_SR_amt_Mechanics value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Mechanics value = 25 } } change_variable = { which = DA_SR_amt_Mechanics value = 100 } }
 	multiply_variable = { which = DA_SR_amt_Mechanics which = DA_Mechanics_exp_modifier_var }
 }
 
 DA_SR_amount_Medicine = {	# Medicine: DA_Hospital line
-	set_variable = { which = DA_SR_amt_Medicine value = 0 }
+	set_variable = { which = DA_SR_n_Medicine value = 0 }
 	if = {
-		limit = { NOT = { DA_completed.Medicine_4 = yes } }	# a school at level IV has nothing left to report
-		if = {
-			limit = { DA_completed.Medicine_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Hospital_3 } }
-				set_variable = { which = DA_SR_amt_Medicine value = 1000 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Hospital_3 } }
-				set_variable = { which = DA_SR_amt_Medicine value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Hospital_3 } }
-				set_variable = { which = DA_SR_amt_Medicine value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Hospital_3 } }
-				set_variable = { which = DA_SR_amt_Medicine value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Hospital_3 } }
-				set_variable = { which = DA_SR_amt_Medicine value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Hospital_3 } }
-				set_variable = { which = DA_SR_amt_Medicine value = 500 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Medicine_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 400 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Medicine_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 300 }
-			}
-		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 300 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				set_variable = { which = DA_SR_amt_Medicine value = 200 }
-			}
+		limit = { NOT = { DA_completed.Medicine_1 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } }
+			owner = { change_variable = { which = DA_SR_n_Medicine value = 1 } }
 		}
 	}
+	if = {
+		limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } }
+			owner = { change_variable = { which = DA_SR_n_Medicine value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } }
+			owner = { change_variable = { which = DA_SR_n_Medicine value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } }
+		every_owned_province = {
+			limit = { has_building = DA_Hospital_3 }
+			owner = { change_variable = { which = DA_SR_n_Medicine value = 1 } }
+		}
+	}
+	set_variable = { which = DA_SR_amt_Medicine value = 0 }
+	if = { limit = { NOT = { DA_completed.Medicine_1 = yes } check_variable = { which = DA_SR_n_Medicine value = 1 } } set_variable = { which = DA_SR_amt_Medicine value = 200 } }
+	if = { limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } check_variable = { which = DA_SR_n_Medicine value = 1 } } set_variable = { which = DA_SR_amt_Medicine value = 300 } }
+	if = { limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } check_variable = { which = DA_SR_n_Medicine value = 1 } } set_variable = { which = DA_SR_amt_Medicine value = 400 } }
+	if = { limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } check_variable = { which = DA_SR_n_Medicine value = 1 } } set_variable = { which = DA_SR_amt_Medicine value = 500 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Medicine value = 5 } } change_variable = { which = DA_SR_amt_Medicine value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Medicine value = 10 } } change_variable = { which = DA_SR_amt_Medicine value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Medicine value = 15 } } change_variable = { which = DA_SR_amt_Medicine value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Medicine value = 20 } } change_variable = { which = DA_SR_amt_Medicine value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Medicine value = 25 } } change_variable = { which = DA_SR_amt_Medicine value = 100 } }
 	multiply_variable = { which = DA_SR_amt_Medicine which = DA_Medicine_exp_modifier_var }
 }
 
 DA_SR_amount_Metallurgy = {	# Metallurgy: DA_Smelting_Furnace line
-	set_variable = { which = DA_SR_amt_Metallurgy value = 0 }
+	set_variable = { which = DA_SR_n_Metallurgy value = 0 }
 	if = {
-		limit = { NOT = { DA_completed.Metallurgy_4 = yes } }	# a school at level IV has nothing left to report
-		if = {
-			limit = { DA_completed.Metallurgy_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Smelting_Furnace_3 } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 1000 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Smelting_Furnace_3 } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Smelting_Furnace_3 } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Smelting_Furnace_3 } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Smelting_Furnace_3 } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Smelting_Furnace_3 } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 500 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Metallurgy_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 900 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 400 }
-			}
-		}
-		else_if = {
-			limit = { DA_completed.Metallurgy_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 800 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 300 }
-			}
-		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 700 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 600 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 500 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 400 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 300 }
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				set_variable = { which = DA_SR_amt_Metallurgy value = 200 }
-			}
+		limit = { NOT = { DA_completed.Metallurgy_1 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } }
+			owner = { change_variable = { which = DA_SR_n_Metallurgy value = 1 } }
 		}
 	}
+	if = {
+		limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } }
+			owner = { change_variable = { which = DA_SR_n_Metallurgy value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } }
+		every_owned_province = {
+			limit = { OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } }
+			owner = { change_variable = { which = DA_SR_n_Metallurgy value = 1 } }
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } }
+		every_owned_province = {
+			limit = { has_building = DA_Smelting_Furnace_3 }
+			owner = { change_variable = { which = DA_SR_n_Metallurgy value = 1 } }
+		}
+	}
+	set_variable = { which = DA_SR_amt_Metallurgy value = 0 }
+	if = { limit = { NOT = { DA_completed.Metallurgy_1 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 1 } } set_variable = { which = DA_SR_amt_Metallurgy value = 200 } }
+	if = { limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 1 } } set_variable = { which = DA_SR_amt_Metallurgy value = 300 } }
+	if = { limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 1 } } set_variable = { which = DA_SR_amt_Metallurgy value = 400 } }
+	if = { limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 1 } } set_variable = { which = DA_SR_amt_Metallurgy value = 500 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Metallurgy value = 5 } } change_variable = { which = DA_SR_amt_Metallurgy value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Metallurgy value = 10 } } change_variable = { which = DA_SR_amt_Metallurgy value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Metallurgy value = 15 } } change_variable = { which = DA_SR_amt_Metallurgy value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Metallurgy value = 20 } } change_variable = { which = DA_SR_amt_Metallurgy value = 100 } }
+	if = { limit = { check_variable = { which = DA_SR_n_Metallurgy value = 25 } } change_variable = { which = DA_SR_amt_Metallurgy value = 100 } }
 	multiply_variable = { which = DA_SR_amt_Metallurgy which = DA_Metallurgy_exp_modifier_var }
 }
 
@@ -606,8 +250,10 @@ DA_SR_amounts = {
 
 # immediate of the report: can a school advance once its amount is in? The amount is added for the question
 # (the school page's own rule, DA_AM_school_due_<school>) and taken back; the answer is DA_SR_ready_<school>.
+# It also leaves DA_SR_n_<var> for the lines of the option.
 DA_SR_prepare = {
 	DA_SR_amounts = yes
+	clr_country_flag = DA_SR_ready_Alchemy
 	change_variable = { which = DA_Alchemy_exp which = DA_SR_amt_Alchemy }
 	if = {
 		limit = {
@@ -617,8 +263,8 @@ DA_SR_prepare = {
 		}
 		set_country_flag = DA_SR_ready_Alchemy
 	}
-	else = { clr_country_flag = DA_SR_ready_Alchemy }
 	subtract_variable = { which = DA_Alchemy_exp which = DA_SR_amt_Alchemy }
+	clr_country_flag = DA_SR_ready_Magic_Theory
 	change_variable = { which = DA_Arcane_Arts_exp which = DA_SR_amt_Arcane_Arts }
 	if = {
 		limit = {
@@ -628,8 +274,8 @@ DA_SR_prepare = {
 		}
 		set_country_flag = DA_SR_ready_Magic_Theory
 	}
-	else = { clr_country_flag = DA_SR_ready_Magic_Theory }
 	subtract_variable = { which = DA_Arcane_Arts_exp which = DA_SR_amt_Arcane_Arts }
+	clr_country_flag = DA_SR_ready_Mechanics
 	change_variable = { which = DA_Mechanics_exp which = DA_SR_amt_Mechanics }
 	if = {
 		limit = {
@@ -639,8 +285,8 @@ DA_SR_prepare = {
 		}
 		set_country_flag = DA_SR_ready_Mechanics
 	}
-	else = { clr_country_flag = DA_SR_ready_Mechanics }
 	subtract_variable = { which = DA_Mechanics_exp which = DA_SR_amt_Mechanics }
+	clr_country_flag = DA_SR_ready_Medicine
 	change_variable = { which = DA_Medicine_exp which = DA_SR_amt_Medicine }
 	if = {
 		limit = {
@@ -650,8 +296,8 @@ DA_SR_prepare = {
 		}
 		set_country_flag = DA_SR_ready_Medicine
 	}
-	else = { clr_country_flag = DA_SR_ready_Medicine }
 	subtract_variable = { which = DA_Medicine_exp which = DA_SR_amt_Medicine }
+	clr_country_flag = DA_SR_ready_Metallurgy
 	change_variable = { which = DA_Metallurgy_exp which = DA_SR_amt_Metallurgy }
 	if = {
 		limit = {
@@ -661,7 +307,6 @@ DA_SR_prepare = {
 		}
 		set_country_flag = DA_SR_ready_Metallurgy
 	}
-	else = { clr_country_flag = DA_SR_ready_Metallurgy }
 	subtract_variable = { which = DA_Metallurgy_exp which = DA_SR_amt_Metallurgy }
 }
 
@@ -681,1709 +326,1660 @@ DA_SR_grant = {
 	clr_country_flag = DA_SR_ready_Metallurgy
 }
 
-# the lines of the report (the option's tooltip)
+# the lines of the report (the option's tooltip). They read DA_SR_n_<var>, left by DA_SR_prepare in immediate.
+# Every case is a plain if; the cases exclude each other (level, and the count between two rungs).
 DA_SR_line_Alchemy = {	# Alchemy: DA_Alchemy_workshop line
 	if = {
-		limit = { NOT = { DA_completed.Alchemy_4 = yes } }	# a school at level IV has nothing left to report
+		limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } check_variable = { which = DA_SR_n_Alchemy value = 25 } }
+		custom_tooltip = DA_Alchemy.1000
 		if = {
-			limit = { DA_completed.Alchemy_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Alchemy_workshop_3 } }
-				custom_tooltip = DA_Alchemy.1000
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Alchemy_workshop_3 } }
-				custom_tooltip = DA_Alchemy.900
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Alchemy_workshop_3 } }
-				custom_tooltip = DA_Alchemy.800
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Alchemy_workshop_3 } }
-				custom_tooltip = DA_Alchemy.700
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Alchemy_workshop_3 } }
-				custom_tooltip = DA_Alchemy.600
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Alchemy_workshop_3 } }
-				custom_tooltip = DA_Alchemy.500
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_4_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Alchemy_none_3_tt
-			}
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
 		}
-		else_if = {
-			limit = { DA_completed.Alchemy_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.900
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.800
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.700
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.600
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.500
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.400
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_3_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Alchemy_none_2_tt
-			}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_4_tt
 		}
-		else_if = {
-			limit = { DA_completed.Alchemy_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.800
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.700
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.600
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.500
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.400
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.300
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_2_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Alchemy_none_1_tt
-			}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } check_variable = { which = DA_SR_n_Alchemy value = 20 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 25 } } }
+		custom_tooltip = DA_Alchemy.900
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
 		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.700
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.600
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.500
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.400
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.300
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Alchemy_workshop_0 has_building = DA_Alchemy_workshop_1 has_building = DA_Alchemy_workshop_2 has_building = DA_Alchemy_workshop_3 } } }
-				custom_tooltip = DA_Alchemy.200
-				if = {
-					limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Alchemy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Alchemy }
-					custom_tooltip = DA_SR_Alchemy_ready_1_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Alchemy_none_0_tt
-			}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_4_tt
 		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } check_variable = { which = DA_SR_n_Alchemy value = 15 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 20 } } }
+		custom_tooltip = DA_Alchemy.800
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } check_variable = { which = DA_SR_n_Alchemy value = 10 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 15 } } }
+		custom_tooltip = DA_Alchemy.700
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } check_variable = { which = DA_SR_n_Alchemy value = 5 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 10 } } }
+		custom_tooltip = DA_Alchemy.600
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } check_variable = { which = DA_SR_n_Alchemy value = 1 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 5 } } }
+		custom_tooltip = DA_Alchemy.500
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_3 = yes NOT = { DA_completed.Alchemy_4 = yes } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 1 } } }
+		custom_tooltip = DA_SR_Alchemy_none_3_tt
+	}
+	if = {
+		limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } check_variable = { which = DA_SR_n_Alchemy value = 25 } }
+		custom_tooltip = DA_Alchemy.900
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } check_variable = { which = DA_SR_n_Alchemy value = 20 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 25 } } }
+		custom_tooltip = DA_Alchemy.800
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } check_variable = { which = DA_SR_n_Alchemy value = 15 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 20 } } }
+		custom_tooltip = DA_Alchemy.700
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } check_variable = { which = DA_SR_n_Alchemy value = 10 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 15 } } }
+		custom_tooltip = DA_Alchemy.600
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } check_variable = { which = DA_SR_n_Alchemy value = 5 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 10 } } }
+		custom_tooltip = DA_Alchemy.500
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } check_variable = { which = DA_SR_n_Alchemy value = 1 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 5 } } }
+		custom_tooltip = DA_Alchemy.400
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_2 = yes NOT = { DA_completed.Alchemy_3 = yes } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 1 } } }
+		custom_tooltip = DA_SR_Alchemy_none_2_tt
+	}
+	if = {
+		limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } check_variable = { which = DA_SR_n_Alchemy value = 25 } }
+		custom_tooltip = DA_Alchemy.800
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } check_variable = { which = DA_SR_n_Alchemy value = 20 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 25 } } }
+		custom_tooltip = DA_Alchemy.700
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } check_variable = { which = DA_SR_n_Alchemy value = 15 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 20 } } }
+		custom_tooltip = DA_Alchemy.600
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } check_variable = { which = DA_SR_n_Alchemy value = 10 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 15 } } }
+		custom_tooltip = DA_Alchemy.500
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } check_variable = { which = DA_SR_n_Alchemy value = 5 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 10 } } }
+		custom_tooltip = DA_Alchemy.400
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } check_variable = { which = DA_SR_n_Alchemy value = 1 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 5 } } }
+		custom_tooltip = DA_Alchemy.300
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Alchemy_1 = yes NOT = { DA_completed.Alchemy_2 = yes } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 1 } } }
+		custom_tooltip = DA_SR_Alchemy_none_1_tt
+	}
+	if = {
+		limit = { NOT = { DA_completed.Alchemy_1 = yes } check_variable = { which = DA_SR_n_Alchemy value = 25 } }
+		custom_tooltip = DA_Alchemy.700
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Alchemy_1 = yes } check_variable = { which = DA_SR_n_Alchemy value = 20 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 25 } } }
+		custom_tooltip = DA_Alchemy.600
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Alchemy_1 = yes } check_variable = { which = DA_SR_n_Alchemy value = 15 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 20 } } }
+		custom_tooltip = DA_Alchemy.500
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Alchemy_1 = yes } check_variable = { which = DA_SR_n_Alchemy value = 10 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 15 } } }
+		custom_tooltip = DA_Alchemy.400
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Alchemy_1 = yes } check_variable = { which = DA_SR_n_Alchemy value = 5 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 10 } } }
+		custom_tooltip = DA_Alchemy.300
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Alchemy_1 = yes } check_variable = { which = DA_SR_n_Alchemy value = 1 } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 5 } } }
+		custom_tooltip = DA_Alchemy.200
+		if = {
+			limit = { check_variable = { which = DA_Alchemy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Alchemy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Alchemy }
+			custom_tooltip = DA_SR_Alchemy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Alchemy_1 = yes } NOT = { check_variable = { which = DA_SR_n_Alchemy value = 1 } } }
+		custom_tooltip = DA_SR_Alchemy_none_0_tt
 	}
 }
 
 DA_SR_line_Magic_Theory = {	# Arcane Arts: DA_Runesmiths_branch line
 	if = {
-		limit = { NOT = { DA_completed.Magic_Theory_4 = yes } }	# a school at level IV has nothing left to report
+		limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } }
+		custom_tooltip = DA_Magic_Theory.1000
 		if = {
-			limit = { DA_completed.Magic_Theory_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Runesmiths_branch_3 } }
-				custom_tooltip = DA_Magic_Theory.1000
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Runesmiths_branch_3 } }
-				custom_tooltip = DA_Magic_Theory.900
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Runesmiths_branch_3 } }
-				custom_tooltip = DA_Magic_Theory.800
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Runesmiths_branch_3 } }
-				custom_tooltip = DA_Magic_Theory.700
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Runesmiths_branch_3 } }
-				custom_tooltip = DA_Magic_Theory.600
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Runesmiths_branch_3 } }
-				custom_tooltip = DA_Magic_Theory.500
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Magic_Theory_none_3_tt
-			}
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
 		}
-		else_if = {
-			limit = { DA_completed.Magic_Theory_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.900
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.800
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.700
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.600
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.500
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.400
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Magic_Theory_none_2_tt
-			}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
 		}
-		else_if = {
-			limit = { DA_completed.Magic_Theory_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.800
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.700
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.600
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.500
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.400
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.300
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Magic_Theory_none_1_tt
-			}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } } }
+		custom_tooltip = DA_Magic_Theory.900
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
 		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.700
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.600
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.500
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.400
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.300
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } }
-				custom_tooltip = DA_Magic_Theory.200
-				if = {
-					limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Magic_Theory }
-					custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Magic_Theory_none_0_tt
-			}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
 		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } } }
+		custom_tooltip = DA_Magic_Theory.800
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } } }
+		custom_tooltip = DA_Magic_Theory.700
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } } }
+		custom_tooltip = DA_Magic_Theory.600
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } } }
+		custom_tooltip = DA_Magic_Theory.500
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_3 = yes NOT = { DA_completed.Magic_Theory_4 = yes } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } } }
+		custom_tooltip = DA_SR_Magic_Theory_none_3_tt
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } }
+		custom_tooltip = DA_Magic_Theory.900
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } } }
+		custom_tooltip = DA_Magic_Theory.800
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } } }
+		custom_tooltip = DA_Magic_Theory.700
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } } }
+		custom_tooltip = DA_Magic_Theory.600
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } } }
+		custom_tooltip = DA_Magic_Theory.500
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } } }
+		custom_tooltip = DA_Magic_Theory.400
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_2 = yes NOT = { DA_completed.Magic_Theory_3 = yes } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } } }
+		custom_tooltip = DA_SR_Magic_Theory_none_2_tt
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } }
+		custom_tooltip = DA_Magic_Theory.800
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } } }
+		custom_tooltip = DA_Magic_Theory.700
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } } }
+		custom_tooltip = DA_Magic_Theory.600
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } } }
+		custom_tooltip = DA_Magic_Theory.500
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } } }
+		custom_tooltip = DA_Magic_Theory.400
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } } }
+		custom_tooltip = DA_Magic_Theory.300
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Magic_Theory_1 = yes NOT = { DA_completed.Magic_Theory_2 = yes } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } } }
+		custom_tooltip = DA_SR_Magic_Theory_none_1_tt
+	}
+	if = {
+		limit = { NOT = { DA_completed.Magic_Theory_1 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } }
+		custom_tooltip = DA_Magic_Theory.700
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Magic_Theory_1 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 25 } } }
+		custom_tooltip = DA_Magic_Theory.600
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Magic_Theory_1 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 20 } } }
+		custom_tooltip = DA_Magic_Theory.500
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Magic_Theory_1 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 15 } } }
+		custom_tooltip = DA_Magic_Theory.400
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Magic_Theory_1 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 10 } } }
+		custom_tooltip = DA_Magic_Theory.300
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Magic_Theory_1 = yes } check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 5 } } }
+		custom_tooltip = DA_Magic_Theory.200
+		if = {
+			limit = { check_variable = { which = DA_Arcane_Arts_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Arcane_Arts_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Magic_Theory }
+			custom_tooltip = DA_SR_Magic_Theory_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Magic_Theory_1 = yes } NOT = { check_variable = { which = DA_SR_n_Arcane_Arts value = 1 } } }
+		custom_tooltip = DA_SR_Magic_Theory_none_0_tt
 	}
 }
 
 DA_SR_line_Mechanics = {	# Mechanics: DA_Factory line
 	if = {
-		limit = { NOT = { DA_completed.Mechanics_4 = yes } }	# a school at level IV has nothing left to report
+		limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } check_variable = { which = DA_SR_n_Mechanics value = 25 } }
+		custom_tooltip = DA_Mechanics.1000
 		if = {
-			limit = { DA_completed.Mechanics_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Factory_3 } }
-				custom_tooltip = DA_Mechanics.1000
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Factory_3 } }
-				custom_tooltip = DA_Mechanics.900
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Factory_3 } }
-				custom_tooltip = DA_Mechanics.800
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Factory_3 } }
-				custom_tooltip = DA_Mechanics.700
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Factory_3 } }
-				custom_tooltip = DA_Mechanics.600
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Factory_3 } }
-				custom_tooltip = DA_Mechanics.500
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_4_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Mechanics_none_3_tt
-			}
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
 		}
-		else_if = {
-			limit = { DA_completed.Mechanics_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.900
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.800
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.700
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.600
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.500
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.400
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_3_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Mechanics_none_2_tt
-			}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_4_tt
 		}
-		else_if = {
-			limit = { DA_completed.Mechanics_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.800
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.700
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.600
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.500
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.400
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.300
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_2_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Mechanics_none_1_tt
-			}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } check_variable = { which = DA_SR_n_Mechanics value = 20 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 25 } } }
+		custom_tooltip = DA_Mechanics.900
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
 		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.700
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.600
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.500
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.400
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.300
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Factory_0 has_building = DA_Factory_1 has_building = DA_Factory_2 has_building = DA_Factory_3 } } }
-				custom_tooltip = DA_Mechanics.200
-				if = {
-					limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Mechanics_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Mechanics }
-					custom_tooltip = DA_SR_Mechanics_ready_1_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Mechanics_none_0_tt
-			}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_4_tt
 		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } check_variable = { which = DA_SR_n_Mechanics value = 15 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 20 } } }
+		custom_tooltip = DA_Mechanics.800
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } check_variable = { which = DA_SR_n_Mechanics value = 10 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 15 } } }
+		custom_tooltip = DA_Mechanics.700
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } check_variable = { which = DA_SR_n_Mechanics value = 5 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 10 } } }
+		custom_tooltip = DA_Mechanics.600
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } check_variable = { which = DA_SR_n_Mechanics value = 1 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 5 } } }
+		custom_tooltip = DA_Mechanics.500
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_3 = yes NOT = { DA_completed.Mechanics_4 = yes } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 1 } } }
+		custom_tooltip = DA_SR_Mechanics_none_3_tt
+	}
+	if = {
+		limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } check_variable = { which = DA_SR_n_Mechanics value = 25 } }
+		custom_tooltip = DA_Mechanics.900
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } check_variable = { which = DA_SR_n_Mechanics value = 20 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 25 } } }
+		custom_tooltip = DA_Mechanics.800
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } check_variable = { which = DA_SR_n_Mechanics value = 15 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 20 } } }
+		custom_tooltip = DA_Mechanics.700
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } check_variable = { which = DA_SR_n_Mechanics value = 10 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 15 } } }
+		custom_tooltip = DA_Mechanics.600
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } check_variable = { which = DA_SR_n_Mechanics value = 5 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 10 } } }
+		custom_tooltip = DA_Mechanics.500
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } check_variable = { which = DA_SR_n_Mechanics value = 1 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 5 } } }
+		custom_tooltip = DA_Mechanics.400
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_2 = yes NOT = { DA_completed.Mechanics_3 = yes } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 1 } } }
+		custom_tooltip = DA_SR_Mechanics_none_2_tt
+	}
+	if = {
+		limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } check_variable = { which = DA_SR_n_Mechanics value = 25 } }
+		custom_tooltip = DA_Mechanics.800
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } check_variable = { which = DA_SR_n_Mechanics value = 20 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 25 } } }
+		custom_tooltip = DA_Mechanics.700
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } check_variable = { which = DA_SR_n_Mechanics value = 15 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 20 } } }
+		custom_tooltip = DA_Mechanics.600
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } check_variable = { which = DA_SR_n_Mechanics value = 10 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 15 } } }
+		custom_tooltip = DA_Mechanics.500
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } check_variable = { which = DA_SR_n_Mechanics value = 5 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 10 } } }
+		custom_tooltip = DA_Mechanics.400
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } check_variable = { which = DA_SR_n_Mechanics value = 1 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 5 } } }
+		custom_tooltip = DA_Mechanics.300
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Mechanics_1 = yes NOT = { DA_completed.Mechanics_2 = yes } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 1 } } }
+		custom_tooltip = DA_SR_Mechanics_none_1_tt
+	}
+	if = {
+		limit = { NOT = { DA_completed.Mechanics_1 = yes } check_variable = { which = DA_SR_n_Mechanics value = 25 } }
+		custom_tooltip = DA_Mechanics.700
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Mechanics_1 = yes } check_variable = { which = DA_SR_n_Mechanics value = 20 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 25 } } }
+		custom_tooltip = DA_Mechanics.600
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Mechanics_1 = yes } check_variable = { which = DA_SR_n_Mechanics value = 15 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 20 } } }
+		custom_tooltip = DA_Mechanics.500
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Mechanics_1 = yes } check_variable = { which = DA_SR_n_Mechanics value = 10 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 15 } } }
+		custom_tooltip = DA_Mechanics.400
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Mechanics_1 = yes } check_variable = { which = DA_SR_n_Mechanics value = 5 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 10 } } }
+		custom_tooltip = DA_Mechanics.300
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Mechanics_1 = yes } check_variable = { which = DA_SR_n_Mechanics value = 1 } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 5 } } }
+		custom_tooltip = DA_Mechanics.200
+		if = {
+			limit = { check_variable = { which = DA_Mechanics_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Mechanics_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Mechanics }
+			custom_tooltip = DA_SR_Mechanics_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Mechanics_1 = yes } NOT = { check_variable = { which = DA_SR_n_Mechanics value = 1 } } }
+		custom_tooltip = DA_SR_Mechanics_none_0_tt
 	}
 }
 
 DA_SR_line_Medicine = {	# Medicine: DA_Hospital line
 	if = {
-		limit = { NOT = { DA_completed.Medicine_4 = yes } }	# a school at level IV has nothing left to report
+		limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } check_variable = { which = DA_SR_n_Medicine value = 25 } }
+		custom_tooltip = DA_Medicine.1000
 		if = {
-			limit = { DA_completed.Medicine_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Hospital_3 } }
-				custom_tooltip = DA_Medicine.1000
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Hospital_3 } }
-				custom_tooltip = DA_Medicine.900
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Hospital_3 } }
-				custom_tooltip = DA_Medicine.800
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Hospital_3 } }
-				custom_tooltip = DA_Medicine.700
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Hospital_3 } }
-				custom_tooltip = DA_Medicine.600
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Hospital_3 } }
-				custom_tooltip = DA_Medicine.500
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_4_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Medicine_none_3_tt
-			}
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
 		}
-		else_if = {
-			limit = { DA_completed.Medicine_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.900
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.800
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.700
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.600
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.500
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.400
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_3_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Medicine_none_2_tt
-			}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_4_tt
 		}
-		else_if = {
-			limit = { DA_completed.Medicine_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.800
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.700
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.600
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.500
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.400
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.300
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_2_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Medicine_none_1_tt
-			}
+	}
+	if = {
+		limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } check_variable = { which = DA_SR_n_Medicine value = 20 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 25 } } }
+		custom_tooltip = DA_Medicine.900
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
 		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.700
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.600
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.500
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.400
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.300
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Hospital_0 has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } }
-				custom_tooltip = DA_Medicine.200
-				if = {
-					limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Medicine_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Medicine }
-					custom_tooltip = DA_SR_Medicine_ready_1_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Medicine_none_0_tt
-			}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_4_tt
 		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } check_variable = { which = DA_SR_n_Medicine value = 15 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 20 } } }
+		custom_tooltip = DA_Medicine.800
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } check_variable = { which = DA_SR_n_Medicine value = 10 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 15 } } }
+		custom_tooltip = DA_Medicine.700
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } check_variable = { which = DA_SR_n_Medicine value = 5 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 10 } } }
+		custom_tooltip = DA_Medicine.600
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } check_variable = { which = DA_SR_n_Medicine value = 1 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 5 } } }
+		custom_tooltip = DA_Medicine.500
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_3 = yes NOT = { DA_completed.Medicine_4 = yes } NOT = { check_variable = { which = DA_SR_n_Medicine value = 1 } } }
+		custom_tooltip = DA_SR_Medicine_none_3_tt
+	}
+	if = {
+		limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } check_variable = { which = DA_SR_n_Medicine value = 25 } }
+		custom_tooltip = DA_Medicine.900
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } check_variable = { which = DA_SR_n_Medicine value = 20 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 25 } } }
+		custom_tooltip = DA_Medicine.800
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } check_variable = { which = DA_SR_n_Medicine value = 15 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 20 } } }
+		custom_tooltip = DA_Medicine.700
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } check_variable = { which = DA_SR_n_Medicine value = 10 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 15 } } }
+		custom_tooltip = DA_Medicine.600
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } check_variable = { which = DA_SR_n_Medicine value = 5 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 10 } } }
+		custom_tooltip = DA_Medicine.500
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } check_variable = { which = DA_SR_n_Medicine value = 1 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 5 } } }
+		custom_tooltip = DA_Medicine.400
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_2 = yes NOT = { DA_completed.Medicine_3 = yes } NOT = { check_variable = { which = DA_SR_n_Medicine value = 1 } } }
+		custom_tooltip = DA_SR_Medicine_none_2_tt
+	}
+	if = {
+		limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } check_variable = { which = DA_SR_n_Medicine value = 25 } }
+		custom_tooltip = DA_Medicine.800
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } check_variable = { which = DA_SR_n_Medicine value = 20 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 25 } } }
+		custom_tooltip = DA_Medicine.700
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } check_variable = { which = DA_SR_n_Medicine value = 15 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 20 } } }
+		custom_tooltip = DA_Medicine.600
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } check_variable = { which = DA_SR_n_Medicine value = 10 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 15 } } }
+		custom_tooltip = DA_Medicine.500
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } check_variable = { which = DA_SR_n_Medicine value = 5 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 10 } } }
+		custom_tooltip = DA_Medicine.400
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } check_variable = { which = DA_SR_n_Medicine value = 1 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 5 } } }
+		custom_tooltip = DA_Medicine.300
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Medicine_1 = yes NOT = { DA_completed.Medicine_2 = yes } NOT = { check_variable = { which = DA_SR_n_Medicine value = 1 } } }
+		custom_tooltip = DA_SR_Medicine_none_1_tt
+	}
+	if = {
+		limit = { NOT = { DA_completed.Medicine_1 = yes } check_variable = { which = DA_SR_n_Medicine value = 25 } }
+		custom_tooltip = DA_Medicine.700
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Medicine_1 = yes } check_variable = { which = DA_SR_n_Medicine value = 20 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 25 } } }
+		custom_tooltip = DA_Medicine.600
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Medicine_1 = yes } check_variable = { which = DA_SR_n_Medicine value = 15 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 20 } } }
+		custom_tooltip = DA_Medicine.500
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Medicine_1 = yes } check_variable = { which = DA_SR_n_Medicine value = 10 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 15 } } }
+		custom_tooltip = DA_Medicine.400
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Medicine_1 = yes } check_variable = { which = DA_SR_n_Medicine value = 5 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 10 } } }
+		custom_tooltip = DA_Medicine.300
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Medicine_1 = yes } check_variable = { which = DA_SR_n_Medicine value = 1 } NOT = { check_variable = { which = DA_SR_n_Medicine value = 5 } } }
+		custom_tooltip = DA_Medicine.200
+		if = {
+			limit = { check_variable = { which = DA_Medicine_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Medicine_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Medicine }
+			custom_tooltip = DA_SR_Medicine_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Medicine_1 = yes } NOT = { check_variable = { which = DA_SR_n_Medicine value = 1 } } }
+		custom_tooltip = DA_SR_Medicine_none_0_tt
 	}
 }
 
 DA_SR_line_Metallurgy = {	# Metallurgy: DA_Smelting_Furnace line
 	if = {
-		limit = { NOT = { DA_completed.Metallurgy_4 = yes } }	# a school at level IV has nothing left to report
+		limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 25 } }
+		custom_tooltip = DA_Metallurgy.1000
 		if = {
-			limit = { DA_completed.Metallurgy_3 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 has_building = DA_Smelting_Furnace_3 } }
-				custom_tooltip = DA_Metallurgy.1000
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 has_building = DA_Smelting_Furnace_3 } }
-				custom_tooltip = DA_Metallurgy.900
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 has_building = DA_Smelting_Furnace_3 } }
-				custom_tooltip = DA_Metallurgy.800
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 has_building = DA_Smelting_Furnace_3 } }
-				custom_tooltip = DA_Metallurgy.700
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 has_building = DA_Smelting_Furnace_3 } }
-				custom_tooltip = DA_Metallurgy.600
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_4_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 has_building = DA_Smelting_Furnace_3 } }
-				custom_tooltip = DA_Metallurgy.500
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_4_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Metallurgy_none_3_tt
-			}
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
 		}
-		else_if = {
-			limit = { DA_completed.Metallurgy_2 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.900
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.800
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.700
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.600
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.500
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_3_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.400
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_3_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Metallurgy_none_2_tt
-			}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_4_tt
 		}
-		else_if = {
-			limit = { DA_completed.Metallurgy_1 = yes }
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.800
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.700
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.600
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.500
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.400
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_2_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.300
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_2_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Metallurgy_none_1_tt
-			}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 20 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 25 } } }
+		custom_tooltip = DA_Metallurgy.900
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
 		}
-		else = {
-			if = {
-				limit = { num_of_owned_provinces_with = { value = 25 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.700
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_500_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 20 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.600
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_400_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 15 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.500
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_300_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 10 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.400
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_200_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 5 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.300
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_100_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_1_tt
-				}
-			}
-			else_if = {
-				limit = { num_of_owned_provinces_with = { value = 1 OR = { has_building = DA_Smelting_Furnace_0 has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } }
-				custom_tooltip = DA_Metallurgy.200
-				if = {
-					limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
-					custom_tooltip = DA_SR_Metallurgy_multiplied_tt
-				}
-				custom_tooltip = DA_SR_bonus_0_tt
-				if = {
-					limit = { has_country_flag = DA_SR_ready_Metallurgy }
-					custom_tooltip = DA_SR_Metallurgy_ready_1_tt
-				}
-			}
-			else = {
-				custom_tooltip = DA_SR_Metallurgy_none_0_tt
-			}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_4_tt
 		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 15 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 20 } } }
+		custom_tooltip = DA_Metallurgy.800
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 10 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 15 } } }
+		custom_tooltip = DA_Metallurgy.700
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 5 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 10 } } }
+		custom_tooltip = DA_Metallurgy.600
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 1 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 5 } } }
+		custom_tooltip = DA_Metallurgy.500
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_4_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_3 = yes NOT = { DA_completed.Metallurgy_4 = yes } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 1 } } }
+		custom_tooltip = DA_SR_Metallurgy_none_3_tt
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 25 } }
+		custom_tooltip = DA_Metallurgy.900
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 20 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 25 } } }
+		custom_tooltip = DA_Metallurgy.800
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 15 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 20 } } }
+		custom_tooltip = DA_Metallurgy.700
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 10 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 15 } } }
+		custom_tooltip = DA_Metallurgy.600
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 5 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 10 } } }
+		custom_tooltip = DA_Metallurgy.500
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 1 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 5 } } }
+		custom_tooltip = DA_Metallurgy.400
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_3_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_2 = yes NOT = { DA_completed.Metallurgy_3 = yes } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 1 } } }
+		custom_tooltip = DA_SR_Metallurgy_none_2_tt
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 25 } }
+		custom_tooltip = DA_Metallurgy.800
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 20 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 25 } } }
+		custom_tooltip = DA_Metallurgy.700
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 15 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 20 } } }
+		custom_tooltip = DA_Metallurgy.600
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 10 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 15 } } }
+		custom_tooltip = DA_Metallurgy.500
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 5 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 10 } } }
+		custom_tooltip = DA_Metallurgy.400
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 1 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 5 } } }
+		custom_tooltip = DA_Metallurgy.300
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_2_tt
+		}
+	}
+	if = {
+		limit = { DA_completed.Metallurgy_1 = yes NOT = { DA_completed.Metallurgy_2 = yes } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 1 } } }
+		custom_tooltip = DA_SR_Metallurgy_none_1_tt
+	}
+	if = {
+		limit = { NOT = { DA_completed.Metallurgy_1 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 25 } }
+		custom_tooltip = DA_Metallurgy.700
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_500_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Metallurgy_1 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 20 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 25 } } }
+		custom_tooltip = DA_Metallurgy.600
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_400_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Metallurgy_1 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 15 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 20 } } }
+		custom_tooltip = DA_Metallurgy.500
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_300_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Metallurgy_1 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 10 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 15 } } }
+		custom_tooltip = DA_Metallurgy.400
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_200_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Metallurgy_1 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 5 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 10 } } }
+		custom_tooltip = DA_Metallurgy.300
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_100_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Metallurgy_1 = yes } check_variable = { which = DA_SR_n_Metallurgy value = 1 } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 5 } } }
+		custom_tooltip = DA_Metallurgy.200
+		if = {
+			limit = { check_variable = { which = DA_Metallurgy_exp_modifier_var value = 1.01 } }
+			custom_tooltip = DA_SR_Metallurgy_multiplied_tt
+		}
+		custom_tooltip = DA_SR_bonus_0_tt
+		if = {
+			limit = { has_country_flag = DA_SR_ready_Metallurgy }
+			custom_tooltip = DA_SR_Metallurgy_ready_1_tt
+		}
+	}
+	if = {
+		limit = { NOT = { DA_completed.Metallurgy_1 = yes } NOT = { check_variable = { which = DA_SR_n_Metallurgy value = 1 } } }
+		custom_tooltip = DA_SR_Metallurgy_none_0_tt
 	}
 }
 

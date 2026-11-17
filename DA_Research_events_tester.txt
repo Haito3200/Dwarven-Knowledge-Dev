@@ -1,0 +1,131 @@
+# Random research events tester. In the console: run DA_Research_events_tester.txt
+# It runs as the player's country. Remove the "#" in front of the lines of a block, save, and run the file.
+# Then fire an event with: event DA_Research_events.N (N = 1-21 or 31-50; 5 needs block C).
+# Written by "Claude files/tools/apply_research_events_2026-11-17.py".
+
+# --- A. A research to test on (96 points) if none runs, and every cooldown and open popup cleared (active)
+if = {
+	limit = { NOT = { has_country_flag = DA_research_in_progress } }
+	DA_start_research = { flag = general_arcane_research time = 96 arcane = yes }
+}
+clr_country_flag = DA_research_event_seen.1
+clr_country_flag = DA_research_event_seen.2
+clr_country_flag = DA_research_event_seen.3
+clr_country_flag = DA_research_event_seen.4
+clr_country_flag = DA_research_event_seen.5
+clr_country_flag = DA_research_event_seen.6
+clr_country_flag = DA_research_event_seen.7
+clr_country_flag = DA_research_event_seen.8
+clr_country_flag = DA_research_event_seen.9
+clr_country_flag = DA_research_event_seen.10
+clr_country_flag = DA_research_event_seen.11
+clr_country_flag = DA_research_event_seen.12
+clr_country_flag = DA_research_event_seen.13
+clr_country_flag = DA_research_event_seen.14
+clr_country_flag = DA_research_event_seen.15
+clr_country_flag = DA_research_event_seen.16
+clr_country_flag = DA_research_event_seen.17
+clr_country_flag = DA_research_event_seen.18
+clr_country_flag = DA_research_event_seen.19
+clr_country_flag = DA_research_event_seen.20
+clr_country_flag = DA_research_event_seen.21
+clr_country_flag = DA_research_event_seen.30
+clr_country_flag = DA_research_event_seen.31
+clr_country_flag = DA_research_event_seen.32
+clr_country_flag = DA_research_event_seen.33
+clr_country_flag = DA_research_event_seen.34
+clr_country_flag = DA_research_event_seen.35
+clr_country_flag = DA_research_event_seen.36
+clr_country_flag = DA_research_event_seen.37
+clr_country_flag = DA_research_event_seen.38
+clr_country_flag = DA_research_event_seen.39
+clr_country_flag = DA_research_event_seen.40
+clr_country_flag = DA_research_event_seen.41
+clr_country_flag = DA_research_event_seen.42
+clr_country_flag = DA_research_event_seen.43
+clr_country_flag = DA_research_event_seen.44
+clr_country_flag = DA_research_event_seen.45
+clr_country_flag = DA_research_event_seen.46
+clr_country_flag = DA_research_event_seen.47
+clr_country_flag = DA_research_event_seen.48
+clr_country_flag = DA_research_event_seen.49
+clr_country_flag = DA_research_event_seen.50
+clr_country_flag = DA_research_event_pending.1
+clr_country_flag = DA_research_event_pending.2
+clr_country_flag = DA_research_event_pending.3
+clr_country_flag = DA_research_event_pending.4
+clr_country_flag = DA_research_event_pending.5
+clr_country_flag = DA_research_event_pending.6
+clr_country_flag = DA_research_event_pending.7
+clr_country_flag = DA_research_event_pending.8
+clr_country_flag = DA_research_event_pending.9
+clr_country_flag = DA_research_event_pending.10
+clr_country_flag = DA_research_event_pending.11
+clr_country_flag = DA_research_event_pending.12
+clr_country_flag = DA_research_event_pending.13
+clr_country_flag = DA_research_event_pending.14
+clr_country_flag = DA_research_event_pending.15
+clr_country_flag = DA_research_event_pending.16
+clr_country_flag = DA_research_event_pending.17
+clr_country_flag = DA_research_event_pending.18
+clr_country_flag = DA_research_event_pending.19
+clr_country_flag = DA_research_event_pending.20
+clr_country_flag = DA_research_event_pending.21
+clr_country_flag = DA_research_event_pending.30
+clr_country_flag = DA_research_event_pending.31
+clr_country_flag = DA_research_event_pending.32
+clr_country_flag = DA_research_event_pending.33
+clr_country_flag = DA_research_event_pending.34
+clr_country_flag = DA_research_event_pending.35
+clr_country_flag = DA_research_event_pending.36
+clr_country_flag = DA_research_event_pending.37
+clr_country_flag = DA_research_event_pending.38
+clr_country_flag = DA_research_event_pending.39
+clr_country_flag = DA_research_event_pending.40
+clr_country_flag = DA_research_event_pending.41
+clr_country_flag = DA_research_event_pending.42
+clr_country_flag = DA_research_event_pending.43
+clr_country_flag = DA_research_event_pending.44
+clr_country_flag = DA_research_event_pending.45
+clr_country_flag = DA_research_event_pending.46
+clr_country_flag = DA_research_event_pending.47
+clr_country_flag = DA_research_event_pending.48
+clr_country_flag = DA_research_event_pending.49
+clr_country_flag = DA_research_event_pending.50
+
+# --- B. Means to try every option: a year of income, power, innovativeness, 10 ADK
+# add_years_of_income = 1
+# add_adm_power = 100
+# add_dip_power = 100
+# change_innovativeness = 10
+# change_variable = { which = ancientDwarvenKnowledge value = 10 }
+
+# --- C. The Shortcut catches up with the running research tomorrow (DA_Research_events.5)
+# set_variable = { which = DA_research_shortcut_generation which = DA_research_generation }
+# country_event = { id = DA_Research_events.5 days = 1 }
+
+# --- D. Which race events can come to us: one line per race in game.log
+# (the race of our primary culture, or a people held at least coexisting that is the majority in 3 provinces)
+# if = { limit = { DA_research_race_people = { race = centaur } } log = "Research events: centaur (.31) can come" }
+# if = { limit = { DA_research_race_people = { race = dwarven } } log = "Research events: dwarven (.32) can come" }
+# if = { limit = { DA_research_race_people = { race = elven } } log = "Research events: elven (.33) can come" }
+# if = { limit = { DA_research_race_people = { race = gnollish } } log = "Research events: gnollish (.34) can come" }
+# if = { limit = { DA_research_race_people = { race = gnomish } } log = "Research events: gnomish (.35) can come" }
+# if = { limit = { DA_research_race_people = { race = goblin } } log = "Research events: goblin (.36) can come" }
+# if = { limit = { DA_research_race_people = { race = half_elven } } log = "Research events: half_elven (.37) can come" }
+# if = { limit = { DA_research_race_people = { race = half_orcish } } log = "Research events: half_orcish (.38) can come" }
+# if = { limit = { DA_research_race_people = { race = halfling } } log = "Research events: halfling (.39) can come" }
+# if = { limit = { DA_research_race_people = { race = harimari } } log = "Research events: harimari (.40) can come" }
+# if = { limit = { DA_research_race_people = { race = harpy } } log = "Research events: harpy (.41) can come" }
+# if = { limit = { DA_research_race_people = { race = hobgoblin } } log = "Research events: hobgoblin (.42) can come" }
+# if = { limit = { DA_research_race_people = { race = human } } log = "Research events: human (.43) can come" }
+# if = { limit = { DA_research_race_people = { race = kobold } } log = "Research events: kobold (.44) can come" }
+# if = { limit = { DA_research_race_people = { race = lizardfolk } } log = "Research events: lizardfolk (.45) can come" }
+# if = { limit = { DA_research_race_people = { race = mechanim } } log = "Research events: mechanim (.46) can come" }
+# if = { limit = { DA_research_race_people = { race = ogre } } log = "Research events: ogre (.47) can come" }
+# if = { limit = { DA_research_race_people = { race = orcish } } log = "Research events: orcish (.48) can come" }
+# if = { limit = { DA_research_race_people = { race = ruinborn } } log = "Research events: ruinborn (.49) can come" }
+# if = { limit = { DA_research_race_people = { race = troll } } log = "Research events: troll (.50) can come" }
+
+# --- E. The yearly roll, now: the hidden race picker (fires one race event if any is ready)
+# country_event = { id = DA_Research_events.30 }

@@ -209,7 +209,7 @@ country_event = {
 				duration = -1
 			}
 		}
-		custom_tooltip = DA_saved_merchants_tt
+		custom_tooltip = DA_saved_runemasters_tt
 		hidden_effect = {
 			set_variable = {
 				which = DA_disaster_isolationism
@@ -227,7 +227,7 @@ country_event = {
 			name = DA_not_saved_runemasters
 			duration = -1
 		}
-		custom_tooltip = DA_saved_merchants_tt
+		custom_tooltip = DA_not_saved_runemasters_tt
 		hidden_effect = {
 			set_variable = {
 				which = DA_disaster_isolationism
@@ -1773,7 +1773,18 @@ country_event = {
 country_event = {
 	id = DA_disaster_event.40 #after disaster, finished
 	title = "DA_disaster_event.40.t"
-	desc = "DA_disaster_event.40.d"
+	desc = {	# one text per ending of the Old Nobles (17 November 2026)
+		trigger = { has_country_modifier = DA_negotiated_Old_Nobles }
+		desc = DA_disaster_event.40.d.negotiated
+	}
+	desc = {
+		trigger = { NOT = { has_country_modifier = DA_negotiated_Old_Nobles } has_country_modifier = DA_defeated_Old_Nobles }
+		desc = DA_disaster_event.40.d.defeated
+	}
+	desc = {
+		trigger = { NOT = { has_country_modifier = DA_negotiated_Old_Nobles } NOT = { has_country_modifier = DA_defeated_Old_Nobles } }
+		desc = DA_disaster_event.40.d
+	}
 	picture = GOOD_WITH_MONARCH_eventPicture
 	
 	is_triggered_only = yes

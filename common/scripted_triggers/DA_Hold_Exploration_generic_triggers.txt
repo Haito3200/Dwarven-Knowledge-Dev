@@ -1,0 +1,457 @@
+# Written by "Claude files/tools/apply_generic_exploration_2026-11-16.py". Province scope (the hold) unless said otherwise.
+
+# The deep a report is about: the shallowest dug deep that is not charted yet. Deep II is dug level 1.
+# The charted flags are set in order (DA_Set_level_as_explored), so exactly one of these is true while a deep
+# is left to chart; they can be used in plain ifs.
+DA_GX_deep_2 = {
+	DA_has_dig_level_1_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_2 }
+}
+DA_GX_deep_3 = {
+	has_province_flag = DA_looked_dig_adk_2
+	DA_has_dig_level_2_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_3 }
+}
+DA_GX_deep_4 = {
+	has_province_flag = DA_looked_dig_adk_3
+	DA_has_dig_level_3_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_4 }
+}
+DA_GX_deep_5 = {
+	has_province_flag = DA_looked_dig_adk_4
+	DA_has_dig_level_4_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_5 }
+}
+DA_GX_deep_6 = {
+	has_province_flag = DA_looked_dig_adk_5
+	DA_has_dig_level_5_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_6 }
+}
+DA_GX_deep_7 = {
+	has_province_flag = DA_looked_dig_adk_6
+	DA_has_dig_level_6_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_7 }
+}
+DA_GX_deep_8 = {
+	has_province_flag = DA_looked_dig_adk_7
+	DA_has_dig_level_7_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_8 }
+}
+DA_GX_deep_9 = {
+	has_province_flag = DA_looked_dig_adk_8
+	DA_has_dig_level_8_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_9 }
+}
+DA_GX_deep_10 = {
+	has_province_flag = DA_looked_dig_adk_9
+	DA_has_dig_level_9_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_10 }
+}
+DA_GX_deep_11 = {
+	has_province_flag = DA_looked_dig_adk_10
+	DA_has_dig_level_10_or_higher = yes
+	NOT = { has_province_flag = DA_looked_dig_adk_11 }
+}
+
+# Bands of depth for the rewards of the new finds: II-V, VI-VIII, IX-XI. Always exactly one is true.
+DA_GX_band_1 = {
+	NOT = { has_province_flag = DA_looked_dig_adk_5 }
+}
+DA_GX_band_2 = {
+	has_province_flag = DA_looked_dig_adk_5
+	NOT = { has_province_flag = DA_looked_dig_adk_8 }
+}
+DA_GX_band_3 = {
+	has_province_flag = DA_looked_dig_adk_8
+}
+
+# the deep being charted is VII or deeper
+DA_GX_deep_7_or_deeper = {
+	has_province_flag = DA_looked_dig_adk_6
+}
+
+# a dug deep is left to chart (unlike DA_has_explorable_dig_level: no price, a company may be below)
+DA_GX_has_uncharted_deep = {
+	OR = {
+		DA_GX_deep_2 = yes
+		DA_GX_deep_3 = yes
+		DA_GX_deep_4 = yes
+		DA_GX_deep_5 = yes
+		DA_GX_deep_6 = yes
+		DA_GX_deep_7 = yes
+		DA_GX_deep_8 = yes
+		DA_GX_deep_9 = yes
+		DA_GX_deep_10 = yes
+		DA_GX_deep_11 = yes
+	}
+}
+
+# the treasury can pay the price of a company for this deep, or half of it
+DA_GX_can_pay_price = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_pay_price_tt
+		OR = {
+			AND = { DA_GX_deep_2 = yes owner = { treasury = 25 } }
+			AND = { DA_GX_deep_3 = yes owner = { treasury = 50 } }
+			AND = { DA_GX_deep_4 = yes owner = { treasury = 100 } }
+			AND = { DA_GX_deep_5 = yes owner = { treasury = 200 } }
+			AND = { DA_GX_deep_6 = yes owner = { treasury = 300 } }
+			AND = { DA_GX_deep_7 = yes owner = { treasury = 500 } }
+			AND = { DA_GX_deep_8 = yes owner = { treasury = 800 } }
+			AND = { DA_GX_deep_9 = yes owner = { treasury = 1200 } }
+			AND = { DA_GX_deep_10 = yes owner = { treasury = 2500 } }
+			AND = { DA_GX_deep_11 = yes owner = { treasury = 5000 } }
+		}
+	}
+}
+DA_GX_can_pay_half_price = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_pay_half_price_tt
+		OR = {
+			AND = { DA_GX_deep_2 = yes owner = { treasury = 15 } }
+			AND = { DA_GX_deep_3 = yes owner = { treasury = 25 } }
+			AND = { DA_GX_deep_4 = yes owner = { treasury = 50 } }
+			AND = { DA_GX_deep_5 = yes owner = { treasury = 100 } }
+			AND = { DA_GX_deep_6 = yes owner = { treasury = 150 } }
+			AND = { DA_GX_deep_7 = yes owner = { treasury = 250 } }
+			AND = { DA_GX_deep_8 = yes owner = { treasury = 400 } }
+			AND = { DA_GX_deep_9 = yes owner = { treasury = 600 } }
+			AND = { DA_GX_deep_10 = yes owner = { treasury = 1250 } }
+			AND = { DA_GX_deep_11 = yes owner = { treasury = 2500 } }
+		}
+	}
+}
+
+# A secret society the sigil of DA_ADK_explore.41 can point at: one we can be contacted by, or one we know
+DA_GX_sigil_possible = {
+	owner = {
+		OR = {
+			DA_SS_seekers_contact_eligible = yes
+			DA_SS_pioneer_contact_eligible = yes
+			DA_SS_hammers_contact_eligible = yes
+			DA_SS_hermetic_contact_eligible = yes
+			DA_SS_concord_contact_eligible = yes
+			DA_SS_seekers_discovered = yes
+			DA_SS_pioneer_discovered = yes
+			DA_SS_hammers_discovered = yes
+			DA_SS_hermetic_discovered = yes
+			DA_SS_concord_discovered = yes
+		}
+	}
+}
+
+#################### F4: what can still be found
+# true while DA_add_Metal_Common can still give something (generated from its own entries)
+DA_prov_can_find_metal_common = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_metal_tt
+		OR = {
+			AND = { NOT = { has_province_flag = DA_Mine_Aluminium } }
+			AND = { NOT = { has_province_flag = DA_Mine_Chromium } }
+			AND = { NOT = { has_province_flag = DA_Mine_Silver } }
+			AND = { NOT = { has_province_flag = DA_Mine_Tin } }
+			AND = { NOT = { has_province_flag = DA_Mine_Titanium } }
+			AND = { NOT = { trade_goods = iron } NOT = { has_province_flag = DA_Mine_Iron } }
+			AND = { NOT = { trade_goods = copper } NOT = { has_province_flag = DA_Mine_Copper } }
+			AND = { NOT = { trade_goods = gold } NOT = { has_province_flag = DA_Mine_Gold } }
+			AND = { NOT = { has_province_flag = DA_Mine_Castellium } }
+			AND = { NOT = { has_province_flag = DA_Mine_Zinc } }
+			AND = { NOT = { has_province_flag = DA_Mine_Lead } }
+		}
+	}
+}
+
+# true while DA_add_Metal_Rare can still give something (generated from its own entries)
+DA_prov_can_find_metal_rare = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_metal_tt
+		OR = {
+			AND = { NOT = { has_province_flag = DA_Mine_Palladium } }
+			AND = { NOT = { has_province_flag = DA_Mine_Platinum } }
+			AND = { NOT = { has_province_flag = DA_Mine_Tantalum } }
+			AND = { continent = serpentspine NOT = { has_province_flag = DA_Mine_Dagrite } }
+			AND = { NOT = { has_province_flag = DA_Mine_Rosemetal } OR = { province_id = 62 province_id = 64 province_id = 65 province_id = 71 province_id = 4343 province_id = 4232 province_id = 4241 } }
+			AND = { NOT = { has_province_flag = DA_Mine_Quicksilver } }
+			AND = { NOT = { has_province_flag = DA_Mine_Cold_iron } superregion = eordand_superregion }
+			AND = { NOT = { has_province_flag = DA_Mine_Cobalt } }
+			AND = { NOT = { has_province_flag = DA_Mine_Tungsten } }
+			AND = { NOT = { has_province_flag = DA_Mine_Orichalcum } }
+			AND = { NOT = { has_province_flag = DA_Mine_Octiron } }
+			AND = { NOT = { trade_goods = mithril } continent = serpentspine NOT = { has_province_flag = DA_Mine_Mithril } }
+		}
+	}
+}
+
+# true while DA_add_Metal_Legendary can still give something (generated from its own entries)
+DA_prov_can_find_metal_legendary = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_metal_tt
+		OR = {
+			AND = { continent = serpentspine NOT = { has_province_flag = DA_Mine_Adamantium } }
+			AND = { continent = serpentspine NOT = { has_province_flag = DA_Mine_Bloth_Dolur } }
+			AND = { continent = serpentspine NOT = { has_province_flag = DA_Mine_Unastu_Argazen } }
+			AND = { NOT = { has_province_flag = DA_Mine_Magnetite } }
+			AND = { NOT = { has_province_flag = DA_Mine_Mistium } }
+			AND = { NOT = { has_province_flag = DA_Mine_Skyshard } }
+			AND = { NOT = { has_province_flag = DA_Mine_Cindersteel } }
+			AND = { NOT = { has_province_flag = DA_Mine_Unobtainium } }
+			AND = { NOT = { has_province_flag = DA_Mine_Hihiirokane } }
+		}
+	}
+}
+
+# true while DA_add_alchemy_material_Common can still give something (generated from its own entries)
+DA_GX_can_find_alchemy_common = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_alchemy_tt
+		OR = {
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Ironroot } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Silverleaf } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Sageleaf } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Embergrass } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Glowberry } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Duskfern } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Stormvine } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Honeyroot } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Shadowmoss } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Golden_Thistle } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Bloodflower } }
+		}
+	}
+}
+
+# true while DA_add_alchemy_material_Rare can still give something (generated from its own entries)
+DA_GX_can_find_alchemy_rare = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_alchemy_tt
+		OR = {
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Crypt_Shroom } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Mandrake_Root } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Basilisk_Fang } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Azure_Lotus } }
+			AND = { DA_province_type.underground = yes NOT = { has_province_modifier = DA_Alchemy_material.Nightshade_Amethyst } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Drasil_Bark } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Fey_Amber } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.Manticore_Quill } }
+			AND = { DA_province_type.serpentspine = yes NOT = { has_province_modifier = DA_Alchemy_material.Healing_Slimes } }
+			AND = { DA_province_type.serpentspine = yes NOT = { has_province_modifier = DA_Alchemy_material.Hook_Horrors } }
+			AND = { DA_province_type.serpentspine = yes NOT = { has_province_modifier = DA_Alchemy_material.Living_Crystals } }
+			AND = { DA_province_type.serpentspine = yes NOT = { has_province_modifier = DA_Alchemy_material.Ironweave_Skitterers_silk } }
+			AND = { DA_province_type.serpentspine = yes NOT = { has_province_modifier = DA_Alchemy_material.Logrhundr } }
+			AND = { DA_province_type.serpentspine = yes NOT = { has_province_modifier = DA_Alchemy_material.Purple_Worm_blood } }
+			AND = { area = marrhold_area NOT = { has_province_modifier = DA_Alchemy_material.Griffon_Feathers } }
+			AND = { DA_province_type.Sarhal = yes NOT = { has_province_modifier = DA_Alchemy_material.Tchoken_scales } }
+			AND = { DA_province_type.Bulwar = yes NOT = { has_province_modifier = DA_Alchemy_material.Almiras } }
+			AND = { DA_province_type.Bulwar = yes NOT = { has_province_modifier = DA_Alchemy_material.Basmu } }
+			AND = { DA_province_type.Bulwar = yes NOT = { has_province_modifier = DA_Alchemy_material.Chamrus } }
+			AND = { DA_province_type.Bulwar = yes NOT = { has_province_modifier = DA_Alchemy_material.Umu_Dabrutu } }
+			AND = { DA_province_type.Bulwar = yes NOT = { has_province_modifier = DA_Alchemy_material.Asigallu } }
+			AND = { DA_province_type.Bulwar = yes NOT = { has_province_modifier = DA_Alchemy_material.Girtablullu } }
+			AND = { DA_province_type.Bulwar = yes NOT = { has_province_modifier = DA_Alchemy_material.Kusarikku } }
+			AND = { DA_province_type.Bulwar = yes NOT = { has_province_modifier = DA_Alchemy_material.Sibargal } }
+			AND = { DA_province_type.shadow_swamp_region = yes NOT = { has_province_modifier = DA_Alchemy_material.The_Last_Wish } }
+			AND = { DA_province_type.shadow_swamp_region = yes NOT = { has_province_modifier = DA_Alchemy_material.Hattiatia } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Almruk_Spikes } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Kircha_Ot_laf } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Rock_Crab_legs } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Roc_feathers } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Dire_Hyena_tooth } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Barzoazh_blood } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Bo_hide } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Shadhavar_horns } }
+			AND = { DA_province_type.Forbidden_Plains = yes NOT = { has_province_modifier = DA_Alchemy_material.Tlalusk_Tusks } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.elemental_fire } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.elemental_water } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.elemental_air } }
+			AND = { NOT = { has_province_modifier = DA_Alchemy_material.elemental_earth } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Guiamala } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Eloko } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Kadda } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Devouring_Gourd } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Asanbosam } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Hydras } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Ninki_Nanka } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Aziza } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Abada } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Were_Leopard } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Rom } }
+			AND = { DA_province_type.fangaula = yes NOT = { has_province_modifier = DA_Alchemy_material.Adze } }
+		}
+	}
+}
+
+# The rune and blueprint finds of the floor tables (DA_ADK_explore.20 to .24). Owners that are not dwarves get
+# knowledge only, so for them the pool does not matter. The fallback entries (a broken rune, an unusable
+# blueprint) have no trigger and are left out: the find stops rolling once only they remain.
+# true while DA_Find_Advanced_rune can still give something (generated from its own entries)
+DA_GX_can_find_advanced_rune = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_pool_tt
+		OR = {
+			owner = { NOT = { culture_group = dwarven } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Rune_Durability } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Rune_Protection } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Rune_Precision } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Rune_Resolve } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Rune_Rage } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Earth_Earthen_Grasp } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Earth_StoneSkin } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Earth_Earthbound_Strength } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Air_Windborne_Swiftness } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Air_Galeforce_Impact } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Air_Airy_Shielding } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Fire_Pyrokinetic_Shield } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Fire_Scorching_Aura } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Fire_Flameburst_Impact } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Water_Torrential_Defense } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Water_Calming_Water } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Water_Frostbite_Grasp } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Enhancement_Muscle_density } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Enhancement_Dynamic_Vision } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Enhancement_Reflexes } } }
+		}
+	}
+}
+
+# true while DA_Find_runic_circuit can still give something (generated from its own entries)
+DA_GX_can_find_runic_circuit = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_pool_tt
+		OR = {
+			owner = { NOT = { culture_group = dwarven } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Circuit_Force_Field } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Circuit_Shock_Absorber } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Circuit_Kinetic_Accellerator } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Circuit_Hightened_Focus } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Circuit_Impact_Amplifier } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Enhancement_Muscle_Bone_density } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Enhancement_Senses } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Enhancement_Hightened_Reflexes } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Life_Vitality } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Life_Renawal } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Life_Adaptation } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Life_Movement } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Death_Decay } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Death_Memorial } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Death_Stillness } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Time_Perception } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Time_Change } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Time_Life_Death_Cycle } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Space_Teleportation } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Space_Dimensional_Damage } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Space_Spatial_Perception } } }
+		}
+	}
+}
+
+# true while DA_Find_runic_blueprint can still give something (generated from its own entries)
+DA_GX_can_find_runic_blueprint = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_pool_tt
+		OR = {
+			owner = { NOT = { culture_group = dwarven } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Wand_of_magic_missile } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Staff_of_mage_armor } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Staff_of_shield } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Cannon } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Wand_of_scorching_ray } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_googles } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Battering_ram } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Multi_Ammunition_Musket_1 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Blade } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Multi_Ammunition_Pistol_1 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Multi_Ammunition_Sniper_Rifle_1 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Tower_shield } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Pike } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Simplified_homunculus } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Staff_of_mending } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Ballista } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Basilisk } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Def_Golem_1 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Atk_Golem_1 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_limbs } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Gyro_Lance } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_gauntlets } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Iron_Watch } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_rep_crossbow } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_siege_loader } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Recoil_Dampener_Harness } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Stonebreaker } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Bulwark_sentinel } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clockwork_golem.1 } } }
+			AND = { always = no owner = { NOT = { has_country_flag = DA_Unlocked.Expl_Javelin } } }
+			AND = { always = no owner = { NOT = { has_country_flag = DA_Unlocked.Expl_Arbalest } } }
+			AND = { always = no owner = { NOT = { has_country_flag = DA_Unlocked.Expl_Hand_Cannon } } }
+			AND = { always = no owner = { NOT = { has_country_flag = DA_Unlocked.Expl_Throwing_Knife } } }
+		}
+	}
+}
+
+# true while DA_Find_steam_blueprint can still give something (generated from its own entries)
+DA_GX_can_find_steam_blueprint = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_pool_tt
+		OR = {
+			owner = { NOT = { culture_group = dwarven } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_amulet_of_versatility } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Steam_Powered_Exosuit } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Steam_Deepforge_Cannon } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Steam_Powered_Drill_Spears } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Steam_Multi_Ammunition_Musket_2 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Steam_Multi_Ammunition_Pistol_2 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Steam_Multi_Ammunition_Sniper_Rifle_2 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Def_Golem_2 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Atk_Golem_2 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_exoskeleton } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Steam_Bolter } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Steam_gauntlets } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Steam_Tanks } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Steam_Bombard } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_Steam_Ballista } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Vehicle_Driller } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Vehicle_Runesteel_Ravager } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Vehicle_Forgefire_Fury } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Vehicle_Steam_Arcanomech_Vanguard } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Vehicle_Steam_Arcanomech_Holder } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Bio_cons_Abomination } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Bio_cons_Living_Armor } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Bio_cons_Chimera } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Bio_cons_Purple_Worm } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Bio_cons_Ram } } }
+		}
+	}
+}
+
+# true while DA_Find_Runic_circuit_blueprint can still give something (generated from its own entries)
+DA_GX_can_find_electrical_blueprint = {
+	custom_trigger_tooltip = {
+		tooltip = DA_GX_can_find_pool_tt
+		OR = {
+			owner = { NOT = { culture_group = dwarven } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Electric_Armor } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Electric_Automatic_artillery } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Electric_multi_caster_wand_Fire_Shield } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Electric_multi_caster_staff_Ice_Storm } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Electric_amulet_of_undying } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Def_Golem_3 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Runic_Atk_Golem_3 } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_electric_exoskeleton } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_electric_staff_of_conjure_construct } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_electric_gauntlets } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.ClockWork_Dragon } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_electric_Storm_Engine_Battery } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Clock_electric_Ballista } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Tesla_portable_railgun } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Tesla_Shocking_Warhammer } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Tesla_Suit } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Tesla_Culverin } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Tesla_Railgun } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Resonance_Warhammers } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Resonance_wand_of_Shatter } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Resonance_staff_of_haste } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Resonance_Throwing_Spears } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Resonance_Ballista } } }
+			AND = { owner = { NOT = { has_country_flag = DA_Unlocked.Vehicle_Electric_Arcanomech_Annihilator } } }
+		}
+	}
+}

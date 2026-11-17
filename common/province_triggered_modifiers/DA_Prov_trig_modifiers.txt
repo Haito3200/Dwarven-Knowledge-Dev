@@ -127,6 +127,10 @@ DA_Hold_exploration_workaround = {
 	local_unrest = 3
 	# Province scope
 	on_activation = {
+		if = {	# the Restored Lift returns a quarter of the price (DA_ADK_explore.45, 17 November 2026)
+			limit = { has_province_modifier = DA_GX_restored_lift }
+			hidden_effect = { DA_GX_lift_refund = yes }
+		}
 		if = {
 			limit = {
 				DA_has_dig_level_1_or_higher = yes

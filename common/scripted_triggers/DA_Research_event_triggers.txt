@@ -9,6 +9,9 @@ DA_can_receive_random_research_event = {
 			which = DA_research_event_cutoff
 		}
 	}
+	# 17 November 2026: never during a school study, nor while the slot studies a school level
+	NOT = { DA_SCH_studying_any = yes }
+	NOT = { DA_research_is_school_research = yes }
 }
 
 # An open popup belongs to one research run, even if the same project is restarted.
@@ -25,6 +28,69 @@ DA_research_event_is_current = {
 		check_variable = {
 			which = DA_research_progress
 			which = DA_research_progress_MAX
+		}
+	}
+}
+
+# ---------------------------------------------------------------- 17 November 2026: the reworked random research events
+# (apply_research_events_2026-11-17.py). DA_can_receive_random_research_event above also excludes school studies and
+# school research since that day.
+
+# The slot is studying a school level (Projects & Research, Miscellaneous Research): no random event then.
+DA_research_is_school_research = {
+	OR = {
+		has_country_flag = DA_research_flag.alchemy
+		has_country_flag = DA_research_flag.arcane_arts
+		has_country_flag = DA_research_flag.mechanics
+		has_country_flag = DA_research_flag.medicine
+		has_country_flag = DA_research_flag.metallurgy
+	}
+}
+
+# An event of the yearly roll is ready: research running, no popup of this id open, not seen in the last $days$ days.
+DA_research_event_ready = {
+	DA_can_receive_random_research_event = yes
+	NOT = { has_country_flag = DA_research_event_pending.$id$ }
+	OR = {
+		NOT = { has_country_flag = DA_research_event_seen.$id$ }
+		had_country_flag = { flag = DA_research_event_seen.$id$ days = $days$ }
+	}
+}
+
+# A people of race $race$ works in our research: the race of our primary culture, or a people we rule that we hold at
+# least coexisting (Anbennar's tolerance) and that is the majority in at least 3 of our provinces.
+DA_research_race_people = {
+	OR = {
+		culture_is_$race$ = yes
+		AND = {
+			OR = {
+				medium_tolerance_$race$_race_trigger = yes
+				high_tolerance_$race$_race_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 3
+				has_$race$_majority_trigger = yes
+			}
+		}
+	}
+}
+
+# A race event (DA_Research_events.31-.50) is ready.
+DA_research_race_ready = {
+	DA_research_race_people = { race = $race$ }
+	DA_research_event_ready = { id = $id$ days = 10950 }
+}
+
+# Any Secondary Technology at level III (the free way out of some setbacks).
+DA_research_any_school_3 = {
+	custom_trigger_tooltip = {
+		tooltip = DA_research_any_school_3_tt
+		OR = {
+			DA_completed.Alchemy_3 = yes
+			DA_completed.Magic_Theory_3 = yes
+			DA_completed.Mechanics_3 = yes
+			DA_completed.Medicine_3 = yes
+			DA_completed.Metallurgy_3 = yes
 		}
 	}
 }

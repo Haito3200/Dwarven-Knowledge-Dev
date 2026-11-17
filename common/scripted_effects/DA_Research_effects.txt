@@ -80,3 +80,54 @@ DA_Research_complete = {
 		}
 	}
 }
+
+# ---------------------------------------------------------------- 17 November 2026: the reworked random research events
+# (apply_research_events_2026-11-17.py). Plain ifs only: no else in scripted effects (check_else_drops.py).
+
+# Restarts the cooldown of a random research event. Clear first, or the flag keeps its old date.
+DA_research_event_seen = {
+	hidden_effect = {
+		clr_country_flag = DA_research_event_seen.$id$
+		set_country_flag = DA_research_event_seen.$id$
+	}
+}
+
+# school = Alchemy | Arcane_Arts | Mechanics | Medicine | Metallurgy
+DA_research_school_exp = {
+	custom_tooltip = DA_research_school_exp_tt.$school$
+	hidden_effect = {
+		change_variable = { which = DA_$school$_exp value = 250 }
+	}
+}
+
+# Honouring a people of race $race$: a small tolerance gain when it is not the race of our primary culture.
+DA_research_race_honour = {
+	if = {
+		limit = { NOT = { culture_is_$race$ = yes } }
+		small_increase_of_$race$_tolerance_effect = yes
+	}
+}
+
+# The same, or prestige when it is our own race.
+DA_research_race_honour_or_prestige = {
+	if = {
+		limit = { culture_is_$race$ = yes }
+		add_prestige = 5
+	}
+	if = {
+		limit = { NOT = { culture_is_$race$ = yes } }
+		small_increase_of_$race$_tolerance_effect = yes
+	}
+}
+
+# Slighting a people of race $race$: prestige when it is our own race, a small tolerance loss otherwise.
+DA_research_race_slight = {
+	if = {
+		limit = { culture_is_$race$ = yes }
+		add_prestige = -10
+	}
+	if = {
+		limit = { NOT = { culture_is_$race$ = yes } }
+		small_decrease_of_$race$_tolerance_effect = yes
+	}
+}

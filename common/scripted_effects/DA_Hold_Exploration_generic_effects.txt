@@ -1,0 +1,394 @@
+# Written by "Claude files/tools/apply_generic_exploration_2026-11-16.py". Province scope (the hold).
+# Only plain ifs here: EU4 drops events, modifiers and flags in an else of a scripted effect (else_lowering.py).
+# Amounts by deep use DA_GX_deep_<n>; amounts by band of depth use DA_GX_band_<n> (II-V, VI-VIII, IX-XI).
+
+# the end of every report of a floor table (as the after block of the older finds)
+DA_GX_report_done = {
+	hidden_effect = {
+		owner = { add_country_modifier = { name = DA_ADK_menu_cooldown duration = 10 hidden = yes } }
+	}
+	clr_province_flag = DA_expedition_in_progress
+}
+
+# half the usual gold of the deep (DA_province_gold_relative_to_dig_level)
+DA_GX_half_gold = {
+	if = {
+		limit = { DA_GX_deep_2 = yes }
+		owner = { add_treasury = 25 }
+	}
+	if = {
+		limit = { DA_GX_deep_3 = yes }
+		owner = { add_treasury = 50 }
+	}
+	if = {
+		limit = { DA_GX_deep_4 = yes }
+		owner = { add_treasury = 100 }
+	}
+	if = {
+		limit = { DA_GX_deep_5 = yes }
+		owner = { add_treasury = 200 }
+	}
+	if = {
+		limit = { DA_GX_deep_6 = yes }
+		owner = { add_treasury = 300 }
+	}
+	if = {
+		limit = { DA_GX_deep_7 = yes }
+		owner = { add_treasury = 500 }
+	}
+	if = {
+		limit = { DA_GX_deep_8 = yes }
+		owner = { add_treasury = 800 }
+	}
+	if = {
+		limit = { DA_GX_deep_9 = yes }
+		owner = { add_treasury = 1200 }
+	}
+	if = {
+		limit = { DA_GX_deep_10 = yes }
+		owner = { add_treasury = 2500 }
+	}
+	if = {
+		limit = { DA_GX_deep_11 = yes }
+		owner = { add_treasury = 5000 }
+	}
+}
+
+# the price of a Pathfinder company for this deep
+DA_GX_pay_price = {
+	if = {
+		limit = { DA_GX_deep_2 = yes }
+		owner = { add_treasury = -25 }
+	}
+	if = {
+		limit = { DA_GX_deep_3 = yes }
+		owner = { add_treasury = -50 }
+	}
+	if = {
+		limit = { DA_GX_deep_4 = yes }
+		owner = { add_treasury = -100 }
+	}
+	if = {
+		limit = { DA_GX_deep_5 = yes }
+		owner = { add_treasury = -200 }
+	}
+	if = {
+		limit = { DA_GX_deep_6 = yes }
+		owner = { add_treasury = -300 }
+	}
+	if = {
+		limit = { DA_GX_deep_7 = yes }
+		owner = { add_treasury = -500 }
+	}
+	if = {
+		limit = { DA_GX_deep_8 = yes }
+		owner = { add_treasury = -800 }
+	}
+	if = {
+		limit = { DA_GX_deep_9 = yes }
+		owner = { add_treasury = -1200 }
+	}
+	if = {
+		limit = { DA_GX_deep_10 = yes }
+		owner = { add_treasury = -2500 }
+	}
+	if = {
+		limit = { DA_GX_deep_11 = yes }
+		owner = { add_treasury = -5000 }
+	}
+}
+
+# half the price of a company for this deep
+DA_GX_pay_half_price = {
+	if = {
+		limit = { DA_GX_deep_2 = yes }
+		owner = { add_treasury = -15 }
+	}
+	if = {
+		limit = { DA_GX_deep_3 = yes }
+		owner = { add_treasury = -25 }
+	}
+	if = {
+		limit = { DA_GX_deep_4 = yes }
+		owner = { add_treasury = -50 }
+	}
+	if = {
+		limit = { DA_GX_deep_5 = yes }
+		owner = { add_treasury = -100 }
+	}
+	if = {
+		limit = { DA_GX_deep_6 = yes }
+		owner = { add_treasury = -150 }
+	}
+	if = {
+		limit = { DA_GX_deep_7 = yes }
+		owner = { add_treasury = -250 }
+	}
+	if = {
+		limit = { DA_GX_deep_8 = yes }
+		owner = { add_treasury = -400 }
+	}
+	if = {
+		limit = { DA_GX_deep_9 = yes }
+		owner = { add_treasury = -600 }
+	}
+	if = {
+		limit = { DA_GX_deep_10 = yes }
+		owner = { add_treasury = -1250 }
+	}
+	if = {
+		limit = { DA_GX_deep_11 = yes }
+		owner = { add_treasury = -2500 }
+	}
+}
+
+# twice the knowledge of DA_province_ADK_relative_to_dig_level
+DA_GX_adk_double = {
+	if = {
+		limit = { DA_GX_deep_2 = yes }
+		owner = { add_adk_effect = { add = 4 } }
+	}
+	if = {
+		limit = { DA_GX_deep_3 = yes }
+		owner = { add_adk_effect = { add = 4 } }
+	}
+	if = {
+		limit = { DA_GX_deep_4 = yes }
+		owner = { add_adk_effect = { add = 6 } }
+	}
+	if = {
+		limit = { DA_GX_deep_5 = yes }
+		owner = { add_adk_effect = { add = 8 } }
+	}
+	if = {
+		limit = { DA_GX_deep_6 = yes }
+		owner = { add_adk_effect = { add = 10 } }
+	}
+	if = {
+		limit = { DA_GX_deep_7 = yes }
+		owner = { add_adk_effect = { add = 12 } }
+	}
+	if = {
+		limit = { DA_GX_deep_8 = yes }
+		owner = { add_adk_effect = { add = 14 } }
+	}
+	if = {
+		limit = { DA_GX_deep_9 = yes }
+		owner = { add_adk_effect = { add = 16 } }
+	}
+	if = {
+		limit = { DA_GX_deep_10 = yes }
+		owner = { add_adk_effect = { add = 18 } }
+	}
+	if = {
+		limit = { DA_GX_deep_11 = yes }
+		owner = { add_adk_effect = { add = 20 } }
+	}
+}
+
+# three times the knowledge of DA_province_ADK_relative_to_dig_level
+DA_GX_adk_triple = {
+	if = {
+		limit = { DA_GX_deep_2 = yes }
+		owner = { add_adk_effect = { add = 6 } }
+	}
+	if = {
+		limit = { DA_GX_deep_3 = yes }
+		owner = { add_adk_effect = { add = 6 } }
+	}
+	if = {
+		limit = { DA_GX_deep_4 = yes }
+		owner = { add_adk_effect = { add = 9 } }
+	}
+	if = {
+		limit = { DA_GX_deep_5 = yes }
+		owner = { add_adk_effect = { add = 12 } }
+	}
+	if = {
+		limit = { DA_GX_deep_6 = yes }
+		owner = { add_adk_effect = { add = 15 } }
+	}
+	if = {
+		limit = { DA_GX_deep_7 = yes }
+		owner = { add_adk_effect = { add = 18 } }
+	}
+	if = {
+		limit = { DA_GX_deep_8 = yes }
+		owner = { add_adk_effect = { add = 21 } }
+	}
+	if = {
+		limit = { DA_GX_deep_9 = yes }
+		owner = { add_adk_effect = { add = 24 } }
+	}
+	if = {
+		limit = { DA_GX_deep_10 = yes }
+		owner = { add_adk_effect = { add = 27 } }
+	}
+	if = {
+		limit = { DA_GX_deep_11 = yes }
+		owner = { add_adk_effect = { add = 30 } }
+	}
+}
+
+# experience for one school: 200 (II-V), 400 (VI-VIII), 600 (IX-XI). school = Alchemy, Magic_Theory, Mechanics, Medicine or Metallurgy
+DA_GX_school_xp = {
+	if = {
+		limit = { DA_GX_band_1 = yes }
+		DA_Tech_prov.$school$ = { amount = 200 }
+	}
+	if = {
+		limit = { DA_GX_band_2 = yes }
+		DA_Tech_prov.$school$ = { amount = 400 }
+	}
+	if = {
+		limit = { DA_GX_band_3 = yes }
+		DA_Tech_prov.$school$ = { amount = 600 }
+	}
+}
+
+# arcane metal (a Wonder material): 10, 15, 20
+DA_GX_arcane_metal = {
+	if = {
+		limit = { DA_GX_band_1 = yes }
+		custom_tooltip = DA_GX_gain_arcane_metal_10
+		hidden_effect = { owner = { change_variable = { which = DA_arcane_metal_total value = 10 } } }
+	}
+	if = {
+		limit = { DA_GX_band_2 = yes }
+		custom_tooltip = DA_GX_gain_arcane_metal_15
+		hidden_effect = { owner = { change_variable = { which = DA_arcane_metal_total value = 15 } } }
+	}
+	if = {
+		limit = { DA_GX_band_3 = yes }
+		custom_tooltip = DA_GX_gain_arcane_metal_20
+		hidden_effect = { owner = { change_variable = { which = DA_arcane_metal_total value = 20 } } }
+	}
+}
+
+# the men a bad find costs: 500, 1,000, 2,000
+DA_GX_manpower_loss = {
+	if = {
+		limit = { DA_GX_band_1 = yes }
+		owner = { add_manpower = -0.5 }
+	}
+	if = {
+		limit = { DA_GX_band_2 = yes }
+		owner = { add_manpower = -1 }
+	}
+	if = {
+		limit = { DA_GX_band_3 = yes }
+		owner = { add_manpower = -2 }
+	}
+}
+
+# the recruits a good story brings: 500, 1,000, 2,000
+DA_GX_manpower_gain = {
+	if = {
+		limit = { DA_GX_band_1 = yes }
+		owner = { add_manpower = 0.5 }
+	}
+	if = {
+		limit = { DA_GX_band_2 = yes }
+		owner = { add_manpower = 1 }
+	}
+	if = {
+		limit = { DA_GX_band_3 = yes }
+		owner = { add_manpower = 2 }
+	}
+}
+
+# a rare metal; a legendary one if every rare metal is known here; half the usual gold if none is left
+DA_GX_rare_metal_or_better = {
+	if = {
+		limit = { DA_prov_can_find_metal_rare = yes }
+		hidden_effect = { set_variable = { which = DA_else_DA_GX_rare_metal_or_better_1 value = 1 } }
+		DA_add_Metal_Rare = yes
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = DA_else_DA_GX_rare_metal_or_better_1 value = 1 } } NOT = { AND = { DA_prov_can_find_metal_rare = yes } } DA_prov_can_find_metal_legendary = yes }
+		hidden_effect = { set_variable = { which = DA_else_DA_GX_rare_metal_or_better_1 value = 1 } }
+		DA_add_Metal_Legendary = yes
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = DA_else_DA_GX_rare_metal_or_better_1 value = 1 } } NOT = { AND = { DA_prov_can_find_metal_rare = yes } } NOT = { AND = { DA_prov_can_find_metal_legendary = yes } } }
+		DA_GX_half_gold = yes
+	}
+	hidden_effect = { set_variable = { which = DA_else_DA_GX_rare_metal_or_better_1 value = 0 } }
+}
+
+# a legendary metal; a rare one if every legendary metal is known here; half the usual gold if none is left
+DA_GX_legendary_metal_or_lesser = {
+	if = {
+		limit = { DA_prov_can_find_metal_legendary = yes }
+		hidden_effect = { set_variable = { which = DA_else_DA_GX_legendary_metal_or_lesser_1 value = 1 } }
+		DA_add_Metal_Legendary = yes
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = DA_else_DA_GX_legendary_metal_or_lesser_1 value = 1 } } NOT = { AND = { DA_prov_can_find_metal_legendary = yes } } DA_prov_can_find_metal_rare = yes }
+		hidden_effect = { set_variable = { which = DA_else_DA_GX_legendary_metal_or_lesser_1 value = 1 } }
+		DA_add_Metal_Rare = yes
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = DA_else_DA_GX_legendary_metal_or_lesser_1 value = 1 } } NOT = { AND = { DA_prov_can_find_metal_legendary = yes } } NOT = { AND = { DA_prov_can_find_metal_rare = yes } } }
+		DA_GX_half_gold = yes
+	}
+	hidden_effect = { set_variable = { which = DA_else_DA_GX_legendary_metal_or_lesser_1 value = 0 } }
+}
+
+# A company is lost: half the time some of them come back in 9 to 15 months with their maps (DA_ADK_explore.40).
+# The flag is cleared on conquest (DA_HX_reset), so they come back only to the owner that sent them.
+DA_GX_company_lost = {
+	custom_tooltip = DA_GX_company_lost_tt
+	hidden_effect = {
+		random = {
+			chance = 50
+			set_province_flag = DA_GX_lost_company
+			province_event = { id = DA_ADK_explore.40 days = 270 random = 180 }
+		}
+	}
+}
+
+# The Restored Lift (DA_ADK_explore.45, 17 November 2026): a quarter of the usual price of a company comes back when it
+# reaches its deep. Called from DA_Hold_exploration_workaround (common/province_triggered_modifiers/DA_Prov_trig_modifiers.txt).
+DA_GX_lift_refund = {
+	if = {
+		limit = { DA_GX_deep_2 = yes }
+		owner = { add_treasury = 6 }
+	}
+	if = {
+		limit = { DA_GX_deep_3 = yes }
+		owner = { add_treasury = 12 }
+	}
+	if = {
+		limit = { DA_GX_deep_4 = yes }
+		owner = { add_treasury = 25 }
+	}
+	if = {
+		limit = { DA_GX_deep_5 = yes }
+		owner = { add_treasury = 50 }
+	}
+	if = {
+		limit = { DA_GX_deep_6 = yes }
+		owner = { add_treasury = 75 }
+	}
+	if = {
+		limit = { DA_GX_deep_7 = yes }
+		owner = { add_treasury = 125 }
+	}
+	if = {
+		limit = { DA_GX_deep_8 = yes }
+		owner = { add_treasury = 200 }
+	}
+	if = {
+		limit = { DA_GX_deep_9 = yes }
+		owner = { add_treasury = 300 }
+	}
+	if = {
+		limit = { DA_GX_deep_10 = yes }
+		owner = { add_treasury = 625 }
+	}
+	if = {
+		limit = { DA_GX_deep_11 = yes }
+		owner = { add_treasury = 1250 }
+	}
+}

@@ -1,539 +1,2304 @@
 
 namespace = DA_Research_events
 
-# these are all flavor events which may happen while research is in progress, remember to put them in an yearly/bi_yearly on_action
-# let's start with 10
+# Random research events. One roll a year (on_yearly_pulse_4 in common/on_actions/DA_on_actions.txt) while a
+# research runs in the shared slot. Never during a school study, never while the slot studies a school level
+# (the Miscellaneous Research button), never in the last 5 points of the target, never for the AI.
+#   .1-.4, .6-.21   the yearly roll; each one at most once in 10 years
+#   .5              The Shortcut Shows: follow-up of .8, for the same research only
+#   .30             hidden: picks one race event
+#   .31-.50         one event per Anbennar race; each one at most once in 30 years
+# Every option acts only while the research its popup belongs to still runs (DA_research_event_is_current).
+# Written 17 November 2026 by "Claude files/tools/apply_research_events_2026-11-17.py" (data and generator in
+# "Claude files/tools/research_events_2026-11-17/"). To change a text or a number now, edit this file and
+# localisation/DA_Research_events_l_english.yml.
 
 country_event = {
-	id = DA_Research_events.1
+	id = DA_Research_events.1		# A Request for Funds (yearly roll, weight 100)
 	title = DA_Research_events.1.t
 	desc = DA_Research_events.1.d
-	picture = INVENTION_eventPicture
+	picture = COURT_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.1 }
+		DA_research_event_ready = { id = 1 days = 3650 }
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	is_triggered_only = yes
 
 	immediate = {
 		DA_capture_research_event = { id = 1 }
+		DA_research_event_seen = { id = 1 }
 	}
 
-	option = {
+	option = {		# The crown will pay.
 		name = DA_Research_events.1.a
+		trigger = {
+			years_of_income = 0.25
+		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 1 } }
-			add_treasury = -250
-			DA_Research_add = { amount = 6 }
+			add_years_of_income = -0.25
+			DA_Research_add = { amount = 12 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
-	option = {
+	option = {		# Let the guilds pay.
 		name = DA_Research_events.1.b
+		trigger = {
+			has_estate = estate_burghers
+		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 1 } }
-			DA_Research_lose = { amount = 3 }
+			DA_Research_add = { amount = 8 }
+			add_estate_loyalty = { estate = estate_burghers loyalty = 5 }
+			add_estate_influence_modifier = { estate = estate_burghers desc = DA_research_patrons_infl influence = 10 duration = 3650 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+	option = {		# Let the mage towers pay.
+		name = DA_Research_events.1.c
+		trigger = {
+			has_estate = estate_mages
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 1 } }
+			DA_Research_add = { amount = 8 }
+			add_estate_loyalty = { estate = estate_mages loyalty = 5 }
+			add_estate_influence_modifier = { estate = estate_mages desc = DA_research_patrons_infl influence = 10 duration = 3650 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Let the runesmiths pay.
+		name = DA_Research_events.1.e
+		trigger = {
+			has_estate = estate_da_runesmiths
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 1 } }
+			DA_Research_add = { amount = 8 }
+			add_estate_loyalty = { estate = estate_da_runesmiths loyalty = 5 }
+			add_estate_influence_modifier = { estate = estate_da_runesmiths desc = DA_research_patrons_infl influence = 10 duration = 3650 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# They will manage with what they have.
+		name = DA_Research_events.1.f
+	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.1
 	}
 }
 
 country_event = {
-	id = DA_Research_events.2
+	id = DA_Research_events.2		# A Spark of Genius (yearly roll, weight 80)
 	title = DA_Research_events.2.t
 	desc = DA_Research_events.2.d
 	picture = INVENTION_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.2 }
+		DA_research_event_ready = { id = 2 days = 3650 }
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	is_triggered_only = yes
 
 	immediate = {
 		DA_capture_research_event = { id = 2 }
+		DA_research_event_seen = { id = 2 }
 	}
 
-	option = {
+	option = {		# Keep him on this work.
 		name = DA_Research_events.2.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 2 } }
-			add_prestige = 10
-			DA_Research_add = { amount = 24 }
+			DA_Research_add = { amount = 12 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
-	option = {
+	option = {		# Put the whole workshop behind his idea.
 		name = DA_Research_events.2.b
-		highlight = yes
 		trigger = {
-			innovativeness = 80
-			hidden_trigger = {
-				NOT = { DA_unstoppable_research_in_progress = yes }
-			}
+			innovativeness = 5
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 2 } }
-			DA_Research_complete = yes
+			change_innovativeness = -5
+			DA_Research_add = { amount = 20 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+	option = {		# Give him a seat at court.
+		name = DA_Research_events.2.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 2 } }
+			DA_Research_add = { amount = 4 }
+			define_advisor = { type = natural_scientist skill = 2 discount = yes }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Let him teach.
+		name = DA_Research_events.2.e
+		if = {
+			limit = { DA_research_event_is_current = { id = 2 } }
+			add_country_modifier = { name = DA_research_bright_mind duration = 3650 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.2
 	}
 }
 
 country_event = {
-	id = DA_Research_events.3
+	id = DA_Research_events.3		# Cooked Results (yearly roll, weight 70)
 	title = DA_Research_events.3.t
 	desc = DA_Research_events.3.d
-	picture = INVENTION_eventPicture
+	picture = COURT_INTRIGUE_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.3 }
+		DA_research_event_ready = { id = 3 days = 3650 }
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	is_triggered_only = yes
 
 	immediate = {
 		DA_capture_research_event = { id = 3 }
+		DA_research_event_seen = { id = 3 }
 	}
 
-	option = {
+	option = {		# Dismiss them and redo the work.
 		name = DA_Research_events.3.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 3 } }
-			add_prestige = -10
-			add_corruption = 1
-			add_years_of_income = 0.15
-			DA_Research_lose = { amount = 18 }
+			DA_Research_lose = { amount = 8 }
+			add_prestige = 5
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
-	option = {
+	option = {		# Make them pay it back.
 		name = DA_Research_events.3.b
-		highlight = yes
-		trigger = {
-			corruption = 5
-		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 3 } }
-			add_prestige = -15
-			add_corruption = 2
-			add_years_of_income = 0.3
-			DA_Research_reset = yes
+			DA_Research_lose = { amount = 8 }
+			add_years_of_income = 0.1
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+	option = {		# Keep it quiet.
+		name = DA_Research_events.3.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 3 } }
+			DA_Research_lose = { amount = 4 }
+			add_corruption = 1
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.3
 	}
 }
 
 country_event = {
-	id = DA_Research_events.4
+	id = DA_Research_events.4		# The Runemaster (yearly roll, weight 80)
 	title = DA_Research_events.4.t
 	desc = DA_Research_events.4.d
 	picture = INVENTION_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
+		DA_research_event_ready = { id = 4 days = 3650 }
 		culture_group = dwarven
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.4 }
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	is_triggered_only = yes
 
 	immediate = {
 		DA_capture_research_event = { id = 4 }
+		DA_research_event_seen = { id = 4 }
 	}
 
-	option = {
+	option = {		# Put him on the research team.
 		name = DA_Research_events.4.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 4 } }
-			add_prestige = 5
-			define_advisor = {
-				type = DA_runesmith
-				skill = 2
-				discount = yes
-			}
-			DA_Research_lose = { amount = 12 }
+			DA_Research_add = { amount = 8 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
-	option = {
+	option = {		# Give him a place at court.
 		name = DA_Research_events.4.b
 		if = {
 			limit = { DA_research_event_is_current = { id = 4 } }
-			DA_Research_add = { amount = 12 }
+			define_advisor = { type = DA_runesmith skill = 2 discount = yes }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+	option = {		# Send him to the Research Facility.
+		name = DA_Research_events.4.c
+		trigger = {
+			has_estate = estate_da_runesmiths
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 4 } }
+			DA_Research_add = { amount = 4 }
+			add_estate_loyalty = { estate = estate_da_runesmiths loyalty = 10 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.4
 	}
 }
 
 country_event = {
-	id = DA_Research_events.6
-	title = DA_Research_events.6.t
-	desc = DA_Research_events.6.d
+	id = DA_Research_events.5		# The Shortcut Shows (follow-up of .8, only for the same research)
+	title = DA_Research_events.5.t
+	desc = DA_Research_events.5.d
 	picture = INVENTION_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
 		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.6 }
-	}
-	mean_time_to_happen = {
-		days = 1
+		NOT = { has_country_flag = DA_research_event_pending.5 }
+		is_variable_equal = { which = DA_research_shortcut_generation which = DA_research_generation }
 	}
 
+	immediate = {
+		DA_capture_research_event = { id = 5 }
+	}
+
+	option = {		# Go back and do it properly.
+		name = DA_Research_events.5.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 5 } }
+			DA_Research_lose = { amount = 12 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Patch it and move on.
+		name = DA_Research_events.5.b
+		trigger = {
+			years_of_income = 0.1
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 5 } }
+			add_years_of_income = -0.1
+			DA_Research_lose = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Our masters were ready for it.
+		name = DA_Research_events.5.c
+		highlight = yes
+		trigger = {
+			DA_research_any_school_3 = yes
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 5 } }
+			DA_Research_lose = { amount = 2 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.5
+	}
+}
+
+country_event = {
+	id = DA_Research_events.6		# Too Many Experiments (yearly roll, weight 90)
+	title = DA_Research_events.6.t
+	desc = DA_Research_events.6.d
+	picture = SCIENTISTS_eventPicture
 	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 6 days = 3650 }
+	}
 
 	immediate = {
 		DA_capture_research_event = { id = 6 }
+		DA_research_event_seen = { id = 6 }
 	}
 
-	option = {
+	option = {		# Run the twelve that are safest.
 		name = DA_Research_events.6.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 6 } }
-			random_list = {
-				1 = {
-					DA_Research_add = { amount = 6 }
-				}
-				1 = {
-					DA_Research_lose = { amount = 3 }
-				}
-				1 = {
-					DA_Research_lose = { amount = 6 }
-				}
-				1 = {
-					DA_Research_lose = { amount = 9 }
-				}
-			}
+			DA_Research_add = { amount = 4 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
-	option = {
+	option = {		# Have the chancery plan all forty.
 		name = DA_Research_events.6.b
-		highlight = yes
 		trigger = {
-			monthly_income = 150
+			adm_power = 50
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 6 } }
-			add_treasury = -1000
+			add_adm_power = -50
 			DA_Research_add = { amount = 12 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+	option = {		# Build a rig that runs them all.
+		name = DA_Research_events.6.c
+		highlight = yes
+		trigger = {
+			DA_completed.Mechanics_2 = yes
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 6 } }
+			DA_Research_add = { amount = 8 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.6
 	}
 }
 
 country_event = {
-	id = DA_Research_events.7
+	id = DA_Research_events.7		# Long Nights (yearly roll, weight 100)
 	title = DA_Research_events.7.t
 	desc = DA_Research_events.7.d
 	picture = INVENTION_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.7 }
+		DA_research_event_ready = { id = 7 days = 3650 }
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	is_triggered_only = yes
 
 	immediate = {
 		DA_capture_research_event = { id = 7 }
+		DA_research_event_seen = { id = 7 }
 	}
 
-	option = {
+	option = {		# Send them home to sleep.
 		name = DA_Research_events.7.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 7 } }
-			DA_Research_add = { amount = 12 }
+			DA_Research_add = { amount = 8 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+	option = {		# Let the court hear of it.
+		name = DA_Research_events.7.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 7 } }
+			DA_Research_add = { amount = 6 }
+			add_prestige = 5
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.7
 	}
 }
 
 country_event = {
-	id = DA_Research_events.8
+	id = DA_Research_events.8		# A Shortcut (yearly roll, weight 80)
 	title = DA_Research_events.8.t
 	desc = DA_Research_events.8.d
 	picture = INVENTION_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.8 }
+		DA_research_event_ready = { id = 8 days = 3650 }
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	is_triggered_only = yes
 
 	immediate = {
 		DA_capture_research_event = { id = 8 }
+		DA_research_event_seen = { id = 8 }
 	}
 
-	option = {
+	option = {		# Take the shortcut.
 		name = DA_Research_events.8.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 8 } }
-			DA_Research_add = { amount = 6 }
+			DA_Research_add = { amount = 12 }
+			custom_tooltip = DA_research_shortcut_risk_tt
 			hidden_effect = {
-				set_variable = {
-					which = DA_RS_Fake_progress
-					which = DA_research_progress
-				}
-				change_variable = {
-					which = DA_RS_Fake_progress
-					value = 12
-				}
-				if = {
-					limit = {
-						NOT = {
-							check_variable = {
-								which = DA_RS_Fake_progress
-								which = DA_research_progress_MAX
-							}
-						}
-					}
-					country_event = {
-						id = DA_Research_events.9
-						days = 240
-						random = 100
-					}
+				random = {
+					chance = 50
+					set_variable = { which = DA_research_shortcut_generation which = DA_research_generation }
+					country_event = { id = DA_Research_events.5 days = 240 random = 90 }
 				}
 			}
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
-	option = {
+	option = {		# Do it properly.
 		name = DA_Research_events.8.b
 		if = {
 			limit = { DA_research_event_is_current = { id = 8 } }
-			DA_Research_lose = { amount = 6 }
+			DA_Research_add = { amount = 4 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.8
 	}
 }
 
 country_event = {
-	id = DA_Research_events.9
+	id = DA_Research_events.9		# A Flawed Approach (yearly roll, weight 60)
 	title = DA_Research_events.9.t
 	desc = DA_Research_events.9.d
-	picture = INVENTION_eventPicture
+	picture = SCIENTISTS_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.9 }
-		hidden_trigger = {
-			NOT = { DA_unstoppable_research_in_progress = yes }
-		}
+		DA_research_event_ready = { id = 9 days = 3650 }
 	}
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	is_triggered_only = yes
 
 	immediate = {
 		DA_capture_research_event = { id = 9 }
+		DA_research_event_seen = { id = 9 }
 	}
 
-	option = {
+	option = {		# Strip it back and start that part again.
 		name = DA_Research_events.9.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 9 } }
-			DA_Research_reset = yes
+			DA_Research_lose = { amount = 8 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
-	option = {
+	option = {		# Salvage what we can.
 		name = DA_Research_events.9.b
-		highlight = yes
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = DA_has_10_ADK
-				check_variable = {
-					which = ancientDwarvenKnowledge
-					value = 10
-				}
-			}
+			adm_power = 25
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 9 } }
-			custom_tooltip = DA_Cost_10_ADK
-			hidden_effect = {
-				subtract_variable = {
-					which = ancientDwarvenKnowledge
-					value = 10
-				}
-			}
-			DA_Research_add = { amount = 6 }
+			add_adm_power = -25
+			DA_Research_lose = { amount = 4 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
-	option = {
+	option = {		# Look for the answer in the old records.
 		name = DA_Research_events.9.c
+		trigger = {
+			custom_trigger_tooltip = { tooltip = DA_has_5_ADK check_variable = { which = ancientDwarvenKnowledge value = 5 } }
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 9 } }
+			custom_tooltip = DA_Cost_5_ADK
+			hidden_effect = { subtract_variable = { which = ancientDwarvenKnowledge value = 5 } }
+			custom_tooltip = DA_research_no_loss_tt
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Our masters have seen this before.
+		name = DA_Research_events.9.e
 		highlight = yes
 		trigger = {
-			OR = {
-				innovativeness = 95
-				full_idea_group = innovativeness_ideas
-			}
+			DA_research_any_school_3 = yes
 		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 9 } }
+			DA_Research_lose = { amount = 2 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.9
 	}
 }
 
 country_event = {
-	id = DA_Research_events.10
+	id = DA_Research_events.10		# Riots in the Workshop District (yearly roll, weight 100)
 	title = DA_Research_events.10.t
 	desc = DA_Research_events.10.d
-	picture = INVENTION_eventPicture
+	picture = MARCHING_PEASANTS_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
-		NOT = { stability = 3 }
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.10 }
-	}
-	mean_time_to_happen = {
-		days = 1
+		DA_research_event_ready = { id = 10 days = 3650 }
+		NOT = { stability = 0 }
 	}
 
-	is_triggered_only = yes
 	immediate = {
 		DA_capture_research_event = { id = 10 }
-		capital_scope = {
-			spawn_rebels = {
-				size = 2
-				type = leadered_peasant_rebels # from Anbennar
-			}
-		}
+		DA_research_event_seen = { id = 10 }
 	}
-	option = {
+
+	option = {		# Buy bread for the district.
 		name = DA_Research_events.10.a
+		trigger = {
+			years_of_income = 0.15
+		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 10 } }
-			DA_Research_lose = { amount = 12 }
+			add_years_of_income = -0.15
+			DA_Research_lose = { amount = 4 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+	option = {		# Let the guard drive them out of the city.
+		name = DA_Research_events.10.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 10 } }
+			DA_Research_lose = { amount = 8 }
+			capital_scope = { spawn_rebels = { size = 2 type = leadered_peasant_rebels } }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.10
 	}
 }
 
 country_event = {
-	id = DA_Research_events.11
+	id = DA_Research_events.11		# Quiet Years (yearly roll, weight 100)
 	title = DA_Research_events.11.t
 	desc = DA_Research_events.11.d
-	picture = INVENTION_eventPicture
+	picture = CITY_VIEW_eventPicture
+	is_triggered_only = yes
 
 	trigger = {
 		ai = no
-		stability = 3
-		DA_can_receive_random_research_event = yes
-		NOT = { has_country_flag = DA_research_event_pending.11 }
-	}
-	mean_time_to_happen = {
-		days = 1
+		DA_research_event_ready = { id = 11 days = 3650 }
+		stability = 2
+		is_at_war = no
 	}
 
-	is_triggered_only = yes
 	immediate = {
 		DA_capture_research_event = { id = 11 }
+		DA_research_event_seen = { id = 11 }
 	}
 
-	option = {
+	option = {		# Long may it last.
 		name = DA_Research_events.11.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 11 } }
 			DA_Research_add = { amount = 8 }
 		}
-		else = {
-			custom_tooltip = DA_research_event_expired_tt
-		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
+
 	after = {
 		clr_country_flag = DA_research_event_pending.11
+	}
+}
+
+country_event = {
+	id = DA_Research_events.12		# The Ruler Visits the Workshop (yearly roll, weight 80)
+	title = DA_Research_events.12.t
+	desc = DA_Research_events.12.d
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 12 days = 3650 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 12 }
+		DA_research_event_seen = { id = 12 }
+	}
+
+	option = {		# Thank the ruler for the visit.
+		name = DA_Research_events.12.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 12 } }
+			add_prestige = 5
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Take the question seriously.
+		name = DA_Research_events.12.b
+		highlight = yes
+		trigger = {
+			adm = 4
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 12 } }
+			DA_Research_add = { amount = 12 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Let the ruler lend a hand.
+		name = DA_Research_events.12.c
+		highlight = yes
+		trigger = {
+			ruler_is_powerful_mage = yes
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 12 } }
+			DA_Research_add = { amount = 12 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Try the ruler's idea.
+		name = DA_Research_events.12.e
+		trigger = {
+			NOT = { adm = 3 }
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 12 } }
+			DA_Research_lose = { amount = 4 }
+			add_prestige = 10
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.12
+	}
+}
+
+country_event = {
+	id = DA_Research_events.13		# A Rival's Notebooks (yearly roll, weight 70)
+	title = DA_Research_events.13.t
+	desc = DA_Research_events.13.d
+	picture = SPY_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 13 days = 3650 }
+		any_rival_country = { exists = yes }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 13 }
+		DA_research_event_seen = { id = 13 }
+		random_rival_country = { save_event_target_as = DA_research_rival }
+	}
+
+	option = {		# Use every page.
+		name = DA_Research_events.13.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 13 } }
+			DA_Research_add = { amount = 12 }
+			add_prestige = -10
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Use only what we could have found ourselves.
+		name = DA_Research_events.13.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 13 } }
+			DA_Research_add = { amount = 6 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Send the satchel back, unopened.
+		name = DA_Research_events.13.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 13 } }
+			add_prestige = 10
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.13
+	}
+}
+
+country_event = {
+	id = DA_Research_events.14		# Fire in the Workshop (yearly roll, weight 60)
+	title = DA_Research_events.14.t
+	desc = DA_Research_events.14.d
+	picture = INVENTION_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 14 days = 3650 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 14 }
+		DA_research_event_seen = { id = 14 }
+	}
+
+	option = {		# Rebuild at once, whatever it costs.
+		name = DA_Research_events.14.a
+		trigger = {
+			years_of_income = 0.2
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 14 } }
+			add_years_of_income = -0.2
+			DA_Research_lose = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Rebuild as funds allow.
+		name = DA_Research_events.14.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 14 } }
+			DA_Research_lose = { amount = 10 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# The alchemists' salts saved the store room.
+		name = DA_Research_events.14.c
+		highlight = yes
+		trigger = {
+			DA_completed.Alchemy_2 = yes
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 14 } }
+			DA_Research_lose = { amount = 2 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.14
+	}
+}
+
+country_event = {
+	id = DA_Research_events.15		# Sermons Against the Workshop (yearly roll, weight 70)
+	title = DA_Research_events.15.t
+	desc = DA_Research_events.15.d
+	picture = CHURCH_ESTATE_UPSET_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 15 days = 3650 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 15 }
+		DA_research_event_seen = { id = 15 }
+	}
+
+	option = {		# Invite the priests to watch the work.
+		name = DA_Research_events.15.a
+		trigger = {
+			has_estate = estate_church
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 15 } }
+			DA_Research_lose = { amount = 4 }
+			add_estate_loyalty = { estate = estate_church loyalty = 10 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Explain it, patiently, in every square.
+		name = DA_Research_events.15.b
+		trigger = {
+			dip_power = 25
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 15 } }
+			add_dip_power = -25
+			custom_tooltip = DA_research_no_loss_tt
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Let them talk.
+		name = DA_Research_events.15.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 15 } }
+			capital_scope = { add_province_modifier = { name = DA_research_frightened_town duration = 1825 } }
+			if = { limit = { has_estate = estate_church } add_estate_loyalty = { estate = estate_church loyalty = -5 } }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Show them the consecrated arms.
+		name = DA_Research_events.15.e
+		highlight = yes
+		trigger = {
+			DA_completed.Holy_Magic = yes
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 15 } }
+			if = { limit = { has_estate = estate_church } add_estate_loyalty = { estate = estate_church loyalty = 5 } }
+			custom_tooltip = DA_research_no_loss_tt
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.15
+	}
+}
+
+country_event = {
+	id = DA_Research_events.16		# The Army Wants the Workshop (yearly roll, weight 100)
+	title = DA_Research_events.16.t
+	desc = DA_Research_events.16.d
+	picture = MILITARY_CAMP_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 16 days = 3650 }
+		is_at_war = yes
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 16 }
+		DA_research_event_seen = { id = 16 }
+	}
+
+	option = {		# Give the army everything.
+		name = DA_Research_events.16.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 16 } }
+			DA_Research_lose = { amount = 8 }
+			add_army_tradition = 10
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Lend the furnaces, keep the people.
+		name = DA_Research_events.16.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 16 } }
+			DA_Research_lose = { amount = 4 }
+			add_army_tradition = 5
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# The work comes first.
+		name = DA_Research_events.16.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 16 } }
+			add_war_exhaustion = 1
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.16
+	}
+}
+
+country_event = {
+	id = DA_Research_events.17		# Two Masters Quarrel (yearly roll, weight 90)
+	title = DA_Research_events.17.t
+	desc = DA_Research_events.17.d
+	picture = MERCHANTS_ARGUING_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 17 days = 3650 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 17 }
+		DA_research_event_seen = { id = 17 }
+	}
+
+	option = {		# Back the elder.
+		name = DA_Research_events.17.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 17 } }
+			DA_Research_add = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Back the younger.
+		name = DA_Research_events.17.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 17 } }
+			random_list = {
+				50 = { DA_Research_add = { amount = 12 } }
+				50 = { DA_Research_lose = { amount = 4 } }
+			}
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Make them work as equals.
+		name = DA_Research_events.17.c
+		trigger = {
+			dip_power = 25
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 17 } }
+			add_dip_power = -25
+			DA_Research_add = { amount = 8 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.17
+	}
+}
+
+country_event = {
+	id = DA_Research_events.18		# Sickness in the Workshops (yearly roll, weight 100)
+	title = DA_Research_events.18.t
+	desc = DA_Research_events.18.d
+	picture = PLAGUE_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 18 days = 3650 }
+		capital_scope = { DA_has_disease_in_province = yes }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 18 }
+		DA_research_event_seen = { id = 18 }
+	}
+
+	option = {		# Close the workshop until it passes.
+		name = DA_Research_events.18.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 18 } }
+			DA_Research_lose = { amount = 8 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Keep working.
+		name = DA_Research_events.18.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 18 } }
+			random_list = {
+				50 = { custom_tooltip = DA_research_no_loss_tt }
+				50 = { DA_Research_lose = { amount = 12 } }
+			}
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Send in our physicians.
+		name = DA_Research_events.18.c
+		highlight = yes
+		trigger = {
+			DA_completed.Medicine_2 = yes
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 18 } }
+			DA_Research_lose = { amount = 2 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.18
+	}
+}
+
+country_event = {
+	id = DA_Research_events.19		# An Envoy Asks to See (yearly roll, weight 70)
+	title = DA_Research_events.19.t
+	desc = DA_Research_events.19.d
+	picture = DIPLOMACY_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 19 days = 3650 }
+		any_ally = { exists = yes }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 19 }
+		DA_research_event_seen = { id = 19 }
+		random_ally = { save_event_target_as = DA_research_ally }
+	}
+
+	option = {		# Trade notes, page for page.
+		name = DA_Research_events.19.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 19 } }
+			DA_Research_add = { amount = 8 }
+			add_trust = { who = event_target:DA_research_ally value = 5 mutual = yes }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Give them a tour to remember.
+		name = DA_Research_events.19.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 19 } }
+			add_trust = { who = event_target:DA_research_ally value = 15 mutual = yes }
+			event_target:DA_research_ally = { add_opinion = { who = ROOT modifier = DA_research_shown_round } }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Our secrets stay ours.
+		name = DA_Research_events.19.c
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.19
+	}
+}
+
+country_event = {
+	id = DA_Research_events.20		# The Missing Ingredient (yearly roll, weight 80)
+	title = DA_Research_events.20.t
+	desc = DA_Research_events.20.d
+	picture = TRADE_GOODS_METALS_AND_MINING_EQUIPENT_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 20 days = 3650 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 20 }
+		DA_research_event_seen = { id = 20 }
+	}
+
+	option = {		# Buy it abroad.
+		name = DA_Research_events.20.a
+		trigger = {
+			years_of_income = 0.15
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 20 } }
+			add_years_of_income = -0.15
+			DA_Research_add = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Use our own.
+		name = DA_Research_events.20.b
+		highlight = yes
+		trigger = {
+			custom_trigger_tooltip = { tooltip = DA_research_rare_goods_tt any_owned_province = { OR = { trade_goods = damestear trade_goods = mithril trade_goods = gems trade_goods = precursor_relics } } }
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 20 } }
+			DA_Research_add = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Try the substitute.
+		name = DA_Research_events.20.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 20 } }
+			random_list = {
+				50 = { DA_Research_add = { amount = 8 } }
+				50 = { DA_Research_lose = { amount = 8 } }
+			}
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Wait for supplies.
+		name = DA_Research_events.20.e
+		if = {
+			limit = { DA_research_event_is_current = { id = 20 } }
+			DA_Research_lose = { amount = 6 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.20
+	}
+}
+
+country_event = {
+	id = DA_Research_events.21		# A Sealed Archive (yearly roll, weight 60)
+	title = DA_Research_events.21.t
+	desc = DA_Research_events.21.d
+	picture = BIG_BOOK_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_event_ready = { id = 21 days = 3650 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 21 }
+		DA_research_event_seen = { id = 21 }
+	}
+
+	option = {		# Study the notebooks.
+		name = DA_Research_events.21.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 21 } }
+			DA_Research_add = { amount = 8 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Sell them to a collector.
+		name = DA_Research_events.21.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 21 } }
+			add_years_of_income = 0.15
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Copy them for the keepers of old knowledge.
+		name = DA_Research_events.21.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 21 } }
+			DA_Research_add = { amount = 2 }
+			add_adk_effect = { add = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.21
+	}
+}
+
+country_event = {
+	id = DA_Research_events.30		# hidden: picks one race event (.31-.50) for the yearly roll, weight 150
+	hidden = yes
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		OR = {
+			DA_research_race_ready = { race = centaur id = 31 }
+			DA_research_race_ready = { race = dwarven id = 32 }
+			DA_research_race_ready = { race = elven id = 33 }
+			DA_research_race_ready = { race = gnollish id = 34 }
+			DA_research_race_ready = { race = gnomish id = 35 }
+			DA_research_race_ready = { race = goblin id = 36 }
+			DA_research_race_ready = { race = half_elven id = 37 }
+			DA_research_race_ready = { race = half_orcish id = 38 }
+			DA_research_race_ready = { race = halfling id = 39 }
+			DA_research_race_ready = { race = harimari id = 40 }
+			DA_research_race_ready = { race = harpy id = 41 }
+			DA_research_race_ready = { race = hobgoblin id = 42 }
+			DA_research_race_ready = { race = human id = 43 }
+			DA_research_race_ready = { race = kobold id = 44 }
+			DA_research_race_ready = { race = lizardfolk id = 45 }
+			DA_research_race_ready = { race = mechanim id = 46 }
+			DA_research_race_ready = { race = ogre id = 47 }
+			DA_research_race_ready = { race = orcish id = 48 }
+			DA_research_race_ready = { race = ruinborn id = 49 }
+			DA_research_race_ready = { race = troll id = 50 }
+		}
+	}
+
+	immediate = {
+		# The race of our primary culture counts three times, every other people we rule once.
+		random_list = {
+			10 = {	# centaur
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = centaur id = 31 } } }
+				modifier = { factor = 3 culture_is_centaur = yes }
+				country_event = { id = DA_Research_events.31 }
+			}
+			10 = {	# dwarven
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = dwarven id = 32 } } }
+				modifier = { factor = 3 culture_is_dwarven = yes }
+				country_event = { id = DA_Research_events.32 }
+			}
+			10 = {	# elven
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = elven id = 33 } } }
+				modifier = { factor = 3 culture_is_elven = yes }
+				country_event = { id = DA_Research_events.33 }
+			}
+			10 = {	# gnollish
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = gnollish id = 34 } } }
+				modifier = { factor = 3 culture_is_gnollish = yes }
+				country_event = { id = DA_Research_events.34 }
+			}
+			10 = {	# gnomish
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = gnomish id = 35 } } }
+				modifier = { factor = 3 culture_is_gnomish = yes }
+				country_event = { id = DA_Research_events.35 }
+			}
+			10 = {	# goblin
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = goblin id = 36 } } }
+				modifier = { factor = 3 culture_is_goblin = yes }
+				country_event = { id = DA_Research_events.36 }
+			}
+			10 = {	# half_elven
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = half_elven id = 37 } } }
+				modifier = { factor = 3 culture_is_half_elven = yes }
+				country_event = { id = DA_Research_events.37 }
+			}
+			10 = {	# half_orcish
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = half_orcish id = 38 } } }
+				modifier = { factor = 3 culture_is_half_orcish = yes }
+				country_event = { id = DA_Research_events.38 }
+			}
+			10 = {	# halfling
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = halfling id = 39 } } }
+				modifier = { factor = 3 culture_is_halfling = yes }
+				country_event = { id = DA_Research_events.39 }
+			}
+			10 = {	# harimari
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = harimari id = 40 } } }
+				modifier = { factor = 3 culture_is_harimari = yes }
+				country_event = { id = DA_Research_events.40 }
+			}
+			10 = {	# harpy
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = harpy id = 41 } } }
+				modifier = { factor = 3 culture_is_harpy = yes }
+				country_event = { id = DA_Research_events.41 }
+			}
+			10 = {	# hobgoblin
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = hobgoblin id = 42 } } }
+				modifier = { factor = 3 culture_is_hobgoblin = yes }
+				country_event = { id = DA_Research_events.42 }
+			}
+			10 = {	# human
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = human id = 43 } } }
+				modifier = { factor = 3 culture_is_human = yes }
+				country_event = { id = DA_Research_events.43 }
+			}
+			10 = {	# kobold
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = kobold id = 44 } } }
+				modifier = { factor = 3 culture_is_kobold = yes }
+				country_event = { id = DA_Research_events.44 }
+			}
+			10 = {	# lizardfolk
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = lizardfolk id = 45 } } }
+				modifier = { factor = 3 culture_is_lizardfolk = yes }
+				country_event = { id = DA_Research_events.45 }
+			}
+			10 = {	# mechanim
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = mechanim id = 46 } } }
+				modifier = { factor = 3 culture_is_mechanim = yes }
+				country_event = { id = DA_Research_events.46 }
+			}
+			10 = {	# ogre
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = ogre id = 47 } } }
+				modifier = { factor = 3 culture_is_ogre = yes }
+				country_event = { id = DA_Research_events.47 }
+			}
+			10 = {	# orcish
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = orcish id = 48 } } }
+				modifier = { factor = 3 culture_is_orcish = yes }
+				country_event = { id = DA_Research_events.48 }
+			}
+			10 = {	# ruinborn
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = ruinborn id = 49 } } }
+				modifier = { factor = 3 culture_is_ruinborn = yes }
+				country_event = { id = DA_Research_events.49 }
+			}
+			10 = {	# troll
+				modifier = { factor = 0 NOT = { DA_research_race_ready = { race = troll id = 50 } } }
+				modifier = { factor = 3 culture_is_troll = yes }
+				country_event = { id = DA_Research_events.50 }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = DA_Research_events.31		# The Long Ride (Centaur; picked by .30)
+	title = DA_Research_events.31.t
+	desc = DA_Research_events.31.d
+	picture = CENTAUR_CAMPFIRE_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = centaur id = 31 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 31 }
+		DA_research_event_seen = { id = 31 }
+	}
+
+	option = {		# Pay them by the mile.
+		name = DA_Research_events.31.a
+		trigger = {
+			years_of_income = 0.15
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 31 } }
+			add_years_of_income = -0.15
+			DA_Research_add = { amount = 12 }
+			DA_research_race_honour = { race = centaur }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Only the nearest provinces.
+		name = DA_Research_events.31.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 31 } }
+			DA_Research_add = { amount = 6 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Keep them on as couriers for the court.
+		name = DA_Research_events.31.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 31 } }
+			DA_Research_add = { amount = 2 }
+			add_country_modifier = { name = DA_research_centaur_couriers duration = 3650 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.31
+	}
+}
+
+country_event = {
+	id = DA_Research_events.32		# Old Ink (Dwarven; picked by .30)
+	title = DA_Research_events.32.t
+	desc = DA_Research_events.32.d
+	picture = FORGE_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = dwarven id = 32 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 32 }
+		DA_research_event_seen = { id = 32 }
+	}
+
+	option = {		# Follow the ancestor's method.
+		name = DA_Research_events.32.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 32 } }
+			DA_Research_add = { amount = 10 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Copy the workbooks into the archives.
+		name = DA_Research_events.32.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 32 } }
+			DA_Research_add = { amount = 4 }
+			add_adk_effect = { add = 3 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Carve his name above the workshop door, with both Ks.
+		name = DA_Research_events.32.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 32 } }
+			add_prestige = 10
+			DA_research_race_honour = { race = dwarven }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.32
+	}
+}
+
+country_event = {
+	id = DA_Research_events.33		# She Has Done This Before (Elven; picked by .30)
+	title = DA_Research_events.33.t
+	desc = DA_Research_events.33.d
+	picture = ELVEN_CONSTELLATION_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = elven id = 33 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 33 }
+		DA_research_event_seen = { id = 33 }
+	}
+
+	option = {		# Ask her to write down what went wrong.
+		name = DA_Research_events.33.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 33 } }
+			DA_Research_add = { amount = 10 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Let her lead the work, at her own pace.
+		name = DA_Research_events.33.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 33 } }
+			add_country_modifier = { name = DA_research_elven_mentor duration = 7300 }
+			DA_research_race_honour = { race = elven }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Give her a chair at the academy.
+		name = DA_Research_events.33.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 33 } }
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Arcane_Arts }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.33
+	}
+}
+
+country_event = {
+	id = DA_Research_events.34		# What the Pack Brought Back (Gnollish; picked by .30)
+	title = DA_Research_events.34.t
+	desc = DA_Research_events.34.d
+	picture = DESERT_CARAVAN_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = gnollish id = 34 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 34 }
+		DA_research_event_seen = { id = 34 }
+	}
+
+	option = {		# Pay for the whole haul.
+		name = DA_Research_events.34.a
+		trigger = {
+			years_of_income = 0.15
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 34 } }
+			add_years_of_income = -0.15
+			DA_Research_add = { amount = 12 }
+			DA_research_race_honour = { race = gnollish }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Buy the cylinder.
+		name = DA_Research_events.34.b
+		trigger = {
+			years_of_income = 0.05
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 34 } }
+			add_years_of_income = -0.05
+			DA_Research_add = { amount = 6 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Buy the scrap for the smiths.
+		name = DA_Research_events.34.c
+		trigger = {
+			years_of_income = 0.05
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 34 } }
+			add_years_of_income = -0.05
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Metallurgy }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Send them on their way.
+		name = DA_Research_events.34.e
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.34
+	}
+}
+
+country_event = {
+	id = DA_Research_events.35		# It Also Makes Tea (Gnomish; picked by .30)
+	title = DA_Research_events.35.t
+	desc = DA_Research_events.35.d
+	picture = ARTIFICE_GEAR_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = gnomish id = 35 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 35 }
+		DA_research_event_seen = { id = 35 }
+	}
+
+	option = {		# Use it exactly as it is.
+		name = DA_Research_events.35.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 35 } }
+			random_list = {
+				50 = { DA_Research_add = { amount = 16 } }
+				50 = { DA_Research_add = { amount = 4 } }
+			}
+			DA_research_race_honour = { race = gnomish }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Strip it down to the clamp.
+		name = DA_Research_events.35.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 35 } }
+			DA_Research_add = { amount = 8 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Ask her to show the engineers how she did it.
+		name = DA_Research_events.35.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 35 } }
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Mechanics }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.35
+	}
+}
+
+country_event = {
+	id = DA_Research_events.36		# Everything at Once (Goblin; picked by .30)
+	title = DA_Research_events.36.t
+	desc = DA_Research_events.36.d
+	picture = GOBLIN_GUNNER_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = goblin id = 36 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 36 }
+		DA_research_event_seen = { id = 36 }
+	}
+
+	option = {		# Light the fuse.
+		name = DA_Research_events.36.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 36 } }
+			random_list = {
+				40 = { DA_Research_add = { amount = 16 } }
+				40 = { DA_Research_add = { amount = 4 } }
+				20 = { DA_Research_lose = { amount = 8 } capital_scope = { add_devastation = 10 } }
+			}
+			DA_research_race_honour = { race = goblin }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# One variant at a time, please.
+		name = DA_Research_events.36.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 36 } }
+			DA_Research_add = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Move the no-no zone further out first.
+		name = DA_Research_events.36.c
+		trigger = {
+			years_of_income = 0.1
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 36 } }
+			add_years_of_income = -0.1
+			random_list = {
+				60 = { DA_Research_add = { amount = 16 } }
+				40 = { DA_Research_add = { amount = 4 } }
+			}
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.36
+	}
+}
+
+country_event = {
+	id = DA_Research_events.37		# Two Libraries (Half-elven; picked by .30)
+	title = DA_Research_events.37.t
+	desc = DA_Research_events.37.d
+	picture = DIVERSE_COURT_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = half_elven id = 37 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 37 }
+		DA_research_event_seen = { id = 37 }
+	}
+
+	option = {		# Give her both.
+		name = DA_Research_events.37.a
+		trigger = {
+			years_of_income = 0.05
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 37 } }
+			add_years_of_income = -0.05
+			DA_Research_add = { amount = 12 }
+			DA_research_race_honour = { race = half_elven }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# The title will do.
+		name = DA_Research_events.37.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 37 } }
+			DA_Research_add = { amount = 8 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Send her to the foreign office.
+		name = DA_Research_events.37.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 37 } }
+			DA_Research_add = { amount = 2 }
+			define_advisor = { type = diplomat skill = 2 discount = yes }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.37
+	}
+}
+
+country_event = {
+	id = DA_Research_events.38		# A Sapper Comes Home (Half-orcish; picked by .30)
+	title = DA_Research_events.38.t
+	desc = DA_Research_events.38.d
+	picture = MULTI_RACIAL_MERC_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = half_orcish id = 38 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 38 }
+		DA_research_event_seen = { id = 38 }
+	}
+
+	option = {		# The workshop needs him more.
+		name = DA_Research_events.38.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 38 } }
+			DA_Research_add = { amount = 8 }
+			DA_research_race_honour = { race = half_orcish }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# The army needs him more.
+		name = DA_Research_events.38.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 38 } }
+			add_country_modifier = { name = DA_research_old_sapper duration = 3650 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Split the week.
+		name = DA_Research_events.38.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 38 } }
+			DA_Research_add = { amount = 4 }
+			add_country_modifier = { name = DA_research_old_sapper_half duration = 3650 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.38
+	}
+}
+
+country_event = {
+	id = DA_Research_events.39		# The Pantry Method (Halfling; picked by .30)
+	title = DA_Research_events.39.t
+	desc = DA_Research_events.39.d
+	picture = FEAST_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = halfling id = 39 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 39 }
+		DA_research_event_seen = { id = 39 }
+	}
+
+	option = {		# Put her in charge of the stores.
+		name = DA_Research_events.39.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 39 } }
+			DA_Research_add = { amount = 8 }
+			DA_research_race_honour = { race = halfling }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Send her method to every workshop in the realm.
+		name = DA_Research_events.39.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 39 } }
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Alchemy }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.39
+	}
+}
+
+country_event = {
+	id = DA_Research_events.40		# Three Clerks (Harimari; picked by .30)
+	title = DA_Research_events.40.t
+	desc = DA_Research_events.40.d
+	picture = TIGER_THRONE_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = harimari id = 40 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 40 }
+		DA_research_event_seen = { id = 40 }
+	}
+
+	option = {		# Adopt the method in the workshop.
+		name = DA_Research_events.40.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 40 } }
+			DA_Research_add = { amount = 10 }
+			DA_research_race_honour = { race = harimari }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Adopt it in the treasury as well.
+		name = DA_Research_events.40.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 40 } }
+			DA_Research_add = { amount = 4 }
+			add_country_modifier = { name = DA_research_three_clerks duration = 3650 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.40
+	}
+}
+
+country_event = {
+	id = DA_Research_events.41		# The View from Above (Harpy; picked by .30)
+	title = DA_Research_events.41.t
+	desc = DA_Research_events.41.d
+	picture = HARPY_TOWN_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = harpy id = 41 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 41 }
+		DA_research_event_seen = { id = 41 }
+	}
+
+	option = {		# Publish the names of those who flew.
+		name = DA_Research_events.41.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 41 } }
+			DA_Research_add = { amount = 10 }
+			DA_research_race_honour_or_prestige = { race = harpy }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Keep the trials on the ground.
+		name = DA_Research_events.41.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 41 } }
+			DA_Research_add = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.41
+	}
+}
+
+country_event = {
+	id = DA_Research_events.42		# Inspected by the Book (Hobgoblin; picked by .30)
+	title = DA_Research_events.42.t
+	desc = DA_Research_events.42.d
+	picture = ONI_THINK_HOBGOBLIN_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = hobgoblin id = 42 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 42 }
+		DA_research_event_seen = { id = 42 }
+	}
+
+	option = {		# Run the workshop like a regiment.
+		name = DA_Research_events.42.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 42 } }
+			DA_Research_add = { amount = 10 }
+			DA_research_race_honour = { race = hobgoblin }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Keep the inventory, ignore the rest.
+		name = DA_Research_events.42.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 42 } }
+			DA_Research_add = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Make him quartermaster of the army instead.
+		name = DA_Research_events.42.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 42 } }
+			add_army_tradition = 10
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.42
+	}
+}
+
+country_event = {
+	id = DA_Research_events.43		# A College Wants a Charter (Human; picked by .30)
+	title = DA_Research_events.43.t
+	desc = DA_Research_events.43.d
+	picture = UNIVERSITY_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = human id = 43 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 43 }
+		DA_research_event_seen = { id = 43 }
+	}
+
+	option = {		# Grant the charter.
+		name = DA_Research_events.43.a
+		trigger = {
+			years_of_income = 0.15
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 43 } }
+			add_years_of_income = -0.15
+			add_country_modifier = { name = DA_research_chartered_college duration = 9125 }
+			DA_research_race_honour = { race = human }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Grant it, with a rector of our choosing.
+		name = DA_Research_events.43.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 43 } }
+			DA_Research_add = { amount = 8 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# No charters.
+		name = DA_Research_events.43.c
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.43
+	}
+}
+
+country_event = {
+	id = DA_Research_events.44		# A Scale for the Work (Kobold; picked by .30)
+	title = DA_Research_events.44.t
+	desc = DA_Research_events.44.d
+	picture = KOBOLD_HOARD_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = kobold id = 44 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 44 }
+		DA_research_event_seen = { id = 44 }
+	}
+
+	option = {		# Accept it with a proper ceremony.
+		name = DA_Research_events.44.a
+		trigger = {
+			years_of_income = 0.05
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 44 } }
+			add_years_of_income = -0.05
+			DA_Research_add = { amount = 12 }
+			DA_research_race_honour = { race = kobold }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Accept it and get on with the work.
+		name = DA_Research_events.44.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 44 } }
+			DA_Research_add = { amount = 12 }
+			DA_research_race_slight = { race = kobold }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Return it to the shrine with thanks.
+		name = DA_Research_events.44.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 44 } }
+			add_prestige = 10
+			DA_research_race_honour = { race = kobold }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.44
+	}
+}
+
+country_event = {
+	id = DA_Research_events.45		# The New Clutch (Lizardfolk; picked by .30)
+	title = DA_Research_events.45.t
+	desc = DA_Research_events.45.d
+	picture = LIZARDFOLK_NAGA_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = lizardfolk id = 45 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 45 }
+		DA_research_event_seen = { id = 45 }
+	}
+
+	option = {		# Put the young ones on the instruments.
+		name = DA_Research_events.45.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 45 } }
+			DA_Research_add = { amount = 10 }
+			DA_research_race_honour = { race = lizardfolk }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Ask the physicians to study the change.
+		name = DA_Research_events.45.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 45 } }
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Medicine }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.45
+	}
+}
+
+country_event = {
+	id = DA_Research_events.46		# A Living Relic Remembers (Mechanim; picked by .30)
+	title = DA_Research_events.46.t
+	desc = DA_Research_events.46.d
+	picture = DAMESTEAR_CORE_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = mechanim id = 46 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 46 }
+		DA_research_event_seen = { id = 46 }
+	}
+
+	option = {		# Thank it as a colleague.
+		name = DA_Research_events.46.a
+		if = {
+			limit = { DA_research_event_is_current = { id = 46 } }
+			DA_Research_add = { amount = 10 }
+			DA_research_race_honour_or_prestige = { race = mechanim }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Log the drawings.
+		name = DA_Research_events.46.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 46 } }
+			DA_Research_add = { amount = 12 }
+			DA_research_race_slight = { race = mechanim }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Ask it to teach the engineers.
+		name = DA_Research_events.46.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 46 } }
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Mechanics }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.46
+	}
+}
+
+country_event = {
+	id = DA_Research_events.47		# The Big Casting (Ogre; picked by .30)
+	title = DA_Research_events.47.t
+	desc = DA_Research_events.47.d
+	picture = OGRE_YETI_SMITHING_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = ogre id = 47 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 47 }
+		DA_research_event_seen = { id = 47 }
+	}
+
+	option = {		# Feed them and pay them.
+		name = DA_Research_events.47.a
+		trigger = {
+			years_of_income = 0.15
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 47 } }
+			add_years_of_income = -0.15
+			DA_Research_add = { amount = 12 }
+			DA_research_race_honour = { race = ogre }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Pay them in coin only.
+		name = DA_Research_events.47.b
+		trigger = {
+			years_of_income = 0.1
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 47 } }
+			add_years_of_income = -0.1
+			random_list = {
+				50 = { DA_Research_add = { amount = 12 } }
+				50 = { DA_Research_add = { amount = 4 } }
+			}
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Learn how they pour it.
+		name = DA_Research_events.47.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 47 } }
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Metallurgy }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.47
+	}
+}
+
+country_event = {
+	id = DA_Research_events.48		# Tested to Destruction (Orcish; picked by .30)
+	title = DA_Research_events.48.t
+	desc = DA_Research_events.48.d
+	picture = ORC_WITH_AXE_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = orcish id = 48 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 48 }
+		DA_research_event_seen = { id = 48 }
+	}
+
+	option = {		# Let them test everything.
+		name = DA_Research_events.48.a
+		trigger = {
+			years_of_income = 0.05
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 48 } }
+			add_years_of_income = -0.05
+			DA_Research_add = { amount = 12 }
+			DA_research_race_honour = { race = orcish }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Only the finished pieces.
+		name = DA_Research_events.48.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 48 } }
+			DA_Research_add = { amount = 6 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Send them to the army's proving grounds.
+		name = DA_Research_events.48.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 48 } }
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Metallurgy }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.48
+	}
+}
+
+country_event = {
+	id = DA_Research_events.49		# The Song with the Recipe in It (Ruinborn; picked by .30)
+	title = DA_Research_events.49.t
+	desc = DA_Research_events.49.d
+	picture = NATIVES_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = ruinborn id = 49 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 49 }
+		DA_research_event_seen = { id = 49 }
+	}
+
+	option = {		# Ask properly.
+		name = DA_Research_events.49.a
+		trigger = {
+			years_of_income = 0.05
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 49 } }
+			add_years_of_income = -0.05
+			DA_Research_add = { amount = 12 }
+			DA_research_race_honour = { race = ruinborn }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Write down the verses we need.
+		name = DA_Research_events.49.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 49 } }
+			DA_Research_add = { amount = 8 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Invite the singers to court.
+		name = DA_Research_events.49.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 49 } }
+			add_prestige = 10
+			DA_research_race_honour = { race = ruinborn }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.49
+	}
+}
+
+country_event = {
+	id = DA_Research_events.50		# It Grows Back (Troll; picked by .30)
+	title = DA_Research_events.50.t
+	desc = DA_Research_events.50.d
+	picture = CAVE_eventPicture
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+		DA_research_race_ready = { race = troll id = 50 }
+	}
+
+	immediate = {
+		DA_capture_research_event = { id = 50 }
+		DA_research_event_seen = { id = 50 }
+	}
+
+	option = {		# Give him the raise and run the trials.
+		name = DA_Research_events.50.a
+		trigger = {
+			years_of_income = 0.05
+		}
+		if = {
+			limit = { DA_research_event_is_current = { id = 50 } }
+			add_years_of_income = -0.05
+			DA_Research_add = { amount = 12 }
+			DA_research_race_honour = { race = troll }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Thank him, and test on iron from now on.
+		name = DA_Research_events.50.b
+		if = {
+			limit = { DA_research_event_is_current = { id = 50 } }
+			DA_Research_add = { amount = 4 }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+	option = {		# Ask the physicians how he heals.
+		name = DA_Research_events.50.c
+		if = {
+			limit = { DA_research_event_is_current = { id = 50 } }
+			DA_Research_add = { amount = 2 }
+			DA_research_school_exp = { school = Medicine }
+		}
+		else = { custom_tooltip = DA_research_event_expired_tt }
+	}
+
+	after = {
+		clr_country_flag = DA_research_event_pending.50
 	}
 }

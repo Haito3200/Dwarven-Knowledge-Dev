@@ -6,6 +6,7 @@ Da_explore_dig_2_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -15,6 +16,7 @@ Da_explore_dig_2_effect = {
 		40 = {
 			set_province_flag = DA_HX_m2_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -30,6 +32,7 @@ Da_explore_dig_2_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m2_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
@@ -38,6 +41,7 @@ Da_explore_dig_2_effect = {
 		4 = {
 			set_province_flag = DA_HX_m2_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3		#found goblins
 				days = 10
@@ -46,6 +50,7 @@ Da_explore_dig_2_effect = {
 		1 = {
 			set_province_flag = DA_HX_m2_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -97,6 +102,7 @@ Da_explore_dig_2_effect = {
 		1 = {
 			set_province_flag = DA_HX_m2_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -104,6 +110,7 @@ Da_explore_dig_2_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m2_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -121,6 +128,42 @@ Da_explore_dig_2_effect = {
 			}
 			province_event = { 
 				id = DA_ADK_explore.210		#found Turrets of OrldhÃ»m
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m2_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.2		# Treasure Chest
+				days = 10
+			}
+		}
+		6 = {	# DA_GX new find
+			set_province_flag = DA_HX_m2_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.30		# The Old Workings
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m2_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_kobolds_met }
+				owner = { NOT = { culture_group = kobold } }
+			}
+			province_event = {
+				id = DA_ADK_explore.39		# Kobold Squatters
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m2_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_names_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.44		# The Wall of Names
 				days = 10
 			}
 		}
@@ -148,6 +191,7 @@ Da_explore_dig_3_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -159,6 +203,7 @@ Da_explore_dig_3_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -168,6 +213,7 @@ Da_explore_dig_3_effect = {
 		3 = {
 			set_province_flag = DA_HX_m3_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -176,6 +222,7 @@ Da_explore_dig_3_effect = {
 		7 = {
 			set_province_flag = DA_HX_m3_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -191,6 +238,7 @@ Da_explore_dig_3_effect = {
 		}
 		2 = {
 			set_province_flag = DA_HX_m3_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
@@ -199,6 +247,7 @@ Da_explore_dig_3_effect = {
 		5 = {
 			set_province_flag = DA_HX_m3_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3
 				days = 10
@@ -208,6 +257,7 @@ Da_explore_dig_3_effect = {
 		2 = {
 			set_province_flag = DA_HX_m3_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -259,6 +309,7 @@ Da_explore_dig_3_effect = {
 		1 = {
 			set_province_flag = DA_HX_m3_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -266,6 +317,7 @@ Da_explore_dig_3_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m3_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -569,6 +621,95 @@ Da_explore_dig_3_effect = {
 				days = 10
 			}
 		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.2		# Treasure Chest
+				days = 10
+			}
+		}
+		6 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.30		# The Old Workings
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.32		# The Pale Gardens
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_last_stand_met }
+			}
+			modifier = { factor = 1.5 owner = { has_country_flag = DA_GX_silent_tomb } }	# takes the weight of The Silence of Stone once it was found
+			province_event = {
+				id = DA_ADK_explore.38		# The Last Stand
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_kobolds_met }
+				owner = { NOT = { culture_group = kobold } }
+			}
+			province_event = {
+				id = DA_ADK_explore.39		# Kobold Squatters
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.43		# The Flooded Gallery
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_names_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.44		# The Wall of Names
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m3_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_lift_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.45		# The Hollow Lift
+				days = 10
+			}
+		}
 	}
 }
 Da_explore_dig_4_effect = {
@@ -593,6 +734,7 @@ Da_explore_dig_4_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -604,6 +746,7 @@ Da_explore_dig_4_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -613,6 +756,7 @@ Da_explore_dig_4_effect = {
 		8 = {
 			set_province_flag = DA_HX_m4_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -621,6 +765,7 @@ Da_explore_dig_4_effect = {
 		14 = {
 			set_province_flag = DA_HX_m4_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -629,6 +774,7 @@ Da_explore_dig_4_effect = {
 		6 = {
 			set_province_flag = DA_HX_m4_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_steam_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.23		# steam blueprint
 				days = 10
@@ -644,6 +790,7 @@ Da_explore_dig_4_effect = {
 		}
 		3 = {
 			set_province_flag = DA_HX_m4_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
@@ -652,6 +799,7 @@ Da_explore_dig_4_effect = {
 		9 = {
 			set_province_flag = DA_HX_m4_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3
 				days = 10
@@ -661,6 +809,7 @@ Da_explore_dig_4_effect = {
 		5 = {
 			set_province_flag = DA_HX_m4_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -712,6 +861,7 @@ Da_explore_dig_4_effect = {
 		1 = {
 			set_province_flag = DA_HX_m4_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -719,6 +869,7 @@ Da_explore_dig_4_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m4_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -1243,6 +1394,145 @@ Da_explore_dig_4_effect = {
 				days = 10
 			}
 		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.2		# Treasure Chest
+				days = 10
+			}
+		}
+		5 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.30		# The Old Workings
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.31		# Firedamp
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.32		# The Pale Gardens
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_door_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.35		# The Warded Door
+				days = 10
+			}
+		}
+		1000 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				has_province_flag = DA_GX_wards_answered
+			}
+			province_event = {
+				id = DA_ADK_explore.36		# What the Wards Kept
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_hermit_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.37		# The Hermit of the Old School
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_last_stand_met }
+			}
+			modifier = { factor = 1.5 owner = { has_country_flag = DA_GX_silent_tomb } }	# takes the weight of The Silence of Stone once it was found
+			province_event = {
+				id = DA_ADK_explore.38		# The Last Stand
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_kobolds_met }
+				owner = { NOT = { culture_group = kobold } }
+			}
+			province_event = {
+				id = DA_ADK_explore.39		# Kobold Squatters
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.43		# The Flooded Gallery
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_names_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.44		# The Wall of Names
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_lift_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.45		# The Hollow Lift
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m4_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_modifier = DA_Alchemy_material.Healing_Slimes }
+			}
+			province_event = {
+				id = DA_ADK_explore.47		# Healing Slimes
+				days = 10
+			}
+		}
 	}
 }
 Da_explore_dig_5_effect = {
@@ -1283,6 +1573,7 @@ Da_explore_dig_5_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -1294,6 +1585,7 @@ Da_explore_dig_5_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -1303,6 +1595,7 @@ Da_explore_dig_5_effect = {
 		6 = {
 			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -1311,6 +1604,7 @@ Da_explore_dig_5_effect = {
 		10 = {
 			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -1319,6 +1613,7 @@ Da_explore_dig_5_effect = {
 		8 = {
 			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_steam_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.23		# steam blueprint
 				days = 10
@@ -1334,6 +1629,7 @@ Da_explore_dig_5_effect = {
 		}
 		3 = {
 			set_province_flag = DA_HX_m5_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
@@ -1342,6 +1638,7 @@ Da_explore_dig_5_effect = {
 		8 = {
 			set_province_flag = DA_HX_m5_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3
 				days = 10
@@ -1351,6 +1648,7 @@ Da_explore_dig_5_effect = {
 		7 = {
 			set_province_flag = DA_HX_m5_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -1402,6 +1700,7 @@ Da_explore_dig_5_effect = {
 		1 = {
 			set_province_flag = DA_HX_m5_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -1409,6 +1708,7 @@ Da_explore_dig_5_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m5_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -2159,6 +2459,176 @@ Da_explore_dig_5_effect = {
 				days = 10
 			}
 		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.2		# Treasure Chest
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.30		# The Old Workings
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.31		# Firedamp
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.32		# The Pale Gardens
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_guardian_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.34		# The Dormant Guardian
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_door_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.35		# The Warded Door
+				days = 10
+			}
+		}
+		1000 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				has_province_flag = DA_GX_wards_answered
+			}
+			province_event = {
+				id = DA_ADK_explore.36		# What the Wards Kept
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_hermit_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.37		# The Hermit of the Old School
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_last_stand_met }
+			}
+			modifier = { factor = 1.5 owner = { has_country_flag = DA_GX_silent_tomb } }	# takes the weight of The Silence of Stone once it was found
+			province_event = {
+				id = DA_ADK_explore.38		# The Last Stand
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_kobolds_met }
+				owner = { NOT = { culture_group = kobold } }
+			}
+			province_event = {
+				id = DA_ADK_explore.39		# Kobold Squatters
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_sigil_met }
+				DA_GX_sigil_possible = yes
+			}
+			province_event = {
+				id = DA_ADK_explore.41		# A Society's Sigil
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.43		# The Flooded Gallery
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_names_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.44		# The Wall of Names
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_lift_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.45		# The Hollow Lift
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.46		# Sporefall
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m5_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_modifier = DA_Alchemy_material.Healing_Slimes }
+			}
+			province_event = {
+				id = DA_ADK_explore.47		# Healing Slimes
+				days = 10
+			}
+		}
 	}
 }
 Da_explore_dig_6_effect = {
@@ -2199,6 +2669,7 @@ Da_explore_dig_6_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -2210,6 +2681,7 @@ Da_explore_dig_6_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -2221,6 +2693,7 @@ Da_explore_dig_6_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_legendary = yes }
+				DA_prov_can_find_metal_legendary = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.19		# legendary metal
@@ -2230,6 +2703,7 @@ Da_explore_dig_6_effect = {
 		5 = {
 			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -2238,6 +2712,7 @@ Da_explore_dig_6_effect = {
 		3 = {
 			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_circuit = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.21		# runic circuit
 				days = 10
@@ -2246,6 +2721,7 @@ Da_explore_dig_6_effect = {
 		8 = {
 			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -2254,6 +2730,7 @@ Da_explore_dig_6_effect = {
 		6 = {
 			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_steam_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.23		# steam blueprint
 				days = 10
@@ -2262,6 +2739,7 @@ Da_explore_dig_6_effect = {
 		1 = {
 			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_electrical_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.24		# runic circuit blueprint
 				days = 10
@@ -2277,6 +2755,7 @@ Da_explore_dig_6_effect = {
 		}
 		7 = {
 			set_province_flag = DA_HX_m6_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
@@ -2285,6 +2764,7 @@ Da_explore_dig_6_effect = {
 		8 = {
 			set_province_flag = DA_HX_m6_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3
 				days = 10
@@ -2294,6 +2774,7 @@ Da_explore_dig_6_effect = {
 		7 = {
 			set_province_flag = DA_HX_m6_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -2345,6 +2826,7 @@ Da_explore_dig_6_effect = {
 		2 = {
 			set_province_flag = DA_HX_m6_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -2352,6 +2834,7 @@ Da_explore_dig_6_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m6_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -3411,6 +3894,176 @@ Da_explore_dig_6_effect = {
 				days = 10
 			}
 		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.2		# Treasure Chest
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.30		# The Old Workings
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.31		# Firedamp
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.32		# The Pale Gardens
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_guardian_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.34		# The Dormant Guardian
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_door_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.35		# The Warded Door
+				days = 10
+			}
+		}
+		1000 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				has_province_flag = DA_GX_wards_answered
+			}
+			province_event = {
+				id = DA_ADK_explore.36		# What the Wards Kept
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_hermit_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.37		# The Hermit of the Old School
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_last_stand_met }
+			}
+			modifier = { factor = 1.5 owner = { has_country_flag = DA_GX_silent_tomb } }	# takes the weight of The Silence of Stone once it was found
+			province_event = {
+				id = DA_ADK_explore.38		# The Last Stand
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_kobolds_met }
+				owner = { NOT = { culture_group = kobold } }
+			}
+			province_event = {
+				id = DA_ADK_explore.39		# Kobold Squatters
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_sigil_met }
+				DA_GX_sigil_possible = yes
+			}
+			province_event = {
+				id = DA_ADK_explore.41		# A Society's Sigil
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.43		# The Flooded Gallery
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_names_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.44		# The Wall of Names
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_lift_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.45		# The Hollow Lift
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.46		# Sporefall
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m6_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_modifier = DA_Alchemy_material.Healing_Slimes }
+			}
+			province_event = {
+				id = DA_ADK_explore.47		# Healing Slimes
+				days = 10
+			}
+		}
 	}
 }
 Da_explore_dig_7_effect = {
@@ -3451,6 +4104,7 @@ Da_explore_dig_7_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -3462,6 +4116,7 @@ Da_explore_dig_7_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -3473,6 +4128,7 @@ Da_explore_dig_7_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_legendary = yes }
+				DA_prov_can_find_metal_legendary = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.19		# legendary metal
@@ -3482,6 +4138,7 @@ Da_explore_dig_7_effect = {
 		5 = {
 			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -3490,6 +4147,7 @@ Da_explore_dig_7_effect = {
 		5 = {
 			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_circuit = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.21		# runic circuit
 				days = 10
@@ -3498,6 +4156,7 @@ Da_explore_dig_7_effect = {
 		5 = {
 			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -3506,6 +4165,7 @@ Da_explore_dig_7_effect = {
 		6 = {
 			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_steam_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.23		# steam blueprint
 				days = 10
@@ -3514,6 +4174,7 @@ Da_explore_dig_7_effect = {
 		4 = {
 			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_electrical_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.24		# runic circuit blueprint
 				days = 10
@@ -3529,23 +4190,26 @@ Da_explore_dig_7_effect = {
 		}
 		7 = {
 			set_province_flag = DA_HX_m7_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
 			}
 		}
-		11 = {
+		9 = {	# DA_GX B1, was 11
 			set_province_flag = DA_HX_m7_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3
 				days = 10
 				tooltip = DA_ADK_explore.3.tooltip
 			}
 		}
-		8 = {
+		7 = {	# DA_GX B1, was 8
 			set_province_flag = DA_HX_m7_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -3597,6 +4261,7 @@ Da_explore_dig_7_effect = {
 		2 = {
 			set_province_flag = DA_HX_m7_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -3604,6 +4269,7 @@ Da_explore_dig_7_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m7_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -4701,6 +5367,161 @@ Da_explore_dig_7_effect = {
 				days = 10
 			}
 		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.31		# Firedamp
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.32		# The Pale Gardens
+				days = 10
+			}
+		}
+		5 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_guardian_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.34		# The Dormant Guardian
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_door_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.35		# The Warded Door
+				days = 10
+			}
+		}
+		1000 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				has_province_flag = DA_GX_wards_answered
+			}
+			province_event = {
+				id = DA_ADK_explore.36		# What the Wards Kept
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_hermit_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.37		# The Hermit of the Old School
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_last_stand_met }
+			}
+			modifier = { factor = 1.5 owner = { has_country_flag = DA_GX_silent_tomb } }	# takes the weight of The Silence of Stone once it was found
+			province_event = {
+				id = DA_ADK_explore.38		# The Last Stand
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_kobolds_met }
+				owner = { NOT = { culture_group = kobold } }
+			}
+			province_event = {
+				id = DA_ADK_explore.39		# Kobold Squatters
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_sigil_met }
+				DA_GX_sigil_possible = yes
+			}
+			province_event = {
+				id = DA_ADK_explore.41		# A Society's Sigil
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.43		# The Flooded Gallery
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_names_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.44		# The Wall of Names
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_lift_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.45		# The Hollow Lift
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.46		# Sporefall
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m7_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_modifier = DA_Alchemy_material.Healing_Slimes }
+			}
+			province_event = {
+				id = DA_ADK_explore.47		# Healing Slimes
+				days = 10
+			}
+		}
 	}
 }
 Da_explore_dig_8_effect = {
@@ -4758,6 +5579,7 @@ Da_explore_dig_8_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -4769,6 +5591,7 @@ Da_explore_dig_8_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -4780,6 +5603,7 @@ Da_explore_dig_8_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_legendary = yes }
+				DA_prov_can_find_metal_legendary = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.19		# legendary metal
@@ -4789,6 +5613,7 @@ Da_explore_dig_8_effect = {
 		4 = {
 			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -4797,6 +5622,7 @@ Da_explore_dig_8_effect = {
 		4 = {
 			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_circuit = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.21		# runic circuit
 				days = 10
@@ -4805,6 +5631,7 @@ Da_explore_dig_8_effect = {
 		3 = {
 			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -4813,6 +5640,7 @@ Da_explore_dig_8_effect = {
 		5 = {
 			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_steam_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.23		# steam blueprint
 				days = 10
@@ -4821,6 +5649,7 @@ Da_explore_dig_8_effect = {
 		5 = {
 			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_electrical_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.24		# runic circuit blueprint
 				days = 10
@@ -4836,23 +5665,26 @@ Da_explore_dig_8_effect = {
 		}
 		5 = {
 			set_province_flag = DA_HX_m8_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
 			}
 		}
-		10 = {
+		8 = {	# DA_GX B1, was 10
 			set_province_flag = DA_HX_m8_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3
 				days = 10
 				tooltip = DA_ADK_explore.3.tooltip
 			}
 		}
-		10 = {
+		7 = {	# DA_GX B1, was 10
 			set_province_flag = DA_HX_m8_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -4904,6 +5736,7 @@ Da_explore_dig_8_effect = {
 		1 = {
 			set_province_flag = DA_HX_m8_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -4911,6 +5744,7 @@ Da_explore_dig_8_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m8_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -6249,6 +7083,161 @@ Da_explore_dig_8_effect = {
 				days = 10
 			}
 		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.31		# Firedamp
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.32		# The Pale Gardens
+				days = 10
+			}
+		}
+		5 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_guardian_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.34		# The Dormant Guardian
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_door_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.35		# The Warded Door
+				days = 10
+			}
+		}
+		1000 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				has_province_flag = DA_GX_wards_answered
+			}
+			province_event = {
+				id = DA_ADK_explore.36		# What the Wards Kept
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_hermit_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.37		# The Hermit of the Old School
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_last_stand_met }
+			}
+			modifier = { factor = 1.5 owner = { has_country_flag = DA_GX_silent_tomb } }	# takes the weight of The Silence of Stone once it was found
+			province_event = {
+				id = DA_ADK_explore.38		# The Last Stand
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_sigil_met }
+				DA_GX_sigil_possible = yes
+			}
+			province_event = {
+				id = DA_ADK_explore.41		# A Society's Sigil
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.43		# The Flooded Gallery
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_names_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.44		# The Wall of Names
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_lift_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.45		# The Hollow Lift
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.46		# Sporefall
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_modifier = DA_Alchemy_material.Healing_Slimes }
+			}
+			province_event = {
+				id = DA_ADK_explore.47		# Healing Slimes
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m8_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			trigger = {
+				NOT = { has_province_flag = DA_GX_living_stone_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.48		# A Seam of Living Stone
+				days = 10
+			}
+		}
 	}
 }
 Da_explore_dig_9_effect = {
@@ -6306,6 +7295,7 @@ Da_explore_dig_9_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -6317,6 +7307,7 @@ Da_explore_dig_9_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -6328,6 +7319,7 @@ Da_explore_dig_9_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_legendary = yes }
+				DA_prov_can_find_metal_legendary = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.19		# legendary metal
@@ -6337,6 +7329,7 @@ Da_explore_dig_9_effect = {
 		3 = {
 			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -6345,6 +7338,7 @@ Da_explore_dig_9_effect = {
 		5 = {
 			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_circuit = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.21		# runic circuit
 				days = 10
@@ -6353,6 +7347,7 @@ Da_explore_dig_9_effect = {
 		3 = {
 			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -6361,6 +7356,7 @@ Da_explore_dig_9_effect = {
 		6 = {
 			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_steam_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.23		# steam blueprint
 				days = 10
@@ -6369,6 +7365,7 @@ Da_explore_dig_9_effect = {
 		6 = {
 			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_electrical_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.24		# runic circuit blueprint
 				days = 10
@@ -6384,23 +7381,26 @@ Da_explore_dig_9_effect = {
 		}
 		6 = {
 			set_province_flag = DA_HX_m9_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
 			}
 		}
-		13 = {
+		9 = {	# DA_GX B1, was 13
 			set_province_flag = DA_HX_m9_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3
 				days = 10
 				tooltip = DA_ADK_explore.3.tooltip
 			}
 		}
-		12 = {
+		8 = {	# DA_GX B1, was 12
 			set_province_flag = DA_HX_m9_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -6452,6 +7452,7 @@ Da_explore_dig_9_effect = {
 		1 = {
 			set_province_flag = DA_HX_m9_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -6459,6 +7460,7 @@ Da_explore_dig_9_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m9_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -7961,6 +8963,143 @@ Da_explore_dig_9_effect = {
 				days = 10
 			}
 		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.31		# Firedamp
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_kin	# DA_HX find mark
+			province_event = {
+				id = DA_ADK_explore.32		# The Pale Gardens
+				days = 10
+			}
+		}
+		5 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_guardian_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.34		# The Dormant Guardian
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_door_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.35		# The Warded Door
+				days = 10
+			}
+		}
+		1000 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				has_province_flag = DA_GX_wards_answered
+			}
+			province_event = {
+				id = DA_ADK_explore.36		# What the Wards Kept
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_hermit_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.37		# The Hermit of the Old School
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_last_stand_met }
+			}
+			modifier = { factor = 1.5 owner = { has_country_flag = DA_GX_silent_tomb } }	# takes the weight of The Silence of Stone once it was found
+			province_event = {
+				id = DA_ADK_explore.38		# The Last Stand
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_sigil_met }
+				DA_GX_sigil_possible = yes
+			}
+			province_event = {
+				id = DA_ADK_explore.41		# A Society's Sigil
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_lift_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.45		# The Hollow Lift
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.46		# Sporefall
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_modifier = DA_Alchemy_material.Healing_Slimes }
+			}
+			province_event = {
+				id = DA_ADK_explore.47		# Healing Slimes
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m9_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			trigger = {
+				NOT = { has_province_flag = DA_GX_living_stone_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.48		# A Seam of Living Stone
+				days = 10
+			}
+		}
 	}
 }
 
@@ -8019,6 +9158,7 @@ Da_explore_dig_10_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_common = yes }
+				DA_prov_can_find_metal_common = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.17		# common metal
@@ -8030,6 +9170,7 @@ Da_explore_dig_10_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -8041,6 +9182,7 @@ Da_explore_dig_10_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_legendary = yes }
+				DA_prov_can_find_metal_legendary = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.19		# legendary metal
@@ -8050,6 +9192,7 @@ Da_explore_dig_10_effect = {
 		3 = {
 			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -8058,6 +9201,7 @@ Da_explore_dig_10_effect = {
 		6 = {
 			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_circuit = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.21		# runic circuit
 				days = 10
@@ -8066,6 +9210,7 @@ Da_explore_dig_10_effect = {
 		3 = {
 			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.22		# runic blueprint
 				days = 10
@@ -8074,6 +9219,7 @@ Da_explore_dig_10_effect = {
 		6 = {
 			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_steam_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.23		# steam blueprint
 				days = 10
@@ -8082,6 +9228,7 @@ Da_explore_dig_10_effect = {
 		8 = {
 			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_electrical_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.24		# runic circuit blueprint
 				days = 10
@@ -8097,23 +9244,26 @@ Da_explore_dig_10_effect = {
 		}
 		4 = {
 			set_province_flag = DA_HX_m10_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
 			}
 		}
-		17 = {
+		11 = {	# DA_GX B1, was 17
 			set_province_flag = DA_HX_m10_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.3
 				days = 10
 				tooltip = DA_ADK_explore.3.tooltip
 			}
 		}
-		17 = {
+		10 = {	# DA_GX B1, was 17
 			set_province_flag = DA_HX_m10_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -8158,6 +9308,7 @@ Da_explore_dig_10_effect = {
 		1 = {
 			set_province_flag = DA_HX_m10_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.10		#lost expedition
 				days = 10
@@ -8197,6 +9348,7 @@ Da_explore_dig_10_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m10_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -9613,6 +10765,115 @@ Da_explore_dig_10_effect = {
 				days = 10
 			}
 		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.31		# Firedamp
+				days = 10
+			}
+		}
+		5 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_guardian_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.34		# The Dormant Guardian
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_door_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.35		# The Warded Door
+				days = 10
+			}
+		}
+		1000 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				has_province_flag = DA_GX_wards_answered
+			}
+			province_event = {
+				id = DA_ADK_explore.36		# What the Wards Kept
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_kin	# DA_HX find mark
+			trigger = {
+				NOT = { has_province_flag = DA_GX_hermit_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.37		# The Hermit of the Old School
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_sigil_met }
+				DA_GX_sigil_possible = yes
+			}
+			province_event = {
+				id = DA_ADK_explore.41		# A Society's Sigil
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_lift_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.45		# The Hollow Lift
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.46		# Sporefall
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m10_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			trigger = {
+				NOT = { has_province_flag = DA_GX_living_stone_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.48		# A Seam of Living Stone
+				days = 10
+			}
+		}
 	}
 }
 Da_explore_dig_11_effect = {
@@ -9639,6 +10900,7 @@ Da_explore_dig_11_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_rare = yes }
+				DA_prov_can_find_metal_rare = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.18		# rare metal
@@ -9650,6 +10912,7 @@ Da_explore_dig_11_effect = {
 			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
 			trigger = {
 				NOT = { DA_prov_has_all_metals_legendary = yes }
+				DA_prov_can_find_metal_legendary = yes	# DA_GX F4: a vein that can still be found
 			}
 			province_event = { 
 				id = DA_ADK_explore.19		# legendary metal
@@ -9659,6 +10922,7 @@ Da_explore_dig_11_effect = {
 		2 = {
 			set_province_flag = DA_HX_m11_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_advanced_rune = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.20		# advanced rune
 				days = 10
@@ -9667,6 +10931,7 @@ Da_explore_dig_11_effect = {
 		8 = {
 			set_province_flag = DA_HX_m11_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_runic_circuit = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.21		# runic circuit
 				days = 10
@@ -9675,6 +10940,7 @@ Da_explore_dig_11_effect = {
 		5 = {
 			set_province_flag = DA_HX_m11_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_steam_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.23		# steam blueprint
 				days = 10
@@ -9683,6 +10949,7 @@ Da_explore_dig_11_effect = {
 		10 = {
 			set_province_flag = DA_HX_m11_lore	# DA_HX find mark
 			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = { DA_GX_can_find_electrical_blueprint = yes }	# DA_GX F4: something left in the pool
 			province_event = { 
 				id = DA_ADK_explore.24		# runic circuit blueprint
 				days = 10
@@ -9698,23 +10965,26 @@ Da_explore_dig_11_effect = {
 		}
 		1 = {
 			set_province_flag = DA_HX_m11_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.16		# exploration team with gold, chased by goblins
 				days = 10
 			}
 		}
-		15 = {
+		11 = {	# DA_GX B1, was 15
 			set_province_flag = DA_HX_m11_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = {
 				id = DA_ADK_explore.3
 				days = 10
 				tooltip = DA_ADK_explore.3.tooltip
 			}
 		}
-		11 = {
+		8 = {	# DA_GX B1, was 11
 			set_province_flag = DA_HX_m11_foe	# DA_HX find mark
 			modifier = { factor = 0 has_province_flag = DA_HX_run_wardens }	# DA_HX Wardens
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }	# DA_GX kobold guides
 			province_event = { 
 				id = DA_ADK_explore.9		#found orcs from the depths
 				days = 10
@@ -9744,6 +11014,7 @@ Da_explore_dig_11_effect = {
 		}
 		5 = {
 			set_province_flag = DA_HX_m11_kin	# DA_HX find mark
+			trigger = { owner = { NOT = { has_country_flag = DA_GX_silent_tomb } } }	# DA_GX B6: once per country
 			province_event = { 
 				id = DA_ADK_explore.11		#found tomb of ancestor
 				days = 10
@@ -9831,6 +11102,83 @@ Da_explore_dig_11_effect = {
 			}
 			province_event = {
 				id = DA_ADK_explore.292		# Grônstunad: The Sealed Court
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m11_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			province_event = {
+				id = DA_ADK_explore.31		# Firedamp
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m11_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			province_event = {
+				id = DA_ADK_explore.33		# The Record Stones
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m11_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_guardian_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.34		# The Dormant Guardian
+				days = 10
+			}
+		}
+		1000 = {	# DA_GX new find
+			set_province_flag = DA_HX_m11_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				has_province_flag = DA_GX_wards_answered
+			}
+			province_event = {
+				id = DA_ADK_explore.36		# What the Wards Kept
+				days = 10
+			}
+		}
+		2 = {	# DA_GX new find
+			set_province_flag = DA_HX_m11_lore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_loreseekers }	# DA_HX Loreseekers
+			trigger = {
+				NOT = { has_province_flag = DA_GX_sigil_met }
+				DA_GX_sigil_possible = yes
+			}
+			province_event = {
+				id = DA_ADK_explore.41		# A Society's Sigil
+				days = 10
+			}
+		}
+		4 = {	# DA_GX new find
+			set_province_flag = DA_HX_m11_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.42		# Cave-in
+				days = 10
+			}
+		}
+		3 = {	# DA_GX new find
+			set_province_flag = DA_HX_m11_foe	# DA_HX find mark
+			modifier = { factor = 0.5 has_province_modifier = DA_GX_kobold_guides }
+			province_event = {
+				id = DA_ADK_explore.46		# Sporefall
+				days = 10
+			}
+		}
+		1 = {	# DA_GX new find
+			set_province_flag = DA_HX_m11_ore	# DA_HX find mark
+			modifier = { factor = 2 has_province_flag = DA_HX_run_prospectors }	# DA_HX Prospectors
+			trigger = {
+				NOT = { has_province_flag = DA_GX_living_stone_met }
+			}
+			province_event = {
+				id = DA_ADK_explore.48		# A Seam of Living Stone
 				days = 10
 			}
 		}
