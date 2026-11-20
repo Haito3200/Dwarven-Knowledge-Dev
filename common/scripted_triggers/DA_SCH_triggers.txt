@@ -61,7 +61,7 @@ DA_SCH_lvl_met_4 = { DA_completed.Metallurgy_4 = yes }
 
 DA_SCH_due_Magic_Theory = {
 	custom_trigger_tooltip = {
-		tooltip = DA_Increase_magic_theory_trigger_tt
+		tooltip = DA_SCH_due_arc_tt
 		OR = {
 			AND = {
 				NOT = { DA_completed.Magic_Theory_1 = yes }
@@ -80,10 +80,7 @@ DA_SCH_due_Magic_Theory = {
 			}
 			AND = {
 				DA_completed.Magic_Theory_2 = yes
-				DA_completed.Elemental_Magic_Air = yes
-				DA_completed.Elemental_Magic_Fire = yes
-				DA_completed.Elemental_Magic_Water = yes
-				DA_completed.Elemental_Magic_Earth = yes
+				DA_SCH_two_elements = yes
 				NOT = { DA_completed.Magic_Theory_3 = yes }
 				check_variable = {
 					which = DA_Arcane_Arts_exp
@@ -290,7 +287,10 @@ DA_SCH_lvl_med_4 = { DA_completed.Medicine_4 = yes }
 DA_SCH_no_research_running = {
 	custom_trigger_tooltip = {
 		tooltip = DA_SCH_no_research_running_tt
-		NOT = { has_country_flag = DA_research_in_progress }
+		OR = {
+			AND = { DA_GN_has_bench = yes NOT = { DA_GN_commission_running = yes } }
+			AND = { NOT = { DA_GN_has_bench = yes } NOT = { has_country_flag = DA_research_in_progress } }
+		}
 	}
 }
 DA_SCH_studying_any = { OR = { DA_SCH_studying_Metallurgy = yes DA_SCH_studying_Magic_Theory = yes DA_SCH_studying_Mechanics = yes DA_SCH_studying_Alchemy = yes DA_SCH_studying_Medicine = yes } }
@@ -378,7 +378,31 @@ DA_SCH_mec_can_6 = {   # DA_mechanics_trade_and_production_upgrade_2_2
 	}
 
 }
-DA_SCH_mec_can_7 = {   # DA_mechanics_trade_and_production_upgrade_3_1
+DA_SCH_mec_can_7 = {   # DA_SCH_mb_appraiser_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.appraiser_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.appraiser_3.flag }
+	}
+}
+DA_SCH_mec_can_8 = {   # DA_SCH_mb_appraiser_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.appraiser_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.appraiser_4.flag }
+	}
+}
+DA_SCH_mec_can_9 = {   # DA_mechanics_trade_and_production_upgrade_3_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -389,7 +413,7 @@ DA_SCH_mec_can_7 = {   # DA_mechanics_trade_and_production_upgrade_3_1
 	}
 
 }
-DA_SCH_mec_can_8 = {   # DA_mechanics_trade_and_production_upgrade_3_2
+DA_SCH_mec_can_10 = {   # DA_mechanics_trade_and_production_upgrade_3_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.workshop_1.flag
@@ -404,7 +428,7 @@ DA_SCH_mec_can_8 = {   # DA_mechanics_trade_and_production_upgrade_3_2
 	}
 
 }
-DA_SCH_mec_can_9 = {   # DA_mechanics_trade_and_production_upgrade_3_3
+DA_SCH_mec_can_11 = {   # DA_mechanics_trade_and_production_upgrade_3_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.workshop_2.flag
@@ -419,7 +443,7 @@ DA_SCH_mec_can_9 = {   # DA_mechanics_trade_and_production_upgrade_3_3
 	}
 
 }
-DA_SCH_mec_can_10 = {   # DA_mechanics_trade_and_production_upgrade_3_4
+DA_SCH_mec_can_12 = {   # DA_mechanics_trade_and_production_upgrade_3_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.workshop_3.flag
@@ -434,7 +458,7 @@ DA_SCH_mec_can_10 = {   # DA_mechanics_trade_and_production_upgrade_3_4
 	}
 
 }
-DA_SCH_mec_can_11 = {   # DA_mechanics_trade_and_production_upgrade_4_1
+DA_SCH_mec_can_13 = {   # DA_mechanics_trade_and_production_upgrade_4_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -445,7 +469,7 @@ DA_SCH_mec_can_11 = {   # DA_mechanics_trade_and_production_upgrade_4_1
 	}
 
 }
-DA_SCH_mec_can_12 = {   # DA_mechanics_trade_and_production_upgrade_4_2
+DA_SCH_mec_can_14 = {   # DA_mechanics_trade_and_production_upgrade_4_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_Mechanics_Unlocked_building.artisan_buildings
@@ -460,7 +484,31 @@ DA_SCH_mec_can_12 = {   # DA_mechanics_trade_and_production_upgrade_4_2
 	}
 
 }
-DA_SCH_mec_can_13 = {   # DA_mechanics_trade_and_production_upgrade_5_1
+DA_SCH_mec_can_15 = {   # DA_SCH_mb_artisan_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.artisan_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.artisan_3.flag }
+	}
+}
+DA_SCH_mec_can_16 = {   # DA_SCH_mb_artisan_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.artisan_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.artisan_4.flag }
+	}
+}
+DA_SCH_mec_can_17 = {   # DA_mechanics_trade_and_production_upgrade_5_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -471,7 +519,7 @@ DA_SCH_mec_can_13 = {   # DA_mechanics_trade_and_production_upgrade_5_1
 	}
 
 }
-DA_SCH_mec_can_14 = {   # DA_mechanics_trade_and_production_upgrade_5_2
+DA_SCH_mec_can_18 = {   # DA_mechanics_trade_and_production_upgrade_5_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_Mechanics_Unlocked_building.assembler_buildings
@@ -486,7 +534,31 @@ DA_SCH_mec_can_14 = {   # DA_mechanics_trade_and_production_upgrade_5_2
 	}
 
 }
-DA_SCH_mec_can_15 = {   # DA_mechanics_tax_and_religion_upgrade_1_1
+DA_SCH_mec_can_19 = {   # DA_SCH_mb_assembler_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.assembler_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.assembler_3.flag }
+	}
+}
+DA_SCH_mec_can_20 = {   # DA_SCH_mb_assembler_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.assembler_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.assembler_4.flag }
+	}
+}
+DA_SCH_mec_can_21 = {   # DA_mechanics_tax_and_religion_upgrade_1_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -497,7 +569,7 @@ DA_SCH_mec_can_15 = {   # DA_mechanics_tax_and_religion_upgrade_1_1
 	}
 
 }
-DA_SCH_mec_can_16 = {   # DA_mechanics_tax_and_religion_upgrade_1_2
+DA_SCH_mec_can_22 = {   # DA_mechanics_tax_and_religion_upgrade_1_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.tax_1.flag
@@ -512,7 +584,7 @@ DA_SCH_mec_can_16 = {   # DA_mechanics_tax_and_religion_upgrade_1_2
 	}
 
 }
-DA_SCH_mec_can_17 = {   # DA_mechanics_tax_and_religion_upgrade_1_3
+DA_SCH_mec_can_23 = {   # DA_mechanics_tax_and_religion_upgrade_1_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.tax_2.flag
@@ -527,7 +599,7 @@ DA_SCH_mec_can_17 = {   # DA_mechanics_tax_and_religion_upgrade_1_3
 	}
 
 }
-DA_SCH_mec_can_18 = {   # DA_mechanics_tax_and_religion_upgrade_1_4
+DA_SCH_mec_can_24 = {   # DA_mechanics_tax_and_religion_upgrade_1_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.tax_3.flag
@@ -542,7 +614,51 @@ DA_SCH_mec_can_18 = {   # DA_mechanics_tax_and_religion_upgrade_1_4
 	}
 
 }
-DA_SCH_mec_can_19 = {   # DA_mechanics_tax_and_religion_upgrade_3_1
+DA_SCH_mec_can_25 = {   # DA_SCH_mb_counting_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.counting_1.flag }
+	}
+}
+DA_SCH_mec_can_26 = {   # DA_SCH_mb_counting_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.counting_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.counting_2.flag }
+	}
+}
+DA_SCH_mec_can_27 = {   # DA_SCH_mb_counting_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.counting_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.counting_3.flag }
+	}
+}
+DA_SCH_mec_can_28 = {   # DA_SCH_mb_counting_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.counting_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.counting_4.flag }
+	}
+}
+DA_SCH_mec_can_29 = {   # DA_mechanics_tax_and_religion_upgrade_3_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -553,7 +669,7 @@ DA_SCH_mec_can_19 = {   # DA_mechanics_tax_and_religion_upgrade_3_1
 	}
 
 }
-DA_SCH_mec_can_20 = {   # DA_mechanics_tax_and_religion_upgrade_3_2
+DA_SCH_mec_can_30 = {   # DA_mechanics_tax_and_religion_upgrade_3_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.religion_1.flag
@@ -568,7 +684,7 @@ DA_SCH_mec_can_20 = {   # DA_mechanics_tax_and_religion_upgrade_3_2
 	}
 
 }
-DA_SCH_mec_can_21 = {   # DA_mechanics_tax_and_religion_upgrade_3_3
+DA_SCH_mec_can_31 = {   # DA_mechanics_tax_and_religion_upgrade_3_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.religion_2.flag
@@ -583,7 +699,7 @@ DA_SCH_mec_can_21 = {   # DA_mechanics_tax_and_religion_upgrade_3_3
 	}
 
 }
-DA_SCH_mec_can_22 = {   # DA_mechanics_tax_and_religion_upgrade_3_4
+DA_SCH_mec_can_32 = {   # DA_mechanics_tax_and_religion_upgrade_3_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.religion_3.flag
@@ -598,7 +714,95 @@ DA_SCH_mec_can_22 = {   # DA_mechanics_tax_and_religion_upgrade_3_4
 	}
 
 }
-DA_SCH_mec_can_23 = {   # DA_mechanics_education_and_government_upgrade_1_1
+DA_SCH_mec_can_33 = {   # DA_SCH_mb_tithes_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.tithes_1.flag }
+	}
+}
+DA_SCH_mec_can_34 = {   # DA_SCH_mb_tithes_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.tithes_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.tithes_2.flag }
+	}
+}
+DA_SCH_mec_can_35 = {   # DA_SCH_mb_tithes_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.tithes_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.tithes_3.flag }
+	}
+}
+DA_SCH_mec_can_36 = {   # DA_SCH_mb_tithes_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.tithes_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.tithes_4.flag }
+	}
+}
+DA_SCH_mec_can_37 = {   # DA_SCH_mb_excise_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.excise_1.flag }
+	}
+}
+DA_SCH_mec_can_38 = {   # DA_SCH_mb_excise_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.excise_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.excise_2.flag }
+	}
+}
+DA_SCH_mec_can_39 = {   # DA_SCH_mb_excise_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.excise_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.excise_3.flag }
+	}
+}
+DA_SCH_mec_can_40 = {   # DA_SCH_mb_excise_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.excise_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.excise_4.flag }
+	}
+}
+DA_SCH_mec_can_41 = {   # DA_mechanics_education_and_government_upgrade_1_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -609,7 +813,7 @@ DA_SCH_mec_can_23 = {   # DA_mechanics_education_and_government_upgrade_1_1
 	}
 
 }
-DA_SCH_mec_can_24 = {   # DA_mechanics_education_and_government_upgrade_1_2
+DA_SCH_mec_can_42 = {   # DA_mechanics_education_and_government_upgrade_1_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.education_1.flag
@@ -624,7 +828,7 @@ DA_SCH_mec_can_24 = {   # DA_mechanics_education_and_government_upgrade_1_2
 	}
 
 }
-DA_SCH_mec_can_25 = {   # DA_mechanics_education_and_government_upgrade_1_3
+DA_SCH_mec_can_43 = {   # DA_mechanics_education_and_government_upgrade_1_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.education_2.flag
@@ -639,7 +843,7 @@ DA_SCH_mec_can_25 = {   # DA_mechanics_education_and_government_upgrade_1_3
 	}
 
 }
-DA_SCH_mec_can_26 = {   # DA_mechanics_education_and_government_upgrade_1_4
+DA_SCH_mec_can_44 = {   # DA_mechanics_education_and_government_upgrade_1_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.education_3.flag
@@ -654,7 +858,63 @@ DA_SCH_mec_can_26 = {   # DA_mechanics_education_and_government_upgrade_1_4
 	}
 
 }
-DA_SCH_mec_can_27 = {   # DA_mechanics_education_and_government_upgrade_3_2
+DA_SCH_mec_can_45 = {   # DA_SCH_mb_wardens_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.wardens_1.flag }
+	}
+}
+DA_SCH_mec_can_46 = {   # DA_SCH_mb_wardens_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.wardens_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.wardens_2.flag }
+	}
+}
+DA_SCH_mec_can_47 = {   # DA_SCH_mb_wardens_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.wardens_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.wardens_3.flag }
+	}
+}
+DA_SCH_mec_can_48 = {   # DA_SCH_mb_wardens_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.wardens_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.wardens_4.flag }
+	}
+}
+DA_SCH_mec_can_49 = {   # DA_SCH_mb_spark_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.spark_1.flag }
+	}
+}
+DA_SCH_mec_can_50 = {   # DA_mechanics_education_and_government_upgrade_3_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.spark_1.flag
+	}
 	DA_completed.Mechanics_2 = yes
 	DA_has_mechanics_inno_points_2 = yes
 	custom_trigger_tooltip = {
@@ -663,9 +923,8 @@ DA_SCH_mec_can_27 = {   # DA_mechanics_education_and_government_upgrade_3_2
 			has_country_flag = DA_mechanics_upgrade.education_2_1.flag
 		}
 	}
-
 }
-DA_SCH_mec_can_28 = {   # DA_mechanics_education_and_government_upgrade_3_3
+DA_SCH_mec_can_51 = {   # DA_mechanics_education_and_government_upgrade_3_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.education_2_1.flag
@@ -680,7 +939,19 @@ DA_SCH_mec_can_28 = {   # DA_mechanics_education_and_government_upgrade_3_3
 	}
 
 }
-DA_SCH_mec_can_29 = {   # DA_mechanics_education_and_government_upgrade_4_1
+DA_SCH_mec_can_52 = {   # DA_SCH_mb_spark_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.education_2_2.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.spark_4.flag }
+	}
+}
+DA_SCH_mec_can_53 = {   # DA_mechanics_education_and_government_upgrade_4_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -691,7 +962,7 @@ DA_SCH_mec_can_29 = {   # DA_mechanics_education_and_government_upgrade_4_1
 	}
 
 }
-DA_SCH_mec_can_30 = {   # DA_mechanics_education_and_government_upgrade_4_2
+DA_SCH_mec_can_54 = {   # DA_mechanics_education_and_government_upgrade_4_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.government_1.flag
@@ -706,7 +977,7 @@ DA_SCH_mec_can_30 = {   # DA_mechanics_education_and_government_upgrade_4_2
 	}
 
 }
-DA_SCH_mec_can_31 = {   # DA_mechanics_education_and_government_upgrade_4_3
+DA_SCH_mec_can_55 = {   # DA_mechanics_education_and_government_upgrade_4_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.government_2.flag
@@ -721,7 +992,7 @@ DA_SCH_mec_can_31 = {   # DA_mechanics_education_and_government_upgrade_4_3
 	}
 
 }
-DA_SCH_mec_can_32 = {   # DA_mechanics_education_and_government_upgrade_4_4
+DA_SCH_mec_can_56 = {   # DA_mechanics_education_and_government_upgrade_4_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.government_3.flag
@@ -736,7 +1007,51 @@ DA_SCH_mec_can_32 = {   # DA_mechanics_education_and_government_upgrade_4_4
 	}
 
 }
-DA_SCH_mec_can_33 = {   # DA_mechanics_infrastructure_upgrade_1_1
+DA_SCH_mec_can_57 = {   # DA_SCH_mb_keepers_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.keepers_1.flag }
+	}
+}
+DA_SCH_mec_can_58 = {   # DA_SCH_mb_keepers_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.keepers_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.keepers_2.flag }
+	}
+}
+DA_SCH_mec_can_59 = {   # DA_SCH_mb_keepers_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.keepers_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.keepers_3.flag }
+	}
+}
+DA_SCH_mec_can_60 = {   # DA_SCH_mb_keepers_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.keepers_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.keepers_4.flag }
+	}
+}
+DA_SCH_mec_can_61 = {   # DA_mechanics_infrastructure_upgrade_1_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -747,7 +1062,7 @@ DA_SCH_mec_can_33 = {   # DA_mechanics_infrastructure_upgrade_1_1
 	}
 
 }
-DA_SCH_mec_can_34 = {   # DA_mechanics_infrastructure_upgrade_1_2
+DA_SCH_mec_can_62 = {   # DA_mechanics_infrastructure_upgrade_1_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.generators_1.flag
@@ -762,7 +1077,7 @@ DA_SCH_mec_can_34 = {   # DA_mechanics_infrastructure_upgrade_1_2
 	}
 
 }
-DA_SCH_mec_can_35 = {   # DA_mechanics_infrastructure_upgrade_1_3
+DA_SCH_mec_can_63 = {   # DA_mechanics_infrastructure_upgrade_1_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.generators_2.flag
@@ -777,7 +1092,7 @@ DA_SCH_mec_can_35 = {   # DA_mechanics_infrastructure_upgrade_1_3
 	}
 
 }
-DA_SCH_mec_can_36 = {   # DA_mechanics_infrastructure_upgrade_1_4
+DA_SCH_mec_can_64 = {   # DA_mechanics_infrastructure_upgrade_1_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.generators_3.flag
@@ -792,7 +1107,19 @@ DA_SCH_mec_can_36 = {   # DA_mechanics_infrastructure_upgrade_1_4
 	}
 
 }
-DA_SCH_mec_can_37 = {   # DA_mechanics_infrastructure_upgrade_2_2
+DA_SCH_mec_can_65 = {   # DA_SCH_mb_cables_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.cables_1.flag }
+	}
+}
+DA_SCH_mec_can_66 = {   # DA_mechanics_infrastructure_upgrade_2_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.cables_1.flag
+	}
 	DA_completed.Mechanics_2 = yes
 	DA_has_mechanics_inno_points_2 = yes
 	custom_trigger_tooltip = {
@@ -801,9 +1128,8 @@ DA_SCH_mec_can_37 = {   # DA_mechanics_infrastructure_upgrade_2_2
 			has_country_flag = DA_mechanics_upgrade.cables_2.flag
 		}
 	}
-
 }
-DA_SCH_mec_can_38 = {   # DA_mechanics_infrastructure_upgrade_2_3
+DA_SCH_mec_can_67 = {   # DA_mechanics_infrastructure_upgrade_2_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.cables_2.flag
@@ -818,7 +1144,19 @@ DA_SCH_mec_can_38 = {   # DA_mechanics_infrastructure_upgrade_2_3
 	}
 
 }
-DA_SCH_mec_can_39 = {   # DA_mechanics_infrastructure_upgrade_3_1
+DA_SCH_mec_can_68 = {   # DA_SCH_mb_cables_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.cables_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.cables_4.flag }
+	}
+}
+DA_SCH_mec_can_69 = {   # DA_mechanics_infrastructure_upgrade_3_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -829,7 +1167,7 @@ DA_SCH_mec_can_39 = {   # DA_mechanics_infrastructure_upgrade_3_1
 	}
 
 }
-DA_SCH_mec_can_40 = {   # DA_mechanics_infrastructure_upgrade_3_2
+DA_SCH_mec_can_70 = {   # DA_mechanics_infrastructure_upgrade_3_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.deposit_1.flag
@@ -844,7 +1182,7 @@ DA_SCH_mec_can_40 = {   # DA_mechanics_infrastructure_upgrade_3_2
 	}
 
 }
-DA_SCH_mec_can_41 = {   # DA_mechanics_infrastructure_upgrade_3_3
+DA_SCH_mec_can_71 = {   # DA_mechanics_infrastructure_upgrade_3_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.deposit_2.flag
@@ -859,7 +1197,7 @@ DA_SCH_mec_can_41 = {   # DA_mechanics_infrastructure_upgrade_3_3
 	}
 
 }
-DA_SCH_mec_can_42 = {   # DA_mechanics_infrastructure_upgrade_3_4
+DA_SCH_mec_can_72 = {   # DA_mechanics_infrastructure_upgrade_3_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.deposit_3.flag
@@ -874,7 +1212,7 @@ DA_SCH_mec_can_42 = {   # DA_mechanics_infrastructure_upgrade_3_4
 	}
 
 }
-DA_SCH_mec_can_43 = {   # DA_mechanics_infrastructure_upgrade_4_1
+DA_SCH_mec_can_73 = {   # DA_mechanics_infrastructure_upgrade_4_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -885,7 +1223,7 @@ DA_SCH_mec_can_43 = {   # DA_mechanics_infrastructure_upgrade_4_1
 	}
 
 }
-DA_SCH_mec_can_44 = {   # DA_mechanics_infrastructure_upgrade_4_2
+DA_SCH_mec_can_74 = {   # DA_mechanics_infrastructure_upgrade_4_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.road_1.flag
@@ -900,7 +1238,7 @@ DA_SCH_mec_can_44 = {   # DA_mechanics_infrastructure_upgrade_4_2
 	}
 
 }
-DA_SCH_mec_can_45 = {   # DA_mechanics_infrastructure_upgrade_4_3
+DA_SCH_mec_can_75 = {   # DA_mechanics_infrastructure_upgrade_4_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.road_2.flag
@@ -915,7 +1253,7 @@ DA_SCH_mec_can_45 = {   # DA_mechanics_infrastructure_upgrade_4_3
 	}
 
 }
-DA_SCH_mec_can_46 = {   # DA_mechanics_infrastructure_upgrade_4_4
+DA_SCH_mec_can_76 = {   # DA_mechanics_infrastructure_upgrade_4_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.road_3.flag
@@ -930,7 +1268,51 @@ DA_SCH_mec_can_46 = {   # DA_mechanics_infrastructure_upgrade_4_4
 	}
 
 }
-DA_SCH_mec_can_47 = {   # DA_mechanics_army_upgrade_1_1
+DA_SCH_mec_can_77 = {   # DA_SCH_mb_mines_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.mines_1.flag }
+	}
+}
+DA_SCH_mec_can_78 = {   # DA_SCH_mb_mines_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.mines_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.mines_2.flag }
+	}
+}
+DA_SCH_mec_can_79 = {   # DA_SCH_mb_mines_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.mines_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.mines_3.flag }
+	}
+}
+DA_SCH_mec_can_80 = {   # DA_SCH_mb_mines_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.mines_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.mines_4.flag }
+	}
+}
+DA_SCH_mec_can_81 = {   # DA_mechanics_army_upgrade_1_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -941,7 +1323,7 @@ DA_SCH_mec_can_47 = {   # DA_mechanics_army_upgrade_1_1
 	}
 
 }
-DA_SCH_mec_can_48 = {   # DA_mechanics_army_upgrade_1_2
+DA_SCH_mec_can_82 = {   # DA_mechanics_army_upgrade_1_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.manpower_1.flag
@@ -956,7 +1338,7 @@ DA_SCH_mec_can_48 = {   # DA_mechanics_army_upgrade_1_2
 	}
 
 }
-DA_SCH_mec_can_49 = {   # DA_mechanics_army_upgrade_1_3
+DA_SCH_mec_can_83 = {   # DA_mechanics_army_upgrade_1_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.manpower_2.flag
@@ -971,7 +1353,7 @@ DA_SCH_mec_can_49 = {   # DA_mechanics_army_upgrade_1_3
 	}
 
 }
-DA_SCH_mec_can_50 = {   # DA_mechanics_army_upgrade_1_4
+DA_SCH_mec_can_84 = {   # DA_mechanics_army_upgrade_1_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.manpower_3.flag
@@ -986,7 +1368,51 @@ DA_SCH_mec_can_50 = {   # DA_mechanics_army_upgrade_1_4
 	}
 
 }
-DA_SCH_mec_can_51 = {   # DA_mechanics_army_upgrade_3_1
+DA_SCH_mec_can_85 = {   # DA_SCH_mb_fortif_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.fortif_1.flag }
+	}
+}
+DA_SCH_mec_can_86 = {   # DA_SCH_mb_fortif_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.fortif_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.fortif_2.flag }
+	}
+}
+DA_SCH_mec_can_87 = {   # DA_SCH_mb_fortif_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.fortif_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.fortif_3.flag }
+	}
+}
+DA_SCH_mec_can_88 = {   # DA_SCH_mb_fortif_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.fortif_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.fortif_4.flag }
+	}
+}
+DA_SCH_mec_can_89 = {   # DA_mechanics_army_upgrade_3_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -997,7 +1423,7 @@ DA_SCH_mec_can_51 = {   # DA_mechanics_army_upgrade_3_1
 	}
 
 }
-DA_SCH_mec_can_52 = {   # DA_mechanics_army_upgrade_3_2
+DA_SCH_mec_can_90 = {   # DA_mechanics_army_upgrade_3_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.forcelimit_1.flag
@@ -1012,7 +1438,7 @@ DA_SCH_mec_can_52 = {   # DA_mechanics_army_upgrade_3_2
 	}
 
 }
-DA_SCH_mec_can_53 = {   # DA_mechanics_army_upgrade_3_3
+DA_SCH_mec_can_91 = {   # DA_mechanics_army_upgrade_3_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.forcelimit_2.flag
@@ -1027,7 +1453,7 @@ DA_SCH_mec_can_53 = {   # DA_mechanics_army_upgrade_3_3
 	}
 
 }
-DA_SCH_mec_can_54 = {   # DA_mechanics_army_upgrade_3_4
+DA_SCH_mec_can_92 = {   # DA_mechanics_army_upgrade_3_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.forcelimit_3.flag
@@ -1042,7 +1468,51 @@ DA_SCH_mec_can_54 = {   # DA_mechanics_army_upgrade_3_4
 	}
 
 }
-DA_SCH_mec_can_55 = {   # DA_mechanics_army_upgrade_5_1
+DA_SCH_mec_can_93 = {   # DA_SCH_mb_arsenals_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.arsenals_1.flag }
+	}
+}
+DA_SCH_mec_can_94 = {   # DA_SCH_mb_arsenals_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.arsenals_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.arsenals_2.flag }
+	}
+}
+DA_SCH_mec_can_95 = {   # DA_SCH_mb_arsenals_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.arsenals_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.arsenals_3.flag }
+	}
+}
+DA_SCH_mec_can_96 = {   # DA_SCH_mb_arsenals_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.arsenals_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.arsenals_4.flag }
+	}
+}
+DA_SCH_mec_can_97 = {   # DA_mechanics_army_upgrade_5_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -1053,7 +1523,7 @@ DA_SCH_mec_can_55 = {   # DA_mechanics_army_upgrade_5_1
 	}
 
 }
-DA_SCH_mec_can_56 = {   # DA_mechanics_army_upgrade_5_2
+DA_SCH_mec_can_98 = {   # DA_mechanics_army_upgrade_5_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.warforged_1.flag
@@ -1068,7 +1538,7 @@ DA_SCH_mec_can_56 = {   # DA_mechanics_army_upgrade_5_2
 	}
 
 }
-DA_SCH_mec_can_57 = {   # DA_mechanics_army_upgrade_5_3
+DA_SCH_mec_can_99 = {   # DA_mechanics_army_upgrade_5_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.warforged_2.flag
@@ -1083,7 +1553,7 @@ DA_SCH_mec_can_57 = {   # DA_mechanics_army_upgrade_5_3
 	}
 
 }
-DA_SCH_mec_can_58 = {   # DA_mechanics_army_upgrade_5_4
+DA_SCH_mec_can_100 = {   # DA_mechanics_army_upgrade_5_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.warforged_3.flag
@@ -1098,7 +1568,7 @@ DA_SCH_mec_can_58 = {   # DA_mechanics_army_upgrade_5_4
 	}
 
 }
-DA_SCH_mec_can_59 = {   # DA_mechanics_navy_upgrade_1_1
+DA_SCH_mec_can_101 = {   # DA_mechanics_navy_upgrade_1_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -1109,7 +1579,7 @@ DA_SCH_mec_can_59 = {   # DA_mechanics_navy_upgrade_1_1
 	}
 
 }
-DA_SCH_mec_can_60 = {   # DA_mechanics_navy_upgrade_1_2
+DA_SCH_mec_can_102 = {   # DA_mechanics_navy_upgrade_1_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.sailors_1.flag
@@ -1124,7 +1594,7 @@ DA_SCH_mec_can_60 = {   # DA_mechanics_navy_upgrade_1_2
 	}
 
 }
-DA_SCH_mec_can_61 = {   # DA_mechanics_navy_upgrade_1_3
+DA_SCH_mec_can_103 = {   # DA_mechanics_navy_upgrade_1_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.sailors_2.flag
@@ -1139,7 +1609,7 @@ DA_SCH_mec_can_61 = {   # DA_mechanics_navy_upgrade_1_3
 	}
 
 }
-DA_SCH_mec_can_62 = {   # DA_mechanics_navy_upgrade_1_4
+DA_SCH_mec_can_104 = {   # DA_mechanics_navy_upgrade_1_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.sailors_3.flag
@@ -1154,7 +1624,51 @@ DA_SCH_mec_can_62 = {   # DA_mechanics_navy_upgrade_1_4
 	}
 
 }
-DA_SCH_mec_can_63 = {   # DA_mechanics_navy_upgrade_3_1
+DA_SCH_mec_can_105 = {   # DA_SCH_mb_coastal_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.coastal_1.flag }
+	}
+}
+DA_SCH_mec_can_106 = {   # DA_SCH_mb_coastal_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.coastal_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.coastal_2.flag }
+	}
+}
+DA_SCH_mec_can_107 = {   # DA_SCH_mb_coastal_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.coastal_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.coastal_3.flag }
+	}
+}
+DA_SCH_mec_can_108 = {   # DA_SCH_mb_coastal_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.coastal_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.coastal_4.flag }
+	}
+}
+DA_SCH_mec_can_109 = {   # DA_mechanics_navy_upgrade_3_1
 	DA_completed.Mechanics_1 = yes
 	DA_has_mechanics_inno_points_1 = yes
 	custom_trigger_tooltip = {
@@ -1165,7 +1679,7 @@ DA_SCH_mec_can_63 = {   # DA_mechanics_navy_upgrade_3_1
 	}
 
 }
-DA_SCH_mec_can_64 = {   # DA_mechanics_navy_upgrade_3_2
+DA_SCH_mec_can_110 = {   # DA_mechanics_navy_upgrade_3_2
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.navy_forcelimit_1.flag
@@ -1180,7 +1694,7 @@ DA_SCH_mec_can_64 = {   # DA_mechanics_navy_upgrade_3_2
 	}
 
 }
-DA_SCH_mec_can_65 = {   # DA_mechanics_navy_upgrade_3_3
+DA_SCH_mec_can_111 = {   # DA_mechanics_navy_upgrade_3_3
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.navy_forcelimit_2.flag
@@ -1195,7 +1709,7 @@ DA_SCH_mec_can_65 = {   # DA_mechanics_navy_upgrade_3_3
 	}
 
 }
-DA_SCH_mec_can_66 = {   # DA_mechanics_navy_upgrade_3_4
+DA_SCH_mec_can_112 = {   # DA_mechanics_navy_upgrade_3_4
 	custom_trigger_tooltip = {
 		tooltip = DA_completed_previous_mechanics_upgrade_tt
 		has_country_flag = DA_mechanics_upgrade.navy_forcelimit_3.flag
@@ -1209,4 +1723,325 @@ DA_SCH_mec_can_66 = {   # DA_mechanics_navy_upgrade_3_4
 		}
 	}
 
+}
+DA_SCH_mec_can_113 = {   # DA_SCH_mb_wharves_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.wharves_1.flag }
+	}
+}
+DA_SCH_mec_can_114 = {   # DA_SCH_mb_wharves_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.wharves_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.wharves_2.flag }
+	}
+}
+DA_SCH_mec_can_115 = {   # DA_SCH_mb_wharves_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.wharves_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.wharves_3.flag }
+	}
+}
+DA_SCH_mec_can_116 = {   # DA_SCH_mb_wharves_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.wharves_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.wharves_4.flag }
+	}
+}
+DA_SCH_mec_can_117 = {   # DA_SCH_mb_lights_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.lights_1.flag }
+	}
+}
+DA_SCH_mec_can_118 = {   # DA_SCH_mb_lights_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.lights_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.lights_2.flag }
+	}
+}
+DA_SCH_mec_can_119 = {   # DA_SCH_mb_lights_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.lights_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.lights_3.flag }
+	}
+}
+DA_SCH_mec_can_120 = {   # DA_SCH_mb_lights_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.lights_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.lights_4.flag }
+	}
+}
+DA_SCH_mec_can_121 = {   # DA_SCH_mb_foundry_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.foundry_1.flag }
+	}
+}
+DA_SCH_mec_can_122 = {   # DA_SCH_mb_foundry_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.foundry_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.foundry_2.flag }
+	}
+}
+DA_SCH_mec_can_123 = {   # DA_SCH_mb_foundry_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.foundry_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.foundry_3.flag }
+	}
+}
+DA_SCH_mec_can_124 = {   # DA_SCH_mb_foundry_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.foundry_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.foundry_4.flag }
+	}
+}
+DA_SCH_mec_can_125 = {   # DA_SCH_mb_mentors_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.mentors_1.flag }
+	}
+}
+DA_SCH_mec_can_126 = {   # DA_SCH_mb_mentors_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.mentors_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.mentors_2.flag }
+	}
+}
+DA_SCH_mec_can_127 = {   # DA_SCH_mb_mentors_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.mentors_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.mentors_3.flag }
+	}
+}
+DA_SCH_mec_can_128 = {   # DA_SCH_mb_mentors_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.mentors_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.mentors_4.flag }
+	}
+}
+DA_SCH_mec_can_129 = {   # DA_SCH_mb_machines_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.machines_1.flag }
+	}
+}
+DA_SCH_mec_can_130 = {   # DA_SCH_mb_machines_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.machines_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.machines_2.flag }
+	}
+}
+DA_SCH_mec_can_131 = {   # DA_SCH_mb_machines_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.machines_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.machines_3.flag }
+	}
+}
+DA_SCH_mec_can_132 = {   # DA_SCH_mb_machines_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.machines_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.machines_4.flag }
+	}
+}
+DA_SCH_mec_can_133 = {   # DA_SCH_mb_labs_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.labs_1.flag }
+	}
+}
+DA_SCH_mec_can_134 = {   # DA_SCH_mb_labs_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.labs_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.labs_2.flag }
+	}
+}
+DA_SCH_mec_can_135 = {   # DA_SCH_mb_labs_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.labs_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.labs_3.flag }
+	}
+}
+DA_SCH_mec_can_136 = {   # DA_SCH_mb_labs_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.labs_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.labs_4.flag }
+	}
+}
+DA_SCH_mec_can_137 = {   # DA_SCH_mb_healing_1
+	DA_completed.Mechanics_1 = yes
+	DA_has_mechanics_inno_points_1 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.healing_1.flag }
+	}
+}
+DA_SCH_mec_can_138 = {   # DA_SCH_mb_healing_2
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.healing_1.flag
+	}
+	DA_completed.Mechanics_2 = yes
+	DA_has_mechanics_inno_points_2 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.healing_2.flag }
+	}
+}
+DA_SCH_mec_can_139 = {   # DA_SCH_mb_healing_3
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.healing_2.flag
+	}
+	DA_completed.Mechanics_3 = yes
+	DA_has_mechanics_inno_points_3 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.healing_3.flag }
+	}
+}
+DA_SCH_mec_can_140 = {   # DA_SCH_mb_healing_4
+	custom_trigger_tooltip = {
+		tooltip = DA_completed_previous_mechanics_upgrade_tt
+		has_country_flag = DA_mechanics_upgrade.healing_3.flag
+	}
+	DA_completed.Mechanics_4 = yes
+	DA_has_mechanics_inno_points_4 = yes
+	custom_trigger_tooltip = {
+		tooltip = DA_mechanics_upgrade_already_unlocked_tt
+		NOT = { has_country_flag = DA_mechanics_upgrade.healing_4.flag }
+	}
+}
+DA_SCH_two_elements = {   # S3 (doc 82): Arcane Arts III asks for two of the four elemental studies
+	custom_trigger_tooltip = {
+		tooltip = DA_SCH_two_elements_tt
+		OR = {
+			AND = { DA_completed.Elemental_Magic_Fire = yes DA_completed.Elemental_Magic_Water = yes }
+			AND = { DA_completed.Elemental_Magic_Fire = yes DA_completed.Elemental_Magic_Earth = yes }
+			AND = { DA_completed.Elemental_Magic_Fire = yes DA_completed.Elemental_Magic_Air = yes }
+			AND = { DA_completed.Elemental_Magic_Water = yes DA_completed.Elemental_Magic_Earth = yes }
+			AND = { DA_completed.Elemental_Magic_Water = yes DA_completed.Elemental_Magic_Air = yes }
+			AND = { DA_completed.Elemental_Magic_Earth = yes DA_completed.Elemental_Magic_Air = yes }
+		}
+	}
 }

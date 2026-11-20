@@ -65,6 +65,12 @@ custom_icon = {
 	frame = { number = 6 trigger = { DA_LE_is_ombrindal = yes } }
 	frame = { number = 7 trigger = { DA_LE_is_dream = yes } }
 	frame = { number = 8 trigger = { DA_LE_is_guest = yes } }
+	frame = { number = 9 trigger = { DA_LE_is_warden = yes } }
+	frame = { number = 10 trigger = { DA_LE_is_challumaton = yes } }
+	frame = { number = 11 trigger = { DA_LE_is_mother = yes } }
+	frame = { number = 12 trigger = { DA_LE_is_tchazara = yes } }
+	frame = { number = 13 trigger = { DA_LE_is_deep_devil = yes } }
+	frame = { number = 14 trigger = { DA_LE_is_yatsa_thing = yes } }
 }
 
 custom_icon = {
@@ -350,6 +356,7 @@ custom_button = {
 		custom_trigger_tooltip = { tooltip = DA_LE_unlocked_tt DA_LE_unlocked = yes }
 		custom_trigger_tooltip = { tooltip = DA_LE_can_be_contained_tt DA_LE_can_be_contained = yes }
 		custom_trigger_tooltip = { tooltip = DA_LE_not_contained_tt NOT = { DA_LE_contained = yes } }
+		custom_trigger_tooltip = { tooltip = DA_LE_contain_refused_tt NOT = { OR = { AND = { DA_LE_is_challumaton = yes NOT = { FROM = { has_country_flag = DA_EL_codex.abjuration } } } AND = { DA_LE_is_mother = yes NOT = { FROM = { has_country_flag = DA_EL_codex.necromancy } } } AND = { DA_LE_is_tchazara = yes NOT = { FROM = { has_country_flag = DA_LZ_mem.e116 has_country_flag = DA_LZ_mem.e118 DA_LZ_mem_count.6 = yes } } } } } }
 		if = {
 			limit = { DA_LE_is_lich = yes check_variable = { which = DA_LE_contain_n value = 0 } NOT = { check_variable = { which = DA_LE_contain_n value = 1 } } }
 			owner = { treasury = 400 }
@@ -414,6 +421,86 @@ custom_button = {
 			limit = { DA_LE_is_dream = yes check_variable = { which = DA_LE_contain_n value = 3 } }
 			owner = { treasury = 500 }
 		}
+		if = {
+			limit = { DA_LE_is_challumaton = yes check_variable = { which = DA_LE_contain_n value = 0 } NOT = { check_variable = { which = DA_LE_contain_n value = 1 } } }
+			owner = { treasury = 600 }
+		}
+		if = {
+			limit = { DA_LE_is_challumaton = yes check_variable = { which = DA_LE_contain_n value = 1 } NOT = { check_variable = { which = DA_LE_contain_n value = 2 } } }
+			owner = { treasury = 900 }
+		}
+		if = {
+			limit = { DA_LE_is_challumaton = yes check_variable = { which = DA_LE_contain_n value = 2 } NOT = { check_variable = { which = DA_LE_contain_n value = 3 } } }
+			owner = { treasury = 1200 }
+		}
+		if = {
+			limit = { DA_LE_is_challumaton = yes check_variable = { which = DA_LE_contain_n value = 3 } }
+			owner = { treasury = 1600 }
+		}
+		if = {
+			limit = { DA_LE_is_mother = yes check_variable = { which = DA_LE_contain_n value = 0 } NOT = { check_variable = { which = DA_LE_contain_n value = 1 } } }
+			owner = { treasury = 300 }
+		}
+		if = {
+			limit = { DA_LE_is_mother = yes check_variable = { which = DA_LE_contain_n value = 1 } NOT = { check_variable = { which = DA_LE_contain_n value = 2 } } }
+			owner = { treasury = 450 }
+		}
+		if = {
+			limit = { DA_LE_is_mother = yes check_variable = { which = DA_LE_contain_n value = 2 } NOT = { check_variable = { which = DA_LE_contain_n value = 3 } } }
+			owner = { treasury = 600 }
+		}
+		if = {
+			limit = { DA_LE_is_mother = yes check_variable = { which = DA_LE_contain_n value = 3 } }
+			owner = { treasury = 800 }
+		}
+		if = {
+			limit = { DA_LE_is_tchazara = yes check_variable = { which = DA_LE_contain_n value = 0 } NOT = { check_variable = { which = DA_LE_contain_n value = 1 } } }
+			owner = { treasury = 500 }
+		}
+		if = {
+			limit = { DA_LE_is_tchazara = yes check_variable = { which = DA_LE_contain_n value = 1 } NOT = { check_variable = { which = DA_LE_contain_n value = 2 } } }
+			owner = { treasury = 750 }
+		}
+		if = {
+			limit = { DA_LE_is_tchazara = yes check_variable = { which = DA_LE_contain_n value = 2 } NOT = { check_variable = { which = DA_LE_contain_n value = 3 } } }
+			owner = { treasury = 1000 }
+		}
+		if = {
+			limit = { DA_LE_is_tchazara = yes check_variable = { which = DA_LE_contain_n value = 3 } }
+			owner = { treasury = 1500 }
+		}
+		if = {
+			limit = { DA_LE_is_deep_devil = yes check_variable = { which = DA_LE_contain_n value = 0 } NOT = { check_variable = { which = DA_LE_contain_n value = 1 } } }
+			owner = { treasury = 300 }
+		}
+		if = {
+			limit = { DA_LE_is_deep_devil = yes check_variable = { which = DA_LE_contain_n value = 1 } NOT = { check_variable = { which = DA_LE_contain_n value = 2 } } }
+			owner = { treasury = 450 }
+		}
+		if = {
+			limit = { DA_LE_is_deep_devil = yes check_variable = { which = DA_LE_contain_n value = 2 } NOT = { check_variable = { which = DA_LE_contain_n value = 3 } } }
+			owner = { treasury = 600 }
+		}
+		if = {
+			limit = { DA_LE_is_deep_devil = yes check_variable = { which = DA_LE_contain_n value = 3 } }
+			owner = { treasury = 800 }
+		}
+		if = {
+			limit = { DA_LE_is_yatsa_thing = yes check_variable = { which = DA_LE_contain_n value = 0 } NOT = { check_variable = { which = DA_LE_contain_n value = 1 } } }
+			owner = { treasury = 300 }
+		}
+		if = {
+			limit = { DA_LE_is_yatsa_thing = yes check_variable = { which = DA_LE_contain_n value = 1 } NOT = { check_variable = { which = DA_LE_contain_n value = 2 } } }
+			owner = { treasury = 450 }
+		}
+		if = {
+			limit = { DA_LE_is_yatsa_thing = yes check_variable = { which = DA_LE_contain_n value = 2 } NOT = { check_variable = { which = DA_LE_contain_n value = 3 } } }
+			owner = { treasury = 600 }
+		}
+		if = {
+			limit = { DA_LE_is_yatsa_thing = yes check_variable = { which = DA_LE_contain_n value = 3 } }
+			owner = { treasury = 800 }
+		}
 	}
 	effect = { DA_LE_contain = yes }
 }
@@ -425,9 +512,13 @@ custom_button = {
 	trigger = {
 		owned_by = FROM
 		custom_trigger_tooltip = { tooltip = DA_LE_unlocked_tt DA_LE_unlocked = yes }
-		custom_trigger_tooltip = { tooltip = DA_LE_parley_refused_tt NOT = { OR = { DA_LE_is_lich = yes DA_LE_is_dragon = yes } } }
+		custom_trigger_tooltip = { tooltip = DA_LE_parley_refused_tt NOT = { OR = { DA_LE_is_lich = yes DA_LE_is_challumaton = yes DA_LE_is_mother = yes DA_LE_is_tchazara = yes DA_LE_is_deep_devil = yes DA_LE_is_yatsa_thing = yes AND = { DA_LE_is_dragon = yes NOT = { FROM = { DA_KB_can_parley_dragon = yes } } } AND = { DA_LE_is_warden = yes NOT = { FROM = { DA_EL_can_command_warden = yes } } } } } }
 	}
 	effect = {
+		if = {
+			limit = { DA_LE_is_dragon = yes }
+			owner = { country_event = { id = DA_KB_event.50 } }
+		}
 		if = {
 			limit = { DA_LE_is_hunter = yes }
 			owner = { country_event = { id = DA_Hold_Gor_Vazumbrog.50 } }
@@ -451,6 +542,10 @@ custom_button = {
 		if = {
 			limit = { DA_LE_is_guest = yes }
 			owner = { country_event = { id = DA_Dur_Vazhatun_event.50 } }
+		}
+		if = {
+			limit = { DA_LE_is_warden = yes }
+			owner = { country_event = { id = DA_EL_event.120 } }
 		}
 	}
 }
@@ -636,6 +731,7 @@ custom_button = {
 		owned_by = FROM
 		custom_trigger_tooltip = { tooltip = DA_LE_not_stale_tt NOT = { DA_LE_stale = yes } }
 		custom_trigger_tooltip = { tooltip = DA_LE_school_ready_tt DA_LE_school_ready = { school = illusion } }
+		custom_trigger_tooltip = { tooltip = DA_LE_immune_tt NOT = { OR = { DA_LE_is_warden = yes } } }
 	}
 	effect = {
 		clr_province_flag = DA_LE_sel_abjuration
@@ -655,7 +751,7 @@ custom_button = {
 	}
 	frame = { number = 2 trigger = { has_province_flag = DA_LE_sel_illusion } }
 	frame = { number = 3 trigger = { has_province_flag = DA_LE_cd_illusion } }
-	frame = { number = 1 trigger = { DA_LE_school_ready = { school = illusion } } }
+	frame = { number = 1 trigger = { DA_LE_school_ready = { school = illusion } NOT = { OR = { DA_LE_is_warden = yes } } } }
 	frame = { number = 4 trigger = { always = yes } }
 }
 
@@ -667,6 +763,7 @@ custom_button = {
 		owned_by = FROM
 		custom_trigger_tooltip = { tooltip = DA_LE_not_stale_tt NOT = { DA_LE_stale = yes } }
 		custom_trigger_tooltip = { tooltip = DA_LE_school_ready_tt DA_LE_school_ready = { school = necromancy } }
+		custom_trigger_tooltip = { tooltip = DA_LE_immune_tt NOT = { OR = { DA_LE_is_warden = yes } } }
 	}
 	effect = {
 		clr_province_flag = DA_LE_sel_abjuration
@@ -686,7 +783,7 @@ custom_button = {
 	}
 	frame = { number = 2 trigger = { has_province_flag = DA_LE_sel_necromancy } }
 	frame = { number = 3 trigger = { has_province_flag = DA_LE_cd_necromancy } }
-	frame = { number = 1 trigger = { DA_LE_school_ready = { school = necromancy } } }
+	frame = { number = 1 trigger = { DA_LE_school_ready = { school = necromancy } NOT = { OR = { DA_LE_is_warden = yes } } } }
 	frame = { number = 4 trigger = { always = yes } }
 }
 

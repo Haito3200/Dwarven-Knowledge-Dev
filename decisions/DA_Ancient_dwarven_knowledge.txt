@@ -225,21 +225,41 @@ country_decisions = {
 	DA_Find_translator = {					# archeologist for Hul-Jorkad event chain
 		potential = {
 			NOT = { has_country_flag = DA_translator_found }
-			any_owned_province = {
-				has_province_flag = DA_Ducaniel_lab_found
+			OR = {	# DA_EL archaeologist: anyone who owns a Precursor ruin, too (doc 72)
+				any_owned_province = {
+					has_province_flag = DA_Ducaniel_lab_found
+				}
+				AND = {
+					NOT = { DA_EL_heritage = yes }
+					any_owned_province = { DA_RX_site = yes }
+				}
 			}
 		}
 		
 		provinces_to_highlight = {
-			has_province_flag = DA_Ducaniel_lab_found
+			OR = {	# DA_EL archaeologist
+				has_province_flag = DA_Ducaniel_lab_found
+				AND = { DA_RX_site = yes owned_by = ROOT }
+			}
 		}
 		
 		allow = {
-			treasury = 500
+			OR = {	# DA_EL archaeologist: a people of the Precursor heritage reads the script itself
+				treasury = 500
+				DA_EL_heritage = yes
+			}
 		}
 		
 		effect = {
-			add_treasury = -500
+			if = {	# DA_EL archaeologist
+				limit = { NOT = { DA_EL_heritage = yes } }
+				add_treasury = -500
+			}
+			if = {	# DA_EL archaeologist
+				limit = { DA_EL_heritage = yes }
+				custom_tooltip = DA_EL_reads_precursor_tt
+			}
+			custom_tooltip = DA_EL_archaeologist_rings_tt
 			hidden_effect = {
 				set_country_flag = DA_translator_found
 			}

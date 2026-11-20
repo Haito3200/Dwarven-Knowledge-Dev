@@ -1,3 +1,4 @@
+# DA_PR (doc 93): every setback goes through DA_Research_setback (DA_Research_effects.txt), half with The Analytical Engine.
 
 namespace = DA_Research_events
 
@@ -171,7 +172,7 @@ country_event = {
 		name = DA_Research_events.3.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 3 } }
-			DA_Research_lose = { amount = 8 }
+			DA_Research_setback = { amount = 8 half = 4 }
 			add_prestige = 5
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -180,7 +181,7 @@ country_event = {
 		name = DA_Research_events.3.b
 		if = {
 			limit = { DA_research_event_is_current = { id = 3 } }
-			DA_Research_lose = { amount = 8 }
+			DA_Research_setback = { amount = 8 half = 4 }
 			add_years_of_income = 0.1
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -189,7 +190,7 @@ country_event = {
 		name = DA_Research_events.3.c
 		if = {
 			limit = { DA_research_event_is_current = { id = 3 } }
-			DA_Research_lose = { amount = 4 }
+			DA_Research_setback = { amount = 4 half = 2 }
 			add_corruption = 1
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -274,7 +275,7 @@ country_event = {
 		name = DA_Research_events.5.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 5 } }
-			DA_Research_lose = { amount = 12 }
+			DA_Research_setback = { amount = 12 half = 6 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -286,7 +287,7 @@ country_event = {
 		if = {
 			limit = { DA_research_event_is_current = { id = 5 } }
 			add_years_of_income = -0.1
-			DA_Research_lose = { amount = 4 }
+			DA_Research_setback = { amount = 4 half = 2 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -298,7 +299,7 @@ country_event = {
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 5 } }
-			DA_Research_lose = { amount = 2 }
+			DA_Research_setback = { amount = 2 half = 1 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -471,7 +472,7 @@ country_event = {
 		name = DA_Research_events.9.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 9 } }
-			DA_Research_lose = { amount = 8 }
+			DA_Research_setback = { amount = 8 half = 4 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -483,7 +484,7 @@ country_event = {
 		if = {
 			limit = { DA_research_event_is_current = { id = 9 } }
 			add_adm_power = -25
-			DA_Research_lose = { amount = 4 }
+			DA_Research_setback = { amount = 4 half = 2 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -508,7 +509,7 @@ country_event = {
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 9 } }
-			DA_Research_lose = { amount = 2 }
+			DA_Research_setback = { amount = 2 half = 1 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -544,15 +545,16 @@ country_event = {
 		if = {
 			limit = { DA_research_event_is_current = { id = 10 } }
 			add_years_of_income = -0.15
-			DA_Research_lose = { amount = 4 }
+			DA_Research_setback = { amount = 4 half = 2 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
 	option = {		# Let the guard drive them out of the city.
 		name = DA_Research_events.10.b
+		goto = capital
 		if = {
 			limit = { DA_research_event_is_current = { id = 10 } }
-			DA_Research_lose = { amount = 8 }
+			DA_Research_setback = { amount = 8 half = 4 }
 			capital_scope = { spawn_rebels = { size = 2 type = leadered_peasant_rebels } }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -652,7 +654,7 @@ country_event = {
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 12 } }
-			DA_Research_lose = { amount = 4 }
+			DA_Research_setback = { amount = 4 half = 2 }
 			add_prestige = 10
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -738,7 +740,7 @@ country_event = {
 		if = {
 			limit = { DA_research_event_is_current = { id = 14 } }
 			add_years_of_income = -0.2
-			DA_Research_lose = { amount = 4 }
+			DA_Research_setback = { amount = 4 half = 2 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -746,7 +748,7 @@ country_event = {
 		name = DA_Research_events.14.b
 		if = {
 			limit = { DA_research_event_is_current = { id = 14 } }
-			DA_Research_lose = { amount = 10 }
+			DA_Research_setback = { amount = 10 half = 5 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -758,7 +760,7 @@ country_event = {
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 14 } }
-			DA_Research_lose = { amount = 2 }
+			DA_Research_setback = { amount = 2 half = 1 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -792,7 +794,7 @@ country_event = {
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 15 } }
-			DA_Research_lose = { amount = 4 }
+			DA_Research_setback = { amount = 4 half = 2 }
 			add_estate_loyalty = { estate = estate_church loyalty = 10 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -811,6 +813,7 @@ country_event = {
 	}
 	option = {		# Let them talk.
 		name = DA_Research_events.15.c
+		goto = capital
 		if = {
 			limit = { DA_research_event_is_current = { id = 15 } }
 			capital_scope = { add_province_modifier = { name = DA_research_frightened_town duration = 1825 } }
@@ -859,7 +862,7 @@ country_event = {
 		name = DA_Research_events.16.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 16 } }
-			DA_Research_lose = { amount = 8 }
+			DA_Research_setback = { amount = 8 half = 4 }
 			add_army_tradition = 10
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -868,7 +871,7 @@ country_event = {
 		name = DA_Research_events.16.b
 		if = {
 			limit = { DA_research_event_is_current = { id = 16 } }
-			DA_Research_lose = { amount = 4 }
+			DA_Research_setback = { amount = 4 half = 2 }
 			add_army_tradition = 5
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -918,7 +921,7 @@ country_event = {
 			limit = { DA_research_event_is_current = { id = 17 } }
 			random_list = {
 				50 = { DA_Research_add = { amount = 12 } }
-				50 = { DA_Research_lose = { amount = 4 } }
+				50 = { DA_Research_setback = { amount = 4 half = 2 } }
 			}
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -963,7 +966,7 @@ country_event = {
 		name = DA_Research_events.18.a
 		if = {
 			limit = { DA_research_event_is_current = { id = 18 } }
-			DA_Research_lose = { amount = 8 }
+			DA_Research_setback = { amount = 8 half = 4 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -973,7 +976,7 @@ country_event = {
 			limit = { DA_research_event_is_current = { id = 18 } }
 			random_list = {
 				50 = { custom_tooltip = DA_research_no_loss_tt }
-				50 = { DA_Research_lose = { amount = 12 } }
+				50 = { DA_Research_setback = { amount = 12 half = 6 } }
 			}
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -986,7 +989,7 @@ country_event = {
 		}
 		if = {
 			limit = { DA_research_event_is_current = { id = 18 } }
-			DA_Research_lose = { amount = 2 }
+			DA_Research_setback = { amount = 2 half = 1 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -1089,7 +1092,7 @@ country_event = {
 			limit = { DA_research_event_is_current = { id = 20 } }
 			random_list = {
 				50 = { DA_Research_add = { amount = 8 } }
-				50 = { DA_Research_lose = { amount = 8 } }
+				50 = { DA_Research_setback = { amount = 8 half = 4 } }
 			}
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
@@ -1098,7 +1101,7 @@ country_event = {
 		name = DA_Research_events.20.e
 		if = {
 			limit = { DA_research_event_is_current = { id = 20 } }
-			DA_Research_lose = { amount = 6 }
+			DA_Research_setback = { amount = 6 half = 3 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -1146,7 +1149,7 @@ country_event = {
 		if = {
 			limit = { DA_research_event_is_current = { id = 21 } }
 			DA_Research_add = { amount = 2 }
-			add_adk_effect = { add = 4 }
+			DA_gain_adk_effect = { add = 4 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -1377,7 +1380,7 @@ country_event = {
 		if = {
 			limit = { DA_research_event_is_current = { id = 32 } }
 			DA_Research_add = { amount = 4 }
-			add_adk_effect = { add = 3 }
+			DA_gain_adk_effect = { add = 3 }
 		}
 		else = { custom_tooltip = DA_research_event_expired_tt }
 	}
@@ -1580,12 +1583,13 @@ country_event = {
 
 	option = {		# Light the fuse.
 		name = DA_Research_events.36.a
+		goto = capital
 		if = {
 			limit = { DA_research_event_is_current = { id = 36 } }
 			random_list = {
 				40 = { DA_Research_add = { amount = 16 } }
 				40 = { DA_Research_add = { amount = 4 } }
-				20 = { DA_Research_lose = { amount = 8 } capital_scope = { add_devastation = 10 } }
+				20 = { DA_Research_setback = { amount = 8 half = 4 } capital_scope = { add_devastation = 10 } }
 			}
 			DA_research_race_honour = { race = goblin }
 		}

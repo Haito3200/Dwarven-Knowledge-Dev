@@ -1,0 +1,108 @@
+# Racial Heritage tester (doc 44, phase 0). In the console: run DA_Racial_Heritage_tester.txt
+# It runs as the player's country. Remove the "#" in front of the lines of a block, save, and run the file.
+# Written by "Claude files/tools/build_racial_heritage.py".
+
+# --- A. Read the race now and open the Racial Heritage hub (active)
+DA_RH_refresh = yes
+DA_RH_open_hub = yes
+
+# --- B. Write the heritage of the country to game.log
+#log = "DA_RH tester: the heritage of [Root.GetName]"
+#if = { limit = { has_country_flag = DA_RH_race.centaur } log = "DA_RH tester:   race centaur" }
+#if = { limit = { has_country_flag = DA_RH_kept.centaur } log = "DA_RH tester:   kept centaur" }
+#if = { limit = { has_country_flag = DA_RH_had.centaur NOT = { DA_RH_active_centaur = yes } } log = "DA_RH tester:   dormant centaur" }
+#if = { limit = { has_country_flag = DA_RH_race.dwarven } log = "DA_RH tester:   race dwarven" }
+#if = { limit = { has_country_flag = DA_RH_kept.dwarven } log = "DA_RH tester:   kept dwarven" }
+#if = { limit = { has_country_flag = DA_RH_had.dwarven NOT = { DA_RH_active_dwarven = yes } } log = "DA_RH tester:   dormant dwarven" }
+#if = { limit = { has_country_flag = DA_RH_race.elven } log = "DA_RH tester:   race elven" }
+#if = { limit = { has_country_flag = DA_RH_kept.elven } log = "DA_RH tester:   kept elven" }
+#if = { limit = { has_country_flag = DA_RH_had.elven NOT = { DA_RH_active_elven = yes } } log = "DA_RH tester:   dormant elven" }
+#if = { limit = { has_country_flag = DA_RH_race.gnollish } log = "DA_RH tester:   race gnollish" }
+#if = { limit = { has_country_flag = DA_RH_kept.gnollish } log = "DA_RH tester:   kept gnollish" }
+#if = { limit = { has_country_flag = DA_RH_had.gnollish NOT = { DA_RH_active_gnollish = yes } } log = "DA_RH tester:   dormant gnollish" }
+#if = { limit = { has_country_flag = DA_RH_race.gnomish } log = "DA_RH tester:   race gnomish" }
+#if = { limit = { has_country_flag = DA_RH_kept.gnomish } log = "DA_RH tester:   kept gnomish" }
+#if = { limit = { has_country_flag = DA_RH_had.gnomish NOT = { DA_RH_active_gnomish = yes } } log = "DA_RH tester:   dormant gnomish" }
+#if = { limit = { has_country_flag = DA_RH_race.goblin } log = "DA_RH tester:   race goblin" }
+#if = { limit = { has_country_flag = DA_RH_kept.goblin } log = "DA_RH tester:   kept goblin" }
+#if = { limit = { has_country_flag = DA_RH_had.goblin NOT = { DA_RH_active_goblin = yes } } log = "DA_RH tester:   dormant goblin" }
+#if = { limit = { has_country_flag = DA_RH_race.half_elven } log = "DA_RH tester:   race half_elven" }
+#if = { limit = { has_country_flag = DA_RH_kept.half_elven } log = "DA_RH tester:   kept half_elven" }
+#if = { limit = { has_country_flag = DA_RH_had.half_elven NOT = { DA_RH_active_half_elven = yes } } log = "DA_RH tester:   dormant half_elven" }
+#if = { limit = { has_country_flag = DA_RH_race.half_orcish } log = "DA_RH tester:   race half_orcish" }
+#if = { limit = { has_country_flag = DA_RH_kept.half_orcish } log = "DA_RH tester:   kept half_orcish" }
+#if = { limit = { has_country_flag = DA_RH_had.half_orcish NOT = { DA_RH_active_half_orcish = yes } } log = "DA_RH tester:   dormant half_orcish" }
+#if = { limit = { has_country_flag = DA_RH_race.halfling } log = "DA_RH tester:   race halfling" }
+#if = { limit = { has_country_flag = DA_RH_kept.halfling } log = "DA_RH tester:   kept halfling" }
+#if = { limit = { has_country_flag = DA_RH_had.halfling NOT = { DA_RH_active_halfling = yes } } log = "DA_RH tester:   dormant halfling" }
+#if = { limit = { has_country_flag = DA_RH_race.harimari } log = "DA_RH tester:   race harimari" }
+#if = { limit = { has_country_flag = DA_RH_kept.harimari } log = "DA_RH tester:   kept harimari" }
+#if = { limit = { has_country_flag = DA_RH_had.harimari NOT = { DA_RH_active_harimari = yes } } log = "DA_RH tester:   dormant harimari" }
+#if = { limit = { has_country_flag = DA_RH_race.harpy } log = "DA_RH tester:   race harpy" }
+#if = { limit = { has_country_flag = DA_RH_kept.harpy } log = "DA_RH tester:   kept harpy" }
+#if = { limit = { has_country_flag = DA_RH_had.harpy NOT = { DA_RH_active_harpy = yes } } log = "DA_RH tester:   dormant harpy" }
+#if = { limit = { has_country_flag = DA_RH_race.hobgoblin } log = "DA_RH tester:   race hobgoblin" }
+#if = { limit = { has_country_flag = DA_RH_kept.hobgoblin } log = "DA_RH tester:   kept hobgoblin" }
+#if = { limit = { has_country_flag = DA_RH_had.hobgoblin NOT = { DA_RH_active_hobgoblin = yes } } log = "DA_RH tester:   dormant hobgoblin" }
+#if = { limit = { has_country_flag = DA_RH_race.human } log = "DA_RH tester:   race human" }
+#if = { limit = { has_country_flag = DA_RH_kept.human } log = "DA_RH tester:   kept human" }
+#if = { limit = { has_country_flag = DA_RH_had.human NOT = { DA_RH_active_human = yes } } log = "DA_RH tester:   dormant human" }
+#if = { limit = { has_country_flag = DA_RH_race.kobold } log = "DA_RH tester:   race kobold" }
+#if = { limit = { has_country_flag = DA_RH_kept.kobold } log = "DA_RH tester:   kept kobold" }
+#if = { limit = { has_country_flag = DA_RH_had.kobold NOT = { DA_RH_active_kobold = yes } } log = "DA_RH tester:   dormant kobold" }
+#if = { limit = { has_country_flag = DA_RH_race.lizardfolk } log = "DA_RH tester:   race lizardfolk" }
+#if = { limit = { has_country_flag = DA_RH_kept.lizardfolk } log = "DA_RH tester:   kept lizardfolk" }
+#if = { limit = { has_country_flag = DA_RH_had.lizardfolk NOT = { DA_RH_active_lizardfolk = yes } } log = "DA_RH tester:   dormant lizardfolk" }
+#if = { limit = { has_country_flag = DA_RH_race.mechanim } log = "DA_RH tester:   race mechanim" }
+#if = { limit = { has_country_flag = DA_RH_kept.mechanim } log = "DA_RH tester:   kept mechanim" }
+#if = { limit = { has_country_flag = DA_RH_had.mechanim NOT = { DA_RH_active_mechanim = yes } } log = "DA_RH tester:   dormant mechanim" }
+#if = { limit = { has_country_flag = DA_RH_race.ogre } log = "DA_RH tester:   race ogre" }
+#if = { limit = { has_country_flag = DA_RH_kept.ogre } log = "DA_RH tester:   kept ogre" }
+#if = { limit = { has_country_flag = DA_RH_had.ogre NOT = { DA_RH_active_ogre = yes } } log = "DA_RH tester:   dormant ogre" }
+#if = { limit = { has_country_flag = DA_RH_race.orcish } log = "DA_RH tester:   race orcish" }
+#if = { limit = { has_country_flag = DA_RH_kept.orcish } log = "DA_RH tester:   kept orcish" }
+#if = { limit = { has_country_flag = DA_RH_had.orcish NOT = { DA_RH_active_orcish = yes } } log = "DA_RH tester:   dormant orcish" }
+#if = { limit = { has_country_flag = DA_RH_race.ruinborn } log = "DA_RH tester:   race ruinborn" }
+#if = { limit = { has_country_flag = DA_RH_kept.ruinborn } log = "DA_RH tester:   kept ruinborn" }
+#if = { limit = { has_country_flag = DA_RH_had.ruinborn NOT = { DA_RH_active_ruinborn = yes } } log = "DA_RH tester:   dormant ruinborn" }
+#if = { limit = { has_country_flag = DA_RH_race.troll } log = "DA_RH tester:   race troll" }
+#if = { limit = { has_country_flag = DA_RH_kept.troll } log = "DA_RH tester:   kept troll" }
+#if = { limit = { has_country_flag = DA_RH_had.troll NOT = { DA_RH_active_troll = yes } } log = "DA_RH tester:   dormant troll" }
+#if = { limit = { has_country_flag = DA_RH_changed_race } log = "DA_RH tester:   has changed race" }
+#if = { limit = { DA_RH_in_grace = yes } log = "DA_RH tester:   in the grace period" }
+#if = { limit = { has_country_modifier = monstrous_nation } log = "DA_RH tester:   monstrous: Monstrous Learning applies" }
+
+# --- C. Leave our race as if the primary culture had changed: the hub shows the hall as kept, the race tab
+#        closes, and a research of our race page pauses with its progress. Block D brings the race back.
+#if = { limit = { has_country_flag = DA_RH_race.centaur } DA_RH_leave_centaur = yes }
+#if = { limit = { has_country_flag = DA_RH_race.dwarven } DA_RH_leave_dwarven = yes }
+#if = { limit = { has_country_flag = DA_RH_race.elven } DA_RH_leave_elven = yes }
+#if = { limit = { has_country_flag = DA_RH_race.gnollish } DA_RH_leave_gnollish = yes }
+#if = { limit = { has_country_flag = DA_RH_race.gnomish } DA_RH_leave_gnomish = yes }
+#if = { limit = { has_country_flag = DA_RH_race.goblin } DA_RH_leave_goblin = yes }
+#if = { limit = { has_country_flag = DA_RH_race.half_elven } DA_RH_leave_half_elven = yes }
+#if = { limit = { has_country_flag = DA_RH_race.half_orcish } DA_RH_leave_half_orcish = yes }
+#if = { limit = { has_country_flag = DA_RH_race.halfling } DA_RH_leave_halfling = yes }
+#if = { limit = { has_country_flag = DA_RH_race.harimari } DA_RH_leave_harimari = yes }
+#if = { limit = { has_country_flag = DA_RH_race.harpy } DA_RH_leave_harpy = yes }
+#if = { limit = { has_country_flag = DA_RH_race.hobgoblin } DA_RH_leave_hobgoblin = yes }
+#if = { limit = { has_country_flag = DA_RH_race.human } DA_RH_leave_human = yes }
+#if = { limit = { has_country_flag = DA_RH_race.kobold } DA_RH_leave_kobold = yes }
+#if = { limit = { has_country_flag = DA_RH_race.lizardfolk } DA_RH_leave_lizardfolk = yes }
+#if = { limit = { has_country_flag = DA_RH_race.mechanim } DA_RH_leave_mechanim = yes }
+#if = { limit = { has_country_flag = DA_RH_race.ogre } DA_RH_leave_ogre = yes }
+#if = { limit = { has_country_flag = DA_RH_race.orcish } DA_RH_leave_orcish = yes }
+#if = { limit = { has_country_flag = DA_RH_race.ruinborn } DA_RH_leave_ruinborn = yes }
+#if = { limit = { has_country_flag = DA_RH_race.troll } DA_RH_leave_troll = yes }
+
+# --- D. Read the race again: the primary culture did not change, so the race comes back. Start the paused
+#        research again to see its progress come back.
+#DA_RH_refresh = yes
+
+# --- E. End the grace period and test the former races now (kept with their people, dormant without)
+#clr_country_flag = DA_RH_grace
+#DA_RH_test_kept = yes
+
+# --- F. Monstrous Learning: make the country monstrous (research at half speed), then undo it
+#add_country_modifier = { name = monstrous_nation duration = -1 }
+#remove_country_modifier = monstrous_nation

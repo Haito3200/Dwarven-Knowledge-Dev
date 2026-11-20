@@ -1,0 +1,2451 @@
+#!/usr/bin/env python3
+"""The Gommo Workshop: the gnomes' hall (doc 48; step 1 doc 52, step 2 doc 53).
+
+    python3 "Claude files/tools/build_gnomish_workshop.py" .                  write scripts, window, texts, tester
+    python3 "Claude files/tools/build_gnomish_workshop.py" . art              draw the textures (Pillow, numpy)
+    python3 "Claude files/tools/build_gnomish_workshop.py" . preview F        draw a preview of the window into F (PNG)
+    python3 "Claude files/tools/build_gnomish_workshop.py" . preview F gommo  ... with the International Gommo shown
+    python3 "Claude files/tools/build_gnomish_workshop.py" . check            report only
+
+Safe to re-run. The tables are in gnomish_data.py. The Gnomish page itself is written by build_projects_research.py,
+the race and its living bonuses by build_racial_heritage.py, the hub plaque by build_racial_hub.py.
+
+What it writes
+  * The Gommo Artificer Corps: DA_GN_artificer_corps (the effects of DA_General_Research_events .11 and .14, without
+    their requirements and without debuff_artifice_points_5), the day-one event DA_GN_event.1.
+  * The second bench: DA_GN_has_bench, DA_GN_bench_free; one commission at a time (prototype, improvement, Inventors'
+    Fair) with a monthly tick; the hidden event DA_GN_event.2 ends it (Serendipity and Misfire are rolled there, never
+    in a button) and DA_GN_event.3 reports it.
+  * Patents: switched on and off on Anbennar's artifice capacity, booked through DA_GN_booked_capacity on the Pioneer
+    pattern (DA_GN_reconcile_capacity: take the booking off ArtificeUpkeep, count it again from the flags, add it back,
+    update_artifice_points). Over capacity, the dearest patent switches off first (yearly).
+  * The window DA_GN_workshop (topbar.gui, inside DA_BLOCK windows), its scripts, texts and art. The art (second
+    version, 17 November) is the frame gommo_workshop_frame_v2.png, lit, with blueprint-paper panels; the round buttons
+    come from gommo_nav_buttons.png, the plates and the counter gems from gommo_workshop_frame.png (all three in
+    "Claude files/art_sources/racial_windows/"). "preview" also lists every text that would not fit its box.
+    The patents' buttons (doc 54) are Anbennar's invention buttons (gfx/interface/custom_gui/artificery/
+    artificery_innovation_<military|economic|society>.dds, the patent's "icon") with the stars of its invention
+    privileges for the tier; art and preview read them from Anbennar next to the mod, or from DA_ANBENNAR.
+  * The yearly pulse: the Corps check, Universal Sprockets, royalties, Reclaimed Homeland, the lead school, capacity.
+  * DA_GN_tester.txt at the mod root.
+
+Step 2 (doc 53)
+  * Gommo Branches: the diplomatic action DA_GN_open_branch (common/new_diplomatic_actions/DA_GN_diplomatic_actions.txt)
+    puts a branch on the bench for an ally or a subject; the host carries DA_GN_branch_<our tag> and its capital the
+    modifier DA_GN_gommo_branch, renewed every year while it stays our ally or subject; DA_GN_branches_<n> gives us
+    the artifice capacity. DA_GN_branches_upkeep counts them again and closes the lost ones.
+  * Licences: the diplomatic action DA_GN_license_patent opens DA_GN_event.10 (which patent), the licensee answers in
+    .11 (the AI by opinion and treasury), .12 tells us; the licensee carries DA_GN_lic_<patent>_<our tag> and the
+    modifier DA_GN_lic_<patent> (15 years), and the opinion DA_GN_licence. DA_GN_licences_upkeep ends a licence
+    whose patent is off, whose licensee is no longer an ally or subject, or whose heritage is dormant; the fees are
+    paid yearly.
+  * The Great Ideation Engine: a commission (the Workshop's International Gommo view), then DA_GN_engine_built: research
+    speed (triggered modifier DA_GN_engine), commissions a quarter faster, innovativeness.
+  * Gommo Calibration: a Primary Technology of the Unit Design (artillery, artificers) between "# BEGIN DA_GN" and
+    "# END DA_GN" in events/DA_Metallurgy_events_<class>_0.txt, before the obsidian block; its lines in
+    DA_Metallurgy_special_mod_effects.txt end with "# DA_GN". build_secondary_tech.py must run afterwards.
+  * Dragonbreaker Harpoons: DA_GN_sync keeps the flag DA_GN_dragonbreaker, which build_legendary_encounters.py reads
+    (le_rules.ARMY_BONUS); the triggered modifier DA_GN_harpoons_kobold.
+  * The E++ Patent Dispute: DA_GN_event.13, once per game, from the yearly pulse.
+
+The Precursor Assays (doc 68, section 13; built 19 November 2026, doc 72)
+  * The Patents page has a Precursor view (flag DA_GN_pv), toggled by the summary cell (cell 15, the summary now in its
+    tooltip): the three Precursor patents in cells 1-3, Assay a Relic in cell 4, a Gommo Survey in cell 5 (the survey
+    itself is build_ruin_excavation.py's), what the assays do below. A Precursor patent is recovered by an assay
+    (DA_GN_pre.<id>), not opened by a tile; Precursor Script Tables halve its booking; Ley-Coil Batteries book none.
+  * Assay a Relic: a commission (job 700) that spends a relic sample (DA_GN_samples, from the Precursor ruins); its end,
+    in the hidden event DA_GN_event.2, rolls a Precursor patent (after Reverse Engineering) or the relic's leaning
+    (250 experience in its school, double with the Script Tables).
+"""
+import os, re, sys
+
+ROOT = sys.argv[1] if len(sys.argv) > 1 else '.'
+MODE = sys.argv[2] if len(sys.argv) > 2 else 'build'
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import gnomish_data as G  # noqa: E402
+
+HEAD = '# Generated by "Claude files/tools/build_gnomish_workshop.py" from gnomish_data.py. Change the tables there and re-run.\n'
+P = G.PATENTS
+ROMAN = ['0', 'I', 'II', 'III', 'IV', 'V']
+REPORT = []
+
+
+def path(rel):
+    return os.path.join(ROOT, rel)
+
+
+def write(rel, text, crlf=True, bom=False):
+    if crlf:
+        text = text.replace('\r\n', '\n').replace('\n', '\r\n')
+    data = (('﻿' + text).encode('utf-8') if bom else text.encode('latin-1'))
+    full = path(rel)
+    old = open(full, 'rb').read() if os.path.exists(full) else None
+    if old == data:
+        REPORT.append('same    ' + rel)
+        return
+    REPORT.append(('changed ' if old is not None else 'new     ') + rel)
+    if MODE == 'check':
+        return
+    os.makedirs(os.path.dirname(full) or '.', exist_ok=True)
+    open(full, 'wb').write(data)
+
+
+def ind(lines, n):
+    return '\n'.join('\t' * n + l if l else l for l in lines)
+
+
+def i_of(p):
+    return P.index(p) + 1
+
+
+# DA_EL (doc 72): the Precursor patents (gnomish_data.PRECURSOR) come after the fourteen (i 15-17) and stand in cells
+# 1-3 of the Precursor view; they open with an assay, not a tile.
+NORMAL, PRE = G.NORMAL, G.PRECURSOR
+PV = 'has_country_flag = DA_GN_pv'
+NPV = 'NOT = { has_country_flag = DA_GN_pv }'
+TABLES = 'has_country_flag = DA_PR_done.GN_Script_Tables'
+A_ = G.ASSAY
+
+
+def cell_of(p):
+    return PRE.index(p) + 1 if p.get('precursor') else i_of(p)
+
+
+def avail(p):
+    """the flag that opens its prototype: its tile, or for a Precursor patent its recovery by an assay"""
+    return 'DA_GN_pre.%s' % p['id'] if p.get('precursor') else 'DA_PR_done.%s' % p['tile']
+
+
+def cap(p, mech=False, tables=False):
+    c = p.get('books', G.CAPACITY[p['tier']])
+    if mech:
+        c *= G.MECHANIST_CAPACITY
+    if tables and p.get('precursor'):
+        c *= A_['tables_capacity']
+    return int(round(c))
+
+
+def cap_cases(p):
+    """[(condition, capacity booked)] for every case of its booking"""
+    if not p.get('precursor'):
+        return [(MECH, cap(p, True)), ('NOT = { %s }' % MECH, cap(p))]
+    return [('%s %s' % (MECH, TABLES), cap(p, True, True)), ('%s NOT = { %s }' % (MECH, TABLES), cap(p, True)),
+            ('NOT = { %s } %s' % (MECH, TABLES), cap(p, False, True)), ('NOT = { %s } NOT = { %s }' % (MECH, TABLES), cap(p))]
+
+
+def cap_tt(p):
+    return 'DA_GN_cap_tt.%s' % p['id'] if p.get('precursor') else 'DA_GN_cap_tt.%d' % p['tier']
+
+
+def on_cost(p, mech=False):
+    c = G.ON_COST[p['tier']]
+    return int(round(c * G.MECHANIST_COST)) if mech else c
+
+
+def fast(m):
+    return int(round(m * G.BRILLITE_TIME))
+
+
+def job_call(code, months):
+    """DA_GN_start_job with the four lengths: plain, Brillite Method, Great Ideation Engine, both."""
+    return 'DA_GN_start_job = { code = %d months = %d fast = %d eng = %d both = %d }' % (
+        code, months, fast(months), int(round(months * G.ENGINE['faster'])),
+        int(round(months * G.BRILLITE_TIME * G.ENGINE['faster'])))
+
+
+def tile_title(nid):
+    return G.NODES[nid]['title']
+
+
+MECH = 'has_country_flag = DA_PR_done.GN_Mechanist'
+JOB = 'is_variable_equal = { which = DA_GN_job value = %d }'
+SEL = 'is_variable_equal = { which = DA_GN_sel value = %d }'
+
+
+def job_proto(p):
+    return 100 + i_of(p)
+
+
+def job_up(p, k):
+    return (200 if k == 1 else 300) + i_of(p)
+
+
+JOB_FAIR = 400
+JOB_ASSAY = 700   # DA_EL (doc 72): Assay a Relic
+JOB_BRANCH = 500
+JOB_ENGINE = 600
+ALLY = 'OR = { alliance_with = ROOT is_subject_of = ROOT }'   # in the scope of the other country
+B_ = G.BRANCH
+LIC = G.LICENCE
+ENG = G.ENGINE
+CAL = G.CALIBRATION
+
+
+def mat_of(p):
+    return G.MATERIALS[p['mat']] if p.get('mat') else None
+
+
+def mat_check(key, n):
+    return 'check_variable = { which = %s value = %d }' % (G.MATERIALS[key][0], n)
+
+
+def mat_pay(key, n):
+    return ['custom_tooltip = DA_GN_mat_pay_tt.%s.%d' % (key, n),
+            'hidden_effect = { change_variable = { which = %s value = -%d } }' % (G.MATERIALS[key][0], n)]   # DA_VV
+
+
+# ---------------------------------------------------------------------------
+# Scripted triggers
+# ---------------------------------------------------------------------------
+
+def gen_triggers():
+    o = [HEAD, '# Country scope unless said otherwise.', '',
+         '# ---- The second bench (doc 48, section 4) ----',
+         '# The Workshop tile is done and gnomes are the primary heritage (a kept heritage keeps the hall, not the bench).',
+         'DA_GN_has_bench = {', '\tDA_RH_primary_gnomish = yes', '\thas_country_flag = DA_PR_done.GN_Workshop', '}',
+         'DA_GN_commission_running = {', '\thas_country_flag = DA_GN_bench_busy', '}',
+         '# A commission can start: the bench holds no study and no commission.',
+         'DA_GN_bench_free = {',
+         '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_bench_open_tt', '\t\tDA_GN_has_bench = yes', '\t}',
+         '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_bench_free_tt',
+         '\t\tNOT = { DA_GN_commission_running = yes }', '\t\tNOT = { DA_SCH_studying_any = yes }', '\t}', '}',
+         '# Patents can run: an active gnomish heritage, the Artificers estate and artificery (Anbennar).',
+         'DA_GN_patents_allowed = {',
+         '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_active_tt', '\t\tDA_RH_active_gnomish = yes', '\t}',
+         '\thas_estate = estate_artificers', '\tDA_SS_artificery_available = yes', '}', '',
+         '# ---- The lead school (doc 48, section 5.1) ----']
+    for s in G.SCHOOLS:
+        o += ['DA_GN_org_%s = {' % s, '\thas_estate_privilege = %s' % G.ORG[s], '}']
+    o += ['DA_GN_org_other = {'] + ['\tNOT = { DA_GN_org_%s = yes }' % s for s in G.SCHOOLS] + ['}']
+    o += ['# The organization decides; under any other organization the charter\'s pick; Grand Synthesis can override.']
+    for s in G.SCHOOLS:
+        o += ['DA_GN_lead_%s = {' % s, '\thas_country_flag = DA_PR_done.GN_Lead_School', '\tOR = {',
+              '\t\thas_country_flag = DA_GN_lead_override.%s' % s,
+              '\t\tAND = {', '\t\t\tNOT = { has_country_flag = DA_GN_lead_override }', '\t\t\tDA_GN_org_%s = yes' % s, '\t\t}',
+              '\t\tAND = {', '\t\t\tNOT = { has_country_flag = DA_GN_lead_override }', '\t\t\tDA_GN_org_other = yes',
+              '\t\t\thas_country_flag = DA_GN_lead_pick.%s' % s, '\t\t}', '\t}', '}']
+    o += ['DA_GN_lead_needs_pick = {', '\thas_country_flag = DA_PR_done.GN_Lead_School', '\tDA_GN_org_other = yes',
+          '\tNOT = { has_country_flag = DA_GN_lead_override }'] + \
+         ['\tNOT = { has_country_flag = DA_GN_lead_pick.%s }' % s for s in G.SCHOOLS] + ['}']
+    o += ['DA_GN_can_change_lead = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_synthesis_tt', '\t\thas_country_flag = DA_PR_done.GN_Synthesis', '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_lead_cooldown_tt',
+          '\t\tDA_SS_cooldown_finished = { flag = DA_GN_lead_changed days = %d }' % G.SYNTHESIS_COOLDOWN, '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_active_tt', '\t\tDA_RH_active_gnomish = yes', '\t}', '}', '']
+    o += ['# ---- Patents (doc 48, sections 6.2-6.4) ----']
+    for p in P:
+        pid, t = p['id'], p['tier']
+        mat = mat_of(p)
+        o += ['# %s (tier %s, %s)' % (p['name'], ROMAN[t], tile_title(p['tile']))]
+        o += ['DA_GN_can_proto_%s = {' % pid,
+              '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_tile_tt.%s' % pid, '\t\thas_country_flag = %s' % avail(p), '\t}',
+              '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_no_proto_tt', '\t\tNOT = { has_country_flag = DA_GN_proto.%s }' % pid, '\t}',
+              '\tDA_GN_bench_free = yes',
+              '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_proto_price_tt.%s' % pid, '\t\tOR = {',
+              '\t\t\tAND = {', '\t\t\t\thas_country_flag = DA_GN_misfire.%s' % pid,
+              '\t\t\t\ttreasury = %d' % (G.PROTO_COST[t] // 2), '\t\t\t}',
+              '\t\t\tAND = {', '\t\t\t\tNOT = { has_country_flag = DA_GN_misfire.%s }' % pid,
+              '\t\t\t\ttreasury = %d' % G.PROTO_COST[t]]
+        if mat:
+            o += ['\t\t\t\tcheck_variable = { which = %s value = %d }' % (mat[0], G.PROTO_MAT[t])]
+        o += ['\t\t\t}', '\t\t}', '\t}', '}']
+        o += ['DA_GN_can_on_%s = {' % pid,
+              '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_has_proto_tt', '\t\thas_country_flag = DA_GN_proto.%s' % pid, '\t}',
+              '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_is_off_tt', '\t\tNOT = { has_country_flag = DA_GN_on.%s }' % pid, '\t}',
+              '\tDA_GN_patents_allowed = yes',
+              '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_switch_cd_tt',
+              '\t\tDA_SS_cooldown_finished = { flag = DA_GN_switch.%s days = %d }' % (pid, G.SWITCH_COOLDOWN), '\t}',
+              ] + (['\tcustom_trigger_tooltip = {', '\t\ttooltip = %s' % cap_tt(p), '\t\tOR = {'] +
+             ['\t\t\tAND = { %s check_variable = { which = RemainingArtificePoints value = %d } }' % cc for cc in cap_cases(p)] +
+             ['\t\t}', '\t}'] if cap(p) else []) + [   # DA_EL: a patent that books nothing needs no free capacity
+              '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_on_cost_tt.%d' % t, '\t\tOR = {',
+              '\t\t\tAND = { %s treasury = %d }' % (MECH, on_cost(p, True)),
+              '\t\t\tAND = { NOT = { %s } treasury = %d }' % (MECH, on_cost(p)), '\t\t}', '\t}', '}']
+        o += ['DA_GN_can_off_%s = {' % pid,
+              '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_is_on_tt', '\t\thas_country_flag = DA_GN_on.%s' % pid, '\t}', '}']
+        for k, u in enumerate(p['ups'], 1):
+            o += ['DA_GN_can_up_%s_%d = {' % (pid, k),
+                  '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_needs_office_tt', '\t\thas_country_flag = DA_PR_done.GN_Patent_Office', '\t}',
+                  '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_has_proto_tt', '\t\thas_country_flag = DA_GN_proto.%s' % pid, '\t}',
+                  '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_up_missing_tt', '\t\tNOT = { has_country_flag = DA_GN_up.%s.%d }' % (pid, k), '\t}',
+                  '\tDA_completed.%s_%d = yes' % (u['school'], u['level']),
+                  '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_inno_tt.%d' % u['inno'], '\t\tOR = {',
+                  '\t\t\tAND = { has_country_flag = DA_PR_done.GN_Synthesis innovativeness = %d }' % max(0, u['inno'] - 1),
+                  '\t\t\tinnovativeness = %d' % u['inno'], '\t\t}', '\t}',
+                  '\tDA_GN_bench_free = yes', '\ttreasury = %d' % G.IMPROVE_COST[t]]
+            if u.get('mat'):
+                m = G.MATERIALS[u['mat'][0]]
+                o += ['\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_mat_tt.%s.%d' % (u['mat'][0], u['mat'][1]),
+                      '\t\tcheck_variable = { which = %s value = %d }' % (m[0], u['mat'][1]), '\t}']
+            o += ['}']
+    o += ['', '# ---- Inventors\' Fair (doc 48, section 6.1) ----', 'DA_GN_can_fair = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_needs_office_tt', '\t\thas_country_flag = DA_PR_done.GN_Patent_Office', '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_fair_cd_tt',
+          '\t\tDA_SS_cooldown_finished = { flag = DA_GN_fair_held days = %d }' % G.FAIR['cooldown'], '\t}',
+          '\tDA_GN_bench_free = yes', '\ttreasury = %d' % G.FAIR['cost'], '}', '']
+    o += ['# ---- What the window draws ----']
+    for p in P:
+        pid = p['id']
+        o += ['DA_GN_st_bench_%s = { has_country_flag = DA_GN_bench_busy %s }' % (pid, JOB % job_proto(p))]
+    o += ['DA_GN_any_on = {', '\tOR = {'] + ['\t\thas_country_flag = DA_GN_on.%s' % p['id'] for p in P] + ['\t}', '}']
+    o += ['DA_GN_st_bench_engine = { has_country_flag = DA_GN_bench_busy %s }' % (JOB % JOB_ENGINE), '']
+    # DA_EL (doc 72): the Precursor Assays
+    o += ['# ---- The Precursor Assays (doc 68, section 13; doc 72) ----',
+          '# Gommo Surveys: the ruins open to gnomish surveyors (build_ruin_excavation.py reads it)',
+          'DA_GN_surveys = {', '\thas_country_flag = DA_PR_done.GN_Surveys', '\tDA_RH_active_gnomish = yes', '}',
+          'DA_GN_st_bench_assay = { has_country_flag = DA_GN_bench_busy %s }' % (JOB % JOB_ASSAY),
+          'DA_GN_can_assay = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_needs_assays_tt', '\t\thas_country_flag = DA_PR_done.GN_Assays', '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_has_sample_tt', '\t\tcheck_variable = { which = DA_GN_samples value = 1 }', '\t}',
+          '\tDA_GN_bench_free = yes', '\ttreasury = %d' % A_['cost'], '}',
+          'DA_GN_can_survey = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_needs_surveys_tt', '\t\tDA_GN_surveys = yes', '\t}',
+          '\tDA_RX_can_survey = yes', '}', '']
+    # ---- step 2 ----
+    o += ['# ---- The Great Ideation Engine (doc 48, section 6.6) ----',
+          '# Built, and the heritage is ours: research speed, commissions a quarter faster, innovativeness.',
+          'DA_GN_engine_on = {', '\thas_country_flag = DA_GN_engine_built', '\tDA_RH_active_gnomish = yes', '}',
+          'DA_GN_can_engine = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_synthesis_tt', '\t\thas_country_flag = DA_PR_done.GN_Synthesis', '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_engine_once_tt', '\t\tNOT = { has_country_flag = DA_GN_engine_built }',
+          '\t\tNOT = { DA_GN_st_bench_engine = yes }', '\t}',
+          '\tDA_GN_bench_free = yes', '\ttreasury = %d' % ENG['cost']]
+    for key, n in ENG['mats']:
+        o += ['\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_mat_tt.%s.%d' % (key, n), '\t\t' + mat_check(key, n), '\t}']
+    o += ['}', '',
+          '# ---- Gommo Branches (doc 48, section 6.5). The diplomatic action DA_GN_open_branch: ROOT is our country, FROM the',
+          '# country that would host the branch. A host carries DA_GN_branch_<our tag> (DA_GN_branch_pending_<tag> while it',
+          '# is on our bench). ----',
+          'DA_GN_branch_target_ok = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_ally_tt', '\t\tFROM = { %s }' % ALLY, '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_branch_none_tt', '\t\tFROM = {',
+          '\t\t\tNOT = { has_country_flag = DA_GN_branch_@ROOT }', '\t\t\tNOT = { has_country_flag = DA_GN_branch_pending_@ROOT }',
+          '\t\t}', '\t}', '}',
+          'DA_GN_can_branch = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_needs_branches_tt', '\t\thas_country_flag = DA_PR_done.GN_Branches', '\t}',
+          '\tDA_GN_bench_free = yes',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_branch_max_tt',
+          '\t\tNOT = { check_variable = { which = DA_GN_branch_count value = %d } }' % B_['max'], '\t}',
+          '\ttreasury = %d' % B_['cost'],
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_mat_tt.%s.%d' % B_['mat'], '\t\t' + mat_check(*B_['mat']), '\t}', '}', '',
+          '# ---- Licences (doc 48, section 6.5). The diplomatic action DA_GN_license_patent: ROOT is our country, FROM the',
+          '# country that would take the licence. A licensee carries DA_GN_lic_<patent>_<our tag>. ----',
+          'DA_GN_lic_target_ok = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_ally_tt', '\t\tFROM = { %s }' % ALLY, '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_lic_any_tt', '\t\tOR = {']
+    for p in P:
+        o += ['\t\t\tAND = {', '\t\t\t\thas_country_flag = DA_GN_on.%s' % p['id'],
+              '\t\t\t\tFROM = { NOT = { has_country_flag = DA_GN_lic_%s_@ROOT } }' % p['id'], '\t\t\t}']
+    o += ['\t\t}', '\t}', '}',
+          'DA_GN_can_license = {',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_needs_international_tt',
+          '\t\thas_country_flag = DA_PR_done.GN_International', '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_active_tt', '\t\tDA_RH_active_gnomish = yes', '\t}',
+          '\tcustom_trigger_tooltip = {', '\t\ttooltip = DA_GN_lic_max_tt',
+          '\t\tNOT = { check_variable = { which = DA_GN_lic_count value = %d } }' % LIC['max'],
+          '\t\tNOT = { has_country_flag = DA_GN_lic_pending }', '\t}', '}',
+          '# A country that holds at least one of our licences (in its scope; ROOT is our country).',
+          'DA_GN_holds_our_licence = {', '\tOR = {'] + ['\t\thas_country_flag = DA_GN_lic_%s_@ROOT' % p['id'] for p in P] + \
+         ['\t}', '}', '',
+          '# ---- The E++ Patent Dispute (doc 48, section 9): a goblin neighbour with E++ (Anbennar\'s E++ Compound) ----',
+          'DA_GN_eplus_goblin = {', '\tDA_RH_primary_goblin = yes', '\tOR = {',
+          '\t\thas_country_flag = unlocked_artifice_invention_eplusplus_compound',
+          '\t\thas_estate_privilege = artifice_invention_eplusplus_compound', '\t}', '}',
+          'DA_GN_eplus_ready = {', '\tNOT = { has_country_flag = DA_GN_eplus_done }',
+          '\thas_country_flag = DA_PR_done.GN_Patent_Office', '\tDA_RH_active_gnomish = yes',
+          '\tany_neighbor_country = { DA_GN_eplus_goblin = yes }', '}']
+    return '\n'.join(o) + '\n'
+
+
+# ---------------------------------------------------------------------------
+# Scripted effects (plain ifs only: no else in scripted effects, doc 35)
+# ---------------------------------------------------------------------------
+
+def gen_effects():
+    o = [HEAD, '# Plain ifs only (doc 35: EU4 drops events, tiers and privileges after an else in a scripted effect).', '',
+         '# ---- The Gommo Artificer Corps (doc 48, section 3): events .11 and .14 in one, without their requirements ----',
+         'DA_GN_artificer_corps = {', '\tset_country_flag = DA_GN_corps', '\tset_country_flag = DA_PR_done.GN_Corps',
+         '\tif = {', '\t\tlimit = { NOT = { has_country_flag = DA_enable_metallurgy_System } }',
+         '\t\tset_country_flag = DA_enable_metallurgy_System', '\t\tDA_enable_Metal_Infan = yes',
+         '\t\tDA_initialize_metallurgy_variables = { DA_unit = INFAN }', '\t\tDA_initialize_metallurgy_variables = { DA_unit = CAVAL }',
+         '\t\tDA_initialize_metallurgy_variables = { DA_unit = ARTIL }', '\t\tclr_country_flag = DA_redesigning_Infantry',
+         '\t\tclr_country_flag = DA_redesigning_Cavalry', '\t\tclr_country_flag = DA_redesigning_Artillery', '\t}',
+         '\tif = {', '\t\tlimit = { NOT = { has_country_flag = DA_enable_metallurgy_System_artificer } }',
+         '\t\tset_country_flag = DA_enable_metallurgy_System_artificer',
+         '\t\tDA_remove_metallurgy_infcav_modifiers_effect = { DA_unit = INFAN }',
+         '\t\tDA_remove_Unique_Metallurgy_modifiers = { DA_unit = INFAN }',
+         '\t\tDA_initialize_metallurgy_variables = { DA_unit = INFAN }',
+         '\t\tDA_remove_Unique_Metallurgy_modifiers_flags = { DA_unit = INFAN }',
+         '\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_metallurgy_show_INFAN }',
+         '\t\t\tclr_country_flag = DA_metallurgy_show_INFAN', '\t\t\tset_country_flag = DA_metallurgy_show_ARTIFICER', '\t\t}',
+         '\t\tremove_country_modifier = DA_metallurgy_infantry_modifier_fake', '\t}', '}',
+         '# Day one, or when the estate appears: a gnomish country with the Artificers estate (the culture is read live).',
+         'DA_GN_corps_check = {', '\tif = {', '\t\tlimit = {', '\t\t\tNOT = { has_country_flag = DA_GN_corps }',
+         '\t\t\tDA_RH_is_gnomish = yes', '\t\t\thas_estate = estate_artificers', '\t\t}',
+         '\t\tset_country_flag = DA_GN_corps', '\t\tcountry_event = { id = DA_GN_event.1 }', '\t}', '}', '']
+    # bench
+    o += ['# ---- The bench ----',
+          '# months: plain; fast: Brillite Method; eng: the Great Ideation Engine; both: the two together.',
+          'DA_GN_start_job = {', '\tset_country_flag = DA_GN_bench_busy', '\tset_variable = { which = DA_GN_job value = $code$ }',
+          '\tset_variable = { which = DA_GN_job_progress value = 0 }', '\tset_variable = { which = DA_GN_job_pct value = 0 }',
+          '\tset_variable = { which = DA_GN_job_months value = $months$ }',
+          '\tif = {', '\t\tlimit = { has_country_flag = DA_PR_done.GN_Brillite NOT = { DA_GN_engine_on = yes } }',
+          '\t\tset_variable = { which = DA_GN_job_months value = $fast$ }', '\t}',
+          '\tif = {', '\t\tlimit = { NOT = { has_country_flag = DA_PR_done.GN_Brillite } DA_GN_engine_on = yes }',
+          '\t\tset_variable = { which = DA_GN_job_months value = $eng$ }', '\t}',
+          '\tif = {', '\t\tlimit = { has_country_flag = DA_PR_done.GN_Brillite DA_GN_engine_on = yes }',
+          '\t\tset_variable = { which = DA_GN_job_months value = $both$ }', '\t}', '}',
+          'DA_GN_job_percent = {', '\tif = {', '\t\tlimit = { check_variable = { which = DA_GN_job_months value = 1 } }',
+          '\t\tset_variable = { which = DA_GN_job_pct which = DA_GN_job_progress }',
+          '\t\tmultiply_variable = { which = DA_GN_job_pct value = 100 }',
+          '\t\tdivide_variable = { which = DA_GN_job_pct which = DA_GN_job_months }', '\t}', '}',
+          '# Monthly, only for a country with a commission on the bench (DA_GN_on_actions.txt). It waits while the bench is',
+          '# closed (gnomes not the primary heritage): the commission keeps its progress (doc 48, section 10).',
+          'DA_GN_bench_tick = {', '\tif = {', '\t\tlimit = { DA_GN_has_bench = yes }',
+          '\t\tchange_variable = { which = DA_GN_job_progress value = 1 }', '\t\tDA_GN_job_percent = yes',
+          '\t\tif = {', '\t\t\tlimit = { check_variable = { which = DA_GN_job_progress which = DA_GN_job_months } }',
+          '\t\t\tclr_country_flag = DA_GN_bench_busy', '\t\t\tcountry_event = { id = DA_GN_event.2 }', '\t\t}', '\t}', '}']
+    for p in P:
+        pid, t, i = p['id'], p['tier'], i_of(p)
+        mat = mat_of(p)
+        o += ['DA_GN_start_proto_%s = {' % pid,
+              '\tif = {', '\t\tlimit = { has_country_flag = DA_GN_misfire.%s }' % pid,
+              '\t\tadd_treasury = -%d' % (G.PROTO_COST[t] // 2), '\t}',
+              '\tif = {', '\t\tlimit = { NOT = { has_country_flag = DA_GN_misfire.%s } }' % pid,
+              '\t\tadd_treasury = -%d' % G.PROTO_COST[t]]
+        if mat:
+            o += ['\t\tcustom_tooltip = DA_GN_mat_pay_tt.%s.%d' % (p['mat'], G.PROTO_MAT[t]),
+                  '\t\thidden_effect = { change_variable = { which = %s value = -%d } }' % (mat[0], G.PROTO_MAT[t])]   # DA_VV
+        o += ['\t}', '\tcustom_tooltip = DA_GN_proto_go_tt.%s' % pid,
+              '\thidden_effect = { %s }' % job_call(job_proto(p), G.PROTO_MONTHS[t]), '}']
+        for k, u in enumerate(p['ups'], 1):
+            o += ['DA_GN_start_up_%s_%d = {' % (pid, k), '\tadd_treasury = -%d' % G.IMPROVE_COST[t]]
+            if u.get('mat'):
+                m = G.MATERIALS[u['mat'][0]]
+                o += ['\tcustom_tooltip = DA_GN_mat_pay_tt.%s.%d' % (u['mat'][0], u['mat'][1]),
+                      '\thidden_effect = { change_variable = { which = %s value = -%d } }' % (m[0], u['mat'][1])]   # DA_VV
+            o += ['\tcustom_tooltip = DA_GN_up_go_tt.%s.%d' % (pid, k),
+                  '\thidden_effect = { %s }' % job_call(job_up(p, k), G.IMPROVE_MONTHS), '}']
+    o += ['DA_GN_start_fair = {', '\tadd_treasury = -%d' % G.FAIR['cost'], '\tcustom_tooltip = DA_GN_fair_go_tt',
+          '\thidden_effect = {', '\t\tclr_country_flag = DA_GN_fair_held', '\t\tset_country_flag = DA_GN_fair_held',
+          '\t\t' + job_call(JOB_FAIR, G.FAIR['months']), '\t}', '}']
+    # DA_EL (doc 72): Assay a Relic
+    o += ['# Assay a Relic (doc 72): a relic sample, the price, the bench; half the time with the Precursor Script Tables',
+          'DA_GN_start_assay = {', '\tadd_treasury = -%d' % A_['cost'], '\tcustom_tooltip = DA_GN_sample_pay_tt',
+          '\thidden_effect = { change_variable = { which = DA_GN_samples value = -1 } }', '\tcustom_tooltip = DA_GN_assay_go_tt',
+          '\thidden_effect = {', '\t\tif = {', '\t\t\tlimit = { %s }' % TABLES,
+          '\t\t\t' + job_call(JOB_ASSAY, int(round(A_['months'] * A_['tables_time']))), '\t\t}',
+          '\t\tif = {', '\t\t\tlimit = { NOT = { %s } }' % TABLES, '\t\t\t' + job_call(JOB_ASSAY, A_['months']), '\t\t}', '\t}', '}',
+          '# The Precursor view of the Patents page: the three Precursor patents, the assays, the surveys',
+          'DA_GN_toggle_pv = {', '\tif = {', '\t\tlimit = { %s }' % PV, '\t\tclr_country_flag = DA_GN_pv',
+          '\t\tset_variable = { which = DA_GN_sel value = 1 }', '\t\tset_country_flag = DA_GN_pv_was', '\t}',
+          '\tif = {', '\t\tlimit = { NOT = { has_country_flag = DA_GN_pv_was } }', '\t\tset_country_flag = DA_GN_pv',
+          '\t\tset_variable = { which = DA_GN_sel value = %d }' % i_of(PRE[0]), '\t}', '\tclr_country_flag = DA_GN_pv_was', '}']
+    o += ['# The Great Ideation Engine: a commission from the International Gommo view of the Workshop.',
+          'DA_GN_start_engine = {', '\tadd_treasury = -%d' % ENG['cost']]
+    for key, n in ENG['mats']:
+        o += ['\t' + l for l in mat_pay(key, n)]
+    o += ['\tcustom_tooltip = DA_GN_engine_go_tt', '\thidden_effect = { %s }' % job_call(JOB_ENGINE, ENG['months']), '}',
+          '# A Gommo branch: the on_accept of DA_GN_open_branch (ROOT us, FROM the host).',
+          'DA_GN_start_branch = {', '\tadd_treasury = -%d' % B_['cost']] + ['\t' + l for l in mat_pay(*B_['mat'])] + \
+         ['\tcustom_tooltip = DA_GN_branch_go_tt', '\thidden_effect = {',
+          '\t\tFROM = { set_country_flag = DA_GN_branch_pending_@ROOT }', '\t\t' + job_call(JOB_BRANCH, B_['months']),
+          '\t}', '}', '']
+    # completion
+    o += ['# ---- The end of a commission (hidden event DA_GN_event.2): the dice are rolled here, never in a button ----',
+          'DA_GN_finish_job = {', '\tset_variable = { which = DA_GN_report value = 0 }',
+          '\tset_variable = { which = DA_GN_report_patent value = 0 }', '\tset_variable = { which = DA_GN_report_up value = 0 }']
+    for p in P:
+        o += ['\tif = {', '\t\tlimit = { %s }' % (JOB % job_proto(p)), '\t\tDA_GN_finish_proto_%s = yes' % p['id'], '\t}']
+        for k in (1, 2):
+            o += ['\tif = {', '\t\tlimit = { %s }' % (JOB % job_up(p, k)),
+                  '\t\tset_country_flag = DA_GN_up.%s.%d' % (p['id'], k),
+                  '\t\tset_variable = { which = DA_GN_report value = 4 }',
+                  '\t\tset_variable = { which = DA_GN_report_patent value = %d }' % i_of(p),
+                  '\t\tset_variable = { which = DA_GN_report_up value = %d }' % k, '\t}']
+    o += ['\tif = {', '\t\tlimit = { %s }' % (JOB % JOB_ASSAY), '\t\tDA_GN_finish_assay = yes', '\t}',   # DA_EL (doc 72)
+          '\tif = {', '\t\tlimit = { %s }' % (JOB % JOB_FAIR), '\t\tDA_GN_finish_fair = yes', '\t}',
+          '\tif = {', '\t\tlimit = { %s }' % (JOB % JOB_ENGINE), '\t\tset_country_flag = DA_GN_engine_built',
+          '\t\tset_variable = { which = DA_GN_report value = 10 }', '\t}',
+          '\tif = {', '\t\tlimit = { %s }' % (JOB % JOB_BRANCH), '\t\tDA_GN_finish_branch = yes', '\t}',
+          '\tset_variable = { which = DA_GN_job value = 0 }', '\tset_variable = { which = DA_GN_job_pct value = 0 }',
+          '\tDA_GN_reconcile_capacity = yes', '\tDA_GN_counts = yes', '}',
+          '# The branch opens if the host is still our ally or subject (report 8); if not, the money and the materials',
+          '# come back (report 9). The host is saved as the event target DA_GN_branch_host for the report (DA_GN_event.7).',
+          'DA_GN_finish_branch = {', '\tset_variable = { which = DA_GN_report value = 9 }', '\tevery_country = {',
+          '\t\tlimit = { has_country_flag = DA_GN_branch_pending_@ROOT }', '\t\tclr_country_flag = DA_GN_branch_pending_@ROOT',
+          '\t\tsave_event_target_as = DA_GN_branch_host', '\t\tif = {', '\t\t\tlimit = { %s }' % ALLY,
+          '\t\t\tset_country_flag = DA_GN_branch_@ROOT', '\t\t\tROOT = { set_variable = { which = DA_GN_report value = 8 } }',
+          '\t\t}', '\t}', '\tif = {', '\t\tlimit = { is_variable_equal = { which = DA_GN_report value = 9 } }',
+          '\t\tadd_treasury = %d' % B_['cost'],
+          '\t\tchange_variable = { which = %s value = %d }' % (G.MATERIALS[B_['mat'][0]][0], B_['mat'][1]), '\t}',
+          '\tDA_GN_branches_upkeep = yes', '}']
+    for p in P:
+        pid, i = p['id'], i_of(p)
+        ok = ['set_country_flag = DA_GN_proto.%s' % pid, 'clr_country_flag = DA_GN_misfire.%s' % pid]
+        o += ['DA_GN_finish_proto_%s = {' % pid, '\tset_variable = { which = DA_GN_report_patent value = %d }' % i,
+              '\tif = {', '\t\tlimit = { NOT = { has_country_flag = DA_PR_done.GN_Brillite } }'] + ['\t\t' + l for l in ok] + \
+             ['\t\tset_variable = { which = DA_GN_report value = 1 }', '\t}',
+              '\tif = {', '\t\tlimit = { has_country_flag = DA_PR_done.GN_Brillite }', '\t\trandom_list = {',
+              '\t\t\t%d = {' % G.SERENDIPITY] + ['\t\t\t\t' + l for l in ok] + \
+             ['\t\t\t\tset_country_flag = DA_GN_up.%s.1' % pid, '\t\t\t\tset_variable = { which = DA_GN_report value = 2 }', '\t\t\t}',
+              '\t\t\t%d = {' % G.MISFIRE, '\t\t\t\tset_country_flag = DA_GN_misfire.%s' % pid,
+              '\t\t\t\tset_variable = { which = DA_GN_report value = 3 }', '\t\t\t}',
+              '\t\t\t%d = {' % (100 - G.SERENDIPITY - G.MISFIRE)] + ['\t\t\t\t' + l for l in ok] + \
+             ['\t\t\t\tset_variable = { which = DA_GN_report value = 1 }', '\t\t\t}', '\t\t}', '\t}', '}']
+    o += ['DA_GN_finish_fair = {', '\tchange_innovativeness = %d' % G.FAIR['innovativeness'],
+          '\tadd_prestige = %d' % G.FAIR['prestige'], '\tset_variable = { which = DA_GN_report value = 6 }',
+          '\t# a Brillite lead school also gets one free upgrade: the first one missing, in the order of the register',
+          '\tif = {', '\t\tlimit = { DA_GN_lead_brillite = yes }']
+    for p in P:
+        for k in (1, 2):
+            o += ['\t\tif = {', '\t\t\tlimit = {', '\t\t\t\tNOT = { has_country_flag = DA_GN_tmp_given }',
+                  '\t\t\t\thas_country_flag = DA_GN_proto.%s' % p['id'],
+                  '\t\t\t\tNOT = { has_country_flag = DA_GN_up.%s.%d }' % (p['id'], k), '\t\t\t}',
+                  '\t\t\tset_country_flag = DA_GN_up.%s.%d' % (p['id'], k), '\t\t\tset_country_flag = DA_GN_tmp_given',
+                  '\t\t\tset_variable = { which = DA_GN_report value = 7 }',
+                  '\t\t\tset_variable = { which = DA_GN_report_patent value = %d }' % i_of(p),
+                  '\t\t\tset_variable = { which = DA_GN_report_up value = %d }' % k, '\t\t}']
+    o += ['\t\tclr_country_flag = DA_GN_tmp_given', '\t}', '}', '']
+    # DA_EL (doc 72): the end of an assay, in the hidden event .2: a Precursor patent (one in four, after Reverse
+    # Engineering, while one is still to recover) or the relic's leaning, 250 experience in its school (double with the tables)
+    left = ' '.join('NOT = { has_country_flag = DA_GN_pre.%s }' % q['id'] for q in PRE)
+    o += ['DA_GN_finish_assay = {', '\tset_variable = { which = DA_GN_report value = 11 }', '\tclr_country_flag = DA_GN_assay_patent',
+          '\tif = {', '\t\tlimit = { has_country_flag = DA_PR_done.GN_Reverse OR = { %s } }' % left,
+          '\t\trandom_list = {', '\t\t\t%d = { set_country_flag = DA_GN_assay_patent }' % A_['chance'],
+          '\t\t\t%d = { }' % (100 - A_['chance']), '\t\t}', '\t}',
+          '\tif = {', '\t\tlimit = { has_country_flag = DA_GN_assay_patent }', '\t\tset_variable = { which = DA_GN_report value = 12 }',
+          '\t\trandom_list = {']
+    for q in PRE:
+        o += ['\t\t\t1 = {', '\t\t\t\ttrigger = { NOT = { has_country_flag = DA_GN_pre.%s } }' % q['id'],
+              '\t\t\t\tset_country_flag = DA_GN_pre.%s' % q['id'],
+              '\t\t\t\tset_variable = { which = DA_GN_report_patent value = %d }' % i_of(q), '\t\t\t}']
+    o += ['\t\t}', '\t\tclr_country_flag = DA_GN_assay_patent', '\t}',
+          '\tif = {', '\t\tlimit = { is_variable_equal = { which = DA_GN_report value = 11 } }', '\t\trandom_list = {']
+    for k, (school, word) in enumerate(G.LEANINGS, 1):
+        o.append('\t\t\t1 = { set_variable = { which = DA_GN_assay_school value = %d } }' % k)
+    o += ['\t\t}']
+    for k, (school, word) in enumerate(G.LEANINGS, 1):
+        o += ['\t\tif = {', '\t\t\tlimit = { is_variable_equal = { which = DA_GN_assay_school value = %d } }' % k,
+              '\t\t\tDA_research_school_exp = { school = %s }' % school,
+              '\t\t\tif = { limit = { %s } DA_research_school_exp = { school = %s } }' % (TABLES, school), '\t\t}']
+    o += ['\t}', '}', '']
+    # patents
+    o += ['# ---- Patents: switched on and off on Anbennar\'s artifice capacity (the Pioneer pattern, DA_SS_reconcile_capacity) ----',
+          '# Takes the booking off ArtificeUpkeep, counts it again from the flags, adds it back and lets Anbennar recount.',
+          '# Every patent switches off when the gnomish heritage is dormant, the Artificers estate is gone or artificery is.',
+          'DA_GN_reconcile_capacity = {', '\tsubtract_variable = { which = ArtificeUpkeep which = DA_GN_booked_capacity }',
+          '\tset_variable = { which = DA_GN_booked_capacity value = 0 }', '\tset_variable = { which = DA_GN_on_count value = 0 }',
+          '\tif = {', '\t\tlimit = { NOT = { DA_GN_patents_allowed = yes } }'] + \
+         ['\t\tclr_country_flag = DA_GN_on.%s' % p['id'] for p in P] + \
+         ['\t\tif = {', '\t\t\tlimit = { check_variable = { which = DA_GN_lic_count value = 1 } }',
+          '\t\t\tDA_GN_licences_upkeep = yes\t# their licences end with them', '\t\t}', '\t}']
+    for p in P:
+        pid = p['id']
+        o += ['\tif = {', '\t\tlimit = { has_country_flag = DA_GN_on.%s }' % pid,
+              '\t\tchange_variable = { which = DA_GN_on_count value = 1 }']
+        for cond, c in cap_cases(p):   # DA_EL: the Precursor patents' booking follows the Script Tables too
+            if c:
+                o += ['\t\tif = {', '\t\t\tlimit = { %s }' % cond,
+                      '\t\t\tchange_variable = { which = DA_GN_booked_capacity value = %d }' % c, '\t\t}']
+        o += ['\t\tadd_country_modifier = { name = DA_GN_pat_%s duration = -1 }' % pid]
+        for k in (1, 2):
+            o += ['\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_GN_up.%s.%d }' % (pid, k),
+                  '\t\t\tadd_country_modifier = { name = DA_GN_pat_%s_%d duration = -1 }' % (pid, k), '\t\t}']
+        o += ['\t}', '\tif = {', '\t\tlimit = { NOT = { has_country_flag = DA_GN_on.%s } }' % pid,
+              '\t\tremove_country_modifier = DA_GN_pat_%s' % pid, '\t\tremove_country_modifier = DA_GN_pat_%s_1' % pid,
+              '\t\tremove_country_modifier = DA_GN_pat_%s_2' % pid, '\t}']
+    o += ['\tchange_variable = { which = ArtificeUpkeep which = DA_GN_booked_capacity }',
+          '\tif = {', '\t\tlimit = { DA_SS_artificery_available = yes }', '\t\tupdate_artifice_points = yes', '\t}', '}']
+    for p in P:
+        pid, t = p['id'], p['tier']
+        o += ['DA_GN_switch_on_%s = {' % pid,
+              '\tif = {', '\t\tlimit = { %s }' % MECH, '\t\tadd_treasury = -%d' % on_cost(p, True), '\t}',
+              '\tif = {', '\t\tlimit = { NOT = { %s } }' % MECH, '\t\tadd_treasury = -%d' % on_cost(p), '\t}',
+              '\tcustom_tooltip = DA_GN_on_go_tt.%s' % pid,
+              '\thidden_effect = {', '\t\tset_country_flag = DA_GN_on.%s' % pid, '\t\tDA_GN_reconcile_capacity = yes', '\t}', '}',
+              'DA_GN_switch_off_%s = {' % pid, '\tcustom_tooltip = DA_GN_off_go_tt.%s' % pid,
+              '\thidden_effect = {', '\t\tclr_country_flag = DA_GN_on.%s' % pid, '\t\tclr_country_flag = DA_GN_switch.%s' % pid,
+              '\t\tset_country_flag = DA_GN_switch.%s' % pid, '\t\tDA_GN_reconcile_capacity = yes',
+              '\t\tif = {', '\t\t\tlimit = { check_variable = { which = DA_GN_lic_count value = 1 } }',
+              '\t\t\tDA_GN_licences_upkeep = yes\t# its licences end', '\t\t}', '\t}', '}']
+    o += ['# Yearly: while capacity is short, the dearest patent switches off (tier III first, the last of a tier first).',
+          'DA_GN_over_capacity = {']
+    for p in sorted([q for q in P if cap(q) > 0], key=lambda q: (-q['tier'], -i_of(q))):   # DA_EL: not one that books none
+        o += ['\tif = {', '\t\tlimit = {', '\t\t\thas_country_flag = DA_GN_on.%s' % p['id'],
+              '\t\t\tNOT = { check_variable = { which = RemainingArtificePoints value = 0 } }', '\t\t}',
+              '\t\tDA_GN_switch_off_%s = yes' % p['id'], '\t\tset_country_flag = DA_GN_overcap.%s' % p['id'],
+              '\t\tset_country_flag = DA_GN_overcap', '\t}']
+    o += ['\tif = {', '\t\tlimit = { has_country_flag = DA_GN_overcap ai = no }', '\t\tcountry_event = { id = DA_GN_event.6 }', '\t}',
+          '\tif = {', '\t\tlimit = { has_country_flag = DA_GN_overcap ai = yes }'] + \
+         ['\t\tclr_country_flag = DA_GN_overcap.%s' % p['id'] for p in P] + ['\t\tclr_country_flag = DA_GN_overcap', '\t}', '}']
+    o += ['DA_GN_counts = {', '\tset_variable = { which = DA_GN_proto_count value = 0 }',
+          '\tset_variable = { which = DA_GN_pre_count value = 0 }']
+    for p in NORMAL:
+        o += ['\tif = {', '\t\tlimit = { has_country_flag = DA_GN_proto.%s }' % p['id'],
+              '\t\tchange_variable = { which = DA_GN_proto_count value = 1 }', '\t}']
+    for p in PRE:   # DA_EL (doc 72): the Precursor patents recovered
+        o += ['\tif = {', '\t\tlimit = { has_country_flag = DA_GN_pre.%s }' % p['id'],
+              '\t\tchange_variable = { which = DA_GN_pre_count value = 1 }', '\t}']
+    o += ['\texport_to_variable = { which = DA_GN_innov value = trigger_value:innovativeness }', '}', '']
+    # lead school
+    o += ['# ---- The lead school ----', '# The charter, or later an organization of none of the three schools: ask once.',
+          'DA_GN_lead_school_check = {', '\tif = {', '\t\tlimit = {', '\t\t\tDA_GN_lead_needs_pick = yes',
+          '\t\t\tNOT = { has_country_flag = DA_GN_lead_asked }', '\t\t}', '\t\tset_country_flag = DA_GN_lead_asked',
+          '\t\tcountry_event = { id = DA_GN_event.4 }', '\t}', '}',
+          'DA_GN_pick_lead = {'] + ['\tclr_country_flag = DA_GN_lead_pick.%s' % s for s in G.SCHOOLS] + \
+         ['\tset_country_flag = DA_GN_lead_pick.$school$', '\tclr_country_flag = DA_GN_lead_asked', '}',
+          '# Grand Synthesis: once every 20 years, a school of our choice leads whatever the organization.',
+          'DA_GN_override_lead = {'] + ['\tclr_country_flag = DA_GN_lead_override.%s' % s for s in G.SCHOOLS] + \
+         ['\tset_country_flag = DA_GN_lead_override', '\tset_country_flag = DA_GN_lead_override.$school$',
+          '\tclr_country_flag = DA_GN_lead_changed', '\tset_country_flag = DA_GN_lead_changed', '}',
+          'DA_GN_follow_org = {', '\tclr_country_flag = DA_GN_lead_override'] + \
+         ['\tclr_country_flag = DA_GN_lead_override.%s' % s for s in G.SCHOOLS] + \
+         ['\tclr_country_flag = DA_GN_lead_changed', '\tset_country_flag = DA_GN_lead_changed', '}', '']
+    # window
+    o += ['# ---- The window (topbar.gui, DA_GN_workshop) ----',
+          'DA_GN_open_workshop = {', '\tset_country_flag = DA_GN_workshop_on', '\tDA_GN_refresh = yes', '\tif = {',
+          '\t\tlimit = { NOT = { check_variable = { which = DA_GN_sel value = 1 } } }',
+          '\t\tset_variable = { which = DA_GN_sel value = 1 }', '\t}', '}',
+          'DA_GN_close_workshop = {', '\tclr_country_flag = DA_GN_workshop_on', '}',
+          'DA_GN_refresh = {', '\tDA_GN_reconcile_capacity = yes', '\tDA_GN_counts = yes', '\tDA_GN_job_percent = yes', '}',
+          '# The heritage turns active or dormant (DA_RH_sync_gnomish): patents switch off, their capacity is freed; the',
+          '# branches and licences follow; the Dragonbreaker flag of the Legendary Encounters.',
+          'DA_GN_sync = {', '\tif = {', '\t\tlimit = {', '\t\t\tNOT = { DA_RH_active_gnomish = yes }',
+          '\t\t\tOR = {', '\t\t\t\tDA_GN_any_on = yes', '\t\t\t\tcheck_variable = { which = DA_GN_booked_capacity value = 1 }',
+          '\t\t\t}', '\t\t}', '\t\tDA_GN_reconcile_capacity = yes', '\t}', '\tif = {', '\t\tlimit = {',
+          '\t\t\tNOT = { DA_RH_active_gnomish = yes }', '\t\t\thas_country_flag = DA_GN_workshop_on', '\t\t}',
+          '\t\tDA_GN_close_workshop = yes', '\t}',
+          '\tDA_GN_harpoons_flag = yes',
+          '\tif = {', '\t\tlimit = { has_country_flag = DA_PR_done.GN_Branches }', '\t\tDA_GN_branches_upkeep = yes', '\t}',
+          '\tif = {', '\t\tlimit = { check_variable = { which = DA_GN_lic_count value = 1 } }', '\t\tDA_GN_licences_upkeep = yes',
+          '\t}', '}',
+          '# Dragonbreaker Harpoons: the flag that build_legendary_encounters.py reads (le_rules.ARMY_BONUS).',
+          'DA_GN_harpoons_flag = {', '\tif = {', '\t\tlimit = { has_country_flag = DA_PR_done.GN_Harpoons DA_RH_active_gnomish = yes }',
+          '\t\tset_country_flag = %s' % G.HARPOONS['flag'], '\t}', '\tif = {', '\t\tlimit = {',
+          '\t\t\thas_country_flag = %s' % G.HARPOONS['flag'],
+          '\t\t\tNOT = { AND = { has_country_flag = DA_PR_done.GN_Harpoons DA_RH_active_gnomish = yes } }', '\t\t}',
+          '\t\tclr_country_flag = %s' % G.HARPOONS['flag'], '\t}', '}', '']
+    # branches and licences
+    o += ['# ---- Gommo Branches: counted again, the lost ones closed, the hosts\' modifier renewed (400 days), our capacity ----',
+          'DA_GN_branches_upkeep = {', '\tset_variable = { which = DA_GN_branch_count value = 0 }', '\tevery_country = {',
+          '\t\tlimit = { has_country_flag = DA_GN_branch_@ROOT }',
+          '\t\tif = {', '\t\t\tlimit = { NOT = { %s } }' % ALLY, '\t\t\tclr_country_flag = DA_GN_branch_@ROOT',
+          '\t\t\tcapital_scope = { remove_province_modifier = DA_GN_gommo_branch }',
+          '\t\t\tROOT = { set_country_flag = DA_GN_branch_closed }', '\t\t}',
+          '\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_GN_branch_@ROOT }',
+          '\t\t\tROOT = { change_variable = { which = DA_GN_branch_count value = 1 } }', '\t\t}',
+          '\t\tif = {', '\t\t\tlimit = {', '\t\t\t\thas_country_flag = DA_GN_branch_@ROOT', '\t\t\t\tROOT = { DA_RH_active_gnomish = yes }',
+          '\t\t\t}', '\t\t\tcapital_scope = { add_province_modifier = { name = DA_GN_gommo_branch duration = %d } }' % B_['days'],
+          '\t\t}', '\t}'] + ['\tremove_country_modifier = DA_GN_branches_%d' % n for n in range(1, B_['max'] + 1)]
+    for n in range(1, B_['max'] + 1):
+        lim = ['DA_RH_active_gnomish = yes', 'check_variable = { which = DA_GN_branch_count value = %d }' % n]
+        if n < B_['max']:
+            lim.append('NOT = { check_variable = { which = DA_GN_branch_count value = %d } }' % (n + 1))
+        o += ['\tif = {', '\t\tlimit = {'] + ['\t\t\t' + l for l in lim] + ['\t\t}',
+              '\t\tadd_country_modifier = { name = DA_GN_branches_%d duration = -1 }' % n, '\t}']
+    o += ['\tif = {', '\t\tlimit = { has_country_flag = DA_GN_branch_closed }', '\t\tclr_country_flag = DA_GN_branch_closed',
+          '\t\tif = {', '\t\t\tlimit = { ai = no }', '\t\t\tcountry_event = { id = DA_GN_event.9 }', '\t\t}', '\t}',
+          '\tDA_GN_reconcile_capacity = yes\t# Anbennar counts the artifice capacity again', '}']
+    o += ['# ---- Licences: counted again; a licence ends when its patent is off, its licensee no longer our ally or subject,',
+          '# our heritage dormant, or its 15 years are over (the modifier is gone) ----',
+          'DA_GN_licences_upkeep = {', '\tset_variable = { which = DA_GN_lic_count value = 0 }']
+    for p in P:
+        pid = p['id']
+        o += ['\tevery_country = {', '\t\tlimit = { has_country_flag = DA_GN_lic_%s_@ROOT }' % pid,
+              '\t\tif = {', '\t\t\tlimit = {', '\t\t\t\tOR = {', '\t\t\t\t\tNOT = { has_country_modifier = DA_GN_lic_%s }' % pid,
+              '\t\t\t\t\tNOT = { %s }' % ALLY, '\t\t\t\t\tROOT = { NOT = { has_country_flag = DA_GN_on.%s } }' % pid,
+              '\t\t\t\t\tROOT = { NOT = { DA_RH_active_gnomish = yes } }', '\t\t\t\t}', '\t\t\t}',
+              '\t\t\tclr_country_flag = DA_GN_lic_%s_@ROOT' % pid, '\t\t\tremove_country_modifier = DA_GN_lic_%s' % pid, '\t\t}',
+              '\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_GN_lic_%s_@ROOT }' % pid,
+              '\t\t\tROOT = { change_variable = { which = DA_GN_lic_count value = 1 } }', '\t\t}', '\t}']
+    o += ['\tevery_country = {', '\t\tlimit = {', '\t\t\thas_opinion_modifier = { who = ROOT modifier = DA_GN_licence }',
+          '\t\t\tNOT = { DA_GN_holds_our_licence = yes }', '\t\t}', '\t\tremove_opinion = { who = ROOT modifier = DA_GN_licence }',
+          '\t}', '\tset_variable = { which = DA_GN_lic_income which = DA_GN_lic_count }',
+          '\tmultiply_variable = { which = DA_GN_lic_income value = %d }' % LIC['fee'], '}',
+          '# Yearly: every licensee pays its fee.', 'DA_GN_licence_fees = {']
+    for p in P:
+        o += ['\tevery_country = {', '\t\tlimit = { has_country_flag = DA_GN_lic_%s_@ROOT }' % p['id'],
+              '\t\tadd_treasury = -%d' % LIC['fee'], '\t\tROOT = { add_treasury = %d }' % LIC['fee'], '\t}']
+    o += ['}', '']
+    # pulses
+    o += ['# ---- Pulses (DA_GN_on_actions.txt) ----', 'DA_GN_startup = {', '\tDA_GN_corps_check = yes', '\tif = {',
+          '\t\tlimit = {', '\t\t\tOR = {', '\t\t\t\tDA_GN_any_on = yes',
+          '\t\t\t\tcheck_variable = { which = DA_GN_booked_capacity value = 1 }', '\t\t\t}', '\t\t}',
+          '\t\tDA_GN_reconcile_capacity = yes', '\t}', '}',
+          'DA_GN_yearly = {', '\tif = {', '\t\tlimit = { has_country_flag = DA_RH_had.gnomish }', '\t\tDA_GN_corps_check = yes',
+          '\t\tDA_GN_lead_school_check = yes',
+          '\t\t# Universal Sprockets: +1 of each material a year',
+          '\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_PR_done.GN_Sprockets DA_RH_active_gnomish = yes }'] + \
+         ['\t\t\tchange_variable = { which = %s value = 1 }' % m[0] for m in G.MATERIALS.values()] + \
+         ['\t\t}', '\t\t# Settler Charters: Reclaimed Homeland in our provinces of the Dragon Coast',
+          '\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_PR_done.GN_Settlers DA_RH_active_gnomish = yes }',
+          '\t\t\tevery_owned_province = {', '\t\t\t\tlimit = { region = dragon_coast_region }',
+          '\t\t\t\tadd_province_modifier = { name = DA_GN_reclaimed_homeland duration = 400 }', '\t\t\t}', '\t\t}',
+          '\t\tif = {', '\t\t\tlimit = {', '\t\t\t\tOR = {', '\t\t\t\t\tDA_GN_any_on = yes',
+          '\t\t\t\t\tcheck_variable = { which = DA_GN_booked_capacity value = 1 }', '\t\t\t\t}', '\t\t\t}',
+          '\t\t\tDA_GN_reconcile_capacity = yes', '\t\t\tDA_GN_over_capacity = yes', '\t\t}',
+          '\t\t# The Patent Economy: royalties for each patent switched on',
+          '\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_PR_done.GN_Patent_Economy DA_RH_active_gnomish = yes }']
+    for n in range(1, len(P) + 1):
+        o += ['\t\t\tif = {', '\t\t\t\tlimit = { check_variable = { which = DA_GN_on_count value = %d } }' % n,
+              '\t\t\t\tadd_treasury = %d' % G.ROYALTY, '\t\t\t}']
+    o += ['\t\t}',
+          '\t\t# The International Gommo and the Great Ideation Engine: innovativeness every year',
+          '\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_PR_done.GN_International DA_RH_active_gnomish = yes }',
+          '\t\t\tchange_innovativeness = %d' % G.INTERNATIONAL_INNOVATIVENESS, '\t\t}',
+          '\t\tif = {', '\t\t\tlimit = { DA_GN_engine_on = yes }', '\t\t\tchange_innovativeness = %d' % ENG['innovativeness'], '\t\t}',
+          '\t\t# Branches: the lost ones close, the hosts\' modifier is renewed',
+          '\t\tif = {', '\t\t\tlimit = { has_country_flag = DA_PR_done.GN_Branches }', '\t\t\tDA_GN_branches_upkeep = yes', '\t\t}',
+          '\t\t# Licences: the ended ones close, the others pay; an offer nobody answered in 60 days is dropped',
+          '\t\tif = {', '\t\t\tlimit = { had_country_flag = { flag = DA_GN_lic_pending days = 60 } }',
+          '\t\t\tclr_country_flag = DA_GN_lic_pending', '\t\t}',
+          '\t\tif = {', '\t\t\tlimit = { check_variable = { which = DA_GN_lic_count value = 1 } }',
+          '\t\t\tDA_GN_licences_upkeep = yes', '\t\t\tDA_GN_licence_fees = yes', '\t\t}',
+          '\t\tDA_GN_harpoons_flag = yes',
+          '\t\t# The E++ Patent Dispute: once per game, a chance a year while a goblin neighbour has E++',
+          '\t\tif = {', '\t\t\tlimit = { DA_GN_eplus_ready = yes }',
+          '\t\t\trandom = { chance = %d country_event = { id = DA_GN_event.13 } }' % G.EPLUS['chance'], '\t\t}',
+          '\t}', '}', '']
+    # AI
+    o += ['# ---- The AI (doc 48, section 11), from the yearly racial pulse (DA_RH_ai_pulse) ----', 'DA_GN_ai_act = {',
+          '\tDA_GN_ai_tile = yes', '\tDA_GN_ai_proto = yes', '\tDA_GN_ai_switch = yes', '}',
+          '# The next tile of the Gnomish page, as its Start button would start it.', 'DA_GN_ai_tile = {']
+    for fid, fname, nids in G.FAMILIES:
+        for nid in nids:
+            d = G.NODES[nid]
+            lim = ['DA_available_research = yes', 'NOT = { has_country_flag = DA_PR_done.%s }' % nid] + list(d['req'])
+            start = ['DA_start_research = {', '\tflag = PR_%s' % nid, '\ttime = %d' % d['time'], '\t%s = yes' % d['era']]
+            if d.get('unstoppable'):
+                start.append('\tunstoppable = yes')
+            start.append('}')
+            o += ['\tif = {', '\t\tlimit = {'] + ['\t\t\t' + l for l in lim] + ['\t\t}'] + ['\t\t' + l for l in start] + ['\t}']
+    o += ['}', '# One prototype: the first patent of the register whose tile is done.', 'DA_GN_ai_proto = {']
+    for p in P:
+        o += ['\tif = {', '\t\tlimit = { DA_GN_can_proto_%s = yes }' % p['id'], '\t\tDA_GN_start_proto_%s = yes' % p['id'], '\t}']
+    o += ['}', '# One patent switched on, while at least half the free capacity stays free.', 'DA_GN_ai_switch = {']
+    for p in P:
+        o += ['\tif = {', '\t\tlimit = {', '\t\t\tNOT = { has_country_flag = DA_GN_tmp_ai }', '\t\t\tDA_GN_can_on_%s = yes' % p['id'],
+              '\t\t\tcheck_variable = { which = RemainingArtificePoints value = %d }' % (2 * cap(p)), '\t\t}',
+              '\t\tDA_GN_switch_on_%s = yes' % p['id'], '\t\tset_country_flag = DA_GN_tmp_ai', '\t}']
+    o += ['\tclr_country_flag = DA_GN_tmp_ai', '}']
+    return '\n'.join(o) + '\n'
+
+
+# ---------------------------------------------------------------------------
+# Modifiers, triggered modifiers, on_actions, events
+# ---------------------------------------------------------------------------
+
+def fmt(v):
+    if isinstance(v, str):
+        return v
+    s = ('%.3f' % v).rstrip('0').rstrip('.')
+    return s if s not in ('-0', '') else '0'
+
+
+def gen_modifiers():
+    o = [HEAD]
+    for p in P:
+        o += ['DA_GN_pat_%s = {' % p['id']] + ['\t%s = %s' % (k, fmt(v)) for k, v in p['mod'].items()]
+        if p.get('art'):
+            o.append('\tis_rajput_modifier = yes')
+        o.append('}')
+        for k, u in enumerate(p['ups'], 1):
+            o += ['DA_GN_pat_%s_%d = {' % (p['id'], k)] + ['\t%s = %s' % (kk, fmt(v)) for kk, v in u['mod'].items()]
+            if u.get('art'):
+                o.append('\tis_rajput_modifier = yes')
+            o.append('}')
+    o += ['DA_GN_reclaimed_homeland = {', '\tlocal_development_cost = -0.15', '\tlocal_culture_conversion_cost = -0.25', '}']
+    o += ['# Step 2: Gommo Branches (ours, by number; the host\'s city), licences (the licensee: the patent\'s base effect),',
+          '# Gommo Calibration (the fixed effect of the Primary Technology, one per class).']
+    for n in range(1, B_['max'] + 1):
+        o += ['DA_GN_branches_%d = {' % n, '\tartificers_capacity = %d' % (n * B_['capacity']), '}']
+    o += ['DA_GN_gommo_branch = {', '\tlocal_production_efficiency = %s' % fmt(B_['production']),
+          '\tlocal_development_cost = %s' % fmt(B_['development']), '}']
+    for p in P:
+        o += ['DA_GN_lic_%s = {' % p['id']] + ['\t%s = %s' % (k, fmt(v)) for k, v in p['mod'].items()]
+        if p.get('art'):
+            o.append('\tis_rajput_modifier = yes')
+        o.append('}')
+    for cls in CAL['classes']:
+        o += ['DA_Unique_mod.PUNK.%s.%s = {' % (cls, CAL['token'])] + \
+             ['\t%s = %s' % (k, fmt(v)) for k, v in CAL['fixed'].items()] + ['\t%s = yes' % G.UNIT_MARK[cls], '}']
+    return '\n'.join(o) + '\n'
+
+
+def gen_opinion_modifiers():
+    E = G.EPLUS
+    return '\n'.join([HEAD, '# The licensee\'s opinion of the country whose patent it licenses (DA_GN_event.11); the goblins\' opinion of',
+                      '# a gnomish country that sued them over E++ (DA_GN_event.13).',
+                      'DA_GN_licence = { opinion = %d }' % LIC['opinion'],
+                      'DA_GN_patent_suit = { opinion = %d yearly_decay = %d }' % (E['opinion'], E['decay'])]) + '\n'
+
+
+def gen_diplomatic_actions():
+    return '\n'.join([HEAD, '# ROOT is the country that acts, FROM the one it acts on. The AI never sends these (EU4).', '',
+        '# Gommo Branches: a branch of the Gommo in the capital of an ally or a subject, a commission on our bench.',
+        'DA_GN_open_branch = {', '\tcategory = influence', '\trequire_acceptance = no', '\tis_visible = {',
+        '\t\thas_country_flag = DA_PR_done.GN_Branches', '\t\tFROM = { %s }' % ALLY, '\t}',
+        '\tis_allowed = {', '\t\tDA_GN_branch_target_ok = yes', '\t\tDA_GN_can_branch = yes', '\t}',
+        '\ton_accept = {', '\t\tDA_GN_start_branch = yes', '\t}', '\tai_will_do = {', '\t\talways = no', '\t}', '}', '',
+        '# The International Gommo: a licence for a patent that is switched on; DA_GN_event.10 asks which.',
+        'DA_GN_license_patent = {', '\tcategory = influence', '\trequire_acceptance = no', '\tis_visible = {',
+        '\t\thas_country_flag = DA_PR_done.GN_International', '\t\tFROM = { %s }' % ALLY, '\t}',
+        '\tis_allowed = {', '\t\tDA_GN_lic_target_ok = yes', '\t\tDA_GN_can_license = yes', '\t}',
+        '\ton_accept = {', '\t\tFROM = { save_event_target_as = DA_GN_licensee }', '\t\tcountry_event = { id = DA_GN_event.10 }',
+        '\t}', '\tai_will_do = {', '\t\talways = no', '\t}', '}']) + '\n'
+
+
+def gen_triggered_modifiers():
+    return '\n'.join([HEAD,
+        '# Thaumaturge Method: what it gives depends on the artificery mode (Anbennar\'s flags).',
+        'DA_GN_thaumaturge_mixed = {', '\tpotential = { has_country_flag = DA_PR_done.GN_Thaumaturge }',
+        '\ttrigger = {', '\t\thas_country_flag = magic_artificery_mixed', '\t\tDA_RH_active_gnomish = yes', '\t}',
+        '\tartificers_capacity = 15', '}',
+        'DA_GN_thaumaturge_artificery = {', '\tpotential = { has_country_flag = DA_PR_done.GN_Thaumaturge }',
+        '\ttrigger = {', '\t\thas_country_flag = magic_artificery_artificery_only', '\t\tDA_RH_active_gnomish = yes', '\t}',
+        '\tartificers_research_time = -0.1', '}',
+        '# Trap-Wise Drill: at war with a kobold country or one of the Dragon Cult.',
+        'DA_GN_trap_drill = {', '\tpotential = { has_country_flag = DA_PR_done.GN_Trap_Drill }',
+        '\ttrigger = {', '\t\tis_at_war = yes', '\t\tDA_RH_active_gnomish = yes', '\t\tany_war_enemy_country = {',
+        '\t\t\tOR = {', '\t\t\t\tDA_RH_primary_kobold = yes', '\t\t\t\treligion = kobold_dragon_cult', '\t\t\t}', '\t\t}', '\t}',
+        '\tmorale_damage = 0.1', '\tland_attrition = -0.1', '}',
+        '# The Great Ideation Engine: research speed in Projects & Research (the base of the key is 1).',
+        'DA_GN_engine = {', '\tpotential = { has_country_flag = DA_GN_engine_built }',
+        '\ttrigger = {', '\t\tDA_RH_active_gnomish = yes', '\t}', '\tDA_fake_research_speed_gain_percentage = %s' % fmt(ENG['research']), '}',
+        '# Dragonbreaker Harpoons: at war with a kobold country.',
+        'DA_GN_harpoons_kobold = {', '\tpotential = { has_country_flag = DA_PR_done.GN_Harpoons }',
+        '\ttrigger = {', '\t\tis_at_war = yes', '\t\tDA_RH_active_gnomish = yes', '\t\tany_war_enemy_country = {',
+        '\t\t\tDA_RH_primary_kobold = yes', '\t\t}', '\t}', '\tfire_damage = %s' % fmt(G.HARPOONS['kobold_fire']), '}']) + '\n'
+
+
+def gen_on_actions():
+    return '\n'.join([HEAD, '# on_actions are merged with the other files.', '',
+        'on_startup = {', '\tDA_GN_startup = yes\t# the Corps on day one; patents booked again after a load', '}',
+        'on_primary_culture_changed = {', '\tDA_GN_corps_check = yes\t# a country that has just become gnomish', '}',
+        'on_monthly_pulse = {', '\tif = {', '\t\tlimit = { has_country_flag = DA_GN_bench_busy }',
+        '\t\tDA_GN_bench_tick = yes\t# a commission on the gnomish bench', '\t}', '}',
+        'on_yearly_pulse_3 = {', '\tDA_GN_yearly = yes\t# only countries that have ever been gnomish do anything', '}']) + '\n'
+
+
+def gen_events():
+    o = [HEAD, 'namespace = DA_GN_event', '']
+
+    def ev(i, body, hidden=False, opts=(), descs=None):
+        e = ['country_event = {', '\tid = DA_GN_event.%d' % i, '\ttitle = DA_GN_event.%d.t' % i]
+        if descs:   # one description per case
+            for key, trig in descs:
+                e.append('\tdesc = { trigger = { %s } desc = %s }' % (trig, key))
+        else:
+            e.append('\tdesc = DA_GN_event.%d.d' % i)
+        e.append('\tpicture = INVENTION_eventPicture')
+        if hidden:
+            e.append('\thidden = yes')
+        e += ['\tis_triggered_only = yes', ''] + ['\t' + l for l in body]
+        for name, lines in opts:
+            e += ['\toption = {', '\t\tname = %s' % name] + ['\t\t' + l for l in lines] + ['\t}']
+        return e + ['}', '']
+    branch_rep = 'OR = { is_variable_equal = { which = DA_GN_report value = 8 } is_variable_equal = { which = DA_GN_report value = 9 } }'
+    o += ev(1, [], opts=[('DA_GN_event.1.a', ['custom_tooltip = DA_GN_corps_effect_tt',
+                                              'hidden_effect = { DA_GN_artificer_corps = yes }', 'ai_chance = { factor = 1 }'])])
+    o += ev(2, ['immediate = {', '\tDA_GN_finish_job = yes', '\tif = {', '\t\tlimit = { ai = no NOT = { %s } }' % branch_rep,
+                '\t\tcountry_event = { id = DA_GN_event.3 }', '\t}', '\tif = {', '\t\tlimit = { ai = no %s }' % branch_rep,
+                '\t\tcountry_event = { id = DA_GN_event.7 }\t# a branch: the report names its host', '\t}', '}'],
+            hidden=True, opts=[('DA_GN_event.2.a', [])])
+    o += ev(3, [], opts=[('DA_GN_event.3.a', ['ai_chance = { factor = 1 }']),
+                         ('DA_GN_event.3.b', ['hidden_effect = { DA_GN_open_workshop = yes }', 'ai_chance = { factor = 0 }'])])
+    o += ev(4, [], opts=[('DA_GN_event.4.%s' % 'abc'[j], ['custom_tooltip = DA_GN_lead_becomes_tt.%s' % s,
+                                                          'hidden_effect = { DA_GN_pick_lead = { school = %s } }' % s,
+                                                          'ai_chance = { factor = 1 }'])
+                         for j, s in enumerate(G.SCHOOLS)])
+    o += ev(5, [], opts=[('DA_GN_event.5.%s' % 'abc'[j], ['custom_tooltip = DA_GN_lead_becomes_tt.%s' % s,
+                                                          'hidden_effect = { DA_GN_override_lead = { school = %s } }' % s])
+                         for j, s in enumerate(G.SCHOOLS)] +
+                         [('DA_GN_event.5.e', ['custom_tooltip = DA_GN_lead_follow_tt', 'hidden_effect = { DA_GN_follow_org = yes }'])])
+    o += ev(6, [], opts=[('DA_GN_event.6.a', ['hidden_effect = {'] + ['\tclr_country_flag = DA_GN_overcap.%s' % p['id'] for p in P]
+                          + ['\tclr_country_flag = DA_GN_overcap', '}'])])
+    # ---- step 2 ----
+    o += ev(7, [], descs=[('DA_GN_event.7.d', 'is_variable_equal = { which = DA_GN_report value = 8 }'),
+                          ('DA_GN_event.7.e', 'is_variable_equal = { which = DA_GN_report value = 9 }')],
+            opts=[('DA_GN_event.7.a', ['ai_chance = { factor = 1 }']),
+                  ('DA_GN_event.7.b', ['hidden_effect = { DA_GN_open_workshop = yes set_country_flag = DA_GN_view_gommo }',
+                                       'ai_chance = { factor = 0 }'])])
+    o += ev(9, [], opts=[('DA_GN_event.9.a', ['ai_chance = { factor = 1 }'])])
+    # .10: which patent we offer (ROOT us; the licensee is the event target DA_GN_licensee)
+    opts = []
+    for p in P:
+        i, pid = i_of(p), p['id']
+        opts.append(('DA_GN_event.10.p%d' % i, [
+            'trigger = {', '\thas_country_flag = DA_GN_on.%s' % pid,
+            '\tevent_target:DA_GN_licensee = { NOT = { has_country_flag = DA_GN_lic_%s_@ROOT } }' % pid, '}',
+            'custom_tooltip = DA_GN_lic_offer_tt.%d' % i, 'hidden_effect = {', '\tset_country_flag = DA_GN_lic_pending',
+            '\tevent_target:DA_GN_licensee = {', '\t\tset_country_flag = DA_GN_lic_offer.%s' % pid,
+            '\t\tcountry_event = { id = DA_GN_event.11 }', '\t}', '}', 'ai_chance = { factor = 1 }']))
+    opts.append(('DA_GN_event.10.z', ['ai_chance = { factor = 0 }']))
+    o += ev(10, [], opts=opts)
+    # .11: the licensee answers (ROOT the licensee, FROM us)
+    accept = []
+    for p in P:
+        pid = p['id']
+        accept += ['if = {', '\tlimit = { has_country_flag = DA_GN_lic_offer.%s }' % pid,
+                   '\tadd_country_modifier = { name = DA_GN_lic_%s duration = %d }' % (pid, LIC['days']),
+                   '\thidden_effect = { set_country_flag = DA_GN_lic_%s_@FROM }' % pid, '}']
+    clear = ['clr_country_flag = DA_GN_lic_offer.%s' % p['id'] for p in P]
+    accept += ['add_opinion = { who = FROM modifier = DA_GN_licence }', 'custom_tooltip = DA_GN_lic_fee_tt',
+               'hidden_effect = {'] + ['\t' + l for l in clear] + \
+              ['\tFROM = { set_country_flag = DA_GN_lic_yes country_event = { id = DA_GN_event.12 } }', '}',
+               'ai_chance = {', '\tfactor = 1',
+               '\tmodifier = { factor = 0 NOT = { has_opinion = { who = FROM value = 1 } } }',
+               '\tmodifier = { factor = 0 NOT = { treasury = %d } }' % LIC['ai_treasury'], '}']
+    decline = ['hidden_effect = {'] + ['\t' + l for l in clear] + \
+              ['\tFROM = { set_country_flag = DA_GN_lic_no country_event = { id = DA_GN_event.12 } }', '}',
+               'ai_chance = {', '\tfactor = 1',
+               '\tmodifier = { factor = 0 has_opinion = { who = FROM value = 1 } treasury = %d }' % LIC['ai_treasury'], '}']
+    o += ev(11, [], opts=[('DA_GN_event.11.a', accept), ('DA_GN_event.11.b', decline)])
+    # .12: the answer reaches us (ROOT us, FROM the licensee)
+    o += ev(12, ['immediate = {', '\thidden_effect = {', '\t\tclr_country_flag = DA_GN_lic_pending',
+                 '\t\tDA_GN_licences_upkeep = yes', '\t}', '}'],
+            descs=[('DA_GN_event.12.d', 'has_country_flag = DA_GN_lic_yes'),
+                   ('DA_GN_event.12.e', 'NOT = { has_country_flag = DA_GN_lic_yes }')],
+            opts=[('DA_GN_event.12.a', ['hidden_effect = { clr_country_flag = DA_GN_lic_yes clr_country_flag = DA_GN_lic_no }',
+                                        'ai_chance = { factor = 1 }'])])
+    # .13: the E++ Patent Dispute (ROOT us; the goblins are the event target DA_GN_eplus_goblin)
+    E = G.EPLUS
+    o += ev(13, ['immediate = {', '\thidden_effect = {', '\t\tset_country_flag = DA_GN_eplus_done',
+                 '\t\trandom_neighbor_country = {', '\t\t\tlimit = { DA_GN_eplus_goblin = yes }',
+                 '\t\t\tsave_event_target_as = DA_GN_eplus_goblin', '\t\t}', '\t}', '}'],
+            opts=[('DA_GN_event.13.a', ['add_prestige = %d' % E['prestige'],
+                                        'event_target:DA_GN_eplus_goblin = { add_opinion = { who = ROOT modifier = DA_GN_patent_suit } }',
+                                        'ai_chance = { factor = 1 }']),
+                  ('DA_GN_event.13.b', ['trigger = { treasury = %d }' % E['price'], 'add_treasury = -%d' % E['price'],
+                                        'event_target:DA_GN_eplus_goblin = { add_treasury = %d }' % E['price'],
+                                        'change_innovativeness = %d' % E['innovativeness'],
+                                        'capital_scope = { DA_Tech_prov.Metallurgy = { amount = %d } }' % E['xp'],
+                                        'ai_chance = { factor = 1 }']),
+                  ('DA_GN_event.13.c', ['define_advisor = {', '\ttype = %s' % E['advisor'], '\tskill = %d' % E['skill'],
+                                        '\tculture = event_target:DA_GN_eplus_goblin', '\treligion = ROOT',
+                                        '\tcost_multiplier = %s' % fmt(E['cost']), '}', 'ai_chance = { factor = 1 }'])])
+    return '\n'.join(o)
+
+
+# ---------------------------------------------------------------------------
+# Window layout (pixels in the 1056 x 704 window). The frame is gommo_workshop_frame_v3.png (1536 x 1024) at 0.6875;
+# every box below is measured on that picture (its navy panels and teal plates found by colour) and scaled.
+# ---------------------------------------------------------------------------
+W, H = 1056, 704
+S = W / 1536.0
+
+
+def sc(*v):
+    return tuple(int(round(a * S)) for a in v)
+
+
+# source pixels of gommo_workshop_frame_v3.png
+SRC_TITLE = (502, 48, 1033, 124)                       # the parchment plate
+SRC_TABS = [(198, 163, 403, 215), (431, 163, 636, 215), (665, 163, 871, 215), (898, 163, 1104, 215), (1133, 163, 1338, 215)]
+SRC_GRID = (172, 248, 1013, 625)                       # the 5 x 3 cells inside the large panel, with a margin
+SRC_FILL = (179, 254, 1006, 618)                       # what the text pages fill: the cells and their brass, not the corners
+SRC_COLS = [(186, 338), (354, 506), (522, 671), (687, 835), (851, 999)]
+SRC_ROWS = [(261, 363), (379, 482), (497, 611)]
+SRC_RIGHT = [(1062, 260, 1374, 416), (1062, 431, 1374, 525), (1063, 540, 1374, 641)]
+SRC_CELLS = [(354, 695, 528, 789), (545, 695, 720, 789), (735, 695, 911, 789), (927, 695, 1102, 789)]
+SRC_BAR = (296, 835, 1242, 866)
+SRC_SEGS = [296, 363, 430, 496, 561, 625, 693, 761, 828, 898, 967, 1033, 1099, 1168, 1242]   # 14 segments
+SRC_BUTTONS = [(295, 892, 595, 970), (620, 892, 918, 970), (943, 892, 1240, 970)]   # the teal plates, rim included
+
+TITLE = sc(*SRC_TITLE)
+TABS = [sc(*t) for t in SRC_TABS]
+TAB_PAD = 5                                            # the tab's button: its plate and 5 px of rim all round
+PANEL = (103, 164, 708, 442)                           # the large panel (the pages)
+GRID = sc(*SRC_GRID)
+RIGHT = [sc(*b) for b in SRC_RIGHT]                    # the selected patent: top, upgrades, effect
+CELLS = [sc(*c) for c in SRC_CELLS]                    # counters, counters, prototype price, switch-on price
+BAR = sc(*SRC_BAR)
+SEGS = [int(round(x * S)) for x in SRC_SEGS]
+BUTTONS = [sc(*b) for b in SRC_BUTTONS]
+CLOSE = (933, 116)                                     # right of the last tab
+
+# tabs: the pages of the large panel, and the way back to the hub
+TAB_KEYS = ['patents', 'gommo', 'abroad', 'guide', 'hub']
+PAGE_FLAGS = {'gommo': 'DA_GN_page_gommo', 'abroad': 'DA_GN_view_gommo', 'guide': 'DA_GN_guide'}
+PAT_PAGE = ' '.join('NOT = { has_country_flag = %s }' % f for f in PAGE_FLAGS.values())
+# the three plates at the bottom
+BIG_BUTTONS = [('DA_GN_fair', 'DA_GN_FAIR'), ('DA_GN_nav_schools', 'DA_GN_STUDIES'), ('DA_GN_nav_research', 'DA_GN_RESEARCH')]
+COUNTERS = [('building', 0, 0), ('metal', 0, 1), ('essence', 1, 0), ('capacity', 1, 1)]   # (key, cell, row)
+COUNTER_ROW = 30
+GEM = 22
+SLOT = 48                                              # a patent's button; the selection ring is 3 px wider all round
+BTN = (191, 24)                                        # the action button of the selected patent
+SBTN = (180, 24)                                       # the lead school and Engine buttons
+GOMMO_INFO = ('Lead school: §Y[Root.DA_GN_get_lead]§!\nInnovativeness: §Y[Root.DA_GN_innov.GetValue]§!\n'
+              'Free capacity: §Y[Root.RemainingArtificePoints.GetValue]§!\nPatents on: §Y[Root.DA_GN_on_count.GetValue]§!\n'
+              'Prototypes: §Y[Root.DA_GN_proto_count.GetValue]§! of %d\n[Root.DA_GN_get_lead_note]')
+# the two columns of The Gommo page; the rule between them
+GL = (118, 398)
+GR = (424, 696)
+RULE_X = 411
+
+
+def cell(i):
+    """i = 1..15: the grid cells, five a row."""
+    j = i - 1
+    (x0, x1), (y0, y1) = SRC_COLS[j % 5], SRC_ROWS[j // 5]
+    return sc(x0, y0, x1, y1)
+
+
+def slot_pos(i):
+    """The patent's button, centred in its cell above its name."""
+    x0, y0, x1, y1 = cell(i)
+    return (x0 + x1) // 2 - SLOT // 2, y0 + (y1 - y0 - SLOT - 20) // 2
+
+
+def tb(name, x, y, w, h, font='vic_18', fmt='left', text='', scripted=True):
+    ex = ['textureFile = ""', 'font = "%s"' % font, 'borderSize = {x = 0 y = 0}', 'text = "%s"' % text,
+          'maxWidth = %d' % w, 'maxHeight = %d' % h, 'format = %s' % fmt]
+    if scripted:
+        ex.append('scripted = yes')
+    ex.append('alwaystransparent = yes')
+    return ['instantTextBoxType = {', '\tname = "%s"' % name, '\tposition = { x = %d y = %d }' % (x, y)] + ['\t' + e for e in ex] + ['}']
+
+
+def el(kind, name, x, y, sprite, extra=(), quad=False):
+    return ['%s = {' % kind, '\tname = "%s"' % name,
+            '\t%s = "%s"' % ('quadTextureSprite' if quad else 'spriteType', sprite),
+            '\tposition = { x = %d y = %d }' % (x, y), '\tOrientation = "UPPER_LEFT"'] + ['\t' + e for e in extra] + ['}']
+
+
+BTNX = ['scripted = yes', 'clicksound = back_click']
+
+
+def label(text, font='vic_18'):
+    return ['buttonText = "%s"' % text, 'buttonFont = "%s"' % font]
+
+
+def gen_window():
+    b = []
+    # the background is a button: it takes the clicks (none reach the map) and drags the window (doc 63)
+    b += el('guiButtonType', 'DA_GN_workshop_bg', 0, 0, 'GFX_DA_GN_window')
+    x0, y0, x1, y1 = TITLE
+    b += tb('DA_GN_title', x0, y0 + 12, x1 - x0, 32, font='vic_29', fmt='centre', text='DA_GN_title', scripted=False)
+    # the tabs
+    for k, key in enumerate(TAB_KEYS):
+        x0, y0, x1, y1 = TABS[k]
+        name = 'DA_GN_nav_hub' if key == 'hub' else 'DA_GN_tab_%s' % key
+        b += el('guiButtonType', name, x0 - TAB_PAD, y0 - TAB_PAD, 'GFX_DA_GN_tab_%d' % (k + 1), label('DA_GN_TAB_%s' % key.upper()) + BTNX)
+    # the Patents page: the grid's cells, the patents, their names, the summary in the last cell
+    b += el('iconType', 'DA_GN_grid', GRID[0], GRID[1], 'GFX_DA_GN_grid', ['scripted = yes', 'alwaystransparent = yes'])
+    b += el('iconType', 'DA_GN_grid_pv', GRID[0], GRID[1], 'GFX_DA_GN_grid_pv', ['scripted = yes', 'alwaystransparent = yes'])
+    for p in P:
+        i = i_of(p)
+        x, y = slot_pos(cell_of(p))   # DA_EL: a Precursor patent in cells 1-3 of the Precursor view
+        b += el('guiButtonType', 'DA_GN_slot_%d' % i, x, y, 'GFX_DA_GN_patent_%s' % p['id'], BTNX)
+        b += el('iconType', 'DA_GN_slot_sel_%d' % i, x - 3, y - 3, 'GFX_DA_GN_slot_sel', ['scripted = yes', 'alwaystransparent = yes'])
+        c = cell(cell_of(p))
+        b += tb('DA_GN_slot_name_%d' % i, c[0] + 2, y + SLOT + 2, c[2] - c[0] - 4, 18, fmt='centre', text='DA_GN_slot_name_%d' % i)
+    # DA_EL (doc 72): the Precursor view: Assay a Relic (cell 4), a Gommo Survey (cell 5), what they do (cells 6-14)
+    for n, key in ((4, 'assay'), (5, 'survey')):
+        x, y = slot_pos(n)
+        c = cell(n)
+        b += el('guiButtonType', 'DA_GN_%s' % key, x, y, 'GFX_DA_GN_%s' % key, BTNX)
+        b += tb('DA_GN_%s_name' % key, c[0] + 2, y + SLOT + 2, c[2] - c[0] - 4, 18, fmt='centre', text='DA_GN_%s_name' % key)
+    c6, c14 = cell(6), cell(14)
+    b += tb('DA_GN_pv_info', c6[0] + 6, c6[1] + 4, c14[2] - c6[0] - 12, c14[3] - c6[1] - 8, text='DA_GN_pv_info')
+    c = cell(15)
+    b += tb('DA_GN_grid_sum', c[0] + 3, c[1] + (c[3] - c[1] - 72) // 2, c[2] - c[0] - 6, 72, fmt='centre', text='DA_GN_grid_sum')
+    b += el('guiButtonType', 'DA_GN_pv_toggle', c[0], c[1], 'GFX_DA_GN_cell_hit', BTNX)   # the summary cell toggles the view
+    # The Gommo page: the Gommo and its lead school, the commissions; the bench
+    b += el('iconType', 'DA_GN_page_rule', RULE_X, PANEL[1] + 14, 'GFX_DA_GN_page_rule', ['scripted = yes', 'alwaystransparent = yes'])
+    gw = GL[1] - GL[0]
+    b += tb('DA_GN_cap_gommo', GL[0], 176, gw, 24, font='vic_22', fmt='centre', text='DA_GN_cap_gommo')
+    b += tb('DA_GN_gommo_info', GL[0], 206, gw, 126)
+    for name, text in (('DA_GN_lead_change', 'DA_GN_LEAD_CHANGE'), ('DA_GN_lead_pick', 'DA_GN_LEAD_PICK')):
+        b += el('guiButtonType', name, GL[0] + (gw - SBTN[0]) // 2, 336, 'GFX_DA_GN_button', label(text) + BTNX)
+    b += tb('DA_GN_cap_commissions', GL[0], 372, gw, 24, font='vic_22', fmt='centre', text='DA_GN_cap_commissions')
+    b += tb('DA_GN_fair_info', GL[0], 398, gw, 36)
+    rw = GR[1] - GR[0]
+    b += tb('DA_GN_bench_title', GR[0], 176, rw, 24, font='vic_22', fmt='centre')
+    b += tb('DA_GN_bench_job', GR[0], 206, rw, 36, fmt='centre')
+    b += tb('DA_GN_bench_desc', GR[0], 248, rw, 180)
+    # the Gommo Abroad page
+    pw = PANEL[2] - PANEL[0] - 30
+    b += tb('DA_GN_abroad_title', PANEL[0] + 15, 176, pw, 24, font='vic_22', fmt='centre', text='DA_GN_abroad_title')
+    b += tb('DA_GN_abroad_counts', 130, 214, 250, 54, text='DA_GN_abroad_counts')
+    b += el('guiButtonType', 'DA_GN_engine', 470, 212, 'GFX_DA_GN_button', label('DA_GN_ENGINE') + BTNX)
+    b += tb('DA_GN_engine_info', 470, 240, 200, 36)
+    b += tb('DA_GN_abroad_desc', PANEL[0] + 15, 290, pw, 144, text='DA_GN_abroad_desc')
+    # the Guide page
+    b += tb('DA_GN_guide_title', PANEL[0] + 15, 176, pw, 24, font='vic_22', fmt='centre', text='DA_GN_guide_title')
+    b += tb('DA_GN_guide_text', PANEL[0] + 15, 200, pw, 234, text='DA_GN_guide_text')
+    # right: the selected patent
+    (tx0, ty0, tx1, ty1), (mx0, my0, mx1, my1), (ex0, ey0, ex1, ey1) = RIGHT
+    tw = tx1 - tx0 - 12
+    b += tb('DA_GN_pat_name', tx0 + 6, ty0 + 4, tw, 36, fmt='centre')
+    b += tb('DA_GN_pat_meta', tx0 + 6, ty0 + 40, tw, 18, fmt='centre')
+    b += tb('DA_GN_pat_status', tx0 + 6, ty0 + 58, tw, 18, fmt='centre')
+    for p in P:
+        for act in ('proto', 'on', 'off'):
+            b += el('guiButtonType', 'DA_GN_%s_%s' % (act, p['id']), tx0 + (tx1 - tx0 - BTN[0]) // 2, ty1 - BTN[1] - 5,
+                    'GFX_DA_GN_button_wide', label('DA_GN_%s' % act.upper()) + BTNX)
+    for k in (1, 2):
+        y = my0 + 7 + (k - 1) * 28
+        b += tb('DA_GN_pat_up_%d' % k, mx0 + 6, y + 1, mx1 - mx0 - 38, 20)
+        for p in P:
+            b += el('guiButtonType', 'DA_GN_improve_%s_%d' % (p['id'], k), mx1 - 28, y, 'GFX_DA_GN_plus', BTNX)
+    b += tb('DA_GN_pat_effect', ex0 + 6, ey0 + 4, ex1 - ex0 - 12, 72)
+    # the four cells: the counters, then the prices of the selected patent
+    for key, ci, row in COUNTERS:
+        x0, y0, x1, y1 = CELLS[ci]
+        y = y0 + 4 + row * COUNTER_ROW
+        b += tb('DA_GN_cnt_%s' % key, x0 + 12 + GEM + 4, y + 4, x1 - x0 - GEM - 20, 20)
+        b += el('guiButtonType', 'DA_GN_cnt_%s_tip' % key, x0 + 4, y, 'GFX_DA_GN_counter_tip', BTNX)
+    for ci, name in ((2, 'DA_GN_pat_proto'), (3, 'DA_GN_pat_on')):
+        x0, y0, x1, y1 = CELLS[ci]
+        b += tb(name, x0 + 4, y0 + 5, x1 - x0 - 8, 54, fmt='centre')
+    # the bar: the work on the bench, in fourteen segments
+    for k in range(1, 15):
+        b += el('iconType', 'DA_GN_bar_seg_%d' % k, SEGS[k - 1] + 1, BAR[1] + 1, 'GFX_DA_GN_bar_seg', ['scripted = yes', 'alwaystransparent = yes'])
+    b += tb('DA_GN_bar_text', BAR[0] + 10, BAR[1] + 2, 450, 20)
+    b += tb('DA_GN_bench_value', BAR[2] - 190, BAR[1] + 2, 180, 20, fmt='right')
+    # the three plates
+    for k, (name, text) in enumerate(BIG_BUTTONS):
+        b += el('guiButtonType', name, BUTTONS[k][0], BUTTONS[k][1], 'GFX_DA_GN_big_%d' % (k + 1), label(text, 'vic_22') + BTNX)
+    b += ['guiButtonType = {', '\tname = "DA_GN_close"', '\tposition = { x = %d y = %d }' % CLOSE, '\tquadTextureSprite = "GFX_closebutton2"',
+          '\tshortcut = "ESCAPE"', '\tOrientation = "UPPER_LEFT"', '\tscripted = yes', '\tclicksound = close_window', '}']
+    L = ['windowType = { #DA_GN_workshop', '\tname = "DA_GN_workshop"',
+         '\t# The Gommo Workshop (doc 48, doc 52; third art, doc 66). Written by "Claude files/tools/build_gnomish_workshop.py".',
+         '\tsize = { x = %d y = %d }' % (W, H), '\tposition = { x = %d y = %d }' % (-W // 2, -H // 2), '\tmoveable = 1',
+         '\tOrientation = "CENTER"', '\tscripted = yes', '\tbackground = "DA_GN_workshop_bg"', ''] + ['\t' + l for l in b] + ['}']
+    return '\n'.join('\t\t' + l if l else '' for l in L) + '\n'
+
+def read(rel):
+    raw = open(path(rel), 'rb').read()
+    text = raw.decode('utf-8-sig') if rel.endswith('.yml') else raw.decode('latin-1')
+    crlf = '\r\n' in text
+    return text.replace('\r\n', '\n'), crlf
+
+
+def block_end(text, open_brace):
+    depth, i = 0, open_brace
+    while i < len(text):
+        c = text[i]
+        if c == '{':
+            depth += 1
+        elif c == '}':
+            depth -= 1
+            if depth == 0:
+                return i + 1
+        elif c == '#':
+            j = text.find('\n', i)
+            i = len(text) if j < 0 else j
+            continue
+        i += 1
+    raise SystemExit('unbalanced braces')
+
+
+def patch_topbar():
+    rel = 'interface/topbar.gui'
+    text, crlf = read(rel)
+    win = gen_window()
+    marker = 'windowType = { #DA_GN_workshop'
+    if marker in text:
+        w = text.index(marker)
+        start = text.rfind('\n', 0, w) + 1
+        end = block_end(text, text.index('{', w))
+        if text[end:end + 1] == '\n':
+            end += 1
+        text = text[:start] + win + text[end:]
+    else:
+        m = re.search(r'^[ \t]*# END DA_BLOCK windows', text, re.M)
+        if not m:
+            raise SystemExit('# END DA_BLOCK windows not found in topbar.gui')
+        text = text[:m.start()] + win + '\n' + text[m.start():]
+    write(rel, text, crlf)
+
+
+# ---------------------------------------------------------------------------
+# Gommo Calibration in the Unit Design (the designer's events and DA_Metallurgy_special_mod_effects.txt)
+# ---------------------------------------------------------------------------
+GN_BLOCK = re.compile(r'[ \t]*# BEGIN DA_GN [^\n]*\n.*?# END DA_GN [^\n]*\n', re.S)
+SPECIAL = 'common/scripted_effects/DA_Metallurgy_special_mod_effects.txt'
+
+
+def path_option(cls):
+    c = CAL
+    return '\n'.join([
+        '\toption = {', '\t\tDA_SCH_pick = { unit = %s part = punk token = %s } # DA_SCH' % (cls, c['token']),
+        '\t\tname = "DA_Metallurgy_events.49.%s"' % c['token'], '\t\ttrigger = {', '\t\t\t' + c['gate'], '\t\t}', '\t\t',
+        '\t\tDA_apply_Punk = {', '\t\t\tDA_unit = %s' % cls, '\t\t\tDA_Cost = %d' % c['cost'], '\t\t\tDA_Strength = %d' % c['S'],
+        '\t\t\tDA_Magic_Conductivity = %d' % c['M'], '\t\t\tDA_Electrical_Conductivity = %d' % c['E'],
+        '\t\t\tDA_Unique = %s' % c['token'], '\t\t}', '\t}'])
+
+
+def patch_designer():
+    """The Primary Technology, before the obsidian block of build_obsidian_tech.py (or before the selector's "after"):
+    each builder strips only its own block and puts it back at a place the other one does not move."""
+    for cls in CAL['classes']:
+        rel = 'events/DA_Metallurgy_events_%s_0.txt' % cls
+        text, crlf = read(rel)
+        text = GN_BLOCK.sub('', text)
+        a = text.index('\n\tafter = {') + 1
+        j = text.find('\t# BEGIN DA_OBSIDIAN')
+        i = j if 0 <= j < a else a
+        block = ('\t# BEGIN DA_GN primary technology (build_gnomish_workshop.py)\n' + path_option(cls) +
+                 '\n\t# END DA_GN primary technology\n')
+        write(rel, text[:i] + block + text[i:], crlf)
+
+
+def patch_special():
+    """Grant at the finish, removal at a redesign, the draft flag cleared by Reset: one line each, marked # DA_GN."""
+    text, crlf = read(SPECIAL)
+
+    def span(name):
+        m = re.search(r'^%s\s*=\s*\{' % re.escape(name), text, re.M)
+        if not m:
+            raise SystemExit('%s: %s not found' % (SPECIAL, name))
+        ob = text.index('{', m.start())
+        return ob + 1, block_end(text, ob) - 1
+
+    def ensure(name, line):
+        nonlocal text
+        a, b = span(name)
+        core = line.split('#')[0].strip()
+        if re.search(r'^[ \t]*' + re.escape(core) + r'[ \t]*(#[^\n]*)?$', text[a:b], re.M):
+            return
+        ls = text.rfind('\n', 0, b) + 1
+        text = text[:ls] + '\t' + line + '\n' + text[ls:]
+    for cls in CAL['classes']:
+        ensure('DA_give_Unique_Metallurgy_modifiers_' + cls,
+               'DA_if_flag_give_modifier_effect = { DA_unit = %s DA_type = PUNK DA_modifier = %s } # DA_GN' % (cls, CAL['token']))
+        ensure('DA_remove_Unique_Metallurgy_modifiers_blueprints_' + cls,
+               'remove_country_modifier = DA_Unique_mod.PUNK.%s.%s # DA_GN' % (cls, CAL['token']))
+    ensure('DA_remove_Unique_Metallurgy_modifiers_flags', 'clr_country_flag = DA_Unique_mod.PUNK.Flag.$DA_unit$.%s # DA_GN' % CAL['token'])
+    write(SPECIAL, text, crlf)
+
+
+# ---------------------------------------------------------------------------
+# custom_gui
+# ---------------------------------------------------------------------------
+
+def cb(name, tooltip=None, potential='always = yes', trigger=None, effect=None, frames=None, extra=()):
+    o = ['custom_button = {', '\tname = %s' % name]
+    if tooltip:
+        o.append('\ttooltip = %s' % tooltip)
+    o.append('\tpotential = { %s }' % potential)
+    for num, cond in (frames or []):
+        o.append('\tframe = { number = %d trigger = { %s } }' % (num, cond))
+    o += ['\t' + e for e in extra]
+    if trigger:
+        o += ['\ttrigger = {'] + ['\t\t' + l for l in trigger] + ['\t}']
+    if effect:
+        o += ['\teffect = {'] + ['\t\t' + l for l in effect] + ['\t}']
+    return '\n'.join(o + ['}'])
+
+
+def ctb(name, potential='always = yes', tooltip=None):
+    return 'custom_text_box = {\n\tname = %s\n%s\tpotential = { %s }\n}' % (name, '\ttooltip = %s\n' % tooltip if tooltip else '', potential)
+
+
+def gen_custom_gui():
+    o = [HEAD, '# The Gommo Workshop window (topbar.gui, DA_GN_workshop).', '',
+         'custom_window = {\n\tname = DA_GN_workshop\n\tpotential = { has_country_flag = DA_GN_workshop_on }\n}',
+         cb('DA_GN_close', effect=['hidden_effect = { DA_GN_close_workshop = yes }']),
+         cb('DA_GN_nav_hub', 'DA_GN_nav_hub_tt', effect=['hidden_effect = {', '\tDA_GN_close_workshop = yes', '\tDA_RH_open_hub = yes', '}']),
+         cb('DA_GN_nav_schools', 'DA_GN_nav_schools_tt',
+            effect=['hidden_effect = {', '\tDA_GN_close_workshop = yes', '\tDA_open_first_open_tech_interface = yes', '}']),
+         cb('DA_GN_nav_research', 'DA_GN_nav_research_tt',
+            effect=['hidden_effect = {', '\tDA_GN_close_workshop = yes', '\tDA_PR_open_page_race_gnomish = yes',
+                    '\tDA_open_projects_research_interface = yes', '}'])]
+    # the tabs: one page of the large panel at a time (no flag: the patents)
+    for key in TAB_KEYS[:4]:
+        on = PAGE_FLAGS.get(key)
+        eff = ['clr_country_flag = %s' % f for f in PAGE_FLAGS.values() if f != on]
+        if on:
+            eff.append('set_country_flag = %s' % on)
+        if key in ('abroad', 'gommo'):
+            eff.append('DA_GN_refresh = yes')
+        o.append(cb('DA_GN_tab_%s' % key, 'DA_GN_tab_%s_tt' % key,
+                    frames=[(2, 'has_country_flag = %s' % on if on else PAT_PAGE), (1, 'always = yes')],
+                    effect=['hidden_effect = {'] + ['\t' + e for e in eff] + ['}']))
+    for key, _, _ in COUNTERS:
+        o.append(ctb('DA_GN_cnt_%s' % key))
+        o.append(cb('DA_GN_cnt_%s_tip' % key, 'DA_GN_cnt_%s_tt' % key))
+    GP = 'has_country_flag = DA_GN_page_gommo'
+    AB = 'has_country_flag = DA_GN_view_gommo'
+    GD = 'has_country_flag = DA_GN_guide'
+    o += [ctb('DA_GN_cap_gommo', GP), ctb('DA_GN_gommo_info', GP), ctb('DA_GN_cap_commissions', GP),
+          'custom_icon = {\n\tname = DA_GN_page_rule\n\tpotential = { %s }\n}' % GP,
+          cb('DA_GN_lead_change', 'DA_GN_lead_change_tt', potential='%s has_country_flag = DA_PR_done.GN_Synthesis' % GP,
+             trigger=['DA_GN_can_change_lead = yes'], effect=['custom_tooltip = DA_GN_lead_change_go_tt',
+                                                             'hidden_effect = { country_event = { id = DA_GN_event.5 } }']),
+          cb('DA_GN_lead_pick', 'DA_GN_lead_pick_tt',
+             potential='%s NOT = { has_country_flag = DA_PR_done.GN_Synthesis } DA_GN_lead_needs_pick = yes' % GP,
+             effect=['custom_tooltip = DA_GN_lead_pick_go_tt', 'hidden_effect = { country_event = { id = DA_GN_event.4 } }']),
+          cb('DA_GN_fair', 'DA_GN_fair_tt', trigger=['DA_GN_can_fair = yes'],
+             effect=['DA_GN_start_fair = yes', 'hidden_effect = { DA_GN_refresh = yes }']),
+          ctb('DA_GN_fair_info', GP),
+          ctb('DA_GN_bench_title', GP), ctb('DA_GN_bench_job', GP), ctb('DA_GN_bench_desc', GP),
+          # the bar under the panels: what is on the bench, and how far
+          ctb('DA_GN_bar_text', tooltip='DA_GN_bar_tt'),
+          ctb('DA_GN_bench_value', 'has_country_flag = DA_GN_bench_busy', tooltip='DA_GN_bar_tt')]
+    for k in range(1, 15):
+        o.append('custom_icon = {\n\tname = DA_GN_bar_seg_%d\n\tpotential = { has_country_flag = DA_GN_bench_busy '
+                 'check_variable = { which = DA_GN_job_pct value = %d } }\n}' % (k, int(round(k * 100.0 / 14))))
+    # the Gommo Abroad page: the Great Ideation Engine
+    o += [ctb('DA_GN_abroad_title', AB), ctb('DA_GN_abroad_counts', AB), ctb('DA_GN_abroad_desc', AB),
+          cb('DA_GN_engine', 'DA_GN_engine_tt',
+             potential='%s has_country_flag = DA_PR_done.GN_Synthesis '
+                       'NOT = { has_country_flag = DA_GN_engine_built } NOT = { DA_GN_st_bench_engine = yes }' % AB,
+             trigger=['DA_GN_can_engine = yes'], effect=['DA_GN_start_engine = yes', 'hidden_effect = { DA_GN_refresh = yes }']),
+          ctb('DA_GN_engine_info', AB, tooltip='DA_GN_engine_tt'),
+          ctb('DA_GN_guide_title', GD), ctb('DA_GN_guide_text', GD),
+          'custom_icon = {\n\tname = DA_GN_grid\n\tpotential = { %s %s }\n}' % (PAT_PAGE, NPV),
+          'custom_icon = {\n\tname = DA_GN_grid_pv\n\tpotential = { %s %s }\n}' % (PAT_PAGE, PV),
+          ctb('DA_GN_grid_sum', PAT_PAGE), ctb('DA_GN_pat_proto'), ctb('DA_GN_pat_on')]
+    for p in P:
+        i, pid = i_of(p), p['id']
+        view = '%s %s' % (PAT_PAGE, PV if p.get('precursor') else NPV)   # DA_EL: the Patents view, or the Precursor view
+        frames = [(5, 'has_country_flag = DA_GN_on.%s' % pid), (4, 'has_country_flag = DA_GN_proto.%s' % pid),
+                  (3, 'DA_GN_st_bench_%s = yes' % pid), (2, 'has_country_flag = %s' % avail(p)), (1, 'always = yes')]
+        o.append(cb('DA_GN_slot_%d' % i, 'DA_GN_slot_tt.%d' % i, potential=view, frames=frames,
+                    effect=['hidden_effect = { set_variable = { which = DA_GN_sel value = %d } }' % i]))
+        o.append('custom_icon = {\n\tname = DA_GN_slot_sel_%d\n\tpotential = { %s %s }\n}' % (i, SEL % i, view))
+        o.append(ctb('DA_GN_slot_name_%d' % i, view))
+    # DA_EL (doc 72): the Precursor view and its toggle
+    PVP = '%s %s' % (PAT_PAGE, PV)
+    o += [cb('DA_GN_pv_toggle', 'DA_GN_pv_toggle_tt', potential=PAT_PAGE, effect=['hidden_effect = { DA_GN_toggle_pv = yes }']),
+          cb('DA_GN_assay', 'DA_GN_assay_tt', potential=PVP, trigger=['DA_GN_can_assay = yes'],
+             frames=[(2, 'has_country_flag = DA_PR_done.GN_Assays'), (1, 'always = yes')],
+             effect=['DA_GN_start_assay = yes', 'hidden_effect = { DA_GN_refresh = yes }']),
+          ctb('DA_GN_assay_name', PVP),
+          cb('DA_GN_survey', 'DA_GN_survey_tt', potential=PVP, trigger=['DA_GN_can_survey = yes'],
+             frames=[(2, 'has_country_flag = DA_PR_done.GN_Surveys'), (1, 'always = yes')],
+             effect=['hidden_effect = { DA_RX_open_survey = yes }']),
+          ctb('DA_GN_survey_name', PVP), ctb('DA_GN_pv_info', PVP)]
+    o.append(ctb('DA_GN_pat_name', tooltip='DA_GN_pat_desc_tt'))
+    for name in ('DA_GN_pat_meta', 'DA_GN_pat_status', 'DA_GN_pat_effect'):
+        o.append(ctb(name))
+    for k in (1, 2):
+        o.append(ctb('DA_GN_pat_up_%d' % k, tooltip='DA_GN_pat_up_%d_tt' % k))
+    for p in P:
+        i, pid = i_of(p), p['id']
+        o.append(cb('DA_GN_proto_%s' % pid, 'DA_GN_proto_tt.%s' % pid,
+                    potential='%s NOT = { has_country_flag = DA_GN_proto.%s } NOT = { DA_GN_st_bench_%s = yes }' % (SEL % i, pid, pid),
+                    trigger=['DA_GN_can_proto_%s = yes' % pid],
+                    effect=['DA_GN_start_proto_%s = yes' % pid, 'hidden_effect = { DA_GN_refresh = yes }']))
+        o.append(cb('DA_GN_on_%s' % pid, 'DA_GN_on_tt.%s' % pid,
+                    potential='%s has_country_flag = DA_GN_proto.%s NOT = { has_country_flag = DA_GN_on.%s }' % (SEL % i, pid, pid),
+                    trigger=['DA_GN_can_on_%s = yes' % pid],
+                    effect=['DA_GN_switch_on_%s = yes' % pid, 'hidden_effect = { DA_GN_counts = yes }']))
+        o.append(cb('DA_GN_off_%s' % pid, 'DA_GN_off_tt.%s' % pid,
+                    potential='%s has_country_flag = DA_GN_on.%s' % (SEL % i, pid),
+                    trigger=['DA_GN_can_off_%s = yes' % pid], effect=['DA_GN_switch_off_%s = yes' % pid]))
+        for k in (1, 2):
+            o.append(cb('DA_GN_improve_%s_%d' % (pid, k), 'DA_GN_improve_tt.%s.%d' % (pid, k),
+                        potential='%s has_country_flag = DA_GN_proto.%s NOT = { has_country_flag = DA_GN_up.%s.%d } NOT = { AND = { %s } }'
+                        % (SEL % i, pid, pid, k, JOB % job_up(p, k) + ' has_country_flag = DA_GN_bench_busy'),
+                        trigger=['DA_GN_can_up_%s_%d = yes' % (pid, k)],
+                        effect=['DA_GN_start_up_%s_%d = yes' % (pid, k), 'hidden_effect = { DA_GN_refresh = yes }']))
+    return '\n'.join(o) + '\n'
+
+
+# ---------------------------------------------------------------------------
+# Texts
+# ---------------------------------------------------------------------------
+
+SHORT = {   # the names under the patents' buttons (a cell is 100 px wide)
+    'cocolocogram': 'Cocolocogram', 'recuverinator': 'Recuverinator', 'dynamos': 'Dynamos', 'bombards': 'Bombards',
+    'crammers': 'Hull-Crammers', 'spyglass': 'Spyglass', 'monocles': 'Monocles', 'looms': 'Pattern Looms',
+    'cranes': 'Cloud-Cranes', 'tugs': 'Tidewheel Tugs', 'walking': 'Walking Shops', 'ledgers': 'Ledger-Halls',
+    'arcades': 'Arcades', 'bulkheads': 'Bulkheads',
+    'lenses': 'Spire-Glass', 'lockers': 'Stasis Lockers', 'coils': 'Ley-Coils'}   # DA_EL (doc 72)
+SCHOOL_SHORT = {'Mechanics': 'Mech.', 'Medicine': 'Med.', 'Metallurgy': 'Metal.', 'Alchemy': 'Alch.', 'Magic_Theory': 'Arc.'}
+
+
+def school_text(u):
+    return '%s %s' % (G.SCHOOL_NAME[u['school']], ROMAN[u['level']])
+
+
+def mat_text(key, n):
+    m = G.MATERIALS[key]
+    return '§Y%d§! %s%s§!' % (n, m[2], m[1])
+
+
+def proto_line(p):
+    t = p['tier']
+    s = '§YPrototype§!: §Y%d¤§!, §Y%d§! months' % (G.PROTO_COST[t], G.PROTO_MONTHS[t])
+    if p.get('mat'):
+        s += ', ' + mat_text(p['mat'], G.PROTO_MAT[t])
+    return s
+
+
+def gen_loc():
+    L = ['l_english:']
+
+    def add(k, v):
+        L.append(' %s:0 "%s"' % (k, v.replace('\n', '\\n').replace('"', '\\"')))
+    # window
+    add('DA_GN_title', '§bThe Gommo Workshop§!')
+    for k, v in (('gommo', 'The Gommo'), ('commissions', 'Commissions')):
+        add('DA_GN_cap_%s' % k, v)
+    add('DA_GN_nav_hub_tt', '§YRacial Heritage§!\nBack to the hall of every heritage of our country.')
+    add('DA_GN_nav_schools_tt', '§YSecondary Technologies§!\nThe schools. Their studies run on the bench, beside the research.')
+    add('DA_GN_nav_research_tt', '§YProjects & Research§!\nThe Gnomish page: the tiles that open the patents and improve the Workshop.')
+    for key, name, tt in (
+            ('patents', 'Patents', '§YPatents§!\nThe fourteen patents. Select one to see it on the right.'),
+            ('gommo', 'The Gommo', '§YThe Gommo§!\nThe Workshop\'s organization, its lead school and its commissions; the bench.'),
+            ('abroad', 'Gommo Abroad', '§YThe International Gommo§!\nBranches abroad, patent licences and the Great Ideation Engine.'),
+            ('guide', 'Guide', '§YHow the Workshop works§!'),
+            ('hub', 'Heritage', '')):
+        add('DA_GN_TAB_%s' % key.upper(), name)
+        if tt:
+            add('DA_GN_tab_%s_tt' % key, tt)
+    add('DA_GN_RESEARCH', 'Projects & Research')
+    for p in P:
+        add('DA_GN_slot_name_%d' % i_of(p), SHORT[p['id']])
+    # DA_EL (doc 72): the summary cell toggles the Precursor view; the summary is its tooltip
+    add('DA_GN_grid_sum', '[Root.DA_GN_get_grid_sum]')
+    add('DA_GN_gsum_pv', '§TThe§!\n§TPrecursor§!\n§Tpatents§!')
+    add('DA_GN_gsum_back', '§YBack to§!\n§Ythe§!\n§Ypatents§!')
+    add('DA_GN_pv_toggle_tt', '§YPrototyped§!: §Y[Root.DA_GN_proto_count.GetValue]§! of %d · §YSwitched on§!: '
+        '§Y[Root.DA_GN_on_count.GetValue]§!\n§YPrecursor patents§! recovered: §Y[Root.DA_GN_pre_count.GetValue]§! of %d\n'
+        '§YRelic samples§!: §Y[Root.DA_GN_samples.GetValue]§!\n\n[Root.DA_GN_get_pv_click]' % (len(NORMAL), len(PRE)))
+    add('DA_GN_pv_click_on', '§gClick to show the Precursor patents, Assay a Relic and the Gommo Surveys.§!')
+    add('DA_GN_pv_click_off', '§gClick to go back to the fourteen patents.§!')
+    add('DA_GN_assay_name', 'Assay a Relic')
+    add('DA_GN_survey_name', 'Gommo Survey')
+    add('DA_GN_assay_tt', '§YAssay a Relic§!\nA commission of §Y%d§! months (§Y%d§! with the Precursor Script Tables) for §Y%d¤§! '
+        'and a relic sample (we have §Y[Root.DA_GN_samples.GetValue]§!). It gives §G+%d§! experience in the school the relic '
+        'leans to, double with the Script Tables: a weapon Metallurgy, a device Mechanics, a vessel Alchemy, a part of a body '
+        'Medicine, a ward Arcane Arts. After §YReverse Engineering§! one assay in four recovers a §YPrecursor patent§! not '
+        'yet ours instead.' % (A_['months'], int(round(A_['months'] * A_['tables_time'])), A_['cost'], A_['exp']))
+    add('DA_GN_assay_go_tt', '§YAssay a Relic§! goes on the bench.')
+    add('DA_GN_sample_pay_tt', 'Uses §Y1§! relic sample')
+    add('DA_GN_needs_assays_tt', 'Has completed §YRelic Assays§! (Gnomish page)')
+    add('DA_GN_has_sample_tt', 'Has a §Yrelic sample§! (Gommo Surveys bring them from the Precursor ruins)')
+    add('DA_GN_needs_surveys_tt', 'Has completed §YGommo Surveys§! (Gnomish page), and the gnomish heritage is ours')
+    add('DA_GN_survey_tt', '§YGommo Survey§!\nSend surveyors to walk rings §YI§! to §YIII§! of a Precursor ruin we do not own: '
+        'nobody\'s, or a Precursor people\'s that gives us leave. They bring back the ring\'s finds and a §Yrelic sample§! '
+        'from every relic find (two from ring §YIII§!), and leave the ruin as they found it.\nOur own ruins are surveyed '
+        'from their province view (§YUnseal§!).')
+    add('DA_GN_pv_info', '§YThe Precursor Patents§!   Relic samples: §Y[Root.DA_GN_samples.GetValue]§!\n'
+        '§YGommo Surveys§! bring relic samples from the Precursor ruins. §YAssay a Relic§! spends one: experience in the '
+        'school the relic leans to, or, after §YReverse Engineering§!, one time in four a Precursor patent not yet ours. A '
+        'recovered patent is prototyped and switched on like any other; the §YPrecursor Script Tables§! halve its booking, '
+        'and the Ley-Coils book none.')
+    add('DA_GN_bj.%d' % JOB_ASSAY, 'Commission: §YAssay a Relic§!')
+    add('DA_GN_st_unrecovered', '§gNot recovered: assay the relics§!')
+    for p in PRE:
+        add('DA_GN_cap_tt.%s' % p['id'], 'At least §Y%d§! artifice capacity free (less with the Mechanist Method; half with the '
+            'Precursor Script Tables)' % cap(p) if cap(p) else 'Books no artifice capacity')
+    add('DA_GN_rt.11', 'An Assay')
+    add('DA_GN_rt.12', 'A Precursor Patent')
+    for k, (school, word) in enumerate(G.LEANINGS, 1):
+        sname = G.SCHOOL_NAME.get(school, school.replace('_', ' '))
+        for tables, n in (('1', A_['exp']), ('2', A_['exp'] * A_['tables_exp'])):
+            add('DA_GN_rd.11.%d.%s' % (k, tables), 'The assayers took the relic apart, put it back together and asked it, '
+                'politely, what it was for. It was §Y%s§!. Our %s school has its notes: §G+%d§! %s experience.'
+                % (word, sname, n, sname))
+    for q in PRE:
+        add('DA_GN_rd.12.%d' % i_of(q), 'The assayers did not stop at what the relic was for. They found how it was made, and '
+            'the Patent Office has a new line under Precursor: §Y%s§!. %s\n\nIt can be prototyped in the Workshop\'s '
+            'Precursor view.' % (q['name'], q['desc']))
+    add('DA_GN_cnt_building', '§Y[Root.DA_enchanted_building_material_total.GetValue]§! building')
+    add('DA_GN_cnt_metal', '§Y[Root.DA_arcane_metal_total.GetValue]§! metal')
+    add('DA_GN_cnt_essence', '§Y[Root.DA_alchemy_reagents_total.GetValue]§! essence')
+    add('DA_GN_cnt_capacity', '§Y[Root.RemainingArtificePoints.GetValue]§! capacity')
+    add('DA_GN_cnt_building_tt', '§MEnchanted Building Materials§!: §Y[Root.DA_enchanted_building_material_total.GetValue]§!\n'
+        'Prototypes of the halls, cranes and hulls.')
+    add('DA_GN_cnt_metal_tt', '§MArcane Metals§!: §Y[Root.DA_arcane_metal_total.GetValue]§!\nPrototypes of machines and weapons.')
+    add('DA_GN_cnt_essence_tt', '§MAlchemical Essence§!: §Y[Root.DA_alchemy_reagents_total.GetValue]§!\nThe medical and gas-lit upgrades.')
+    add('DA_GN_cnt_capacity_tt', '§YArtifice capacity§!: §Y[Root.RemainingArtificePoints.GetValue]§! free of '
+        '§Y[Root.MaxArtificePoints.GetValue]§!\nOur patents book §Y[Root.DA_GN_booked_capacity.GetValue]§! of it, as Anbennar\'s '
+        'own inventions book theirs.')
+    add('DA_GN_gommo_info', GOMMO_INFO % len(P))
+    add('DA_GN_lead_none', '§gnone yet§!')
+    for s in G.SCHOOLS:
+        add('DA_GN_lead_%s' % s, G.SCHOOL_TITLE[s])
+    add('DA_GN_lead_note_none', '§gLead School Charter names it.§!')
+    add('DA_GN_lead_note_org', '§gIt follows the artificers\' organization.§!')
+    add('DA_GN_lead_note_pick', '§gChosen at the charter.§!')
+    add('DA_GN_lead_note_override', '§gChosen by the Grand Synthesis.§!')
+    add('DA_GN_lead_note_ask', '§YChoose one§!: our organization follows no school.')
+    add('DA_GN_LEAD_CHANGE', 'Change lead school')
+    add('DA_GN_LEAD_PICK', 'Choose lead school')
+    add('DA_GN_lead_change_tt', '§YChange the lead school§!\nGrand Synthesis lets the Workshop put any school at its head, '
+        'or follow the organization again, once every 20 years.')
+    add('DA_GN_lead_change_go_tt', 'An event lets you choose.')
+    add('DA_GN_lead_pick_tt', '§YChoose the lead school§!\nOur artificers\' organization is of none of the three schools, so '
+        'the charter names one.')
+    add('DA_GN_lead_pick_go_tt', 'An event lets you choose.')
+    add('DA_GN_synthesis_tt', 'Has completed §YGrand Synthesis§!')
+    add('DA_GN_lead_cooldown_tt', 'The lead school has not been changed in the last §Y20§! years')
+    add('DA_GN_FAIR', 'Inventors\' Fair')
+    add('DA_GN_fair_tt', '§YInventors\' Fair§!\nA commission of §Y%d§! months (%d with the Brillite Method): §G+%d§! '
+        'innovativeness and §G+%d§! prestige; a §YBrillite§! lead school also gets one upgrade free. Once every 10 years.'
+        % (G.FAIR['months'], fast(G.FAIR['months']), G.FAIR['innovativeness'], G.FAIR['prestige']))
+    add('DA_GN_fair_info', '[Root.DA_GN_get_fair_info]')
+    add('DA_GN_fair_info_closed', '§gThe Patent Office opens the Inventors\' Fair.§!')
+    add('DA_GN_fair_info_open', '§Y%d¤§!, §Y%d§! months; once every 10 years.\n§gPrototypes start from a patent.§!'
+        % (G.FAIR['cost'], G.FAIR['months']))
+    add('DA_GN_fair_go_tt', 'The §YInventors\' Fair§! goes on the bench.')
+    add('DA_GN_fair_cd_tt', 'No Inventors\' Fair in the last §Y10§! years')
+    add('DA_GN_STUDIES', 'School studies')
+    add('DA_GN_studies_tt', '§YSecondary Technologies§!\nA school study runs on the bench too, beside the research of '
+        'Projects & Research.')
+    add('DA_GN_needs_office_tt', 'Has completed §YThe Patent Office§!')
+    # bench
+    add('DA_GN_bench_title', '[Root.DA_GN_get_bench_title]')
+    add('DA_GN_bench_job', '[Root.DA_GN_get_bench_job]')
+    add('DA_GN_bench_value', '§G[Root.DA_GN_job_progress.GetValue]§! of §Y[Root.DA_GN_job_months.GetValue]§! months')
+    add('DA_GN_bench_bar_tt', '§G[Root.DA_GN_job_progress.GetValue]§! of §Y[Root.DA_GN_job_months.GetValue]§! months')
+    add('DA_GN_bench_desc', '[Root.DA_GN_get_bench_desc]')
+    add('DA_GN_bt_closed', 'The Bench Is Not Built')
+    add('DA_GN_bt_away', 'The Bench Waits')
+    add('DA_GN_bt_busy', 'On the Bench')
+    add('DA_GN_bt_study', 'On the Bench: a School Study')
+    add('DA_GN_bt_free', 'The Bench Is Free')
+    add('DA_GN_bj_none', '')
+    add('DA_GN_bj_study', '[Root.DA_GN_get_study_name]')
+    add('DA_GN_bj_fair', 'Inventors\' Fair')
+    for s, name in (('Metallurgy', 'Metallurgy'), ('Magic_Theory', 'Arcane Arts'), ('Mechanics', 'Mechanics'),
+                    ('Alchemy', 'Alchemy'), ('Medicine', 'Medicine')):
+        add('DA_GN_study_%s' % s, 'School study: §Y%s§!' % name)
+    add('DA_GN_bd_closed', 'The tile §YThe Gommo Workshop§! of the Gnomish page builds the bench.\n\nA gnomish workshop '
+        'has two benches. The second one runs a school study or a Workshop commission beside the research of Projects & '
+        'Research: a prototype, an improvement or an Inventors\' Fair.')
+    add('DA_GN_bd_away', 'The bench works only while gnomes are the primary heritage of our country. Whatever is on it '
+        'keeps its progress and goes on when they are again.')
+    add('DA_GN_bd_rules', 'The bench runs §Yone§! work at a time, beside the research of Projects & Research: a school '
+        'study (Secondary Technologies) or a commission. Select a patent on the §YPatents§! page to prototype it, improve '
+        'it or switch it on.\n\nThe bar under the panels shows what is on the bench.')
+    add('DA_GN_bar_text', '[Root.DA_GN_get_bar_text]')
+    add('DA_GN_bar_busy', '[Root.DA_GN_get_bench_job]')
+    add('DA_GN_bar_free', '§gThe bench is free§!')
+    add('DA_GN_bar_tt', '§YThe second bench§!\nOne school study or one commission at a time, beside the research of '
+        'Projects & Research. The bar fills as it goes.')
+    add('DA_GN_guide_title', 'How the Workshop Works')
+    add('DA_GN_guide_text', '§YPatents§! are gnomish inventions. A tile of the Gnomish page opens each; a §Yprototype§! on the '
+        'bench makes it ready. §YSwitched on§!, it books artifice capacity (§Y10/20/30§! by tier); switched off, it '
+        'frees it and can return after a year. §YUpgrades§! need The Patent Office, innovativeness and a school level.'
+        '\n\nThe bench holds one study or one commission, beside the research. The bar under the panels shows it; the '
+        '§YInventors\' Fair§! is a commission of its own.\n\nOn the right, the upgrades of the selected patent are §Ggreen§! '
+        'when made, §Tteal§! on the bench and §Yyellow§! still to make; the §Y+§! starts one.\n\nThe four cells at the bottom show our materials and free '
+        'capacity, then the selected patent\'s prices.')
+    # the International Gommo view (step 2)
+    add('DA_GN_bt_gommo', 'The International Gommo')
+    add('DA_GN_abroad_title', 'The International Gommo')
+    add('DA_GN_abroad_counts', 'Branches: §Y[Root.DA_GN_branch_count.GetValue]§! of %d\nLicences: §Y[Root.DA_GN_lic_count.GetValue]§! '
+        'of %d\nFees: §G[Root.DA_GN_lic_income.GetValue]¤§! a year' % (B_['max'], LIC['max']))
+    add('DA_GN_abroad_desc', '§YBranches§! (Gommo Branches): from the diplomacy screen of an ally or a subject, a commission '
+        'of §Y%d§! months for §Y%d¤§! and §Y%d§! §MEnchanted Building Materials§!. Each gives us §G+%d§! artifice capacity, '
+        'and its city §G+%d%%§! production efficiency.\n§YLicences§! (The International Gommo): from the same screen, lend '
+        'a patent that is switched on for §Y%d§! years; the licensee pays §G%d¤§! a year.'
+        % (B_['months'], B_['cost'], B_['mat'][1], B_['capacity'], int(B_['production'] * 100), LIC['years'], LIC['fee']))
+    add('DA_GN_ENGINE', 'Ideation Engine')
+    add('DA_GN_engine_info', '[Root.DA_GN_get_engine_info]')
+    add('DA_GN_eng_none', '§gGrand Synthesis opens\nthe Ideation Engine.§!')
+    add('DA_GN_eng_ready', '§Y%d¤§!, §Y%d§! months\n§Y%d§! §Mmetal§!, §Y%d§! §Mbuilding§!'
+        % (ENG['cost'], ENG['months'], ENG['mats'][0][1], ENG['mats'][1][1]))
+    add('DA_GN_eng_bench', '§YOn the bench§!: §G[Root.DA_GN_job_progress.GetValue]§! of\n§Y[Root.DA_GN_job_months.GetValue]§! months')
+    add('DA_GN_eng_built', '§GThe Engine hums§!\n§G+%d%%§! research speed' % int(ENG['research'] * 100))
+    add('DA_GN_engine_tt', '§YThe Great Ideation Engine§!\nA commission of §Y%d§! months (§Y%d§! with the Brillite Method) '
+        'for §Y%d¤§!, §Y%d§! §MArcane Metals§! and §Y%d§! §MEnchanted Building Materials§!. Once built, while the gnomish '
+        'heritage is ours: §G+%d%%§! research speed in Projects & Research, commissions a quarter faster, and §G+%d§! '
+        'innovativeness a year.\nGrand Synthesis opens it; it is built once.'
+        % (ENG['months'], fast(ENG['months']), ENG['cost'], ENG['mats'][0][1], ENG['mats'][1][1], int(ENG['research'] * 100),
+           ENG['innovativeness']))
+    add('DA_GN_engine_go_tt', 'The §YGreat Ideation Engine§! goes on the bench: §Y%d§! months (§Y%d§! with the Brillite '
+        'Method).' % (ENG['months'], fast(ENG['months'])))
+    add('DA_GN_engine_once_tt', 'The Great Ideation Engine is not built, nor on the bench')
+    add('DA_GN_bj.%d' % JOB_ENGINE, 'Commission: §YThe Great Ideation Engine§!')
+    add('DA_GN_bj.%d' % JOB_BRANCH, 'Commission: §Ya Gommo branch§! abroad')
+    add('DA_GN_rt.10', 'The Great Ideation Engine')
+    add('DA_GN_rd.10', 'It fills the old Academy from cellar to bell tower and hums in B-flat. The engineers say it does '
+        'not think. The engineers also stopped arguing with it in its second week.\n\nWhile the gnomish heritage is ours: '
+        '§G+%d%%§! research speed in Projects & Research, commissions a quarter faster, and §G+%d§! innovativeness a year.'
+        % (int(ENG['research'] * 100), ENG['innovativeness']))
+    # branches
+    add('DA_GN_ally_tt', 'They are our ally or our subject')
+    add('DA_GN_branch_none_tt', 'No Gommo branch of ours is there yet, nor on our bench')
+    add('DA_GN_needs_branches_tt', 'Has completed §YGommo Branches§! (Gnomish page)')
+    add('DA_GN_branch_max_tt', 'Fewer than §Y%d§! Gommo branches abroad' % B_['max'])
+    add('DA_GN_branch_go_tt', 'A §YGommo branch§! goes on the bench: §Y%d§! months (§Y%d§! with the Brillite Method). It opens '
+        'in their capital if they are still our ally or our subject; if not, the money and the materials come back.'
+        % (B_['months'], fast(B_['months'])))
+    add('DA_GN_open_branch_title', 'Open a Gommo Branch')
+    add('DA_GN_open_branch_desc', 'Shall the Gommo open a branch in the capital of §Y[From.GetName]§!? It is a commission of '
+        '§Y%d§! months on our bench, for §Y%d¤§! and §Y%d§! §MEnchanted Building Materials§!.\n\nThe branch gives us '
+        '§G+%d§! artifice capacity, and its city §G+%d%%§! production efficiency and §G%d%%§! development cost, for as long '
+        'as [From.GetName] stays our ally or our subject.'
+        % (B_['months'], B_['cost'], B_['mat'][1], B_['capacity'], int(B_['production'] * 100), int(B_['development'] * 100)))
+    add('DA_GN_open_branch_tooltip', 'The Gommo opens a branch in their capital: artifice capacity for us, production for them.')
+    for n in range(1, B_['max'] + 1):
+        add('DA_GN_branches_%d' % n, 'Gommo Branches Abroad')
+    add('DA_GN_gommo_branch', 'Gommo Branch')
+    add('DA_GN_gommo_branch_desc', 'A branch of the gnomish Gommo works in this city: its artificers build for the city and '
+        'train its craftsmen.')
+    # licences
+    add('DA_GN_needs_international_tt', 'Has completed §YThe International Gommo§! (Gnomish page)')
+    add('DA_GN_lic_any_tt', 'One of our patents is switched on and not yet licensed to them')
+    add('DA_GN_lic_max_tt', 'Fewer than §Y%d§! licences, and no offer of ours waiting for an answer' % LIC['max'])
+    add('DA_GN_license_patent_title', 'License a Gommo Patent')
+    add('DA_GN_license_patent_desc', 'Shall the Gommo offer §Y[From.GetName]§! a licence for one of our patents that are '
+        'switched on? They would have its effect for §Y%d§! years and pay us §G%d¤§! a year, and their opinion of us would '
+        'grow by §G%d§!. An event lets us choose the patent; they may refuse.' % (LIC['years'], LIC['fee'], LIC['opinion']))
+    add('DA_GN_license_patent_tooltip', 'Offer them a licence for one of our patents.')
+    add('DA_GN_lic_fee_tt', 'We pay §R%d¤§! a year to the patent\'s owner for §Y%d§! years.' % (LIC['fee'], LIC['years']))
+    add('DA_GN_licence', 'Gommo licence')
+    add('DA_GN_patent_suit', 'Sued by the Gommo')
+    for p in P:
+        i = i_of(p)
+        add('DA_GN_lic_%s' % p['id'], 'Gommo Licence: %s' % p['name'])
+        add('DA_GN_lic_offer.%d' % i, '§Y%s§!: %s' % (p['name'], G.effect_text(p['mod'], p.get('art'))))
+        add('DA_GN_lic_offer_tt.%d' % i, 'We offer them a licence for §Y%s§! (%s) for §Y%d§! years, at §G%d¤§! a year.'
+            % (p['name'], G.effect_text(p['mod'], p.get('art')), LIC['years'], LIC['fee']))
+        add('DA_GN_event.10.p%d' % i, p['name'])
+    # the triggered modifiers and the Primary Technology
+    add('DA_GN_engine', 'The Great Ideation Engine')
+    add('DA_GN_harpoons_kobold', 'Dragonbreaker Harpoons')
+    add('DA_Metallurgy_events.49.%s' % CAL['token'], '§YPrimary Technology§!: %s' % CAL['name'])
+    for cls in CAL['classes']:
+        add('DA_Unique_mod.PUNK.%s.%s' % (cls, CAL['token']), 'Primary Technology: %s' % CAL['name'])
+    add('DA_Metallurgy.%d' % G.EPLUS['xp'], ' - §oTechnology§!: §YMetallurgy Experience§! §G+%d§!' % G.EPLUS['xp'])
+    # patents
+    add('DA_GN_pname.0', 'Select a patent')
+    add('DA_GN_empty', '')
+    add('DA_GN_st_locked', '§gLocked: research its tile§!')
+    add('DA_GN_st_ready', '§YReady for a prototype§!')
+    add('DA_GN_st_misfire', '§RMisfire§!: prototype it again')
+    add('DA_GN_st_bench', '§YPrototype on the bench§!')
+    add('DA_GN_st_off', '§YPrototyped§!, switched off')
+    add('DA_GN_st_cooling', 'Switched off, §Ycooling down§!')
+    add('DA_GN_st_on', '§GSwitched on§!')
+    add('DA_GN_PROTO', 'Build a prototype')
+    add('DA_GN_ON', 'Switch on')
+    add('DA_GN_OFF', 'Switch off')
+    add('DA_GN_no_proto_tt', 'The patent has no prototype yet')
+    add('DA_GN_has_proto_tt', 'The patent has a prototype')
+    add('DA_GN_is_off_tt', 'The patent is switched off')
+    add('DA_GN_is_on_tt', 'The patent is switched on')
+    add('DA_GN_switch_cd_tt', 'Not switched off in the last year')
+    add('DA_GN_up_missing_tt', 'The upgrade is not made yet')
+    add('DA_GN_bench_open_tt', 'Has the §Ysecond bench§!: §YThe Gommo Workshop§! is built and gnomes are our primary heritage')
+    add('DA_GN_bench_free_tt', 'The bench is free: no school study and no commission on it')
+    add('DA_GN_active_tt', 'The §Ygnomish§! heritage is ours (primary or kept)')
+    add('DA_GN_corps_effect_tt', 'The §YUnit Design§! opens, and its infantry class becomes §YArtificers§!, as §YWarforged '
+        'Artificers§! does. No §YMetallurgy II§!, no §YWarforged Infantry§!, and no loss of artifice capacity.')
+    for t in (1, 2, 3):
+        add('DA_GN_cap_tt.%d' % t, 'At least §Y%d§! artifice capacity free (§Y%d§! with the Mechanist Method)'
+            % (G.CAPACITY[t], int(round(G.CAPACITY[t] * G.MECHANIST_CAPACITY))))
+        add('DA_GN_on_cost_tt.%d' % t, 'Treasury of at least §Y%d¤§! (§Y%d¤§! with the Mechanist Method)'
+            % (G.ON_COST[t], int(round(G.ON_COST[t] * G.MECHANIST_COST))))
+    for n in range(1, 7):
+        add('DA_GN_inno_tt.%d' % n, 'Innovativeness of at least §Y%d§! (§Y%d§! after Grand Synthesis)' % (n, max(0, n - 1)))
+    for key in G.MATERIALS:
+        for n in (5, 10, 50, 100):
+            m = G.MATERIALS[key]
+            add('DA_GN_mat_tt.%s.%d' % (key, n), '%s%s§!: §Y[Root.%s.GetValue]§! of §Y%d§!' % (m[2], m[1], m[0], n))
+            add('DA_GN_mat_pay_tt.%s.%d' % (key, n), 'Uses §Y%d§! %s%s§!' % (n, m[2], m[1]))
+    for p in P:
+        i, pid, t = i_of(p), p['id'], p['tier']
+        up1, up2 = p['ups']
+        add('DA_GN_pname.%d' % i, '§Y%s§!' % p['name'])
+        add('DA_GN_pdesc.%d' % i, p['desc'])
+        add('DA_GN_pmeta.%d' % i, 'Tier %s %s patent' % (ROMAN[t], G.KIND[p['icon']]))
+        pr = ['§YPrototype§!', '§Y%d¤§!, §Y%d§! months' % (G.PROTO_COST[t], G.PROTO_MONTHS[t])]
+        if p.get('mat'):
+            pr.append('§Y%d§! §M%s§!' % (G.PROTO_MAT[t], p['mat']))
+        add('DA_GN_pproto.%d' % i, '\n'.join(pr))
+        add('DA_GN_pon.%d' % i, '§YSwitch on§!\n§Y%d¤§!\nbooks §Y%d§! capacity' % (G.ON_COST[t], cap(p)))
+        opened = ('Recovered by §YAssay a Relic§!, after the tile §Y%s§!.' % tile_title(p['tile']) if p.get('precursor')
+                  else 'Opened by the tile §Y%s§!.' % tile_title(p['tile']))   # DA_EL (doc 72)
+        add('DA_GN_slot_tt.%d' % i, '§Y%s§! (%s, tier %s)\n§g%s§!\n%s\n%s\n%s\n§gClick to show it on the right.§!'
+            % (p['name'], G.KIND[p['icon']], ROMAN[t], p['desc'], G.effect_text(p['mod'], p.get('art')),
+               '[Root.DA_GN_get_slot_state_%d]' % i, opened))
+        add('DA_GN_tile_tt.%s' % pid, ('Has recovered it by an assay (§YAssay a Relic§!, after §YReverse Engineering§!)'
+                                       if p.get('precursor') else 'Has completed §Y%s§! (Gnomish page)' % tile_title(p['tile'])))
+        price = 'Treasury of at least §Y%d¤§!' % G.PROTO_COST[t]
+        if p.get('mat'):
+            price += ' and ' + mat_text(p['mat'], G.PROTO_MAT[t]) + ' (have §Y[Root.%s.GetValue]§!)' % G.MATERIALS[p['mat']][0]
+        price += '; after a misfire §Y%d¤§! and no materials' % (G.PROTO_COST[t] // 2)
+        add('DA_GN_proto_price_tt.%s' % pid, price)
+        add('DA_GN_proto_go_tt.%s' % pid, 'The prototype of §Y%s§! goes on the bench: §Y%d§! months (§Y%d§! with the Brillite Method; '
+            'a quarter less with the Great Ideation Engine).' % (p['name'], G.PROTO_MONTHS[t], fast(G.PROTO_MONTHS[t])))
+        add('DA_GN_proto_tt.%s' % pid, '§YBuild a prototype§!\n%s' % proto_line(p))
+        add('DA_GN_on_tt.%s' % pid, '§YSwitch on: %s§!\n%s\nBooks §Y%d§! artifice capacity while on%s.'
+            % (p['name'], G.effect_text(p['mod'], p.get('art')), cap(p),
+               ' (half with the Precursor Script Tables)' if p.get('precursor') and cap(p) else ''))
+        add('DA_GN_on_go_tt.%s' % pid, '§Y%s§! is switched on: %s' % (p['name'], G.effect_text(p['mod'], p.get('art'))))
+        add('DA_GN_off_tt.%s' % pid, '§YSwitch off: %s§!\nFrees its artifice capacity. It can be switched on again after a year.' % p['name'])
+        add('DA_GN_off_go_tt.%s' % pid, '§Y%s§! is switched off and frees its artifice capacity.' % p['name'])
+        for k, u in enumerate(p['ups'], 1):
+            req = 'innovativeness %d, %s' % (u['inno'], school_text(u))
+            if u.get('mat'):
+                req += ', ' + re.sub(r'§.', '', mat_text(*u['mat'])).replace('!', '')
+            short = '%d, %s %s' % (u['inno'], SCHOOL_SHORT[u['school']], ROMAN[u['level']])
+            add('DA_GN_pup.%d.%d.owned' % (i, k), '§G%s§!' % u['name'])
+            add('DA_GN_pup.%d.%d.todo' % (i, k), '§Y%s§!' % u['name'])
+            add('DA_GN_pup.%d.%d.bench' % (i, k), '§T%s§!' % u['name'])
+            add('DA_GN_puptt.%d.%d' % (i, k), '§Y%s§! (upgrade %s)\n%s\nNeeds innovativeness §Y%d§! and §Y%s§! (%s).'
+                % (u['name'], ROMAN[k], G.effect_text(u['mod'], u.get('art')), u['inno'], school_text(u), short))
+            add('DA_GN_improve_tt.%s.%d' % (pid, k), '§YImprove: %s§!\n%s\nNeeds innovativeness %d and %s. A commission of '
+                '§Y%d§! months for §Y%d¤§!. The upgrade stays for good and works whenever the patent is on.'
+                % (u['name'], G.effect_text(u['mod'], u.get('art')), u['inno'], school_text(u), G.IMPROVE_MONTHS, G.IMPROVE_COST[t]))
+            add('DA_GN_up_go_tt.%s.%d' % (pid, k), 'The upgrade §Y%s§! goes on the bench: §Y%d§! months (less with the Brillite '
+                'Method or the Great Ideation Engine).' % (u['name'], G.IMPROVE_MONTHS))
+            add('DA_GN_pat_%s_%d' % (pid, k), 'Patent Upgrade: %s' % u['name'])
+            add('DA_GN_bj.%d' % job_up(p, k), 'Improvement: §Y%s§! (%s)' % (u['name'], p['name']))
+        add('DA_GN_bj.%d' % job_proto(p), 'Prototype: §Y%s§!' % p['name'])
+        add('DA_GN_pat_%s' % pid, 'Patent: %s' % p['name'])
+        base = G.effect_text(p['mod'], p.get('art'), sep='\n')
+        for code, have in (('0', ()), ('1', (1,)), ('2', (2,)), ('12', (1, 2))):
+            lines = [base] + [G.effect_text(p['ups'][k - 1]['mod'], p['ups'][k - 1].get('art')) for k in have]
+            add('DA_GN_peff.%d.%s' % (i, code), '\n'.join(lines))
+        add('DA_GN_overcap.%d' % i, '\n - §Y%s§!' % p['name'])
+    for k in (1, 2):
+        add('DA_GN_pat_up_%d' % k, '[Root.DA_GN_get_pat_up_%d]' % k)
+        add('DA_GN_pat_up_%d_tt' % k, '[Root.DA_GN_get_pat_up_tt_%d]\n§GGreen§!: made. §TTeal§!: on the bench. §YYellow§!: still to make.' % k)
+    for name in ('name', 'meta', 'status', 'effect', 'proto', 'on'):
+        add('DA_GN_pat_%s' % name, '[Root.DA_GN_get_pat_%s]' % name)
+    add('DA_GN_pat_desc_tt', '[Root.DA_GN_get_pat_desc]')
+    add('DA_GN_reclaimed_homeland', 'Reclaimed Homeland')
+    add('DA_GN_reclaimed_homeland_desc', 'A settler charter of the old Hierarchy is honoured here.')
+    add('DA_GN_thaumaturge_mixed', 'Thaumaturge Method')
+    add('DA_GN_thaumaturge_artificery', 'Thaumaturge Method')
+    add('DA_GN_trap_drill', 'Trap-Wise Drill')
+    for s in G.SCHOOLS:
+        add('DA_GN_lead_becomes_tt.%s' % s, '§Y%s§! becomes the lead school: its method tile takes half the time.' % G.SCHOOL_TITLE[s])
+    add('DA_GN_lead_follow_tt', 'The lead school follows the artificers\' organization again.')
+    # events
+    add('DA_GN_event.1.t', 'The Gommo Artificer Corps')
+    add('DA_GN_event.1.d', 'The Artificers\' Gommo has kept its own regiments since before the Dragonwake. The Hierarchy '
+        'fell; the regiments did not. Their drill book is older than our oldest law, and their sergeants have offered to '
+        'serve with every company of our infantry.\n\nThe Gommo asks nothing for it but the usual: a seat at the table, '
+        'a budget, and that nobody touch the sergeants\' tools.')
+    add('DA_GN_event.1.a', 'Accept the Gommo\'s sergeants.')
+    add('DA_GN_event.2.t', 'A Commission Ends')
+    add('DA_GN_event.2.d', 'Hidden: ends the commission on the gnomish bench.')
+    add('DA_GN_event.2.a', 'Good.')
+    add('DA_GN_event.3.t', '[Root.DA_GN_get_rep_title]')
+    add('DA_GN_event.3.d', '[Root.DA_GN_get_rep_desc]')
+    add('DA_GN_event.3.a', 'Back to work.')
+    add('DA_GN_event.3.b', 'Open the Workshop.')
+    add('DA_GN_rt.1', 'A Prototype Works')
+    add('DA_GN_rt.2', 'A Happy Accident')
+    add('DA_GN_rt.3', 'A Misfire')
+    add('DA_GN_rt.4', 'An Improvement')
+    add('DA_GN_rt.6', 'The Inventors\' Fair')
+    add('DA_GN_rt.7', 'The Inventors\' Fair')
+    for p in P:
+        i = i_of(p)
+        add('DA_GN_rd.1.%d' % i, 'The prototype of §Y%s§! ran for a week without stopping, which the Gommo considers a '
+            'triumph. It can now be switched on in the Workshop.' % p['name'])
+        add('DA_GN_rd.2.%d' % i, 'The prototype of §Y%s§! works, and better than drawn: a Brillite apprentice put a part in '
+            'backwards, and the backwards part is an improvement. The upgrade §Y%s§! comes with it, free.'
+            % (p['name'], p['ups'][0]['name']))
+        add('DA_GN_rd.3.%d' % i, 'The prototype of §Y%s§! did something. Nobody is sure what, and the room will need '
+            'repainting. The prototype must be run again, at half the price and without new materials.' % p['name'])
+        for k, u in enumerate(p['ups'], 1):
+            add('DA_GN_rd.4.%d.%d' % (i, k), 'The upgrade §Y%s§! of §Y%s§! is made and filed. It works whenever the patent '
+                'is switched on.' % (u['name'], p['name']))
+            add('DA_GN_rd.7.%d.%d' % (i, k), 'The Inventors\' Fair filled the square for a week. Our innovativeness grew by '
+                '§G%d§! and our prestige by §G%d§!, and a Brillite judge liked one drawing so much that the Gommo built it: '
+                'the upgrade §Y%s§! of §Y%s§!.' % (G.FAIR['innovativeness'], G.FAIR['prestige'], u['name'], p['name']))
+    add('DA_GN_rd.6', 'The Inventors\' Fair filled the square for a week: a clock that sets itself, a kettle that knows '
+        'when it is watched, and a great many things that hummed. Our innovativeness grew by §G%d§! and our prestige by '
+        '§G%d§!.' % (G.FAIR['innovativeness'], G.FAIR['prestige']))
+    add('DA_GN_rd.0', 'The bench is free again.')
+    add('DA_GN_event.4.t', 'The Lead School')
+    add('DA_GN_event.4.d', 'The charter of the Workshop must name a school to lead it. Our artificers\' organization '
+        'belongs to none of the three, so the choice is ours: the Brillites, who build first and think later; the '
+        'Mechanists, who take off everything that is not needed; or the Thaumaturges, who treat a machine as a spell '
+        'that has stopped arguing.')
+    add('DA_GN_event.4.a', 'The Brillites.')
+    add('DA_GN_event.4.b', 'The Mechanists.')
+    add('DA_GN_event.4.c', 'The Thaumaturges.')
+    add('DA_GN_event.5.t', 'A New Lead School')
+    add('DA_GN_event.5.d', 'The Grand Synthesis lets the Workshop put any of the three schools at its head, whatever our '
+        'artificers\' organization prefers. The schools have each sent a delegation, a pamphlet and, in the Brillites\' '
+        'case, a small band.')
+    add('DA_GN_event.5.a', 'The Brillites.')
+    add('DA_GN_event.5.b', 'The Mechanists.')
+    add('DA_GN_event.5.c', 'The Thaumaturges.')
+    add('DA_GN_event.5.e', 'Let the organization decide again.')
+    add('DA_GN_event.6.t', 'The Patents Fall Silent')
+    add('DA_GN_event.6.d', 'Our artifice capacity no longer covers every patent we run. The Gommo has switched off the '
+        'dearest first, until the rest fit:[Root.DA_GN_get_overcap]\n\nThey can be switched on again in the Workshop '
+        'once there is capacity for them.')
+    add('DA_GN_event.6.a', 'Understood.')
+    add('DA_GN_event.7.t', 'A Gommo Branch Abroad')
+    add('DA_GN_event.7.d', 'The brass plate is on the door and the first lathe is turning: the Gommo has opened its branch in '
+        'the capital of §Y[DA_GN_branch_host.GetName]§!. Its artificers build for the city and train its craftsmen, and '
+        'what they learn comes home to us.\n\nOur artifice capacity grows by §G%d§! for as long as the branch stays open.'
+        % B_['capacity'])
+    add('DA_GN_event.7.e', 'The Gommo\'s clerks came back with the plans, the money and the materials: the country that was to '
+        'host our branch is no longer our ally or our subject, and the brass plate stays in its crate.')
+    add('DA_GN_event.7.a', 'Good.')
+    add('DA_GN_event.7.b', 'Open the Workshop.')
+    add('DA_GN_event.9.t', 'A Branch Closes')
+    add('DA_GN_event.9.d', 'A country that hosted a Gommo branch is no longer our ally or our subject. The artificers have '
+        'packed their tools and taken down the brass plate, and the artifice capacity it gave us is gone.')
+    add('DA_GN_event.9.a', 'Bring the plate home.')
+    add('DA_GN_event.10.t', 'A Licence for [DA_GN_licensee.GetName]')
+    add('DA_GN_event.10.d', 'The clerks of the register have laid out every patent we run. [DA_GN_licensee.GetName] would have '
+        'the one we choose for §Y%d§! years, pay us §G%d¤§! a year, and think better of us. They may still refuse.\n\nWhich '
+        'patent shall the Gommo offer?' % (LIC['years'], LIC['fee']))
+    add('DA_GN_event.10.z', 'None of them, after all.')
+    add('DA_GN_event.11.t', 'The Gommo Offers a Licence')
+    add('DA_GN_event.11.d', 'An envoy of the Gommo of §Y[From.GetName]§! has brought a brass case, a contract in triplicate '
+        'and a working model. For §Y%d§! years we may use one of their patents:\n\n[Root.DA_GN_get_lic_offer]\n\nThe price is '
+        '§R%d¤§! a year, and the envoy has asked to see where the machine would go.' % (LIC['years'], LIC['fee']))
+    add('DA_GN_event.11.a', 'Sign the contract.')
+    add('DA_GN_event.11.b', 'Send the envoy home with thanks.')
+    add('DA_GN_event.12.t', 'The Licence')
+    add('DA_GN_event.12.d', '§Y[From.GetName]§! has signed. The register has a new line, the treasury a new income of '
+        '§G%d¤§! a year, and their court a machine it does not quite understand yet.' % LIC['fee'])
+    add('DA_GN_event.12.e', '§Y[From.GetName]§! has declined the licence, with thanks. The envoy says they were very polite '
+        'about it and did not touch the model.')
+    add('DA_GN_event.12.a', 'File it.')
+    E = G.EPLUS
+    add('DA_GN_event.13.t', 'The E++ Patent Dispute')
+    add('DA_GN_event.13.d', 'A clerk of the Gommo has found the goblins of §Y[DA_GN_eplus_goblin.GetName]§! selling a powder '
+        'under a name very like one in our register. The goblins say they invented it. The register says otherwise. The '
+        'goblins say the register is on fire.\n\nIt is not, yet.')
+    add('DA_GN_event.13.a', 'File suit.')
+    add('DA_GN_event.13.b', 'Buy the formula.')
+    add('DA_GN_event.13.c', 'Hire its inventor. His eyebrows will grow back.')
+    # the slot rules of the shared slot (patched into DA_SCH_no_research_running and DA_available_research)
+    add('DA_GN_slot_rule_research', 'No research is running in §YProjects & Research§!')
+    add('DA_GN_slot_rule_bench', 'No commission is running on the §Ygnomish bench§!')
+    add('DA_GN_study_rule_slot', 'No §Yschool study§! is running in §YSecondary Technologies§!')
+    add('DA_GN_study_rule_bench', 'School studies run on the §Ygnomish bench§!, beside the research')
+    return '\n'.join(L) + '\n'
+
+
+def gen_custom_loc():
+    def dt(name, entries, fallback='DA_GN_empty'):
+        o = ['defined_text = {', '\tname = %s' % name, '\trandom = no']
+        for key, trig in entries:
+            o.append('\ttext = {\n\t\tlocalisation_key = %s\n\t\ttrigger = { %s }\n\t}' % (key, trig))
+        o.append('\ttext = {\n\t\tlocalisation_key = %s\n\t\ttrigger = { always = yes }\n\t}' % fallback)
+        o.append('}')
+        return '\n'.join(o)
+    out = [HEAD]
+    out.append(dt('DA_GN_get_lead', [('DA_GN_lead_%s' % s, 'DA_GN_lead_%s = yes' % s) for s in G.SCHOOLS], 'DA_GN_lead_none'))
+    out.append(dt('DA_GN_get_lead_note', [
+        ('DA_GN_lead_note_none', 'NOT = { has_country_flag = DA_PR_done.GN_Lead_School }'),
+        ('DA_GN_lead_note_override', 'has_country_flag = DA_GN_lead_override'),
+        ('DA_GN_lead_note_ask', 'DA_GN_lead_needs_pick = yes'),
+        ('DA_GN_lead_note_pick', 'DA_GN_org_other = yes')], 'DA_GN_lead_note_org'))
+    out.append(dt('DA_GN_get_fair_info', [('DA_GN_fair_info_closed', 'NOT = { has_country_flag = DA_PR_done.GN_Patent_Office }')],
+                  'DA_GN_fair_info_open'))
+    out.append(dt('DA_GN_get_bench_title', [
+        ('DA_GN_bt_closed', 'NOT = { has_country_flag = DA_PR_done.GN_Workshop }'),
+        ('DA_GN_bt_away', 'NOT = { DA_RH_primary_gnomish = yes }'),
+        ('DA_GN_bt_busy', 'has_country_flag = DA_GN_bench_busy'),
+        ('DA_GN_bt_study', 'DA_SCH_studying_any = yes')], 'DA_GN_bt_free'))
+    jobs = [('DA_GN_bj.%d' % job_proto(p), 'has_country_flag = DA_GN_bench_busy ' + JOB % job_proto(p)) for p in P]
+    jobs += [('DA_GN_bj.%d' % job_up(p, k), 'has_country_flag = DA_GN_bench_busy ' + JOB % job_up(p, k)) for p in P for k in (1, 2)]
+    jobs += [('DA_GN_bj.%d' % c, 'has_country_flag = DA_GN_bench_busy ' + JOB % c) for c in (JOB_ENGINE, JOB_BRANCH, JOB_ASSAY)]
+    jobs += [('DA_GN_bj_fair', 'has_country_flag = DA_GN_bench_busy ' + JOB % JOB_FAIR), ('DA_GN_bj_study', 'DA_SCH_studying_any = yes')]
+    out.append(dt('DA_GN_get_bench_job', jobs, 'DA_GN_bj_none'))
+    out.append(dt('DA_GN_get_engine_info', [
+        ('DA_GN_eng_built', 'has_country_flag = DA_GN_engine_built'),
+        ('DA_GN_eng_bench', 'DA_GN_st_bench_engine = yes'),
+        ('DA_GN_eng_none', 'NOT = { has_country_flag = DA_PR_done.GN_Synthesis }')], 'DA_GN_eng_ready'))
+    # the licensee's event (ROOT the licensee): the patent on offer
+    out.append(dt('DA_GN_get_lic_offer', [('DA_GN_lic_offer.%d' % i_of(p), 'has_country_flag = DA_GN_lic_offer.%s' % p['id'])
+                                          for p in P]))
+    out.append(dt('DA_GN_get_study_name', [('DA_GN_study_%s' % s, 'DA_SCH_studying_%s = yes' % s)
+                                           for s in ('Metallurgy', 'Magic_Theory', 'Mechanics', 'Alchemy', 'Medicine')]))
+    out.append(dt('DA_GN_get_bench_desc', [
+        ('DA_GN_bd_closed', 'NOT = { has_country_flag = DA_PR_done.GN_Workshop }'),
+        ('DA_GN_bd_away', 'NOT = { DA_RH_primary_gnomish = yes }')], 'DA_GN_bd_rules'))
+    out.append(dt('DA_GN_get_pat_name', [('DA_GN_pname.%d' % i_of(p), SEL % i_of(p)) for p in P], 'DA_GN_pname.0'))
+    out.append(dt('DA_GN_get_pat_meta', [('DA_GN_pmeta.%d' % i_of(p), SEL % i_of(p)) for p in P]))
+    st = []
+    for p in P:
+        i, pid = i_of(p), p['id']
+        st += [('DA_GN_st_on', '%s has_country_flag = DA_GN_on.%s' % (SEL % i, pid)),
+               ('DA_GN_st_bench', '%s DA_GN_st_bench_%s = yes' % (SEL % i, pid)),
+               ('DA_GN_st_cooling', '%s has_country_flag = DA_GN_proto.%s NOT = { DA_SS_cooldown_finished = { flag = DA_GN_switch.%s days = %d } }'
+                % (SEL % i, pid, pid, G.SWITCH_COOLDOWN)),
+               ('DA_GN_st_off', '%s has_country_flag = DA_GN_proto.%s' % (SEL % i, pid)),
+               ('DA_GN_st_misfire', '%s has_country_flag = DA_GN_misfire.%s' % (SEL % i, pid)),
+               ('DA_GN_st_ready', '%s has_country_flag = %s' % (SEL % i, avail(p))),
+               ('DA_GN_st_unrecovered' if p.get('precursor') else 'DA_GN_st_locked', SEL % i)]
+    out.append(dt('DA_GN_get_pat_status', st))
+    out.append(dt('DA_GN_get_pat_desc', [('DA_GN_pdesc.%d' % i_of(p), SEL % i_of(p)) for p in P]))
+    out.append(dt('DA_GN_get_pat_proto', [('DA_GN_pproto.%d' % i_of(p), SEL % i_of(p)) for p in P]))
+    out.append(dt('DA_GN_get_pat_on', [('DA_GN_pon.%d' % i_of(p), SEL % i_of(p)) for p in P]))
+    out.append(dt('DA_GN_get_bar_text', [
+        ('DA_GN_bt_closed', 'NOT = { has_country_flag = DA_PR_done.GN_Workshop }'),
+        ('DA_GN_bt_away', 'NOT = { DA_RH_primary_gnomish = yes }'),
+        ('DA_GN_bar_busy', 'has_country_flag = DA_GN_bench_busy'),
+        ('DA_GN_bar_busy', 'DA_SCH_studying_any = yes')], 'DA_GN_bar_free'))
+    for k in (1, 2):
+        ent = []
+        for p in P:
+            i, pid = i_of(p), p['id']
+            ent += [('DA_GN_pup.%d.%d.owned' % (i, k), '%s has_country_flag = DA_GN_up.%s.%d' % (SEL % i, pid, k)),
+                    ('DA_GN_pup.%d.%d.bench' % (i, k), '%s has_country_flag = DA_GN_bench_busy %s' % (SEL % i, JOB % job_up(p, k))),
+                    ('DA_GN_pup.%d.%d.todo' % (i, k), SEL % i)]
+        out.append(dt('DA_GN_get_pat_up_%d' % k, ent))
+        out.append(dt('DA_GN_get_pat_up_tt_%d' % k, [('DA_GN_puptt.%d.%d' % (i_of(p), k), SEL % i_of(p)) for p in P]))
+    ent = []
+    for p in P:
+        i, pid = i_of(p), p['id']
+        u1, u2 = 'has_country_flag = DA_GN_up.%s.1' % pid, 'has_country_flag = DA_GN_up.%s.2' % pid
+        ent += [('DA_GN_peff.%d.12' % i, '%s %s %s' % (SEL % i, u1, u2)), ('DA_GN_peff.%d.1' % i, '%s %s' % (SEL % i, u1)),
+                ('DA_GN_peff.%d.2' % i, '%s %s' % (SEL % i, u2)), ('DA_GN_peff.%d.0' % i, SEL % i)]
+    out.append(dt('DA_GN_get_pat_effect', ent))
+    for p in P:
+        i, pid = i_of(p), p['id']
+        out.append(dt('DA_GN_get_slot_state_%d' % i, [
+            ('DA_GN_st_on', 'has_country_flag = DA_GN_on.%s' % pid), ('DA_GN_st_bench', 'DA_GN_st_bench_%s = yes' % pid),
+            ('DA_GN_st_off', 'has_country_flag = DA_GN_proto.%s' % pid), ('DA_GN_st_misfire', 'has_country_flag = DA_GN_misfire.%s' % pid),
+            ('DA_GN_st_ready', 'has_country_flag = %s' % avail(p))], 'DA_GN_st_unrecovered' if p.get('precursor') else 'DA_GN_st_locked'))
+    rt = [('DA_GN_rt.%d' % r, 'is_variable_equal = { which = DA_GN_report value = %d }' % r) for r in (1, 2, 3, 4, 6, 7, 10, 11, 12)]
+    out.append(dt('DA_GN_get_rep_title', rt, 'DA_GN_event.2.t'))
+    rd = []
+    for p in P:
+        i = i_of(p)
+        pv = 'is_variable_equal = { which = DA_GN_report_patent value = %d }' % i
+        for r in (1, 2, 3):
+            rd.append(('DA_GN_rd.%d.%d' % (r, i), 'is_variable_equal = { which = DA_GN_report value = %d } %s' % (r, pv)))
+        for r in (4, 7):
+            for k in (1, 2):
+                rd.append(('DA_GN_rd.%d.%d.%d' % (r, i, k), 'is_variable_equal = { which = DA_GN_report value = %d } %s '
+                           'is_variable_equal = { which = DA_GN_report_up value = %d }' % (r, pv, k)))
+    rd.append(('DA_GN_rd.6', 'is_variable_equal = { which = DA_GN_report value = 6 }'))
+    rd.append(('DA_GN_rd.10', 'is_variable_equal = { which = DA_GN_report value = 10 }'))
+    # DA_EL (doc 72): an assay: the relic's leaning, or a Precursor patent
+    for k in range(1, len(G.LEANINGS) + 1):
+        lean = 'is_variable_equal = { which = DA_GN_report value = 11 } is_variable_equal = { which = DA_GN_assay_school value = %d }' % k
+        rd.append(('DA_GN_rd.11.%d.2' % k, '%s %s' % (lean, TABLES)))
+        rd.append(('DA_GN_rd.11.%d.1' % k, lean))
+    for q in PRE:
+        rd.append(('DA_GN_rd.12.%d' % i_of(q), 'is_variable_equal = { which = DA_GN_report value = 12 } '
+                   'is_variable_equal = { which = DA_GN_report_patent value = %d }' % i_of(q)))
+    out.append(dt('DA_GN_get_rep_desc', rd, 'DA_GN_rd.0'))
+    # the over-capacity list: one defined text per patent, joined in the event text
+    for p in P:
+        out.append(dt('DA_GN_get_overcap_%d' % i_of(p), [('DA_GN_overcap.%d' % i_of(p), 'has_country_flag = DA_GN_overcap.%s' % p['id'])]))
+    out.append(dt('DA_GN_get_slot_rule', [('DA_GN_slot_rule_bench', 'DA_GN_has_bench = yes')], 'DA_GN_slot_rule_research'))
+    out.append(dt('DA_GN_get_grid_sum', [('DA_GN_gsum_back', PV)], 'DA_GN_gsum_pv'))     # DA_EL (doc 72)
+    out.append(dt('DA_GN_get_pv_click', [('DA_GN_pv_click_off', PV)], 'DA_GN_pv_click_on'))
+    out.append(dt('DA_GN_get_study_rule', [('DA_GN_study_rule_bench', 'DA_GN_has_bench = yes')], 'DA_GN_study_rule_slot'))
+    return '\n\n'.join(out) + '\n'
+
+
+def fix_overcap_loc(loc):
+    # the event text lists every patent switched off: one defined text each
+    return loc.replace('[Root.DA_GN_get_overcap]', ''.join('[Root.DA_GN_get_overcap_%d]' % i_of(p) for p in P))
+
+
+# ---------------------------------------------------------------------------
+# Sprites
+# ---------------------------------------------------------------------------
+ART = 'gfx/interface/DA_GN_Workshop'
+
+
+def gen_gfx():
+    def sp(name, file, frames=1, check=False):
+        s = '\tspriteType = {\n\t\tname = "%s"\n\t\ttexturefile = "%s/%s.dds"\n' % (name, ART, file)
+        if check:
+            s += '\t\ttransparencecheck = yes\n'
+        if frames > 1:
+            s += '\t\tnoOfFrames = %d\n' % frames
+        return s + '\t}\n'
+    out = [HEAD, 'spriteTypes = {\n', sp('GFX_DA_GN_window', 'DA_GN_window', check=True)]
+    for k in range(1, len(TAB_KEYS) + 1):
+        out.append(sp('GFX_DA_GN_tab_%d' % k, 'DA_GN_tab_%d' % k, 2))
+    for k in range(1, len(BIG_BUTTONS) + 1):
+        out.append(sp('GFX_DA_GN_big_%d' % k, 'DA_GN_big_%d' % k))
+    for p in P:
+        out.append(sp('GFX_DA_GN_patent_%s' % p['id'], 'DA_GN_patent_%s' % p['id'], 5))
+    out += [sp('GFX_DA_GN_grid', 'DA_GN_grid'), sp('GFX_DA_GN_page_rule', 'DA_GN_page_rule'), sp('GFX_DA_GN_bar_seg', 'DA_GN_bar_seg'),
+            sp('GFX_DA_GN_slot_sel', 'DA_GN_slot_sel'), sp('GFX_DA_GN_button', 'DA_GN_button'),
+            sp('GFX_DA_GN_button_wide', 'DA_GN_button_wide'), sp('GFX_DA_GN_plus', 'DA_GN_plus'),
+            sp('GFX_DA_GN_counter_tip', 'DA_GN_counter_tip'),
+            # DA_EL (doc 72): the Precursor view
+            sp('GFX_DA_GN_grid_pv', 'DA_GN_grid_pv'), sp('GFX_DA_GN_assay', 'DA_GN_assay', 2), sp('GFX_DA_GN_survey', 'DA_GN_survey', 2),
+            sp('GFX_DA_GN_cell_hit', 'DA_GN_cell_hit'), '}\n']
+    return ''.join(out)
+
+
+# ---------------------------------------------------------------------------
+# Tester
+# ---------------------------------------------------------------------------
+
+def gen_tester():
+    o = ['# The Gommo Workshop (doc 52): run DA_GN_tester.txt in the console, as a gnomish country.',
+         '# Block A is live; remove the # in front of a block to run it too.', '',
+         '# A: the race, the Corps check, the Workshop tile, the window',
+         'DA_RH_refresh = yes', 'DA_GN_corps_check = yes', 'set_country_flag = DA_PR_done.GN_Workshop',
+         'set_country_flag = DA_PR_done.GN_Patent_Office', 'DA_GN_open_workshop = yes', '',
+         '# B: every tile that opens a patent, materials and money for prototypes']
+    for p in NORMAL:
+        o.append('#set_country_flag = DA_PR_done.%s' % p['tile'])
+    o += ['#change_variable = { which = DA_arcane_metal_total value = 50 }',
+          '#change_variable = { which = DA_enchanted_building_material_total value = 50 }',
+          '#change_variable = { which = DA_alchemy_reagents_total value = 50 }', '#add_treasury = 5000', '',
+          '# C: finish the commission on the bench now (its event fires next month)',
+          '#set_variable = { which = DA_GN_job_progress value = 99 }', '',
+          '# D: every patent prototyped, both upgrades made']
+    for p in P:
+        o.append('#set_country_flag = DA_GN_proto.%s set_country_flag = DA_GN_up.%s.1 set_country_flag = DA_GN_up.%s.2'
+                 % (p['id'], p['id'], p['id']))
+    o += ['#DA_GN_refresh = yes', '', '# E: the Brillite, Mechanist and Thaumaturge methods',
+          '#set_country_flag = DA_PR_done.GN_Lead_School set_country_flag = DA_PR_done.GN_Brillite',
+          '#set_country_flag = DA_PR_done.GN_Mechanist set_country_flag = DA_PR_done.GN_Thaumaturge', '',
+          '# F: the over-capacity rule now (the yearly check)', '#DA_GN_reconcile_capacity = yes DA_GN_over_capacity = yes', '',
+          '# G: the yearly pulse now', '#DA_GN_yearly = yes', '',
+          '# H (step 2): the four new tiles, Grand Synthesis, the International Gommo view; then right-click an ally to',
+          '# open a branch or license a patent, and build the Engine from the view',
+          '#set_country_flag = DA_PR_done.GN_Branches set_country_flag = DA_PR_done.GN_International',
+          '#set_country_flag = DA_PR_done.GN_Calibration set_country_flag = DA_PR_done.GN_Harpoons',
+          '#set_country_flag = DA_PR_done.GN_Synthesis DA_GN_sync = yes set_country_flag = DA_GN_view_gommo',
+          '#change_variable = { which = DA_arcane_metal_total value = 100 }',
+          '#change_variable = { which = DA_enchanted_building_material_total value = 60 }', '#add_treasury = 5000', '',
+          '# I (step 2): the E++ Patent Dispute now (needs a goblin neighbour with E++)', '#country_event = { id = DA_GN_event.13 }', '',
+          '# J (doc 72): the Precursor Assays: the four tiles, five relic samples, the three Precursor patents recovered, the',
+          '# Precursor view open (a Gommo Survey needs a Precursor ruin we have discovered and do not own)',
+          '#set_country_flag = DA_PR_done.GN_Surveys set_country_flag = DA_PR_done.GN_Assays',
+          '#set_country_flag = DA_PR_done.GN_Reverse set_country_flag = DA_PR_done.GN_Script_Tables',
+          '#change_variable = { which = DA_GN_samples value = 5 }',
+          '#' + ' '.join('set_country_flag = DA_GN_pre.%s' % q['id'] for q in PRE),
+          '#set_country_flag = DA_GN_pv DA_GN_refresh = yes', '']
+    return '\n'.join(o) + '\n'
+
+
+# ---------------------------------------------------------------------------
+# Art
+# ---------------------------------------------------------------------------
+SRC = 'Claude files/art_sources/racial_windows/gommo_workshop_frame_v3.png'
+OLD_SRC = 'Claude files/art_sources/racial_windows/gommo_workshop_frame.png'
+# where the gems of gommo_workshop_frame.png are (source pixels)
+GEM_CENTRES = {'building': (870, 55), 'metal': (981, 55), 'essence': (1094, 55), 'capacity': (1206, 55)}
+TEAL = (52, 112, 124)
+TEAL_LIT = (120, 220, 228)
+SEG_LIT = (92, 184, 192)           # the lit segments: a little darker, for the text over them
+BRASS = (190, 148, 82)
+
+
+def art(preview=None, view='bench'):
+    import struct
+    import numpy as np
+    from PIL import Image, ImageDraw, ImageFilter, ImageEnhance
+
+    def write_dds(img, rel):
+        img = img.convert('RGBA')
+        w, h = img.size
+        a = np.array(img)
+        data = a[:, :, [2, 1, 0, 3]].tobytes()
+        hdr = struct.pack('<4s7I44s8I5I', b'DDS ', 124, 0x100f, h, w, w * 4, 0, 1, b'\0' * 44,
+                          32, 0x41, 0, 32, 0xff0000, 0xff00, 0xff, 0xff000000, 0x1000, 0, 0, 0, 0)
+        full = path(rel)
+        data = hdr + data
+        old = open(full, 'rb').read() if os.path.exists(full) else None
+        REPORT.append(('same    ' if old == data else ('changed ' if old else 'new     ')) + rel)
+        if old != data and MODE != 'check':
+            os.makedirs(os.path.dirname(full), exist_ok=True)
+            open(full, 'wb').write(data)
+
+    orig = Image.open(path(SRC)).convert('RGBA')
+    if orig.size != (1536, 1024):
+        raise SystemExit('%s: expected 1536 x 1024, found %d x %d' % (SRC, orig.size[0], orig.size[1]))
+    # 1. the large panel without its cells: the navy of the panel between its cells (its median colour, the grain of a
+    #    cell's inside), feathered at its edges. The cells come back as an icon on the Patents page (DA_GN_grid), so
+    #    the other pages have the whole panel for their text.
+    oa = np.array(orig).astype(np.float64)
+    # the picture's soft edge is a brown halo: over the map it reads better as a shadow
+    al = oa[..., 3:4]
+    oa[..., :3] *= np.where(al < 230, (al / 230.0) ** 1.5, 1.0)
+    orig = Image.fromarray(oa.clip(0, 255).astype(np.uint8), 'RGBA')
+    rgb = oa[..., :3]
+    gx0, gy0, gx1, gy1 = SRC_GRID
+    gw, gh = gx1 - gx0, gy1 - gy0
+    gaps = np.concatenate([rgb[SRC_ROWS[0][1] + 4:SRC_ROWS[1][0] - 4, gx0 + 20:gx1 - 20].reshape(-1, 3),
+                           rgb[gy0 + 20:gy1 - 20, SRC_COLS[0][1] + 4:SRC_COLS[1][0] - 4].reshape(-1, 3)])
+    inside = rgb[SRC_ROWS[0][0] + 12:SRC_ROWS[0][1] - 12, SRC_COLS[0][0] + 12:SRC_COLS[0][1] - 12]
+    hp = inside - np.array(Image.fromarray(inside.clip(0, 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(4))).astype(float)
+    rs = np.random.RandomState(66)
+    grain = rs.normal(0, 1, (gh, gw))
+    grain = np.array(Image.fromarray(((grain * 40) + 128).clip(0, 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.6))).astype(float) - 128
+    grain *= hp.std() / (grain.std() + 1e-9)
+    low = rs.normal(0, 1, (gh // 40 + 2, gw // 40 + 2))
+    low = np.array(Image.fromarray(((low * 40) + 128).clip(0, 255).astype(np.uint8)).resize((gw, gh), Image.BICUBIC)).astype(float) - 128
+    low *= 2.0 / (low.std() + 1e-9)
+    fillv = np.median(gaps, 0)[None, None, :] + (grain + low)[..., None]
+    m = np.zeros((gh, gw))
+    m[SRC_FILL[1] - gy0:SRC_FILL[3] - gy0, SRC_FILL[0] - gx0:SRC_FILL[2] - gx0] = 1
+    m = np.array(Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.2))).astype(float) / 255
+    oa2 = oa.copy()
+    oa2[gy0:gy1, gx0:gx1, :3] = rgb[gy0:gy1, gx0:gx1] * (1 - m[..., None]) + fillv * m[..., None]
+    empty = Image.fromarray(oa2.clip(0, 255).astype(np.uint8), 'RGBA')
+    # scaled with premultiplied alpha: the picture's transparent pixels carry stray colours that would bleed in
+    full = orig.convert('RGBa').resize((W, H), Image.LANCZOS).convert('RGBA')
+    base = empty.convert('RGBa').resize((W, H), Image.LANCZOS).convert('RGBA')
+    write_dds(full.crop(GRID), ART + '/DA_GN_grid.dds')
+    # DA_EL (doc 72): the Precursor view: the first row of cells and the summary cell, the rest of the panel plain
+    gpv = base.crop(GRID)
+    for n in (1, 2, 3, 4, 5, 15):
+        bx = cell(n)
+        box = (bx[0] - 4, bx[1] - 4, bx[2] + 4, bx[3] + 4)
+        gpv.paste(full.crop(box), (box[0] - GRID[0], box[1] - GRID[1]))
+    write_dds(gpv, ART + '/DA_GN_grid_pv.dds')
+    c15 = cell(15)
+    write_dds(Image.new('RGBA', (c15[2] - c15[0], c15[3] - c15[1]), (0, 0, 0, 0)), ART + '/DA_GN_cell_hit.dds')
+    # 2. the gems of the first frame beside the counters
+    old = Image.open(path(OLD_SRC)).convert('RGB')
+    for key, ci, row in COUNTERS:
+        x0, y0 = CELLS[ci][0], CELLS[ci][1] + 4 + row * COUNTER_ROW
+        cx, cy = GEM_CENTRES[key]
+        gem = old.crop((cx - 13, cy - 13, cx + 13, cy + 13)).resize((GEM, GEM), Image.LANCZOS).convert('RGBA')
+        mk = Image.new('L', (GEM, GEM), 0)
+        ImageDraw.Draw(mk).ellipse([1, 1, GEM - 2, GEM - 2], fill=255)
+        gem.putalpha(mk.filter(ImageFilter.GaussianBlur(0.6)))
+        base.alpha_composite(gem, (x0 + 10, y0 + 3))
+    write_dds(base, ART + '/DA_GN_window.dds')
+
+    # 3. the tabs: the plate as painted, and lit (the page shown): brighter, with a teal glow inside its rim
+    for k, (x0, y0, x1, y1) in enumerate(TABS, 1):
+        box = (x0 - TAB_PAD, y0 - TAB_PAD, x1 + TAB_PAD, y1 + TAB_PAD)
+        im = full.crop(box)
+        lit = ImageEnhance.Brightness(im).enhance(1.25)
+        glow = Image.new('RGBA', im.size, (0, 0, 0, 0))
+        gd = ImageDraw.Draw(glow)
+        w, h = im.size
+        for r, a in ((0, 200), (2, 110), (4, 50)):
+            gd.rounded_rectangle([TAB_PAD + 1 + r, TAB_PAD + 1 + r, w - TAB_PAD - 2 - r, h - TAB_PAD - 2 - r], radius=5,
+                                 outline=TEAL_LIT + (a,), width=2)
+        lit.alpha_composite(glow)
+        strip = Image.new('RGBA', (w * 2, h))
+        strip.paste(im, (0, 0))
+        strip.paste(lit, (w, 0))
+        write_dds(strip, ART + '/DA_GN_tab_%d.dds' % k)
+    # 4. the three plates at the bottom, as painted
+    for k, box in enumerate(BUTTONS, 1):
+        write_dds(full.crop(box), ART + '/DA_GN_big_%d.dds' % k)
+    # 5. a lit segment of the bar: teal light behind the glass
+    sw = min(SEGS[k + 1] - SEGS[k] for k in range(14)) - 2
+    sh = BAR[3] - BAR[1] - 2
+    seg = Image.new('RGBA', (sw, sh), (0, 0, 0, 0))
+    a = np.zeros((sh, sw, 4))
+    yy = np.linspace(0, 1, sh)[:, None]
+    for c in range(3):
+        a[..., c] = TEAL[c] + (SEG_LIT[c] - TEAL[c]) * (1 - np.abs(yy - 0.4) * 1.6).clip(0, 1)
+    a[..., 3] = 215
+    seg = Image.fromarray(a.clip(0, 255).astype(np.uint8), 'RGBA')
+    mk = Image.new('L', (sw, sh), 0)
+    ImageDraw.Draw(mk).rounded_rectangle([1, 1, sw - 2, sh - 2], radius=3, fill=215)
+    seg.putalpha(mk.filter(ImageFilter.GaussianBlur(0.8)))
+    write_dds(seg, ART + '/DA_GN_bar_seg.dds')
+    # 6. the brass rule between the two columns of The Gommo page
+    rh = PANEL[3] - PANEL[1] - 28
+    rule = Image.new('RGBA', (6, rh), (0, 0, 0, 0))
+    rd = ImageDraw.Draw(rule)
+    rd.line([2, 0, 2, rh], fill=BRASS + (255,), width=2)
+    rd.line([4, 0, 4, rh], fill=(20, 16, 10, 170), width=1)
+    rd.line([1, 0, 1, rh], fill=(240, 205, 140, 120), width=1)
+    write_dds(rule, ART + '/DA_GN_page_rule.dds')
+
+    # 7. the small buttons: brass rim, teal glass, as the plates of the frame
+    def teal_button(w, h, rad=5):
+        im = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+        dd = ImageDraw.Draw(im)
+        dd.rounded_rectangle([0, 0, w - 1, h - 1], radius=rad, fill=(78, 52, 22, 255))
+        dd.rounded_rectangle([1, 1, w - 2, h - 2], radius=rad, fill=(214, 170, 96, 255))
+        dd.rounded_rectangle([2, 2, w - 3, h - 3], radius=rad - 1, fill=(118, 82, 38, 255))
+        dd.rounded_rectangle([3, 3, w - 4, h - 4], radius=rad - 2, fill=TEAL + (255,))
+        dd.line([6, 4, w - 7, 4], fill=(110, 170, 178, 255))
+        dd.line([6, h - 5, w - 7, h - 5], fill=(24, 58, 66, 255))
+        return im
+    write_dds(teal_button(*BTN), ART + '/DA_GN_button_wide.dds')
+    write_dds(teal_button(*SBTN), ART + '/DA_GN_button.dds')
+    plus = teal_button(22, 20, rad=4)
+    dd = ImageDraw.Draw(plus)
+    dd.rectangle([10, 5, 11, 14], fill=(245, 214, 140, 255))
+    dd.rectangle([6, 9, 15, 10], fill=(245, 214, 140, 255))
+    write_dds(plus, ART + '/DA_GN_plus.dds')
+    write_dds(Image.new('RGBA', (CELLS[0][2] - CELLS[0][0] - 8, COUNTER_ROW - 2), (0, 0, 0, 0)), ART + '/DA_GN_counter_tip.dds')
+
+    # 8. patent icons: 5 frames (locked, ready, on the bench, prototyped, on) from Anbennar's invention buttons
+    T = SLOT
+    write_dds(slot_ring(Image, ImageDraw), ART + '/DA_GN_slot_sel.dds')
+    for p in P:
+        strip = Image.new('RGBA', (T * 5, T))
+        for state in range(1, 6):
+            strip.paste(patent_icon(p, state, T, Image, ImageDraw), ((state - 1) * T, 0))
+        write_dds(strip, ART + '/DA_GN_patent_%s.dds' % p['id'])
+    # DA_EL (doc 72): Assay a Relic and the Gommo Survey: brass and teal glass, greyed until their tile
+    for key in ('assay', 'survey'):
+        strip = Image.new('RGBA', (T * 2, T))
+        strip.paste(commission_icon(key, False, T, Image, ImageDraw), (0, 0))
+        strip.paste(commission_icon(key, True, T, Image, ImageDraw), (T, 0))
+        write_dds(strip, ART + '/DA_GN_%s.dds' % key)
+    if preview:
+        draw_preview(base, preview, view=view)
+
+
+ANBENNAR = os.environ.get('DA_ANBENNAR') or os.path.join(os.path.dirname(os.path.abspath(ROOT)), 'anbennar-eu4-dev-new-master')
+INNOVATION = 'gfx/interface/custom_gui/artificery/artificery_innovation_%s.dds'   # Anbennar's invention buttons
+STAR = ('gfx/interface/privileges/Artf_MaMi1.dds', (38, 37, 50, 48))            # the tier star of its invention privileges
+BENCH_RING = (120, 210, 250)       # the bench's blue: a patent whose prototype is on the bench
+SEL_RING = (250, 246, 232)         # the selected patent: white, as gold is Anbennar's colour for an active invention
+_ICONS = {}
+
+
+def anbennar_image(rel, Image):
+    """A texture of Anbennar (the folder next to the mod, or DA_ANBENNAR), as RGBA. Its invention buttons are DX10
+    B8G8R8A8 textures, which Pillow does not read."""
+    import struct
+    import numpy as np
+    full = os.path.join(ANBENNAR, rel)
+    if not os.path.exists(full):
+        raise SystemExit('the patent icons are drawn from Anbennar\'s invention buttons: %s is missing. Put Anbennar next '
+                         'to the mod or set DA_ANBENNAR to its folder.' % full)
+    raw = open(full, 'rb').read()
+    if raw[84:88] != b'DX10':
+        return Image.open(full).convert('RGBA')
+    h, w = struct.unpack('<2I', raw[12:20])
+    fmt = struct.unpack('<I', raw[128:132])[0]
+    if fmt not in (28, 29, 87, 91):
+        raise SystemExit('%s: DXGI format %d is not read here' % (rel, fmt))
+    a = np.frombuffer(raw[148:148 + w * h * 4], np.uint8).reshape(h, w, 4)
+    if fmt in (87, 91):
+        a = a[:, :, [2, 1, 0, 3]]
+    return Image.fromarray(a.copy(), 'RGBA')
+
+
+def greyed(im, Image):
+    """Grey as Anbennar greys a locked invention (0.91 x the luminance of the unlocked button)."""
+    import numpy as np
+    a = np.asarray(im).astype(float)
+    g = np.clip(0.91 * (0.299 * a[..., 0] + 0.587 * a[..., 1] + 0.114 * a[..., 2]) + 2, 0, 255)
+    return Image.fromarray(np.dstack([g, g, g, a[..., 3]]).astype(np.uint8), 'RGBA')
+
+
+def invention_frames(kind, T, Image):
+    """Anbennar's invention button of this kind at T px: locked (grey), unlocked, active (a gold glow). Its 78-px
+    buttons are scaled down (sharper than its 48-px ones). The society button has no grey frame in Anbennar (its
+    first frame is coloured): one is made from the unlocked frame."""
+    import numpy as np
+    if (kind, T) not in _ICONS:
+        im = anbennar_image(INNOVATION % kind, Image)
+        w = im.size[1]
+        fr = [im.crop((k * w, 0, (k + 1) * w, w)) for k in range(3)]
+        a = np.asarray(fr[0]).astype(float)
+        if np.abs(a[..., 0] - a[..., 2])[a[..., 3] > 200].mean() > 8:
+            fr[0] = greyed(fr[1], Image)
+        _ICONS[(kind, T)] = [f.resize((T, T), Image.LANCZOS) for f in fr]
+    return _ICONS[(kind, T)]
+
+
+def tier_stars(tier, grey, Image):
+    """The stars Anbennar puts on its invention privileges, one per tier, 7 px apart."""
+    if 'star' not in _ICONS:
+        rel, box = STAR
+        _ICONS['star'] = anbennar_image(rel, Image).crop(box)
+        _ICONS['star_grey'] = greyed(_ICONS['star'], Image)
+    st = _ICONS['star_grey' if grey else 'star']
+    out = Image.new('RGBA', (st.size[0] + 7 * (tier - 1), st.size[1]), (0, 0, 0, 0))
+    for j in range(tier):
+        out.alpha_composite(st, (7 * j, 0))
+    return out
+
+
+def patent_icon(p, state, T, Image, ImageDraw):
+    """The patent's button (doc 54): Anbennar's invention button of its kind, with its tier in Anbennar's stars.
+    state: 1 locked (Anbennar's grey frame), 2 ready for a prototype (half its colour), 3 its prototype on the bench
+    (the same, ringed in the bench's blue), 4 prototyped (Anbennar's unlocked frame), 5 on (Anbennar's active frame)."""
+    from PIL import ImageEnhance
+    locked, unlocked, active = invention_frames(p['icon'], T, Image)
+    if state == 1:
+        im = locked.copy()
+    elif state in (2, 3):
+        im = ImageEnhance.Brightness(Image.blend(unlocked, locked, 0.5)).enhance(0.85)
+    else:
+        im = (unlocked if state == 4 else active).copy()
+    if p.get('precursor') and state > 1:   # DA_EL (doc 72): a Precursor patent glows teal, as the Precursor ruins
+        glow = Image.new('RGBA', im.size, (0, 0, 0, 0))
+        gd = ImageDraw.Draw(glow)
+        for r, a in ((4, 120), (6, 70), (8, 30)):
+            gd.rounded_rectangle([r, r, T - 1 - r, T - 1 - r], radius=5, outline=(110, 230, 220, a), width=2)
+        im.alpha_composite(glow)
+    if state == 3:
+        ImageDraw.Draw(im).rounded_rectangle([3, 3, T - 4, T - 4], radius=4, outline=BENCH_RING + (255,), width=2)
+    stars = tier_stars(p['tier'], state == 1, Image)
+    im.alpha_composite(stars, (T - 3 - stars.size[0], T - 2 - stars.size[1]))
+    return im
+
+
+def commission_icon(key, lit, T, Image, ImageDraw):
+    """DA_EL (doc 72): the buttons of Assay a Relic (a flask over a relic shard) and of a Gommo Survey (a compass rose), in
+    the Workshop's brass and teal; grey until their tile is done."""
+    import math
+    im = Image.new('RGBA', (T, T), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    rim, glass, ink = ((214, 170, 96), (52, 112, 124), (245, 222, 160)) if lit else ((150, 150, 150), (70, 74, 78), (190, 190, 190))
+    d.rounded_rectangle([1, 1, T - 2, T - 2], radius=8, fill=(40, 30, 16, 255))
+    d.rounded_rectangle([3, 3, T - 4, T - 4], radius=7, fill=rim + (255,))
+    d.rounded_rectangle([5, 5, T - 6, T - 6], radius=6, fill=glass + (255,))
+    c = T // 2
+    if key == 'assay':
+        d.polygon([(c - 4, 11), (c + 4, 11), (c + 4, 19), (c + 12, 35), (c - 12, 35), (c - 4, 19)], outline=ink + (255,), width=2)
+        d.line([c - 6, 11, c + 6, 11], fill=ink + (255,), width=2)
+        d.polygon([(c - 9, 30), (c + 9, 30), (c + 11, 34), (c - 11, 34)], fill=(120, 230, 220, 255) if lit else (160, 160, 160, 255))
+        d.polygon([(c + 8, 22), (c + 14, 18), (c + 16, 24)], fill=(120, 230, 220, 255) if lit else (160, 160, 160, 255))
+    else:
+        d.ellipse([c - 15, c - 15, c + 15, c + 15], outline=ink + (255,), width=2)
+        for a in range(8):
+            r = 13 if a % 2 == 0 else 8
+            x, y = c + r * math.cos(a * math.pi / 4 - math.pi / 2), c + r * math.sin(a * math.pi / 4 - math.pi / 2)
+            d.polygon([(c, c), (x, y), (c + 2 * math.cos(a * math.pi / 4), c + 2 * math.sin(a * math.pi / 4))],
+                      fill=((120, 230, 220, 255) if a == 0 and lit else ink + (255,)))
+        d.ellipse([c - 2, c - 2, c + 2, c + 2], fill=rim + (255,))
+    return im
+
+
+def slot_ring(Image, ImageDraw):
+    """The selected patent: a white ring round its button, over the recess."""
+    R = SLOT + 6
+    im = Image.new('RGBA', (R, R), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([0, 0, R - 1, R - 1], radius=6, outline=SEL_RING + (255,), width=2)
+    d.rounded_rectangle([2, 2, R - 3, R - 3], radius=5, outline=SEL_RING + (110,), width=1)
+    return im
+
+
+def sample_loc():
+    loc = {}
+    for line in fix_overcap_loc(gen_loc()).splitlines()[1:]:
+        m = re.match(r' ([\w.\-]+):0 "(.*)"$', line)
+        if m:
+            loc[m.group(1)] = m.group(2).replace('\\n', '\n').replace('\\"', '"')
+    return loc
+
+
+def fit_report():
+    """Every text the window can show, in the game's own fonts at the pessimistic width (eu4_text.py): the ones that
+    do not fit their box; then the window laid out in its sample states (eu4_gui.py)."""
+    import eu4_text as T
+    T.init(None, ROOT)
+    loc = sample_loc()
+    tw = RIGHT[0][2] - RIGHT[0][0] - 12
+    cw = CELLS[2][2] - CELLS[2][0] - 8
+    c15 = cell(15)
+    boxes = {   # loc key pattern -> (width, height, font)
+        'DA_GN_pname.': (tw, 36, 'vic_18'), 'DA_GN_pmeta.': (tw, 18, 'vic_18'), 'DA_GN_st_': (tw, 18, 'vic_18'),
+        'DA_GN_pup.': (RIGHT[1][2] - RIGHT[1][0] - 38, 20, 'vic_18'), 'DA_GN_peff.': (tw, 72, 'vic_18'),
+        'DA_GN_pproto.': (cw, 54, 'vic_18'), 'DA_GN_pon.': (cw, 54, 'vic_18'),
+        'DA_GN_slot_name_': (cell(1)[2] - cell(1)[0] - 4, 18, 'vic_18'), 'DA_GN_gsum_': (c15[2] - c15[0] - 6, 72, 'vic_18'),
+        'DA_GN_assay_name': (cell(4)[2] - cell(4)[0] - 4, 18, 'vic_18'), 'DA_GN_survey_name': (cell(5)[2] - cell(5)[0] - 4, 18, 'vic_18'),
+        'DA_GN_pv_info': (cell(14)[2] - cell(6)[0] - 12, cell(14)[3] - cell(6)[1] - 8, 'vic_18'),
+        'DA_GN_rd.': (400, 200, 'vic_18'),
+        'DA_GN_bt_': (GR[1] - GR[0], 24, 'vic_22'), 'DA_GN_bj.': (GR[1] - GR[0], 36, 'vic_18'), 'DA_GN_bj_': (GR[1] - GR[0], 36, 'vic_18'),
+        'DA_GN_bd_': (GR[1] - GR[0], 180, 'vic_18'), 'DA_GN_fair_info_': (GL[1] - GL[0], 36, 'vic_18'),
+        'DA_GN_eng_': (200, 36, 'vic_18'), 'DA_GN_abroad_counts': (250, 54, 'vic_18'),
+        'DA_GN_abroad_desc': (PANEL[2] - PANEL[0] - 30, 144, 'vic_18'), 'DA_GN_guide_text': (PANEL[2] - PANEL[0] - 30, 234, 'vic_18'),
+        'DA_GN_cnt_': (CELLS[0][2] - CELLS[0][0] - GEM - 20, 20, 'vic_18'), 'DA_GN_title': (TITLE[2] - TITLE[0], 32, 'vic_29'),
+        'DA_GN_bar+': (450, 20, 'vic_18'), 'DA_GN_bar_free': (450, 20, 'vic_18'), 'DA_GN_bench_value': (180, 20, 'vic_18'),
+    }
+    for k in [k for k in loc if k.startswith('DA_GN_bj.') or re.match(r'DA_GN_study_[A-Z]', k)]:   # the bar
+        loc['DA_GN_bar+' + k] = loc['DA_GN_bar_busy'].replace('[Root.DA_GN_get_bench_job]', loc[k])
+    for k in list(loc):   # a value shown in a text: at most three digits
+        loc[k] = re.sub(r'\[Root\.[\w.]+\.GetValue\]', '888', loc[k])
+    for note in [k for k in loc if k.startswith('DA_GN_lead_note_')]:   # the Gommo panel with each note, worst values
+        loc['DA_GN_gommo_info+' + note] = re.sub(r'\[Root\.[\w.]+\]', 'Thaumaturge', loc['DA_GN_gommo_info'].replace(
+            '[Root.DA_GN_get_lead_note]', loc[note])).replace('Thaumaturge', '888').replace('888', 'Thaumaturge', 1)
+    boxes['DA_GN_gommo_info+'] = (GL[1] - GL[0], 126, 'vic_18')
+    bad = []
+    for key, text in loc.items():
+        for pre, (w, h, font) in boxes.items():
+            if key.startswith(pre) and not key.endswith('_tt'):
+                lines, shown, cut, widest, too_wide = T.fit(font, text, w, h, T.PESSIMISTIC)
+                if cut:
+                    bad.append('%s: %d lines in %d px' % (key, len(lines), h))
+    return bad + render_report()
+
+
+def generated():
+    """What the build writes, as text (the previews and the fit report read these, not the files on disk)."""
+    return {'common/scripted_triggers/DA_GN_triggers.txt': gen_triggers(),
+            'common/custom_gui/DA_GN_Workshop.txt': gen_custom_gui(),
+            'customizable_localization/DA_GN_custom_loc.txt': gen_custom_loc(),
+            'localisation/DA_GN_l_english.yml': fix_overcap_loc(gen_loc()),
+            'interface/DA_GN_Workshop.gfx': gen_gfx()}
+
+
+def preview_states():
+    """bench: the Spyglass on the bench (7 of 12 months), patents in every state; gommo: the International Gommo
+    view (two branches, a licence)."""
+    import eu4_gui as UI
+    sp = G.PATENT['spyglass']
+    flags = ['DA_PR_done.GN_Workshop', 'DA_PR_done.GN_Bureau', 'DA_GN_on.cocolocogram', 'DA_GN_proto.recuverinator',
+             'DA_GN_proto.dynamos', 'DA_GN_proto.crammers', 'DA_GN_bench_busy']
+    vars_ = {'DA_GN_sel': i_of(sp), 'DA_GN_job': job_proto(sp), 'DA_GN_job_pct': 58, 'DA_GN_job_done': 7, 'DA_GN_job_months': 12,
+             'DA_GN_branch_count': 2, 'DA_GN_lic_count': 1, 'DA_GN_lic_income': 24}
+    answers = {'DA_GN_st_bench_spyglass': True, 'DA_RH_primary_gnomish': True, 'DA_GN_lead_mechanist': True}
+    return [('bench', UI.State(flags, vars_, answers=answers)),
+            ('hall', UI.State(flags + ['DA_GN_page_gommo'], vars_, answers=answers)),
+            ('gommo', UI.State(flags + ['DA_GN_view_gommo'], vars_, answers=answers)),
+            ('guide', UI.State(flags + ['DA_GN_guide'], vars_, answers=answers)),
+            # DA_EL (doc 72): the Precursor view: Spire-Glass Lenses recovered and selected, two samples
+            ('precursor', UI.State(flags + ['DA_GN_pv', 'DA_PR_done.GN_Surveys', 'DA_PR_done.GN_Assays', 'DA_PR_done.GN_Reverse',
+                                            'DA_GN_pre.lenses'], dict(vars_, DA_GN_sel=i_of(PRE[0]), DA_GN_samples=2),
+                                   answers=answers))]
+
+
+def render_report(out=None, view=None):
+    """Draw the window in one sample state (view; out: a .png) or lay out every state; the problems found."""
+    import eu4_gui as UI
+    mod = UI.Mod(ROOT, overrides=generated(), windows={'DA_GN_workshop': gen_window()})
+    probs = []
+    for name, st in preview_states():
+        if view and name != view:
+            continue
+        rep_, _ = UI.render(mod, 'DA_GN_workshop', st, out if view else None)
+        probs += ['%s: %s: %s' % (name, el_, issue) for el_, issue in rep_ if el_ != '(trigger)']
+    if out and view:
+        REPORT.append('preview ' + out)
+    return probs
+
+
+def draw_preview(base, out, Image=None, ImageDraw=None, ImageFont=None, view='bench'):
+    """The window as the game draws it (eu4_gui.py): the generated GUI, its conditions, the game's own fonts."""
+    for p_ in render_report(out, view):
+        REPORT.append('preview: ' + p_)
+
+
+# ---------------------------------------------------------------------------
+
+def main():
+    if MODE in ('art', 'preview'):
+        art(sys.argv[3] if MODE == 'preview' and len(sys.argv) > 3 else None,
+            view=sys.argv[4] if MODE == 'preview' and len(sys.argv) > 4 else 'bench')
+    else:
+        write('common/scripted_triggers/DA_GN_triggers.txt', gen_triggers())
+        write('common/scripted_effects/DA_GN_effects.txt', gen_effects())
+        write('common/event_modifiers/DA_GN_modifiers.txt', gen_modifiers())
+        write('common/triggered_modifiers/DA_GN_modifiers.txt', gen_triggered_modifiers())
+        write('common/opinion_modifiers/DA_GN_opinion_modifiers.txt', gen_opinion_modifiers())
+        write('common/new_diplomatic_actions/DA_GN_diplomatic_actions.txt', gen_diplomatic_actions())
+        write('common/on_actions/DA_GN_on_actions.txt', gen_on_actions())
+        write('events/DA_GN_events.txt', gen_events())
+        write('common/custom_gui/DA_GN_Workshop.txt', gen_custom_gui())
+        write('customizable_localization/DA_GN_custom_loc.txt', gen_custom_loc())
+        write('localisation/DA_GN_l_english.yml', fix_overcap_loc(gen_loc()), bom=True)
+        write('interface/DA_GN_Workshop.gfx', gen_gfx())
+        write('DA_GN_tester.txt', gen_tester())
+        patch_topbar()
+        patch_designer()   # Gommo Calibration (doc 53); build_secondary_tech.py must run afterwards for its name
+        patch_special()
+    for line in REPORT:
+        print(line)
+    print('patents %d, upgrades %d, mode %s' % (len(P), sum(len(p['ups']) for p in P), MODE))
+
+
+if __name__ == '__main__':
+    main()

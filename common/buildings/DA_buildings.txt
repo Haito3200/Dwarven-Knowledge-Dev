@@ -1,4 +1,7 @@
 
+# Special fortifications: keep them without make_obsolete. They are in no technology, and with it EU4
+# crashed when a built one was hovered. Each tier's on_built (DA_finish_<building>) removes the other
+# special forts instead.
 DA_Runeforged_fort = {
 	cost = 250
 	time = 30
@@ -24,6 +27,7 @@ DA_Runeforged_fort = {
 		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 5 }
 		DA_finish_DA_Runeforged_fort = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 	}
@@ -38,9 +42,6 @@ DA_Runeforged_fort_t2 = {
 	build_trigger = {
 		DA_requirements_DA_Runeforged_fort_t2 = yes
 	}
-
-	make_obsolete = DA_Runeforged_fort
-
 
 	modifier = {
 		fort_level = 2
@@ -58,6 +59,7 @@ DA_Runeforged_fort_t2 = {
 		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 5 }
 		DA_finish_DA_Runeforged_fort_t2 = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 	}
@@ -72,9 +74,6 @@ DA_Runeforged_fort_t3 = {
 	build_trigger = {
 		DA_requirements_DA_Runeforged_fort_t3 = yes
 	}
-
-	make_obsolete = DA_Runeforged_fort_t2
-
 
 	modifier = {
 		fort_level = 3
@@ -92,6 +91,7 @@ DA_Runeforged_fort_t3 = {
 		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 5 }
 		DA_finish_DA_Runeforged_fort_t3 = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 	}
@@ -106,9 +106,6 @@ DA_Hehogrim_Runeforged_fort = {
 	build_trigger = {
 		DA_requirements_DA_Hehogrim_Runeforged_fort = yes
 	}
-
-	make_obsolete = DA_Runeforged_fort_t3
-
 
 	modifier = {
 		fort_level = 4
@@ -129,6 +126,7 @@ DA_Hehogrim_Runeforged_fort = {
 		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 5 }
 		DA_finish_DA_Hehogrim_Runeforged_fort = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 	}
@@ -172,6 +170,7 @@ DA_Runeforged_Amldihr_fort = {
 		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 5 }
 		DA_finish_DA_Runeforged_Amldihr_fort = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 	}
@@ -640,6 +639,8 @@ DA_steam_pipes = {
 				}
 			}
 		}
+		DA_MEC_sync_valve = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
+		DA_MEC_sync_cables = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 
 	on_destroyed = {
@@ -713,6 +714,8 @@ DA_electricity_cables = {
 				}
 			}
 		}
+		DA_MEC_sync_valve = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
+		DA_MEC_sync_cables = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 	on_destroyed = {
 		remove_province_modifier = DA_mechanics_upgrade.cables_2
@@ -831,6 +834,7 @@ DA_Elemental_building_1 = {
 		}
 		
 		if = { limit = { has_terrain = titanoflora_grassland_terrain } add_permanent_province_modifier = { name = DA_irrigation_mod_titanoflora_grassland duration = -1 } }
+		DA_MEC_sync_wardens = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 
 	keep_trigger = {
@@ -874,6 +878,7 @@ DA_Elemental_building_2 = {
 		anbennar_building_effect = yes
 		gronstunad_building_authority_effect = { value = 5 }
 		DA_mining_apply_ventilation = yes
+		DA_MEC_sync_wardens = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 
 	on_destroyed = { DA_mining_clear_ventilation = yes }
@@ -918,6 +923,7 @@ DA_Elemental_building_3 = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
+		DA_MEC_sync_wardens = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 
 	keep_trigger = {
@@ -952,6 +958,7 @@ DA_Elemental_building_4 = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
+		DA_MEC_sync_wardens = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 
 	keep_trigger = {
@@ -987,6 +994,7 @@ DA_conceptual_building_1 = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
+		DA_MEC_sync_keepers = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 
 	keep_trigger = {
@@ -1024,6 +1032,7 @@ DA_conceptual_building_2 = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
+		DA_MEC_sync_keepers = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 
 	keep_trigger = {
@@ -1067,6 +1076,7 @@ DA_conceptual_building_3 = {
 		anbennar_building_effect = yes
 
 		gronstunad_building_authority_effect = { value = 5 }
+		DA_MEC_sync_keepers = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 
 	on_destroyed = {
@@ -1117,6 +1127,7 @@ DA_conceptual_building_4 = {
 			name = DA_Space_building_mod_1
 			duration = 3650
 		}
+		DA_MEC_sync_keepers = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 	on_destroyed = {
 		remove_province_modifier = DA_Space_building_mod_1

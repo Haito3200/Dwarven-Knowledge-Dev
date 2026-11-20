@@ -183,9 +183,11 @@ country_event = {
 	
 	is_triggered_only = yes
 	immediate = {
+		hidden_effect = { random_core_province = { limit = { OR = { has_terrain = dwarven_hold has_terrain = dwarven_hold_surface } is_capital = no owned_by = root } save_event_target_as = DA_disaster_academy_province } }
 	}
 	option = {
 		name = "DA_disaster_event.3.a"
+		goto = DA_disaster_academy_province
 		add_years_of_income = -0.85
 		add_estate_loyalty = {
 			estate = estate_da_runesmiths
@@ -195,15 +197,7 @@ country_event = {
 			name = DA_saved_runemasters
 			duration = -1
 		}
-		random_core_province = {
-			limit = {
-				OR = {
-					has_terrain = dwarven_hold
-					has_terrain = dwarven_hold_surface
-				}
-				is_capital = no
-				owned_by = root
-			}
+		event_target:DA_disaster_academy_province = {
 			add_permanent_province_modifier = {
 				name = DA_runemasters_accademy
 				duration = -1

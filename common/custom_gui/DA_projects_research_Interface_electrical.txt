@@ -207,16 +207,31 @@ custom_button = {
 	trigger = {
 		DA_available_research = yes
 		DA_completed.Alchemy_3 = yes
-		DA_completed.Magic_Theory_3 = yes
+		custom_trigger_tooltip = {
+			tooltip = DA_PR_airships_arts_tt
+			OR = { DA_completed.Magic_Theory_3 = yes has_country_flag = DA_PR_done.Dirigible_Frames }
+		}
 		DA_completed.Mechanics_3 = yes
 		DA_yet_to_complete.Airships = yes
 	}
 	effect = {
-		DA_start_research = {
-			flag = Airships
-			time = 120
-			electric = yes
-			unstoppable = yes
+		if = {   # DA_PR (doc 93): Dirigible Frames, 60 instead of 120
+			limit = { NOT = { has_country_flag = DA_PR_done.Dirigible_Frames } }
+			DA_start_research = {
+				flag = Airships
+				time = 120
+				electric = yes
+				unstoppable = yes
+			}
+		}
+		if = {
+			limit = { has_country_flag = DA_PR_done.Dirigible_Frames }
+			DA_start_research = {
+				flag = Airships
+				time = 60
+				electric = yes
+				unstoppable = yes
+			}
 		}
 		hidden_effect = {
 			country_event = {

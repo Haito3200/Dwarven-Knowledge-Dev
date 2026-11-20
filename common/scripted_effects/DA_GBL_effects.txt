@@ -1,0 +1,18 @@
+# The Grave-Bound Legions (doc 94, step 9): their unlock, run by DA_Metallurgy_events.0 (build_grave_bound.py).
+# Necromancy I and Anbennar's Army of the Dead at stage 1 or more, or a witch-king ruler; the flag stays.
+DA_GBL_check_unlock = {
+	if = {
+		limit = {
+			NOT = { has_country_flag = DA_Unlocked.Grave_Bound }
+			OR = {
+				AND = {
+					DA_PR_done.Necromancy_1 = yes
+					at_least_magic_project_level = { project = army_of_the_dead level = 1 }
+				}
+				ruler_is_witch_king = yes
+			}
+		}
+		set_country_flag = DA_Unlocked.Grave_Bound
+		country_event = { id = DA_GBL.1 }
+	}
+}

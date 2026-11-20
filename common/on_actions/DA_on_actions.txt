@@ -230,17 +230,7 @@ on_four_year_pulse_4 = {
 		400 = DA_Hold_Gor_Vazumbrog.331
 	}
 }
-on_bi_yearly_pulse_4 = {
-	random_owned_province = {
-		limit = {
-			DA_has_disease_in_province = yes
-			has_province_modifier = DA_Medicine.Quarantined_province
-		}
-		province_event = {
-			id = DA_Tech_Medicine_event.2
-		}
-	}
-}
+# DA_ILL (doc 81): the random clearing of a quarantined province is gone; illnesses fade at the yearly check
 on_thri_yearly_pulse = {
 	random_events  = { #Runesmiths unlocks / perdiodical events 
 		20 = DA_adk.4
@@ -256,22 +246,7 @@ on_thri_yearly_pulse = {
 		100 = 0
 	}
 	
-    if = {
-        limit = {
-			ai = no
-            any_owned_province = {
-                has_province_modifier = DA_Medicine.Quarantined_province
-            }
-        }
-		random_owned_province = {
-			limit = {
-				has_province_modifier = DA_Medicine.Quarantined_province
-			}
-			province_event = {
-				id = DA_Tech_Medicine_event.1
-			}
-		}
-    }
+    # DA_ILL (doc 81): the random clearing of a quarantined province is gone
 }
 on_thri_yearly_pulse_2 = {
 	every_owned_province = {

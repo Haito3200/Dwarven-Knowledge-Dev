@@ -42,7 +42,12 @@ custom_text_box = {
 
 custom_text_box = {
 	name = DA_HX_legacy_none
-	potential = { NOT = { DA_HX_has_seal_1 = yes } }
+	potential = { NOT = { DA_HX_has_seal_1 = yes } NOT = { DA_HX_has_gb_seal = yes } }
+}
+
+custom_text_box = {
+	name = DA_HX_next_header
+	potential = { always = yes }
 }
 
 custom_text_box = {
@@ -541,7 +546,7 @@ custom_icon = {
 custom_button = {
 	name = DA_HX_charter_pathfinders
 	tooltip = DA_HX_charter_pathfinders_tt
-	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } }
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } NOT = { owner = { DA_GB_corps_owner = yes } } }
 	trigger = { always = yes }
 	frame = { number = 2 trigger = { DA_HX_charter_pathfinders = yes } }
 	frame = { number = 1 trigger = { always = yes } }
@@ -551,7 +556,7 @@ custom_button = {
 custom_button = {
 	name = DA_HX_charter_wardens
 	tooltip = DA_HX_charter_wardens_tt
-	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } }
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } NOT = { owner = { DA_GB_corps_owner = yes } } }
 	trigger = { always = yes }
 	frame = { number = 2 trigger = { has_province_flag = DA_HX_charter_wardens } }
 	frame = { number = 1 trigger = { always = yes } }
@@ -561,7 +566,7 @@ custom_button = {
 custom_button = {
 	name = DA_HX_charter_prospectors
 	tooltip = DA_HX_charter_prospectors_tt
-	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } }
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } NOT = { owner = { DA_GB_corps_owner = yes } } }
 	trigger = { always = yes }
 	frame = { number = 2 trigger = { has_province_flag = DA_HX_charter_prospectors } }
 	frame = { number = 1 trigger = { always = yes } }
@@ -571,7 +576,7 @@ custom_button = {
 custom_button = {
 	name = DA_HX_charter_loreseekers
 	tooltip = DA_HX_charter_loreseekers_tt
-	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } }
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } NOT = { owner = { DA_GB_corps_owner = yes } } }
 	trigger = { always = yes }
 	frame = { number = 2 trigger = { has_province_flag = DA_HX_charter_loreseekers } }
 	frame = { number = 1 trigger = { always = yes } }
@@ -581,7 +586,7 @@ custom_button = {
 custom_button = {
 	name = DA_HX_send
 	tooltip = DA_HX_send_tt
-	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } }
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } NOT = { owner = { DA_GB_corps_owner = yes } } }
 	trigger = {
 		DA_HX_send_allowed = yes
 	}
@@ -589,5 +594,85 @@ custom_button = {
 		play_sound = diggy_diggy_pickaxe_sfx
 		DA_HX_send = yes
 	}
+}
+
+custom_button = {
+	name = DA_HX_corps_scavengers
+	tooltip = DA_HX_corps_scavengers_tt
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } owner = { DA_GB_corps_owner = yes } }
+	trigger = {
+		always = yes
+	}
+	frame = { number = 2 trigger = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } } }
+	frame = { number = 1 trigger = { always = yes } }
+	effect = { hidden_effect = { DA_HX_select_corps_scavengers = yes } }
+}
+
+custom_button = {
+	name = DA_HX_corps_tunnelrats
+	tooltip = DA_HX_corps_tunnelrats_tt
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } owner = { DA_GB_corps_owner = yes } }
+	trigger = {
+		always = yes
+	}
+	frame = { number = 2 trigger = { has_province_flag = DA_HX_corps_tunnelrats } }
+	frame = { number = 1 trigger = { always = yes } }
+	effect = { hidden_effect = { DA_HX_select_corps_tunnelrats = yes } }
+}
+
+custom_button = {
+	name = DA_HX_corps_blasters
+	tooltip = DA_HX_corps_blasters_tt
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } owner = { DA_GB_corps_owner = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_HX_corps_blasters_needs_tt
+			owner = { DA_completed.Explosive = yes }
+		}
+	}
+	frame = { number = 2 trigger = { has_province_flag = DA_HX_corps_blasters } }
+	frame = { number = 1 trigger = { always = yes } }
+	effect = { hidden_effect = { DA_HX_select_corps_blasters = yes } }
+}
+
+custom_button = {
+	name = DA_HX_corps_gizmo
+	tooltip = DA_HX_corps_gizmo_tt
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } owner = { DA_GB_corps_owner = yes } }
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = DA_HX_corps_gizmo_needs_tt
+			owner = { has_country_flag = DA_PR_done.GB_Spot }
+		}
+	}
+	frame = { number = 2 trigger = { has_province_flag = DA_HX_corps_gizmo } }
+	frame = { number = 1 trigger = { always = yes } }
+	effect = { hidden_effect = { DA_HX_select_corps_gizmo = yes } }
+}
+
+custom_button = {
+	name = DA_HX_send_corps
+	tooltip = DA_HX_send_corps_tt
+	potential = { DA_HX_has_target = yes NOT = { has_province_flag = DA_expedition_in_progress } owner = { DA_GB_corps_owner = yes } }
+	trigger = {
+		DA_HX_corps_send_allowed = yes
+	}
+	effect = {
+		play_sound = diggy_diggy_pickaxe_sfx
+		DA_HX_send_corps = yes
+	}
+}
+
+custom_icon = {
+	name = DA_HX_seal_gb
+	potential = { DA_HX_has_gb_seal = yes }
+	tooltip = DA_HX_seal_gb_tt
+	frame = { number = 2 trigger = { DA_HX_gb_seal_found = yes } }
+	frame = { number = 1 trigger = { always = yes } }
+}
+
+custom_text_box = {
+	name = DA_HX_gb_legacy
+	potential = { DA_HX_has_gb_seal = yes }
 }
 

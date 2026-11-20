@@ -1017,25 +1017,30 @@ DA_Mine_upgrade_reward_8 = {
 DA_ME_open_interface = {
 	set_country_flag = DA_Ascension_Paths_interface_on
 	clr_country_flag = DA_Ascension_Paths_interface_on_Genetic_Engineering
-	clr_country_flag = DA_Ascension_Paths_interface_on_Mana_Core
+	clr_country_flag = DA_Ascension_Paths_interface_on_Grand_Magic
 	clr_country_flag = DA_Ascension_Paths_interface_on_Mega_Engineering
 	if = {
-		limit = {
-			has_country_flag = DA_unlocked.genetic_engineering
-			NOT = { has_country_flag = DA_unlocked.mega_engineering }
-		} hidden_effect = { set_variable = { which = DA_else_DA_ME_open_interface_1 value = 1 } }
-		DA_GE_open_tab = yes # build_genetic_engineering.py
-	}
-	if = { limit = { NOT = { check_variable = { which = DA_else_DA_ME_open_interface_1 value = 1 } } NOT = { AND = { has_country_flag = DA_unlocked.genetic_engineering NOT = { has_country_flag = DA_unlocked.mega_engineering } } } }    # was else (else_lowering.py)
-		
+		limit = { has_country_flag = DA_unlocked.mega_engineering }
 		set_country_flag = DA_Ascension_Paths_interface_on_Mega_Engineering
 		DA_ME_recount = yes
 	}
-	hidden_effect = { set_variable = { which = DA_else_DA_ME_open_interface_1 value = 0 } }
+	if = {
+		limit = { NOT = { has_country_flag = DA_unlocked.mega_engineering } has_country_flag = DA_unlocked.grand_magic }
+		DA_GM_open_tab = yes # build_grand_magic.py
+	}
+	if = {
+		limit = { NOT = { has_country_flag = DA_unlocked.mega_engineering } NOT = { has_country_flag = DA_unlocked.grand_magic } has_country_flag = DA_unlocked.genetic_engineering }
+		DA_GE_open_tab = yes # build_genetic_engineering.py
+	}
+	if = {
+		limit = { NOT = { has_country_flag = DA_unlocked.mega_engineering } NOT = { has_country_flag = DA_unlocked.grand_magic } NOT = { has_country_flag = DA_unlocked.genetic_engineering } }
+		set_country_flag = DA_Ascension_Paths_interface_on_Mega_Engineering
+		DA_ME_recount = yes
+	}
 }
 DA_ME_close_interface = {
 	clr_country_flag = DA_Ascension_Paths_interface_on
 	clr_country_flag = DA_Ascension_Paths_interface_on_Genetic_Engineering
-	clr_country_flag = DA_Ascension_Paths_interface_on_Mana_Core
+	clr_country_flag = DA_Ascension_Paths_interface_on_Grand_Magic
 	clr_country_flag = DA_Ascension_Paths_interface_on_Mega_Engineering
 }

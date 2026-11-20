@@ -869,6 +869,9 @@ country_event = {
 	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
+	immediate = {
+		hidden_effect = { random_core_province = { limit = { base_manpower = 2 } save_event_target_as = DA_TT_test_subjects_province } }
+	}
 	option = {
 		name = "DA_Tech_Tree_event.106.a"
 		DA_SCH_next_chapter = { months = 12 } # DA_SCH chapter
@@ -879,10 +882,8 @@ country_event = {
 	}
 	option = {
 		name = "DA_Tech_Tree_event.106.b"
-		random_core_province = {
-			limit = {
-				base_manpower = 2
-			}
+		goto = DA_TT_test_subjects_province
+		event_target:DA_TT_test_subjects_province = {
 			add_devastation = 5
 			add_base_manpower = -1
 		}
@@ -1022,6 +1023,7 @@ country_event = {
 			name = DA_Medicine_4
 			duration = -1
 		}
+		add_country_modifier = { name = DA_ILL_inborn_resistance duration = -1 }   # DA_ILL (doc 84): Inborn Resistance
 	}
 }
 

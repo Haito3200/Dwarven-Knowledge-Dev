@@ -12,35 +12,14 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		hidden_effect = { if = { limit = { capital_scope = { OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } } capital_scope = { save_event_target_as = DA_MT_branch_province } } if = { limit = { NOT = { capital_scope = { OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } } } random_core_province = { limit = { OR = { has_building = DA_Runesmiths_branch_0 has_building = DA_Runesmiths_branch_1 has_building = DA_Runesmiths_branch_2 has_building = DA_Runesmiths_branch_3 } } save_event_target_as = DA_MT_branch_province } } }
+	}
 	option = {
 		name = "DA_General_MT_event.1.a"
-		if = {
-			limit = {
-				capital_scope = {
-					OR = {
-						has_building = DA_Runesmiths_branch_0
-						has_building = DA_Runesmiths_branch_1
-						has_building = DA_Runesmiths_branch_2
-						has_building = DA_Runesmiths_branch_3
-					}
-				}
-			}
-			capital_scope = {
-				add_prosperity = 50
-			}
-		}
-		else = {
-			random_core_province = {
-				limit = {
-					OR = {
-						has_building = DA_Runesmiths_branch_0
-						has_building = DA_Runesmiths_branch_1
-						has_building = DA_Runesmiths_branch_2
-						has_building = DA_Runesmiths_branch_3
-					}
-				}
-				add_prosperity = 50
-			}
+		goto = DA_MT_branch_province
+		event_target:DA_MT_branch_province = {
+			add_prosperity = 50
 		}
 		change_innovativeness = 2
 	}
@@ -69,23 +48,18 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		hidden_effect = { random_core_province = { limit = { OR = { has_building = DA_Hospital_1 has_building = DA_Hospital_2 has_building = DA_Hospital_3 } } save_event_target_as = DA_MT_hospital_province } }
 	}
 	option = {
 		name = "DA_General_MT_event.3.a"
+		goto = DA_MT_hospital_province
 		add_stability = -1
 		add_country_modifier = {
 			name = DA_Med_testing_on_people
 			duration = -1
 		}
 		increase_witch_king_points_medium = yes
-		random_core_province = {
-			limit = {
-				OR = {
-					has_building = DA_Hospital_1
-					has_building = DA_Hospital_2
-					has_building = DA_Hospital_3
-				}
-			}
+		event_target:DA_MT_hospital_province = {
 			add_unrest = 5
 			add_base_manpower = -1
 			DA_Tech_prov.Medicine = {
@@ -116,9 +90,11 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		hidden_effect = { if = { limit = { capital_scope = { OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } has_province_modifier = DA_central_mine } } capital_scope = { save_event_target_as = DA_MT_furnace_province } } if = { limit = { NOT = { capital_scope = { OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } has_province_modifier = DA_central_mine } } any_core_province = { OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } has_province_modifier = DA_central_mine } } random_core_province = { limit = { OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } has_province_modifier = DA_central_mine } save_event_target_as = DA_MT_furnace_province } } if = { limit = { NOT = { capital_scope = { OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } has_province_modifier = DA_central_mine } } NOT = { any_core_province = { OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } has_province_modifier = DA_central_mine } } } random_core_province = { limit = { OR = { has_building = DA_Smelting_Furnace_1 has_building = DA_Smelting_Furnace_2 has_building = DA_Smelting_Furnace_3 } } save_event_target_as = DA_MT_furnace_province } } }
 	}
 	option = {
 		name = "DA_General_MT_event.4.a"
+		goto = DA_MT_furnace_province
 		add_treasury = -500
 		add_manpower = -10
 		if = {
@@ -132,7 +108,7 @@ country_event = {
 					has_province_modifier = DA_central_mine
 				}
 			}
-			capital_scope = {
+			event_target:DA_MT_furnace_province = {
 				random_list = {
 					3 = { DA_add_Metal_Rare = yes } 
 					1 = { DA_add_Metal_Legendary = yes } 
@@ -150,15 +126,7 @@ country_event = {
 					has_province_modifier = DA_central_mine
 				}
 			}
-			random_core_province = {
-				limit = {
-					OR = {
-						has_building = DA_Smelting_Furnace_1
-						has_building = DA_Smelting_Furnace_2
-						has_building = DA_Smelting_Furnace_3
-					}
-					has_province_modifier = DA_central_mine
-				}
+			event_target:DA_MT_furnace_province = {
 				random_list = {
 					4 = { DA_add_Metal_Rare = yes } 
 					1 = { DA_add_Metal_Legendary = yes } 
@@ -166,14 +134,7 @@ country_event = {
 			}
 		}
 		else = {
-			random_core_province = {
-				limit = {
-					OR = {
-						has_building = DA_Smelting_Furnace_1
-						has_building = DA_Smelting_Furnace_2
-						has_building = DA_Smelting_Furnace_3
-					}
-				}
+			event_target:DA_MT_furnace_province = {
 				random_list = {
 					5 = { DA_add_Metal_Rare = yes } 
 					1 = { DA_add_Metal_Legendary = yes } 

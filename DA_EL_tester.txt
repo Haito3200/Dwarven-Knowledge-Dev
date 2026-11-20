@@ -1,0 +1,64 @@
+# The Remnant Archive (doc 69): run DA_EL_tester.txt in the console, as an elven or Ruinborn country.
+# Block A opens the Archive with its first levels. The other blocks are commented out: remove the # signs.
+
+# A. 5,000 gold, 100 Lore, 50 of each material, 150 mana, the Archive at level III with every codex, the window
+add_treasury = 5000
+change_variable = { which = DA_EL_lore value = 100 }
+change_variable = { which = DA_arcane_metal_total value = 50 }
+change_variable = { which = DA_enchanted_building_material_total value = 50 }
+change_variable = { which = DA_alchemy_reagents_total value = 50 }
+change_mana = { amount = 150 }
+set_variable = { which = DA_EL_level value = 3 }
+set_country_flag = DA_EL_built
+set_country_flag = DA_EL_estate
+DA_RH_grant_elven_level3 = yes
+set_country_flag = DA_EL_codex.abjuration
+set_country_flag = DA_EL_codex.conjuration
+set_country_flag = DA_EL_codex.divination
+set_country_flag = DA_EL_codex.enchantment
+set_country_flag = DA_EL_codex.fragment
+set_country_flag = DA_EL_codex.evocation
+set_country_flag = DA_EL_codex.illusion
+set_country_flag = DA_EL_codex.necromancy
+set_country_flag = DA_EL_codex.transmutation
+DA_EL_refresh = yes
+DA_EL_open_archive = yes
+
+# B. Every first tile done (every art recovered)
+#set_country_flag = DA_PR_done.EL_Abj1
+#set_country_flag = DA_PR_done.EL_Con1
+#set_country_flag = DA_PR_done.EL_Div1
+#set_country_flag = DA_PR_done.EL_Enc1
+#set_country_flag = DA_PR_done.EL_Fra1
+#set_country_flag = DA_PR_done.EL_Evo1
+#set_country_flag = DA_PR_done.EL_Ill1
+#set_country_flag = DA_PR_done.EL_Nec1
+#set_country_flag = DA_PR_done.EL_Tra1
+#DA_EL_refresh = yes
+
+# C. A ruin of ours unsealed to ring VI (the ring conditions of the tiles and levels)
+#set_variable = { which = DA_EL_ring_max value = 6 }
+#set_variable = { which = DA_EL_great4 value = 2 }
+
+# D. The marvels found in their provinces (own them first)
+#945 = { set_province_flag = DA_EL_mv_found }
+#1068 = { set_province_flag = DA_EL_mv_found }
+#2497 = { set_province_flag = DA_EL_mv_found }
+#2112 = { set_province_flag = DA_EL_mv_found }
+#2745 = { set_province_flag = DA_EL_mv_found }
+#2201 = { set_province_flag = DA_EL_mv_found }
+
+# E. The yearly pass now (shortfall, Lore from the tiles and the marvels)
+#DA_EL_yearly = yes
+
+# F (doc 72). The three legends seen and their way open (own Antir Soara 945, Nagar Vyechei 2520 and Serpentfall East 2201 first, and put regiments in them); then open the province view: the Legendary Encounter button
+#945 = { set_province_flag = DA_RX_lw2 set_province_flag = DA_RX_lw3 }
+#2520 = { set_province_flag = DA_RX_lw2 set_province_flag = DA_RX_lw3 }
+#2201 = { set_variable = { which = DA_RX_ring value = 4 } }
+
+# G (doc 72). Wyrmbane done (+15% against the dragon legends), and what the Warden's parley asks: the Fleet Charms codex and the art Fleet-Charm Crews in practice (practise it on Recovered Arts after block B)
+#set_country_flag = DA_PR_done.EL_Evo3 set_country_flag = DA_PR_done.EL_Evo2 DA_EL_refresh = yes
+#set_country_flag = DA_EL_codex.enchantment
+
+# H (doc 72). A survey abroad now, whatever its price (the regions list the ruins we may survey)
+#add_treasury = 500 change_mana = { amount = 20 } DA_RX_open_survey = yes

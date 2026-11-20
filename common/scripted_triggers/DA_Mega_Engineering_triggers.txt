@@ -9,14 +9,18 @@ DA_ME_path_unlocked = {
 	}
 }
 
-# Transcendence research: true while a playable path is still locked.
-# Mana Core is in development; add it here when it is playable.
+# Transcendence research: true while a playable path is still locked. DA_GM (doc 91): Grand Magic, the third
+# path, counts only for a realm with the Mages estate or its equivalent (it could not use it otherwise).
 DA_has_transcendent_path_to_unlock = {
 	custom_trigger_tooltip = {
 		tooltip = DA_has_transcendent_path_to_unlock_tt
 		OR = {
 			NOT = { has_country_flag = DA_unlocked.mega_engineering }
 			NOT = { has_country_flag = DA_unlocked.genetic_engineering }
+			AND = {
+				NOT = { has_country_flag = DA_unlocked.grand_magic }
+				has_magic_estate_or_equiv = yes
+			}
 		}
 	}
 }

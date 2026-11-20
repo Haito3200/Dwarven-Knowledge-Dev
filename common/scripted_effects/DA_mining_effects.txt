@@ -2,22 +2,26 @@
 DA_mining_found = {
  if = { limit = { DA_mining_can_found = yes }
   if = { limit = { DA_mining_site_tier_1 = yes } hidden_effect = { set_variable = { which = DA_else_DA_mining_found_1 value = 1 } }
-   owner = { add_adm_power = -15 add_dip_power = -15 add_mil_power = -15 add_treasury = -25 }
+   if = { limit = { owner = { has_country_flag = DA_PR_done.Magnetic_Survey } } owner = { add_adm_power = -11 add_dip_power = -11 add_mil_power = -11 add_treasury = -19 } }   # DA_PR (doc 93): Magnetic Survey, a quarter off
+   if = { limit = { owner = { NOT = { has_country_flag = DA_PR_done.Magnetic_Survey } } } owner = { add_adm_power = -15 add_dip_power = -15 add_mil_power = -15 add_treasury = -25 } }
    add_devastation = 15
   }
   if = { limit = { NOT = { check_variable = { which = DA_else_DA_mining_found_1 value = 1 } } NOT = { AND = { DA_mining_site_tier_1 = yes } } }    # was else_if (else_lowering.py)
   	if = { limit = { DA_mining_site_tier_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_mining_found_1 value = 1 } }
-   owner = { add_adm_power = -25 add_dip_power = -25 add_mil_power = -25 add_treasury = -50 }
+   if = { limit = { owner = { has_country_flag = DA_PR_done.Magnetic_Survey } } owner = { add_adm_power = -19 add_dip_power = -19 add_mil_power = -19 add_treasury = -38 } }   # DA_PR (doc 93): Magnetic Survey, a quarter off
+   if = { limit = { owner = { NOT = { has_country_flag = DA_PR_done.Magnetic_Survey } } } owner = { add_adm_power = -25 add_dip_power = -25 add_mil_power = -25 add_treasury = -50 } }
    add_devastation = 25
   }
   if = { limit = { NOT = { check_variable = { which = DA_else_DA_mining_found_1 value = 1 } } NOT = { AND = { DA_mining_site_tier_2 = yes } } }    # was else_if (else_lowering.py)
   	if = { limit = { DA_mining_site_tier_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_mining_found_1 value = 1 } }
-   owner = { add_adm_power = -35 add_dip_power = -35 add_mil_power = -35 add_treasury = -75 }
+   if = { limit = { owner = { has_country_flag = DA_PR_done.Magnetic_Survey } } owner = { add_adm_power = -26 add_dip_power = -26 add_mil_power = -26 add_treasury = -56 } }   # DA_PR (doc 93): Magnetic Survey, a quarter off
+   if = { limit = { owner = { NOT = { has_country_flag = DA_PR_done.Magnetic_Survey } } } owner = { add_adm_power = -35 add_dip_power = -35 add_mil_power = -35 add_treasury = -75 } }
    add_devastation = 35
   }
   if = { limit = { NOT = { check_variable = { which = DA_else_DA_mining_found_1 value = 1 } } NOT = { AND = { DA_mining_site_tier_3 = yes } } }    # was else_if (else_lowering.py)
   	if = { limit = { DA_mining_site_tier_4 = yes }
-   owner = { add_adm_power = -50 add_dip_power = -50 add_mil_power = -50 add_treasury = -100 }
+   if = { limit = { owner = { has_country_flag = DA_PR_done.Magnetic_Survey } } owner = { add_adm_power = -38 add_dip_power = -38 add_mil_power = -38 add_treasury = -75 } }   # DA_PR (doc 93): Magnetic Survey, a quarter off
+   if = { limit = { owner = { NOT = { has_country_flag = DA_PR_done.Magnetic_Survey } } } owner = { add_adm_power = -50 add_dip_power = -50 add_mil_power = -50 add_treasury = -100 } }
    add_devastation = 50
   } } } }
   hidden_effect = { set_variable = { which = DA_else_DA_mining_found_1 value = 0 } }
@@ -59,7 +63,8 @@ DA_mining_yearly_prospecting = {
  if = { limit = { has_country_flag = DA_mining_technology_3 }
   every_owned_province = {
    limit = { DA_mining_has_ordinary_mine = yes OR = { DA_mining_undiscovered_common = yes DA_mining_undiscovered_rare = yes DA_mining_undiscovered_legendary = yes } }
-   if = { limit = { owner = { has_country_flag = DA_mining_technology_4 } } hidden_effect = { set_variable = { which = DA_else_DA_mining_yearly_prospecting_1 value = 1 } } random = { chance = 4 DA_mining_prospect = yes } }
+   if = { limit = { owner = { has_country_flag = DA_PR_done.Magnetic_Survey } } hidden_effect = { set_variable = { which = DA_else_DA_mining_yearly_prospecting_1 value = 1 } } random = { chance = 6 DA_mining_prospect = yes } }   # DA_PR (doc 93): Magnetic Survey
+   if = { limit = { owner = { has_country_flag = DA_mining_technology_4 } NOT = { check_variable = { which = DA_else_DA_mining_yearly_prospecting_1 value = 1 } } } hidden_effect = { set_variable = { which = DA_else_DA_mining_yearly_prospecting_1 value = 1 } } random = { chance = 4 DA_mining_prospect = yes } }
    if = { limit = { NOT = { check_variable = { which = DA_else_DA_mining_yearly_prospecting_1 value = 1 } } NOT = { AND = { owner = { has_country_flag = DA_mining_technology_4 } } } }    # was else (else_lowering.py)
    	 random = { chance = 2 DA_mining_prospect = yes } }
    hidden_effect = { set_variable = { which = DA_else_DA_mining_yearly_prospecting_1 value = 0 } }

@@ -32,16 +32,25 @@ province_event = { # Treasure Chest: a family's strongbox (kin, deeps II-VI; rol
 province_event = { #found goblins
 	id = DA_ADK_explore.3
 	title = "DA_ADK_explore.3.t"
-	desc = "DA_ADK_explore.3.d"
+	desc = { trigger = { NOT = { owner = { DA_GB_corps_owner = yes } } } desc = "DA_ADK_explore.3.d" }	# DA_GB (build_goblin_corps.py)
+	desc = { trigger = { owner = { DA_GB_corps_owner = yes } } desc = DA_GB_explore.3.d }	# DA_GB the deep goblins join a goblin owner
 	picture = DA_Deep_Goblins_image_eventPicture
 
 	is_triggered_only = yes
 	
 	option = {
 		name = "DA_ADK_explore.3.a"
+		trigger = { NOT = { owner = { DA_GB_corps_owner = yes } } }	# DA_GB
 		DA_province_goblins_relative_to_dig_level = yes
 		custom_tooltip = DA_ADK_reexplore_tooltip
 	}
+	option = {	# DA_GB a goblin owner: the deep goblins join (build_goblin_corps.py)
+		name = DA_GB_explore.3.a	# DA_GB
+		trigger = { owner = { DA_GB_corps_owner = yes } }	# DA_GB
+		add_base_manpower = 1	# DA_GB
+		DA_pre_setting_Dig_level_as_explored = yes	# DA_GB
+		DA_Set_level_as_explored = yes	# DA_GB
+	}	# DA_GB
 	after = {
 		hidden_effect = {
 			owner = {
@@ -299,7 +308,8 @@ province_event = { #found orcs roaming the depths
 province_event = { # Lost expedition
 	id = DA_ADK_explore.10
 	title = "DA_ADK_explore.10.t"
-	desc = "DA_ADK_explore.10.d"
+	desc = { trigger = { NOT = { owner = { DA_GB_corps_owner = yes } } } desc = "DA_ADK_explore.10.d" }	# DA_GB (build_goblin_corps.py)
+	desc = { trigger = { owner = { DA_GB_corps_owner = yes } } desc = DA_GB_explore.10.d }	# DA_GB The Roof Came Down
 	picture = DARK_EXPEDITION_eventPicture
 
 	is_triggered_only = yes
@@ -308,6 +318,7 @@ province_event = { # Lost expedition
 		name = "DA_ADK_explore.10.a"
 		custom_tooltip = DA_ADK_reexplore_tooltip
 		DA_GX_company_lost = yes
+		if = { limit = { owner = { DA_GB_corps_owner = yes } } add_devastation = 10 }	# DA_GB the roof came down
 	}
 	after = {
 		hidden_effect = {

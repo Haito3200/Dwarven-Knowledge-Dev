@@ -2841,23 +2841,6 @@ country_event = {
 
 ##############################################
 
-country_event = {
-	id = DA_project_event.335 # to be deleted or redone entirely
-	title = DA_project_event.335.t
-	desc = DA_project_event.335.d
-	picture = INVENTION_eventPicture
-
-	is_triggered_only = yes
-
-	option = {
-		name = DA_project_event.335.a
-		remove_country_modifier = DA_Tech_Researching_Planar_Energy
-		hidden_effect = {
-			set_country_flag = DA_Project.completed.Planar_Energy
-		}
-		ai_chance = { factor = 1 }
-	}
-}
 
 ##############################################
 
@@ -3243,21 +3226,41 @@ country_event = {
 		hidden_effect = { DA_ME_unlock_path = yes }
 		ai_chance = { factor = 1 }
 	}
-	option = {
+	option = { # DA_GM (doc 91): Grand Magic, in the place of the Mana Core
 		name = DA_project_event.360.c
 		trigger = {
-			always = no # Mana Core is in development: remove this line when the path is playable.
-			NOT = { has_country_flag = DA_unlocked.mana_core }
+			NOT = { has_country_flag = DA_unlocked.grand_magic }
+			has_magic_estate_or_equiv = yes
 		}
-		custom_tooltip = DA_unlocked.mana_core.tt
-		set_country_flag = DA_unlocked.mana_core
-		ai_chance = { factor = 1 }
+		custom_tooltip = DA_unlocked.grand_magic.tt
+		hidden_effect = { DA_GM_unlock_path = yes } # build_grand_magic.py
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 3
+				calc_true_if = {
+					amount = 2
+					is_estate_abjuration_level_2_minimum = yes
+					is_estate_conjuration_level_2_minimum = yes
+					is_estate_divination_level_2_minimum = yes
+					is_estate_enchantment_level_2_minimum = yes
+					is_estate_evocation_level_2_minimum = yes
+					is_estate_illusion_level_2_minimum = yes
+					is_estate_necromancy_level_2_minimum = yes
+					is_estate_transmutation_level_2_minimum = yes
+				}
+			}
+		}
 	}
 	option = { # Fallback so the event always has an option.
 		name = DA_project_event.360.z
 		trigger = {
 			has_country_flag = DA_unlocked.mega_engineering
 			has_country_flag = DA_unlocked.genetic_engineering
+			OR = {
+				has_country_flag = DA_unlocked.grand_magic
+				NOT = { has_magic_estate_or_equiv = yes }
+			}
 		}
 		ai_chance = { factor = 1 }
 	}

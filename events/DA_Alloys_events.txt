@@ -802,14 +802,13 @@ country_event = {
 		}
 	}
 	option = {
-		name = "DA_Metallurgy_events.51.Damestear"
+		name = "DA_Metallurgy_events.51.Damestear"	# DA_DS (doc 94): needs Damestear Alloys; S 1 / M 3 / E 1
 		highlight = yes
 		trigger = {
 			DA_own_damestear_provinces = {
 				amount = 15
 			}
-			DA_completed.Alchemy_2 = yes
-			DA_completed.Magic_Theory_2 = yes
+			DA_PR_done.Damestear_2 = yes
 			DA_completed.Metallurgy_3 = yes
 			DA_making_rare_plus_alloy = yes
 			custom_trigger_tooltip = {
@@ -818,15 +817,54 @@ country_event = {
 					DA_Metal = 24
 				}
 			}
+			custom_trigger_tooltip = {
+				tooltip = DA_DS_not_with_black_tt
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 39
+				}
+			}
 		}
 		DA_metal_alloy_Selection = {
 			DA_Cost = 3
-			DA_MS_Stat = 0
-			DA_MC_Stat = 2
+			DA_MS_Stat = 1
+			DA_MC_Stat = 3
 			DA_EC_Stat = 1
 			DA_Metal = 24
 		}
 	}
+	# BEGIN DA_DS black damestear (build_damestear.py)
+	option = {
+		name = "DA_Metallurgy_events.51.Black_Damestear"	# DA_DS (doc 94): needs Black Damestear; S 4 / M -2 / E 2
+		highlight = yes
+		trigger = {
+			DA_own_damestear_provinces = {
+				amount = 15
+			}
+			DA_PR_done.Damestear_3 = yes
+			DA_completed.Metallurgy_3 = yes
+			DA_making_rare_plus_alloy = yes
+			custom_trigger_tooltip = {
+				tooltip = DA_already_selected_this_metal_for_alloy
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 39
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = DA_DS_not_with_damestear_tt
+				DA_not_already_selected_metal_for_alloy = {
+					DA_Metal = 24
+				}
+			}
+		}
+		DA_metal_alloy_Selection = {
+			DA_Cost = 2
+			DA_MS_Stat = 4
+			DA_MC_Stat = -2
+			DA_EC_Stat = 2
+			DA_Metal = 39
+		}
+	}
+	# END DA_DS black damestear
 	option = {
 		name = "DA_Metallurgy_events.51.IronWood"
 		highlight = yes

@@ -131,3 +131,16 @@ DA_research_race_slight = {
 		small_decrease_of_$race$_tolerance_effect = yes
 	}
 }
+
+# DA_PR (doc 93): a setback of a random research event (DA_Research_events.txt). With The Analytical Engine of
+# Projects & Research it costs half: the event gives both numbers (8 and 4...).
+DA_Research_setback = {
+	if = {
+		limit = { has_country_flag = DA_PR_done.Analytical_Engine }
+		DA_Research_lose = { amount = $half$ }
+	}
+	if = {
+		limit = { NOT = { has_country_flag = DA_PR_done.Analytical_Engine } }
+		DA_Research_lose = { amount = $amount$ }
+	}
+}

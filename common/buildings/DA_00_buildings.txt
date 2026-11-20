@@ -95,6 +95,7 @@ DA_local_market = { # local market, to be renamed
 			type = production
 			value = 1
 		}
+		on_trade_building_destroyed_effect = yes
 		# AKT
 		remove_province_modifier = DA_mechanics_upgrade.trade_1
 		remove_province_modifier = DA_mechanics_upgrade.trade_2
@@ -224,6 +225,7 @@ marketplace = {
 			type = production
 			value = 2
 		}
+		on_trade_building_destroyed_effect = yes
 		# AKT
 		remove_province_modifier = DA_mechanics_upgrade.trade_1
 		remove_province_modifier = DA_mechanics_upgrade.trade_2
@@ -354,6 +356,7 @@ trade_depot = {
 			type = production
 			value = 3
 		}
+		on_trade_building_destroyed_effect = yes
 		# AKT
 		remove_province_modifier = DA_mechanics_upgrade.trade_1
 		remove_province_modifier = DA_mechanics_upgrade.trade_2
@@ -492,6 +495,7 @@ stock_exchange = {
 			type = production
 			value = 4
 		}
+		on_trade_building_destroyed_effect = yes
 		# AKT
 		remove_province_modifier = DA_mechanics_upgrade.trade_1
 		remove_province_modifier = DA_mechanics_upgrade.trade_2
@@ -560,6 +564,7 @@ DA_arcane_appraiser = { # local market, to be renamed
 		}
 		#Anbennar
 		anbennar_building_effect = yes
+		DA_MEC_sync_appraiser = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		remove_development_from_building = {
@@ -615,6 +620,7 @@ DA_arcane_tech_exchange = { # local market, to be renamed
 		}
 		#Anbennar
 		anbennar_building_effect = yes
+		DA_MEC_sync_appraiser = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		remove_development_from_building = {
@@ -1035,6 +1041,7 @@ DA_artisan_building_1 = {
 		}
 		#Anbennar
 		anbennar_building_effect = yes
+		DA_MEC_sync_artisan = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		# AKT
@@ -1082,6 +1089,7 @@ DA_artisan_building_2 = {
 		}
 		#Anbennar
 		anbennar_building_effect = yes
+		DA_MEC_sync_artisan = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		# AKT
@@ -1129,6 +1137,7 @@ DA_artisan_building_3 = {
 		}
 		#Anbennar
 		anbennar_building_effect = yes
+		DA_MEC_sync_artisan = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		# AKT
@@ -1178,6 +1187,7 @@ DA_assembler_building_1 = {
 		}
 		#Anbennar
 		anbennar_building_effect = yes
+		DA_MEC_sync_assembler = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		# AKT
@@ -1225,6 +1235,7 @@ DA_assembler_building_2 = {
 		}
 		#Anbennar
 		anbennar_building_effect = yes
+		DA_MEC_sync_assembler = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		# AKT
@@ -1272,6 +1283,7 @@ DA_assembler_building_3 = {
 		}
 		#Anbennar
 		anbennar_building_effect = yes
+		DA_MEC_sync_assembler = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		# AKT
@@ -4520,6 +4532,7 @@ coastal_defence = {
 		}
 		#Dragon Turtle
 		FROM = { dragon_turtle_change_friendship = { dragon_turtle = monzaketzya amount = 3 } }
+		DA_MEC_sync_coastal = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		if = {
@@ -4606,6 +4619,7 @@ naval_battery = {
 		}
 		#Dragon Turtle
 		FROM = { dragon_turtle_change_friendship = { dragon_turtle = monzaketzya amount = 3 } }
+		DA_MEC_sync_coastal = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		if = {
@@ -5916,6 +5930,7 @@ fort_15th = {
 				duration = -1
 			}
 		}
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
@@ -5966,22 +5981,6 @@ fort_15th = {
 					}
 				}
 				remove_province_modifier = S98_jungle_fortress
-			}
-		}
-		#Charkuchin Kobold Supply Facility - needs a fort and production building, but I'll only care about you
-		#deleting the fort
-		if = {
-			limit = { has_province_modifier = charkuchin_kobold_supply_facility }
-			remove_province_modifier = charkuchin_kobold_supply_facility
-			owner = {
-				change_variable = {
-					which = insyaa_charkuchin_kobold_citadel_supplies_supply_facility_count
-					value = -1
-				}
-				change_variable = {
-					which = insyaa_charkuchin_kobold_citadel_supplies_total_gain
-					value = -10
-				}
 			}
 		}
 
@@ -6234,6 +6233,7 @@ fort_16th = {
 				duration = -1
 			}
 		}
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
@@ -6271,22 +6271,6 @@ fort_16th = {
 					}
 				}
 				remove_province_modifier = S98_jungle_fortress
-			}
-		}
-		#Charkuchin Kobold Supply Facility - needs a fort and production building, but I'll only care about you
-		#deleting the fort
-		if = {
-			limit = { has_province_modifier = charkuchin_kobold_supply_facility }
-			remove_province_modifier = charkuchin_kobold_supply_facility
-			owner = {
-				change_variable = {
-					which = insyaa_charkuchin_kobold_citadel_supplies_supply_facility_count
-					value = -1
-				}
-				change_variable = {
-					which = insyaa_charkuchin_kobold_citadel_supplies_total_gain
-					value = -10
-				}
 			}
 		}
 		
@@ -6538,6 +6522,7 @@ fort_17th = {
 				duration = -1
 			}
 		}
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
@@ -6588,22 +6573,6 @@ fort_17th = {
 					}
 				}
 				remove_province_modifier = S98_jungle_fortress
-			}
-		}
-		#Charkuchin Kobold Supply Facility - needs a fort and production building, but I'll only care about you
-		#deleting the fort
-		if = {
-			limit = { has_province_modifier = charkuchin_kobold_supply_facility }
-			remove_province_modifier = charkuchin_kobold_supply_facility
-			owner = {
-				change_variable = {
-					which = insyaa_charkuchin_kobold_citadel_supplies_supply_facility_count
-					value = -1
-				}
-				change_variable = {
-					which = insyaa_charkuchin_kobold_citadel_supplies_total_gain
-					value = -10
-				}
 			}
 		}
 
@@ -6833,6 +6802,7 @@ fort_18th = {
 				duration = -1
 			}
 		}
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 
 	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
@@ -6882,22 +6852,6 @@ fort_18th = {
 					}
 				}
 				remove_province_modifier = S98_jungle_fortress
-			}
-		}
-		#Charkuchin Kobold Supply Facility - needs a fort and production building, but I'll only care about you
-		#deleting the fort
-		if = {
-			limit = { has_province_modifier = charkuchin_kobold_supply_facility }
-			remove_province_modifier = charkuchin_kobold_supply_facility
-			owner = {
-				change_variable = {
-					which = insyaa_charkuchin_kobold_citadel_supplies_supply_facility_count
-					value = -1
-				}
-				change_variable = {
-					which = insyaa_charkuchin_kobold_citadel_supplies_total_gain
-					value = -10
-				}
 			}
 		}
 
@@ -6964,6 +6918,7 @@ DA_tax_office_manufactory = {
 		gronstunad_building_authority_effect = { value = 5 }
 
 		on_built_manufactory_effect = yes
+		DA_MEC_sync_counting = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
     }
 	
 	on_destroyed = {
@@ -7017,9 +6972,7 @@ mage_tower = {
 	}
 	on_built = {
 		# DK
-		province_event = {
-			id = DA_building_event.40
-		}
+		DA_MT_on_built = yes   # DA_MT (doc 82): the player chooses its kind, the AI takes its best school
 		#
 		if = {
 			limit = {
@@ -7402,18 +7355,8 @@ mage_tower = {
 	on_destroyed = {
 		on_destroyed_manufactory_effect = yes
 		# DK
-		remove_province_modifier = DA_Mage_Tower_Specialization.Abjuration
-		remove_province_modifier = DA_Mage_Tower_Specialization.Divination
-		remove_province_modifier = DA_Mage_Tower_Specialization.Illusion
-		remove_province_modifier = DA_Mage_Tower_Specialization.Conjuration
-		remove_province_modifier = DA_Mage_Tower_Specialization.Enchantment
-		remove_province_modifier = DA_Mage_Tower_Specialization.Evocation
-		remove_province_modifier = DA_Mage_Tower_Specialization.Transmutation
-		remove_province_modifier = DA_Mage_Tower_Specialization.Necromancy
-		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Fire
-		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Water
-		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Earth
-		remove_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Air
+		DA_MT_clear_kind = yes   # DA_MT (doc 82): every kind and tier
+		owner = { DA_MT_refresh = yes }
 		if = {
 			limit = { has_province_modifier = U10_containment_array }
 			remove_province_modifier = U10_containment_array
@@ -7910,6 +7853,7 @@ soldier_households = {
 				duration = -1
 			}
 		}
+		DA_MEC_sync_arsenals = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 
 	on_destroyed = {
@@ -8063,6 +8007,7 @@ impressment_offices = {
 		gronstunad_building_authority_effect = { value = 5 }
 
 		on_built_manufactory_effect = yes
+		DA_MEC_sync_wharves = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		on_destroyed_manufactory_effect = yes
@@ -8208,6 +8153,7 @@ state_house = {
 				}
 			}
 		}
+		DA_MEC_sync_counting = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 		on_destroyed_manufactory_effect = yes

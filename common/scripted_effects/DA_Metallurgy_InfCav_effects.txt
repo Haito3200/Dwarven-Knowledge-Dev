@@ -1179,6 +1179,22 @@ DA_apply_Runes = {			# make it so you avoid coming here if you end up with 0 MC
 			value = 0
 		}
 	}
+	# BEGIN DA_GB scribbled runes (build_goblin_arsenal.py)
+	# Runes Go BRRR: every rune a goblin carves costs 1 point less, at least 1; the class it is carved for gets the fixed
+	# effect GB_scribbled at the finish, which makes the class unstable (the War Machines, build_goblin_boomworks.py).
+	if = {
+		limit = { DA_GB_scribbler = yes }
+		custom_tooltip = DA_GB_scribbled_tt
+		set_country_flag = DA_Unique_mod.RUNE.Flag.$DA_unit$.GB_scribbled
+		hidden_effect = {
+			set_variable = { which = DA_GB_rune_cost value = $DA_Cost$ }
+			if = {
+				limit = { check_variable = { which = DA_GB_rune_cost value = 2 } }
+				change_variable = { which = DA_Cost_$DA_unit$ value = -1 }
+			}
+		}
+	}
+	# END DA_GB scribbled runes
 }
 
 DA_pre_apply_metallurgy_modifiers = {

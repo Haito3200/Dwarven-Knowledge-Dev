@@ -5,22 +5,22 @@
 ######################################################
 
 DA_Medicine_1 = { 
-	picture = "DA_fake_medicine_illness_spawn_chance_counter"
+	picture = "DA_SCH_med_modifier_image" # school icon (doc 107)
 	DA_fake_medicine_quarantine_efficiency = 0.05
 	DA_fake_medicine_illness_spawn_chance_counter = 5
 }
 DA_Medicine_2 = {
-	picture = "DA_fake_medicine_illness_spawn_chance_counter"
+	picture = "DA_SCH_med_modifier_image" # school icon (doc 107)
 	DA_fake_medicine_quarantine_efficiency = 0.10
 	DA_fake_medicine_illness_spawn_chance_counter = 10
 }
 DA_Medicine_3 = {
-	picture = "DA_fake_medicine_illness_spawn_chance_counter"
+	picture = "DA_SCH_med_modifier_image" # school icon (doc 107)
 	DA_fake_medicine_quarantine_efficiency = 0.15
 	DA_fake_medicine_illness_spawn_chance_counter = 15
 }
 DA_Medicine_4 = {
-	picture = "DA_fake_medicine_illness_spawn_chance_counter"
+	picture = "DA_SCH_med_modifier_image" # school icon (doc 107)
 	DA_fake_medicine_quarantine_efficiency = 0.20
 	DA_fake_medicine_illness_spawn_chance_counter = 20
 }
@@ -78,6 +78,7 @@ DA_Medicine.Health_Policy.HC_private_basic = {
 	manpower_recovery_speed = 0.05
 	global_manpower_modifier = 0.025
 	DA_fake_medicine_illness_spawn_chance_counter = 10
+	DA_fake_medicine_quarantine_efficiency = 0.05 # DA_ILL (doc 81)
 }
 DA_Medicine.Health_Policy.HC_statal_basic = {
 	state_maintenance_modifier = 0.05
@@ -85,6 +86,7 @@ DA_Medicine.Health_Policy.HC_statal_basic = {
 	manpower_recovery_speed = 0.05
 	global_manpower_modifier = 0.025
 	DA_fake_medicine_illness_spawn_chance_counter = 10
+	DA_fake_medicine_quarantine_efficiency = 0.05 # DA_ILL (doc 81)
 }
 # level 3 policies
 DA_Medicine.Health_Policy.HC_private = {
@@ -92,6 +94,7 @@ DA_Medicine.Health_Policy.HC_private = {
 	manpower_recovery_speed = 0.1
 	global_manpower_modifier = 0.05
 	DA_fake_medicine_illness_spawn_chance_counter = 15
+	DA_fake_medicine_quarantine_efficiency = 0.1 # DA_ILL (doc 81)
 }
 DA_Medicine.Health_Policy.HC_statal = {
 	state_maintenance_modifier = 0.1
@@ -99,6 +102,7 @@ DA_Medicine.Health_Policy.HC_statal = {
 	manpower_recovery_speed = 0.1
 	global_manpower_modifier = 0.05
 	DA_fake_medicine_illness_spawn_chance_counter = 15
+	DA_fake_medicine_quarantine_efficiency = 0.1 # DA_ILL (doc 81)
 }
 # level 4 policies
 DA_Medicine.Health_Policy.HC_private_all_purpose_magic_healing_device = {
@@ -106,6 +110,7 @@ DA_Medicine.Health_Policy.HC_private_all_purpose_magic_healing_device = {
 	manpower_recovery_speed = 0.20
 	global_manpower_modifier = 0.10
 	DA_fake_medicine_illness_spawn_chance_counter = 25
+	DA_fake_medicine_quarantine_efficiency = 0.15 # DA_ILL (doc 81)
 }
 DA_Medicine.Health_Policy.HC_statal_all_purpose_magic_healing_device = {
 	state_maintenance_modifier = 0.2
@@ -113,6 +118,7 @@ DA_Medicine.Health_Policy.HC_statal_all_purpose_magic_healing_device = {
 	manpower_recovery_speed = 0.20
 	global_manpower_modifier = 0.10
 	DA_fake_medicine_illness_spawn_chance_counter = 25
+	DA_fake_medicine_quarantine_efficiency = 0.15 # DA_ILL (doc 81)
 }
 
 
@@ -144,7 +150,7 @@ DA_Medicine.illness_research = {
 
 DA_Disease.Marsh_Fever = {
 	picture = "DA_Alchemy_illness_modifier_image"
-	local_manpower_modifier = -0.15
+	local_manpower_modifier = -0.25   # DA_ILL (doc 84): its mark
 	province_trade_power_modifier = -0.15
 	local_production_efficiency = -0.1
 	local_defensiveness = -0.1
@@ -154,7 +160,7 @@ DA_Disease.Red_Cough = {
 	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.15
 	province_trade_power_modifier = -0.15
-	local_production_efficiency = -0.1
+	local_production_efficiency = -0.2   # DA_ILL (doc 84): its mark
 	local_defensiveness = -0.1
 	local_monthly_devastation = 0.1
 }
@@ -186,6 +192,7 @@ DA_Disease.Duskwither_Plague = {
 	local_production_efficiency = -0.15
 	local_defensiveness = -0.15
 	local_monthly_devastation = 0.15
+	local_prosperity_growth = -0.1   # DA_ILL (doc 84): its mark
 }
 DA_Disease.Silent_Pox = {
 	picture = "DA_Alchemy_illness_modifier_image"
@@ -202,6 +209,7 @@ DA_Disease.Redblight = {
 	local_production_efficiency = -0.15
 	local_defensiveness = -0.15
 	local_monthly_devastation = 0.15
+	trade_goods_size_modifier = -0.2   # DA_ILL (doc 84): its mark
 }
 DA_Disease.Chulklung = {
 	picture = "DA_Alchemy_illness_modifier_image"
@@ -223,6 +231,8 @@ DA_Disease.Mana_Overload = {
 	local_production_efficiency = -0.25
 	local_defensiveness = -0.25
 	local_monthly_devastation = 0.25
+	local_unrest = 3   # DA_ILL (doc 84): its mark
+	mages_mana_regen = -0.2   # DA_ILL (doc 84): its mark
 }
 DA_Disease.Mana_Corruption = {
 	picture = "DA_Alchemy_illness_modifier_image"
@@ -231,6 +241,7 @@ DA_Disease.Mana_Corruption = {
 	local_production_efficiency = -0.25
 	local_defensiveness = -0.25
 	local_monthly_devastation = 0.25
+	mages_mana_regen = -0.25   # DA_ILL (doc 84): its mark
 }
 DA_Disease.Metallic_Corrosion = {
 	picture = "DA_Alchemy_illness_modifier_image"
@@ -239,10 +250,11 @@ DA_Disease.Metallic_Corrosion = {
 	local_production_efficiency = -0.25
 	local_defensiveness = -0.25
 	local_monthly_devastation = 0.25
+	DA_fake_warforged_infantry_force_limit = -0.25   # DA_ILL (doc 84): its mark
 }
 DA_Disease.Soulblight = {
 	picture = "DA_Alchemy_illness_modifier_image"
-	local_manpower_modifier = -0.3
+	local_manpower_modifier = -0.4   # DA_ILL (doc 84): its mark
 	province_trade_power_modifier = -0.3
 	local_production_efficiency = -0.25
 	local_defensiveness = -0.25
@@ -260,6 +272,8 @@ DA_Disease.Dreams_of_Reality = {
 	local_production_efficiency = -0.35
 	local_defensiveness = -0.35
 	local_monthly_devastation = 0.35
+	local_tax_modifier = -0.25   # DA_ILL (doc 84): its mark
+	innovativeness_gain = 0.05   # DA_ILL (doc 84): its mark
 }
 DA_Disease.Godscar = {
 	picture = "DA_Alchemy_illness_modifier_image"
@@ -268,14 +282,17 @@ DA_Disease.Godscar = {
 	local_production_efficiency = -0.35
 	local_defensiveness = -0.35
 	local_monthly_devastation = 0.35
+	local_unrest = 3   # DA_ILL (doc 84): its mark
+	global_missionary_strength = -0.02   # DA_ILL (doc 84): its mark
 }
 DA_Disease.White_Thorns = {
 	picture = "DA_Alchemy_illness_modifier_image"
 	local_manpower_modifier = -0.4
 	province_trade_power_modifier = -0.4
 	local_production_efficiency = -0.35
-	local_defensiveness = -0.35
+	local_defensiveness = 0.2   # DA_ILL (doc 84): its mark
 	local_monthly_devastation = 0.35
+	local_friendly_movement_speed = -0.2   # DA_ILL (doc 84): its mark
 }
 
 

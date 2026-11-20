@@ -124,7 +124,6 @@ DA_has_NO_Project_active = {
 				has_country_modifier = DA_Tech_Researching_Mechanization
 				has_country_modifier = DA_Tech_Researching_Plasma
 				has_country_modifier = DA_Tech_Researching_Curse_Magic
-				has_country_modifier = DA_Tech_Researching_Planar_Energy
 				has_country_modifier = DA_Tech_Researching_Holy_Magic
 				has_country_modifier = DA_Tech_Researching_Spirits
 				has_country_modifier = DA_Tech_Researching_Airships
@@ -163,12 +162,18 @@ DA_making_legendary_alloy = {
 DA_selected_punk_allows_normal_BPs = {
 	custom_trigger_tooltip = {
 		tooltip = DA_selected_punk_allows_normal_BPs_tt
-		NOT = { has_country_flag = DA_disable_normal_BPs.$DA_unit$ }
+		OR = {	# DA_GB a goblin design takes any blueprint we know, jury-rigged (build_goblin_arsenal.py)
+			NOT = { has_country_flag = DA_disable_normal_BPs.$DA_unit$ }
+			DA_GB_jury_rigger = yes	# DA_GB
+		}	# DA_GB
 	}
 }
 DA_selected_the_right_punk_for_BP = {
 	custom_trigger_tooltip = {
 		tooltip = DA_selected_the_right_punk_for_BP_tt
-		has_country_flag = DA_Unique_mod.PUNK.Flag.$DA_unit$.$DA_Punk$
+		OR = {	# DA_GB a goblin design takes any blueprint we know, jury-rigged (build_goblin_arsenal.py)
+			has_country_flag = DA_Unique_mod.PUNK.Flag.$DA_unit$.$DA_Punk$
+			DA_GB_jury_rigger = yes	# DA_GB
+		}	# DA_GB
 	}
 }

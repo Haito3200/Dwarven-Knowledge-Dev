@@ -220,7 +220,7 @@ country_event = {
 		
 		DA_apply_Punk = {
 			DA_unit = ARTIFICER
-			DA_Cost = 1
+			DA_Cost = 2	# DA_BAL (doc 94)
 			DA_Strength = 0
 			DA_Magic_Conductivity = 0
 			DA_Electrical_Conductivity = 0
@@ -264,6 +264,500 @@ country_event = {
 		#	DA_disable_normal_BPs = yes
 		}
 	}
+	# BEGIN DA_NP primary technologies (build_arsenal_paths.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Standard_Pattern } # DA_SCH
+		name = "DA_Metallurgy_events.49.Standard_Pattern"
+		trigger = {
+			custom_trigger_tooltip = { tooltip = DA_NP_need_Standard_Pattern_tt has_country_flag = DA_PR_done.Standardization }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 1
+			DA_Strength = 1
+			DA_Magic_Conductivity = -1
+			DA_Electrical_Conductivity = -1
+			DA_Unique = Standard_Pattern
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Gravitic_Frames } # DA_SCH
+		name = "DA_Metallurgy_events.49.Gravitic_Frames"
+		trigger = {
+			DA_completed.Gravity_Manipulation = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 1
+			DA_Magic_Conductivity = 0
+			DA_Electrical_Conductivity = 1
+			DA_Unique = Gravitic_Frames
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Autoloader_Batteries } # DA_SCH
+		name = "DA_Metallurgy_events.49.Autoloader_Batteries"
+		trigger = {
+			DA_completed.Mechanics_3 = yes
+			custom_trigger_tooltip = { tooltip = DA_NP_need_Autoloader_Batteries_tt has_country_flag = DA_PR_done.Standardization_2 }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 1
+			DA_Magic_Conductivity = 0
+			DA_Electrical_Conductivity = 1
+			DA_Unique = Autoloader_Batteries
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Law_Bound_Arms } # DA_SCH
+		name = "DA_Metallurgy_events.49.Law_Bound_Arms"
+		trigger = {
+			custom_trigger_tooltip = { tooltip = DA_NP_need_Law_Bound_Arms_tt calc_true_if = { amount = 2 DA_completed.Universal_Law_Life = yes DA_completed.Universal_Law_Death = yes DA_completed.Universal_Law_Time = yes DA_completed.Universal_Law_Space = yes } }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = -1
+			DA_Magic_Conductivity = 2
+			DA_Electrical_Conductivity = 1
+			DA_Unique = Law_Bound_Arms
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Master_Runecraft } # DA_SCH
+		name = "DA_Metallurgy_events.49.Master_Runecraft"
+		trigger = {
+			custom_trigger_tooltip = { tooltip = DA_NP_need_Master_Runecraft_tt has_country_flag = DA_PR_done.Master_Runes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 6
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Master_Runecraft
+		}
+		custom_tooltip = DA_NP_master_runecraft_slot_tt
+		hidden_effect = { change_variable = { which = DA_Runes_Slots_STAT_MAX_ARTIFICER value = 1 } }
+	}
+	# END DA_NP primary technologies
+	# BEGIN DA_SM battle magic (build_schools_of_magic.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Divination } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Divination"
+		trigger = {
+			DA_PR_done.Divination_2 = yes
+			NOT = { DA_PR_done.Divination_4 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Divination
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Divination_Legendary } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Divination_Legendary"
+		trigger = {
+			DA_PR_done.Divination_4 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Divination_Legendary
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Enchantment } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Enchantment"
+		trigger = {
+			DA_PR_done.Enchantment_2 = yes
+			NOT = { DA_PR_done.Enchantment_4 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Enchantment
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Enchantment_Legendary } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Enchantment_Legendary"
+		trigger = {
+			DA_PR_done.Enchantment_4 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Enchantment_Legendary
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Abjuration } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Abjuration"
+		trigger = {
+			DA_PR_done.Wardcraft_2 = yes
+			NOT = { DA_PR_done.Abjuration_4 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Abjuration
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Abjuration_Legendary } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Abjuration_Legendary"
+		trigger = {
+			DA_PR_done.Abjuration_4 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Abjuration_Legendary
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Transmutation } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Transmutation"
+		trigger = {
+			DA_PR_done.Transmutation_2 = yes
+			NOT = { DA_PR_done.Transmutation_4 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Transmutation
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Transmutation_Legendary } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Transmutation_Legendary"
+		trigger = {
+			DA_PR_done.Transmutation_4 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Transmutation_Legendary
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Evocation } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Evocation"
+		trigger = {
+			DA_PR_done.Evocation_2 = yes
+			NOT = { DA_PR_done.Evocation_4 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Evocation
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Evocation_Legendary } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Evocation_Legendary"
+		trigger = {
+			DA_PR_done.Evocation_4 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Evocation_Legendary
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Illusion } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Illusion"
+		trigger = {
+			DA_PR_done.Illusion_2 = yes
+			NOT = { DA_PR_done.Illusion_4 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Illusion
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Illusion_Legendary } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Illusion_Legendary"
+		trigger = {
+			DA_PR_done.Illusion_4 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Illusion_Legendary
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Necromancy } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Necromancy"
+		trigger = {
+			DA_PR_done.Necromancy_2 = yes
+			NOT = { DA_PR_done.Necromancy_4 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Necromancy
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Necromancy_Legendary } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Necromancy_Legendary"
+		trigger = {
+			DA_PR_done.Necromancy_4 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Necromancy_Legendary
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Conjuration } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Conjuration"
+		trigger = {
+			DA_PR_done.Conjuration_2 = yes
+			NOT = { DA_PR_done.Conjuration_4 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Conjuration
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Battle_Magic_Conjuration_Legendary } # DA_SCH
+		name = "DA_Metallurgy_events.49.Battle_Magic_Conjuration_Legendary"
+		trigger = {
+			DA_PR_done.Conjuration_4 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 3
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Battle_Magic_Conjuration_Legendary
+		}
+	}
+	# END DA_SM battle magic
+	# BEGIN DA_PL primary technology (build_planar_energy.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Planar_Energy } # DA_SCH
+		name = "DA_Metallurgy_events.49.Planar_Energy"
+		trigger = {
+			DA_PR_done.Planar_Energy = yes
+			NOT = { DA_PR_done.Planar_Energy_3 = yes }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = -1
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 2
+			DA_Unique = Planar_Energy
+			DA_disable_normal_BPs = yes
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Planar_Energy_Stable } # DA_SCH
+		name = "DA_Metallurgy_events.49.Planar_Energy_Stable"
+		trigger = {
+			DA_PR_done.Planar_Energy_3 = yes
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = -1
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 2
+			DA_Unique = Planar_Energy_Stable
+			DA_disable_normal_BPs = yes
+		}
+	}
+	# END DA_PL primary technology
+	# BEGIN DA_DS primary technology (build_damestear.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Damestear_Cores } # DA_SCH
+		name = "DA_Metallurgy_events.49.Damestear_Cores"
+		trigger = {
+			DA_PR_done.Damestear = yes
+			DA_own_damestear_provinces = { amount = 15 }
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 2
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Damestear_Cores
+		}
+	}
+	# END DA_DS primary technology
+	# BEGIN DA_GBL primary technology (build_grave_bound.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Grave_Bound_Legions } # DA_SCH
+		name = "DA_Metallurgy_events.49.Grave_Bound_Legions"
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = DA_GBL_unlocked_tt
+				has_country_flag = DA_Unlocked.Grave_Bound
+			}
+		}
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = -1
+			DA_Magic_Conductivity = 2
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Grave_Bound_Legions
+			DA_disable_normal_BPs = yes
+		}
+	}
+	# END DA_GBL primary technology
+	# BEGIN DA_LZ primary technology (build_lizardfolk_arsenal.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Golden_Scales } # DA_SCH
+		name = "DA_Metallurgy_events.49.Golden_Scales"
+		trigger = {
+			DA_LZ_heritage = yes
+			has_country_flag = DA_PR_done.LZ_Gol2
+		}
+		
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 0
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Golden_Scales
+		}
+	}
+	# END DA_LZ primary technology
+	# BEGIN DA_EL primary technology (build_elven_arsenal.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Dragonguard } # DA_SCH
+		name = "DA_Metallurgy_events.49.Dragonguard"
+		trigger = {
+			DA_EL_heritage = yes
+			has_country_flag = DA_PR_done.EL_Evo2
+		}
+		
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = -1
+			DA_Magic_Conductivity = 2
+			DA_Electrical_Conductivity = 0
+			DA_Unique = Dragonguard
+		}
+	}
+	# END DA_EL primary technology
+	# BEGIN DA_KB primary technology (build_kobold_forge.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Draconic_Grafts } # DA_SCH
+		name = "DA_Metallurgy_events.49.Draconic_Grafts"
+		trigger = {
+			DA_KB_designer.Blood = yes
+		}
+		
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 1
+			DA_Magic_Conductivity = 1
+			DA_Electrical_Conductivity = -1
+			DA_Unique = Draconic_Grafts
+		}
+	}
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Wyrmframe } # DA_SCH
+		name = "DA_Metallurgy_events.49.Wyrmframe"
+		trigger = {
+			DA_KB_designer.Brass = yes
+		}
+		
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 2
+			DA_Magic_Conductivity = -2
+			DA_Electrical_Conductivity = 1
+			DA_Unique = Wyrmframe
+		}
+	}
+	# END DA_KB primary technology
+	# BEGIN DA_GN primary technology (build_gnomish_workshop.py)
+	option = {
+		DA_SCH_pick = { unit = ARTIFICER part = punk token = Gommo_Calibration } # DA_SCH
+		name = "DA_Metallurgy_events.49.Gommo_Calibration"
+		trigger = {
+			DA_PR_done.GN_Calibration = yes
+		}
+		
+		DA_apply_Punk = {
+			DA_unit = ARTIFICER
+			DA_Cost = 2
+			DA_Strength = 1
+			DA_Magic_Conductivity = -1
+			DA_Electrical_Conductivity = 1
+			DA_Unique = Gommo_Calibration
+		}
+	}
+	# END DA_GN primary technology
 	# BEGIN DA_OBSIDIAN primary technology (build_obsidian_tech.py)
 	option = {
 		DA_SCH_pick = { unit = ARTIFICER part = punk token = Obsidian } # DA_SCH

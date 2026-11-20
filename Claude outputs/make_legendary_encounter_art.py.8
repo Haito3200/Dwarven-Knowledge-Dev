@@ -1,0 +1,235 @@
+#!/usr/bin/env python3
+"""Textures of the Legendary Encounter window, made from art that is already in the mod or in Anbennar.
+
+    python3 "Claude files/tools/make_legendary_encounter_art.py" . ../anbennar-eu4-dev-new-master
+
+Needs Pillow and numpy; safe to re-run. Writes gfx/interface/DA_Legendary_Encounter/:
+- DA_LE_panel_bg.dds            opaque background at the exact size of the panel, with its two dividing lines
+- DA_LE_banner.dds              one 424x100 frame per legend, cut from Anbennar's event pictures
+- DA_LE_bar_{red,blue,green}    21 frames of 200x12: empty to full in steps of 5%
+- DA_LE_spell_<school>.dds      4 frames of 34x34: ready, chosen, settling, nobody can cast it
+- DA_LE_order_button.dds, DA_LE_withdraw_button.dds (84x28), DA_LE_checkbox.dds (2 frames of 18x18), DA_LE_recount.dds (18x18)
+- DA_Legendary_Encounter_Province_Button.dds (36x36)
+"""
+import os
+import struct
+import sys
+
+import numpy as np
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import build_legendary_encounters as B  # noqa: E402
+import le_rules as R  # noqa: E402
+
+MOD, ANB = sys.argv[1], sys.argv[2]
+OUT = os.path.join(MOD, 'gfx/interface/DA_Legendary_Encounter')
+MAGIC = os.path.join(ANB, 'gfx/interface/custom_gui/magic')
+GOLD, GOLD_DARK = (176, 138, 60, 255), (92, 68, 26, 255)
+BANNER_W, BANNER_H = 424, 100
+BANNER_CROP = {'lich': (88, 14), 'dragon': (76, 10), 'hunter': (56, 18), 'guest': (44, 32)}       # top-left corner of the 424x100 cut in the 512x132 picture
+# Legends whose banner is cut from a picture of our own (given by the user on 12 November 2026): file in
+# "Claude files/art_sources" and the box (left, top, right, bottom) at 4.24 : 1.
+BANNER_SOURCE = {
+    'gatewarden': ('legend_gatewarden_1.png', (150, 25, 1194, 271)),
+    'maze_guest': ('legend_guest_of_the_maze_1.png', (222, 90, 1122, 302)),
+    'ombrindal': ('legend_ombrindal.png', (190, 215, 1090, 427)),
+    'dream': ('legend_dream_of_vengeance.png', (120, 70, 1224, 330)),
+    # DA_EL (19 November 2026): until their own banners come, wide cuts of the user's marvel paintings
+    'warden': ('elven_marvels/spire_gardens.png', (0, 120, 1086, 376)),
+    'mother': ('elven_marvels/gleaming_laboratory.png', (0, 400, 1086, 656)),
+}
+DIVIDERS = (238, 322)
+
+
+def load(path):
+    try:
+        return Image.open(path).convert('RGBA')
+    except NotImplementedError:      # DX10 header, plain BGRA behind it
+        raw = open(path, 'rb').read()
+        h, w = struct.unpack_from('<II', raw, 12)
+        a = np.frombuffer(raw, dtype=np.uint8, count=w * h * 4, offset=148).reshape(h, w, 4)
+        return Image.fromarray(a[:, :, [2, 1, 0, 3]].copy(), 'RGBA')
+
+
+def write_dds(img, name):
+    a = np.array(img.convert('RGBA'))
+    h, w = a.shape[:2]
+    hdr = struct.pack('<4s7I44s8I5I', b'DDS ', 124, 0x100f, h, w, w * 4, 0, 1, b'\0' * 44,
+                      32, 0x41, 0, 32, 0xff0000, 0xff00, 0xff, 0xff000000, 0x1000, 0, 0, 0, 0)
+    os.makedirs(OUT, exist_ok=True)
+    with open(os.path.join(OUT, name), 'wb') as f:
+        f.write(hdr + a[:, :, [2, 1, 0, 3]].tobytes())
+    print('wrote', name, f'{w}x{h}')
+
+
+def strip(frames):
+    w, h = frames[0].size
+    out = Image.new('RGBA', (w * len(frames), h), (0, 0, 0, 0))
+    for i, f in enumerate(frames):
+        out.paste(f, (i * w, 0))
+    return out
+
+
+def panel_background():
+    """Same recipe as make_province_panel_backgrounds.py, with a larger damask because this panel is wider."""
+    src = load(os.path.join(ANB, 'gfx/interface/custom_gui/province_UI/anb_province_ui_expanded_bg.dds'))
+    w, h, b, top, scale = B.PANEL_W, B.PANEL_H, 26, 64, 1.65
+    sw, sh = src.size
+    out = Image.new('RGBA', (w, h), (0, 0, 0, 255))
+    body = src.crop((b, top, sw - b, sh - b))
+    body = body.resize((round(body.width * scale), round(body.height * scale)), Image.LANCZOS)
+    cw, ch = w - 2 * b, h - 2 * b
+    assert body.width >= cw and body.height >= ch, body.size
+    x0, y0 = (body.width - cw) // 2, (body.height - ch) // 2
+    out.paste(body.crop((x0, y0, x0 + cw, y0 + ch)), (b, b))
+    bottom = src.crop((b, sh - b, sw - b, sh)).resize((cw, b), Image.LANCZOS)
+    out.paste(bottom, (b, h - b))
+    out.paste(bottom.transpose(Image.FLIP_TOP_BOTTOM), (b, 0))
+    for x_src, x_dst in ((0, 0), (sw - b, w - b)):
+        out.paste(src.crop((x_src, top, x_src + b, sh - b)).resize((b, ch), Image.LANCZOS), (x_dst, b))
+    bl, br = src.crop((0, sh - b, b, sh)), src.crop((sw - b, sh - b, sw, sh))
+    out.paste(bl, (0, h - b))
+    out.paste(br, (w - b, h - b))
+    out.paste(bl.transpose(Image.FLIP_TOP_BOTTOM), (0, 0))
+    out.paste(br.transpose(Image.FLIP_TOP_BOTTOM), (w - b, 0))
+    d = ImageDraw.Draw(out)
+    for y in DIVIDERS:
+        d.line((16, y, w - 17, y), fill=GOLD_DARK)
+        d.line((16, y + 1, w - 17, y + 1), fill=(20, 16, 12, 255))
+    out.putalpha(255)
+    return out
+
+
+def banner(legend):
+    if legend.id in BANNER_SOURCE:       # a picture of our own, cut at the shape of the banner
+        name, box = BANNER_SOURCE[legend.id]
+        src = Image.open(os.path.join(MOD, 'Claude files/art_sources', name)).convert('RGBA')
+        im = src.crop(box).resize((BANNER_W, BANNER_H), Image.LANCZOS)
+    else:
+        pic = load(os.path.join(ANB, 'gfx/event_pictures', legend.picture + '.dds'))
+        x, y = BANNER_CROP.get(legend.id, ((pic.width - BANNER_W) // 2, (pic.height - BANNER_H) // 2))
+        im = pic.crop((x, y, x + BANNER_W, y + BANNER_H)).convert('RGBA')
+    # a dark foot for the name and the round counter
+    shade = Image.new('RGBA', im.size, (0, 0, 0, 0))
+    px = shade.load()
+    for yy in range(BANNER_H - 44, BANNER_H):
+        a = int(215 * ((yy - (BANNER_H - 44)) / 43) ** 0.8)
+        for xx in range(BANNER_W):
+            px[xx, yy] = (10, 8, 6, a)
+    im = Image.alpha_composite(im, shade)
+    d = ImageDraw.Draw(im)
+    d.rectangle((0, 0, BANNER_W - 1, BANNER_H - 1), outline=GOLD_DARK)
+    d.rectangle((1, 1, BANNER_W - 2, BANNER_H - 2), outline=GOLD)
+    im.putalpha(255)
+    return im
+
+
+def bar(color):
+    w, h = 200, 12
+    light = tuple(min(255, int(c * 1.45) + 20) for c in color)
+    frames = []
+    for f in range(B.BAR_FRAMES):
+        im = Image.new('RGBA', (w, h), (18, 14, 11, 255))
+        d = ImageDraw.Draw(im)
+        fill = round((w - 4) * f / (B.BAR_FRAMES - 1))
+        for yy in range(2, h - 2):
+            t = (yy - 2) / (h - 5)
+            c = tuple(int(light[i] * (1 - t) + color[i] * t) for i in range(3)) + (255,)
+            if fill:
+                d.line((2, yy, 1 + fill, yy), fill=c)
+        d.rectangle((0, 0, w - 1, h - 1), outline=GOLD_DARK)
+        d.rectangle((1, 1, w - 2, h - 2), outline=(52, 40, 20, 255))
+        frames.append(im)
+    return strip(frames)
+
+
+def spell(school):
+    icon = load(os.path.join(MAGIC, f'magic_{school}_icon.dds'))
+    a = np.array(icon).astype(float)
+    grey = a[:, :, :3].mean(axis=2, keepdims=True)
+    # chosen: brighter, inside a gold ring
+    chosen = ImageEnhance.Brightness(icon).enhance(1.25)
+    ring = Image.new('RGBA', icon.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(ring)
+    d.ellipse((0, 0, 33, 33), outline=(255, 214, 96, 255), width=2)
+    glow = ring.filter(ImageFilter.GaussianBlur(1.2))
+    chosen = Image.alpha_composite(Image.alpha_composite(chosen, glow), ring)
+    # settling: washed out and cold
+    cold = a.copy()
+    cold[:, :, :3] = grey * 0.55 + a[:, :, :3] * 0.15
+    cold[:, :, 2] = np.minimum(255, cold[:, :, 2] * 1.5 + 25)
+    # nobody can cast it: dark grey
+    dead = a.copy()
+    dead[:, :, :3] = grey * 0.38
+    return strip([icon, chosen, Image.fromarray(cold.clip(0, 255).astype(np.uint8), 'RGBA'),
+                  Image.fromarray(dead.clip(0, 255).astype(np.uint8), 'RGBA')])
+
+
+def small_button(tint=None):
+    src = load(os.path.join(MOD, 'gfx/interface/DA_Dwarovar_Wonders/DA_Ancient_Research_facility1_button_empty.dds'))
+    w = 84
+    out = Image.new('RGBA', (w, src.height), (0, 0, 0, 0))
+    out.paste(src.crop((0, 0, w // 2, src.height)), (0, 0))
+    out.paste(src.crop((src.width - w // 2, 0, src.width, src.height)), (w // 2, 0))
+    out = out.resize((w, 28), Image.LANCZOS)
+    if tint:
+        a = np.array(out).astype(float)
+        grey = a[:, :, :3].mean(axis=2)
+        inner = (grey < 110) & (a[:, :, 3] > 200)        # the dark centre, not the gold rim
+        inner[:4, :] = inner[-4:, :] = False
+        inner[:, :10] = inner[:, -10:] = False
+        for i in range(3):
+            a[:, :, i] = np.where(inner, np.minimum(255, grey * tint[i]), a[:, :, i])
+        out = Image.fromarray(a.clip(0, 255).astype(np.uint8), 'RGBA')
+    return out
+
+
+def checkbox():
+    frames = []
+    for on in (False, True):
+        im = Image.new('RGBA', (18, 18), (18, 14, 11, 255))
+        d = ImageDraw.Draw(im)
+        d.rectangle((0, 0, 17, 17), outline=GOLD_DARK)
+        d.rectangle((1, 1, 16, 16), outline=GOLD)
+        if on:
+            d.line((4, 9, 7, 13), fill=(120, 230, 110, 255), width=2)
+            d.line((7, 13, 13, 4), fill=(120, 230, 110, 255), width=2)
+        frames.append(im)
+    return strip(frames)
+
+
+def recount():
+    im = Image.new('RGBA', (18 * 4, 18 * 4), (18, 14, 11, 255))
+    d = ImageDraw.Draw(im)
+    d.rectangle((0, 0, 71, 71), outline=GOLD_DARK, width=4)
+    d.rectangle((4, 4, 67, 67), outline=GOLD, width=4)
+    d.arc((18, 18, 54, 54), start=40, end=320, fill=(230, 214, 160, 255), width=6)
+    d.polygon([(50, 14), (60, 30), (42, 30)], fill=(230, 214, 160, 255))
+    return im.resize((18, 18), Image.LANCZOS)
+
+
+def province_button():
+    frame = load(os.path.join(MOD, 'gfx/interface/DA_interface_things/DA_Mega_Engineering_Province_Button.dds'))
+    art = load(os.path.join(ANB, 'gfx/interface/ideas_EU4/the_dragon_house.dds')).resize((30, 30), Image.LANCZOS)
+    out = frame.copy()
+    out.paste(art, (3, 3))
+    return out
+
+
+def main():
+    write_dds(panel_background(), 'DA_LE_panel_bg.dds')
+    write_dds(strip([banner(l) for l in R.LEGENDS]), 'DA_LE_banner.dds')
+    for name, color in (('red', (150, 28, 24)), ('blue', (40, 86, 170)), ('green', (46, 128, 52))):
+        write_dds(bar(color), f'DA_LE_bar_{name}.dds')
+    for s in R.SCHOOLS:
+        write_dds(spell(s), f'DA_LE_spell_{s}.dds')
+    write_dds(small_button(), 'DA_LE_order_button.dds')
+    write_dds(small_button((2.2, 0.7, 0.6)), 'DA_LE_withdraw_button.dds')
+    write_dds(checkbox(), 'DA_LE_checkbox.dds')
+    write_dds(recount(), 'DA_LE_recount.dds')
+    write_dds(province_button(), 'DA_Legendary_Encounter_Province_Button.dds')
+
+
+if __name__ == '__main__':
+    main()

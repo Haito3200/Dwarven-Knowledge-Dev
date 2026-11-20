@@ -77,6 +77,7 @@ country_event = { # a deep hold stops answering
 
 	option = { # seal it
 		name = "DA_Halanna_heart.20.a"
+		goto = DA_abyss_dark_hold
 		custom_tooltip = DA_Halanna_heart.20.a.tt
 		event_target:DA_abyss_dark_hold = {
 			add_province_modifier = {
@@ -87,6 +88,7 @@ country_event = { # a deep hold stops answering
 	}
 	option = { # fight for it
 		name = "DA_Halanna_heart.20.b"
+		goto = DA_abyss_dark_hold
 		event_target:DA_abyss_dark_hold = {
 			spawn_rebels = {
 				type = Primordial_goblins_rebels
@@ -94,7 +96,7 @@ country_event = { # a deep hold stops answering
 			}
 		}
 		add_army_tradition = 5
-		add_adk_effect = { add = 2 }
+		DA_gain_adk_effect = { add = 2 }
 	}
 }
 
@@ -113,10 +115,12 @@ country_event = { # tremors
 
 	option = { # shore up the halls
 		name = "DA_Halanna_heart.21.a"
+		goto = 4119
 		add_years_of_income = -0.25
 	}
 	option = { # let it fall
 		name = "DA_Halanna_heart.21.b"
+		goto = 4119
 		4119 = {
 			area = {
 				limit = { owned_by = ROOT }
@@ -141,12 +145,14 @@ country_event = { # refugees
 
 	option = { # take them in
 		name = "DA_Halanna_heart.22.a"
+		goto = 4119
 		add_years_of_income = -0.15
 		4119 = { add_base_manpower = 1 }
 		hidden_effect = { set_country_flag = DA_abyss_refugees_done }
 	}
 	option = { # the gates stay shut
 		name = "DA_Halanna_heart.22.b"
+		goto = 4119
 		add_prestige = -10
 		hidden_effect = { set_country_flag = DA_abyss_refugees_done }
 	}
@@ -189,7 +195,7 @@ country_event = { # second hint: the Ancestor of the Hall of Myths
 	option = {
 		name = "DA_Halanna_heart.24.a"
 		custom_tooltip = DA_abyss_hint_tt
-		add_adk_effect = { add = 3 }
+		DA_gain_adk_effect = { add = 3 }
 		hidden_effect = {
 			set_country_flag = DA_abyss_hint_ghost
 		}
@@ -232,6 +238,7 @@ country_event = { # the column, halfway down (decision DA_send_column_to_the_dee
 
 	option = { # press on
 		name = "DA_Halanna_heart.30.a"
+		goto = 4119
 		add_manpower = -5
 		custom_tooltip = DA_Halanna_heart.30.a.tt
 		hidden_effect = {
@@ -243,6 +250,7 @@ country_event = { # the column, halfway down (decision DA_send_column_to_the_dee
 	}
 	option = { # go carefully
 		name = "DA_Halanna_heart.30.b"
+		goto = 4119
 		custom_tooltip = DA_Halanna_heart.30.b.tt
 		hidden_effect = {
 			country_event = {
@@ -264,6 +272,7 @@ country_event = { # the column reaches the bottom
 
 	option = {
 		name = "DA_Halanna_heart.31.a"
+		goto = 4119
 		custom_tooltip = DA_Halanna_heart.31.a.tt
 		hidden_effect = { set_country_flag = DA_abyss_source_found }
 	}
@@ -300,10 +309,11 @@ country_event = { # disaster on_end
 
 	option = { # the invasion is beaten and the gate is found
 		name = "DA_Halanna_heart.40.a"
+		goto = 4119
 		trigger = { owns = 4119 }
 		add_prestige = 25
 		add_army_tradition = 10
-		add_adk_effect = { add = 5 }
+		DA_gain_adk_effect = { add = 5 }
 		custom_tooltip = DA_Halanna_heart.40.a.tt
 		hidden_effect = {
 			4119 = {
@@ -321,6 +331,7 @@ country_event = { # disaster on_end
 	}
 	option = { # Amldihr was lost: the chain can start again for whoever explores floor 11
 		name = "DA_Halanna_heart.40.b"
+		goto = 4119
 		trigger = { NOT = { owns = 4119 } }
 		add_prestige = -25
 		hidden_effect = {
@@ -353,6 +364,7 @@ country_event = { # the Research Facility has read the gate
 
 	option = {
 		name = "DA_Halanna_heart.50.a"
+		goto = 4119
 		custom_tooltip = DA_Halanna_heart.50.a.tt
 	}
 }
@@ -383,6 +395,7 @@ country_event = { # the gate opens, 30 days after the button
 
 	option = {
 		name = "DA_Halanna_heart.51.a"
+		goto = 4119
 		add_country_modifier = {
 			name = DA_Halanna_heart
 			duration = -1
@@ -414,7 +427,7 @@ country_event = { # what the Ancestor would not say
 
 	option = {
 		name = "DA_Halanna_heart.52.a"
-		add_adk_effect = { add = 5 }
+		DA_gain_adk_effect = { add = 5 }
 		custom_tooltip = DA_Halanna_care_tt
 		hidden_effect = {
 			change_variable = { which = DA_Halanna_care value = 1 }
@@ -446,13 +459,15 @@ country_event = { # Experiment I, the Feeding: white -> blue
 
 	option = { # give it all it will take
 		name = "DA_Halanna_heart.1.a"
+		goto = 4119
 		add_years_of_income = -0.25
 		custom_tooltip = DA_Halanna_care_2_tt
 		hidden_effect = { change_variable = { which = DA_Halanna_care value = 2 } }
 	}
 	option = { # measure every core
 		name = "DA_Halanna_heart.1.b"
-		add_adk_effect = { add = 5 }
+		goto = 4119
+		DA_gain_adk_effect = { add = 5 }
 		custom_tooltip = DA_Halanna_care_tt
 		hidden_effect = {
 			change_variable = { which = DA_Halanna_care value = 1 }
@@ -479,12 +494,14 @@ country_event = { # Experiment II, the Resonance: blue -> orange
 
 	option = { # let the runesmiths answer
 		name = "DA_Halanna_heart.2.a"
+		goto = 4119
 		custom_tooltip = DA_Halanna_care_2_tt
 		hidden_effect = { change_variable = { which = DA_Halanna_care value = 2 } }
 	}
 	option = { # write it down and touch nothing
 		name = "DA_Halanna_heart.2.b"
-		add_adk_effect = { add = 8 }
+		goto = 4119
+		DA_gain_adk_effect = { add = 8 }
 		custom_tooltip = DA_Halanna_care_tt
 		hidden_effect = {
 			change_variable = { which = DA_Halanna_care value = 1 }
@@ -515,6 +532,7 @@ country_event = { # Experiment III, the Awakening: Halanna steps out, in the lik
 
 	option = {
 		name = "DA_Halanna_heart.3.a"
+		goto = 4119
 		remove_country_modifier = DA_Halanna_heart
 		add_country_modifier = {
 			name = DA_Halanna_heart_empty
@@ -556,6 +574,7 @@ country_event = { # the Offering button: tend to her (one year between two tendi
 
 	option = { # essence
 		name = "DA_Halanna_heart.60.a"
+		goto = 4119
 		trigger = {
 			DA_alchemy_reagents_total_required = { amount = 15 }
 		}
@@ -565,6 +584,7 @@ country_event = { # the Offering button: tend to her (one year between two tendi
 	}
 	option = { # stone and metal
 		name = "DA_Halanna_heart.60.b"
+		goto = 4119
 		trigger = {
 			DA_arcane_metal_total_required = { amount = 15 }
 			DA_enchanted_building_material_total_required = { amount = 15 }
@@ -576,6 +596,7 @@ country_event = { # the Offering button: tend to her (one year between two tendi
 	}
 	option = { # the memory of the holds
 		name = "DA_Halanna_heart.60.c"
+		goto = 4119
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = DA_has_10_ADK
@@ -592,6 +613,7 @@ country_event = { # the Offering button: tend to her (one year between two tendi
 	}
 	option = { # gold for the sanctuary
 		name = "DA_Halanna_heart.60.g"
+		goto = 4119
 		trigger = { treasury = 1500 }
 		add_treasury = -1500
 		DA_Halanna_add_favor = { amount = 10 }
@@ -599,6 +621,7 @@ country_event = { # the Offering button: tend to her (one year between two tendi
 	}
 	option = { # not now
 		name = "DA_Halanna_heart.60.z"
+		goto = 4119
 	}
 }
 
@@ -612,11 +635,13 @@ country_event = { # request: earth from Earthseed (4269)
 
 	option = { # Earthseed is ours
 		name = "DA_Halanna_heart.61.a"
+		goto = 4269
 		trigger = { owns = 4269 }
 		DA_Halanna_add_favor = { amount = 30 }
 	}
 	option = { # send a caravan
 		name = "DA_Halanna_heart.61.b"
+		goto = 4269
 		trigger = {
 			NOT = { owns = 4269 }
 			treasury = 1000
@@ -626,6 +651,7 @@ country_event = { # request: earth from Earthseed (4269)
 	}
 	option = { # stone is stone
 		name = "DA_Halanna_heart.61.c"
+		goto = 4269
 		custom_tooltip = DA_Halanna_request_refused_tt
 	}
 	after = { DA_Halanna_next_request = yes }
@@ -641,12 +667,14 @@ country_event = { # request: quiet the deep
 
 	option = { # a garrison on the eleventh floor
 		name = "DA_Halanna_heart.62.a"
+		goto = 4119
 		trigger = { manpower = 10 }
 		add_manpower = -10
 		DA_Halanna_add_favor = { amount = 25 }
 	}
 	option = { # wards of arcane metal
 		name = "DA_Halanna_heart.62.b"
+		goto = 4119
 		trigger = {
 			DA_arcane_metal_total_required = { amount = 10 }
 		}
@@ -655,6 +683,7 @@ country_event = { # request: quiet the deep
 	}
 	option = {
 		name = "DA_Halanna_heart.62.c"
+		goto = 4119
 		custom_tooltip = DA_Halanna_request_refused_tt
 	}
 	after = { DA_Halanna_next_request = yes }
@@ -670,6 +699,7 @@ country_event = { # request: a body of stone
 
 	option = { # the runesmiths
 		name = "DA_Halanna_heart.63.a"
+		goto = 4119
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = DA_has_10_ADK
@@ -685,6 +715,7 @@ country_event = { # request: a body of stone
 	}
 	option = { # the alchemists
 		name = "DA_Halanna_heart.63.b"
+		goto = 4119
 		trigger = {
 			DA_alchemy_reagents_total_required = { amount = 15 }
 		}
@@ -693,6 +724,7 @@ country_event = { # request: a body of stone
 	}
 	option = {
 		name = "DA_Halanna_heart.63.c"
+		goto = 4119
 		custom_tooltip = DA_Halanna_request_refused_tt
 	}
 	after = { DA_Halanna_next_request = yes }
@@ -708,6 +740,7 @@ country_event = { # request: the voices of her children
 
 	option = { # open the sanctuary to pilgrims
 		name = "DA_Halanna_heart.64.a"
+		goto = 4119
 		add_prestige = 10
 		4119 = {
 			add_province_modifier = {
@@ -719,6 +752,7 @@ country_event = { # request: the voices of her children
 	}
 	option = { # the elders only
 		name = "DA_Halanna_heart.64.b"
+		goto = 4119
 		DA_Halanna_add_favor = { amount = 15 }
 	}
 	after = { DA_Halanna_next_request = yes }
@@ -734,6 +768,7 @@ country_event = { # request: the hunger of the Heart
 
 	option = { # Amldihr's damestear, for ten years
 		name = "DA_Halanna_heart.65.a"
+		goto = 4119
 		trigger = { owns = 4119 }
 		4119 = {
 			add_province_modifier = {
@@ -745,12 +780,14 @@ country_event = { # request: the hunger of the Heart
 	}
 	option = { # buy damestear abroad
 		name = "DA_Halanna_heart.65.b"
+		goto = 4119
 		trigger = { treasury = 2500 }
 		add_treasury = -2500
 		DA_Halanna_add_favor = { amount = 20 }
 	}
 	option = {
 		name = "DA_Halanna_heart.65.c"
+		goto = 4119
 		custom_tooltip = DA_Halanna_request_refused_tt
 	}
 	after = { DA_Halanna_next_request = yes }
@@ -766,12 +803,14 @@ country_event = { # request: what became of the world
 
 	option = { # tell her everything
 		name = "DA_Halanna_heart.66.a"
+		goto = 4119
 		trigger = { dip_power = 50 }
 		add_dip_power = -50
 		DA_Halanna_add_favor = { amount = 25 }
 	}
 	option = { # tell her that her children endure
 		name = "DA_Halanna_heart.66.b"
+		goto = 4119
 		DA_Halanna_add_favor = { amount = 10 }
 	}
 	after = { DA_Halanna_next_request = yes }
@@ -840,6 +879,7 @@ country_event = { # recovery 100: she stands
 
 	option = {
 		name = "DA_Halanna_heart.70.a"
+		goto = 4119
 		custom_tooltip = DA_Halanna_heart.70.a.tt
 	}
 }
@@ -854,6 +894,7 @@ country_event = { # recovery 150: she walks the holds
 
 	option = {
 		name = "DA_Halanna_heart.71.a"
+		goto = 4119
 		custom_tooltip = DA_Halanna_heart.71.a.tt
 	}
 }
@@ -868,6 +909,7 @@ country_event = { # recovery 200: the stone answers her
 
 	option = {
 		name = "DA_Halanna_heart.72.a"
+		goto = 4119
 		custom_tooltip = DA_Halanna_heart.72.a.tt
 	}
 }
@@ -887,6 +929,7 @@ country_event = { # recovery 250: whole again
 
 	option = {
 		name = "DA_Halanna_heart.73.a"
+		goto = 4119
 		add_prestige = 25
 		custom_tooltip = DA_Halanna_heart.73.a.tt
 	}
@@ -959,16 +1002,27 @@ country_event = { # the Offer the Throne button
 		add_ruler_personality = DA_Halanna_mother_personality
 		add_ruler_personality = DA_Halanna_shaper_personality
 		hidden_effect = { make_ruler_immortal = yes }
-		define_powerful_mage = {
-			type = ruler
-			transmutation = 3
-			abjuration = 3
-			conjuration = 2
-			divination = 2
-			enchantment = 2
-			evocation = 2
-			illusion = 2
-			necromancy = 2
+		# DA_VV not for the tooltip (apply_visible_variables_2026-11-18.py): the schools in Anbennar's own words, the effect hidden
+		custom_tooltip = abjuration_3
+		custom_tooltip = conjuration_2
+		custom_tooltip = divination_2
+		custom_tooltip = enchantment_2
+		custom_tooltip = evocation_2
+		custom_tooltip = illusion_2
+		custom_tooltip = necromancy_2
+		custom_tooltip = transmutation_3
+		hidden_effect = {
+			define_powerful_mage = {
+				type = ruler
+				transmutation = 3
+				abjuration = 3
+				conjuration = 2
+				divination = 2
+				enchantment = 2
+				evocation = 2
+				illusion = 2
+				necromancy = 2
+			}
 		}
 		add_legitimacy = 100
 		add_stability = 1

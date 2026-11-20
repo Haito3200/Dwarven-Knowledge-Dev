@@ -1,0 +1,751 @@
+#!/usr/bin/env python3
+"""Elves and Ruinborn (doc 68; built 19 November 2026, doc 69): the one table read by build_elven_archive.py,
+build_ruin_excavation.py, build_projects_research.py (the Elven page: PAGE, NODES, MOD_NAMES), racial_heritage_data.py
+(LIVING_ROWS, the hall) and the checks.
+
+Change a number or a text here and re-run the builders. Nothing here writes to the mod.
+
+One heritage for two races (doc 68, section 4): the Elven page, the Remnant Archive, the arts and the ruins belong to
+the Precursor heritage, which is active while the elven or the Ruinborn heritage is (DA_EL_heritage). The page and
+its living bonuses are kept under the race "elven" (racial_heritage_data.HERITAGE_OF maps "ruinborn" to it).
+"""
+
+RACE = 'elven'                       # the race the heritage is kept under (living bonuses, the AI action)
+RACES = ['elven', 'ruinborn']
+PAGE_ID = 'race_elven'
+PAGE_NAME = 'Elven'
+HERITAGE = 'DA_EL_heritage = yes'    # elven or Ruinborn, primary or kept
+RUINBORN = 'DA_RH_primary_ruinborn = yes'
+STEAM = 'DA_completed.Steam_Power_Project = yes'
+ELECTRIC = 'DA_completed.Electric_Power_Project = yes'
+MT2 = 'DA_completed.Magic_Theory_2 = yes'          # Arcane Arts II
+MT4 = 'DA_completed.Magic_Theory_4 = yes'
+MET1 = 'DA_completed.Metallurgy_1 = yes'
+ROMAN = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII']
+EVENT_NS = 'DA_EL_event'
+
+# The materials of the mod (doc 44, section 5.1)
+MATERIALS = {
+    'metal': ('DA_arcane_metal_total', 'Arcane Metal'),
+    'building': ('DA_enchanted_building_material_total', 'Enchanted Building Materials'),
+    'essence': ('DA_alchemy_reagents_total', 'Alchemical Essence'),
+}
+LORE = 'DA_EL_lore'                  # Precursor Lore, a country variable
+LORE_NAME = 'Precursor Lore'
+LORE_C = '§T'                        # teal
+
+# ---------------------------------------------------------------------------
+# The nine schools, in the order of the school wheel (the 3 x 3 grid of the Archive, cells 1-9):
+#   Abjuration   Conjuration   Divination
+#   Enchantment  God Fragment  Evocation
+#   Illusion     Necromancy    Transmutation
+# key: the three letters of the tile ids; exp: Anbennar's school experience modifier
+# ---------------------------------------------------------------------------
+SCHOOLS = [
+    dict(id='abjuration', n=1, key='Abj', name='Abjuration', exp='abjuration_experience_mod', codex='Fleet Wards',
+         start='fleet'),
+    dict(id='conjuration', n=2, key='Con', name='Conjuration', exp='conjuration_experience_mod', codex='Binding',
+         start='totem'),
+    dict(id='divination', n=3, key='Div', name='Divination', exp='divination_experience_mod',
+         codex='Star-Charts of the Fleet', start='fleet'),
+    dict(id='enchantment', n=4, key='Enc', name='Enchantment', exp='enchantment_experience_mod', codex='Fleet Charms',
+         start='fleet'),
+    dict(id='fragment', n=5, key='Fra', name='The God Fragment', exp=None, codex='The Diamond Symbol', start=None),
+    dict(id='evocation', n=6, key='Evo', name='Evocation', exp='evocation_experience_mod', codex='The Dragonguard',
+         start=None),
+    dict(id='illusion', n=7, key='Ill', name='Illusion', exp='illusion_experience_mod', codex='Glamours', start=None),
+    dict(id='necromancy', n=8, key='Nec', name='Necromancy', exp='necromancy_experience_mod', codex='Stasis',
+         start='totem'),
+    dict(id='transmutation', n=9, key='Tra', name='Transmutation', exp='transmutation_experience_mod',
+         codex='Living Stone', start='totem'),
+]
+SCHOOL = {s['id']: s for s in SCHOOLS}
+FLEET = [s['id'] for s in SCHOOLS if s['start'] == 'fleet']      # Read the Fleet Logs, in this order
+TOTEMS = ['conjuration', 'necromancy', 'transmutation']          # Raise a Dotim Pole, in this order
+TOTEM_NAME = {'conjuration': 'the Binding totem', 'necromancy': 'the Stasis totem', 'transmutation': 'the Living Stone totem'}
+# The heritage codex of each elven culture (doc 68, section 5.1); moon, star and eclipse elves choose among CHOICE.
+HERITAGE_CODEX = {'sun_elf': 'evocation', 'sunrise_elf': 'evocation', 'sunset_elf': 'evocation',
+                  'desert_elf': 'evocation', 'wood_elf': 'illusion', 'dawn_elf': 'transmutation',
+                  'horizon_elf': 'transmutation', 'sea_elf': 'transmutation'}
+CHOOSERS = ['moon_elf', 'star_elf', 'eclipse_elf']
+CHOICE = ['conjuration', 'evocation', 'illusion', 'necromancy', 'transmutation']
+AI_CHOICE = 'illusion'
+# Where else a codex can be read (the codex panel; build_ruin_excavation.py gives it on ring III of these sites)
+CODEX_WHERE = {
+    'abjuration': 'Ciallaire, Boek\'taraw',
+    'conjuration': 'Temple Complexes, the Portal Nexus, Nanru Nakar, Nani Kinn',
+    'divination': 'Lokemeion; a Starmap Ceiling',
+    'enchantment': 'Antir Tifur',
+    'fragment': 'the God Fragment\'s ruins; a Shard',
+    'evocation': 'the Hidden Dragon\'s realm, Dalairevar; the Murals',
+    'illusion': 'the Elfenbride\'s Manse, Marmorac; a Fey Crossing',
+    'necromancy': 'the Vault, Cheshosh\'tchuka, Nagar Vyechei',
+    'transmutation': 'Antir Soara, Serpentfall East, the Glowing City, the crash site',
+}
+
+# ---------------------------------------------------------------------------
+# The Elven page (doc 68, section 5.2): 9 families, 35 tiles. Tile I of each family needs its codex and recovers the
+# school's art; tiles I and III add +10% and +15% experience in the school.
+#   (title, era, months, project, extra requirements, modifier, also: what the tooltip adds)
+# ---------------------------------------------------------------------------
+
+
+def done(nid):
+    return 'DA_PR_done.%s = yes' % nid
+
+
+def ring(n):
+    return 'DA_EL_ring.%d = yes' % n
+
+
+TILES = {
+    'abjuration': [
+        ('Fleet Wards', 'arcane', 48, True, [], {'defensiveness': 0.10, 'ship_durability': 0.10}, []),
+        ('Wardstones', 'arcane', 72, False, [MT2], {}, ['Opens the work §YRaise a Wardstone§! (up to §Y3§!)']),
+        ('Living Wards', 'steam', 72, False, [STEAM], {'fort_maintenance_modifier': -0.15},
+         ['Up to §Y6§! wardstones']),
+        ('The Aegis of Aelantir', 'electric', 96, False, [ELECTRIC, ring(6)], {'garrison_size': 0.10, 'defensiveness': 0.05},
+         []),
+    ],
+    'conjuration': [
+        ('Portal Theory', 'arcane', 72, True, [], {'envoy_travel_time': -0.25}, []),
+        ('Sending-Stones', 'arcane', 48, False, [], {'trade_steering': 0.10, 'envoy_travel_time': -0.10}, []),
+        ('Waygates', 'steam', 96, False, [STEAM, 'DA_EL_great4.2 = yes'], {},
+         ['Opens the work §YOpen a Waygate§! in a great ruin unsealed to ring §YIV§! (up to §Y4§!)']),
+        ('The Light-Matrix', 'electric', 120, False, [ELECTRIC, 'DA_EL_matrix_ok = yes'],
+         {'movement_speed': 0.10, 'merchants': 1}, []),
+    ],
+    'divination': [
+        ('Star-Charts of the Fleet', 'arcane', 48, True, [], {'range': 0.20, 'global_spy_defence': 0.10}, []),
+        ('The Almanac of Munas', 'arcane', 72, False, [], {'embracement_cost': -0.20, 'global_institution_spread': 0.10},
+         []),
+        ('Remembered Futures', 'steam', 72, False, [STEAM, ring(4)], {'technology_cost': -0.05},
+         ['Cancels the elves\' own §R+5%§! technology cost']),
+        ('The Pillar of the Heavens', 'electric', 120, False, [ELECTRIC, 'DA_EL_pillar_ok = yes'], {'prestige': 1},
+         ['Opens the work §YProphecy§! of the Divination school']),
+    ],
+    'enchantment': [
+        ('Fleet Charms', 'arcane', 48, True, [], {'diplomatic_upkeep': 1, 'ae_impact': -0.10}, []),
+        ('Aetheric Resonators', 'steam', 72, False, [STEAM],
+         {'diplomatic_annexation_cost': -0.15, 'reduced_liberty_desire': 10}, []),
+        ('Circle of Remembrance', 'steam', 96, False, [STEAM, ring(5)],
+         {'global_unrest': -1, 'legitimacy': 0.5, 'devotion': 0.5, 'horde_unity': 0.5, 'republican_tradition': 0.25,
+          'meritocracy': 0.25}, []),
+        ('Herald of Aelantir', 'electric', 96, False, [ELECTRIC], {'diplomatic_reputation': 1},
+         ['Opens the diplomatic action §YConcord of the Remnant§!']),
+    ],
+    'evocation': [
+        ('Venaan\'s Discipline', 'arcane', 72, True, [], {'fire_damage': 0.05},
+         ['Opens the work §YDragonguard Captain§!']),
+        ('Spellblades', 'arcane', 72, False, [MET1], {},   # DA_EL (doc 72): the designer path replaces the +5% shock damage
+         ['Opens the Primary Technology §YDragonguard Spellforms§! in §YUnit Design§!, with eight elven blueprints and six sigils']),
+        ('Wyrmbane', 'steam', 96, False, [STEAM], {},
+         ['At war with a kobold or Dragon Cult country: §G+10%§! Morale of Armies, §G+5%§! Discipline',
+          'In a §YLegendary Encounter§! with Nimrith\'s Offspring, the Hunter of the Deeps or the Challúmaton Dragon: '
+          'our army §G+15%§! stronger']),   # DA_EL (doc 72): le_rules.ARMY_BONUS
+        ('Broken Chains', 'electric', 96, False, [ELECTRIC], {'discipline': 0.025, 'morale_damage': 0.05}, []),
+    ],
+    'illusion': [
+        ('Glamour-Cloaks', 'arcane', 48, True, [], {'spy_offence': 0.25, 'global_spy_defence': 0.10}, []),
+        ('Mirage Fleets', 'arcane', 72, False, [], {'blockade_efficiency': 0.25, 'privateer_efficiency': 0.10}, []),
+        ('Veil of Unseeing', 'steam', 96, False, [STEAM, ring(5)], {'hostile_attrition': 1, 'defensiveness': 0.10}, []),
+        ('The Verdant Veil', 'electric', 120, False, [ELECTRIC], {}, ['Opens the work §YRaise the Veil§!']),
+    ],
+    'necromancy': [
+        ('Stasis Wards', 'arcane', 72, True, [], {'manpower_recovery_speed': 0.15, 'land_attrition': -0.10}, []),
+        ('Echo-Speaking', 'arcane', 48, False, [], {}, ['The Archive\'s echoes speak: %s+1 %s§! a year' % (LORE_C, LORE_NAME)]),
+        ('Preserved Stores', 'steam', 72, False, [STEAM], {'supply_limit_modifier': 0.20, 'land_maintenance_modifier': -0.05},
+         []),
+        ('Wake the Sleepers', 'electric', 96, False, [ELECTRIC, 'DA_EL_sleeper_found = yes'], {},
+         ['Opens the work §YWake a Sleeper§! (with the Archive at level §YVI§!)']),
+    ],
+    'transmutation': [
+        ('Precursor Steel', 'arcane', 72, True, [], {'build_cost': -0.10, 'build_time': -0.10}, []),
+        ('Living Stone', 'steam', 72, False, [STEAM], {'development_cost': -0.05, 'global_tax_modifier': 0.05}, []),
+        ('Monolith Spires', 'steam', 96, False, [STEAM, ring(4)], {},
+         ['Opens the work §YRaise a Monolith Spire§! (up to §Y3§!)']),
+        ('Gardens Between Worlds', 'electric', 96, False, [ELECTRIC, 'DA_EL_spire_gardens_2 = yes'],
+         {'trade_goods_size_modifier': 0.10}, []),
+    ],
+    'fragment': [
+        ('The Diamond Symbol', 'electric', 96, True, [ELECTRIC], {'prestige': 1}, []),
+        ('Clasped Hands', 'electric', 120, False, [ELECTRIC, ring(6)], {'mages_mana_capacity': 100, 'mages_mana_regen': 0.5},
+         []),
+        ('Shard Resonance', 'electric', 120, False, [ELECTRIC], {'mages_mana_regen_mult': 0.10}, []),
+    ],
+}
+# the completion texts: (title, description, option)
+TEXTS = {
+    'Abj1': ('Fleet Wards', 'For a thousand years the Remnant Fleet kept the sea out with wards painted on its hulls. The '
+             'logs record every pattern, every storm it held against and every one that failed. Our wardwrights have '
+             'learnt to paint them on stone.', 'Paint the gates first.'),
+    'Abj2': ('Wardstones', 'A ward painted on a gate is a lock. A ward cut into a standing stone and fed from the ley '
+             'is a wall that nobody built. The first wardstone hums on the hill above the capital, and the birds avoid it.',
+             'Cut the next one.'),
+    'Abj3': ('Living Wards', 'Steam-driven lathes cut the patterns cleaner than any chisel, and a ward cut clean drinks less '
+             'and holds longer. The wardstones need half the keepers they did.', 'Raise more of them.'),
+    'Abj4': ('The Aegis of Aelantir', 'Deep in a Ley Heart the archaeomancers found the master pattern every Precursor ward '
+             'was copied from. Our garrisons now stand behind the same wards that kept Aelantir whole for an age.',
+             'Let them come.'),
+    'Con1': ('Portal Theory', 'The Precursors did not walk between their cities. The Binding codex describes how a place '
+             'is folded against another place, and our envoys have learnt the first, smallest folds.', 'Fold the road.'),
+    'Con2': ('Sending-Stones', 'Two stones cut from one block remember each other. A word spoken to one is heard by the '
+             'other, a hundred leagues away. Our merchants already argue over who gets the next pair.', 'Cut more pairs.'),
+    'Con3': ('Waygates', 'The sky-docks of the great ruins were never only docks. Each holds the frame of a gate, and the '
+             'frames can be woken.', 'Wake the frames.'),
+    'Con4': ('The Light-Matrix', 'The waygates are no longer single doors. Woken together, they form a net of light '
+             'across our realm, as they once did across Aelantir.', 'Light the net.'),
+    'Div1': ('Star-Charts of the Fleet', 'The Fleet steered by stars that no other sailor names. Its charts, copied anew, '
+             'reach further than any captain of ours has sailed.', 'Set a course.'),
+    'Div2': ('The Almanac of Munas', 'Munas Moonsinger kept an almanac of what the stars said and what came of it. Our '
+             'scholars read it as a ledger: what was foretold, and how the wise prepared.', 'Prepare.'),
+    'Div3': ('Remembered Futures', 'In the Lyceum of a ruin the archaeomancers found the Precursors\' own forecasts. Many '
+             'came true. The ones that did not are the more useful: they show where the old masters went wrong.',
+             'Learn from their mistakes.'),
+    'Div4': ('The Pillar of the Heavens', 'The star-observatory stands again on the Archive\'s roof, its lenses ground to '
+             'the old measures. The court astrologers have stopped guessing.', 'Watch the sky.'),
+    'Enc1': ('Fleet Charms', 'The Fleet sailed for a thousand years without a mutiny. Its charms made strangers into '
+             'crewmates and rivals into allies. Our envoys carry them now.', 'Smile, and speak softly.'),
+    'Enc2': ('Aetheric Resonators', 'A charm spoken into a brass resonator carries to a whole hall. Vassal lords who came '
+             'to complain go home pleased and cannot say why.', 'Tune them carefully.'),
+    'Enc3': ('Circle of Remembrance', 'Once a year the realm\'s elders gather in the Archive and remember the Day of Ashen '
+             'Skies aloud. Nobody who hears it wants another.', 'We remember.'),
+    'Enc4': ('Herald of Aelantir', 'Our heralds wear the colours of Oldhome, and every elven court listens when they '
+             'speak.', 'Speak for all of us.'),
+    'Evo1': ('Venaan\'s Discipline', 'Venaan led the Dragonguard that broke the dragons\' chains. Her discipline, written '
+             'down by her captains, teaches a mage to hold fire like a soldier holds a line.', 'Hold the line.'),
+    'Evo2': ('Spellblades', 'Steel that carries a spell along its edge was the Dragonguard\'s weapon. Our smiths have '
+             'learnt to forge the channels again.', 'Forge the edge.'),
+    'Evo3': ('Wyrmbane', 'Every song of the Dragonguard ends with a dragon falling. The archaeomancers found how the '
+             'songs were made true.', 'Remember how they fall.'),
+    'Evo4': ('Broken Chains', 'The War of Broken Chains was won by armies that would not break. Our soldiers drill to its '
+             'old commands now.', 'Never again.'),
+    'Ill1': ('Glamour-Cloaks', 'A cloak that shows the forest behind its wearer is an old wood-elf trick. The Precursors '
+             'made it a science.', 'Hide our people well.'),
+    'Ill2': ('Mirage Fleets', 'A fleet of light sails off every harbour we blockade. The enemy cannot tell which ships are '
+             'real, and does not dare to find out.', 'Show them a hundred sails.'),
+    'Ill3': ('Veil of Unseeing', 'Roads that lead nowhere, fords that are not there: an army marching through our land '
+             'finds it larger and crueller than the maps say.', 'Let them wander.'),
+    'Ill4': ('The Verdant Veil', 'In the oldest Glamours the archaeomancers found how a whole country was once hidden from '
+             'its enemies. The spell is costly. It is ready.', 'Keep it for the worst day.'),
+    'Nec1': ('Stasis Wards', 'The Precursors stopped time in a jar to keep their medicines fresh. Our surgeons stop it '
+             'round a wounded soldier until a healer reaches him.', 'Save who can be saved.'),
+    'Nec2': ('Echo-Speaking', 'What a Precursor scholar left in a room lingers there. Our archaeomancers have learnt to '
+             'listen to it without losing themselves.', 'Listen, and write it down.'),
+    'Nec3': ('Preserved Stores', 'Grain kept in stasis does not rot. Our armies march with stores that were baked last '
+             'year and taste as if baked this morning.', 'Fill the depots.'),
+    'Nec4': ('Wake the Sleepers', 'In the Sealed Vaults lie Precursor elves who chose to sleep through the Ruin. The '
+             'archaeomancers can now wake them without harm.', 'Wake them gently.'),
+    'Tra1': ('Precursor Steel', 'The Living Stone codex shows how stone and steel were coaxed rather than cut. Our builders '
+             'work faster, and their walls do not crack.', 'Coax the stone.'),
+    'Tra2': ('Living Stone', 'Stone that grows into the shape it is asked for: our masons set a seed in the foundations '
+             'and come back in spring to a finished wall.', 'Plant the walls.'),
+    'Tra3': ('Monolith Spires', 'The great spires of the Precursor cities were grown, not built. Ours will be smaller, '
+             'and they will still be the tallest things in the realm.', 'Grow the first spire.'),
+    'Tra4': ('Gardens Between Worlds', 'The seeds kept in the Spire Gardens of Antir Soara grow in any soil. Our fields '
+             'bear twice in a good year.', 'Sow them everywhere.'),
+    'Fra1': ('The Diamond Symbol', 'The God Fragment was at the heart of the Precursor Empire. We have read its symbol '
+             'without going blind, which is more than the last reader managed.', 'Read it carefully.'),
+    'Fra2': ('Clasped Hands', 'Two hands clasped over the diamond: the oldest sign of the Fragment. Our mages have learnt '
+             'what it meant, and draw on a deeper well.', 'Draw on it.'),
+    'Fra3': ('Shard Resonance', 'A shard of the Fragment hums when a spell is cast near it. Our mages have learnt to make '
+             'it sing.', 'Let it sing.'),
+}
+
+MOD_NAME = {   # modifier key -> (name in the tooltips, kind): kind % (percentage), + (plain number), bad (lower is good)
+    'defensiveness': ('Fort Defense', '%'), 'ship_durability': ('Ship Durability', '%'),
+    'fort_maintenance_modifier': ('Fort Maintenance', '%bad'), 'garrison_size': ('Garrison Size', '%'),
+    'envoy_travel_time': ('Envoy Travel Time', '%bad'), 'trade_steering': ('Trade Steering', '%'),
+    'movement_speed': ('Movement Speed', '%'), 'merchants': ('Merchants', '+'), 'range': ('Colonial Range', '%'),
+    'global_spy_defence': ('Foreign Spy Detection', '%'), 'embracement_cost': ('Institution Embracement Cost', '%bad'),
+    'global_institution_spread': ('Institution Spread', '%'), 'technology_cost': ('Technology Cost', '%bad'),
+    'prestige': ('Yearly Prestige', '+'), 'diplomatic_upkeep': ('Diplomatic Relations', '+'),
+    'ae_impact': ('Aggressive Expansion Impact', '%bad'), 'diplomatic_annexation_cost': ('Diplomatic Annexation Cost', '%bad'),
+    'reduced_liberty_desire': ('Liberty Desire in Subjects', '-lib'), 'global_unrest': ('National Unrest', '+bad'),
+    'legitimacy': ('Yearly Legitimacy', '+'), 'devotion': ('Yearly Devotion', '+'), 'horde_unity': ('Yearly Horde Unity', '+'),
+    'republican_tradition': ('Yearly Republican Tradition', '+'), 'meritocracy': ('Yearly Meritocracy', '+'),
+    'diplomatic_reputation': ('Diplomatic Reputation', '+'), 'fire_damage': ('Fire Damage', '%'),
+    'shock_damage': ('Shock Damage', '%'), 'discipline': ('Discipline', '%'), 'morale_damage': ('Morale Damage', '%'),
+    'spy_offence': ('Spy Network Construction', '%'), 'blockade_efficiency': ('Blockade Efficiency', '%'),
+    'privateer_efficiency': ('Privateer Efficiency', '%'), 'hostile_attrition': ('Attrition for Enemies', '+'),
+    'manpower_recovery_speed': ('Manpower Recovery Speed', '%'), 'land_attrition': ('Land Attrition', '%bad'),
+    'supply_limit_modifier': ('Supply Limit Modifier', '%'), 'land_maintenance_modifier': ('Land Maintenance', '%bad'),
+    'build_cost': ('Construction Cost', '%bad'), 'build_time': ('Construction Time', '%bad'),
+    'development_cost': ('Development Cost', '%bad'), 'global_tax_modifier': ('National Tax Modifier', '%'),
+    'trade_goods_size_modifier': ('Goods Produced Modifier', '%'), 'mages_mana_capacity': ('Mana Capacity', '+'),
+    'mages_mana_regen': ('Monthly Mana', '+'), 'mages_mana_regen_mult': ('Monthly Mana Modifier', '%'),
+    'trade_efficiency': ('Trade Efficiency', '%'), 'naval_morale': ('Morale of Navies', '%'),
+    'land_morale': ('Morale of Armies', '%'), 'leader_land_manuever': ('General Maneuver', '+'),
+    'reinforce_speed': ('Reinforce Speed', '%'), 'global_sailors_modifier': ('National Sailors Modifier', '%'),
+    'heavy_ship_power': ('Heavy Ship Combat Ability', '%'), 'global_ship_cost': ('Ship Costs', '%bad'),
+    'production_efficiency': ('Production Efficiency', '%'), 'stability_cost_modifier': ('Stability Cost', '%bad'),
+    'advisor_cost': ('Advisor Costs', '%bad'), 'global_trade_power': ('Global Trade Power', '%'),
+    'naval_forcelimit_modifier': ('Naval Force Limit', '%'), 'land_forcelimit_modifier': ('Land Force Limit', '%'),
+    'colonists': ('Colonists', '+'), 'idea_cost': ('Idea Cost', '%bad'), 'siege_ability': ('Siege Ability', '%'),
+    'infantry_power': ('Infantry Combat Ability', '%'), 'artillery_power': ('Artillery Combat Ability', '%'),
+    'global_manpower_modifier': ('National Manpower Modifier', '%'), 'yearly_corruption': ('Yearly Corruption', '+bad'),
+    'interest': ('Interest per Annum', '+bad'), 'tolerance_own': ('Tolerance of the True Faith', '+'),
+    'global_missionary_strength': ('Missionary Strength', '%'), 'missionaries': ('Missionaries', '+'),
+    'mil_tech_cost_modifier': ('Military Technology Cost', '%bad'), 'adm_tech_cost_modifier': ('Administrative Technology Cost', '%bad'),
+    'dip_tech_cost_modifier': ('Diplomatic Technology Cost', '%bad'), 'core_creation': ('Core-Creation Cost', '%bad'),
+    'global_regiment_cost': ('Regiment Cost', '%bad'), 'leader_land_fire': ('General Fire', '+'),
+    'leader_land_shock': ('General Shock', '+'), 'leader_naval_manuever': ('Admiral Maneuver', '+'),
+    'monthly_splendor': ('Monthly Splendor', '+'),
+    # the schools (Anbennar)
+    'abjuration_experience_mod': ('Abjuration Experience', '%'), 'conjuration_experience_mod': ('Conjuration Experience', '%'),
+    'divination_experience_mod': ('Divination Experience', '%'), 'enchantment_experience_mod': ('Enchantment Experience', '%'),
+    'evocation_experience_mod': ('Evocation Experience', '%'), 'illusion_experience_mod': ('Illusion Experience', '%'),
+    'necromancy_experience_mod': ('Necromancy Experience', '%'), 'transmutation_experience_mod': ('Transmutation Experience', '%'),
+    'mages_monthly_experience': ('Monthly Mage Experience', '+'),
+    # province modifiers
+    'local_defensiveness': ('Local Fort Defense', '%'), 'local_hostile_attrition': ('Local Attrition for Enemies', '+'),
+    'local_development_cost': ('Local Development Cost', '%bad'), 'local_tax_modifier': ('Local Tax Modifier', '%'),
+    'province_trade_power_value': ('Province Trade Power', '+'), 'province_trade_power_modifier': ('Local Trade Power', '%'),
+    'local_production_efficiency': ('Local Production Efficiency', '%'), 'trade_goods_size': ('Local Goods Produced', '+'),
+    'local_unrest': ('Local Unrest', '+bad'), 'local_manpower_modifier': ('Local Manpower Modifier', '%'),
+    'local_friendly_movement_speed': ('Local Friendly Movement Speed', '%'), 'local_hostile_movement_speed': ('Local Hostile Movement Speed', '%bad'),
+    'local_build_cost': ('Local Construction Cost', '%bad'), 'local_missionary_strength': ('Local Missionary Strength', '%'),
+    'local_autonomy': ('Local Autonomy', '+bad'), 'local_sailors_modifier': ('Local Sailors Modifier', '%'),
+    'local_ship_repair': ('Local Ship Repair', '%'), 'supply_limit': ('Local Supply Limit', '+'),
+}
+
+
+def fmtv(v):
+    s = ('%.3f' % v).rstrip('0').rstrip('.')
+    return s if s not in ('-0', '') else '0'
+
+
+def mod_line(k, v):
+    """one tooltip line of a modifier: '§G+10%§! Fort Defense'"""
+    name, kind = MOD_NAME[k]
+    bad = kind.endswith('bad')
+    if kind == '-lib':
+        good = v > 0
+        s = '-%s%%' % fmtv(v)
+    elif kind.startswith('%'):
+        good = (v < 0) if bad else (v > 0)
+        s = '%+g%%' % (round(v * 1000) / 10.0)
+    else:
+        good = (v < 0) if bad else (v > 0)
+        s = '%s%s' % ('+' if v > 0 else '', fmtv(v))
+    return '%s%s§! %s' % ('§G' if good else '§R', s, name)
+
+
+def mod_lines(mod):
+    return [mod_line(k, v) for k, v in mod.items()]
+
+
+def tid(school, n):
+    return 'EL_%s%d' % (SCHOOL[school]['key'], n)
+
+
+def tile_mod(school, n):
+    s = SCHOOL[school]
+    _, _, _, _, _, mod, _ = TILES[school][n - 1]
+    mod = dict(mod)
+    if s['exp'] and n in (1, 3):
+        mod[s['exp']] = 0.10 if n == 1 else 0.15
+    return mod
+
+
+# ---------------------------------------------------------------------------
+# The nine arts (doc 68, section 8.2): privileges of the Archaeomancers, on mana
+#   upkeep: mana a month; up: (name, modifier, Lore, Alchemical Essence); icon: Anbennar's privilege icon
+# ---------------------------------------------------------------------------
+ARTS = {
+    'abjuration': dict(name='Wardstone Bastions', upkeep=0.2, mod={'defensiveness': 0.15},
+                       up=('Deep Wards', {'hostile_attrition': 1}, 10, 5), icon='privilege_fort'),
+    'conjuration': dict(name='Sending-Stone Exchange', upkeep=0.2, mod={'trade_efficiency': 0.10},
+                        up=('Swift Sendings', {'envoy_travel_time': -0.10}, 10, 5), icon='privilege_give_money'),
+    'divination': dict(name='Starwatch Vigil', upkeep=0.1, mod={'global_spy_defence': 0.10, 'embracement_cost': -0.10},
+                       up=('Night Almanacs', {'global_institution_spread': 0.05}, 8, 4), icon='privilege_seek_support_of_brahmins'),
+    'enchantment': dict(name='Fleet-Charm Crews', upkeep=0.1, mod={'naval_morale': 0.10},
+                        up=('Charmed Rigging', {'global_sailors_modifier': 0.10}, 8, 4), icon='privilege_new_world_mission'),
+    'fragment': dict(name='Shard Communion', upkeep=0.3, mod={'land_morale': 0.05, 'naval_morale': 0.05},
+                     up=('Light of the Shard', {'prestige': 1}, 20, 10), icon='privilege_temple_complex'),
+    'evocation': dict(name='Dragonguard Oath', upkeep=0.2, mod={'shock_damage': 0.05},
+                      up=('Venaan\'s Fire', {'fire_damage': 0.05}, 12, 6), icon='privilege_demand_more_troops'),
+    'illusion': dict(name='Glamour Pickets', upkeep=0.2, mod={'leader_land_manuever': 1},
+                     up=('Mirror Scouts', {'spy_offence': 0.10}, 10, 5), icon='privilege_cast_spell'),
+    'necromancy': dict(name='Stasis Infirmaries', upkeep=0.3, mod={'reinforce_speed': 0.15},
+                       up=('Cold Wards', {'land_attrition': -0.10}, 15, 8), icon='privilege_seek_support_of_clergy'),
+    'transmutation': dict(name='Living Stone Masons', upkeep=0.2, mod={'build_cost': -0.10},
+                          up=('Shaped Stone', {'development_cost': -0.05}, 12, 6), icon='privilege_land_rights'),
+}
+# the order the yearly pass sets arts aside when the month's mana falls below 0: the dearest first
+SHORTFALL_ORDER = sorted(ARTS, key=lambda s: (-ARTS[s]['upkeep'], SCHOOL[s]['n']))
+ART_DESC = {
+    'abjuration': 'Archaeomancers walk the walls of our forts at dusk and renew the old wards.',
+    'conjuration': 'Paired sending-stones in every counting-house: a price agreed in one city is known in the next by noon.',
+    'divination': 'Watchers on the towers read the stars for the court and for the spies of others.',
+    'enchantment': 'Every crew sails with a charm-singer, as the Fleet\'s crews did.',
+    'fragment': 'A shard of the Fragment carried before our armies and fleets: no soldier breaks while it shines.',
+    'evocation': 'Mage-officers sworn to Venaan\'s oath ride with the vanguard.',
+    'illusion': 'Pickets in glamour-cloaks screen every army on the march.',
+    'necromancy': 'Wounded soldiers are held in stasis until the surgeons reach them.',
+    'transmutation': 'Masons who coax stone instead of cutting it.',
+}
+FAMILIES = []      # (family id, name, tile ids), in the page's order: Abjuration ... Evocation left, the rest right
+FAMILY_ORDER = ['abjuration', 'conjuration', 'divination', 'enchantment', 'evocation', 'illusion', 'necromancy',
+                'transmutation', 'fragment']
+NODES = {}
+for _sid in FAMILY_ORDER:
+    _s = SCHOOL[_sid]
+    _ids = []
+    for _n, (_title, _era, _months, _project, _req, _mod, _also) in enumerate(TILES[_sid], 1):
+        _id = tid(_sid, _n)
+        _ids.append(_id)
+        _r = ['DA_EL_codex_read.%s = yes' % _sid] if _n == 1 else [done(tid(_sid, _n - 1))]
+        _r += list(_req)
+        _m = tile_mod(_sid, _n)
+        _lines = ['%s§Y%s: %s§!' % ('§RProject§! ' if _project else '', _s['name'], _title)]
+        _lines += [' - ' + l for l in mod_lines(_m)]
+        _lines += [' - ' + l for l in _also]
+        if _n == 1:
+            _lines.append(' - Recovers the art §Y%s§! (the §YRecovered Arts§! page of the Remnant Archive)' % ARTS[_sid]['name'])
+        _also_eff = ['hidden_effect = { DA_EL_refresh = yes }']
+        if _sid == 'fragment':
+            _also_eff.append('hidden_effect = { country_event = { id = %s.9 } }' % EVENT_NS)   # the Ashen Omen (5%)
+            _lines.append(' - §R5%§! chance of an §YAshen Omen§!: §R+25§! devastation where the shard lies')
+        _t, _d, _o = TEXTS[_id[3:]]
+        NODES[_id] = dict(kind='once', era=_era, time=_months, title=_title, req=_r, also=_also_eff,
+                          tt='\n'.join(_lines), ev_t=_t, ev_d=_d, ev_o=_o, school=_sid, tier=_n)
+        if _project:
+            NODES[_id]['unstoppable'] = True
+        if _m:
+            NODES[_id]['mod'] = _m
+            NODES[_id]['living'] = RACE
+    FAMILIES.append(('el_%s' % _sid, _s['name'], _ids))
+FAMILY_NAMES = [f[1] for f in FAMILIES]
+PAGE = (PAGE_ID, PAGE_NAME, [(fid, fname, [{'new': x} for x in nids]) for fid, fname, nids in FAMILIES])
+MOD_NAMES = {nid: d['title'] for nid, d in NODES.items() if d.get('mod')}
+TILE_IDS = list(NODES)
+
+# ---------------------------------------------------------------------------
+# The Archive's levels (doc 68, section 7.3): price, Lore, Enchanted Building Materials, the ring needed, its modifier
+# (a living bonus of the heritage), what it brings
+# ---------------------------------------------------------------------------
+LEVELS = [
+    dict(n=1, name='The Reading Room', gold=100, lore=0, building=0, ring=0, mod={},
+         brings='the Archive, the codices, expeditions; %s' % '§YRead the Fleet Logs§! (Ruinborn: §YRaise a Dotim Pole§!)'),
+    dict(n=2, name='The Archaeomancers\' Hall', gold=200, lore=5, building=0, ring=0, mod={},
+         brings='the §YArchaeomancers§! (an estate) and the arts; §YRecollection§!'),
+    dict(n=3, name='The Ley Vault', gold=400, lore=10, building=0, ring=2, mod={'mages_mana_regen': 0.25},
+         brings='§G+0.25§! Monthly Mana; §YVigil of the Landing§!; the §YLey Tithe§!'),
+    dict(n=4, name='The Echo Chamber', gold=700, lore=15, building=10, ring=3, mod={},
+         brings='§YCommune with an Echo§!; an Archaeomancer advisor of skill §Y2§!'),
+    dict(n=5, name='The Star Gallery', gold=1200, lore=25, building=20, ring=4,
+         mod={'technology_cost': -0.025, 'mages_mana_capacity': 50}, brings='§G-2.5%§! Technology Cost, §G+50§! Mana Capacity'),
+    dict(n=6, name='The Sleepers\' Crypt', gold=2000, lore=40, building=30, ring=5, mod={'mages_mana_regen': 0.25},
+         brings='§G+0.25§! Monthly Mana; §YWake a Sleeper§! can be done'),
+    dict(n=7, name='The Remnant Spire', gold=3500, lore=60, building=40, ring=6,
+         mod={'technology_cost': -0.025, 'prestige': 1}, brings='§G-2.5%§! Technology Cost, §G+1§! Yearly Prestige'),
+]
+LEVEL = {l['n']: l for l in LEVELS}
+# (race, id, modifier) rows of racial_heritage_data.LIVING: on while the Precursor heritage is active (the Ruinborn keep
+# it too: racial_heritage_data.HERITAGE_OF). The tiles' modifiers, and the Archive's levels.
+LIVING_ROWS = [(RACE, nid, 'DA_PR_mod_' + nid) for nid, d in NODES.items() if d.get('mod')]
+LIVING_ROWS += [(RACE, 'level%d' % l['n'], 'DA_EL_level.%d' % l['n']) for l in LEVELS if l['mod']]
+
+EST = 'estate_da_archaeomancers'
+EST_NAME = 'The Archaeomancers'
+EST_RUINBORN = 'The Ancestor-Speakers'
+
+# ---------------------------------------------------------------------------
+# The works (doc 68, section 7.4). where: the page; cool: years between two uses (0: none)
+# ---------------------------------------------------------------------------
+ARCHIVE_WORKS = ['logs', 'recollect', 'vigil', 'commune', 'tithe']
+WORK = {
+    'logs': dict(name='Read the Fleet Logs', ruin='Raise a Dotim Pole', gold=50, lore=0, level=1),
+    'study': dict(name='Study the Fleet Logs', ruin='Read the Dotim Poles', gold=0, lore=0, level=1, gain=3, cool=5),
+    'recollect': dict(name='Recollection', gold=0, lore=5, level=2),
+    'vigil': dict(name='Vigil of the Landing', gold=200, lore=5, level=3, cool=10),
+    'commune': dict(name='Commune with an Echo', ruin='Speak with the Ancestors', gold=300, lore=5, level=4, cool=10),
+    'tithe': dict(name='Ley Tithe', level=3, mod={'mages_mana_regen': 0.5, 'production_efficiency': -0.05}),
+    'wardstone': dict(name='Raise a Wardstone', gold=200, lore=5, building=10, months=12, tile='EL_Abj2', max=3, max2=6,
+                      tile2='EL_Abj3', pmod={'local_defensiveness': 0.25, 'local_hostile_attrition': 1}),
+    'spire': dict(name='Raise a Monolith Spire', gold=300, lore=0, building=10, months=12, tile='EL_Tra3', max=3,
+                  pmod={'local_development_cost': -0.15, 'local_tax_modifier': 0.20}),
+    'prophecy': dict(name='Prophecy', gold=0, lore=0, tile='EL_Div4', cool=10),
+    'captain': dict(name='Dragonguard Captain', gold=250, lore=5, mil=50, metal=10, tile='EL_Evo1', cool=5),
+    'veil': dict(name='Raise the Veil', mana=100, tile='EL_Ill4'),
+    'sleeper': dict(name='Wake a Sleeper', gold=500, lore=10, metal=10, tile='EL_Nec4', level=6),
+    'waygate': dict(name='Open a Waygate', gold=500, lore=10, mana=20, tile='EL_Con3', max=4,
+                    pmod={'province_trade_power_modifier': 0.15, 'local_friendly_movement_speed': 0.20}),
+    'concord': dict(name='Concord of the Remnant', gold=300, lore=10, tile='EL_Enc4', cool=20),
+    'guide': dict(name='Guide the Elves', level=2, cool=10),
+}
+SCHOOL_WORK = {'abjuration': 'wardstone', 'divination': 'prophecy', 'evocation': 'captain', 'illusion': 'veil',
+               'necromancy': 'sleeper', 'transmutation': 'spire'}
+SCHOOL_NOTE = {   # a school without a work of its own on the Arts page: what its cell says instead
+    'conjuration': 'Waygates are opened in a great ruin\'s Excavation panel, at ring §YIV§!.',
+    'enchantment': 'A diplomatic action: the §YConcord of the Remnant§!.',
+    'fragment': 'No work: its tiles draw on the Fragment itself.',
+}
+PROPHECIES = [   # (id, name, modifier for 10 years)
+    ('harvest', 'A Good Harvest', {'global_tax_modifier': 0.10, 'production_efficiency': 0.05}),
+    ('war', 'A War Foretold', {'land_morale': 0.10, 'discipline': 0.025}),
+    ('sea', 'Fair Winds', {'global_trade_power': 0.10, 'naval_morale': 0.10}),
+]
+
+# ---------------------------------------------------------------------------
+# The six marvels (doc 68, section 9): a tier 0-III kept in its ruin's province (DA_EL_mv), raised from the Marvels page
+#   pic: the picture you painted (Claude files/art_sources/elven_marvels/<pic>.png)
+#   prov: modifiers of the province by tier (cumulative); country: modifiers of the owner by tier, while the heritage
+#   is active (triggered modifiers)
+# ---------------------------------------------------------------------------
+MARVELS = [
+    dict(id='gardens', n=1, name='The Spire Gardens', ruin='Antir Soara', prov=945, pic='spire_gardens',
+         p={1: {'local_development_cost': -0.10, 'local_tax_modifier': 0.10}, 2: {'trade_goods_size': 1}},
+         c={3: {'production_efficiency': 0.05}},
+         tiers=['the province: §G-10%§! Local Development Cost, §G+10%§! Local Tax Modifier',
+                'the province: §G+1§! Local Goods Produced', '§G+5%§! Production Efficiency'],
+         ruling=('Send the seed-bank home', 'every province in our capital\'s area: §G-5%§! Local Development Cost',
+                 'Keep it in the Gardens', 'the province: a further §G-10%§! Local Development Cost')),
+    dict(id='docks', n=2, name='The Moon-Docks', ruin='Ciallaire', prov=1068, pic='moon_docks',
+         p={}, c={1: {'heavy_ship_power': 0.10}, 2: {'ship_durability': 0.10, 'global_ship_cost': -0.10},
+                  3: {'naval_morale': 0.05}},
+         tiers=['§G+10%§! Heavy Ship Combat Ability', '§G+10%§! Ship Durability, §G-10%§! Ship Costs',
+                'a Precursor refit: §G+5%§! Morale of Navies'],
+         ruling=('Launch the Last Ship', '§G+10%§! Morale of Navies for 25 years',
+                 'Break it up', '§M+30 Arcane Metal§! and §G+15§! prestige')),
+    dict(id='tower', n=3, name='The Vanetavanem', ruin='Nanru Nakar', prov=2497, pic='vanetavanem',
+         p={1: {'province_trade_power_value': 15}}, c={2: {'trade_steering': 0.10}, 3: {'merchants': 1}},
+         tiers=['the province: §G+15§! Province Trade Power', '§G+10%§! Trade Steering',
+                'it counts as a waygate to every other waygate: §G+1§! Merchant'],
+         ruling=('Turn the node towards trade', '§G+10%§! Trade Efficiency for 25 years',
+                 'Turn it towards Tacenie\'s old route', '§G+25§! prestige and §G+5%§! Trade Steering for 25 years')),
+    dict(id='wells', n=4, name='The Elemental Wells of Harathíl', short='The Elemental Wells', ruin='Nani Kinn', prov=2112, pic='elemental_wells',
+         p={}, c={1: {'mages_mana_regen': 0.25}},
+         tiers=['§G+0.25§! Monthly Mana', 'an element is chosen: Fire, Water, Earth or Air', 'a second element'],
+         ruling=('Seal the Wells', '§G+1§! stability', 'Open them fully', 'both elements count one and a half times; '
+                 '§R2%§! a year of an elemental outburst in the province')),
+    dict(id='stacks', n=5, name='The Deep Stacks of Degalistéa', short='The Deep Stacks', ruin='Lokemeion', prov=2745, pic='deep_stacks',
+         p={}, c={2: {'technology_cost': -0.025}},
+         tiers=['%s+2 %s§! a year' % (LORE_C, LORE_NAME), '§G-2.5%§! Technology Cost', 'a codex not yet found is read'],
+         ruling=('Publish the Stacks', '§G+10%§! Institution Spread for 25 years',
+                 'Keep them for the Archive', '%s+1 %s§! a year more' % (LORE_C, LORE_NAME))),
+    dict(id='lab', n=6, name='The Gleaming Laboratory', ruin='Serpentfall East', prov=2201, pic='gleaming_laboratory',
+         p={}, c={},
+         tiers=['§Y+200§! Alchemy experience every 5 years', '§M+10 Alchemical Essence§! every 5 years',
+                '§Y+200§! Medicine experience every 5 years'],
+         ruling=('Grow the garden', '§M+10 Alchemical Essence§! more every 5 years', 'Seal it', '§G+25§! prestige')),
+]
+MARVEL = {m['id']: m for m in MARVELS}
+MARVEL_PRICE = {1: dict(gold=750, lore=10, mana=20, building=10, months=12),
+                2: dict(gold=2000, lore=25, mana=40, building=25, months=24),
+                3: dict(gold=4000, lore=50, mana=60, building=50, months=36)}
+ELEMENTS = [('fire', 'Fire', {'fire_damage': 0.05}), ('water', 'Water', {'naval_morale': 0.10}),
+            ('earth', 'Earth', {'defensiveness': 0.10}), ('air', 'Air', {'movement_speed': 0.10})]
+LEGENDS = [   # the bottom row of the Marvels page (doc 68, section 10). DA_EL (doc 72): Legendary Encounters of their
+    #            province (le_rules.py: the same ids); prov, the way open (open) and contain follow le_rules.
+    dict(id='warden', n=7, name='The Warden of Soara', ruin='Antir Soara', prov=945, open='has_province_flag = DA_RX_lw3',
+         contain=False,
+         text='An armoured construct-guardian of white stone and gold still walks the deepest rings of Antir Soara. '
+              'The old command-tongue of the Fleet may reach it: with the §YFleet Charms§! codex read and the art '
+              '§YFleet-Charm Crews§! in practice, §YParley§! makes it stand down and guard the city.',
+         how='It is seen with the second lost work of Antir Soara; the way to it opens with the third.'),
+    dict(id='challumaton', n=8, name='The Challúmaton Dragon', ruin='Nagar Vyechei', prov=2520,
+         open='has_province_flag = DA_RX_lw3', contain=True,
+         text='An undead golem of bone-white metal lies coiled beneath the Blue House of Nagar Vyechei. It cannot '
+              'be reasoned with: break it with artillery and Evocation, exorcise it with Necromancy, or ward it in '
+              'place with §YAbjuration§!. Verne and Orenvalyam meet it in their own stories.',
+         how='It is seen with the second lost work of Nagar Vyechei; the way to it opens with the third.',
+         gone='any_country = { OR = { has_country_modifier = vernissage_challumaton_bones has_country_flag = U39_relics_outlawed_flag } }'),
+    dict(id='mother', n=9, name='The Mother of Seeds', ruin='Serpentfall East', prov=2201,
+         open='check_variable = { which = DA_RX_ring value = 4 }', contain=True,
+         text='Below the crystal spire of Serpentfall East the seedthrall network has a heart, and the Seedthralls of the '
+              'Effelai answer to it. Burn it with Evocation, or hold it in §YStasis§!.',
+         how='It is seen when ring §YIII§! of Serpentfall East is unsealed; the way to it opens with ring §YIV§!.'),
+]
+
+# ---------------------------------------------------------------------------
+# Precursor ruins (doc 68, section 6; build_ruin_excavation.py)
+# ---------------------------------------------------------------------------
+# The great ruins: province -> (name, codex school, marvel id, own tags whose missions tell the ruin's story: the third
+# lost work is closed to them)
+GREAT = {
+    945: ('Antir Soara', 'transmutation', 'gardens', []),
+    932: ('Antir Tifur', 'enchantment', None, []),
+    1068: ('Ciallaire', 'abjuration', 'docks', []),
+    2497: ('Nanru Nakar', 'conjuration', 'tower', ['J84']),
+    2112: ('Nani Kinn', 'conjuration', 'wells', []),
+    2745: ('Lokemeion', 'divination', 'stacks', ['G49']),
+    2201: ('Serpentfall East', 'transmutation', 'lab', []),
+    2520: ('Nagar Vyechei', 'necromancy', None, []),
+    2023: ('Marmorac', 'illusion', None, []),
+    1948: ('Cheshosh\'tchuka', 'necromancy', None, []),
+    1044: ('Boek\'taraw', 'abjuration', None, []),
+    1201: ('Dalairevar', 'evocation', None, []),
+    2454: ('Sanebanko', None, None, []),
+}
+# Fragment sites: Anbennar's province modifiers (FragmentOfThePrecursor.txt) -> (name, codex school)
+FRAGMENTS = {
+    'the_glowing_city': ('the Glowing City', 'transmutation'),
+    'the_dragon_house': ('the Realm of the Hidden Dragon', 'evocation'),
+    'elfenbride_manse': ('the Elfenbride\'s Manse', 'illusion'),
+    'god_fragment_ruins': ('the God Fragment\'s ruins', 'fragment'),
+    'vault_ruins': ('the Vault', 'necromancy'),
+    'portal_nexus': ('the Portal Nexus', 'conjuration'),
+    'floating_city_crash_site': ('the Floating City\'s crash site', 'transmutation'),
+}
+# Lesser ruins: the 25 provinces producing Precursor relics in 1444 and Ameion's ten excavation sites
+# (map/provincegroup.txt, excavation_sites), less the two great ruins among them. Ruins for everyone (your choice,
+# 19 November 2026): Ameion's own excavation is not touched.
+RELIC_PROVINCES = [1791, 1948, 1967, 1974, 2005, 2020, 2023, 2026, 2036, 2388, 2477, 2495, 2500, 2503, 2534, 2736, 3675,
+                   5200, 5387, 5392, 5419, 6753, 6821, 6838, 6841]
+EXCAVATION_SITES = [2633, 1791, 2586, 2500, 2736, 2467, 2495, 2534, 2477, 6753]
+LESSER = sorted(set(RELIC_PROVINCES + EXCAVATION_SITES) - set(GREAT))
+TEMPLE_MODS = ['temple_complex', 'damaged_temple_complex', 'derelict_temple_complex', 'ruined_temple_complex',
+               'corrupted_temple_complex', 'corrupted_temple_complex_inactive']
+CORRUPT_MODS = ['corrupted_temple_complex', 'corrupted_temple_complex_inactive']
+
+RINGS = {1: 'The Overgrowth', 2: 'The Promenades', 3: 'The Lyceum', 4: 'The Skyward Docks', 5: 'The Sealed Vaults',
+         6: 'The Ley Heart'}
+TEMPLE_RINGS = {1: 'The Pilgrim Courts', 2: 'The Spirit Galleries', 3: 'The Binding-Heart'}
+RING_PRICE = {1: 50, 2: 100, 3: 200, 4: 400, 5: 800, 6: 1600}
+RING_MANA = {1: 0, 2: 5, 3: 10, 4: 15, 5: 20, 6: 30}
+RING_DAYS = {1: 45, 2: 60, 3: 75, 4: 90, 5: 105, 6: 120}
+RING_REPORTS = {1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2}
+RING_DANGER = {1: '§GLow§!', 2: '§GLow§!', 3: '§YMedium§!', 4: '§YMedium§!', 5: '§OHigh§!', 6: '§RVery high§!'}
+LORE_BAND = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3}          # Lore on every report
+MAT_BAND = {1: 10, 2: 10, 3: 15, 4: 15, 5: 20, 6: 20}     # a find that gives a material
+RUINBORN_MANA = 0.75                                     # rounded down
+OTHERS_MAX = 1                                           # anyone else: ring I
+OTHERS_TRANSLATOR_MAX = 3                                # with the Precursor Archaeologist (DA_translator_found)
+OTHERS_PRICE = 2                                         # at double price, rings II-III
+
+# DA_EL (doc 72): surveys abroad (doc 68, section 6.4). A people of the Precursor heritage surveys rings I-II, gnomes with
+# Gommo Surveys rings I-III, of a discovered ruin nobody owns, or of one owned by an elven or Ruinborn country that gives
+# leave (an asking event; the AI gives it above 50 opinion). Finds and Lore, relic samples for the gnomes; no ring stays
+# unsealed, no lost work. The sites a survey can go to (the great and lesser ruins; the Temple Complexes and the Fragment
+# sites are always owned), by the region the chooser shows them under:
+SURVEY_RINGS = {'el': 2, 'gn': 3}
+SURVEY_YEARS = 20                                        # the same ruin again after this long
+SURVEY_GROUPS = [
+    ('isles', 'The Ruined Isles and Trollsbay', [945, 932, 1068, 1044, 1948]),
+    ('eordand', 'Eordand', [2023, 1967, 1974, 2005, 2020, 2026, 2036, 2503]),
+    ('taychend', 'Taychend', [2497, 2520, 1791, 2467, 2477, 2495, 2500, 2534, 6753]),
+    ('kheionai', 'Kheionai', [2745, 2586, 2633, 2736]),
+    ('gates', 'The Torn Gates and the Effelai', [2112, 2201, 2454, 2388]),
+    ('gozengun', 'Gozengun', [5200, 5387, 5392, 5419, 6821, 6838, 6841]),
+    ('far', 'Farther afield', [1201, 3675]),
+]
+SITE_NAMES = {   # Anbennar's province names (localisation/prov_names_l_english.yml)
+    932: 'Antir Tifur', 945: 'Antir Soara', 1044: 'Boek\'taraw', 1068: 'Ciallaire', 1201: 'Dalairevar', 1791: 'Bukkana Varanya',
+    1948: 'Cheshosh\'tchuka', 1967: 'Dubcadh', 1974: 'Marathmas', 2005: 'Malcadh', 2020: 'Calcip', 2023: 'Marmorac',
+    2026: 'Varn', 2036: 'Letmener', 2112: 'Nani Kinn', 2201: 'Serpentfall East', 2388: 'Cara Lafquén', 2454: 'Sanebanko',
+    2467: 'Sorupiatt', 2477: 'Ethanan', 2495: 'Nakar Kriadvai', 2497: 'Nakar Mlerek', 2500: 'Royakottar', 2503: 'Minnorac',
+    2520: 'Nagar Vyechei', 2534: 'Uyarbaid', 2586: 'Nopanais', 2633: 'Rabkhowarh', 2736: 'Degakheion', 2745: 'Lokemeion',
+    3675: 'Skyfall', 5200: 'Bazuneizar', 5387: 'Iona Saothar', 5392: 'Bizoharite', 5419: 'Nakseseom', 6753: 'Parakendram',
+    6821: 'Kuene', 6838: 'Rift Bearer', 6841: 'The\'as Aschur',
+}
+SURVEY_SITES = [p for _, _, ps in SURVEY_GROUPS for p in ps]
+# what a survey report gives, by the find's kind (the find itself as on an expedition; nothing stays in the province)
+SURVEY_FINDS = ['overgrowth', 'cache', 'wayfinders', 'shelves', 'starmap', 'murals', 'damestear', 'jars', 'fey', 'degenerates',
+                'surge', 'steel', 'knot', 'records', 'guardian']
+SAMPLE_FINDS = {'damestear': 'metal', 'steel': 'building', 'jars': 'essence', 'cache': 'gold', 'knot': 'lore'}   # relic finds
+
+CHARTERS = [
+    dict(id='wayfarers', name='Wayfarers', price=1.0, time=1.0, essence=0,
+         line='The plain expedition: guides, porters and a scholar.',
+         tt='No change: the ring\'s finds as they come.'),
+    dict(id='wardbreakers', name='Wardbreakers', price=1.5, time=1.0, essence=5,
+         line='Ward-mages ahead of the porters.',
+         tt='§R+50%§! ducats and §M5 Alchemical Essence§!\nGuardians, wild magic and degenerated-elf ambushes cannot happen.'),
+    dict(id='relics', name='Relic-seekers', price=1.0, time=1.5, essence=0,
+         line='Slow, thorough and greedy.', tt='§R+50%§! time\nRelic finds are twice as likely.'),
+    dict(id='glyphs', name='Glyph-Readers', price=1.0, time=1.5, essence=0,
+         line='Scholars who read every wall.', tt='§R+50%§! time\nLore finds and codices are twice as likely.'),
+]
+CHARTER = {c['id']: c for c in CHARTERS}
+
+# The finds (doc 68, section 6.6): id, name, kind (lore, relic, kin, foe), rings, weight (out of the ordinary ~100),
+# the event number of its report (DA_RX_event.<ev>)
+FINDS = [
+    dict(id='shelves', ev=20, name='Lyceum Shelves', kind='lore', rings=(2, 6), w=100),
+    dict(id='codex', ev=21, name='A Codex', kind='lore', rings=(3, 6), w=30),
+    dict(id='starmap', ev=22, name='Starmap Ceiling', kind='lore', rings=(2, 5), w=60),
+    dict(id='echo', ev=23, name='An Echo', kind='lore', rings=(3, 6), w=80),
+    dict(id='murals', ev=24, name='Murals of the Broken Chains', kind='lore', rings=(2, 4), w=60),
+    dict(id='shard', ev=25, name='God-Fragment Shard', kind='lore', rings=(6, 6), w=15),
+    dict(id='damestear', ev=26, name='Damestear Vein', kind='relic', rings=(2, 6), w=60),
+    dict(id='steel', ev=27, name='Precursor Steel Plates', kind='relic', rings=(3, 6), w=80),
+    dict(id='jars', ev=28, name='Sealed Reagent Jars', kind='relic', rings=(2, 5), w=80),
+    dict(id='cache', ev=29, name='Relic Cache', kind='relic', rings=(1, 5), w=100),
+    dict(id='knot', ev=30, name='Ley Knot', kind='relic', rings=(3, 6), w=50),
+    dict(id='wayfinders', ev=31, name='Ruinborn Wayfinders', kind='kin', rings=(1, 3), w=80),
+    dict(id='sleeper', ev=32, name='A Sleeper in Stasis', kind='kin', rings=(5, 6), w=25),
+    dict(id='records', ev=33, name='The Slaver-Nobles\' Records', kind='kin', rings=(3, 5), w=60),
+    dict(id='fey', ev=34, name='A Fey Crossing', kind='kin', rings=(2, 4), w=60),
+    dict(id='degenerates', ev=35, name='Degenerated Elves', kind='foe', rings=(2, 5), w=70),
+    dict(id='guardian', ev=36, name='Dormant Guardian', kind='foe', rings=(3, 6), w=60),
+    dict(id='surge', ev=37, name='Wild Magic Surge', kind='foe', rings=(2, 6), w=50),
+    dict(id='skydock', ev=38, name='Collapsing Sky-dock', kind='foe', rings=(4, 6), w=30),
+    dict(id='overgrowth', ev=39, name='Overgrown Streets', kind='kin', rings=(1, 2), w=120),
+]
+FIND = {f['id']: f for f in FINDS}
+KINDS = [('lore', 'Lore'), ('relic', 'Relics'), ('kin', 'Kin and wonders'), ('foe', 'Foes')]
+LOST_WEIGHT = 1000
+# Degenerated elves by region (the name of the foe)
+DEGENERATES = [('bloodgroves_region', 'Bloodfeeders'), ('leechdens_region', 'Leechmen'),
+               ('forest_of_the_cursed_ones_region', 'Cursed Ones'), ('effelai_superregion', 'Seedthralls'),
+               ('eordand_superregion', 'Silent Watchers'), ('north_ruined_isles_region', 'Ice Sleepers')]
+
+# The lost works of the great ruins (doc 68, section 6.3): three each, the first on ring III or IV, the second on IV or
+# V, the third on V or VI. kind: lore (Lore), mod (a country modifier for 25 years), prov (the province, permanently),
+# gold, codex (a codex not yet read), marvel (the first lost work of a marvel's ruin: the marvel is found, tier 0)
+LOST = {
+    945: [('The Gardeners\' Ledger', 'marvel', 'A ledger of every seed kept in the hanging gardens, and the way up to them.'),
+          ('The Warden\'s Gate', 'prov', 'A gate of white stone that still answers the old command-tongue.', {'local_defensiveness': 0.25}),
+          ('The Founders\' Hall', 'mod', 'The hall where Antir Soara\'s founders met. Its murals name every city of Aelantir.',
+           {'prestige': 1, 'diplomatic_reputation': 1})],
+    932: [('The Harbour Charts', 'mod', 'Charts of Antir Tifur\'s harbour and of every reef between it and the old sea-lanes.',
+           {'naval_morale': 0.05, 'global_ship_cost': -0.05}),
+          ('The Charm-Singers\' School', 'lore', 'The school where the Fleet\'s charm-singers learnt their craft, and its library.', 10),
+          ('The Last Muster Roll', 'mod', 'The names of every crew that sailed from Antir Tifur, and the charms each sang.',
+           {'diplomatic_upkeep': 1})],
+    1068: [('The Dry Dock', 'marvel', 'A dry dock as long as a city street, and in it a ship of silver.'),
+           ('The Shipwrights\' Hall', 'mod', 'The drawings of the Fleet\'s hulls, ward by ward.', {'ship_durability': 0.05}),
+           ('The Moon-Lamp', 'prov', 'A lamp of pale crystal that has burnt since the Ruin.', {'local_sailors_modifier': 0.25})],
+    2497: [('The House-that-Pierces-the-Sky', 'marvel', 'The Vanetavanem\'s lower halls, and the stair to its crown.'),
+           ('The Mooring Records', 'mod', 'Every flying city that moored at Aercel, and what it carried.', {'global_trade_power': 0.05}),
+           ('The Docking Heart', 'prov', 'The engine that held Tacenie in the sky. It still turns.', {'province_trade_power_value': 10})],
+    2112: [('The Well-Keepers\' Stair', 'marvel', 'A stair winding down to four great wells, each warm with its element.'),
+           ('The Harathíl Charter', 'mod', 'The charter of the Imperial Precursors of Harathíl.', {'mages_mana_capacity': 50}),
+           ('The Tunnels\' Map', 'prov', 'A map of the Tunnels of Renewal that the Harafe never saw.',
+            {'local_friendly_movement_speed': 0.20, 'supply_limit': 2})],
+    2745: [('The Lowest Reading Room', 'marvel', 'A reading room below every known level of the Grand Library, and the shaft below it.'),
+           ('The Catalogue of Degalistéa', 'lore', 'The Grand Library\'s own catalogue, with every shelf the Ruin buried.', 15),
+           ('The Librarians\' Seal', 'codex', 'The seal of the last librarian, and the codex she guarded.')],
+    2201: [('The Crystal Stair', 'marvel', 'A stair of blue crystal into the spire\'s laboratories.'),
+           ('The Alchemists\' Notes', 'lore', 'Notes in a cramped hand on everything that grew in the crystal cases.', 10),
+           ('The Otherworld Seeds', 'mod', 'Seeds from a garden that was not quite in this world.', {'production_efficiency': 0.05})],
+    2520: [('The Blue Lamps', 'prov', 'The damestear lamps of the Blue House, lit again.', {'local_tax_modifier': 0.25}),
+           ('The Bone-White Seal', 'lore', 'A seal of bone-white metal, and the warnings written round it.', 15),
+           ('The Challúmaton\'s Chains', 'mod', 'The chains that bound the dragon-golem, and how they were forged.',
+            {'land_morale': 0.05, 'discipline': 0.025})],
+    2023: [('The Masquers\' Tunnels', 'prov', 'Tunnels under the carnival where the Precursors held their own revels.',
+            {'local_unrest': -2}),
+           ('The Glamourists\' Workshop', 'lore', 'Masks that show another face, and the patterns that make them.', 10),
+           ('The Carnival\'s First Night', 'mod', 'The rites of the first carnival, before it was a carnival.',
+            {'global_unrest': -1})],
+    1948: [('The Battle Murals', 'mod', 'Murals of the War of Broken Chains, painted by those who fought it.',
+            {'land_morale': 0.05}),
+           ('The Buried Gate', 'prov', 'The gate of the structure the Bone Citadel was built over.', {'local_defensiveness': 0.33}),
+           ('The Stasis Hall', 'lore', 'A hall of empty stasis pods. Most of them.', 15)],
+    1044: [('The Dotim Grove', 'mod', 'The oldest dotim poles, carved from Precursor relics.', {'tolerance_own': 1}),
+           ('The Ward-Pillars', 'prov', 'The pillars that warded Boek\'taraw against the Ruin.', {'local_hostile_attrition': 2}),
+           ('The Elders\' Chamber', 'lore', 'Where the first Ruinborn elders met after the Day of Ashen Skies.', 10)],
+    1201: [('Dalaire\'s Wall', 'prov', 'A wall of the old city, warded against dragon-fire.', {'local_defensiveness': 0.25}),
+           ('The Dragonguard\'s Barracks', 'mod', 'The barracks of a Dragonguard legion, its drill-yard still marked.',
+            {'discipline': 0.025}),
+           ('Ducaniel\'s Study', 'lore', 'The study of Ducaniel, Dalaire\'s most famous son, with his notes still on the desk.', 20)],
+    2454: [('The Blue Vein', 'prov', 'A vein of damestear running into the mountain\'s heart.', {'trade_goods_size': 1}),
+           ('The Miners\' Shrine', 'lore', 'A shrine the Precursor miners raised where the vein was richest.', 10),
+           ('The Heart of the Mountain', 'mod', 'The cavern at the mountain\'s heart, where the damestear grows.',
+            {'mages_mana_regen': 0.25})],
+}
+LOST_GOLD = 0
+LOST_LORE = 5                         # every lost work also gives this much Lore
+LOST_YEARS = 25                       # a 'mod' lost work lasts this long

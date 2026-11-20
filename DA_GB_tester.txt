@@ -1,0 +1,92 @@
+# The Boomworks (doc 65): run DA_GB_tester.txt in the console, as a goblin country.
+# Block A opens the Lab and the window. The other blocks are commented out: remove the # signs.
+
+# A. Some Assembly Required, the Lab at level III, 5,000 gold and 50 of each material, the window
+set_country_flag = DA_PR_done.GB_Assembly
+set_variable = { which = DA_GB_lab value = 3 }
+add_treasury = 5000
+change_variable = { which = DA_arcane_metal_total value = 50 }
+change_variable = { which = DA_enchanted_building_material_total value = 50 }
+change_variable = { which = DA_alchemy_reagents_total value = 50 }
+DA_GB_sync = yes
+DA_GB_open_boomworks = yes
+
+# B. every goblin tile done (every invention opens; MORE POWER; the valves; Controlled Kaboom)
+#set_country_flag = DA_PR_done.GB_EPP
+#set_country_flag = DA_PR_done.GB_Goblinfire
+#set_country_flag = DA_PR_done.GB_Wasphouses
+#set_country_flag = DA_PR_done.GB_Assembly
+#set_country_flag = DA_PR_done.GB_Rats
+#set_country_flag = DA_PR_done.GB_Markets
+#set_country_flag = DA_PR_done.GB_Belts
+#set_country_flag = DA_PR_done.GB_Smog
+#set_country_flag = DA_PR_done.GB_Shields
+#set_country_flag = DA_PR_done.GB_Survivors
+#set_country_flag = DA_PR_done.GB_Shortness
+#set_country_flag = DA_PR_done.GB_Valves
+#set_country_flag = DA_PR_done.GB_Controlled
+#set_country_flag = DA_PR_done.GB_School
+#set_country_flag = DA_PR_done.GB_More
+#set_country_flag = DA_PR_done.GB_Sneaky
+#set_country_flag = DA_PR_done.GB_Bounty
+#set_country_flag = DA_PR_done.GB_Genius
+#set_country_flag = DA_PR_done.GB_Spot
+#set_country_flag = DA_PR_done.GB_Lever
+#set_country_flag = DA_PR_done.GB_Runes
+#set_country_flag = DA_PR_done.GB_Enemy
+#set_country_flag = DA_GB_jury_rigging	# jury-rigging known (the War Machines)
+#DA_GB_refresh = yes
+
+# C. every running invention to 79 pressure (Hot, one month from the red), then the monthly pass now
+#set_variable = { which = DA_GB_p_stills value = 79 }
+#set_variable = { which = DA_GB_p_pumps value = 79 }
+#set_variable = { which = DA_GB_p_market value = 79 }
+#set_variable = { which = DA_GB_p_conveyor value = 79 }
+#set_variable = { which = DA_GB_p_smog value = 79 }
+#set_variable = { which = DA_GB_p_quarries value = 79 }
+#set_variable = { which = DA_GB_p_rumour value = 79 }
+#set_variable = { which = DA_GB_p_telegraph value = 79 }
+#set_variable = { which = DA_GB_p_lectures value = 79 }
+#set_variable = { which = DA_GB_p_clock value = 79 }
+#set_variable = { which = DA_GB_p_stealth value = 79 }
+#set_variable = { which = DA_GB_p_organ value = 79 }
+#set_variable = { which = DA_GB_p_walls value = 79 }
+#set_variable = { which = DA_GB_p_mills value = 79 }
+#set_variable = { which = DA_GB_p_borers value = 79 }
+#set_variable = { which = DA_GB_p_pots value = 79 }
+#set_variable = { which = DA_GB_p_wasp value = 79 }
+#set_variable = { which = DA_GB_p_blastwalls value = 79 }
+#set_variable = { which = DA_GB_p_sparks value = 79 }
+#set_variable = { which = DA_GB_p_padded value = 79 }
+#set_variable = { which = DA_GB_p_dynamo value = 79 }
+#set_variable = { which = DA_GB_p_regulator value = 79 }
+#set_variable = { which = DA_GB_p_engine value = 79 }
+#DA_GB_monthly = yes
+
+# D. a lab accident now (with a research running), then a Eureka at its end
+#DA_GB_accident = yes
+#set_country_flag = DA_GB_genius_ready
+
+# E. the yearly pulse now
+#DA_GB_yearly = yes
+
+# F. Pull the Big Lever and the Lab at level IV; the wonders of your holds count as found (then rig them on the
+#    Wonders page)
+#set_country_flag = DA_PR_done.GB_Lever
+#set_variable = { which = DA_GB_lab value = 4 }
+#4039 = { set_province_flag = DA_Magma_forge_found if = { limit = { NOT = { has_great_project = { type = DA_Magma_Forge } } } add_great_project = { type = DA_Magma_Forge instant = yes } } }
+#4217 = { set_province_flag = DA_Titanium_Vault_found }
+#4284 = { set_province_flag = DA_Argrastun_Cathedral_found set_province_flag = DA_Argrastun_Cathedral_found_secondary_shrine_1 }
+#4236 = { set_province_flag = DA_Mithril_workshop_found if = { limit = { NOT = { has_great_project = { type = The_Dwarven_Workshop } } } add_great_project = { type = The_Dwarven_Workshop instant = yes } } }
+#4020 = { set_province_flag = DA_dur_vaz_blueprints_found }
+#2963 = { set_province_flag = DA_Ducaniel_lab_found }
+#2931 = { set_province_flag = DA_Railway_HQ_found }
+#2868 = { set_province_flag = DA_Exoskeletons_Workshop_found set_province_flag = DA_Haraz_Orldhum_exp4 }
+#4208 = { set_province_flag = DA_Krakdhumvror_exp1 if = { limit = { NOT = { has_great_project = { type = DA_Frozen_Forge } } } add_great_project = { type = DA_Frozen_Forge instant = yes } } }
+#526 = { set_province_flag = DA_dwarven_shipyard_found if = { limit = { NOT = { has_great_project = { type = DA_Drowned_Arsenal } } } add_great_project = { type = DA_Drowned_Arsenal instant = yes } } }
+#4078 = { set_province_flag = DA_Hehogrim_home_found if = { limit = { NOT = { has_great_project = { type = DA_Builders_Guildhall } } } add_great_project = { type = DA_Builders_Guildhall instant = yes } } }
+#4266 = { set_province_flag = DA_Krakazol_exp1 if = { limit = { NOT = { has_great_project = { type = DA_Stramolgiv } } } add_great_project = { type = DA_Stramolgiv instant = yes } } }
+#4323 = { set_province_flag = DA_Dromak_exp1 if = { limit = { NOT = { has_province_flag = DA_Dream_done } } add_permanent_province_modifier = { name = DA_SL_troubled_sleep duration = -1 } } if = { limit = { NOT = { has_great_project = { type = DA_Sleepers_Hall } } } add_great_project = { type = DA_Sleepers_Hall instant = yes } } }
+#2914 = { set_province_flag = DA_Gulan_exp1 if = { limit = { NOT = { has_great_project = { type = DA_Magistrates_Vault } } } add_great_project = { type = DA_Magistrates_Vault instant = yes } } }
+#4311 = { set_province_flag = DA_Gronstunad_exp1 if = { limit = { NOT = { has_great_project = { type = DA_Hall_of_Vanguard } } } add_great_project = { type = DA_Hall_of_Vanguard instant = yes } } }
+#DA_GB_refresh = yes

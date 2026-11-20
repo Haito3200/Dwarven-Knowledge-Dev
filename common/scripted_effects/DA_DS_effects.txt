@@ -1,0 +1,28 @@
+# Damestear (doc 94, step 8): the finds of its research, and Deep Assay (build_damestear.py).
+DA_PR_give_first.DS_Damestear_Edged_Blade = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.DS_Damestear_Edged_Blade } }
+		country_event = { id = DA_DS_find.1 }
+	}
+}
+DA_PR_give_first.DS_Black_Damestear_Rounds = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.DS_Black_Damestear_Rounds } }
+		country_event = { id = DA_DS_find.2 }
+	}
+}
+DA_PR_give_first.DS_Reactor_Lance = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.DS_Reactor_Lance } }
+		country_event = { id = DA_DS_find.3 }
+	}
+}
+# Deep Assay: Anbennar's own Old Damestear Deposit Discovered, for us, and the wait starts again. If Anbennar's
+# cap filled while the research ran, nothing happens and the wait does not start.
+DA_PR_give.Deep_Assay = {
+	if = {
+		limit = { damestear_can_spawn = yes }
+		hidden_effect = { clr_country_flag = DA_DS_deep_assay_done set_country_flag = DA_DS_deep_assay_done }
+		country_event = { id = damestear.3 }
+	}
+}

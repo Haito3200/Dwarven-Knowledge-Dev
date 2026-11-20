@@ -551,11 +551,287 @@ DA_HX_send_allowed = {
 	}
 }
 
+# DA_GB: what the Send the Corps button checks (a goblin owner)
+DA_HX_corps_send_allowed = {
+	has_subterranean_race = yes
+	is_state_core = owner
+	controlled_by = owner
+	if = {
+		limit = { has_province_modifier = incomplete_hold }
+		NOT = { has_province_modifier = incomplete_hold }
+	}
+	if = {
+		limit = { has_province_modifier = F23_flooded_depths }
+		custom_trigger_tooltip = {
+			tooltip = F23_cannot_dig_why
+			always = no
+		}
+	}
+	hidden_trigger = { NOT = { has_province_modifier = incomplete_hold_0 } }
+	if = {
+		limit = { hold_condition = { Damaged = yes } }
+		hold_condition = { Repaired = yes }
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_HX_menu_closed_tt
+		owner = { NOT = { has_country_flag = DA_ADK_menu_in_use } }
+	}
+	if = {
+		limit = { has_province_flag = DA_HX_corps_blasters }
+		custom_trigger_tooltip = {
+			tooltip = DA_HX_corps_blasters_needs_tt
+			owner = { DA_completed.Explosive = yes }
+		}
+	}
+	if = {
+		limit = { has_province_flag = DA_HX_corps_gizmo }
+		custom_trigger_tooltip = {
+			tooltip = DA_HX_corps_gizmo_needs_tt
+			owner = { has_country_flag = DA_PR_done.GB_Spot }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_2 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 25 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 30 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 25 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 25 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_3 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 50 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 60 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 50 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 50 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_4 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 100 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 125 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 100 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 100 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_5 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 200 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 250 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 200 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 200 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_6 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 300 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 375 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 300 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 300 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_7 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 500 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 625 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 500 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 500 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_8 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 800 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 1000 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 800 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 800 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_9 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 1200 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 1500 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 1200 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 1200 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_10 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 2500 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 3125 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 2500 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 2500 }
+		}
+	}
+	if = {
+		limit = { DA_HX_target_11 = yes }
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { treasury = 5000 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { treasury = 6250 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { treasury = 5000 }
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { treasury = 5000 }
+		}
+	}
+}
+
 # a company could leave from this hold now: the explore marker of the top bar (build_attention_markers.py)
 DA_HX_can_send = {
 	DA_HX_has_target = yes
 	NOT = { has_province_flag = DA_expedition_in_progress }
-	DA_HX_send_allowed = yes
+	OR = {
+		AND = { NOT = { owner = { DA_GB_corps_owner = yes } } DA_HX_send_allowed = yes }
+		AND = { owner = { DA_GB_corps_owner = yes } DA_HX_corps_send_allowed = yes }
+	}
+}
+
+# DA_GB: a wonder hold of a goblin owner: the seal of its Machine Hall
+DA_HX_has_gb_seal = {
+	owner = { DA_GB_corps_owner = yes }
+	OR = {
+		province_id = 4039
+		province_id = 4217
+		province_id = 4284
+		province_id = 4236
+		province_id = 4020
+		province_id = 2963
+		province_id = 2931
+		province_id = 2868
+		province_id = 4208
+		province_id = 526
+		province_id = 4078
+		province_id = 4266
+		province_id = 4323
+		province_id = 2914
+		province_id = 4311
+	}
+}
+
+DA_HX_gb_seal_found = {
+	OR = {
+		AND = { province_id = 4039 has_province_flag = DA_Magma_forge_found }
+		AND = { province_id = 4217 has_province_flag = DA_Titanium_Vault_found }
+		AND = { province_id = 4284 has_province_flag = DA_Argrastun_Cathedral_found }
+		AND = { province_id = 4236 has_province_flag = DA_Mithril_workshop_found }
+		AND = { province_id = 4020 has_province_flag = DA_dur_vaz_blueprints_found }
+		AND = { province_id = 2963 has_province_flag = DA_Ducaniel_lab_found }
+		AND = { province_id = 2931 has_province_flag = DA_Railway_HQ_found }
+		AND = { province_id = 2868 has_province_flag = DA_Exoskeletons_Workshop_found }
+		AND = { province_id = 4208 has_province_flag = DA_Krakdhumvror_exp1 }
+		AND = { province_id = 526 has_province_flag = DA_dwarven_shipyard_found }
+		AND = { province_id = 4078 has_province_flag = DA_Hehogrim_home_found }
+		AND = { province_id = 4266 has_province_flag = DA_Krakazol_exp1 }
+		AND = { province_id = 4323 has_province_flag = DA_Dromak_exp1 }
+		AND = { province_id = 2914 has_province_flag = DA_Gulan_exp1 }
+		AND = { province_id = 4311 has_province_flag = DA_Gronstunad_exp1 }
+	}
 }
 
 # the Dig Deeper button (DA_provinceview.txt): Anbennar lets this hold be dug, so the dig estimate opens too.
@@ -630,6 +906,49 @@ DA_HX_hall_affordable = {
 		else_if = {
 			limit = { DA_Explorable_dig_11 = yes }
 			owner = { treasury = 7500 }
+		}
+	}
+	if = {
+		limit = { owner = { DA_GB_corps_owner = yes has_country_flag = DA_GB_hall_corps_tunnelrats } }
+		if = {
+			limit = { DA_Explorable_dig_2 = yes }
+			owner = { treasury = 30 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_3 = yes }
+			owner = { treasury = 60 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_4 = yes }
+			owner = { treasury = 125 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_5 = yes }
+			owner = { treasury = 250 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_6 = yes }
+			owner = { treasury = 375 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_7 = yes }
+			owner = { treasury = 625 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_8 = yes }
+			owner = { treasury = 1000 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_9 = yes }
+			owner = { treasury = 1500 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_10 = yes }
+			owner = { treasury = 3125 }
+		}
+		else_if = {
+			limit = { DA_Explorable_dig_11 = yes }
+			owner = { treasury = 6250 }
 		}
 	}
 }

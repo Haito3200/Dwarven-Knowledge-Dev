@@ -320,76 +320,50 @@ custom_button = {
 
 
 custom_button = {
-    name = DA_projects_research_buttons_background_explosives_1
-    tooltip = DA_projects_research_buttons_background_explosives_1_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
+	name = DA_projects_research_buttons_background_explosives_1
+	tooltip = DA_projects_research_buttons_background_explosives_1_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 139 } NOT = { has_country_flag = DA_research_in_progress } }
+	trigger = {
+		DA_available_research = yes
 		DA_completed.Alchemy_1 = yes
-        DA_yet_to_complete.Explosive = yes
+		DA_yet_to_complete.Explosive = yes
 		custom_trigger_tooltip = {
 			tooltip = DA_Project.Allowed.Explosive.tt
 			has_country_flag = DA_Project.Allowed.Explosive
 		}
-    }
-    frame = {
-        number = 1
-        trigger = {
-            DA_yet_to_complete.Explosive = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            DA_completed.Explosive = yes
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = explosives
-            time = 96
-            arcane = yes
-            unstoppable = yes
-        }
-        hidden_effect = {
-            country_event = {
-                id = DA_project_event.205
-                days = 30
-            }
-        }
-    }
+	}
+	effect = {
+		DA_start_research = {
+			flag = explosives
+			time = 96
+			arcane = yes
+			unstoppable = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = DA_project_event.205
+				days = 30
+			}
+		}
+		hidden_effect = { if = { limit = { is_variable_equal = { which = DA_PR_queued value = 139 } } set_variable = { which = DA_PR_queued value = 0 } } }
+	}
 }
 custom_button = {
-    name = DA_projects_research_buttons_background_explosives_2
-    tooltip = DA_projects_research_buttons_background_explosives_2_tt
-    potential = {
-        always = yes
-    }
-    trigger = {
-        DA_available_research = yes
-        DA_completed.Explosive = yes
-    }
-    frame = {
-        number = 1
-        trigger = {
-            always = yes
-        }
-    }
-    frame = {
-        number = 2
-        trigger = {
-            always = no
-        }
-    }
-    effect = {
-        DA_start_research = {
-            flag = explosives_2
-            time = 48
-            arcane = yes
-        }
-    }
+	name = DA_projects_research_buttons_background_explosives_2
+	tooltip = DA_projects_research_buttons_background_explosives_2_tt
+	potential = { is_variable_equal = { which = DA_PR_selected value = 140 } NOT = { has_country_flag = DA_research_in_progress } }
+	trigger = {
+		DA_available_research = yes
+		DA_completed.Explosive = yes
+	}
+	effect = {
+		DA_start_research = {
+			flag = explosives_2
+			time = 48
+			arcane = yes
+		}
+		hidden_effect = { if = { limit = { is_variable_equal = { which = DA_PR_queued value = 140 } } set_variable = { which = DA_PR_queued value = 0 } } }
+	}
 }
 
 ###################################################################################

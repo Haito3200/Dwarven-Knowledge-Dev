@@ -28,11 +28,42 @@ DA_HX_select_loreseekers = {
 	set_province_flag = DA_HX_charter_loreseekers
 }
 
+DA_HX_select_corps_scavengers = {
+	clr_province_flag = DA_HX_corps_tunnelrats
+	clr_province_flag = DA_HX_corps_blasters
+	clr_province_flag = DA_HX_corps_gizmo
+}
+
+DA_HX_select_corps_tunnelrats = {
+	clr_province_flag = DA_HX_corps_tunnelrats
+	clr_province_flag = DA_HX_corps_blasters
+	clr_province_flag = DA_HX_corps_gizmo
+	set_province_flag = DA_HX_corps_tunnelrats
+}
+
+DA_HX_select_corps_blasters = {
+	clr_province_flag = DA_HX_corps_tunnelrats
+	clr_province_flag = DA_HX_corps_blasters
+	clr_province_flag = DA_HX_corps_gizmo
+	set_province_flag = DA_HX_corps_blasters
+}
+
+DA_HX_select_corps_gizmo = {
+	clr_province_flag = DA_HX_corps_tunnelrats
+	clr_province_flag = DA_HX_corps_blasters
+	clr_province_flag = DA_HX_corps_gizmo
+	set_province_flag = DA_HX_corps_gizmo
+}
+
 # called at the end of the roll (DA_Hold_exploration_workaround): the charter has done its work
 DA_HX_end_roll = {
 	clr_province_flag = DA_HX_run_wardens
 	clr_province_flag = DA_HX_run_prospectors
 	clr_province_flag = DA_HX_run_loreseekers
+	clr_province_flag = DA_GB_corps_run_scavengers
+	clr_province_flag = DA_GB_corps_run_tunnelrats
+	clr_province_flag = DA_GB_corps_run_blasters
+	clr_province_flag = DA_GB_corps_run_gizmo
 	owner = { if = { limit = { ai = no } DA_HX_refresh_ready_count = yes } }
 }
 
@@ -470,12 +501,517 @@ DA_HX_send = {
 	hidden_effect = { set_variable = { which = DA_else_DA_HX_send_1 value = 0 } }
 }
 
+# DA_GB: the Send the Corps button (and the AI, build_goblin_corps.py). As DA_HX_send: the corps' price now, its run
+# flags (the charter it shares, its own), the corps below until the way down ends.
+DA_HX_send_corps = {
+	if = {
+		limit = { DA_HX_target_2 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -25 }
+			custom_tooltip = DA_HX_corps_go_2_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -30 }
+			custom_tooltip = DA_HX_corps_go_2_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -25 }
+			custom_tooltip = DA_HX_corps_go_2_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 5 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -25 }
+			custom_tooltip = DA_HX_corps_go_2_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_2 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_3 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -50 }
+			custom_tooltip = DA_HX_corps_go_3_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -60 }
+			custom_tooltip = DA_HX_corps_go_3_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -50 }
+			custom_tooltip = DA_HX_corps_go_3_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 12 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -50 }
+			custom_tooltip = DA_HX_corps_go_3_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 58 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_3 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_4 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -100 }
+			custom_tooltip = DA_HX_corps_go_4_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -125 }
+			custom_tooltip = DA_HX_corps_go_4_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -100 }
+			custom_tooltip = DA_HX_corps_go_4_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -100 }
+			custom_tooltip = DA_HX_corps_go_4_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_4 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_5 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -200 }
+			custom_tooltip = DA_HX_corps_go_5_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -250 }
+			custom_tooltip = DA_HX_corps_go_5_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -200 }
+			custom_tooltip = DA_HX_corps_go_5_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 28 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -200 }
+			custom_tooltip = DA_HX_corps_go_5_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 102 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_5 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_6 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -300 }
+			custom_tooltip = DA_HX_corps_go_6_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -375 }
+			custom_tooltip = DA_HX_corps_go_6_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -300 }
+			custom_tooltip = DA_HX_corps_go_6_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -300 }
+			custom_tooltip = DA_HX_corps_go_6_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_6 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_7 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -500 }
+			custom_tooltip = DA_HX_corps_go_7_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 95 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -625 }
+			custom_tooltip = DA_HX_corps_go_7_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 95 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -500 }
+			custom_tooltip = DA_HX_corps_go_7_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 42 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -500 }
+			custom_tooltip = DA_HX_corps_go_7_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 148 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_7 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_8 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -800 }
+			custom_tooltip = DA_HX_corps_go_8_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 110 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -1000 }
+			custom_tooltip = DA_HX_corps_go_8_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 110 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -800 }
+			custom_tooltip = DA_HX_corps_go_8_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -800 }
+			custom_tooltip = DA_HX_corps_go_8_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 170 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_8 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_9 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -1200 }
+			custom_tooltip = DA_HX_corps_go_9_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -1500 }
+			custom_tooltip = DA_HX_corps_go_9_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -1200 }
+			custom_tooltip = DA_HX_corps_go_9_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 58 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -1200 }
+			custom_tooltip = DA_HX_corps_go_9_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 192 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_9 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_10 = yes } hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -2500 }
+			custom_tooltip = DA_HX_corps_go_10_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 140 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -3125 }
+			custom_tooltip = DA_HX_corps_go_10_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 140 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -2500 }
+			custom_tooltip = DA_HX_corps_go_10_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -2500 }
+			custom_tooltip = DA_HX_corps_go_10_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 215 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	}
+	if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_send_corps_1 value = 1 } } NOT = { AND = { DA_HX_target_10 = yes } } }    # was else_if (else_lowering.py)
+		if = {
+		limit = { DA_HX_target_11 = yes }
+		hidden_effect = {
+			DA_HX_end_roll = yes
+			remove_province_modifier = DA_HX_company_below
+		}
+		if = {
+			limit = { NOT = { has_province_flag = DA_HX_corps_tunnelrats } NOT = { has_province_flag = DA_HX_corps_blasters } NOT = { has_province_flag = DA_HX_corps_gizmo } }
+			owner = { add_treasury = -5000 }
+			custom_tooltip = DA_HX_corps_go_11_scavengers
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 155 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_tunnelrats }
+			owner = { add_treasury = -6250 }
+			custom_tooltip = DA_HX_corps_go_11_tunnelrats
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 155 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_blasters }
+			owner = { add_treasury = -5000 }
+			custom_tooltip = DA_HX_corps_go_11_blasters
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 72 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_HX_corps_gizmo }
+			owner = { add_treasury = -5000 }
+			custom_tooltip = DA_HX_corps_go_11_gizmo
+			hidden_effect = {
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 238 }
+			}
+		}
+		hidden_effect = {
+			set_province_flag = DA_expedition_in_progress
+			owner = { DA_HX_refresh_ready_count = yes }
+		}
+	} } } } } } } } } }
+	hidden_effect = { set_variable = { which = DA_else_DA_HX_send_corps_1 value = 0 } }
+}
+
 # The country menu (DA_adk_hold_exploration_menu.1). The AI keeps the old pace; a player's company is the one chosen
 # in the Dwarven Hall (DA_HX_hall_charter_<id>) and travels like any company of that charter. The floor is found the way
 # DA_Hold_exploration_workaround finds it. The price is paid by the menu (DA_HX_hall_pay_<n>).
 DA_HX_depart_from_menu = {
 	if = {
-		limit = { owner = { ai = no } }
+		limit = { owner = { ai = no } NOT = { owner = { DA_GB_corps_owner = yes } } }
 		DA_HX_end_roll = yes
 		remove_province_modifier = DA_HX_company_below
 		if = {
@@ -739,6 +1275,271 @@ DA_HX_depart_from_menu = {
 		} } } } } } } } } }
 		hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 0 } }
 	}
+	if = {
+		limit = { owner = { ai = no } owner = { DA_GB_corps_owner = yes } }
+		DA_HX_end_roll = yes
+		remove_province_modifier = DA_HX_company_below
+		if = {
+			limit = { DA_has_dig_level_1_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_2 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 5 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_1_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_2 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_2_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_3 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 12 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 58 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_2_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_3 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_3_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_4 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 20 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_3_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_4 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_4_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_5 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 28 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 102 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_4_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_5 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_5_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_6 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 80 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 35 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_5_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_6 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_6_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_7 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 95 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 95 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 42 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 148 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_6_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_7 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_7_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_8 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 110 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 110 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 50 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 170 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_7_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_8 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_8_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_9 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 125 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 58 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 192 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_8_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_9 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_9_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_10 } } hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 140 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 140 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 65 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 215 }
+			}
+		}
+		if = { limit = { NOT = { check_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 1 } } NOT = { AND = { DA_has_dig_level_9_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_10 } } } }    # was else_if (else_lowering.py)
+			if = {
+			limit = { DA_has_dig_level_10_or_higher = yes NOT = { has_province_flag = DA_looked_dig_adk_11 } }
+			if = {
+				limit = { owner = { NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } } }
+				set_province_flag = DA_GB_corps_run_scavengers
+				add_province_modifier = { name = DA_HX_company_below duration = 155 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_tunnelrats } }
+				set_province_flag = DA_GB_corps_run_tunnelrats
+				add_province_modifier = { name = DA_HX_company_below duration = 155 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_blasters } }
+				set_province_flag = DA_GB_corps_run_blasters
+				set_province_flag = DA_HX_run_prospectors
+				add_province_modifier = { name = DA_HX_company_below duration = 72 }
+			}
+			if = {
+				limit = { owner = { has_country_flag = DA_GB_hall_corps_gizmo } }
+				set_province_flag = DA_GB_corps_run_gizmo
+				set_province_flag = DA_HX_run_loreseekers
+				add_province_modifier = { name = DA_HX_company_below duration = 238 }
+			}
+		} } } } } } } } } }
+		hidden_effect = { set_variable = { which = DA_else_DA_HX_depart_from_menu_1 value = 0 } }
+	}
 	set_province_flag = DA_expedition_in_progress
 }
 
@@ -770,10 +1571,57 @@ DA_HX_hall_select_loreseekers = {
 	set_country_flag = DA_HX_hall_charter_loreseekers
 }
 
+DA_HX_hall_select_corps_scavengers = {
+	clr_country_flag = DA_GB_hall_corps_tunnelrats
+	clr_country_flag = DA_GB_hall_corps_blasters
+	clr_country_flag = DA_GB_hall_corps_gizmo
+}
+
+DA_HX_hall_select_corps_tunnelrats = {
+	clr_country_flag = DA_GB_hall_corps_tunnelrats
+	clr_country_flag = DA_GB_hall_corps_blasters
+	clr_country_flag = DA_GB_hall_corps_gizmo
+	set_country_flag = DA_GB_hall_corps_tunnelrats
+}
+
+DA_HX_hall_select_corps_blasters = {
+	clr_country_flag = DA_GB_hall_corps_tunnelrats
+	clr_country_flag = DA_GB_hall_corps_blasters
+	clr_country_flag = DA_GB_hall_corps_gizmo
+	set_country_flag = DA_GB_hall_corps_blasters
+}
+
+DA_HX_hall_select_corps_gizmo = {
+	clr_country_flag = DA_GB_hall_corps_tunnelrats
+	clr_country_flag = DA_GB_hall_corps_blasters
+	clr_country_flag = DA_GB_hall_corps_gizmo
+	set_country_flag = DA_GB_hall_corps_gizmo
+}
+
 # Country scope. What a departure of the country menu costs, deep by deep, and the line that says who goes (the AI
 # never chooses a company: it pays the usual price, without the line).
 DA_HX_hall_pay_2 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -25
+		custom_tooltip = DA_HX_corps_go_2_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -30
+		custom_tooltip = DA_HX_corps_go_2_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -25
+		custom_tooltip = DA_HX_corps_go_2_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -25
+		custom_tooltip = DA_HX_corps_go_2_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -40
 		custom_tooltip = DA_HX_hall_go_2_wardens
@@ -800,6 +1648,26 @@ DA_HX_hall_pay_2 = {
 
 DA_HX_hall_pay_3 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -50
+		custom_tooltip = DA_HX_corps_go_3_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -60
+		custom_tooltip = DA_HX_corps_go_3_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -50
+		custom_tooltip = DA_HX_corps_go_3_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -50
+		custom_tooltip = DA_HX_corps_go_3_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -75
 		custom_tooltip = DA_HX_hall_go_3_wardens
@@ -826,6 +1694,26 @@ DA_HX_hall_pay_3 = {
 
 DA_HX_hall_pay_4 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -100
+		custom_tooltip = DA_HX_corps_go_4_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -125
+		custom_tooltip = DA_HX_corps_go_4_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -100
+		custom_tooltip = DA_HX_corps_go_4_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -100
+		custom_tooltip = DA_HX_corps_go_4_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -150
 		custom_tooltip = DA_HX_hall_go_4_wardens
@@ -852,6 +1740,26 @@ DA_HX_hall_pay_4 = {
 
 DA_HX_hall_pay_5 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -200
+		custom_tooltip = DA_HX_corps_go_5_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -250
+		custom_tooltip = DA_HX_corps_go_5_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -200
+		custom_tooltip = DA_HX_corps_go_5_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -200
+		custom_tooltip = DA_HX_corps_go_5_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -300
 		custom_tooltip = DA_HX_hall_go_5_wardens
@@ -878,6 +1786,26 @@ DA_HX_hall_pay_5 = {
 
 DA_HX_hall_pay_6 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -300
+		custom_tooltip = DA_HX_corps_go_6_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -375
+		custom_tooltip = DA_HX_corps_go_6_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -300
+		custom_tooltip = DA_HX_corps_go_6_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -300
+		custom_tooltip = DA_HX_corps_go_6_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -450
 		custom_tooltip = DA_HX_hall_go_6_wardens
@@ -904,6 +1832,26 @@ DA_HX_hall_pay_6 = {
 
 DA_HX_hall_pay_7 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -500
+		custom_tooltip = DA_HX_corps_go_7_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -625
+		custom_tooltip = DA_HX_corps_go_7_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -500
+		custom_tooltip = DA_HX_corps_go_7_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -500
+		custom_tooltip = DA_HX_corps_go_7_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -750
 		custom_tooltip = DA_HX_hall_go_7_wardens
@@ -930,6 +1878,26 @@ DA_HX_hall_pay_7 = {
 
 DA_HX_hall_pay_8 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -800
+		custom_tooltip = DA_HX_corps_go_8_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -1000
+		custom_tooltip = DA_HX_corps_go_8_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -800
+		custom_tooltip = DA_HX_corps_go_8_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -800
+		custom_tooltip = DA_HX_corps_go_8_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -1200
 		custom_tooltip = DA_HX_hall_go_8_wardens
@@ -956,6 +1924,26 @@ DA_HX_hall_pay_8 = {
 
 DA_HX_hall_pay_9 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -1200
+		custom_tooltip = DA_HX_corps_go_9_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -1500
+		custom_tooltip = DA_HX_corps_go_9_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -1200
+		custom_tooltip = DA_HX_corps_go_9_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -1200
+		custom_tooltip = DA_HX_corps_go_9_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -1800
 		custom_tooltip = DA_HX_hall_go_9_wardens
@@ -982,6 +1970,26 @@ DA_HX_hall_pay_9 = {
 
 DA_HX_hall_pay_10 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -2500
+		custom_tooltip = DA_HX_corps_go_10_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -3125
+		custom_tooltip = DA_HX_corps_go_10_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -2500
+		custom_tooltip = DA_HX_corps_go_10_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -2500
+		custom_tooltip = DA_HX_corps_go_10_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -3750
 		custom_tooltip = DA_HX_hall_go_10_wardens
@@ -1008,6 +2016,26 @@ DA_HX_hall_pay_10 = {
 
 DA_HX_hall_pay_11 = {
 	if = {
+		limit = { DA_GB_corps_owner = yes ai = no NOT = { has_country_flag = DA_GB_hall_corps_tunnelrats } NOT = { has_country_flag = DA_GB_hall_corps_blasters } NOT = { has_country_flag = DA_GB_hall_corps_gizmo } }
+		add_treasury = -5000
+		custom_tooltip = DA_HX_corps_go_11_scavengers
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_tunnelrats }
+		add_treasury = -6250
+		custom_tooltip = DA_HX_corps_go_11_tunnelrats
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_blasters }
+		add_treasury = -5000
+		custom_tooltip = DA_HX_corps_go_11_blasters
+	}
+	else_if = {
+		limit = { DA_GB_corps_owner = yes ai = no has_country_flag = DA_GB_hall_corps_gizmo }
+		add_treasury = -5000
+		custom_tooltip = DA_HX_corps_go_11_gizmo
+	}
+	else_if = {
 		limit = { has_country_flag = DA_HX_hall_charter_wardens }
 		add_treasury = -7500
 		custom_tooltip = DA_HX_hall_go_11_wardens
@@ -1093,5 +2121,12 @@ DA_HX_reset = {
 	clr_province_flag = DA_HX_m11_foe
 	clr_province_flag = DA_HX_m11_legacy
 	clr_province_flag = DA_GX_lost_company
+	clr_province_flag = DA_HX_corps_tunnelrats
+	clr_province_flag = DA_HX_corps_blasters
+	clr_province_flag = DA_HX_corps_gizmo
+	clr_province_flag = DA_GB_corps_run_scavengers
+	clr_province_flag = DA_GB_corps_run_tunnelrats
+	clr_province_flag = DA_GB_corps_run_blasters
+	clr_province_flag = DA_GB_corps_run_gizmo
 }
 

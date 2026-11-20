@@ -1,0 +1,679 @@
+#!/usr/bin/env python3
+"""Legendary Encounters: the rules, as data and as a Python reference.
+
+Everything that is a number of the feature lives here. build_legendary_encounters.py turns these
+tables into EU4 script; check_legendary_encounters.py runs the generated script in a small
+interpreter and compares it with resolve_round() below, so the two cannot drift apart.
+
+Run on its own for a balance table:
+
+    python3 "Claude files/tools/le_rules.py"
+"""
+import random
+
+MAX_ROUNDS = 15
+
+# --- our side ---------------------------------------------------------------------------------
+# Regiments of ours standing in the province that can come to grips (the rest wait in the tunnels).
+CAP = {'inf': 30, 'cav': 10, 'art': 20}
+UNIT_POWER = {'inf': 4.0, 'cav': 5.0, 'art': 6.0}
+TECH_STEP = 0.03            # army strength +3% per military technology level
+MAX_TECH = 40
+RESOLVE_PER_REGIMENT = 10   # times (1 + morale modifier)
+RULER_RESOLVE = 40          # a ruler who fights in person adds this ...
+RULER_RESOLVE_PER_ADM = 10  # ... this per point of administrative skill ...
+RULER_RESOLVE_PER_LEVEL = 12  # ... and this per spell level he has mastered (all schools added up)
+RULER_POWER_PER_MIL = 0.04  # spell strength per point of military skill
+CIRCLE_BONUS = 0.10         # a ruler who also has a mage estate behind him
+ESTATE_MULT = 0.6           # spells cast by the estate's battle mages
+ESTATE_MANA = {1: 15, 2: 30, 3: 50}
+# DA_GN: bonuses that another feature gives our army against some legends. The gnomes' Dragonbreaker Harpoons (doc 48,
+# gnomish_data.HARPOONS): a flag the gnomish scripts keep (DA_GN_sync), our strength x1.25 against the two dragons.
+import gnomish_data as _GN  # noqa: E402
+ARMY_BONUS = [dict(name='Dragonbreaker Harpoons', legends=tuple(_GN.HARPOONS['legends']), flag=_GN.HARPOONS['flag'],
+                   mult=_GN.HARPOONS['mult'])]
+# DA_EL: Wyrmbane (Evocation III of the Elven page, doc 68, section 10): our army x1.15 against the dragon legends while the
+# tile is done and the Precursor heritage is active. DA_EL_sync and DA_EL_refresh keep the flag (build_elven_archive.py).
+ARMY_BONUS.append(dict(name='Wyrmbane', legends=('dragon', 'hunter', 'challumaton'), flag='DA_EL_wyrmbane_on', mult=1.15))
+
+
+def army_mult(legend_id, flags):
+    """our army's strength multiplier against this legend, from the owner's flags (ARMY_BONUS)"""
+    m = 1.0
+    for b in ARMY_BONUS:
+        if legend_id in b['legends'] and b['flag'] in flags:
+            m *= b['mult']
+    return m
+
+# order -> (melee damage, artillery damage, losses taken)
+ORDERS = {
+    'assault': (1.00, 0.60, 1.25),
+    'shield':  (0.45, 0.45, 0.55),
+    'volley':  (0.20, 1.60, 1.00),
+    'loose':   (0.65, 0.65, 0.85),
+}
+ORDER_IDS = list(ORDERS)
+ORDER_NAMES = {'assault': 'Assault', 'shield': 'Shield Wall', 'volley': 'Volley', 'loose': 'Loose Order'}
+
+SCHOOLS = ['abjuration', 'conjuration', 'divination', 'enchantment', 'evocation', 'illusion', 'necromancy', 'transmutation']
+SCHOOL_NAMES = {s: s.capitalize() for s in SCHOOLS}
+
+# school -> per level value (levels 1..3), multiplied by the caster's strength, then capped
+SPELLS = {
+    'evocation':     {'damage': (40, 75, 120)},
+    'abjuration':    {'block': (0.30, 0.50, 0.70), 'block_cap': 0.85},
+    'conjuration':   {'flat': (20, 40, 60), 'screen': (0.10, 0.15, 0.20), 'screen_cap': 0.40},
+    'enchantment':   {'army': (0.20, 0.35, 0.50), 'army_cap': 0.90},
+    'illusion':      {'miss': (25, 40, 55), 'miss_cap': 80},           # percent
+    'divination':    {'aim': (0.10, 0.20, 0.30), 'floor': (10, 15, 20)},  # our die is at least this
+    'necromancy':    {'rot': (8, 15, 24), 'rot_cap': 90},
+    'transmutation': {'sunder': (0.08, 0.14, 0.20), 'sunder_cap': 0.50},
+}
+
+SCOUT_COST = 200
+SCOUT_DAYS = 180
+SCOUT_VULN = 0.15
+CONTAIN_YEARS = 10
+REGROUP_DAYS = {'defeat': 365, 'withdraw': 180}
+STALE_DAYS = 30              # an unfinished fight can only be broken off after this
+LOSS_SHARE = {'victory': 0.35, 'withdraw': 0.50, 'defeat': 0.70}   # regiments lost per share of resolve lost
+KEEP_WOUNDS = 0.5            # share of its wounds a legend keeps after driving us off
+
+
+class Move:
+    def __init__(self, id, name, telegraph, might, weight, in_mult=None, out_mult=None, ward_gain=0,
+                 ward_gain_order=None, ward_gain_blocked_by=None, heal=0, heal_blocked_orders=(),
+                 heal_blocked_by=None, fear=1.0, fear_exempt_orders=(), report=''):
+        self.id, self.name, self.telegraph, self.might, self.weight = id, name, telegraph, might, weight
+        self.in_mult = {o: ORDERS[o][2] for o in ORDERS}
+        self.in_mult.update(in_mult or {})
+        self.out_mult = {o: 1.0 for o in ORDERS}
+        self.out_mult.update(out_mult or {})
+        self.ward_gain = ward_gain
+        self.ward_gain_order = ward_gain_order or {}      # order -> multiplier on the ward it gains
+        self.ward_gain_blocked_by = ward_gain_blocked_by  # school that cancels the gain
+        self.heal = heal
+        self.heal_blocked_orders = tuple(heal_blocked_orders)
+        self.heal_blocked_by = heal_blocked_by            # school that cancels the healing
+        self.fear = fear                                  # our army damage times this ...
+        self.fear_exempt_orders = tuple(fear_exempt_orders)  # ... unless Enchantment or one of these orders
+        self.report = report
+
+
+class Legend:
+    # What a legend may leave out.
+    DEFAULTS = dict(
+        start_hp=1.0,          # share of its vitality it has when we first meet it (below 1: already wounded)
+        unlock_flag=None,      # country flag of the owner that opens the way to it ...
+        unlock_trigger=None,   # ... or a trigger in the scope of its province
+        talk_only=False,       # it cannot be fought, scouted or contained: the window shows it and offers Parley
+        flees=False,           # one fight only: if we do not kill it, it leaves for good (rout or withdrawal alike)
+        end_flag=None,         # province flag set when it is gone (killed, or fled if it flees)
+        loss_province_effects=(),  # script lines for its province in the rout and withdrawal events of a legend that flees
+        loss_effects=(),       # script lines for the country in those two events
+        contain_cost=(),       # empty: it cannot be contained
+        contain_modifier={},
+        parley_event=None, raid_event=None, raid_chance=0,
+        parley_if=None,        # DA_KB: a trigger in the scope of its province: whom it will hear (None: anyone; doc 62)
+        contain_if=None,       # DA_EL: a trigger in the scope of its province: who can contain it (None: anyone who pays)
+        immune=(),             # DA_EL: schools that are wasted on it: their spell buttons are refused against it
+        ai_tech=None, ai_army=None,   # None: the AI never finishes it
+        defeat_manpower=0, defeat_stability=0,
+    )
+
+    def __init__(self, **kw):
+        self.__dict__.update(self.DEFAULTS)
+        self.__dict__.update(kw)
+
+
+LEGENDS = [
+    Legend(
+        id='lich', province=4056, hold='Verkal Kozenad',
+        name='The Cursed King', title='Mufnir VII, lich of the Chained Palace',
+        # present from DA_Verkal_Kozenad_event.1 on: the window shows him, locked, until the palace is found (12 November 2026)
+        present='has_province_modifier = DA_continous_Undeads',
+        unlock_flag='DA_can_duel_lich',
+        hp=600, ward=220, ward_max=450, might=21, armor=0.10, spell_resist=0.0, necro_mult=0.5,
+        enrage_below=0.0, enrage=1.0,
+        revive=0.30,                    # comes back once with this share of its vitality unless its weakness is known
+        ambush=False,
+        victory_event='DA_Verkal_Kozenad_event.4',
+        parley_event=None,              # a country event that opens the talks; None = it will not hear us
+        raid_event=None, raid_chance=0,  # an event it may fire on its owner every five years while it is free
+        defeat_devastation=10, defeat_manpower=0, defeat_stability=0,
+        contain_cost=(400, 600, 800, 1000),
+        contain_modifier={'local_unrest': -3, 'local_defensiveness': 0.25},
+        ai_tech=14, ai_army=30,
+        picture='UNDEAD_ARMY_eventPicture',
+        moves=[
+            Move('raise', 'Raises the Fallen', 'The dead of the hold stir. He is calling them to stand between us and the throne.',
+                 might=0.9, weight=30, ward_gain=140, ward_gain_order={'assault': 0.5}, ward_gain_blocked_by='necromancy'),
+            Move('wail', 'Wail of the Grave', 'The air turns cold and the torches gutter. A killing cry is building in the palace.',
+                 might=2.0, weight=25, in_mult={'loose': 0.35, 'shield': 1.0}),
+            Move('drain', 'Soul Drain', 'His gaze settles on our front rank. He means to feed.',
+                 might=1.1, weight=25, heal=90, heal_blocked_orders=('shield',), heal_blocked_by='abjuration'),
+            Move('wards', 'Rebuilds the Wards', 'He turns away from us and begins to chant over the broken seals.',
+                 might=0.3, weight=20, ward_gain=220, ward_gain_order={'assault': 0.25, 'volley': 0.6},
+                 out_mult={'assault': 1.4, 'volley': 1.2}),
+        ],
+    ),
+    Legend(
+        id='dragon', province=2863, hold='Khugdihr',
+        name="Nimrith's Offspring", title='Red dragon of the depths of Khugdihr',
+        present='has_province_modifier = DA_Dragon_raids',
+        unlock_flag='DA_can_duel_Dragon',
+        hp=1700, ward=0, ward_max=0, might=27, armor=0.30, spell_resist=0.30, necro_mult=1.0,
+        enrage_below=0.5, enrage=1.3,
+        revive=0.0,
+        ambush=True,                    # with its weakness known, the first round costs us nothing
+        victory_event='DA_Khugdihr_event.2',
+        parley_event='DA_KB_event.50',   # DA_KB: the dragon-priests of a Dragon Cult kobold country sing to it (doc 62)
+        parley_if='FROM = { DA_KB_can_parley_dragon = yes }',
+        raid_event='DA_Khugdihr_event.4', raid_chance=40,
+        defeat_devastation=25, defeat_manpower=-1, defeat_stability=-1,
+        contain_cost=(500, 750, 1000, 1500),
+        contain_modifier={'local_unrest': -3, 'local_development_cost': -0.15},
+        ai_tech=18, ai_army=45,
+        picture='DRAGON_ATTACK_eventPicture',
+        moves=[
+            Move('claw', 'Claw and Tail', 'It comes down on all fours and lowers its head. It means to wade into us.',
+                 might=1.0, weight=35, in_mult={'loose': 1.3}),
+            Move('breath', 'Fire Breath', 'Its chest swells and the cavern glows red between its scales.',
+                 might=2.2, weight=25, in_mult={'loose': 0.35, 'shield': 1.1}),
+            Move('wing', 'Takes Wing', 'It crouches and spreads its wings. It will fight from the cavern roof.',
+                 might=0.8, weight=20, out_mult={'assault': 0.3, 'shield': 0.5, 'loose': 0.5, 'volley': 1.5}),
+            Move('roar', 'Terrible Roar', 'It rears and fills its lungs, not with fire. Even veterans are looking for the tunnels.',
+                 might=1.2, weight=20, fear=0.65, fear_exempt_orders=('shield',)),
+        ],
+    ),
+    Legend(
+        id='hunter', province=4217, hold='Gor Vazumbrog',
+        name='The Hunter of the Deeps', title='Old dragon held in the Nadir of the Titanium Vault',
+        present='has_province_flag = DA_Titanium_Vault_found_Hunter_of_the_deeps\nNOT = { has_province_flag = DA_Hunter_gone }',
+        unlock_trigger='has_great_project = { type = DA_Titanium_Vault tier = 3 }',
+        hp=2600, start_hp=0.7,          # the Stormcage has been burning it for centuries
+        ward=0, ward_max=320, might=33, armor=0.25, spell_resist=0.40, necro_mult=1.0,
+        enrage_below=0.35, enrage=1.3,
+        revive=0.0,
+        ambush=True,
+        flees=True, end_flag='DA_Hunter_gone',
+        victory_event='DA_Hold_Gor_Vazumbrog.52',
+        parley_event='DA_Hold_Gor_Vazumbrog.50',
+        defeat_devastation=30,
+        loss_province_effects=['add_province_modifier = { name = DA_Hunter_rampage duration = 3650 }'],
+        loss_effects=['custom_tooltip = DA_Hunter_nadir_fate_tt',
+                      'hidden_effect = { country_event = { id = DA_Hold_Gor_Vazumbrog.53 days = 7 } }'],
+        picture='DRAGON_FLY_eventPicture',
+        moves=[
+            Move('rend', 'Rend and Crush', 'It drags itself round to face us, as far as the Tether lets it, and lowers its head.',
+                 might=1.0, weight=30, in_mult={'loose': 1.3}),
+            Move('mist', 'Breath of the Mist', 'Its flanks heave and the air in the vault turns iridescent. This is where the Mist comes from.',
+                 might=2.0, weight=25, in_mult={'volley': 0.5, 'shield': 1.0}),
+            Move('frenzy', 'Blind Frenzy', 'The Bell tolls. It screams and throws itself at the walls, at the Instruments, at us.',
+                 might=1.6, weight=25, in_mult={'shield': 0.45, 'loose': 1.2}, out_mult={'assault': 1.35, 'volley': 1.2}),
+            Move('leak', 'Drinks the Leak', 'It goes still. The light bleeding from the broken Instruments bends towards it and settles on its scales.',
+                 might=0.4, weight=20, ward_gain=180, ward_gain_order={'assault': 0.4, 'volley': 0.7}, ward_gain_blocked_by='abjuration'),
+        ],
+    ),
+    # The remaining holds (12 November 2026). Their finds and their events are written by remaining_holds_2026-11-12/gen.py
+    # (events/DA_Remaining_Holds.txt). All three can be spoken to; none of them is finished by the AI.
+    Legend(
+        id='gatewarden', province=4122, hold='Verkal Vazkron',
+        name='The Gatewarden', title='Rune-golem of the garrison, holding the inner gate of Verkal Vazkron',
+        present='has_province_flag = DA_Vazkron_exp2\nNOT = { has_province_flag = DA_Gatewarden_done }',
+        unlock_trigger='has_province_flag = DA_Vazkron_exp3',
+        hp=1100, ward=0, ward_max=0, might=24, armor=0.45, spell_resist=0.20, necro_mult=0.25,
+        enrage_below=0.0, enrage=1.0, revive=0.0, ambush=False,
+        victory_event='DA_Remaining_Holds_event.12',
+        parley_event='DA_Remaining_Holds_event.10',
+        defeat_devastation=10,
+        picture='DARK_EXPEDITION_eventPicture',
+        moves=[
+            Move('gw_sweep', 'Sweeps the Threshold', 'It lowers its arms to the height of a dwarf and begins to turn.',
+                 might=1.0, weight=30, in_mult={'loose': 1.3}),
+            Move('gw_lock', 'Locks its Plates', 'Its plates slide shut over the joints with a sound like a gate closing.',
+                 might=0.5, weight=25, out_mult={'assault': 0.4, 'shield': 0.6, 'loose': 0.6, 'volley': 1.3}),
+            Move('gw_hurl', 'Hurls the Gate Stones', 'It tears a block from the arch above it and weighs it in one hand.',
+                 might=1.9, weight=25, in_mult={'loose': 0.4, 'shield': 1.0}),
+            Move('gw_relight', 'Relights its Runes', 'It stops moving. The runes along its arms begin to fill with light, one after another.',
+                 might=0.3, weight=20, heal=90, heal_blocked_orders=('volley',), heal_blocked_by='abjuration'),
+        ],
+    ),
+    Legend(
+        id='maze_guest', province=4100, hold='Verkal Skomdihr',
+        name='The Guest of the Maze', title="A lord of the fey, keeping court in Kekig's first maze",
+        present='has_province_flag = DA_Skomdihr_exp2\nNOT = { has_province_flag = DA_Guest_done }',
+        unlock_trigger='has_province_flag = DA_Skomdihr_exp3',
+        hp=500, ward=400, ward_max=700, might=22, armor=0.0, spell_resist=0.35, necro_mult=1.0,
+        enrage_below=0.0, enrage=1.0, revive=0.0, ambush=False,
+        victory_event='DA_Remaining_Holds_event.22',
+        parley_event='DA_Remaining_Holds_event.20',
+        defeat_devastation=10,
+        contain_cost=(300, 450, 600, 800),
+        contain_modifier={'local_unrest': -2},
+        picture='FEYFOREST_eventPicture',
+        moves=[
+            Move('gm_glamour', 'Weaves a Glamour', 'The fog thickens and takes shapes. There are suddenly a great many of it.',
+                 might=0.4, weight=25, ward_gain=200, ward_gain_order={'volley': 0.5}, ward_gain_blocked_by='divination'),
+            Move('gm_walls', 'Turns the Walls', 'Stone grinds on stone on every side. The maze is rearranging itself around our companies.',
+                 might=1.6, weight=25, in_mult={'loose': 1.5, 'shield': 0.6}),
+            Move('gm_laughter', 'Laughter in the Fog', 'It laughs, from four directions, in the voices of people our soldiers know.',
+                 might=1.0, weight=25, fear=0.6, fear_exempt_orders=('shield',)),
+            Move('gm_hunt', 'Looses the Hunt', 'Horns sound that are not ours. Something with too many legs is coming down the long corridor.',
+                 might=2.0, weight=25, in_mult={'shield': 0.5, 'loose': 1.2}, out_mult={'volley': 1.3}),
+        ],
+    ),
+    Legend(
+        id='ombrindal', province=4218, hold='Gor Ozumbrog',
+        name='Ombrindal the Stout', title='Last king of Gor Ozumbrog, still holding the inner gate',
+        present='has_province_flag = DA_Ozumbrog_exp2\nNOT = { has_province_flag = DA_Ombrindal_done }',
+        unlock_trigger='has_province_flag = DA_Ozumbrog_exp3',
+        hp=1400, ward=0, ward_max=0, might=30, armor=0.35, spell_resist=0.25, necro_mult=0.5,
+        enrage_below=0.4, enrage=1.4, revive=0.0, ambush=False,
+        victory_event='DA_Remaining_Holds_event.32',
+        parley_event='DA_Remaining_Holds_event.30',
+        defeat_devastation=5,
+        picture='PRIEST_PHANTOM_eventPicture',
+        moves=[
+            Move('om_hold', 'Holds the Gate', 'He sets his feet and waits for us to come to him.',
+                 might=1.0, weight=30, in_mult={'loose': 1.3}),
+            Move('om_charge', 'Comes Down the Mound', 'He comes down off the mound at a run, alone, straight at the centre of our line.',
+                 might=1.8, weight=25, in_mult={'shield': 0.5}, out_mult={'assault': 1.2, 'volley': 1.3}),
+            Move('om_pact', 'Calls on the Pact', 'He strikes the gate behind him with the flat of his axe and calls the names of his guard. For a moment they are there.',
+                 might=0.5, weight=20, heal=110, heal_blocked_orders=('assault',), heal_blocked_by='necromancy'),
+            Move('om_cry', "The King's Cry", 'He draws breath. The cry that held this gate for twenty-three days is coming.',
+                 might=1.2, weight=25, fear=0.65, fear_exempt_orders=('shield',)),
+        ],
+    ),
+    # The Dream of Vengeance (12 November 2026): found with the Sleepers' Hall. Its finds and events are written by
+    # remaining_wonders_2026-11-12/gen.py (events/DA_Remaining_Wonders.txt). Steel does a fifth of its work on it.
+    Legend(
+        id='dream', province=4323, hold='Verkal Dromak',
+        name='The Dream of Vengeance', title='The last dream of the sleepers of Verkal Dromak, loose in the waking world',
+        present='has_province_flag = DA_Dromak_exp1\nNOT = { has_province_flag = DA_Dream_done }',
+        unlock_trigger='has_province_flag = DA_Dromak_exp2',
+        hp=340, ward=200, ward_max=400, might=22, armor=0.80, spell_resist=0.0, necro_mult=0.5,
+        enrage_below=0.0, enrage=1.0, revive=0.0, ambush=False,
+        victory_event='DA_Remaining_Wonders_event.242',
+        parley_event='DA_Remaining_Wonders_event.240',
+        defeat_devastation=0,
+        contain_cost=(200, 300, 400, 500),
+        contain_modifier={'local_unrest': -3},
+        picture='PRIEST_PHANTOM_eventPicture',      # the banner is cut from our own picture (make_legendary_encounter_art.py)
+        moves=[
+            Move('dr_face', "A Friend's Face", 'The ranks opposite are filling with people our soldiers know. Some of them are calling out by name.',
+                 might=0.9, weight=25, fear=0.5, fear_exempt_orders=('shield',)),
+            Move('dr_retreat', 'The False Retreat', 'Our horns are sounding the retreat. Nobody of ours is blowing them.',
+                 might=1.7, weight=25, in_mult={'loose': 1.5, 'shield': 0.5}),
+            Move('dr_gather', 'Gathers the Sleepers', 'The beds are filling again, row after row. Whatever lies down in them, it grows stronger for it.',
+                 might=0.4, weight=25, ward_gain=150, ward_gain_order={'assault': 0.5}, ward_gain_blocked_by='illusion'),
+            Move('dr_morning', 'The Last Morning', 'Every sleeper in the hall sits up at once. It is about to show us how they died.',
+                 might=2.1, weight=25, in_mult={'shield': 0.7}, out_mult={'assault': 1.3, 'volley': 0.7}),
+        ],
+    ),
+    # The Ambassador of the Ninth Canal: a legend that can only be spoken to. His story is hand-written
+    # (events/DA_Hold_Dur_Vazhatun.txt, .40 onwards); here he is only a face, three traits and the Parley button.
+    Legend(
+        id='guest', province=4020, hold='Dur-Vazhatun',
+        name='The Ambassador', title='Ambassador of the Ninth Canal of Agradent, in the Low Dome under the Setzunkhupa',
+        present='has_province_flag = DA_Setzunkhupa_guest_found\nNOT = { has_province_flag = DA_Setzunkhupa_guest_gone }',
+        unlock_trigger='always = yes',
+        talk_only=True,
+        parley_event='DA_Dur_Vazhatun_event.50',
+        hp=1, ward=0, ward_max=0, might=0, armor=0.0, spell_resist=0.0, necro_mult=1.0, enrage_below=0.0, enrage=1.0, revive=0.0,
+        ambush=False, victory_event=None, defeat_devastation=0,
+        picture='MAGE_MOON_eventPicture',
+        moves=[],
+    ),
+    # DA_EL: the three legends of the Precursor ruins (doc 68, section 10; built 19 November 2026, doc 72). Their reports,
+    # parley and victory events are DA_EL_event.120-.123 (build_elven_archive.py); the lost works and rings that show them
+    # are the Excavation's (build_ruin_excavation.py). The AI never finishes them. Their present starts with their
+    # province: the lost works' flags and the rings are the same in every ruin.
+    Legend(
+        id='warden', province=945, hold='Antir Soara',
+        name='The Warden of Soara', title='Construct-guardian of Antir Soara, still walking its deepest rings',
+        # seen with the second lost work of Antir Soara (the Warden's Gate), the way open with the third
+        present='province_id = 945\nhas_province_flag = DA_RX_lw2\nNOT = { has_province_flag = DA_EL_warden_done }',
+        unlock_trigger='has_province_flag = DA_RX_lw3',
+        hp=1300, ward=0, ward_max=360, might=26, armor=0.50, spell_resist=0.30, necro_mult=0.0,
+        enrage_below=0.0, enrage=1.0, revive=0.0, ambush=False,
+        immune=('illusion', 'necromancy'),   # a construct: nothing to fool and nothing to wither
+        victory_event='DA_EL_event.121',
+        parley_event='DA_EL_event.120',      # the old command-tongue: it stands down and guards the city
+        parley_if='FROM = { DA_EL_can_command_warden = yes }',
+        end_flag='DA_EL_warden_done',
+        defeat_devastation=10,
+        picture='GENIE_RUINS_eventPicture',  # the banner is cut from the Spire Gardens painting
+        moves=[
+            Move('wa_stride', 'The Measured Stride', 'It walks towards us at the pace of a funeral, and does not step round anything in its way.',
+                 might=1.0, weight=30, in_mult={'loose': 1.3}),
+            Move('wa_aegis', 'Raises its Aegis', 'A disc of teal light unfolds from its forearm, as wide as a city gate.',
+                 might=0.4, weight=25, ward_gain=200, ward_gain_order={'assault': 0.5, 'volley': 0.75}, ward_gain_blocked_by='abjuration'),
+            Move('wa_lance', 'Lance of Light', 'The teal core in its chest brightens until it hurts to look at.',
+                 might=2.1, weight=25, in_mult={'loose': 0.4, 'shield': 1.0}),
+            Move('wa_mend', 'Draws on the Ley', 'It kneels and lays a palm on the paving. The lines cut in the stone begin to glow towards it.',
+                 might=0.3, weight=20, heal=100, heal_blocked_orders=('assault',), heal_blocked_by='divination'),
+        ],
+    ),
+    Legend(
+        id='challumaton', province=2520, hold='Nagar Vyechei',
+        name='The Challúmaton Dragon', title='Bone-white dragon-golem of the Blue House, fuelled by thousands of stolen souls',
+        # closed to Verne and Orenvalyam, whose own events fight it, and gone once either of them has
+        present='province_id = 2520\nhas_province_flag = DA_RX_lw2\nNOT = { has_province_flag = DA_EL_challumaton_done }\n'
+                'NOT = { owner = { OR = { tag = A33 tag = U39 } } }\n'
+                'NOT = { any_country = { OR = { has_country_modifier = vernissage_challumaton_bones has_country_flag = U39_relics_outlawed_flag } } }',
+        unlock_trigger='has_province_flag = DA_RX_lw3',
+        hp=1800, ward=0, ward_max=0, might=29, armor=0.30, spell_resist=0.0, necro_mult=1.5,
+        enrage_below=0.4, enrage=1.3, revive=0.25, ambush=False,
+        victory_event='DA_EL_event.122',
+        end_flag='DA_EL_challumaton_done',
+        defeat_devastation=20, defeat_manpower=-1,
+        contain_cost=(600, 900, 1200, 1600),
+        contain_modifier={'local_unrest': -3, 'local_development_cost': -0.10},
+        contain_if='FROM = { has_country_flag = DA_EL_codex.abjuration }',   # the wards of Abjuration
+        picture='LOOMING_DEATH_eventPicture',
+        moves=[
+            Move('ch_claws', 'Claws, Tail and Wing', 'It uncoils across the whole chamber floor. Every part of it is a weapon, and every part is moving.',
+                 might=1.0, weight=30, in_mult={'loose': 1.3}),
+            Move('ch_soulfire', 'Soul-Fire', 'Its jaws hinge open and the light of a thousand stolen souls gathers in its throat.',
+                 might=2.2, weight=25, in_mult={'loose': 0.35, 'shield': 1.1}),
+            Move('ch_reassemble', 'Pieces Itself Together', 'Severed plates drag themselves across the floor towards it and click back into place.',
+                 might=0.4, weight=25, heal=110, heal_blocked_orders=('volley',), heal_blocked_by='necromancy'),
+            Move('ch_shriek', 'The Hollow Shriek', 'Thousands of voices scream from inside the bone-white frame, all at once.',
+                 might=1.2, weight=20, fear=0.6, fear_exempt_orders=('shield',)),
+        ],
+    ),
+    Legend(
+        id='mother', province=2201, hold='Serpentfall East',
+        name='The Mother of Seeds', title='The heart of the seedthrall network, rooted below Serpentfall East',
+        # seen when the Lyceum (ring III) is unsealed, the way open with the Skyward Docks (ring IV)
+        present='province_id = 2201\ncheck_variable = { which = DA_RX_ring value = 3 }\nNOT = { has_province_flag = DA_EL_mother_done }',
+        unlock_trigger='check_variable = { which = DA_RX_ring value = 4 }',
+        hp=1300, ward=300, ward_max=800, might=27, armor=0.0, spell_resist=0.0, necro_mult=0.25,
+        enrage_below=0.0, enrage=1.0, revive=0.0, ambush=False,
+        victory_event='DA_EL_event.123',
+        end_flag='DA_EL_mother_done',
+        defeat_devastation=15,
+        contain_cost=(300, 450, 600, 800),
+        contain_modifier={'local_unrest': -2, 'local_development_cost': -0.10},
+        contain_if='FROM = { has_country_flag = DA_EL_codex.necromancy }',   # Stasis
+        picture='GENIE_RUINS_eventPicture',  # the banner is cut from the Gleaming Laboratory painting
+        moves=[
+            Move('mo_regrow', 'Regrows', 'The ward of roots and bark around the heart thickens while we watch.',
+                 might=0.4, weight=25, ward_gain=220, ward_gain_order={'assault': 0.5}, ward_gain_blocked_by='evocation'),
+            Move('mo_spores', 'Clouds of Spores', 'The pods along the walls split, one after another, and the air turns gold.',
+                 might=1.1, weight=25, fear=0.6, fear_exempt_orders=('loose',)),
+            Move('mo_roots', 'Roots from Below', 'The floor heaves. Something is coming up under our ranks, not at them.',
+                 might=1.8, weight=25, in_mult={'shield': 0.6, 'loose': 1.4}),
+            Move('mo_thralls', 'Calls the Thralls', 'Seedthralls pour out of the side tunnels and throw themselves between us and the heart.',
+                 might=0.8, weight=25, heal=100, heal_blocked_orders=('assault',), heal_blocked_by='conjuration'),
+        ],
+    ),
+]
+LEGEND = {l.id: l for l in LEGENDS}
+FIGHTS = [l for l in LEGENDS if not l.talk_only]     # the legends that have a fight: everything about rounds uses this list
+
+
+# --- reference implementation -----------------------------------------------------------------
+
+def army_strength(inf, cav, art, tech, disc=0.0, inf_power=0.0, cav_power=0.0, art_power=0.0,
+                  wf=(0, 0, 0), wf_power=(0.0, 0.0, 0.0), mult=1.0):
+    """Returns (melee strength, artillery strength, regiments counted). wf: Warforged regiments the country
+    fields, by class; wf_power: the power of its current design, by class; mult: army_mult() (DA_GN)."""
+    n = {'inf': min(inf, CAP['inf']), 'cav': min(cav, CAP['cav']), 'art': min(art, CAP['art'])}
+    q = (1 + TECH_STEP * min(tech, MAX_TECH)) * (1 + disc)
+    p = {}
+    for k, base, own, i in (('inf', inf_power, 0, 0), ('cav', cav_power, 0, 1), ('art', art_power, 0, 2)):
+        share = min(1.0, wf[i] / n[k]) if n[k] else 0.0
+        p[k] = n[k] * UNIT_POWER[k] * (1 + base + share * wf_power[i])
+    return (p['inf'] + p['cav']) * q * mult, p['art'] * q * mult, n['inf'] + n['cav'] + n['art']
+
+
+def resolve_max(regiments, morale=0.0, ruler_leads=False, adm=0, levels=0):
+    r = RESOLVE_PER_REGIMENT * regiments * (1 + morale)
+    if ruler_leads:
+        r += RULER_RESOLVE + RULER_RESOLVE_PER_ADM * adm + RULER_RESOLVE_PER_LEVEL * levels
+    return r
+
+
+def caster(school, ruler_leads, ruler_levels, estate_levels, mana, mil=0, has_estate=None):
+    """Who casts a school this round: (source, level, strength, mana cost) or None.
+    The battle mages cast at the highest level they know and can pay for; the ruler casts unless they
+    know the school two levels better than he does."""
+    r = ruler_levels.get(school, 0) if ruler_leads else 0
+    e = estate_levels.get(school, 0)
+    while e and mana < ESTATE_MANA[e]:
+        e -= 1
+    if has_estate is None:
+        has_estate = bool(estate_levels)
+    ruler = ('ruler', r, 1 + RULER_POWER_PER_MIL * mil + (CIRCLE_BONUS if has_estate else 0), 0) if r else None
+    estate = ('estate', e, ESTATE_MULT, ESTATE_MANA[e]) if e else None
+    if ruler and estate:
+        return estate if e >= r + 2 else ruler
+    return ruler or estate
+
+
+class State:
+    def __init__(self, legend, s_melee, s_art, resolve, weakness=False, hp=None):
+        self.legend = legend
+        self.s_melee, self.s_art = s_melee, s_art
+        self.hp = legend.hp * legend.start_hp if hp is None else hp
+        self.ward = legend.ward
+        self.resolve = self.resolve_max = resolve
+        self.round = 1
+        self.rot = 0.0
+        self.sunder = 0.0
+        self.weakness = weakness
+        self.revived = False
+        self.ambush = bool(legend.ambush and weakness)
+        self.cooldown = None
+        self.move = None
+        self.result = None
+
+
+def resolve_round(st, order, spell, die_a, die_b, die_c):
+    """One round. spell is None or (school, level, strength). Returns a dict of what happened."""
+    L, mv = st.legend, st.move
+    om, oa, _ = ORDERS[order]
+    school, lvl, m = spell if spell else (None, 0, 0)
+    val = lambda key: SPELLS[school][key][lvl - 1] * m
+    rep = {}
+
+    if school == 'divination':
+        die_a = max(die_a, SPELLS['divination']['floor'][lvl - 1])
+    var_ours = 0.85 + 0.015 * die_a
+    var_theirs = 0.85 + 0.015 * die_b
+
+    # our blow
+    army = (st.s_melee * om + st.s_art * oa) * mv.out_mult[order]
+    if mv.fear != 1.0 and school != 'enchantment' and order not in mv.fear_exempt_orders:
+        army *= mv.fear
+    if school == 'enchantment':
+        army *= 1 + min(val('army'), SPELLS['enchantment']['army_cap'])
+    if school == 'conjuration':
+        army += val('flat')
+    army *= var_ours
+    if school == 'divination':
+        army *= 1 + val('aim')
+    else:
+        army *= 1 - L.armor
+    spell_dmg = val('damage') * (1 - L.spell_resist) if school == 'evocation' else 0
+    vuln = 1 + st.sunder + (SCOUT_VULN if st.weakness else 0)
+    total = (army + spell_dmg) * vuln
+    rep['dealt'] = total
+    if school == 'divination':
+        st.hp -= total
+        rep['warded'] = 0
+    else:
+        absorbed = min(st.ward, total)
+        st.ward -= absorbed
+        st.hp -= total - absorbed
+        rep['warded'] = absorbed
+
+    # lasting spells
+    if school == 'necromancy':
+        st.rot = min(st.rot + val('rot') * L.necro_mult * (1 - L.spell_resist), SPELLS['necromancy']['rot_cap'])
+    st.hp -= st.rot
+    rep['rot'] = st.rot
+    if school == 'transmutation':
+        st.sunder = min(st.sunder + val('sunder'), SPELLS['transmutation']['sunder_cap'])
+
+    # is it dead?
+    if st.hp <= 0:
+        if L.revive and not st.revived and not st.weakness:
+            st.revived = True
+            st.hp = L.hp * L.revive
+            st.ward = 0
+            rep['revived'] = True
+        else:
+            st.hp = 0
+            st.result = 'victory'
+            return rep
+
+    # its move
+    if not rep.get('revived'):
+        gain = mv.ward_gain * mv.ward_gain_order.get(order, 1.0)
+        if mv.ward_gain_blocked_by and school == mv.ward_gain_blocked_by:
+            gain = 0
+        st.ward = min(st.ward + gain, max(L.ward_max, st.ward))
+        if mv.heal and order not in mv.heal_blocked_orders and school != mv.heal_blocked_by:
+            st.hp = min(st.hp + mv.heal, L.hp)
+            rep['healed'] = True
+
+    incoming = L.might * mv.might * mv.in_mult[order] * var_theirs
+    if L.enrage_below and st.hp < L.hp * L.enrage_below:
+        incoming *= L.enrage
+    if school == 'abjuration':
+        incoming *= 1 - min(val('block'), SPELLS['abjuration']['block_cap'])
+    if school == 'conjuration':
+        incoming *= 1 - min(val('screen'), SPELLS['conjuration']['screen_cap'])
+    if school == 'illusion' and die_c * 5 <= min(val('miss'), SPELLS['illusion']['miss_cap']):
+        incoming = 0
+        rep['missed'] = True
+    if st.ambush:
+        incoming = 0
+        st.ambush = False
+        rep['ambush'] = True
+    st.resolve -= incoming
+    rep['taken'] = incoming
+
+    st.cooldown = school
+    if st.resolve <= 0:
+        st.resolve = 0
+        st.result = 'defeat'
+    elif st.round >= MAX_ROUNDS:
+        st.result = 'withdraw'
+    else:
+        st.round += 1
+    return rep
+
+
+def next_move(legend, current, rng):
+    """Never the same move twice in a row."""
+    pool = [m for m in legend.moves if m is not current]
+    return rng.choices(pool, weights=[m.weight for m in pool])[0]
+
+
+def regiments_lost(regiments, resolve, resolve_maximum, result):
+    if resolve_maximum <= 0:
+        return 0
+    return int(regiments * (1 - resolve / resolve_maximum) * LOSS_SHARE[result])
+
+
+# --- a player that plays sensibly, for the balance table ---------------------------------------
+
+def best_play(st, ruler_leads, ruler_levels, estate_levels, mana, mil):
+    """Looks one round ahead with average dice and picks the order and spell with the best trade."""
+    import copy
+    options = [None]
+    for s in SCHOOLS:
+        if s == st.cooldown or s in st.legend.immune:   # DA_EL: a school wasted on it cannot be cast
+            continue
+        c = caster(s, ruler_leads, ruler_levels, estate_levels, mana, mil)
+        if c:
+            options.append((s, c))
+    best = None
+    for order in ORDER_IDS:
+        for opt in options:
+            t = copy.copy(st)
+            spell = (opt[0], opt[1][1], opt[1][2]) if opt else None
+            hp0, ward0, res0, rot0, sun0 = t.hp, t.ward, t.resolve, t.rot, t.sunder
+            resolve_round(t, order, spell, 10, 10, 20 if not opt or opt[0] != 'illusion' else 10)
+            left = max(1, MAX_ROUNDS - st.round)
+            gain = (hp0 + ward0) - (t.hp + t.ward) + (t.rot - rot0) * min(left, 5) + (t.sunder - sun0) * 60 * min(left, 6)
+            loss = res0 - t.resolve
+            if t.result == 'victory':
+                score = 1e6
+            elif t.result == 'defeat':
+                score = -1e6
+            else:
+                # value our resolve by how much of the legend is left to kill
+                need = (t.hp + t.ward) / max(1.0, st.legend.hp + st.legend.ward)
+                score = gain / (st.legend.hp + st.legend.ward) - loss / max(1.0, st.resolve_max) * (0.6 + need)
+            if best is None or score > best[0]:
+                best = (score, order, opt)
+    return best[1], best[2]
+
+
+def play(legend, inf, cav, art, tech, disc=0.05, morale=0.10, ruler=None, estate=None, mana=200, adm=3, mil=3,
+         weakness=False, seed=0, power=0.0, wf=(0, 0, 0), wf_power=(0, 0, 0)):
+    rng = random.Random(seed)
+    ruler_levels, estate_levels = ruler or {}, estate or {}
+    leads = bool(ruler_levels)
+    sm, sa, n = army_strength(inf, cav, art, tech, disc, power, power, power, wf, wf_power)
+    st = State(legend, sm, sa, resolve_max(n, morale, leads, adm, sum(ruler_levels.values())), weakness)
+    st.move = next_move(legend, None, rng)
+    while not st.result:
+        order, opt = best_play(st, leads, ruler_levels, estate_levels, mana, mil)
+        spell = None
+        if opt:
+            spell = (opt[0], opt[1][1], opt[1][2])
+            mana -= opt[1][3]
+        resolve_round(st, order, spell, rng.randint(1, 20), rng.randint(1, 20), rng.randint(1, 20))
+        st.move = next_move(legend, st.move, rng)
+    return st, n
+
+
+def table():
+    mage3 = {'evocation': 3, 'abjuration': 3, 'enchantment': 2}
+    mage2 = {'evocation': 2, 'conjuration': 1}
+    arch = {'evocation': 3, 'abjuration': 3, 'illusion': 3, 'transmutation': 3, 'necromancy': 2}
+    est = {'evocation': 2, 'abjuration': 2, 'enchantment': 1}
+    cases = [
+        ('10 regiments (7/0/3), tech 12, no magic', dict(inf=7, cav=0, art=3, tech=12)),
+        ('20 regiments (12/0/8), tech 14, no magic', dict(inf=12, cav=0, art=8, tech=14)),
+        ('20 regiments, tech 14, mage estate', dict(inf=12, cav=0, art=8, tech=14, estate=est)),
+        ('20 regiments, tech 14, modest mage ruler', dict(inf=12, cav=0, art=8, tech=14, ruler=mage2)),
+        ('20 regiments, tech 14, great mage ruler', dict(inf=12, cav=0, art=8, tech=14, ruler=mage3)),
+        ('20 regiments, tech 14, weakness known', dict(inf=12, cav=0, art=8, tech=14, weakness=True)),
+        ('30 regiments (16/4/10), tech 18, no magic', dict(inf=16, cav=4, art=10, tech=18)),
+        ('30 regiments, tech 18, great mage ruler', dict(inf=16, cav=4, art=10, tech=18, ruler=mage3)),
+        ('40 regiments (20/6/14), tech 22, no magic', dict(inf=20, cav=6, art=14, tech=22)),
+        ('40 Warforged regiments (+50%), tech 22', dict(inf=20, cav=6, art=14, tech=22, wf=(20, 6, 14), wf_power=(0.5, 0.5, 0.5))),
+        ('60 regiments (30/10/20), tech 26, no magic', dict(inf=30, cav=10, art=20, tech=26)),
+        ('10 regiments, tech 12, great mage ruler', dict(inf=7, cav=0, art=3, tech=12, ruler=mage3)),
+        ('great mage ruler alone', dict(inf=0, cav=0, art=0, tech=14, ruler=mage3, adm=4, mil=4)),
+        ('archmage ruler alone', dict(inf=0, cav=0, art=0, tech=14, ruler=arch, adm=5, mil=5)),
+    ]
+    out = []
+    for L in FIGHTS:
+        out.append(f'\n{L.name} — vitality {L.hp}, ward {L.ward}, might {L.might}')
+        out.append(f'{"case":48} {"win%":>5} {"rounds":>6} {"resolve left":>12} {"regiments lost":>14}')
+        for name, kw in cases:
+            wins, rounds, left, lost = 0, [], [], []
+            N = 300
+            for seed in range(N):
+                st, n = play(L, seed=seed, **kw)
+                if st.result == 'victory':
+                    wins += 1
+                    rounds.append(st.round)
+                    left.append(st.resolve / st.resolve_max)
+                lost.append(regiments_lost(n, st.resolve, st.resolve_max, st.result))
+            r = sum(rounds) / len(rounds) if rounds else 0
+            l = sum(left) / len(left) * 100 if left else 0
+            out.append(f'{name:48} {wins * 100 // N:>4}% {r:>6.1f} {l:>11.0f}% {sum(lost) / N:>14.1f}')
+    return '\n'.join(out)
+
+
+if __name__ == '__main__':
+    print(table())

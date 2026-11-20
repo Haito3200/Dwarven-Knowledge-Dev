@@ -770,7 +770,10 @@ DA_available_research = {
 	# DA_SLOT: studies and research share one slot (apply_research_slot_2026-11-16.py)
 	custom_trigger_tooltip = {
 		tooltip = DA_no_school_study_running_tt
-		NOT = { DA_SCH_studying_any = yes }
+		OR = {
+			DA_GN_has_bench = yes	# DA_GN: the gnomish bench runs a study beside the research (build_gnomish_workshop.py)
+			NOT = { DA_SCH_studying_any = yes }
+		}
 	}
 }
 

@@ -24,6 +24,7 @@ country_event = { # the first inventory
 
 	option = {
 		name = "DA_Hehodovar_event.10.a"
+		goto = 4078
 		custom_tooltip = DA_Hehodovar_event.10.tt
 	}
 }
@@ -41,6 +42,7 @@ country_event = { # tier I: the benches lit
 
 	option = {
 		name = "DA_Hehodovar_event.2.a"
+		goto = 4078
 		custom_tooltip = DA_BG_tier_1_unlock_tt
 	}
 }
@@ -58,6 +60,7 @@ country_event = { # tier II: the floor uncovered
 
 	option = {
 		name = "DA_Hehodovar_event.3.a"
+		goto = 4078
 		custom_tooltip = DA_BG_tier_2_unlock_tt
 	}
 }
@@ -76,7 +79,8 @@ country_event = { # tier III: read the book or shelve it
 
 	option = {
 		name = "DA_Hehodovar_event.4.a"
-		add_adk_effect = { add = 10 }
+		goto = 4078
+		DA_gain_adk_effect = { add = 10 }
 		custom_tooltip = DA_Hehodovar_event.4.a.tt
 		hidden_effect = {
 			4078 = { set_province_flag = DA_BG_stages_read }
@@ -85,6 +89,7 @@ country_event = { # tier III: read the book or shelve it
 	}
 	option = {
 		name = "DA_Hehodovar_event.4.b"
+		goto = 4078
 		add_stability = 1
 		add_prestige = 25
 		4078 = {
@@ -111,12 +116,14 @@ country_event = { # one year after tier I: the Work Curse
 
 	option = {
 		name = "DA_Hehodovar_event.11.a"
+		goto = 4078
 		4078 = {
 			add_base_production = 1
 		}
 	}
 	option = {
 		name = "DA_Hehodovar_event.11.b"
+		goto = 4078
 		add_country_modifier = { name = DA_BG_cursed_crews duration = 3650 }
 	}
 }
@@ -134,10 +141,12 @@ country_event = { # three years after tier I: the Banjeay seal
 
 	option = {
 		name = "DA_Hehodovar_event.12.a"
+		goto = 4078
 		add_country_modifier = { name = DA_BG_sealed_decrees duration = 7300 }
 	}
 	option = {
 		name = "DA_Hehodovar_event.12.b"
+		goto = 4078
 		add_stability = 1
 	}
 }
@@ -155,10 +164,12 @@ country_event = { # one year after tier II: the bearings of King Bruenor the Diz
 
 	option = {
 		name = "DA_Hehodovar_event.13.a"
-		add_adk_effect = { add = 4 }
+		goto = 4078
+		DA_gain_adk_effect = { add = 4 }
 	}
 	option = {
 		name = "DA_Hehodovar_event.13.b"
+		goto = 4078
 		add_treasury = 200
 	}
 }
@@ -187,12 +198,14 @@ country_event = { # ten years after tier III: the Standing in stone
 
 	option = {
 		name = "DA_Hehodovar_event.14.a"
+		goto = 4078
 		add_stability = 1
 		add_prestige = 20
 	}
 	option = {
 		name = "DA_Hehodovar_event.14.b"
-		add_adk_effect = { add = 10 }
+		goto = 4078
+		DA_gain_adk_effect = { add = 10 }
 	}
 }
 
@@ -244,6 +257,7 @@ country_event = { # the report of the Thinkers' Party
 
 	option = {
 		name = "DA_Hehodovar_event.21.a"
+		goto = 4078
 		if = {
 			limit = { has_country_flag = DA_BG_poured_ale }
 			custom_tooltip = DA_BG_poured_ale_tt
@@ -333,10 +347,12 @@ country_event = { # after a party: a motion was carried
 
 	option = {
 		name = "DA_Hehodovar_event.30.a"
+		goto = 4078
 		add_treasury = -150
 	}
 	option = {
 		name = "DA_Hehodovar_event.30.b"
+		goto = 4078
 		add_prestige = -5
 	}
 }
@@ -354,11 +370,13 @@ country_event = { # after a party: the statue has moved
 
 	option = {
 		name = "DA_Hehodovar_event.31.a"
+		goto = 4078
 		add_treasury = -100
 	}
 	option = {
 		name = "DA_Hehodovar_event.31.b"
-		add_adk_effect = { add = 2 }
+		goto = 4078
+		DA_gain_adk_effect = { add = 2 }
 		4078 = {
 			add_province_modifier = { name = DA_BG_guild_grumbling duration = 1825 }
 		}
@@ -378,6 +396,7 @@ country_event = { # after a party: the quiet morning
 
 	option = {
 		name = "DA_Hehodovar_event.32.a"
+		goto = 4078
 		4078 = {
 			add_base_tax = 1
 		}
@@ -385,6 +404,7 @@ country_event = { # after a party: the quiet morning
 	}
 	option = {
 		name = "DA_Hehodovar_event.32.b"
+		goto = 4078
 		add_treasury = -100
 		4078 = {
 			add_base_tax = 1
@@ -453,6 +473,7 @@ country_event = { # a work of the Guild is finished
 
 	option = {
 		name = "DA_Hehodovar_event.40.a"
+		goto = 4078
 		if = {
 			limit = { has_country_flag = DA_BG_finished_cement }
 			custom_tooltip = DA_BG_finished_cement_tt
@@ -489,7 +510,7 @@ country_event = { # a work of the Guild is finished
 			limit = { has_country_flag = DA_BG_finished_coal }
 			custom_tooltip = DA_BG_gain_20_metal
 			hidden_effect = { change_variable = { which = DA_arcane_metal_total value = 20 } }
-			add_adk_effect = { add = 3 }
+			DA_gain_adk_effect = { add = 3 }
 			hidden_effect = { clr_country_flag = DA_BG_finished_coal }
 		}
 		if = {
@@ -534,11 +555,13 @@ country_event = { # a reader of the Thirteen Stages stays at the window
 
 	option = {
 		name = "DA_Hehodovar_event.50.a"
+		goto = 4078
 		add_treasury = -100
 	}
 	option = {
 		name = "DA_Hehodovar_event.50.b"
-		add_adk_effect = { add = 2 }
+		goto = 4078
+		DA_gain_adk_effect = { add = 2 }
 		4078 = {
 			add_province_modifier = { name = DA_BG_guild_grumbling duration = 1825 }
 		}

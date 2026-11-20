@@ -21,6 +21,7 @@ DA_start_research = {
 			value = 0
 		}
 		set_variable = { which = DA_research_progress_percent value = 0 }
+		DA_PR_restore_paused = { flag = $flag$ } # a research paused by a change of race (DA_RH, build_projects_research.py)
 		set_variable = {
 			which = DA_research_progress_MAX
 			value = $time$
@@ -71,6 +72,7 @@ DA_start_research = {
 		}
 		change_variable = { which = DA_research_generation value = 1 }
 		DA_refresh_research_event_cutoff = yes
+		DA_GB_apply_spark = yes	# DA_GB a Spark of a goblin Eureka (build_goblin_boomworks.py)
 		# Progress is advanced by on_monthly_pulse, without a delayed event chain.
 	}
 	if = {
@@ -255,6 +257,7 @@ DA_monthly_research_tick = {
 		multiply_variable = { which = DA_research_speed_gain_var value = 100 }
 		round_variable = { which = DA_research_speed_gain_var value = 0 }
 		divide_variable = { which = DA_research_speed_gain_var value = 100 }
+		DA_GB_push_research = yes	# DA_GB the push of a goblin country (build_goblin_boomworks.py)
 		change_variable = {
 			which = DA_research_progress
 			which = DA_research_speed_gain_var

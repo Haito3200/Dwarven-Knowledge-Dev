@@ -15,26 +15,134 @@ DA_enable_Metal_Ship = {
 	}
 }
 
-# A blueprint option. Same parameters as DA_apply_Blueprint, shown in ship words. No rune slots.
+# A blueprint option. The parameters of DA_apply_Blueprint, shown in ship words (DA_SHIP_<stat>.tt.<value>);
+# DA_Magical, DA_Electrical, DA_Unique and DA_Unique_2 are passed on when given (doc 94, step 10).
 DA_apply_Blueprint_SHIP = {
 	custom_tooltip = DA_Blueprint_preview_tooltip
 	custom_tooltip = DA_Cost.tt.$DA_Cost$
+	custom_tooltip = DA_RuneSlots.tt.$DA_RUNE_SLOTS$
 	custom_tooltip = DA_SHIP_power.tt.$DA_power$
 	custom_tooltip = DA_SHIP_fire.tt.$DA_fire$
 	custom_tooltip = DA_SHIP_shock.tt.$DA_shock$
 	custom_tooltip = DA_SHIP_Fire_rec.tt.$DA_Fire_rec$
 	custom_tooltip = DA_SHIP_Shock_rec.tt.$DA_Shock_rec$
 	custom_tooltip = DA_Blueprint_preview_tooltip_after
+	[[DA_Magical]
+		custom_tooltip = DA_Magical_blueprint_TT
+		custom_tooltip = DA_SHIP_power.tt.$DA_power.Magical$
+		custom_tooltip = DA_SHIP_fire.tt.$DA_fire.Magical$
+		custom_tooltip = DA_SHIP_shock.tt.$DA_shock.Magical$
+		custom_tooltip = DA_SHIP_Fire_rec.tt.$DA_Fire_rec.Magical$
+		custom_tooltip = DA_SHIP_Shock_rec.tt.$DA_Shock_rec.Magical$
+	]
+	[[DA_Electrical]
+		custom_tooltip = DA_Electrical_blueprint_TT
+		custom_tooltip = DA_SHIP_power.tt.$DA_power.electric$
+		custom_tooltip = DA_SHIP_fire.tt.$DA_fire.electric$
+		custom_tooltip = DA_SHIP_shock.tt.$DA_shock.electric$
+		custom_tooltip = DA_SHIP_Fire_rec.tt.$DA_Fire_rec.electric$
+		custom_tooltip = DA_SHIP_Shock_rec.tt.$DA_Shock_rec.electric$
+	]
+	[[DA_Unique]
+		custom_tooltip = DA_Unique_blueprint_TT
+		tooltip = {
+			add_country_modifier = {
+				name = DA_Unique_mod.BLUEPRINT.SHIP.$DA_Unique$
+				duration = -1
+			}
+		}
+	]
+	[[DA_Unique_2]
+		tooltip = {
+			add_country_modifier = {
+				name = DA_Unique_mod.BLUEPRINT.SHIP.$DA_Unique_2$
+				duration = -1
+			}
+		}
+	]
 	hidden_effect = {
 		DA_apply_Blueprint = {
 			DA_unit = SHIP
 			DA_Cost = $DA_Cost$
-			DA_RUNE_SLOTS = 0
+			DA_RUNE_SLOTS = $DA_RUNE_SLOTS$
 			DA_power = $DA_power$
 			DA_fire = $DA_fire$
 			DA_shock = $DA_shock$
 			DA_Fire_rec = $DA_Fire_rec$
 			DA_Shock_rec = $DA_Shock_rec$
+			[[DA_Magical]
+				DA_Magical = yes
+				DA_power.Magical = $DA_power.Magical$
+				DA_fire.Magical = $DA_fire.Magical$
+				DA_shock.Magical = $DA_shock.Magical$
+				DA_Fire_rec.Magical = $DA_Fire_rec.Magical$
+				DA_Shock_rec.Magical = $DA_Shock_rec.Magical$
+			]
+			[[DA_Electrical]
+				DA_Electrical = yes
+				DA_power.electric = $DA_power.electric$
+				DA_fire.electric = $DA_fire.electric$
+				DA_shock.electric = $DA_shock.electric$
+				DA_Fire_rec.electric = $DA_Fire_rec.electric$
+				DA_Shock_rec.electric = $DA_Shock_rec.electric$
+			]
+			[[DA_Unique]
+				DA_Unique = $DA_Unique$
+			]
+			[[DA_Unique_2]
+				DA_Unique_2 = $DA_Unique_2$
+			]
+		}
+	}
+}
+
+# A Hull rune option. The parameters of DA_apply_Runes, shown in ship words.
+DA_apply_Runes_SHIP = {
+	custom_tooltip = DA_Rune_preview_tooltip
+	custom_tooltip = DA_Cost.tt.$DA_Cost$
+	custom_tooltip = DA_SHIP_power.tt.$DA_power$
+	custom_tooltip = DA_SHIP_fire.tt.$DA_fire$
+	custom_tooltip = DA_SHIP_shock.tt.$DA_shock$
+	custom_tooltip = DA_SHIP_Fire_rec.tt.$DA_Fire_rec$
+	custom_tooltip = DA_SHIP_Shock_rec.tt.$DA_Shock_rec$
+	custom_tooltip = DA_Rune_preview_tooltip_after
+	[[DA_Electrical]
+		custom_tooltip = DA_Electrical_rune_tt
+		custom_tooltip = DA_SHIP_power.tt.$DA_power.electric$
+		custom_tooltip = DA_SHIP_fire.tt.$DA_fire.electric$
+		custom_tooltip = DA_SHIP_shock.tt.$DA_shock.electric$
+		custom_tooltip = DA_SHIP_Fire_rec.tt.$DA_Fire_rec.electric$
+		custom_tooltip = DA_SHIP_Shock_rec.tt.$DA_Shock_rec.electric$
+	]
+	[[DA_Unique]
+		custom_tooltip = DA_Unique_RUNE_TT
+		tooltip = {
+			add_country_modifier = {
+				name = DA_Unique_mod.RUNE.SHIP.$DA_Unique$
+				duration = -1
+			}
+		}
+	]
+	hidden_effect = {
+		DA_apply_Runes = {
+			DA_unit = SHIP
+			DA_Cost = $DA_Cost$
+			DA_power = $DA_power$
+			DA_fire = $DA_fire$
+			DA_shock = $DA_shock$
+			DA_Fire_rec = $DA_Fire_rec$
+			DA_Shock_rec = $DA_Shock_rec$
+			[[DA_Electrical]
+				DA_Electrical = yes
+				DA_power.electric = $DA_power.electric$
+				DA_fire.electric = $DA_fire.electric$
+				DA_shock.electric = $DA_shock.electric$
+				DA_Fire_rec.electric = $DA_Fire_rec.electric$
+				DA_Shock_rec.electric = $DA_Shock_rec.electric$
+			]
+			[[DA_Unique]
+				DA_Unique = $DA_Unique$
+			]
 		}
 	}
 }
@@ -103,9 +211,99 @@ DA_give_Unique_Metallurgy_modifiers_SHIP = {
 	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = METAL DA_modifier = Cindersteel }
 	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = METAL DA_modifier = Unobtainium }
 	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = METAL DA_modifier = Hihiirokane }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = ClockWork }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = Mechanization }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = Tesla }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = Divine }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = Curse }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = Spirits }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = Dragonguard }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = Golden_Scales }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = PUNK DA_modifier = Gommo_Calibration }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = ship_power.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = ship_power.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = ship_power.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = cannons.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = cannons.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = cannons.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = naval_morale.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = naval_morale.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = naval_morale.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = durability.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = durability.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = durability.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = hull_size.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = hull_size.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = hull_size.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = morale_received.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = morale_received.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = BLUEPRINT DA_modifier = morale_received.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = ship_power.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = ship_power.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = ship_power.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = cannons.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = cannons.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = cannons.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = naval_morale.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = naval_morale.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = naval_morale.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = durability.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = durability.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = durability.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = hull_size.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = hull_size.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = hull_size.3 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = morale_received.1 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = morale_received.2 }
+	DA_if_flag_give_modifier_effect = { DA_unit = SHIP DA_type = RUNE DA_modifier = morale_received.3 }
 }
 DA_remove_Unique_Metallurgy_modifiers_SHIP = {
 	DA_remove_Unique_Metallurgy_modifiers_metals = { DA_unit = SHIP }
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.ClockWork
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.Mechanization
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.Tesla
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.Divine
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.Curse
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.Spirits
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.Dragonguard
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.Golden_Scales
+	remove_country_modifier = DA_Unique_mod.PUNK.SHIP.Gommo_Calibration
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.ship_power.1
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.ship_power.2
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.ship_power.3
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.cannons.1
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.cannons.2
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.cannons.3
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.naval_morale.1
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.naval_morale.2
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.naval_morale.3
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.durability.1
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.durability.2
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.durability.3
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.hull_size.1
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.hull_size.2
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.hull_size.3
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.morale_received.1
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.morale_received.2
+	remove_country_modifier = DA_Unique_mod.BLUEPRINT.SHIP.morale_received.3
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.ship_power.1
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.ship_power.2
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.ship_power.3
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.cannons.1
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.cannons.2
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.cannons.3
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.naval_morale.1
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.naval_morale.2
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.naval_morale.3
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.durability.1
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.durability.2
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.durability.3
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.hull_size.1
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.hull_size.2
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.hull_size.3
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.morale_received.1
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.morale_received.2
+	remove_country_modifier = DA_Unique_mod.RUNE.SHIP.morale_received.3
 }
 
 # Design cost. It stays out of DA_TOTAL_COST, which lowers the land force limit.

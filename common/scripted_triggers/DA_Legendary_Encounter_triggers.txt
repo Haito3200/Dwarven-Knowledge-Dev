@@ -39,6 +39,45 @@ DA_LE_is_guest = {
 	NOT = { has_province_flag = DA_Setzunkhupa_guest_gone }
 }
 
+DA_LE_is_warden = {
+	province_id = 945
+	has_province_flag = DA_RX_lw2
+	NOT = { has_province_flag = DA_EL_warden_done }
+}
+
+DA_LE_is_challumaton = {
+	province_id = 2520
+	has_province_flag = DA_RX_lw2
+	NOT = { has_province_flag = DA_EL_challumaton_done }
+	NOT = { owner = { OR = { tag = A33 tag = U39 } } }
+	NOT = { any_country = { OR = { has_country_modifier = vernissage_challumaton_bones has_country_flag = U39_relics_outlawed_flag } } }
+}
+
+DA_LE_is_mother = {
+	province_id = 2201
+	check_variable = { which = DA_RX_ring value = 3 }
+	NOT = { has_province_flag = DA_EL_mother_done }
+}
+
+DA_LE_is_tchazara = {
+	province_id = 5921
+	has_province_flag = DA_LZ_tchazara_here
+	NOT = { has_province_modifier = DA_LZ_tchazara_resting }
+	NOT = { has_province_flag = DA_LZ_tchazara_done }
+}
+
+DA_LE_is_deep_devil = {
+	province_id = 6032
+	has_province_flag = DA_LZ_eggs1
+	NOT = { has_province_flag = DA_LZ_deep_devil_dead }
+}
+
+DA_LE_is_yatsa_thing = {
+	province_id = 5971
+	has_province_flag = DA_LZ_hags
+	NOT = { has_province_flag = DA_LZ_yatsa_thing_dead }
+}
+
 DA_LE_province_has_legend = {
 	OR = {
 		DA_LE_is_lich = yes
@@ -49,6 +88,12 @@ DA_LE_province_has_legend = {
 		DA_LE_is_ombrindal = yes
 		DA_LE_is_dream = yes
 		DA_LE_is_guest = yes
+		DA_LE_is_warden = yes
+		DA_LE_is_challumaton = yes
+		DA_LE_is_mother = yes
+		DA_LE_is_tchazara = yes
+		DA_LE_is_deep_devil = yes
+		DA_LE_is_yatsa_thing = yes
 	}
 }
 
@@ -62,6 +107,12 @@ DA_LE_unlocked = {
 		AND = { DA_LE_is_ombrindal = yes has_province_flag = DA_Ozumbrog_exp3 }
 		AND = { DA_LE_is_dream = yes has_province_flag = DA_Dromak_exp2 }
 		AND = { DA_LE_is_guest = yes always = yes }
+		AND = { DA_LE_is_warden = yes has_province_flag = DA_RX_lw3 }
+		AND = { DA_LE_is_challumaton = yes has_province_flag = DA_RX_lw3 }
+		AND = { DA_LE_is_mother = yes check_variable = { which = DA_RX_ring value = 4 } }
+		AND = { DA_LE_is_tchazara = yes OR = { has_global_flag = DA_LZ_tchazara_trail2 check_variable = { which = DA_RX_ring value = 6 } } }
+		AND = { DA_LE_is_deep_devil = yes has_province_flag = DA_LZ_eggs2 }
+		AND = { DA_LE_is_yatsa_thing = yes check_variable = { which = DA_RX_ring value = 2 } }
 	}
 }
 
@@ -71,6 +122,10 @@ DA_LE_has_ward = {
 		DA_LE_is_hunter = yes
 		DA_LE_is_maze_guest = yes
 		DA_LE_is_dream = yes
+		DA_LE_is_warden = yes
+		DA_LE_is_mother = yes
+		DA_LE_is_tchazara = yes
+		DA_LE_is_yatsa_thing = yes
 	}
 }
 
@@ -93,6 +148,11 @@ DA_LE_contained = {
 		has_province_modifier = DA_LE_contained_dragon
 		has_province_modifier = DA_LE_contained_maze_guest
 		has_province_modifier = DA_LE_contained_dream
+		has_province_modifier = DA_LE_contained_challumaton
+		has_province_modifier = DA_LE_contained_mother
+		has_province_modifier = DA_LE_contained_tchazara
+		has_province_modifier = DA_LE_contained_deep_devil
+		has_province_modifier = DA_LE_contained_yatsa_thing
 	}
 }
 
@@ -102,6 +162,11 @@ DA_LE_can_be_contained = {
 		DA_LE_is_dragon = yes
 		DA_LE_is_maze_guest = yes
 		DA_LE_is_dream = yes
+		DA_LE_is_challumaton = yes
+		DA_LE_is_mother = yes
+		DA_LE_is_tchazara = yes
+		DA_LE_is_deep_devil = yes
+		DA_LE_is_yatsa_thing = yes
 	}
 }
 

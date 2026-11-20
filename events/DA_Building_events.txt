@@ -857,167 +857,8 @@ country_event = {
 }
 
 
-province_event = {
-	id = DA_building_event.40 		# 
-	title = "DA_building_event.40.t"
-	desc = "DA_building_event.40.d"
-	picture = INVENTION_eventPicture
-
-	is_triggered_only = yes
-	
-
-	option = {
-		name = "DA_building_event.40.Abjuration"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Abjuration
-			duration = -1
-		}
-	}
-	option = {
-		name = "DA_building_event.40.Divination"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Divination
-			duration = -1
-		}
-	}
-	option = {
-		name = "DA_building_event.40.Illusion"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Illusion
-			duration = -1
-		}
-	}
-	option = {
-		name = "DA_building_event.40.Conjuration"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Conjuration
-			duration = -1
-		}
-	}
-	option = {
-		name = "DA_building_event.40.Enchantment"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Enchantment
-			duration = -1
-		}
-	}
-	option = {
-		name = "DA_building_event.40.Evocation"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Evocation
-			duration = -1
-		}
-	}
-	option = {
-		name = "DA_building_event.40.Transmutation"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Transmutation
-			duration = -1
-		}
-	}
-	option = {
-		name = "DA_building_event.40.Necromancy"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Necromancy
-			duration = -1
-		}
-	}
-	option = {
-		trigger = {
-			owner = {
-				DA_completed.Elemental_Magic_Fire = yes
-			}
-		}
-		name = "DA_building_event.40.Elemental_Magic_Fire"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Elemental_Magic_Fire
-			duration = -1
-		}
-	}
-	option = {
-		trigger = {
-			owner = {
-				DA_completed.Elemental_Magic_Water = yes
-			}
-		}
-		name = "DA_building_event.40.Elemental_Magic_Water"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Elemental_Magic_Water
-			duration = -1
-		}
-	}
-	option = {
-		trigger = {
-			owner = {
-				DA_completed.Elemental_Magic_Earth = yes
-			}
-		}
-		name = "DA_building_event.40.Elemental_Magic_Earth"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Elemental_Magic_Earth
-			duration = -1
-		}
-	}
-	option = {
-		trigger = {
-			owner = {
-				DA_completed.Elemental_Magic_Air = yes
-			}
-		}
-		name = "DA_building_event.40.Elemental_Magic_Air"
-		add_permanent_province_modifier = {
-			name = DA_Mage_Tower_Specialization.Elemental_Magic_Air
-			duration = -1
-		}
-	}
-	after = {
-		hidden_effect = {
-			if = {
-				limit = {
-					owner = {
-						any_owned_province = {
-							has_building = mage_tower
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Abjuration }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Divination }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Illusion }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Conjuration }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Enchantment }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Evocation }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Transmutation }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Necromancy }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Fire }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Water }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Earth }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Air }
-						}
-					}
-				}
-				owner = {
-					random_owned_province = {
-						limit = {
-							has_building = mage_tower
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Abjuration }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Divination }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Illusion }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Conjuration }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Enchantment }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Evocation }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Transmutation }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Necromancy }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Fire }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Water }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Earth }
-							NOT = { has_province_modifier = DA_Mage_Tower_Specialization.Elemental_Magic_Air }
-						}
-						province_event = {
-							id = DA_building_event.40
-						}
-					}
-				}
-			}
-		}
-	}
-}
+# DA_MT (doc 82): DA_building_event.40, the old choice of a Mage Tower's specialisation, is gone: it chained
+# through every unspecialised tower. DA_MT.2 (DA_MT_events.txt, build_arcane_content.py) replaces it.
 
 country_event = {
 	id = DA_building_event.100 		# 
@@ -1267,6 +1108,10 @@ country_event = { #innovation event from mechanics
 			change_innovativeness = 2
 		}
 		else = {
+			change_innovativeness = 1
+		}
+		if = {   # DA_MEC (doc 83): Spark of Genius, one more
+			limit = { has_country_flag = DA_mechanics_upgrade.spark_4.flag }
 			change_innovativeness = 1
 		}
 	}

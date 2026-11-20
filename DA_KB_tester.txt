@@ -1,0 +1,137 @@
+# The Brood-Forge (doc 59): run DA_KB_tester.txt in the console, as a kobold country.
+# Block A opens Strain, Essence and the window. The other blocks are commented out: remove the # signs.
+
+# A. Kobold Biology, 50 Essence, 50 of each material, 5,000 gold, the window
+set_country_flag = DA_PR_done.KB_Biology
+DA_KB_start = yes
+change_variable = { which = DA_KB_essence value = 50 }
+change_variable = { which = DA_arcane_metal_total value = 50 }
+change_variable = { which = DA_enchanted_building_material_total value = 50 }
+change_variable = { which = DA_alchemy_reagents_total value = 50 }
+add_treasury = 5000
+DA_KB_open_forge = yes
+
+# B. the first Brass tile of every part (each closes its Blood path), then the count
+#set_country_flag = DA_PR_done.KB_Claws_Brass1
+#set_country_flag = DA_PR_done.KB_Scales_Brass1
+#set_country_flag = DA_PR_done.KB_Bones_Brass1
+#set_country_flag = DA_PR_done.KB_Wings_Brass1
+#set_country_flag = DA_PR_done.KB_Fire_Brass1
+#set_country_flag = DA_PR_done.KB_Heart_Brass1
+#set_country_flag = DA_PR_done.KB_Mind_Brass1
+#DA_KB_refresh = yes
+
+# C. instead of B: every Blood tile (Life Brick Theory too), which pushes Strain past tolerance
+#set_country_flag = DA_PR_done.KB_LifeBrick
+#set_country_flag = DA_PR_done.KB_Claws_Blood1
+#set_country_flag = DA_PR_done.KB_Claws_Blood2
+#set_country_flag = DA_PR_done.KB_Scales_Blood1
+#set_country_flag = DA_PR_done.KB_Scales_Blood2
+#set_country_flag = DA_PR_done.KB_Bones_Blood1
+#set_country_flag = DA_PR_done.KB_Bones_Blood2
+#set_country_flag = DA_PR_done.KB_Wings_Blood1
+#set_country_flag = DA_PR_done.KB_Wings_Blood2
+#set_country_flag = DA_PR_done.KB_Fire_Blood1
+#set_country_flag = DA_PR_done.KB_Fire_Blood2
+#set_country_flag = DA_PR_done.KB_Heart_Blood1
+#set_country_flag = DA_PR_done.KB_Heart_Blood2
+#set_country_flag = DA_PR_done.KB_Mind_Blood1
+#set_country_flag = DA_PR_done.KB_Mind_Blood2
+#DA_KB_refresh = yes
+
+# D. the strain event now (past tolerance: after B or C)
+#DA_KB_strain_event = yes
+
+# E. the yearly pulse now (Essence from dragon remains)
+#DA_KB_yearly = yes
+
+# ---- Step 2 (doc 60) ----
+# F. Ascension: every Blood tile, then Draconic Awakening, the Molt (our ruler becomes a Dragon-Ruler) and Chimera
+#set_country_flag = DA_PR_done.KB_LifeBrick
+#set_country_flag = DA_PR_done.KB_Claws_Blood1
+#set_country_flag = DA_PR_done.KB_Claws_Blood2
+#set_country_flag = DA_PR_done.KB_Scales_Blood1
+#set_country_flag = DA_PR_done.KB_Scales_Blood2
+#set_country_flag = DA_PR_done.KB_Bones_Blood1
+#set_country_flag = DA_PR_done.KB_Bones_Blood2
+#set_country_flag = DA_PR_done.KB_Wings_Blood1
+#set_country_flag = DA_PR_done.KB_Wings_Blood2
+#set_country_flag = DA_PR_done.KB_Fire_Blood1
+#set_country_flag = DA_PR_done.KB_Fire_Blood2
+#set_country_flag = DA_PR_done.KB_Heart_Blood1
+#set_country_flag = DA_PR_done.KB_Heart_Blood2
+#set_country_flag = DA_PR_done.KB_Mind_Blood1
+#set_country_flag = DA_PR_done.KB_Mind_Blood2
+#set_country_flag = DA_PR_done.KB_Awakening
+#DA_KB_awakening = yes
+#set_country_flag = DA_PR_done.KB_Molt
+#DA_KB_molt = yes
+#set_country_flag = DA_PR_done.KB_Chimera
+#DA_KB_refresh = yes
+
+# G. the Works page, with the stores for every work
+#add_treasury = 10000
+#change_variable = { which = DA_arcane_metal_total value = 200 }
+#change_variable = { which = DA_enchanted_building_material_total value = 200 }
+#change_variable = { which = DA_alchemy_reagents_total value = 200 }
+#change_variable = { which = DA_KB_essence value = 100 }
+#set_country_flag = DA_KB_works_page
+#DA_KB_open_forge = yes
+
+# H. the Iron Wyrm: its tile, then it stands now
+#set_country_flag = DA_PR_done.KB_IronWyrm
+#DA_KB_wyrm_complete = yes
+
+# I. after H: twenty years on, it rusts
+#set_variable = { which = DA_KB_wyrm_age value = 19 }
+#DA_KB_yearly_works = yes
+
+# J. a Molt Ceremony that ends now (after F, for a ruler who has not molted)
+#set_country_flag = DA_KB_ceremony_on
+#set_variable = { which = DA_KB_ceremony_months value = 1 }
+#DA_KB_monthly_works = yes
+
+# ---- Step 3 (doc 61) ----
+# K. the designer paths: four parts in Brass (with F, four in Blood too), then open the Unit Design
+#set_country_flag = DA_PR_done.KB_Claws_Brass1
+#set_country_flag = DA_PR_done.KB_Scales_Brass1
+#set_country_flag = DA_PR_done.KB_Bones_Brass1
+#set_country_flag = DA_PR_done.KB_Wings_Brass1
+
+# ---- Step 4 (doc 62) ----
+# L. Nimrith's Offspring: a Dragon Cult country that owns Khugdihr (2863) with the dragon there; the Parley now
+#change_religion = kobold_dragon_cult
+#2863 = { add_permanent_province_modifier = { name = DA_Dragon_raids duration = -1 } }
+#country_event = { id = DA_KB_event.50 }
+
+# M. the Hunter's blessing, as the Kneel of the council gives it: then look at a Blood part's price
+#DA_KB_kneel = yes
+
+# ---- The inventions (doc 67): a kobold country with the Artificers estate (Kuxhezte, or a clan after its reform) ----
+# N. every tile that opens an invention, 100 more artifice capacity, every invention made; then pick them in the window
+#set_country_flag = DA_PR_done.KB_Hatcheries
+#set_country_flag = DA_PR_done.KB_LifeBrick
+#set_country_flag = DA_PR_done.KB_Claws_Brass1
+#set_country_flag = DA_PR_done.KB_Scales_Brass1
+#set_country_flag = DA_PR_done.KB_Bones_Brass1
+#set_country_flag = DA_PR_done.KB_Wings_Brass1
+#set_country_flag = DA_PR_done.KB_Wings_Brass2
+#set_country_flag = DA_PR_done.KB_Wings_Blood2
+#set_country_flag = DA_KB_forged.traps
+#set_country_flag = DA_KB_forged.smelters
+#set_country_flag = DA_KB_forged.borers
+#set_country_flag = DA_KB_forged.drakes
+#set_country_flag = DA_KB_forged.stills
+#set_country_flag = DA_KB_forged.vats
+#set_country_flag = DA_KB_forged.lattice
+#set_country_flag = DA_KB_forged.roosts
+#change_variable = { which = StaticArtificePoints value = 100 }
+#DA_KB_refresh = yes
+#DA_KB_inv_reconcile = yes
+
+# O. the Trap-Engines on the forge, done next month
+#DA_KB_forge_start.traps = yes
+#set_variable = { which = DA_KB_forge_months value = 1 }
+
+# P. the yearly pass of the inventions now: the capacity counted again, over capacity, the yields of a full year
+#DA_KB_inv_yearly = yes

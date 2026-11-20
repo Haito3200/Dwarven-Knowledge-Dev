@@ -1,0 +1,625 @@
+"""The gnomes (doc 48; step 1 doc 52, step 2 doc 53, 17 November 2026): the Gnomish page of Projects & Research and the
+patents of the Gommo Workshop. The one table read by build_projects_research.py (PAGE, NODES, MOD_NAMES),
+racial_heritage_data.py (LIVING_ROWS, FAMILY_NAMES), build_gnomish_workshop.py, check_gnomish_workshop.py and, for
+Dragonbreaker Harpoons, le_rules.py (HARPOONS).
+
+Change a tile or a patent here, then re-run build_projects_research.py (and its "art" mode when a tile is added),
+build_racial_heritage.py and build_gnomish_workshop.py. Nothing here writes to the mod.
+
+Step 2: The Gommo III-IV (branches, licences), Gommo Calibration, Dragonbreaker Harpoons, the Great Ideation Engine,
+the E++ dispute.
+
+The Precursor Assays (doc 68, section 13; built 19 November 2026, doc 72): the eighth family (Gommo Surveys, Relic
+Assays, Reverse Engineering, Precursor Script Tables), relic samples from the Precursor ruins (build_ruin_excavation.py),
+the commission Assay a Relic and the three Precursor patents (precursor=True: recovered by an assay, not opened by a
+tile; shown in the Workshop's Precursor view).
+"""
+
+RACE = 'gnomish'
+PAGE_ID = 'race_gnomish'
+PAGE_NAME = 'Gnomish'
+
+STEAM = 'DA_completed.Steam_Power_Project = yes'
+ELECTRIC = 'DA_completed.Electric_Power_Project = yes'
+
+
+def done(nid):
+    return 'DA_PR_done.%s = yes' % nid
+
+
+# ---------------------------------------------------------------------------
+# The Gnomish page: families in page order (the first four on the left trunk, the other three on the right)
+# ---------------------------------------------------------------------------
+FAMILIES = [
+    ('gn_gommo', 'The Gommo', ['GN_Workshop', 'GN_Patent_Office', 'GN_Branches', 'GN_International']),
+    ('gn_schools', 'Schools of Artifice', ['GN_Lead_School', 'GN_Brillite', 'GN_Mechanist', 'GN_Thaumaturge',
+                                           'GN_Synthesis']),
+    ('gn_corps', 'Artificer Corps', ['GN_Corps', 'GN_Calibration', 'GN_Levies', 'GN_Tinkers']),
+    ('gn_clockwork', 'Clockwork Society', ['GN_Bureau', 'GN_Medicine', 'GN_Listening_Brass', 'GN_Clockwork_Hierarchy']),
+    ('gn_industry', 'Gommo Industry', ['GN_Guildhouses', 'GN_Sprockets', 'GN_Districts', 'GN_Patent_Economy']),
+    ('gn_reclamation', 'Reclamation', ['GN_Trap_Drill', 'GN_Bombards', 'GN_Settlers', 'GN_Harpoons']),
+    ('gn_hulks', 'Hulks & Harbours', ['GN_Gun_Decks', 'GN_Shipwrights', 'GN_Admiralty', 'GN_Unsinkable']),
+    ('gn_precursor', 'Precursor Assays', ['GN_Surveys', 'GN_Assays', 'GN_Reverse', 'GN_Script_Tables']),   # DA_EL (doc 72)
+]
+FAMILY_NAMES = [f[1] for f in FAMILIES]
+PAGE = (PAGE_ID, PAGE_NAME, [(fid, fname, [{'new': nid} for nid in nids]) for fid, fname, nids in FAMILIES])
+
+# The lead school's method takes half the time (build_projects_research.py: fast_if)
+LEAD = {'GN_Brillite': 'brillite', 'GN_Mechanist': 'mechanist', 'GN_Thaumaturge': 'thaumaturge'}
+
+# ---------------------------------------------------------------------------
+# The tiles, in the format of NEW in build_projects_research.py. living: the modifier is a living bonus of the gnomish
+# heritage (racial_heritage_data.LIVING). fast_if: the half time.
+# ---------------------------------------------------------------------------
+NODES = {
+    # ---- The Gommo ----
+    'GN_Workshop': dict(kind='once', era='arcane', time=36, unstoppable=True, title='The Gommo Workshop',
+        req=[], mod={'innovativeness_gain': 0.10},
+        tt='§RProject§! §YThe Gommo Workshop§!\n - Opens the §YGommo Workshop§! (the top-bar button of the racial halls)\n'
+           ' - The §Ysecond bench§!: a school study or a Workshop commission runs beside the research\n'
+           ' - §G+10%§! Innovativeness Gain',
+        ev_t='A Second Bench',
+        ev_d='Every gnomish workshop has two benches. One holds the work the Hierarch ordered. The other holds whatever '
+             'the artificers were actually thinking about.\n\nThe Gommo has asked, politely and in triplicate, that the '
+             'second bench be made official. It now has a ledger, a budget and a bell that rings when something on it '
+             'works.',
+        ev_o='Ring the bell.'),
+    'GN_Patent_Office': dict(kind='once', era='arcane', time=48, title='The Patent Office',
+        req=[done('GN_Workshop')],
+        tt='§YThe Gommo: The Patent Office§!\n - Patents can be §Yimproved§! in the Workshop\n'
+           ' - Opens the commission §YInventors\' Fair§!',
+        ev_t='Filed in Triplicate',
+        ev_d='An idea that nobody wrote down belongs to whoever shouts it loudest. The Patent Office ends that. Every '
+             'drawing is stamped, numbered and shelved, and a clerk with a magnifying glass compares each new one '
+             'against all the old ones.\n\nThe first dispute was settled in an afternoon. The clerk has asked for a '
+             'second magnifying glass.',
+        ev_o='Buy the clerk a second glass.'),
+    'GN_Branches': dict(kind='once', era='steam', time=72, title='Gommo Branches',
+        req=[done('GN_Patent_Office'), STEAM],
+        tt='§YThe Gommo: Gommo Branches§!\n - A §YGommo Branch§! can open in the capital of an ally or a subject, from '
+           'its §Ydiplomacy§! screen: a commission of §Y12§! months, §Y500¤§! and §Y10§! §MEnchanted Building '
+           'Materials§!; at most §Y3§!\n - Each branch: §G+5§! Artifice Capacity for us; §G+10%§! Local Production '
+           'Efficiency and §G-10%§! Local Development Cost in its city',
+        ev_t='A Brass Plate Abroad',
+        ev_d='The Gommo never stayed at home for long. Before the Dragonwake it kept a hall in every city of the coast, '
+             'each with a brass plate by the door and its own quarrel about the rent.\n\nThe plates are being polished '
+             'again. Our allies\' capitals have workshops to spare, and their princes have seen what our artificers can '
+             'do.',
+        ev_o='Polish the plates.'),
+    'GN_International': dict(kind='once', era='electric', time=120, unstoppable=True, title='The International Gommo',
+        req=[done('GN_Branches'), ELECTRIC],
+        tt='§RProject§! §YThe International Gommo§!\n - A patent that is switched on can be §Ylicensed§! to an ally or a '
+           'subject for §Y15§! years, from its diplomacy screen: it gets the patent\'s effect and pays us §G24¤§! a year, '
+           'and its opinion of us grows by §G25§!; at most §Y3§! licences\n - §G+1§! Innovativeness every year',
+        ev_t='The International Gommo',
+        ev_d='The Gommo has always said that it belongs to every gnome, wherever the gnome happens to live. Now it says '
+             'the same of its patents. A licence costs less than a war and lasts longer than most alliances, and every '
+             'licence carries the stamp of our register into another court.\n\nThe clerks have ordered a larger stamp.',
+        ev_o='Stamp the first licence.'),
+    # ---- Schools of Artifice ----
+    'GN_Lead_School': dict(kind='once', era='arcane', time=36, title='Lead School Charter',
+        req=[done('GN_Workshop')], mod={'artificers_research_time': -0.10},
+        also=['hidden_effect = { DA_GN_lead_school_check = yes }'],
+        tt='§YSchools of Artifice: Lead School Charter§!\n - The §Ylead school§! follows the artificers\' organization: '
+           'Brillite, Mechanist or Thaumaturge Researchers (under any other organization, you choose it)\n'
+           ' - The lead school\'s method takes §Yhalf the time§!\n - §G-10%§! Artificer Research Time',
+        ev_t='Three Schools, One Charter',
+        ev_d='Brillites invent, Mechanists improve and Thaumaturges explain. Each school says the other two would be '
+             'lost without it, and each is right about one of them.\n\nThe charter names one school to lead the '
+             'Workshop. The other two have been promised that the post rotates. It does not.',
+        ev_o='Seal the charter.'),
+    'GN_Brillite': dict(kind='once', era='steam', time=72, title='Brillite Method', fast_if='DA_GN_lead_brillite = yes',
+        req=[done('GN_Lead_School'), STEAM],
+        tt='§YSchools of Artifice: Brillite Method§!\n - Workshop commissions take §G20%§! less time\n'
+           ' - A finished prototype can bring §YSerendipity§! (15%: its first upgrade comes free) or a §YMisfire§! '
+           '(10%: it must be run again, at half the price)\n - Half the time when §YBrillite§! is the lead school',
+        ev_t='Build It and See',
+        ev_d='The Brillite way is to build the thing first and find out what it does afterwards. Most of the time it '
+             'does roughly what was meant. Sometimes it does something better, and the Brillites write that down too '
+             'and say they meant it.\n\nOur commissions now run with fewer meetings and more sparks.',
+        ev_o='Fewer meetings.'),
+    'GN_Mechanist': dict(kind='once', era='steam', time=72, title='Mechanist Method', fast_if='DA_GN_lead_mechanist = yes',
+        req=[done('GN_Lead_School'), STEAM],
+        tt='§YSchools of Artifice: Mechanist Method§!\n - Patents cost §G25%§! less to switch on\n'
+           ' - Patents book §G20%§! less artifice capacity\n - Half the time when §YMechanist§! is the lead school',
+        ev_t='Utility Above All Else',
+        ev_d='A Mechanist looks at a machine and asks one question: what can be taken off it? Then she takes it off. '
+             'The patents that come back from her bench are plainer, uglier and lighter, and they run on a good deal '
+             'less.\n\nNobody has found the bolt she took off the Hierarch\'s carriage. The carriage still works.',
+        ev_o='Leave the carriage alone.'),
+    'GN_Thaumaturge': dict(kind='once', era='steam', time=72, title='Thaumaturge Method',
+        fast_if='DA_GN_lead_thaumaturge = yes', req=[done('GN_Lead_School'), STEAM],
+        tt='§YSchools of Artifice: Thaumaturge Method§!\n - With magic and artificery mixed: §G+15§! Artifice Capacity\n'
+           ' - With artificery only: §G-10%§! Artificer Research Time\n'
+           ' - Half the time when §YThaumaturge§! is the lead school',
+        ev_t='A Branch of Magic',
+        ev_d='To a Techno-Thaumaturge, a gear is a spell that has stopped arguing. They draw their machines as circles, '
+             'measure them in mana and refuse to oil anything they have not first understood.\n\nThe machines they do '
+             'oil run more smoothly than anyone else\'s, and the mages have started asking to borrow them.',
+        ev_o='Lend the mages one.'),
+    'GN_Synthesis': dict(kind='once', era='electric', time=120, title='Grand Synthesis',
+        req=[done('GN_Brillite'), done('GN_Mechanist'), done('GN_Thaumaturge'), ELECTRIC],
+        tt='§YSchools of Artifice: Grand Synthesis§!\n - The lead school can be changed in the Workshop, once every '
+           '§Y20§! years\n - Upgrades need §G1§! innovativeness less\n - Opens the commission §YThe Great Ideation '
+           'Engine§! (in the Workshop, under the International Gommo)',
+        ev_t='The Three Schools Agree',
+        ev_d='It took an electric lamp, a sealed room and nine days of argument, but the three schools have written one '
+             'book of method between them. Each school calls it a victory. Each keeps its own copy, with its own '
+             'corrections in the margins.\n\nThe Workshop can now borrow from all three, and change which one leads '
+             'when the times call for it.',
+        ev_o='Print the book, margins and all.'),
+    # ---- Artificer Corps ----
+    'GN_Corps': dict(kind='once', era='arcane', time=24, unstoppable=True, title='Gommo Artificer Corps',
+        req=['has_estate = estate_artificers'],
+        also=['custom_tooltip = DA_GN_corps_effect_tt', 'hidden_effect = { DA_GN_artificer_corps = yes }'],
+        tt='§RProject§! §YGommo Artificer Corps§!\n - Opens the §YUnit Design§! with its infantry class turned into '
+           '§YArtificers§!, as §YWarforged Artificers§! does\n - Needs neither Metallurgy II nor Warforged Infantry, '
+           'and costs no artifice capacity\n - A gnomish country that has the §YArtificers§! estate is given it at once',
+        ev_t='Every Company Its Tinker',
+        ev_d='Our infantry has always carried more brass than anyone else\'s. The Corps makes it official: every '
+             'company gets an artificer\'s kit, a drill book written by the Gommo and a sergeant who can clear a '
+             'jammed mechanism under fire.\n\nThe Unit Design now draws the artificer regiment.',
+        ev_o='Issue the kits.'),
+    'GN_Calibration': dict(kind='once', era='arcane', time=48, title='Gommo Calibration',
+        req=[done('GN_Corps'), 'DA_completed.Metallurgy_1 = yes'],
+        tt='§YArtificer Corps: Gommo Calibration§!\n - Opens the Primary Technology §YGommo Calibration§! in §YUnit '
+           'Design§!, for artillery and artificers: §Y2§! points, Strength §G+1§!, Electrical Conductivity §G+1§!, '
+           'Magic Conductivity §R-1§!; every normal blueprint\n - Its fixed effect: §G+5%§! Fire Damage and §G-5%§! '
+           'Fire Damage Received',
+        ev_t='Calibrated to a Hair',
+        ev_d='A gnomish gun is not finished when it fires. It is finished when the Gommo\'s calibrators have measured '
+             'its bore against the master gauge, filed its sights to the same hair and written the result on a brass '
+             'tag wired to the stock.\n\nThe Unit Design now offers the Gommo\'s calibration to our artillery and our '
+             'artificers.',
+        ev_o='Wire on the tags.'),
+    'GN_Levies': dict(kind='once', era='steam', time=72, title='Artificer Levies',
+        req=[done('GN_Calibration'), STEAM], mod={'allowed_rajput_fraction': 0.10},
+        tt='§YArtificer Corps: Artificer Levies§!\n - §G+10%§! Allowed Artificer Fraction of the army\n'
+           ' - Opens the patent §YRangefinder Monocles§!',
+        ev_t='Every Town Sends a Tinker',
+        ev_d='A levy used to mean pikes. Now each town owes the army one tinker for every twenty hands, with tools, and '
+             'the towns compete to send the best. The army that marches out is smaller than our neighbours\' and makes '
+             'a great deal more noise.',
+        ev_o='Count the tinkers.'),
+    'GN_Tinkers': dict(kind='once', era='electric', time=96, title='Ten Thousand Tinkers',
+        req=[done('GN_Levies'), ELECTRIC], mod={'land_morale': 0.10, 'is_rajput_modifier': 'yes'},
+        tt='§YArtificer Corps: Ten Thousand Tinkers§!\n - Artificer regiments: §G+10%§! Morale\n'
+           ' - Opens the patent §YWalking Workshops§!',
+        ev_t='Ten Thousand Tinkers',
+        ev_d='The parade took four hours, and every regiment in it could have stripped its guns and put them back '
+             'together in the time the next one took to pass. The Hierarch counted ten thousand artificers before he '
+             'lost count and asked for a chair.\n\nThe soldiers marched home believing they could not be beaten. Belief '
+             'is a kind of armour.',
+        ev_o='Let them believe it.'),
+    # ---- Clockwork Society ----
+    'GN_Bureau': dict(kind='once', era='arcane', time=48, title='Bureau of Small Parts',
+        req=[], mod={'state_governing_cost': -0.05},
+        tt='§YClockwork Society: Bureau of Small Parts§!\n - §G-5%§! State Governing Cost\n'
+           ' - Opens the patent §YThe Cocolocogram§!',
+        ev_t='The Bureau of Small Parts',
+        ev_d='Somebody in every government is responsible for the screws. In ours, that somebody now has a bureau, a '
+             'staff of forty and a filing system that finds any form in the realm within the hour.\n\nThe ministries '
+             'complained about the new forms for a week. Then their own forms began coming back faster, and they '
+             'stopped.',
+        ev_o='Order more filing cabinets.'),
+    'GN_Medicine': dict(kind='once', era='arcane', time=48, title='Gnomish Medicine',
+        req=['DA_completed.Medicine_1 = yes'], mod={'manpower_recovery_speed': 0.10},
+        tt='§YClockwork Society: Gnomish Medicine§!\n - §G+10%§! Manpower Recovery Speed\n'
+           ' - Opens the patent §YThe Spine Recuverinator§!',
+        ev_t='Springs for the Wounded',
+        ev_d='A gnomish surgeon carries a saw like any other surgeon, and also a case of springs, splints and tiny '
+             'brass hinges. A shattered knee that once sent a veteran home now sends him back to the ranks with a click '
+             'in his step.\n\nThe veterans complain about the click. They complain from the ranks.',
+        ev_o='Open a school of surgery.'),
+    'GN_Listening_Brass': dict(kind='once', era='steam', time=72, title='Listening Brass',
+        req=[done('GN_Bureau'), 'DA_completed.Mechanics_2 = yes', STEAM], mod={'global_spy_defence': 0.10},
+        tt='§YClockwork Society: Listening Brass§!\n - §G+10%§! Foreign Spy Detection\n'
+           ' - Opens the patent §YThe Bambascobambonic Spyglass§!',
+        ev_t='The Walls Have Trumpets',
+        ev_d='A brass horn set into a wall carries a whisper three rooms away. A hundred horns, tuned and catalogued, '
+             'carry every whisper in the palace to one small office with very good chairs.\n\nThe foreign envoys have '
+             'begun to hold their meetings in the garden. The garden has fountains. The fountains are brass.',
+        ev_o='Keep listening.'),
+    'GN_Clockwork_Hierarchy': dict(kind='once', era='electric', time=96, title='The Clockwork Hierarchy',
+        req=[done('GN_Listening_Brass'), ELECTRIC], mod={'governing_capacity_modifier': 0.10},
+        tt='§YClockwork Society: The Clockwork Hierarchy§!\n - §G+10%§! Governing Capacity\n'
+           ' - Opens the patent §YCogwork Ledger-Halls§!',
+        ev_t='A State That Keeps Time',
+        ev_d='The old Hierarchy ruled half the coast with scribes and a very long memory. The new one runs on punched '
+             'cards, pneumatic tubes and a central clock to which every office in the realm is set.\n\nOrders now '
+             'arrive when they are expected. The provinces find this more frightening than any army.',
+        ev_o='Wind the central clock.'),
+    # ---- Gommo Industry ----
+    'GN_Guildhouses': dict(kind='once', era='arcane', time=48, title='Tinkers\' Guildhouses',
+        req=[], mod={'production_efficiency': 0.05},
+        tt='§YGommo Industry: Tinkers\' Guildhouses§!\n - §G+5%§! Production Efficiency\n'
+           ' - Opens the patent §YPocket Dynamos§!',
+        ev_t='A Guildhouse in Every Town',
+        ev_d='Tinkers used to work alone, in sheds, and keep their tricks to themselves. The guildhouses give them a '
+             'common floor, a common lathe and a common kettle, and the tricks now travel faster than the tinkers '
+             'do.\n\nThe kettle is the important part. Every guild agrees on that.',
+        ev_o='Pay for the kettles.'),
+    'GN_Sprockets': dict(kind='once', era='steam', time=72, title='Universal Sprockets',
+        req=[done('GN_Guildhouses'), 'DA_completed.Mechanics_2 = yes', STEAM], mod={'build_cost': -0.10},
+        tt='§YGommo Industry: Universal Sprockets§!\n - §G-10%§! Construction Cost\n'
+           ' - §G+1§! §MArcane Metals§!, §MEnchanted Building Materials§! and §MAlchemical Essence§! every year\n'
+           ' - Opens the patent §YGommo Pattern Looms§!',
+        ev_t='Nine Sizes of Sprocket',
+        ev_d='The realm used to make four hundred sizes of sprocket, and every workshop kept its own. The Gommo has '
+             'agreed on nine. A sprocket cut in one city now fits a machine built in another, and the scrap of every '
+             'workshop ends up in somebody\'s furnace.\n\nWhat comes out of the furnaces is worth keeping.',
+        ev_o='Melt the other three hundred and ninety-one.'),
+    'GN_Districts': dict(kind='once', era='steam', time=96, title='Workshop Districts',
+        req=[done('GN_Sprockets')], mod={'trade_goods_size_modifier': 0.05},
+        tt='§YGommo Industry: Workshop Districts§!\n - §G+5%§! Goods Produced\n - Opens the patent §YCloud-Cranes§!',
+        ev_t='Streets of Workshops',
+        ev_d='Nobody planned the workshop districts. A tinker set up a lathe next to a foundry because the foundry had '
+             'heat to spare; a glassblower moved in next door because the tinker needed lenses. Now whole quarters hum '
+             'day and night, and the city has stopped pretending they are anything else.',
+        ev_o='Give the districts a charter.'),
+    'GN_Patent_Economy': dict(kind='once', era='electric', time=96, title='The Patent Economy',
+        req=[done('GN_Districts'), ELECTRIC],
+        tt='§YGommo Industry: The Patent Economy§!\n - Royalties: §G12¤§! a year for each patent switched on\n'
+           ' - Opens the patent §YTinker-Town Arcades§!',
+        ev_t='Royalties',
+        ev_d='A patent used to be a certificate on a wall. Now it is an income. Every machine built to a registered '
+             'pattern pays a small fee to the register, and the register pays the state, the Gommo and, after a very '
+             'long form, the inventor.\n\nSeveral inventors have grown rich. All of them have become experts on forms.',
+        ev_o='Collect the royalties.'),
+    # ---- Reclamation ----
+    'GN_Trap_Drill': dict(kind='once', era='arcane', time=48, title='Trap-Wise Drill', req=[],
+        tt='§YReclamation: Trap-Wise Drill§!\n - At war with a §Ykobold§! country or one of the §YDragon Cult§!: '
+           '§G+10%§! Morale Damage and §G-10%§! Land Attrition',
+        ev_t='Mind the Third Step',
+        ev_d='The kobolds never fought the Hierarchy in the open. They fought it in tunnels, on stairs and under '
+             'floors, with wires and pits and things that dropped from ceilings. Our sergeants have at last written '
+             'down what the survivors learned: look down, look up, and never trust the third step.\n\nThe recruits '
+             'drill on a staircase that the sergeants rebuild every night.',
+        ev_o='Rebuild the staircase.'),
+    'GN_Bombards': dict(kind='once', era='arcane', time=60, title='Great Bombards',
+        req=[done('GN_Trap_Drill'), 'DA_completed.Metallurgy_1 = yes'], mod={'siege_ability': 0.10},
+        tt='§YReclamation: Great Bombards§!\n - §G+10%§! Siege Ability\n - Opens the patent §YBreath-Pattern Bombards§!',
+        ev_t='The Pattern of Malliath\'s Breath',
+        ev_d='Malliath\'s Breath was cast in Nimscodd as a gift to the Corintar, and it is still the largest gun anyone '
+             'has heard of. The foundry kept the patterns. Our bombards are smaller, lighter and far easier to move, '
+             'and they still bring down a wall in a day.',
+        ev_o='Cast the first battery.'),
+    'GN_Settlers': dict(kind='once', era='steam', time=72, title='Settler Charters',
+        req=[done('GN_Bombards'), STEAM],
+        tt='§YReclamation: Settler Charters§!\n - §YReclaimed Homeland§! in every province we own in the §YDragon '
+           'Coast§!: §G-15%§! Development Cost and §G-25%§! Culture Conversion Cost',
+        ev_t='Home Again',
+        ev_d='The charters are old: a farm, a mill, a workshop, granted by the Hierarchy before the Dragonwake. '
+             'Families have kept them in tin boxes for three hundred years. We have declared every one of them good '
+             'again in the land we hold on the Dragon Coast.\n\nThe tin boxes are coming up out of the cellars.',
+        ev_o='Honour the charters.'),
+    'GN_Harpoons': dict(kind='once', era='electric', time=96, title='Dragonbreaker Harpoons',
+        req=[done('GN_Settlers'), ELECTRIC], also=['hidden_effect = { DA_GN_sync = yes }'],
+        tt='§YReclamation: Dragonbreaker Harpoons§!\n - In a §YLegendary Encounter§! with a dragon (§YNimrith\'s '
+           'Offspring§!, §YThe Hunter of the Deeps§!): our army\'s strength §G+25%§!\n - At war with a §Ykobold§! '
+           'country: §G+10%§! Fire Damage',
+        ev_t='Harpoons for Dragons',
+        ev_d='The whalers of the Splinters say that a whale and a dragon differ in two ways: the dragon flies, and the '
+             'dragon is angrier. The Gommo has answered the first with cables of drawn steel and the second with a '
+             'harpoon that bursts inside the hide.\n\nThe kobolds who serve the dragons have taken note. So have our '
+             'gunners.',
+        ev_o='Load the harpoons.'),
+    # ---- Hulks & Harbours ----
+    'GN_Gun_Decks': dict(kind='once', era='arcane', time=48, title='Crammed Gun-Decks',
+        req=[], mod={'naval_forcelimit_modifier': 0.10},
+        tt='§YHulks & Harbours: Crammed Gun-Decks§!\n - §G+10%§! Naval Force Limit\n'
+           ' - Opens the patent §YHull-Crammers§!',
+        ev_t='One More Deck',
+        ev_d='A gnomish shipwright looks at a hull and sees room for another row of guns. The hull does not always '
+             'agree. The hulls that do agree are the most heavily armed ships of their size on any sea, and the ones '
+             'that do not are lessons the shipwrights write down carefully.',
+        ev_o='Read the lessons twice.'),
+    'GN_Shipwrights': dict(kind='once', era='steam', time=72, title='Splinter Shipwrights',
+        req=[done('GN_Gun_Decks'), STEAM], mod={'global_ship_cost': -0.10},
+        tt='§YHulks & Harbours: Splinter Shipwrights§!\n - §G-10%§! Ship Costs\n - Opens the patent §YTidewheel Tugs§!',
+        ev_t='The Yards of the Splinters',
+        ev_d='The Splinters are islands of rock and wind with nothing to recommend them but the best harbours of the '
+             'old Hierarchy and a people who built boats before they built houses. Their yards now work to one '
+             'pattern, and a hull laid down in spring is at sea by midsummer.',
+        ev_o='Lay down another hull.'),
+    'GN_Admiralty': dict(kind='once', era='steam', time=72, title='Gun-Hulk Admiralty',
+        req=[done('GN_Shipwrights')], mod={'leader_naval_fire': 1, 'navy_tradition': 0.5},
+        tt='§YHulks & Harbours: Gun-Hulk Admiralty§!\n - §G+1§! Naval Leader Fire\n - §G+0.5§! Yearly Navy Tradition',
+        ev_t='Admirals Who Count Guns',
+        ev_d='Our admirals were promoted for seamanship. The new admiralty promotes them for gunnery: how many '
+             'broadsides a captain fires before the enemy fires two. The old admirals are offended. The new ones are '
+             'winning.',
+        ev_o='Promote the gunners.'),
+    'GN_Unsinkable': dict(kind='once', era='electric', time=96, title='Unsinkable Hulks',
+        req=[done('GN_Admiralty'), ELECTRIC], mod={'heavy_ship_power': 0.10},
+        tt='§YHulks & Harbours: Unsinkable Hulks§!\n - §G+10%§! Heavy Ship Combat Ability\n'
+           ' - Opens the patent §YUnsinkable Bulkheads§!',
+        ev_t='Unsinkable, Mostly',
+        ev_d='The new hulls are divided into sealed compartments, each with its own pump, so that a ship holed in '
+             'three places keeps three quarters of its dignity. The shipwrights call them unsinkable. The admiralty '
+             'calls them very hard to sink, which the shipwrights consider defeatist.',
+        ev_o='Launch the first hull.'),
+    # ---- Precursor Assays (doc 68, section 13; doc 72) ----
+    'GN_Surveys': dict(kind='once', era='arcane', time=48, title='Gommo Surveys',
+        req=[done('GN_Workshop')], also=['hidden_effect = { DA_GN_refresh = yes }'],
+        tt='§YPrecursor Assays: Gommo Surveys§!\n - Gommo surveyors walk rings §YI§! to §YIII§! of the Precursor ruins: of our '
+           'own from their province view, at the plain price; of ruins abroad, nobody\'s or a Precursor people\'s with its '
+           'leave, from the Workshop\'s §YPrecursor§! view\n - Every relic find brings a §Yrelic sample§! (two from ring §YIII§!)',
+        ev_t='Gnomes in the Ruins',
+        ev_d='The elves have dug in the Precursor ruins for a thousand years and written down what they found in a script '
+             'nobody else can read. The Gommo has decided to go and look for itself. Its surveyors carry callipers, '
+             'tracing paper and a great many little labelled boxes.\n\nThe elves say a ruin is a library. The Gommo says '
+             'it is a scrapyard with excellent provenance.',
+        ev_o='Pack the little boxes.'),
+    'GN_Assays': dict(kind='once', era='steam', time=72, title='Relic Assays',
+        req=[done('GN_Surveys'), STEAM],
+        tt='§YPrecursor Assays: Relic Assays§!\n - Opens the commission §YAssay a Relic§! (the Workshop\'s Precursor view): '
+           'a relic sample, §Y100¤§! and §Y6§! months for §G+250§! experience in the school the relic leans to',
+        ev_t='What Is It For?',
+        ev_d='Every relic sample comes back from the ruins with the same label: WHAT IS IT FOR. The assayers take it apart, '
+             'put it back together, weigh it, burn a little of it and ask it politely. Usually, by the end, they know.\n\n'
+             'A weapon goes to the smiths, a device to the mechanists, a vessel to the alchemists, a part of a body to the '
+             'surgeons, and a ward to the mages.',
+        ev_o='Open the first box.'),
+    'GN_Reverse': dict(kind='once', era='steam', time=96, title='Reverse Engineering',
+        req=[done('GN_Assays'), STEAM, 'DA_completed.Mechanics_3 = yes'],
+        tt='§YPrecursor Assays: Reverse Engineering§!\n - One assay in four recovers a §YPrecursor patent§! not yet ours '
+           'instead of its experience: §YSpire-Glass Lenses§!, §YStasis Lockers§!, §YLey-Coil Batteries§!',
+        ev_t='How Did They Make It?',
+        ev_d='Knowing what a relic is for is one thing. Knowing how to make another is the Gommo\'s whole reason for '
+             'existing. The assayers have stopped asking what the Precursors built, and started asking how.\n\nThe answers '
+             'are going into the Patent Office under a new heading.',
+        ev_o='File them under Precursor.'),
+    'GN_Script_Tables': dict(kind='once', era='electric', time=96, title='Precursor Script Tables',
+        req=[done('GN_Reverse'), ELECTRIC],
+        tt='§YPrecursor Assays: Precursor Script Tables§!\n - Assays take §Ghalf§! the time and give §Gdouble§! the '
+           'experience\n - The Precursor patents book §Ghalf§! the artifice capacity',
+        ev_t='Reading the Labels',
+        ev_d='The Precursors labelled everything. For two centuries nobody outside the elven archives could read the '
+             'labels. The Gommo\'s new tables match every Precursor glyph its surveyors have ever traced against what the '
+             'thing it was painted on turned out to do.\n\nThe elves have asked for a copy. The Gommo has asked for a fee.',
+        ev_o='Print the tables.'),
+}
+for _nid, _d in NODES.items():
+    if _d.get('mod'):
+        _d['living'] = RACE
+
+MOD_NAMES = {nid: d['title'] for nid, d in NODES.items() if d.get('mod')}
+# (race, id, modifier) rows of racial_heritage_data.LIVING: on while the gnomish heritage is active
+LIVING_ROWS = [(RACE, nid, 'DA_PR_mod_' + nid) for nid, d in NODES.items() if d.get('mod')]
+
+# ---------------------------------------------------------------------------
+# Patents (doc 48, section 6.3). tier: 1-3. tile: the tile that opens it. mat: the material of its prototype (tier
+# II-III). art: True for a modifier of the artificer regiments only (is_rajput_modifier). icon: its kind, which picks
+# Anbennar's invention button for it (military, economic or society; doc 54).
+# Upgrade: (name, modifier, innovativeness, (school, level)[, material]).
+# ---------------------------------------------------------------------------
+SCHOOL_NAME = {'Mechanics': 'Mechanics', 'Medicine': 'Medicine', 'Metallurgy': 'Metallurgy', 'Alchemy': 'Alchemy',
+               'Magic_Theory': 'Arcane Arts'}
+MATERIALS = {
+    'metal': ('DA_arcane_metal_total', 'Arcane Metals', '§M'),
+    'building': ('DA_enchanted_building_material_total', 'Enchanted Building Materials', '§M'),
+    'essence': ('DA_alchemy_reagents_total', 'Alchemical Essence', '§M'),
+}
+
+
+def up(name, mod, inno, school, level, mat=None, art=False):
+    return dict(name=name, mod=mod, inno=inno, school=school, level=level, mat=mat, art=art)
+
+
+PATENTS = [
+    dict(id='cocolocogram', name='The Cocolocogram', tier=1, tile='GN_Bureau', icon='society',
+         desc='A desk engine that drafts, copies and seals the chancery\'s letters.',
+         mod={'diplomatic_upkeep': 1, 'improve_relation_modifier': 0.15},
+         ups=[up('Ribbon Feed', {'envoy_travel_time': -0.25}, 2, 'Mechanics', 1),
+              up('Seal Arm', {'diplomats': 1}, 4, 'Mechanics', 3)]),
+    dict(id='recuverinator', name='The Spine Recuverinator', tier=1, tile='GN_Medicine', icon='military',
+         desc='Springs and splints that send lamed veterans back to the ranks.',
+         mod={'manpower_recovery_speed': 0.10, 'reinforce_speed': 0.10},
+         ups=[up('Self-Oiling Vertebrae', {'manpower_recovery_speed': 0.05}, 2, 'Medicine', 2, mat=('essence', 5)),
+              up('Field Recuverinators', {'land_attrition': -0.10}, 3, 'Medicine', 3, mat=('essence', 5))]),
+    dict(id='dynamos', name='Pocket Dynamos', tier=1, tile='GN_Guildhouses', icon='economic',
+         desc='Clockwork generators the size of a teapot.',
+         mod={'production_efficiency': 0.05, 'trade_goods_size_modifier': 0.05},
+         ups=[up('Brass Windings', {'production_efficiency': 0.05}, 2, 'Mechanics', 2),
+              up('Dynamo Lamps', {'build_cost': -0.05}, 3, 'Metallurgy', 2)]),
+    dict(id='bombards', name='Breath-Pattern Bombards', tier=1, tile='GN_Bombards', icon='military',
+         desc='Bombards cast to the pattern of Malliath\'s Breath.',
+         mod={'siege_ability': 0.10, 'artillery_cost': -0.10},
+         ups=[up('Bore Gauges', {'artillery_fire': 0.5}, 2, 'Metallurgy', 2),
+              up('Breach Charts', {'artillery_levels_available_vs_fort': 1}, 4, 'Mechanics', 3)]),
+    dict(id='crammers', name='Hull-Crammers', tier=1, tile='GN_Gun_Decks', icon='military',
+         desc='One more gun deck than the hull was built for.',
+         mod={'heavy_ship_cost': -0.10, 'naval_morale': 0.05},
+         ups=[up('Ballast Cogs', {'ship_durability': 0.05}, 2, 'Metallurgy', 1),
+              up('Broadside Clocks', {'heavy_ship_power': 0.05}, 3, 'Mechanics', 2)]),
+    dict(id='spyglass', name='The Bambascobambonic Spyglass', tier=2, tile='GN_Listening_Brass', icon='society',
+         mat='metal', desc='A spyglass that sees round one corner, and round two on a clear day.',
+         mod={'spy_offence': 0.20, 'fabricate_claims_cost': -0.15},
+         ups=[up('Twin Barrels', {'global_spy_defence': 0.15}, 3, 'Mechanics', 2),
+              up('Mark II', {'discovered_relations_impact': -0.25}, 4, 'Mechanics', 3)]),
+    dict(id='monocles', name='Rangefinder Monocles', tier=2, tile='GN_Levies', icon='military', mat='metal',
+         desc='A monocle with a ruled scale, for the sergeant who calls the range.',
+         mod={'fire_damage': 0.10}, art=True,
+         ups=[up('Clockwork Sights', {'fire_damage': 0.05}, 3, 'Mechanics', 3, art=True),
+              up('Weatherglass Tables', {'leader_land_fire': 1}, 4, 'Mechanics', 4)]),
+    dict(id='looms', name='Gommo Pattern Looms', tier=2, tile='GN_Sprockets', icon='economic', mat='metal',
+         desc='Looms that weave from punched cards, the same cloth a thousand times.',
+         mod={'trade_goods_size_modifier': 0.10, 'trade_efficiency': 0.05},
+         ups=[up('Punched Chains', {'production_efficiency': 0.05}, 3, 'Mechanics', 3),
+              up('Bolts for Export', {'global_foreign_trade_power': 0.10}, 4, 'Mechanics', 3)]),
+    dict(id='cranes', name='Cloud-Cranes', tier=2, tile='GN_Districts', icon='economic', mat='building',
+         desc='Cranes tall enough to lift a roof into place in one piece.',
+         mod={'build_time': -0.20, 'development_cost': -0.05},
+         ups=[up('Counterweight Towers', {'build_time': -0.10}, 3, 'Mechanics', 3),
+              up('Sky-Hoists', {'great_project_upgrade_cost': -0.10}, 4, 'Metallurgy', 3)]),
+    dict(id='tugs', name='Tidewheel Tugs', tier=2, tile='GN_Shipwrights', icon='military', mat='metal',
+         desc='Paddle tugs that bring a crippled hulk home against the tide.',
+         mod={'global_ship_repair': 0.25, 'naval_attrition': -0.25},
+         ups=[up('Coal Bunkers', {'blockade_efficiency': 0.25}, 3, 'Mechanics', 2),
+              up('Harbour Cranes', {'global_ship_recruit_speed': -0.20}, 3, 'Metallurgy', 2)]),
+    dict(id='walking', name='Walking Workshops', tier=3, tile='GN_Tinkers', icon='military', mat='metal',
+         desc='Field workshops on legs that follow the army.',
+         mod={'reinforce_speed': 0.15, 'war_exhaustion': -0.02},
+         ups=[up('Spare-Part Wagons', {'movement_speed': 0.10}, 4, 'Mechanics', 3),
+              up('Field Forges', {'land_morale': 0.05}, 5, 'Mechanics', 4, art=True)]),
+    dict(id='ledgers', name='Cogwork Ledger-Halls', tier=3, tile='GN_Clockwork_Hierarchy', icon='society',
+         mat='building', desc='Halls of clockwork ledgers that add up the realm every night.',
+         mod={'state_maintenance_modifier': -0.10, 'yearly_corruption': -0.10},
+         ups=[up('Punch-Card Census', {'global_tax_modifier': 0.05}, 4, 'Mechanics', 3),
+              up('Audit Gears', {'yearly_corruption': -0.05}, 5, 'Mechanics', 4)]),
+    dict(id='arcades', name='Tinker-Town Arcades', tier=3, tile='GN_Patent_Economy', icon='economic', mat='building',
+         desc='Whole streets of workshops under glass roofs.',
+         mod={'production_efficiency': 0.10, 'build_cost': -0.10},
+         ups=[up('Night Shifts', {'trade_goods_size_modifier': 0.05}, 4, 'Mechanics', 3),
+              up('Gas-Lit Arcades', {'trade_efficiency': 0.05}, 5, 'Alchemy', 3, mat=('essence', 5))]),
+    dict(id='bulkheads', name='Unsinkable Bulkheads', tier=3, tile='GN_Unsinkable', icon='military', mat='building',
+         desc='Sealed compartments, and a pump for each of them.',
+         mod={'ship_durability': 0.10, 'sunk_ship_morale_hit_recieved': -0.25},
+         ups=[up('Pump-Hearts', {'global_ship_repair': 0.25}, 4, 'Mechanics', 3),
+              up('Armoured Funnels', {'heavy_ship_power': 0.05}, 5, 'Metallurgy', 4)]),
+    # DA_EL (doc 72): the Precursor patents, recovered by Assay a Relic after Reverse Engineering (doc 48, section 6.3).
+    # precursor: shown in the Workshop's Precursor view; open when an assay recovers it (DA_GN_pre.<id>), not by a tile.
+    # books: the artifice capacity it books, when not the tier's.
+    dict(id='lenses', name='Spire-Glass Lenses', tier=2, tile='GN_Reverse', icon='society', mat='building', precursor=True,
+         desc='Glass of the Precursor towers, ground by gnomes into lenses that never fog.',
+         mod={'advisor_cost': -0.10, 'embracement_cost': -0.10},
+         ups=[up('Polished Spires', {'idea_cost': -0.05}, 4, 'Magic_Theory', 3),
+              up('Lens Arrays', {'innovativeness_gain': 0.20}, 4, 'Mechanics', 3)]),
+    dict(id='lockers', name='Stasis Lockers', tier=2, tile='GN_Reverse', icon='military', mat='essence', precursor=True,
+         desc='Boxes that keep a harvest fresh for a century.',
+         mod={'supply_limit_modifier': 0.15, 'land_forcelimit_modifier': 0.05},
+         ups=[up('Field Lockers', {'reinforce_speed': 0.10}, 3, 'Medicine', 2),
+              up('Cold Seals', {'inflation_reduction': 0.05}, 4, 'Alchemy', 3, mat=('essence', 5))]),
+    dict(id='coils', name='Ley-Coil Batteries', tier=3, tile='GN_Reverse', icon='economic', mat='metal', precursor=True, books=0,
+         desc='Coils of the Precursors that drink from the ley lines and give it back to our engines.',
+         mod={'artificers_capacity': 15},
+         ups=[up('Deeper Coils', {'artificers_capacity': 10}, 5, 'Magic_Theory', 3),
+              up('Quiet Coils', {'artificers_research_time': -0.10}, 5, 'Mechanics', 4)]),
+]
+PATENT = {p['id']: p for p in PATENTS}
+KIND = {'military': 'military', 'economic': 'economic', 'society': 'society'}   # icon -> the word in the texts
+
+NORMAL = [p for p in PATENTS if not p.get('precursor')]      # DA_EL (doc 72): the fourteen of the Patents view
+PRECURSOR = [p for p in PATENTS if p.get('precursor')]   # the three of the Precursor view, in cells 1-3
+
+# DA_EL (doc 72): Assay a Relic (doc 68, section 13). The relic's leaning, rolled when the assay ends: (school, word).
+ASSAY = dict(cost=100, months=6, exp=250, chance=25, tables_time=0.5, tables_exp=2, tables_capacity=0.5)
+LEANINGS = [('Metallurgy', 'a weapon'), ('Mechanics', 'a device'), ('Alchemy', 'a vessel'), ('Medicine', 'a part of a body'),
+            ('Arcane_Arts', 'a ward')]
+
+# Prices by tier (doc 48, section 6.4)
+PROTO_COST = {1: 150, 2: 300, 3: 500}
+PROTO_MONTHS = {1: 6, 2: 12, 3: 18}
+PROTO_MAT = {1: 0, 2: 5, 3: 10}
+ON_COST = {1: 100, 2: 200, 3: 300}
+CAPACITY = {1: 10, 2: 20, 3: 30}
+IMPROVE_COST = {1: 100, 2: 200, 3: 300}
+IMPROVE_MONTHS = 6
+MECHANIST_COST = 0.75        # Mechanist Method: switching on costs 25% less
+MECHANIST_CAPACITY = 0.8     # ... and books 20% less
+BRILLITE_TIME = 0.8          # Brillite Method: commissions 20% faster
+SERENDIPITY, MISFIRE = 15, 10
+SWITCH_COOLDOWN = 365
+FAIR = dict(cost=300, months=6, cooldown=3650, innovativeness=3, prestige=10)
+ROYALTY = 12                 # The Patent Economy: a year for each patent switched on
+SYNTHESIS_COOLDOWN = 7300    # Grand Synthesis: the lead school can be changed every 20 years
+SCHOOLS = ['brillite', 'mechanist', 'thaumaturge']
+SCHOOL_TITLE = {'brillite': 'Brillite', 'mechanist': 'Mechanist', 'thaumaturge': 'Thaumaturge'}
+# Anbennar's artificer organizations (estate_artifice_privileges.txt)
+ORG = {'brillite': 'estate_artificers_organization_international_gommo',
+       'mechanist': 'estate_artificers_organization_independent_unions',
+       'thaumaturge': 'estate_artificers_organization_state'}
+
+# ---------------------------------------------------------------------------
+# Step 2 (doc 48, sections 6.5, 6.6, 8 and 9; doc 53)
+# ---------------------------------------------------------------------------
+# Gommo Branches: a commission started from the diplomacy screen of an ally or a subject; the branch sits in its capital.
+BRANCH = dict(cost=500, mat=('building', 10), months=12, max=3, capacity=5, production=0.10, development=-0.10,
+              days=400)   # the host's modifier lasts 400 days and is renewed every year while the branch stays open
+# The International Gommo: licences, offered from the diplomacy screen; the licensee answers in an event.
+LICENCE = dict(days=5475, years=15, fee=24, opinion=25, max=3, ai_treasury=50)
+INTERNATIONAL_INNOVATIVENESS = 1   # a year
+# The Great Ideation Engine: a commission opened by Grand Synthesis, once.
+ENGINE = dict(cost=3000, mats=[('metal', 100), ('building', 50)], months=36, research=0.10, faster=0.75,
+              innovativeness=1)
+# Gommo Calibration: a Primary Technology of the Unit Design for artillery and artificers. The designer's price rule
+# is cost = 1 + Strength + Magic + Electric (every path but the Titanium Vault keeps it), so doc 48's 2 points with
+# Strength +1 and Electric +2 would cost 4; it keeps 2 points with Strength +1, Magic -1 and Electric +1.
+CALIBRATION = dict(token='Gommo_Calibration', name='Gommo Calibration', cost=2, S=1, M=-1, E=1,
+                   fixed={'fire_damage': 0.05, 'fire_damage_received': -0.05}, classes=['ARTIL', 'ARTIFICER'],
+                   gate='DA_PR_done.GN_Calibration = yes')
+UNIT_MARK = {'ARTIL': 'is_streltsy_modifier', 'ARTIFICER': 'is_rajput_modifier'}
+# Dragonbreaker Harpoons: a flag kept by DA_GN_sync, read by the Legendary Encounters (le_rules.ARMY_BONUS).
+HARPOONS = dict(legends=('dragon', 'hunter'), mult=1.25, flag='DA_GN_dragonbreaker', kobold_fire=0.10)
+# The E++ Patent Dispute (doc 48, section 9): once per game, from the yearly pulse.
+EPLUS = dict(chance=25, prestige=10, opinion=-50, decay=5, price=200, innovativeness=3, xp=150, advisor='commandant',
+             skill=2, cost=0.5)
+
+# Modifier keys: (label, percent, good when positive)
+KEY = {
+    'diplomatic_upkeep': ('Diplomatic Relations', False, True),
+    'improve_relation_modifier': ('Improve Relations', True, True),
+    'envoy_travel_time': ('Envoy Travel Time', True, False),
+    'diplomats': ('Diplomats', False, True),
+    'manpower_recovery_speed': ('Manpower Recovery Speed', True, True),
+    'reinforce_speed': ('Reinforce Speed', True, True),
+    'land_attrition': ('Land Attrition', True, False),
+    'production_efficiency': ('Production Efficiency', True, True),
+    'trade_goods_size_modifier': ('Goods Produced', True, True),
+    'build_cost': ('Construction Cost', True, False),
+    'siege_ability': ('Siege Ability', True, True),
+    'artillery_cost': ('Artillery Cost', True, False),
+    'artillery_fire': ('Artillery Fire', False, True),
+    'artillery_levels_available_vs_fort': ('Artillery Levels vs Forts', False, True),
+    'heavy_ship_cost': ('Heavy Ship Cost', True, False),
+    'naval_morale': ('Naval Morale', True, True),
+    'ship_durability': ('Ship Durability', True, True),
+    'heavy_ship_power': ('Heavy Ship Combat Ability', True, True),
+    'spy_offence': ('Spy Network Construction', True, True),
+    'fabricate_claims_cost': ('Cost to Fabricate Claims', True, False),
+    'global_spy_defence': ('Foreign Spy Detection', True, True),
+    'discovered_relations_impact': ('Discovered Spy Impact', True, False),
+    'fire_damage': ('Fire Damage', True, True),
+    'leader_land_fire': ('Land Leader Fire', False, True),
+    'trade_efficiency': ('Trade Efficiency', True, True),
+    'global_foreign_trade_power': ('Trade Power Abroad', True, True),
+    'build_time': ('Construction Time', True, False),
+    'development_cost': ('Development Cost', True, False),
+    'great_project_upgrade_cost': ('Monument Upgrade Cost', True, False),
+    'global_ship_repair': ('Ship Repair', True, True),
+    'naval_attrition': ('Naval Attrition', True, False),
+    'blockade_efficiency': ('Blockade Efficiency', True, True),
+    'global_ship_recruit_speed': ('Ship Build Time', True, False),
+    'war_exhaustion': ('Monthly War Exhaustion', False, False),
+    'movement_speed': ('Movement Speed', True, True),
+    'land_morale': ('Morale', True, True),
+    'state_maintenance_modifier': ('State Maintenance', True, False),
+    'yearly_corruption': ('Yearly Corruption', False, False),
+    'global_tax_modifier': ('National Tax Modifier', True, True),
+    'sunk_ship_morale_hit_recieved': ('Morale Loss per Sunk Ship', True, False),
+    # DA_EL (doc 72): the Precursor patents
+    'advisor_cost': ('Advisor Costs', True, False),
+    'embracement_cost': ('Institution Embracement Cost', True, False),
+    'idea_cost': ('Idea Cost', True, False),
+    'innovativeness_gain': ('Innovativeness Gain', True, True),
+    'supply_limit_modifier': ('Supply Limit', True, True),
+    'land_forcelimit_modifier': ('Land Force Limit', True, True),
+    'inflation_reduction': ('Yearly Inflation Reduction', False, True),
+    'artificers_capacity': ('Artifice Capacity', False, True),
+    'artificers_research_time': ('Artificer Research Time', True, False),
+}
+
+
+def effect_text(mod, art=False, sep=', '):
+    """'+10% Siege Ability, -10% Artillery Cost' with the game's colours. art: a modifier of the artificer regiments."""
+    out = []
+    for k, v in mod.items():
+        label, pct, good_pos = KEY[k]
+        num = round(v * 100, 2) if pct else v
+        s = ('%+.2f' % num).rstrip('0').rstrip('.')
+        if pct:
+            s += '%'
+        good = (v > 0) == good_pos
+        out.append('%s%s§! %s%s' % ('§G' if good else '§R', s, 'Artificer ' if art else '', label))
+    return sep.join(out)

@@ -3,28 +3,45 @@
 # Fixed rune effects from the general library (DA_metallurgy_UNIQUE_general_rune_modifiers.txt).
 # Called from DA_remove_Unique_Metallurgy_modifiers_runes when a design is replaced.
 DA_RB_remove_library_rune_modifiers = {
+	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.combat_ability.1
+	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.defense.1
+	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.discipline.1
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.discipline.2
+	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.fire_damage.1
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.fire_damage.2
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.fire_damage.3
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.fire_damage_received.1
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.land_attrition.2
+	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.morale_damage.1
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.morale_damage.2
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.morale_damage.3
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.morale_damage_received.1
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.morale_damage_received.3
+	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.offense.2
 	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.reinforce_speed.2
+	remove_country_modifier = DA_Unique_mod.RUNE.$DA_unit$.shock_damage.2
 }
 
-DA_PR_give.Ward = {
+DA_PR_give.Ward_Deflection = {
 	random_list = {
 		1 = {
 			trigger = { NOT = { has_country_flag = DA_Unlocked.Ward_Deflection } }
 			country_event = { id = DA_PR_discovery.1 }
 		}
+	}
+}
+
+DA_PR_give.Ward_Grounding = {
+	random_list = {
 		1 = {
 			trigger = { NOT = { has_country_flag = DA_Unlocked.Ward_Grounding } }
 			country_event = { id = DA_PR_discovery.2 }
 		}
+	}
+}
+
+DA_PR_give.Ward_Steadfast = {
+	random_list = {
 		1 = {
 			trigger = { NOT = { has_country_flag = DA_Unlocked.Ward_Steadfast } }
 			country_event = { id = DA_PR_discovery.3 }
@@ -66,6 +83,195 @@ DA_PR_give.Master = {
 		1 = {
 			trigger = { NOT = { has_country_flag = DA_Unlocked.Master_Ancestors } }
 			country_event = { id = DA_PR_discovery.10 }
+		}
+	}
+}
+
+DA_PR_give.SG_Guidance = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Guidance } }
+			country_event = { id = DA_PR_discovery.11 }
+		}
+	}
+}
+
+DA_PR_give.SG_Scry = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Scry } }
+			country_event = { id = DA_PR_discovery.12 }
+		}
+	}
+}
+
+DA_PR_give.SG_Foresight = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Foresight } }
+			country_event = { id = DA_PR_discovery.13 }
+		}
+	}
+}
+
+DA_PR_give.SG_Heartstring = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Heartstring } }
+			country_event = { id = DA_PR_discovery.14 }
+		}
+	}
+}
+
+DA_PR_give.SG_Thoughtweave = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Thoughtweave } }
+			country_event = { id = DA_PR_discovery.15 }
+		}
+	}
+}
+
+DA_PR_give.SG_Dominate = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Dominate } }
+			country_event = { id = DA_PR_discovery.16 }
+		}
+	}
+}
+
+DA_PR_give.SG_Longstrider = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Longstrider } }
+			country_event = { id = DA_PR_discovery.17 }
+		}
+	}
+}
+
+DA_PR_give.SG_Mass_Enlarge = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Mass_Enlarge } }
+			country_event = { id = DA_PR_discovery.18 }
+		}
+	}
+}
+
+DA_PR_give.SG_Reshape_Terrain = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Reshape_Terrain } }
+			country_event = { id = DA_PR_discovery.19 }
+		}
+	}
+}
+
+DA_PR_give.SG_Fireball = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Fireball } }
+			country_event = { id = DA_PR_discovery.20 }
+		}
+	}
+}
+
+DA_PR_give.SG_Shock_and_Awe = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Shock_and_Awe } }
+			country_event = { id = DA_PR_discovery.21 }
+		}
+	}
+}
+
+DA_PR_give.SG_Elemental_Fury = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Elemental_Fury } }
+			country_event = { id = DA_PR_discovery.22 }
+		}
+	}
+}
+
+DA_PR_give.SG_Invisibility = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Invisibility } }
+			country_event = { id = DA_PR_discovery.23 }
+		}
+	}
+}
+
+DA_PR_give.SG_Fear_and_Loathing = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Fear_and_Loathing } }
+			country_event = { id = DA_PR_discovery.24 }
+		}
+	}
+}
+
+DA_PR_give.SG_Shadows_in_the_Night = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Shadows_in_the_Night } }
+			country_event = { id = DA_PR_discovery.25 }
+		}
+	}
+}
+
+DA_PR_give.SG_False_Life = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_False_Life } }
+			country_event = { id = DA_PR_discovery.26 }
+		}
+	}
+}
+
+DA_PR_give.SG_Steal_Vitality = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Steal_Vitality } }
+			country_event = { id = DA_PR_discovery.27 }
+		}
+	}
+}
+
+DA_PR_give.SG_Contagion = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Contagion } }
+			country_event = { id = DA_PR_discovery.28 }
+		}
+	}
+}
+
+DA_PR_give.SG_Summon_Familiars = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Summon_Familiars } }
+			country_event = { id = DA_PR_discovery.29 }
+		}
+	}
+}
+
+DA_PR_give.SG_Conjure_Supplies = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Conjure_Supplies } }
+			country_event = { id = DA_PR_discovery.30 }
+		}
+	}
+}
+
+DA_PR_give.SG_Summon_Elementals = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_country_flag = DA_Unlocked.SG_Summon_Elementals } }
+			country_event = { id = DA_PR_discovery.31 }
 		}
 	}
 }
@@ -148,13 +354,6 @@ DA_PR_give.Mech_electric = {
 	}
 }
 
-DA_PR_give_first.Ward = {
-	if = {
-		limit = { NOT = { has_country_flag = DA_Unlocked.Ward_Deflection } }
-		country_event = { id = DA_PR_discovery.1 }
-	}
-}
-
 DA_PR_give_first.Gravity = {
 	if = {
 		limit = { NOT = { has_country_flag = DA_Unlocked.Gravity_Well } }
@@ -166,5 +365,173 @@ DA_PR_give_first.Master = {
 	if = {
 		limit = { NOT = { has_country_flag = DA_Unlocked.Master_Grudge } }
 		country_event = { id = DA_PR_discovery.7 }
+	}
+}
+
+DA_PR_give_first.SG_Guidance = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Guidance } }
+		country_event = { id = DA_PR_discovery.11 }
+	}
+}
+
+DA_PR_give_first.SG_Scry = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Scry } }
+		country_event = { id = DA_PR_discovery.12 }
+	}
+}
+
+DA_PR_give_first.SG_Foresight = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Foresight } }
+		country_event = { id = DA_PR_discovery.13 }
+	}
+}
+
+DA_PR_give_first.SG_Heartstring = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Heartstring } }
+		country_event = { id = DA_PR_discovery.14 }
+	}
+}
+
+DA_PR_give_first.SG_Thoughtweave = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Thoughtweave } }
+		country_event = { id = DA_PR_discovery.15 }
+	}
+}
+
+DA_PR_give_first.SG_Dominate = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Dominate } }
+		country_event = { id = DA_PR_discovery.16 }
+	}
+}
+
+DA_PR_give_first.Ward_Deflection = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.Ward_Deflection } }
+		country_event = { id = DA_PR_discovery.1 }
+	}
+}
+
+DA_PR_give_first.Ward_Steadfast = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.Ward_Steadfast } }
+		country_event = { id = DA_PR_discovery.3 }
+	}
+}
+
+DA_PR_give_first.Ward_Grounding = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.Ward_Grounding } }
+		country_event = { id = DA_PR_discovery.2 }
+	}
+}
+
+DA_PR_give_first.SG_Longstrider = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Longstrider } }
+		country_event = { id = DA_PR_discovery.17 }
+	}
+}
+
+DA_PR_give_first.SG_Mass_Enlarge = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Mass_Enlarge } }
+		country_event = { id = DA_PR_discovery.18 }
+	}
+}
+
+DA_PR_give_first.SG_Reshape_Terrain = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Reshape_Terrain } }
+		country_event = { id = DA_PR_discovery.19 }
+	}
+}
+
+DA_PR_give_first.SG_Fireball = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Fireball } }
+		country_event = { id = DA_PR_discovery.20 }
+	}
+}
+
+DA_PR_give_first.SG_Shock_and_Awe = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Shock_and_Awe } }
+		country_event = { id = DA_PR_discovery.21 }
+	}
+}
+
+DA_PR_give_first.SG_Elemental_Fury = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Elemental_Fury } }
+		country_event = { id = DA_PR_discovery.22 }
+	}
+}
+
+DA_PR_give_first.SG_Invisibility = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Invisibility } }
+		country_event = { id = DA_PR_discovery.23 }
+	}
+}
+
+DA_PR_give_first.SG_Fear_and_Loathing = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Fear_and_Loathing } }
+		country_event = { id = DA_PR_discovery.24 }
+	}
+}
+
+DA_PR_give_first.SG_Shadows_in_the_Night = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Shadows_in_the_Night } }
+		country_event = { id = DA_PR_discovery.25 }
+	}
+}
+
+DA_PR_give_first.SG_False_Life = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_False_Life } }
+		country_event = { id = DA_PR_discovery.26 }
+	}
+}
+
+DA_PR_give_first.SG_Steal_Vitality = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Steal_Vitality } }
+		country_event = { id = DA_PR_discovery.27 }
+	}
+}
+
+DA_PR_give_first.SG_Contagion = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Contagion } }
+		country_event = { id = DA_PR_discovery.28 }
+	}
+}
+
+DA_PR_give_first.SG_Summon_Familiars = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Summon_Familiars } }
+		country_event = { id = DA_PR_discovery.29 }
+	}
+}
+
+DA_PR_give_first.SG_Conjure_Supplies = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Conjure_Supplies } }
+		country_event = { id = DA_PR_discovery.30 }
+	}
+}
+
+DA_PR_give_first.SG_Summon_Elementals = {
+	if = {
+		limit = { NOT = { has_country_flag = DA_Unlocked.SG_Summon_Elementals } }
+		country_event = { id = DA_PR_discovery.31 }
 	}
 }

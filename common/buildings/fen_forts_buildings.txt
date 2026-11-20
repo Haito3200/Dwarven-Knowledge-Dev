@@ -1,4 +1,6 @@
 # Integrated Fen's Forts. No technology unlocks: construction is scripted from the province panel or AI pulse.
+# No make_obsolete either: with it EU4 crashed when a built fort was hovered. Each tier's on_built
+# (DA_finish_<building>) removes the other special forts instead.
 
 fen_magic_fort_t1 = {
 	cost = 200
@@ -18,6 +20,7 @@ fen_magic_fort_t1 = {
 
 	on_built = {
 		DA_finish_fen_magic_fort_t1 = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = { }
 	on_construction_started = { }
@@ -41,8 +44,6 @@ fen_magic_fort_t2 = {
 	show_separate = yes
 	influencing_fort = yes
 
-	make_obsolete = fen_magic_fort_t1
-
 	modifier = {
 		fort_level = 2
 		local_defensiveness = 0.15
@@ -54,6 +55,7 @@ fen_magic_fort_t2 = {
 
 	on_built = {
 		DA_finish_fen_magic_fort_t2 = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = { }
 	on_construction_started = { }
@@ -77,8 +79,6 @@ fen_magic_fort_t3 = {
 	show_separate = yes
 	influencing_fort = yes
 
-	make_obsolete = fen_magic_fort_t2
-
 	modifier = {
 		fort_level = 3
 		local_defensiveness = 0.20
@@ -90,6 +90,7 @@ fen_magic_fort_t3 = {
 
 	on_built = {
 		DA_finish_fen_magic_fort_t3 = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = { }
 	on_construction_started = { }
@@ -123,6 +124,7 @@ fen_tech_fort_t1 = {
 
 	on_built = {
 		DA_finish_fen_tech_fort_t1 = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 	}
@@ -147,8 +149,6 @@ fen_tech_fort_t2 = {
 	show_separate = yes
 	influencing_fort = yes
 
-	make_obsolete = fen_tech_fort_t1
-
 	modifier = {
 		fort_level = 2
 	}
@@ -159,6 +159,7 @@ fen_tech_fort_t2 = {
 
 	on_built = {
 		DA_finish_fen_tech_fort_t2 = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 	}
@@ -183,8 +184,6 @@ fen_tech_fort_t3 = {
 	show_separate = yes
 	influencing_fort = yes
 
-	make_obsolete = fen_tech_fort_t2
-
 	modifier = {
 		fort_level = 3
 	}
@@ -195,6 +194,7 @@ fen_tech_fort_t3 = {
 
 	on_built = {
 		DA_finish_fen_tech_fort_t3 = yes
+		DA_MEC_sync_fortif = yes   # DA_MEC (doc 83): its Mechanics upgrade (build_mechanics_content.py)
 	}
 	on_destroyed = {
 	}

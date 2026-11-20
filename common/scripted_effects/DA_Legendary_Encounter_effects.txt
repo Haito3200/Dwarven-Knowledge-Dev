@@ -489,6 +489,42 @@ DA_LE_count_army = {
 	set_variable = { which = DA_LE_n which = DA_LE_inf }
 	change_variable = { which = DA_LE_n which = DA_LE_cav }
 	change_variable = { which = DA_LE_n which = DA_LE_art }
+	if = {
+		limit = {
+			OR = {
+				DA_LE_is_dragon = yes
+				DA_LE_is_hunter = yes
+			}
+			owner = { has_country_flag = DA_GN_dragonbreaker }
+		}
+		# Dragonbreaker Harpoons
+		multiply_variable = { which = DA_LE_s_melee value = 1.25 }
+		multiply_variable = { which = DA_LE_s_art value = 1.25 }
+	}
+	if = {
+		limit = {
+			OR = {
+				DA_LE_is_dragon = yes
+				DA_LE_is_hunter = yes
+				DA_LE_is_challumaton = yes
+			}
+			owner = { has_country_flag = DA_EL_wyrmbane_on }
+		}
+		# Wyrmbane
+		multiply_variable = { which = DA_LE_s_melee value = 1.15 }
+		multiply_variable = { which = DA_LE_s_art value = 1.15 }
+	}
+	if = {
+		limit = {
+			OR = {
+				DA_LE_is_deep_devil = yes
+			}
+			owner = { has_country_flag = DA_PR_done.LZ_Ars2 }
+		}
+		# Tidal Marines
+		multiply_variable = { which = DA_LE_s_melee value = 1.5 }
+		multiply_variable = { which = DA_LE_s_art value = 1.5 }
+	}
 	set_variable = { which = DA_LE_strength which = DA_LE_s_melee }
 	change_variable = { which = DA_LE_strength which = DA_LE_s_art }
 	set_variable = { which = DA_LE_strength_show which = DA_LE_strength }
@@ -742,6 +778,112 @@ DA_LE_load_legend = {
 		set_variable = { which = DA_LE_might value = 22 }
 		set_variable = { which = DA_LE_armor value = 0.8 }
 		set_variable = { which = DA_LE_resist value = 0 }
+		set_variable = { which = DA_LE_necro value = 0.5 }
+		set_variable = { which = DA_LE_enrage_at value = 0 }
+		set_variable = { which = DA_LE_enrage value = 1 }
+		set_variable = { which = DA_LE_revive value = 0 }
+	}
+	if = {
+		limit = { DA_LE_is_warden = yes }
+		set_variable = { which = DA_LE_hp_max value = 1300 }
+		set_variable = { which = DA_LE_hp_start value = 1300 }
+		set_variable = { which = DA_LE_ward_start value = 0 }
+		set_variable = { which = DA_LE_ward_max value = 360 }
+		set_variable = { which = DA_LE_might value = 26 }
+		set_variable = { which = DA_LE_armor value = 0.5 }
+		set_variable = { which = DA_LE_resist value = 0.3 }
+		set_variable = { which = DA_LE_necro value = 0 }
+		set_variable = { which = DA_LE_enrage_at value = 0 }
+		set_variable = { which = DA_LE_enrage value = 1 }
+		set_variable = { which = DA_LE_revive value = 0 }
+	}
+	if = {
+		limit = { DA_LE_is_challumaton = yes }
+		set_variable = { which = DA_LE_hp_max value = 1800 }
+		set_variable = { which = DA_LE_hp_start value = 1800 }
+		set_variable = { which = DA_LE_ward_start value = 0 }
+		set_variable = { which = DA_LE_ward_max value = 0 }
+		set_variable = { which = DA_LE_might value = 29 }
+		set_variable = { which = DA_LE_armor value = 0.3 }
+		set_variable = { which = DA_LE_resist value = 0 }
+		set_variable = { which = DA_LE_necro value = 1.5 }
+		set_variable = { which = DA_LE_enrage_at value = 720 }
+		set_variable = { which = DA_LE_enrage value = 1.3 }
+		set_variable = { which = DA_LE_revive value = 450 }
+	}
+	if = {
+		limit = { DA_LE_is_mother = yes }
+		set_variable = { which = DA_LE_hp_max value = 1300 }
+		set_variable = { which = DA_LE_hp_start value = 1300 }
+		set_variable = { which = DA_LE_ward_start value = 300 }
+		set_variable = { which = DA_LE_ward_max value = 800 }
+		set_variable = { which = DA_LE_might value = 27 }
+		set_variable = { which = DA_LE_armor value = 0 }
+		set_variable = { which = DA_LE_resist value = 0 }
+		set_variable = { which = DA_LE_necro value = 0.25 }
+		set_variable = { which = DA_LE_enrage_at value = 0 }
+		set_variable = { which = DA_LE_enrage value = 1 }
+		set_variable = { which = DA_LE_revive value = 0 }
+	}
+	if = {
+		limit = { DA_LE_is_tchazara = yes }
+		set_variable = { which = DA_LE_hp_max value = 2000 }
+		set_variable = { which = DA_LE_hp_start value = 2000 }
+		set_variable = { which = DA_LE_ward_start value = 0 }
+		set_variable = { which = DA_LE_ward_max value = 400 }
+		set_variable = { which = DA_LE_might value = 30 }
+		set_variable = { which = DA_LE_armor value = 0.3 }
+		set_variable = { which = DA_LE_resist value = 0.35 }
+		set_variable = { which = DA_LE_necro value = 0.5 }
+		set_variable = { which = DA_LE_enrage_at value = 800 }
+		set_variable = { which = DA_LE_enrage value = 1.3 }
+		set_variable = { which = DA_LE_revive value = 0 }
+	}
+	if = {
+		limit = {
+			DA_LE_is_tchazara = yes
+			has_province_flag = DA_LZ_tchazara_fell1
+		}
+		multiply_variable = { which = DA_LE_hp_max value = 1.25 }
+		multiply_variable = { which = DA_LE_hp_start value = 1.25 }
+		multiply_variable = { which = DA_LE_might value = 1.25 }
+		multiply_variable = { which = DA_LE_enrage_at value = 1.25 }
+		multiply_variable = { which = DA_LE_revive value = 1.25 }
+	}
+	if = {
+		limit = {
+			DA_LE_is_tchazara = yes
+			has_province_flag = DA_LZ_tchazara_fell2
+		}
+		multiply_variable = { which = DA_LE_hp_max value = 1.25 }
+		multiply_variable = { which = DA_LE_hp_start value = 1.25 }
+		multiply_variable = { which = DA_LE_might value = 1.25 }
+		multiply_variable = { which = DA_LE_enrage_at value = 1.25 }
+		multiply_variable = { which = DA_LE_revive value = 1.25 }
+	}
+	if = {
+		limit = { DA_LE_is_deep_devil = yes }
+		set_variable = { which = DA_LE_hp_max value = 1600 }
+		set_variable = { which = DA_LE_hp_start value = 1600 }
+		set_variable = { which = DA_LE_ward_start value = 0 }
+		set_variable = { which = DA_LE_ward_max value = 0 }
+		set_variable = { which = DA_LE_might value = 28 }
+		set_variable = { which = DA_LE_armor value = 0.5 }
+		set_variable = { which = DA_LE_resist value = 0.2 }
+		set_variable = { which = DA_LE_necro value = 1 }
+		set_variable = { which = DA_LE_enrage_at value = 800 }
+		set_variable = { which = DA_LE_enrage value = 1.25 }
+		set_variable = { which = DA_LE_revive value = 0 }
+	}
+	if = {
+		limit = { DA_LE_is_yatsa_thing = yes }
+		set_variable = { which = DA_LE_hp_max value = 900 }
+		set_variable = { which = DA_LE_hp_start value = 900 }
+		set_variable = { which = DA_LE_ward_start value = 200 }
+		set_variable = { which = DA_LE_ward_max value = 500 }
+		set_variable = { which = DA_LE_might value = 24 }
+		set_variable = { which = DA_LE_armor value = 0 }
+		set_variable = { which = DA_LE_resist value = 0.25 }
 		set_variable = { which = DA_LE_necro value = 0.5 }
 		set_variable = { which = DA_LE_enrage_at value = 0 }
 		set_variable = { which = DA_LE_enrage value = 1 }
@@ -1547,6 +1689,703 @@ DA_LE_load_move = {
 			}
 		}
 	}
+	if = {
+		limit = { DA_LE_is_warden = yes }
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			# The Measured Stride
+			set_variable = { which = DA_LE_mv_might value = 1 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 1.3 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			# Raises its Aegis
+			set_variable = { which = DA_LE_mv_might value = 0.4 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 200 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 150 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 200 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_abjuration }
+				set_variable = { which = DA_LE_mv_gain value = 0 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			# Lance of Light
+			set_variable = { which = DA_LE_mv_might value = 2.1 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.4 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			# Draws on the Ley
+			set_variable = { which = DA_LE_mv_might value = 0.3 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_divination }
+				set_variable = { which = DA_LE_mv_heal value = 0 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_challumaton = yes }
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			# Claws, Tail and Wing
+			set_variable = { which = DA_LE_mv_might value = 1 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 1.3 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			# Soul-Fire
+			set_variable = { which = DA_LE_mv_might value = 2.2 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 1.1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.35 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			# Pieces Itself Together
+			set_variable = { which = DA_LE_mv_might value = 0.4 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 110 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 110 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 110 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_necromancy }
+				set_variable = { which = DA_LE_mv_heal value = 0 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			# The Hollow Shriek
+			set_variable = { which = DA_LE_mv_might value = 1.2 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_mother = yes }
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			# Regrows
+			set_variable = { which = DA_LE_mv_might value = 0.4 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 110 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 220 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 220 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 220 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_evocation }
+				set_variable = { which = DA_LE_mv_gain value = 0 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			# Clouds of Spores
+			set_variable = { which = DA_LE_mv_might value = 1.1 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			# Roots from Below
+			set_variable = { which = DA_LE_mv_might value = 1.8 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.6 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 1.4 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			# Calls the Thralls
+			set_variable = { which = DA_LE_mv_might value = 0.8 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_conjuration }
+				set_variable = { which = DA_LE_mv_heal value = 0 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_tchazara = yes }
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			# Walks Through Us
+			set_variable = { which = DA_LE_mv_might value = 1 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 1.3 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			# Becomes Another
+			set_variable = { which = DA_LE_mv_might value = 0.5 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 200 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 200 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 200 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_divination }
+				set_variable = { which = DA_LE_mv_gain value = 0 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			# Ends an Empire
+			set_variable = { which = DA_LE_mv_might value = 2.2 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 1.1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.4 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			# Speaks Our Names
+			set_variable = { which = DA_LE_mv_might value = 1.2 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_deep_devil = yes }
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			# Floods the Galleries
+			set_variable = { which = DA_LE_mv_might value = 1 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 1.3 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			# Dives
+			set_variable = { which = DA_LE_mv_might value = 0.6 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 0.3 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 0.5 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1.5 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 0.5 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			# Raises the Sea
+			set_variable = { which = DA_LE_mv_might value = 2 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 1.1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.5 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			# Calls the Brood
+			set_variable = { which = DA_LE_mv_might value = 0.8 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 100 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_evocation }
+				set_variable = { which = DA_LE_mv_heal value = 0 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_yatsa_thing = yes }
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			# The Toxic Haze
+			set_variable = { which = DA_LE_mv_might value = 1 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_fear value = 0.6 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			# Wakes the Guards
+			set_variable = { which = DA_LE_mv_might value = 0.6 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 90 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 180 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 180 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_gain value = 180 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_necromancy }
+				set_variable = { which = DA_LE_mv_gain value = 0 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			# The Spire Breathes Out
+			set_variable = { which = DA_LE_mv_might value = 2.1 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 1.1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.4 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			# Feeds on the Fallen
+			set_variable = { which = DA_LE_mv_might value = 0.5 }
+			if = {
+				limit = { has_province_flag = DA_LE_order_assault }
+				set_variable = { which = DA_LE_mv_in value = 1.25 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 90 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_shield }
+				set_variable = { which = DA_LE_mv_in value = 0.55 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 90 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_volley }
+				set_variable = { which = DA_LE_mv_in value = 1 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_order_loose }
+				set_variable = { which = DA_LE_mv_in value = 0.85 }
+				set_variable = { which = DA_LE_mv_out value = 1 }
+				set_variable = { which = DA_LE_mv_heal value = 90 }
+			}
+			if = {
+				limit = { has_province_flag = DA_LE_cast_abjuration }
+				set_variable = { which = DA_LE_mv_heal value = 0 }
+			}
+		}
+	}
 }
 
 DA_LE_roll_die = {
@@ -1897,6 +2736,282 @@ DA_LE_roll_move = {
 			limit = { has_province_flag = DA_LE_move_4 }
 			random_list = {
 				25 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_warden = yes }
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_move_1 } NOT = { has_province_flag = DA_LE_move_2 } NOT = { has_province_flag = DA_LE_move_3 } NOT = { has_province_flag = DA_LE_move_4 }
+			}
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			random_list = {
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_challumaton = yes }
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_move_1 } NOT = { has_province_flag = DA_LE_move_2 } NOT = { has_province_flag = DA_LE_move_3 } NOT = { has_province_flag = DA_LE_move_4 }
+			}
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			random_list = {
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_mother = yes }
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_move_1 } NOT = { has_province_flag = DA_LE_move_2 } NOT = { has_province_flag = DA_LE_move_3 } NOT = { has_province_flag = DA_LE_move_4 }
+			}
+			random_list = {
+				25 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			random_list = {
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			random_list = {
+				25 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			random_list = {
+				25 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			random_list = {
+				25 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_tchazara = yes }
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_move_1 } NOT = { has_province_flag = DA_LE_move_2 } NOT = { has_province_flag = DA_LE_move_3 } NOT = { has_province_flag = DA_LE_move_4 }
+			}
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				20 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			random_list = {
+				20 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				20 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				20 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_deep_devil = yes }
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_move_1 } NOT = { has_province_flag = DA_LE_move_2 } NOT = { has_province_flag = DA_LE_move_3 } NOT = { has_province_flag = DA_LE_move_4 }
+			}
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				20 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			random_list = {
+				20 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				20 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				20 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+			}
+		}
+	}
+	if = {
+		limit = { DA_LE_is_yatsa_thing = yes }
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_move_1 } NOT = { has_province_flag = DA_LE_move_2 } NOT = { has_province_flag = DA_LE_move_3 } NOT = { has_province_flag = DA_LE_move_4 }
+			}
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_1 }
+			random_list = {
+				25 = { set_province_flag = DA_LE_next_2 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_2 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_3 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_3 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
+				25 = { set_province_flag = DA_LE_next_2 }
+				20 = { set_province_flag = DA_LE_next_4 }
+			}
+		}
+		if = {
+			limit = { has_province_flag = DA_LE_move_4 }
+			random_list = {
+				30 = { set_province_flag = DA_LE_next_1 }
 				25 = { set_province_flag = DA_LE_next_2 }
 				25 = { set_province_flag = DA_LE_next_3 }
 			}
@@ -2602,6 +3717,11 @@ DA_LE_engage = {
 	remove_province_modifier = DA_LE_contained_dragon
 	remove_province_modifier = DA_LE_contained_maze_guest
 	remove_province_modifier = DA_LE_contained_dream
+	remove_province_modifier = DA_LE_contained_challumaton
+	remove_province_modifier = DA_LE_contained_mother
+	remove_province_modifier = DA_LE_contained_tchazara
+	remove_province_modifier = DA_LE_contained_deep_devil
+	remove_province_modifier = DA_LE_contained_yatsa_thing
 	clr_province_flag = DA_LE_revived
 	clr_province_flag = DA_LE_ambush
 	clr_province_flag = DA_LE_rep_any
@@ -2652,6 +3772,13 @@ DA_LE_engage = {
 	if = {
 		limit = {
 			DA_LE_is_hunter = yes
+			DA_LE_weakness_known = yes
+		}
+		set_province_flag = DA_LE_ambush
+	}
+	if = {
+		limit = {
+			DA_LE_is_deep_devil = yes
 			DA_LE_weakness_known = yes
 		}
 		set_province_flag = DA_LE_ambush
@@ -2809,6 +3936,35 @@ DA_LE_end_victory = {
 		limit = { DA_LE_is_dream = yes }
 		owner = { country_event = { id = DA_Remaining_Wonders_event.242 } }
 	}
+	if = {
+		limit = { DA_LE_is_warden = yes }
+		owner = { country_event = { id = DA_EL_event.121 } }
+		set_province_flag = DA_EL_warden_done
+	}
+	if = {
+		limit = { DA_LE_is_challumaton = yes }
+		owner = { country_event = { id = DA_EL_event.122 } }
+		set_province_flag = DA_EL_challumaton_done
+	}
+	if = {
+		limit = { DA_LE_is_mother = yes }
+		owner = { country_event = { id = DA_EL_event.123 } }
+		set_province_flag = DA_EL_mother_done
+	}
+	if = {
+		limit = { DA_LE_is_tchazara = yes }
+		owner = { country_event = { id = DA_LZ_event.60 } }
+	}
+	if = {
+		limit = { DA_LE_is_deep_devil = yes }
+		owner = { country_event = { id = DA_LZ_event.61 } }
+		set_province_flag = DA_LZ_deep_devil_dead
+	}
+	if = {
+		limit = { DA_LE_is_yatsa_thing = yes }
+		owner = { country_event = { id = DA_LZ_event.62 } }
+		set_province_flag = DA_LZ_yatsa_thing_dead
+	}
 	DA_LE_stop_fight = yes
 	clr_province_flag = DA_LE_hp_init
 	clr_province_flag = DA_LE_scouting
@@ -2863,6 +4019,30 @@ DA_LE_end_defeat = {
 	if = {
 		limit = { DA_LE_is_dream = yes }
 		owner = { country_event = { id = DA_legendary_encounter.702 } }
+	}
+	if = {
+		limit = { DA_LE_is_warden = yes }
+		owner = { country_event = { id = DA_legendary_encounter.802 } }
+	}
+	if = {
+		limit = { DA_LE_is_challumaton = yes }
+		owner = { country_event = { id = DA_legendary_encounter.902 } }
+	}
+	if = {
+		limit = { DA_LE_is_mother = yes }
+		owner = { country_event = { id = DA_legendary_encounter.1002 } }
+	}
+	if = {
+		limit = { DA_LE_is_tchazara = yes }
+		owner = { country_event = { id = DA_legendary_encounter.1102 } }
+	}
+	if = {
+		limit = { DA_LE_is_deep_devil = yes }
+		owner = { country_event = { id = DA_legendary_encounter.1202 } }
+	}
+	if = {
+		limit = { DA_LE_is_yatsa_thing = yes }
+		owner = { country_event = { id = DA_legendary_encounter.1302 } }
 	}
 	DA_LE_stop_fight = yes
 	if = {
@@ -2922,6 +4102,30 @@ DA_LE_end_withdraw = {
 	if = {
 		limit = { DA_LE_is_dream = yes }
 		owner = { country_event = { id = DA_legendary_encounter.703 } }
+	}
+	if = {
+		limit = { DA_LE_is_warden = yes }
+		owner = { country_event = { id = DA_legendary_encounter.803 } }
+	}
+	if = {
+		limit = { DA_LE_is_challumaton = yes }
+		owner = { country_event = { id = DA_legendary_encounter.903 } }
+	}
+	if = {
+		limit = { DA_LE_is_mother = yes }
+		owner = { country_event = { id = DA_legendary_encounter.1003 } }
+	}
+	if = {
+		limit = { DA_LE_is_tchazara = yes }
+		owner = { country_event = { id = DA_legendary_encounter.1103 } }
+	}
+	if = {
+		limit = { DA_LE_is_deep_devil = yes }
+		owner = { country_event = { id = DA_legendary_encounter.1203 } }
+	}
+	if = {
+		limit = { DA_LE_is_yatsa_thing = yes }
+		owner = { country_event = { id = DA_legendary_encounter.1303 } }
 	}
 	DA_LE_stop_fight = yes
 	if = {
@@ -3111,7 +4315,212 @@ DA_LE_contain = {
 		clr_province_flag = DA_LE_paid
 		add_province_modifier = { name = DA_LE_contained_dream duration = 3650 }
 	}
-	change_variable = { which = DA_LE_contain_n value = 1 }
+	if = {
+		limit = { DA_LE_is_challumaton = yes }
+		clr_province_flag = DA_LE_paid
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 0 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 1 } }
+			}
+			owner = { add_treasury = -600 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 1 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 2 } }
+			}
+			owner = { add_treasury = -900 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 2 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 3 } }
+			}
+			owner = { add_treasury = -1200 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 3 }
+			}
+			owner = { add_treasury = -1600 }
+			set_province_flag = DA_LE_paid
+		}
+		clr_province_flag = DA_LE_paid
+		add_province_modifier = { name = DA_LE_contained_challumaton duration = 3650 }
+	}
+	if = {
+		limit = { DA_LE_is_mother = yes }
+		clr_province_flag = DA_LE_paid
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 0 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 1 } }
+			}
+			owner = { add_treasury = -300 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 1 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 2 } }
+			}
+			owner = { add_treasury = -450 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 2 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 3 } }
+			}
+			owner = { add_treasury = -600 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 3 }
+			}
+			owner = { add_treasury = -800 }
+			set_province_flag = DA_LE_paid
+		}
+		clr_province_flag = DA_LE_paid
+		add_province_modifier = { name = DA_LE_contained_mother duration = 3650 }
+	}
+	if = {
+		limit = { DA_LE_is_tchazara = yes }
+		clr_province_flag = DA_LE_paid
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 0 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 1 } }
+			}
+			owner = { add_treasury = -500 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 1 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 2 } }
+			}
+			owner = { add_treasury = -750 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 2 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 3 } }
+			}
+			owner = { add_treasury = -1000 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 3 }
+			}
+			owner = { add_treasury = -1500 }
+			set_province_flag = DA_LE_paid
+		}
+		clr_province_flag = DA_LE_paid
+		add_province_modifier = { name = DA_LE_contained_tchazara duration = 3650 }
+	}
+	if = {
+		limit = { DA_LE_is_deep_devil = yes }
+		clr_province_flag = DA_LE_paid
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 0 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 1 } }
+			}
+			owner = { add_treasury = -300 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 1 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 2 } }
+			}
+			owner = { add_treasury = -450 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 2 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 3 } }
+			}
+			owner = { add_treasury = -600 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 3 }
+			}
+			owner = { add_treasury = -800 }
+			set_province_flag = DA_LE_paid
+		}
+		clr_province_flag = DA_LE_paid
+		add_province_modifier = { name = DA_LE_contained_deep_devil duration = 3650 }
+	}
+	if = {
+		limit = { DA_LE_is_yatsa_thing = yes }
+		clr_province_flag = DA_LE_paid
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 0 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 1 } }
+			}
+			owner = { add_treasury = -300 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 1 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 2 } }
+			}
+			owner = { add_treasury = -450 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 2 }
+				NOT = { check_variable = { which = DA_LE_contain_n value = 3 } }
+			}
+			owner = { add_treasury = -600 }
+			set_province_flag = DA_LE_paid
+		}
+		if = {
+			limit = {
+				NOT = { has_province_flag = DA_LE_paid }
+				check_variable = { which = DA_LE_contain_n value = 3 }
+			}
+			owner = { add_treasury = -800 }
+			set_province_flag = DA_LE_paid
+		}
+		clr_province_flag = DA_LE_paid
+		add_province_modifier = { name = DA_LE_contained_yatsa_thing duration = 3650 }
+	}
+	hidden_effect = { change_variable = { which = DA_LE_contain_n value = 1 } }
 }
 
 DA_LE_five_year_pulse = {

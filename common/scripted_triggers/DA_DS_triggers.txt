@@ -1,0 +1,21 @@
+# Damestear (doc 94, step 8): when Deep Assay can run (build_damestear.py). It never runs out.
+DA_PR_pool_left.Deep_Assay = {
+	always = yes
+}
+DA_PR_can_find.Deep_Assay = {
+	custom_trigger_tooltip = {
+		tooltip = DA_DS_can_spawn_tt
+		damestear_can_spawn = yes
+	}
+	custom_trigger_tooltip = {
+		tooltip = DA_DS_wait_tt
+		OR = {
+			NOT = { has_country_flag = DA_DS_deep_assay_done }
+			had_country_flag = { flag = DA_DS_deep_assay_done days = 7300 }
+			AND = {
+				DA_PR_done.Divination_1 = yes
+				had_country_flag = { flag = DA_DS_deep_assay_done days = 3650 }
+			}
+		}
+	}
+}

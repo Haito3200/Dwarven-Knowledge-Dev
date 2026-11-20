@@ -6,6 +6,7 @@ custom_button = {
 	potential = { always = yes }
 	trigger = { owned_by = FROM }
 	effect = {
+		hidden_effect = { DA_ILL_province_numbers = yes } # DA_ILL (doc 81)
 		FROM = {
 			clr_country_flag = DA_province_mega_engineering_open
 			clr_country_flag = DA_province_fortifications_open
@@ -16,7 +17,7 @@ custom_button = {
 			else = { set_country_flag = DA_province_medicine_open }
 		}
 	}
-	frame = { number = 1 trigger = { has_province_modifier = DA_Medicine.Quarantined_province } }
+	frame = { number = 1 trigger = { DA_ILL_is_quarantined = yes } }
 	frame = { number = 3 trigger = { DA_has_disease_in_province = yes } }
 	frame = { number = 4 trigger = { always = yes } }
 }
