@@ -34,7 +34,7 @@ DA_ALC_survey_cheapest = {
 
 # Country scope (the window's refresh, the Alchemy tab). The Sources page's numbers.
 DA_ALC_window_numbers = {
-	hidden_effect = {
+	hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running }
 		set_variable = { which = DA_ALC_unk_common value = 0 }
 		set_variable = { which = DA_ALC_unk_rare value = 0 }
 		set_variable = { which = DA_ALC_unk_legendary value = 0 }
@@ -45,7 +45,7 @@ DA_ALC_window_numbers = {
 			if = { limit = { DA_ALC_surveyable_legendary = yes } owner = { change_variable = { which = DA_ALC_unk_legendary value = 1 } } }
 			if = { limit = { has_province_modifier = DA_Alchemy_Material_exploration_workaround } owner = { change_variable = { which = DA_ALC_unk_busy value = 1 } } }
 		}
-	}
+	} clr_country_flag = DA_hidden_effect_running }
 }
 
 # Province scope (DA_ALC.1, the options). A cultivation begins: its price, two years, the material marked.

@@ -199,13 +199,24 @@ province_event = {
 	picture = DA_Medicine_illness_image_eventPicture
 	hidden = yes
 	is_triggered_only = yes
-	trigger = { has_owner = yes }
+	trigger = { NOT = { is_empty = yes } }
 	immediate = {
 		hidden_effect = {
 			DA_ILL_spawn = yes
 			owner = { if = { limit = { ai = no } DA_ILL_announce = yes } }
 		}
 	}
+	option = { name = DA_ILL.1.a }
+}
+
+country_event = {
+	id = DA_ILL.4
+	title = DA_ILL.4.t
+	desc = DA_ILL.4.d
+	picture = DA_Medicine_illness_image_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = { DA_ILL_announce_now = yes }
 	option = { name = DA_ILL.1.a }
 }
 
@@ -368,7 +379,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Marsh_Fever NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Marsh_Fever NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Marsh_Fever NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_1 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -382,7 +393,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_1_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Marsh_Fever DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Marsh_Fever DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_1 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -411,7 +422,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Red_Cough NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Red_Cough NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Red_Cough NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_2 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -425,7 +436,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_2_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Red_Cough DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Red_Cough DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_2 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -454,7 +465,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Flu NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Flu NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Flu NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_3 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -468,7 +479,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_3_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Flu DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Flu DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_3 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -497,7 +508,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Gutrot NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Gutrot NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Gutrot NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_4 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -511,7 +522,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_4_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Gutrot DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Gutrot DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_4 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -540,7 +551,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Duskwither_Plague NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Duskwither_Plague NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Duskwither_Plague NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_5 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -554,7 +565,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_5_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Duskwither_Plague DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Duskwither_Plague DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_5 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -583,7 +594,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Silent_Pox NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Silent_Pox NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Silent_Pox NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_6 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -597,7 +608,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_6_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Silent_Pox DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Silent_Pox DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_6 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -626,7 +637,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Redblight NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Redblight NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Redblight NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_7 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -640,7 +651,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_7_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Redblight DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Redblight DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_7 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -669,7 +680,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Chulklung NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Chulklung NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Chulklung NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_8 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -683,7 +694,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_8_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Chulklung DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Chulklung DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_8 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -712,7 +723,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Overload NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Overload NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Overload NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_9 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -726,7 +737,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_9_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Overload DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Overload DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_9 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -755,7 +766,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Corruption NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Corruption NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Corruption NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_10 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -769,7 +780,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_10_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Corruption DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Mana_Corruption DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_10 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -798,7 +809,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Metallic_Corrosion NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Metallic_Corrosion NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Metallic_Corrosion NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_11 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -812,7 +823,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_11_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Metallic_Corrosion DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Metallic_Corrosion DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_11 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -841,7 +852,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Soulblight NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Soulblight NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Soulblight NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_12 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -855,7 +866,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_12_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Soulblight DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Soulblight DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_12 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -884,7 +895,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Dreams_of_Reality NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Dreams_of_Reality NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Dreams_of_Reality NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_13 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -898,7 +909,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_13_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Dreams_of_Reality DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Dreams_of_Reality DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_13 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -927,7 +938,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Godscar NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Godscar NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Godscar NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_14 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -941,7 +952,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_14_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Godscar DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Godscar DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_14 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -970,7 +981,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Thorns NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Thorns NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Thorns NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_15 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -984,7 +995,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_15_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Thorns DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Thorns DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_15 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -1013,7 +1024,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Seven_Deadly_Sins NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Seven_Deadly_Sins NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Seven_Deadly_Sins NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_16 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -1027,7 +1038,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_16_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Seven_Deadly_Sins DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Seven_Deadly_Sins DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_16 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -1056,7 +1067,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Bender_of_Will NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Bender_of_Will NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Bender_of_Will NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_17 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -1070,7 +1081,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_17_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Bender_of_Will DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.Bender_of_Will DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_17 = yes
 		ai_chance = { factor = 0 }
 	}
@@ -1099,7 +1110,7 @@ country_event = {
 		name = DA_ILL_multi.quar
 		trigger = { DA_completed.Medicine_1 = yes any_owned_province = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Pestilence NOT = { DA_ILL_is_quarantined = yes } } }
 		custom_tooltip = DA_ILL_quarantine_them_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Pestilence NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Pestilence NOT = { DA_ILL_is_quarantined = yes } } DA_ILL_quarantine = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_18 = yes
 		ai_chance = { factor = 10 }
 	}
@@ -1113,7 +1124,7 @@ country_event = {
 	option = {
 		name = DA_ILL_multi.burn
 		custom_tooltip = DA_ILL_burn_them_18_tt
-		hidden_effect = { every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Pestilence DA_ILL_can_burn = yes } DA_ILL_burn = yes } }
+		hidden_effect = { set_country_flag = DA_hidden_effect_running if = { limit = { has_country_flag = DA_hidden_effect_running } every_owned_province = { limit = { has_province_flag = DA_ILL_new_case has_province_modifier = DA_Disease.White_Pestilence DA_ILL_can_burn = yes } DA_ILL_burn = yes } } clr_country_flag = DA_hidden_effect_running }
 		DA_ILL_multi_done_18 = yes
 		ai_chance = { factor = 1 }
 	}

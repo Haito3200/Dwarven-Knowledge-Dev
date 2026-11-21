@@ -224,7 +224,12 @@ DA_MT_ai_pick = {   # the AI ruler's best school, else Evocation
 
 # ---------------------------------------- country scope
 # The networks: counts, best tier and level of each kind; the hidden modifiers; the schools' spells.
+# DA_MT_refresh only fires the hidden event DA_MT.3, which runs DA_MT_refresh_now: EU4 copies a scripted
+# effect into every place that calls it when the game loads, and this one is called from hundreds (doc 111).
 DA_MT_refresh = {
+	hidden_effect = { country_event = { id = DA_MT.3 } }
+}
+DA_MT_refresh_now = {
 	hidden_effect = {
 		set_variable = { which = DA_MT_towers value = 0 }
 		set_variable = { which = DA_MT_free value = 0 }

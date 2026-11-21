@@ -2,6 +2,17 @@
 # The mage towers and the commissions (doc 82).
 namespace = DA_MT
 
+country_event = {
+	id = DA_MT.3
+	title = DA_MT.3.t
+	desc = DA_MT.3.d
+	picture = DA_MT_master_tower_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = { DA_MT_refresh_now = yes }
+	option = { name = DA_MT.3.a }
+}
+
 province_event = {   # the Mage Tower button of the province view
 	id = DA_MT.1
 	title = DA_MT.1.t
@@ -51,7 +62,7 @@ province_event = {   # a tower takes a kind: from its menu, when it is built, or
 	desc = DA_MT.2.d
 	picture = DA_MT_tower_takes_school_eventPicture
 	is_triggered_only = yes
-	trigger = { has_building = mage_tower has_owner = yes }
+	trigger = { has_building = mage_tower NOT = { is_empty = yes } }
 	option = {
 		name = DA_MT.2.o1
 		trigger = { DA_MT_can_take_1 = yes }
